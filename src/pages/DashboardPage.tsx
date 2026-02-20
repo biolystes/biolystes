@@ -508,11 +508,11 @@ const TAG_GROUP_LABELS: Record<string, string> = {
   "reclamations": "Réclamations",
   "réclamation": "Réclamations",
   "claims": "Réclamations",
-  "inquiétude": "Inquiétude",
-  "inquietude": "Inquiétude",
-  "concern": "Inquiétude",
-  "préoccupation": "Inquiétude",
-  "préoccupations": "Inquiétude",
+  "inquiétude": "Besoin",
+  "inquietude": "Besoin",
+  "concern": "Besoin",
+  "préoccupation": "Besoin",
+  "préoccupations": "Besoin",
   "principes actifs": "Principes actifs",
   "principe actif": "Principes actifs",
   "actifs": "Principes actifs",
@@ -524,7 +524,8 @@ const TAG_GROUP_LABELS: Record<string, string> = {
   "packaging color": "Couleur de l'emballage",
 };
 
-const FILTER_ORDER = ["Type", "Réclamations", "Inquiétude", "Principes actifs", "Couleur de l'emballage"];
+const FILTER_ORDER = ["Type", "Réclamations", "Besoin", "Principes actifs", "Couleur de l'emballage"];
+
 
 // Parse WC tag name: "Name (Group)" → { name, group }
 function parseTag(tagName: string): { displayName: string; group: string | null } {
