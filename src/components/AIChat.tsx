@@ -130,39 +130,67 @@ interface ProductBlock {
   titre: string;
   description: string;
   url?: string;
+  image?: string;
 }
 
 function ProductCard({ block }: { block: ProductBlock }) {
   return (
-    <a
-      href={block.url || "https://biolystes.com"}
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{
-        display: "flex", alignItems: "center", gap: 12,
-        padding: "10px 14px", borderRadius: 12,
-        border: "1px solid #e5e5e7", background: "#fafafa",
-        textDecoration: "none", color: "inherit",
-        transition: "background .15s",
-      }}
-      onMouseEnter={e => (e.currentTarget.style.background = "#f0f0f2")}
-      onMouseLeave={e => (e.currentTarget.style.background = "#fafafa")}
-    >
-      <div style={{
-        width: 36, height: 36, borderRadius: 8, background: "#1d1d1f",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        flexShrink: 0, fontSize: 13, color: "#fff", fontWeight: 700,
-      }}>
-        {block.numero || "✦"}
+    <div style={{
+      borderRadius: 12, border: "1px solid #e5e5e7",
+      background: "#fafafa", overflow: "hidden",
+    }}>
+      {/* Header with number + title */}
+      <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px 10px" }}>
+        <div style={{
+          width: 28, height: 28, borderRadius: 8, background: "#1d1d1f",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          flexShrink: 0, fontSize: 12, color: "#fff", fontWeight: 800,
+        }}>
+          {block.numero || "✦"}
+        </div>
+        <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.3 }}>
+          {block.titre}
+        </p>
       </div>
-      <div style={{ flex: 1, minWidth: 0 }}>
-        <p style={{ margin: 0, fontSize: 12, fontWeight: 600, color: "#1d1d1f" }}>{block.titre}</p>
-        <p style={{ margin: 0, fontSize: 11, color: "#86868b", lineHeight: 1.4, marginTop: 2 }}>{block.description}</p>
-      </div>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#c7c7cc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-      </svg>
-    </a>
+
+      {/* Body: image + description */}
+      {(block.image || block.description) && (
+        <div style={{ display: "flex", gap: 12, padding: "0 14px 10px", alignItems: "flex-start" }}>
+          {block.image && (
+            <img
+              src={block.image}
+              alt={block.titre}
+              style={{ width: 64, height: 64, objectFit: "cover", borderRadius: 8, flexShrink: 0, border: "1px solid #e5e5e7" }}
+            />
+          )}
+          <p style={{ margin: 0, fontSize: 11, color: "#6e6e73", lineHeight: 1.55, fontStyle: "italic" }}>
+            "{block.description}"
+          </p>
+        </div>
+      )}
+
+      {/* Footer: link */}
+      {block.url && (
+        <div style={{ borderTop: "1px solid #e5e5e7", padding: "8px 14px" }}>
+          <a
+            href={block.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "inline-flex", alignItems: "center", gap: 5,
+              fontSize: 11, fontWeight: 600, color: "#1d1d1f", textDecoration: "none",
+            }}
+            onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
+            onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
+          >
+            Voir le produit
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+          </a>
+        </div>
+      )}
+    </div>
   );
 }
 
