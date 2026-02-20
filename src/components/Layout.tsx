@@ -161,7 +161,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </header>
 
         <main className="p-6 lg:p-10">
-          {children}
+          <div className="max-w-[1008px] mx-auto">
+            {children}
+          </div>
         </main>
       </div>
     </div>
