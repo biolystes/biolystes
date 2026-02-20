@@ -57,8 +57,9 @@ interface WCProduct {
   name: string;
   price: string;
   images: { src: string }[];
-  tags: { name: string }[];
+  tags: { id: number; name: string }[];
   categories: { id: number; name: string }[];
+  attributes: { id: number; name: string; options: string[] }[];
   short_description: string;
   description: string;
   permalink: string;
@@ -70,6 +71,25 @@ interface WCCategory {
   slug: string;
   count: number;
   parent: number;
+  image?: { src: string } | null;
+}
+
+interface WCTag {
+  id: number;
+  name: string;
+  count: number;
+}
+
+interface WCAttribute {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+interface WCAttributeTerm {
+  id: number;
+  name: string;
+  count: number;
 }
 
 // ─── Product Detail Panel ─────────────────────────────────
@@ -357,13 +377,15 @@ function ProductSkeleton() {
   );
 }
 
-// ─── Category Pill ────────────────────────────────────────
-// ─── Dropdown Filter ──────────────────────────────────────
-function FilterDropdown({ label, options, selected, onChange }: {
+// ─── Generic Filter Dropdown ──────────────────────────────
+type FilterOption = { id: number | string; name: string; image?: string };
+
+function FilterDropdown({ label, options, selected, onChange, grid = false }: {
   label: string;
-  options: WCCategory[];
-  selected: number[];
-  onChange: (ids: number[]) => void;
+  options: FilterOption[];
+  selected: (number | string)[];
+  onChange: (ids: (number | string)[]) => void;
+  grid?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const hasActive = selected.length > 0;
@@ -374,30 +396,36 @@ function FilterDropdown({ label, options, selected, onChange }: {
         onClick={() => setOpen(o => !o)}
         style={{
           display: "flex", alignItems: "center", gap: 6,
-          padding: "6px 14px", borderRadius: 20, border: "1px solid #d1d1d6",
+          padding: "7px 14px", borderRadius: 20,
+          border: hasActive ? "1.5px solid #1d1d1f" : "1px solid #d1d1d6",
           background: hasActive ? "#1d1d1f" : "#fff",
           color: hasActive ? "#fff" : "#1d1d1f",
-          fontSize: 11, fontWeight: 600, cursor: "pointer",
-          letterSpacing: ".4px", textTransform: "uppercase", transition: "all .15s",
+          fontSize: 12, fontWeight: 500, cursor: "pointer",
+          transition: "all .15s", whiteSpace: "nowrap",
         }}
       >
         {label}
-        {hasActive && <span style={{ background: "rgba(255,255,255,0.3)", borderRadius: 10, padding: "0 5px", fontSize: 9 }}>{selected.length}</span>}
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="m6 9 6 6 6-6" />
+        {hasActive && (
+          <span style={{
+            background: "rgba(255,255,255,0.25)", borderRadius: 10,
+            padding: "1px 6px", fontSize: 10, fontWeight: 700,
+          }}>{selected.length}</span>
+        )}
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d={open ? "m18 15-6-6-6 6" : "m6 9 6 6 6-6"} />
         </svg>
       </button>
 
       {open && (
         <>
-          <div onClick={() => setOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 49 }} />
+          <div onClick={() => setOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 98 }} />
           <div style={{
-            position: "absolute", top: "calc(100% + 6px)", left: 0, zIndex: 50,
-            background: "#fff", borderRadius: 12, minWidth: 200,
-            boxShadow: "0 4px 24px rgba(0,0,0,0.12)",
-            overflow: "hidden",
+            position: "absolute", top: "calc(100% + 8px)", left: 0, zIndex: 99,
+            background: "#fff", borderRadius: 14, minWidth: grid ? 380 : 220,
+            boxShadow: "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06)",
+            border: "1px solid #f0f0f0",
           }}>
-            <div style={{ padding: "6px" }}>
+            <div style={{ padding: 10, display: grid ? "grid" : "block", gridTemplateColumns: grid ? "1fr 1fr" : undefined, gap: grid ? 2 : 0 }}>
               {options.map(opt => {
                 const active = selected.includes(opt.id);
                 return (
@@ -407,39 +435,45 @@ function FilterDropdown({ label, options, selected, onChange }: {
                       onChange(active ? selected.filter(id => id !== opt.id) : [...selected, opt.id]);
                     }}
                     style={{
-                      display: "flex", alignItems: "center", justifyContent: "space-between",
-                      width: "100%", padding: "8px 12px", borderRadius: 8, border: "none",
+                      display: "flex", alignItems: "center", gap: 10,
+                      width: "100%", padding: "9px 10px", borderRadius: 8, border: "none",
                       background: active ? "#f5f5f7" : "transparent",
                       cursor: "pointer", textAlign: "left", transition: "background .1s",
                     }}
-                    onMouseEnter={e => { if (!active) e.currentTarget.style.background = "#f9f9f9"; }}
-                    onMouseLeave={e => { if (!active) e.currentTarget.style.background = "transparent"; }}
+                    onMouseEnter={e => { if (!active) (e.currentTarget as HTMLElement).style.background = "#f9f9f9"; }}
+                    onMouseLeave={e => { if (!active) (e.currentTarget as HTMLElement).style.background = "transparent"; }}
                   >
-                    <span style={{ fontSize: 12, fontWeight: 500, color: "#1d1d1f" }}>{opt.name}</span>
+                    {/* Checkbox */}
                     <div style={{
-                      width: 16, height: 16, borderRadius: 4,
-                      border: active ? "none" : "1.5px solid #d1d1d6",
+                      width: 16, height: 16, borderRadius: "50%", flexShrink: 0,
+                      border: active ? "none" : "1.5px solid #c7c7cc",
                       background: active ? "#1d1d1f" : "transparent",
-                      display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+                      display: "flex", alignItems: "center", justifyContent: "center",
                     }}>
-                      {active && <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
+                      {active && <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
                     </div>
+                    {/* Color swatch for "couleur" */}
+                    {opt.image && (
+                      <div style={{ width: 22, height: 22, borderRadius: "50%", background: opt.image, border: "1px solid #e5e5e5", flexShrink: 0 }} />
+                    )}
+                    <span style={{ fontSize: 13, fontWeight: 400, color: "#1d1d1f" }}>{opt.name}</span>
                   </button>
                 );
               })}
-              {selected.length > 0 && (
+            </div>
+            {selected.length > 0 && (
+              <div style={{ borderTop: "1px solid #f5f5f7", padding: "6px 10px" }}>
                 <button
-                  onClick={() => onChange([])}
+                  onClick={() => { onChange([]); }}
                   style={{
-                    width: "100%", padding: "6px", marginTop: 4, borderRadius: 8, border: "none",
-                    background: "transparent", color: "#86868b", fontSize: 11, cursor: "pointer",
-                    borderTop: "1px solid #f5f5f7",
+                    width: "100%", padding: "6px", borderRadius: 8, border: "none",
+                    background: "transparent", color: "#86868b", fontSize: 12, cursor: "pointer",
                   }}
                 >
-                  Effacer
+                  Effacer la sélection
                 </button>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </>
       )}
@@ -447,28 +481,65 @@ function FilterDropdown({ label, options, selected, onChange }: {
   );
 }
 
+// ─── Color map for "Couleur de l'emballage" ──────────────
+const COLOR_MAP: Record<string, string> = {
+  "ambre": "#c17e3f", "amber": "#c17e3f",
+  "noir": "#1a1a1a", "black": "#1a1a1a", "noire": "#1a1a1a",
+  "blanche": "#f5f5f5", "blanc": "#f5f5f5", "white": "#f5f5f5",
+  "vert": "#4a8c4a", "verte": "#4a8c4a", "green": "#4a8c4a",
+  "transparente": "linear-gradient(135deg, #e8e8e8 25%, transparent 25%, transparent 75%, #e8e8e8 75%)",
+  "transparent": "linear-gradient(135deg, #e8e8e8 25%, transparent 25%, transparent 75%, #e8e8e8 75%)",
+  "rose": "#e8a0b0", "pink": "#e8a0b0",
+  "bleu": "#4a7cb5", "blue": "#4a7cb5",
+  "violet": "#8b5cf6", "purple": "#8b5cf6",
+  "beige": "#d4b896", "crème": "#f5e6d3", "creme": "#f5e6d3",
+  "argent": "#a8a8a8", "silver": "#a8a8a8",
+  "or": "#d4af37", "gold": "#d4af37",
+};
+
 // ─── Main Dashboard ───────────────────────────────────────
 export default function DashboardPage() {
   const [allProducts, setAllProducts] = useState<WCProduct[]>([]);
   const [allCategories, setAllCategories] = useState<WCCategory[]>([]);
-  const [activeMainCat, setActiveMainCat] = useState<number | null>(null);
-  const [activeFilters, setActiveFilters] = useState<Record<number, number[]>>({});
+  const [allTags, setAllTags] = useState<WCTag[]>([]);
+  const [attributes, setAttributes] = useState<WCAttribute[]>([]);
+  const [attrTerms, setAttrTerms] = useState<Record<number, WCAttributeTerm[]>>({});
+
+  // Active filters: key = filter group key (string), value = array of selected term names/ids
+  const [selectedCatIds, setSelectedCatIds] = useState<number[]>([]);
+  const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
+  const [selectedAttrTerms, setSelectedAttrTerms] = useState<Record<number, string[]>>({});
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [chatInput, setChatInput] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<WCProduct | null>(null);
 
-  // Fetch categories (up to 100)
+  // ─── Fetch all data in parallel ──────────────────────────
   useEffect(() => {
-    fetch(buildUrl("/products/categories", { per_page: "100", hide_empty: "true" }))
-      .then(r => r.json())
-      .then((cats: WCCategory[]) => {
-        setAllCategories(cats.filter(c => c.slug !== "uncategorized" && c.count > 0).sort((a, b) => b.count - a.count));
-      })
-      .catch(() => {});
+    Promise.all([
+      fetch(buildUrl("/products/categories", { per_page: "100", hide_empty: "true" })).then(r => r.json()),
+      fetch(buildUrl("/products/tags", { per_page: "100", hide_empty: "true" })).then(r => r.json()),
+      fetch(buildUrl("/products/attributes", { per_page: "50" })).then(r => r.json()),
+    ]).then(([cats, tags, attrs]: [WCCategory[], WCTag[], WCAttribute[]]) => {
+      setAllCategories(cats.filter(c => c.slug !== "uncategorized" && c.count > 0).sort((a, b) => b.count - a.count));
+      setAllTags(tags.filter(t => t.count > 0).sort((a, b) => b.count - a.count));
+      setAttributes(attrs);
+      // Fetch all attribute terms in parallel
+      Promise.all(
+        attrs.map(attr =>
+          fetch(buildUrl(`/products/attributes/${attr.id}/terms`, { per_page: "100", hide_empty: "true" }))
+            .then(r => r.json())
+            .then((terms: WCAttributeTerm[]) => ({ id: attr.id, terms: terms.filter(t => t.count > 0) }))
+        )
+      ).then(results => {
+        const map: Record<number, WCAttributeTerm[]> = {};
+        results.forEach(({ id, terms }) => { map[id] = terms.sort((a, b) => b.count - a.count); });
+        setAttrTerms(map);
+      });
+    }).catch(() => {});
   }, []);
 
-  // Fetch all products once for client-side filtering
   useEffect(() => {
     setLoading(true);
     setError(null);
@@ -478,45 +549,81 @@ export default function DashboardPage() {
       .catch((err: Error) => { setError(err.message); setLoading(false); });
   }, []);
 
-  // ─── Intelligent category tree analysis ───────────────────
-  const catById = Object.fromEntries(allCategories.map(c => [c.id, c]));
+  // ─── Category tree (top-level only for pills) ─────────────
   const topLevel = allCategories.filter(c => c.parent === 0).sort((a, b) => b.count - a.count);
-  const childrenByParent: Record<number, WCCategory[]> = {};
-  allCategories.filter(c => c.parent !== 0).forEach(c => {
-    if (!childrenByParent[c.parent]) childrenByParent[c.parent] = [];
-    childrenByParent[c.parent].push(c);
-  });
-
-  // Filter groups: parents that have >= 2 children become dropdowns
-  const filterGroups = Object.entries(childrenByParent)
-    .filter(([, children]) => children.length >= 2)
-    .map(([parentId, children]) => ({
-      parent: catById[Number(parentId)] || null,
-      children: children.sort((a, b) => b.count - a.count),
-    }))
-    .filter(g => g.parent !== null)
-    .sort((a, b) => (b.parent?.count ?? 0) - (a.parent?.count ?? 0))
-    .slice(0, 4); // max 4 dropdowns
 
   // ─── Client-side filtering ────────────────────────────────
-  const allSelectedIds = new Set([
-    ...(activeMainCat ? [activeMainCat] : []),
-    ...Object.values(activeFilters).flat(),
-  ]);
+  const products = allProducts.filter(p => {
+    const pCatIds = new Set(p.categories.map(c => c.id));
+    const pTagIds = new Set(p.tags.map(t => t.id));
+    const pAttrMap: Record<string, string[]> = {};
+    p.attributes.forEach(a => { pAttrMap[a.id] = a.options.map(o => o.toLowerCase()); });
 
-  const products = allSelectedIds.size === 0
-    ? allProducts
-    : allProducts.filter(p => {
-        const pCatIds = new Set(p.categories.map(c => c.id));
-        return [...allSelectedIds].some(id => pCatIds.has(id));
-      });
+    if (selectedCatIds.length > 0 && !selectedCatIds.some(id => pCatIds.has(id))) return false;
+    if (selectedTagIds.length > 0 && !selectedTagIds.some(id => pTagIds.has(id))) return false;
+    for (const [attrId, terms] of Object.entries(selectedAttrTerms)) {
+      if (terms.length === 0) continue;
+      const pTerms = pAttrMap[attrId] || [];
+      if (!terms.some(t => pTerms.includes(t.toLowerCase()))) return false;
+    }
+    return true;
+  });
+
+  const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 ||
+    Object.values(selectedAttrTerms).some(v => v.length > 0);
 
   const clearFilters = () => {
-    setActiveMainCat(null);
-    setActiveFilters({});
+    setSelectedCatIds([]);
+    setSelectedTagIds([]);
+    setSelectedAttrTerms({});
   };
 
-  const hasFilters = activeMainCat !== null || Object.values(activeFilters).some(v => v.length > 0);
+  // ─── Build filter definitions (like selfnamed) ────────────
+  // Fixed 7 filter dropdowns matching selfnamed exactly
+  const ATTR_LABELS: Record<string, string> = {
+    "type": "Type",
+    "reclamations": "Réclamations",
+    "reclamation": "Réclamations",
+    "claims": "Réclamations",
+    "inquietude": "Inquiétude",
+    "concern": "Inquiétude",
+    "principes-actifs": "Principes actifs",
+    "principes_actifs": "Principes actifs",
+    "active-ingredients": "Principes actifs",
+    "actifs": "Principes actifs",
+    "couleur": "Couleur de l'emballage",
+    "couleur-emballage": "Couleur de l'emballage",
+    "packaging-color": "Couleur de l'emballage",
+    "color": "Couleur de l'emballage",
+  };
+
+  // Top-level category options (for Catégorie dropdown)
+  const catOptions: FilterOption[] = topLevel.map(c => ({ id: c.id, name: c.name }));
+
+  // Tag options (for Étiquette dropdown)
+  const tagOptions: FilterOption[] = allTags.slice(0, 30).map(t => ({ id: t.id, name: t.name }));
+
+  // Attribute dropdowns in selfnamed order
+  const ATTR_ORDER = ["type", "reclamations", "reclamation", "claims", "inquietude", "concern",
+    "principes-actifs", "principes_actifs", "active-ingredients", "actifs",
+    "couleur", "couleur-emballage", "packaging-color", "color"];
+
+  const attrFilters = attributes
+    .map(attr => {
+      const label = ATTR_LABELS[attr.slug] || attr.name;
+      const terms = attrTerms[attr.id] || [];
+      if (terms.length === 0) return null;
+      const isColor = attr.slug.includes("couleur") || attr.slug.includes("color");
+      const options: FilterOption[] = terms.map(t => ({
+        id: t.name,
+        name: t.name,
+        ...(isColor ? { image: COLOR_MAP[t.name.toLowerCase()] || "#ccc" } : {}),
+      }));
+      const sortIdx = ATTR_ORDER.findIndex(s => attr.slug.includes(s));
+      return { attr, label, options, isColor, sortIdx: sortIdx === -1 ? 99 : sortIdx };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a!.sortIdx - b!.sortIdx) as { attr: WCAttribute; label: string; options: FilterOption[]; isColor: boolean; sortIdx: number }[];
 
   return (
     <>
@@ -587,47 +694,52 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Top-level category pills */}
-        {topLevel.length > 0 && (
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 16 }}>
-            <button onClick={() => { setActiveMainCat(null); setActiveFilters({}); }} style={{
-              padding: "5px 14px", borderRadius: 20, border: "none", fontSize: 12, fontWeight: 600,
-              cursor: "pointer", transition: "all .15s",
-              background: activeMainCat === null && !hasFilters ? "#1d1d1f" : "transparent",
-              color: activeMainCat === null && !hasFilters ? "#fff" : "#86868b",
-            }}>Tous</button>
-            {topLevel.map(cat => (
-              <button key={cat.id} onClick={() => { setActiveMainCat(cat.id); setActiveFilters({}); }} style={{
-                padding: "5px 14px", borderRadius: 20, border: "none", fontSize: 12, fontWeight: 600,
-                cursor: "pointer", transition: "all .15s",
-                background: activeMainCat === cat.id ? "#1d1d1f" : "transparent",
-                color: activeMainCat === cat.id ? "#fff" : "#86868b",
-              }}>{cat.name}</button>
-            ))}
-          </div>
-        )}
+        {/* Filter bar — exactly like selfnamed */}
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20, alignItems: "center" }}>
 
-        {/* Intelligent filter dropdowns */}
-        {filterGroups.length > 0 && (
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
-            {filterGroups.map(group => (
-              <FilterDropdown
-                key={group.parent!.id}
-                label={group.parent!.name}
-                options={group.children}
-                selected={activeFilters[group.parent!.id] || []}
-                onChange={ids => setActiveFilters(f => ({ ...f, [group.parent!.id]: ids }))}
-              />
-            ))}
-            {hasFilters && (
-              <button onClick={clearFilters} style={{
-                padding: "6px 14px", borderRadius: 20, border: "1px solid #d1d1d6",
-                background: "transparent", color: "#86868b", fontSize: 11, fontWeight: 500,
-                cursor: "pointer",
-              }}>Effacer filtres</button>
-            )}
-          </div>
-        )}
+          {/* 1. Catégorie */}
+          {catOptions.length > 0 && (
+            <FilterDropdown
+              label="Catégorie"
+              options={catOptions}
+              selected={selectedCatIds}
+              onChange={ids => setSelectedCatIds(ids as number[])}
+              grid={catOptions.length > 4}
+            />
+          )}
+
+          {/* 2. Étiquette */}
+          {tagOptions.length > 0 && (
+            <FilterDropdown
+              label="Étiquette"
+              options={tagOptions}
+              selected={selectedTagIds}
+              onChange={ids => setSelectedTagIds(ids as number[])}
+              grid={tagOptions.length > 6}
+            />
+          )}
+
+          {/* 3-7. Attributes (Type, Réclamations, Inquiétude, Principes actifs, Couleur) */}
+          {attrFilters.map(f => (
+            <FilterDropdown
+              key={f.attr.id}
+              label={f.label}
+              options={f.options}
+              selected={selectedAttrTerms[f.attr.id] || []}
+              onChange={vals => setSelectedAttrTerms(prev => ({ ...prev, [f.attr.id]: vals as string[] }))}
+              grid={f.options.length > 6}
+            />
+          ))}
+
+          {/* Clear all */}
+          {hasFilters && (
+            <button onClick={clearFilters} style={{
+              padding: "7px 14px", borderRadius: 20, border: "1px solid #d1d1d6",
+              background: "transparent", color: "#86868b", fontSize: 12, fontWeight: 400,
+              cursor: "pointer", marginLeft: 4,
+            }}>✕ Effacer</button>
+          )}
+        </div>
 
         {error && (
           <div style={{ textAlign: "center", padding: "48px 0" }}>
