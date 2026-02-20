@@ -116,7 +116,7 @@ function ThinkingIndicator() {
 
   return (
     <div className="flex gap-2 items-start">
-      <div className="w-7 h-7 rounded-full border border-border flex items-center justify-center flex-shrink-0 bg-white">
+      <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 bg-muted">
         <span style={{ fontSize: 14 }}>✦</span>
       </div>
       <div style={{
@@ -145,10 +145,10 @@ function ThinkingIndicator() {
 function TypingIndicator() {
   return (
     <div className="flex gap-2 items-start">
-      <div className="w-7 h-7 rounded-full border border-border flex items-center justify-center flex-shrink-0 bg-white">
+      <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 bg-muted">
         <Bot size={12} />
       </div>
-      <div className="bg-card border border-border rounded-xl px-4 py-3 flex items-center gap-1.5">
+      <div className="bg-muted rounded-xl px-4 py-3 flex items-center gap-1.5">
         {[0, 1, 2].map(i => (
           <span
             key={i}
@@ -184,8 +184,8 @@ interface ProductBlock {
 function ProductCard({ block }: { block: ProductBlock }) {
   return (
     <div style={{
-      borderRadius: 12, border: "1px solid #e5e5e7",
-      background: "#fafafa", overflow: "hidden",
+      borderRadius: 12,
+      background: "#f5f5f7", overflow: "hidden",
     }}>
       {/* Header with number + title */}
       <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px 10px" }}>
@@ -208,7 +208,7 @@ function ProductCard({ block }: { block: ProductBlock }) {
             <img
               src={block.image}
               alt={block.titre}
-              style={{ width: 64, height: 64, objectFit: "cover", borderRadius: 8, flexShrink: 0, border: "1px solid #e5e5e7" }}
+              style={{ width: 64, height: 64, objectFit: "cover", borderRadius: 8, flexShrink: 0 }}
             />
           )}
           <p style={{ margin: 0, fontSize: 11, color: "#6e6e73", lineHeight: 1.55, fontStyle: "italic" }}>
@@ -219,7 +219,7 @@ function ProductCard({ block }: { block: ProductBlock }) {
 
       {/* Footer: link */}
       {block.url && (
-        <div style={{ borderTop: "1px solid #e5e5e7", padding: "8px 14px" }}>
+        <div style={{ borderTop: "1px solid #eee", padding: "8px 14px" }}>
           <a
             href={block.url}
             target="_blank"
@@ -257,8 +257,8 @@ function MarketCard({ block }: { block: MarketBlock }) {
 
   return (
     <div style={{
-      borderRadius: 12, border: "1px solid #e5e5e7",
-      background: "#fafafa", padding: "14px 16px", marginTop: 4,
+      borderRadius: 12,
+      background: "#f5f5f7", padding: "14px 16px", marginTop: 4,
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
         <span style={{ fontSize: 14 }}>📊</span>
@@ -486,7 +486,6 @@ export default function AIChat({
                 style={{
                   display: "flex", flexDirection: "column", justifyContent: "space-between",
                   padding: 16, borderRadius: 16, background: "#ffffff",
-                  border: "1px solid #e5e5e7",
                   textAlign: "left", cursor: "pointer", minHeight: 96, transition: "background .15s",
                 }}
                 onMouseEnter={e => (e.currentTarget.style.background = "#f5f5f7")}
@@ -530,11 +529,11 @@ export default function AIChat({
                       </div>
                     ) : (
                       <div className="flex gap-2 items-start">
-                        <div className="w-7 h-7 rounded-full border border-border flex items-center justify-center flex-shrink-0 bg-white mt-1">
+                        <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 bg-muted mt-1">
                           <Bot size={12} />
                         </div>
                         <div className="flex-1 max-w-[90%] flex flex-col gap-2">
-                          <div className="bg-card border border-border rounded-xl px-4 py-3">
+                          <div className="bg-muted rounded-xl px-4 py-3">
                             <MessageContent content={msg.content} />
                           </div>
                           {isLastAssistant && (
@@ -583,7 +582,6 @@ export default function AIChat({
         <div style={{
           display: "flex", alignItems: "center", gap: 10,
           borderRadius: 16, background: "#ffffff",
-          border: "1px solid #e5e5e7",
           padding: "10px 16px",
         }}>
           <Paperclip size={15} color="#c7c7cc" style={{ cursor: "pointer", flexShrink: 0 }} />
