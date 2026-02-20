@@ -6,6 +6,77 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
+// ─── WooCommerce config ──────────────────────────────────
+const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
+const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
+const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
+
+// Cache slug → image URL pour éviter les refetch
+const imageCache: Record<string, string> = {};
+// Cache name → image URL (fallback par recherche textuelle)
+const imageCacheByName: Record<string, string> = {};
+
+async function fetchWcImages(slugs: string[], names: string[]): Promise<void> {
+  const missingSlugs = (slugs || []).filter(s => s && !(s in imageCache));
+  const missingNames = (names || []).filter(n => n && !(n in imageCacheByName));
+
+  // Fetch par slug en batch
+  if (missingSlugs.length > 0) {
+    try {
+      const url = new URL(`${WC_BASE}/products`);
+      url.searchParams.set("consumer_key", CK);
+      url.searchParams.set("consumer_secret", CS);
+      url.searchParams.set("slug", missingSlugs.join(","));
+      url.searchParams.set("per_page", "50");
+      url.searchParams.set("_fields", "slug,name,images");
+
+      const res = await fetch(url.toString());
+      if (res.ok) {
+        const products: { slug: string; name: string; images: { src: string }[] }[] = await res.json();
+        products.forEach(p => {
+          if (p.images?.[0]?.src) {
+            imageCache[p.slug] = p.images[0].src;
+            // Aussi indexer par nom normalisé
+            imageCacheByName[normalizeStr(p.name)] = p.images[0].src;
+          }
+        });
+      }
+    } catch { /* silencieux */ }
+  }
+
+  // Pour les slugs qui n'ont pas retourné d'image, chercher par nom
+  const stillMissing = missingNames.filter(n => !imageCacheByName[n]);
+  for (const name of stillMissing) {
+    try {
+      const url = new URL(`${WC_BASE}/products`);
+      url.searchParams.set("consumer_key", CK);
+      url.searchParams.set("consumer_secret", CS);
+      url.searchParams.set("search", name);
+      url.searchParams.set("per_page", "5");
+      url.searchParams.set("_fields", "slug,name,images");
+
+      const res = await fetch(url.toString());
+      if (res.ok) {
+        const products: { slug: string; name: string; images: { src: string }[] }[] = await res.json();
+        if (products[0]?.images?.[0]?.src) {
+          imageCacheByName[name] = products[0].images[0].src;
+          imageCache[products[0].slug] = products[0].images[0].src;
+        }
+      }
+    } catch { /* silencieux */ }
+  }
+}
+
+function normalizeStr(s: string): string {
+  return s.toLowerCase().trim();
+}
+
+function slugFromUrl(url?: string): string | null {
+  if (!url) return null;
+  const m = url.match(/\/product\/([^/]+)\//);
+  return m ? m[1] : null;
+}
+
 // ─── Types ───────────────────────────────────────────────
 interface ChatMessage {
   id: string;
@@ -181,7 +252,8 @@ interface ProductBlock {
   image?: string;
 }
 
-function ProductItem({ block }: { block: ProductBlock }) {
+function ProductItem({ block, resolvedImage }: { block: ProductBlock; resolvedImage?: string }) {
+  const imgSrc = resolvedImage || block.image;
   return (
     <div className="space-y-3">
       {/* Badge numéroté + titre + description */}
@@ -197,13 +269,17 @@ function ProductItem({ block }: { block: ProductBlock }) {
 
       {/* Mini-card indentée : image + nom + description italique + lien */}
       <div className="ml-9 p-3 border rounded-lg flex items-start gap-3 bg-muted/50">
-        {block.image && (
+        {imgSrc ? (
           <img
-            src={block.image}
+            src={imgSrc}
             alt={block.titre}
             className="w-16 h-16 object-contain rounded-md flex-shrink-0 bg-white"
             onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
           />
+        ) : (
+          <div className="w-16 h-16 rounded-md flex-shrink-0 bg-muted flex items-center justify-center">
+            <span style={{ fontSize: 22 }}>🌿</span>
+          </div>
         )}
         <div className="flex-1 min-w-0">
           <h5 className="font-semibold text-sm">{block.titre}</h5>
@@ -227,11 +303,34 @@ function ProductItem({ block }: { block: ProductBlock }) {
   );
 }
 
-// Groupe les produits consécutifs sans wrapper card (design RoutineDisplay)
+// Groupe les produits consécutifs — résout les images WC en batch
 function ProductGroupCard({ blocks }: { blocks: ProductBlock[] }) {
+  const [wcImages, setWcImages] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    const slugs = blocks.map(b => slugFromUrl(b.url)).filter(Boolean) as string[];
+    const names = blocks.map(b => normalizeStr(b.titre)).filter(Boolean);
+
+    fetchWcImages(slugs, names).then(() => {
+      const resolved: Record<string, string> = {};
+      blocks.forEach(b => {
+        const slug = slugFromUrl(b.url);
+        const name = normalizeStr(b.titre);
+        const img = (slug && imageCache[slug]) || imageCacheByName[name];
+        if (img) resolved[slug || name] = img;
+      });
+      setWcImages(resolved);
+    });
+  }, [blocks]);
+
   return (
     <div className="space-y-4">
-      {blocks.map((b, i) => <ProductItem key={i} block={b} />)}
+      {blocks.map((b, i) => {
+        const slug = slugFromUrl(b.url);
+        const name = normalizeStr(b.titre);
+        const resolvedImage = (slug && wcImages[slug]) || wcImages[name] || undefined;
+        return <ProductItem key={i} block={b} resolvedImage={resolvedImage} />;
+      })}
     </div>
   );
 }
