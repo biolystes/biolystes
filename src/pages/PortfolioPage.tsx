@@ -15,7 +15,7 @@ import kaniwa9 from "@/assets/kaniwa-9.jpg";
 import kaniwa10 from "@/assets/kaniwa-10.jpg";
 import kaniwa11 from "@/assets/kaniwa-11.jpg";
 import kaniwa12 from "@/assets/kaniwa-12.jpg";
-import kaniwa13 from "@/assets/kaniwa-13.jpg";
+
 import kaniwa14 from "@/assets/kaniwa-14.jpg";
 
 // ─── Fralène ──────────────────────────────────────────────
@@ -62,7 +62,7 @@ import pmyrris2 from "@/assets/pmyrris-2.jpg";
 import pmyrris3 from "@/assets/pmyrris-3.jpg";
 import pmyrris4 from "@/assets/pmyrris-4.jpg";
 import pmyrris5 from "@/assets/pmyrris-5.jpg";
-import pmyrris6 from "@/assets/pmyrris-6.jpg";
+
 import pmyrris7 from "@/assets/pmyrris-7.jpg";
 import pmyrris8 from "@/assets/pmyrris-8.jpg";
 import pmyrris9 from "@/assets/pmyrris-9.jpg";
@@ -92,7 +92,7 @@ export const BRANDS: Brand[] = [
     accentColor: "#1d1d1f",
     photos: [
       kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7,
-      kaniwa8, kaniwa9, kaniwa10, kaniwa11, kaniwa12, kaniwa13, kaniwa14,
+      kaniwa8, kaniwa9, kaniwa10, kaniwa11, kaniwa12, kaniwa14,
     ],
   },
   {
@@ -128,7 +128,7 @@ export const BRANDS: Brand[] = [
     accentColor: "#5c2d1e",
     photos: [
       pmyrris1, pmyrris2, pmyrris3, pmyrris4, pmyrris5,
-      pmyrris6, pmyrris7, pmyrris8, pmyrris9,
+      pmyrris7, pmyrris8, pmyrris9,
       pmyrris10, pmyrris11, pmyrris12,
       pmyrris13, pmyrris14, pmyrris15,
     ],
