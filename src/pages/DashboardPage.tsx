@@ -230,14 +230,14 @@ function ProductCard({ product, onSelect }: { product: WCProduct; onSelect: () =
   const price = product.price ? parseFloat(product.price) : null;
 
   const midRange = price ? Math.round(price * 2.2) : null;
-  const bio = price ? Math.round(price * 3.5) : null;
+  const bioPrix = price ? Math.round(price * 3.5) : null;
   const luxury = price ? Math.round(price * 4.5) : null;
 
   const displayCats = cats.filter(c => c.length < 24).slice(0, 2);
 
   return (
     <motion.div
-      whileHover={{ y: -1 }}
+      whileHover={{ y: -2 }}
       transition={{ duration: 0.15 }}
       onClick={onSelect}
       style={{
@@ -245,82 +245,93 @@ function ProductCard({ product, onSelect }: { product: WCProduct; onSelect: () =
         background: "#fff", borderRadius: 16, overflow: "hidden",
       }}
     >
-      {/* Image */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "1", background: "#f5f5f7", overflow: "hidden" }}>
-        {/* # badge */}
+      {/* Image area — rectangle taller */}
+      <div style={{ position: "relative", width: "100%", aspectRatio: "3/4", background: "#f0f0f5", overflow: "hidden" }}>
+        {/* # badge top-left */}
         <div style={{
-          position: "absolute", top: 10, left: 10, zIndex: 2,
-          width: 22, height: 22, borderRadius: 6,
-          background: "rgba(255,255,255,0.8)", backdropFilter: "blur(6px)",
+          position: "absolute", top: 12, left: 12, zIndex: 2,
+          width: 24, height: 24, borderRadius: 6,
+          background: "rgba(255,255,255,0.85)", backdropFilter: "blur(6px)",
           display: "flex", alignItems: "center", justifyContent: "center",
           fontSize: 10, fontWeight: 700, color: "#86868b",
         }}>#</div>
 
-        {/* Vegan / Bio badges — blanc/gris uniquement */}
+        {/* VEGAN / BIO — green badges top-right */}
         {(isVegan || isBio) && (
-          <div style={{ position: "absolute", top: 10, right: 10, zIndex: 2, display: "flex", gap: 4 }}>
+          <div style={{ position: "absolute", top: 12, right: 12, zIndex: 2, display: "flex", gap: 5 }}>
             {isVegan && (
               <span style={{
-                padding: "3px 8px", borderRadius: 20, fontSize: 8, fontWeight: 700,
-                letterSpacing: ".6px", textTransform: "uppercase",
-                background: "rgba(255,255,255,0.9)", backdropFilter: "blur(6px)", color: "#1d1d1f",
+                padding: "4px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700,
+                letterSpacing: ".5px", textTransform: "uppercase",
+                background: "#c8f0d8", color: "#1a6b3a",
               }}>VEGAN</span>
             )}
             {isBio && (
               <span style={{
-                padding: "3px 8px", borderRadius: 20, fontSize: 8, fontWeight: 700,
-                letterSpacing: ".6px", textTransform: "uppercase",
-                background: "rgba(255,255,255,0.9)", backdropFilter: "blur(6px)", color: "#1d1d1f",
+                padding: "4px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700,
+                letterSpacing: ".5px", textTransform: "uppercase",
+                background: "#c8f0d8", color: "#1a6b3a",
               }}>BIO</span>
             )}
           </div>
         )}
 
         {img
-          ? <img src={img} alt={product.name} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .4s" }}
+          ? <img src={img} alt={product.name} loading="lazy"
+              style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .4s" }}
               onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")}
               onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
             />
-          : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#d1d1d6" }}><Icons.box size={32} sw={1} /></div>
+          : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#d1d1d6" }}>
+              <Icons.box size={36} sw={1} />
+            </div>
         }
       </div>
 
-      {/* Body */}
-      <div style={{ padding: "14px 14px 16px", display: "flex", flexDirection: "column", flex: 1 }}>
-        {/* Name */}
+      {/* Card body */}
+      <div style={{ padding: "16px", display: "flex", flexDirection: "column", flex: 1 }}>
+        {/* Name ALL CAPS bold */}
         <h3 style={{
-          fontSize: 10, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.45, marginBottom: 10,
-          textTransform: "uppercase", letterSpacing: ".4px",
+          fontSize: 11, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.4, marginBottom: 14,
+          textTransform: "uppercase", letterSpacing: ".3px",
           display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden",
         }}>{product.name}</h3>
 
-        {/* Pricing */}
+        {/* Pricing block */}
         {price && (
-          <div style={{ background: "#f5f5f7", borderRadius: 8, padding: "8px 10px", marginBottom: 10 }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-              <span style={{ fontSize: 8, fontWeight: 700, letterSpacing: ".8px", textTransform: "uppercase", color: "#86868b" }}>Prix de vente conseillé</span>
-              <span style={{ fontSize: 7, fontWeight: 800, padding: "1px 4px", borderRadius: 3, background: "#1d1d1f", color: "#fff" }}>AI</span>
+          <div style={{ marginBottom: 14 }}>
+            {/* Header row */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingBottom: 8, borderBottom: "1px solid #e5e5e7", marginBottom: 8 }}>
+              <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".8px", textTransform: "uppercase", color: "#1d1d1f" }}>
+                Prix de vente conseillé
+              </span>
+              <span style={{ fontSize: 8, fontWeight: 800, padding: "2px 6px", borderRadius: 4, background: "#1d1d1f", color: "#fff", letterSpacing: ".2px" }}>AI</span>
             </div>
+            {/* Tiers with ○ bullet */}
             {[
               { label: "Milieu de gamme", val: midRange },
-              { label: "Marché bio", val: bio },
+              { label: "Marché bio", val: bioPrix },
               { label: "Marché luxe", val: luxury },
             ].map((tier, i) => (
-              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: i < 2 ? 3 : 0 }}>
-                <span style={{ fontSize: 9, color: "#86868b", fontWeight: 500, textTransform: "uppercase", letterSpacing: ".2px" }}>{tier.label}</span>
-                <span style={{ fontSize: 10, color: "#1d1d1f", fontWeight: 700 }}>{tier.val}€</span>
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: i < 2 ? 5 : 0 }}>
+                <span style={{ fontSize: 10, color: "#86868b", fontWeight: 500, display: "flex", alignItems: "center", gap: 6, textTransform: "uppercase", letterSpacing: ".2px" }}>
+                  <span style={{ fontSize: 8, color: "#d1d1d6" }}>○</span> {tier.label}
+                </span>
+                <span style={{ fontSize: 11, color: "#1d1d1f", fontWeight: 700 }}>{tier.val}€</span>
               </div>
             ))}
           </div>
         )}
 
-        {/* Price + tags */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 4, marginTop: "auto" }}>
-          {price && <span style={{ fontSize: 15, fontWeight: 700, color: "#1d1d1f" }}>{Math.round(price)}€</span>}
-          <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+        {/* Bottom: price left + category pills right */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 6, marginTop: "auto" }}>
+          {price && (
+            <span style={{ fontSize: 16, fontWeight: 700, color: "#1d1d1f" }}>{Math.round(price)}€</span>
+          )}
+          <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
             {displayCats.map((cat, i) => (
               <span key={i} style={{
-                padding: "3px 8px", borderRadius: 20, fontSize: 8, fontWeight: 700,
+                padding: "4px 10px", borderRadius: 20, fontSize: 8, fontWeight: 700,
                 letterSpacing: ".4px", textTransform: "uppercase",
                 background: "#1d1d1f", color: "#fff",
               }}>{cat}</span>
@@ -447,7 +458,7 @@ export default function DashboardPage() {
       </motion.div>
 
       {/* Catalogue */}
-      <div style={{ background: "#f5f5f7", borderRadius: 20, padding: "24px 20px", marginLeft: -40, marginRight: -40 }}>
+      <div style={{ background: "#eeedf5", borderRadius: 20, padding: "24px 20px", marginLeft: -40, marginRight: -40 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
           <span style={{ fontSize: 10, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>Catalogue</span>
           <div style={{ display: "flex", alignItems: "center", gap: 4, color: "#d1d1d6" }}>
