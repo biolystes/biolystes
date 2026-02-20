@@ -8,6 +8,7 @@ import Layout from "./components/Layout";
 import DashboardPage from "./pages/DashboardPage";
 import CatalogPage from "./pages/CatalogPage";
 import SettingsPage from "./pages/SettingsPage";
+import PortfolioPage from "./pages/PortfolioPage";
 import PublicAgentPage from "./pages/PublicAgentPage";
 import NotFound from "./pages/NotFound";
 
@@ -27,9 +28,9 @@ function AppRoutes() {
 
   return (
     <Routes>
-      {/* Routes sans authentification requise */}
       <Route path="/" element={<Layout><DashboardPage /></Layout>} />
       <Route path="/catalog" element={<Layout><CatalogPage /></Layout>} />
+      <Route path="/portfolio" element={<Layout><PortfolioPage /></Layout>} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
 
       <Route path="*" element={<NotFound />} />
