@@ -75,30 +75,63 @@ interface WCCategory {
 }
 
 // ─── Product Card ─────────────────────────────────────────
-function ProductCard({ product }: { product: WCProduct }) {
+function ProductCard({ product, index }: { product: WCProduct; index: number }) {
   const img = product.images?.[0]?.src;
   const tags = product.tags?.map(t => t.name) || [];
+  const cats = product.categories?.map(c => c.name) || [];
   const isVegan = tags.some(t => t.toLowerCase().includes("vegan"));
-  const isBio = tags.some(t => t.toLowerCase().includes("bio") || t.toLowerCase().includes("organic"));
+  const isBio = tags.some(t => t.toLowerCase().includes("bio") || t.toLowerCase().includes("organic") || t.toLowerCase().includes("ecocert") || t.toLowerCase().includes("cosmos"));
   const price = product.price ? parseFloat(product.price) : null;
 
   const midRange = price ? Math.round(price * 2.2) : null;
-  const premium = price ? Math.round(price * 3.8) : null;
-  const luxury = price ? Math.round(price * 5.5) : null;
-  const marginLow = price ? Math.round((1 - price / (price * 2.2)) * 100) : null;
-  const marginHigh = price ? Math.round((1 - price / (price * 5.5)) * 100) : null;
+  const bio = price ? Math.round(price * 3.5) : null;
+  const luxury = price ? Math.round(price * 4.5) : null;
+
+  // Keep only meaningful category names (not subcategories like concerns)
+  const displayCats = cats.filter(c => c.length < 24).slice(0, 2);
 
   return (
     <motion.div
       whileHover={{ y: -2 }}
-      style={{ display: "flex", flexDirection: "column", cursor: "pointer" }}
+      style={{
+        display: "flex", flexDirection: "column", cursor: "pointer",
+        background: "#fff", borderRadius: 16, overflow: "hidden",
+        border: "1px solid #e5e5e7",
+      }}
       onClick={() => window.open(product.permalink, "_blank")}
     >
-      {/* Image */}
+      {/* Image area */}
       <div style={{
         position: "relative", width: "100%", aspectRatio: "1",
-        borderRadius: 16, overflow: "hidden", background: "#f5f5f7", marginBottom: 12,
+        background: "#f5f5f7", overflow: "hidden",
       }}>
+        {/* # badge top-left */}
+        <div style={{
+          position: "absolute", top: 10, left: 10, zIndex: 2,
+          width: 24, height: 24, borderRadius: 6,
+          background: "rgba(255,255,255,0.85)", backdropFilter: "blur(8px)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          fontSize: 11, fontWeight: 700, color: "#86868b",
+        }}>#</div>
+
+        {/* VEGAN / BIO badges top-right */}
+        <div style={{ position: "absolute", top: 10, right: 10, zIndex: 2, display: "flex", gap: 4 }}>
+          {isVegan && (
+            <span style={{
+              padding: "3px 9px", borderRadius: 20, fontSize: 9, fontWeight: 700,
+              letterSpacing: ".6px", textTransform: "uppercase",
+              background: "#d1f2e0", color: "#1a7a45",
+            }}>VEGAN</span>
+          )}
+          {isBio && (
+            <span style={{
+              padding: "3px 9px", borderRadius: 20, fontSize: 9, fontWeight: 700,
+              letterSpacing: ".6px", textTransform: "uppercase",
+              background: "#d1f2e0", color: "#1a7a45",
+            }}>BIO</span>
+          )}
+        </div>
+
         {img ? (
           <img src={img} alt={product.name} loading="lazy" style={{
             width: "100%", height: "100%", objectFit: "cover", transition: "transform .4s ease",
@@ -111,73 +144,64 @@ function ProductCard({ product }: { product: WCProduct }) {
             <Icons.box size={32} sw={1} />
           </div>
         )}
-        {/* Badges */}
-        {(isVegan || isBio) && (
-          <div style={{ position: "absolute", top: 10, left: 10, display: "flex", gap: 5 }}>
-            {isVegan && (
-              <span style={{
-                display: "inline-flex", alignItems: "center", gap: 3,
-                padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 600,
-                letterSpacing: ".5px", textTransform: "uppercase",
-                background: "rgba(255,255,255,.92)", backdropFilter: "blur(8px)", color: "#1d1d1f",
-              }}>
-                <Icons.leaf size={10} sw={1.5} /> vegan
-              </span>
-            )}
-            {isBio && (
-              <span style={{
-                display: "inline-flex", alignItems: "center", gap: 3,
-                padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 600,
-                letterSpacing: ".5px", textTransform: "uppercase",
-                background: "rgba(255,255,255,.92)", backdropFilter: "blur(8px)", color: "#1d1d1f",
-              }}>
-                <Icons.shield size={10} sw={1.5} /> bio
-              </span>
-            )}
-          </div>
-        )}
       </div>
 
-      {/* Name */}
-      <h3 style={{
-        fontSize: 13, fontWeight: 600, color: "#1d1d1f", lineHeight: 1.35, marginBottom: 4,
-        display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden",
-      }}>{product.name}</h3>
+      {/* Card body */}
+      <div style={{ padding: "14px 16px 16px", display: "flex", flexDirection: "column", flex: 1 }}>
+        {/* Name in ALL CAPS */}
+        <h3 style={{
+          fontSize: 11, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.4, marginBottom: 12,
+          textTransform: "uppercase", letterSpacing: ".3px",
+          display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden",
+        }}>{product.name}</h3>
 
-      {/* AI Pricing */}
-      {price && (
-        <div style={{ marginTop: 6 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 6 }}>
-            <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".8px", textTransform: "uppercase", color: "#86868b" }}>
-              Prix de vente conseillé
-            </span>
-            <span style={{
-              fontSize: 8, fontWeight: 700, padding: "2px 5px", borderRadius: 4,
-              background: "#1d1d1f", color: "#fff", letterSpacing: ".3px",
-            }}>AI</span>
+        {/* AI Pricing block */}
+        {price && (
+          <div style={{
+            background: "#f5f5f7", borderRadius: 10, padding: "10px 12px", marginBottom: 12,
+          }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+              <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#86868b" }}>
+                Prix de vente conseillé
+              </span>
+              <span style={{
+                fontSize: 8, fontWeight: 800, padding: "2px 5px", borderRadius: 4,
+                background: "#1d1d1f", color: "#fff", letterSpacing: ".3px",
+              }}>AI</span>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+              {[
+                { label: "Milieu de gamme", val: midRange },
+                { label: "Marché bio", val: bio },
+                { label: "Marché luxe", val: luxury },
+              ].map((tier, i) => (
+                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                  <span style={{ fontSize: 10, color: "#86868b", fontWeight: 500, letterSpacing: ".3px", textTransform: "uppercase" }}>{tier.label}</span>
+                  <span style={{ fontSize: 11, color: "#1d1d1f", fontWeight: 700 }}>{tier.val}€</span>
+                </div>
+              ))}
+            </div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-            {[
-              { label: "Milieu de gamme", val: midRange },
-              { label: "Premium", val: premium },
-              { label: "Bio / Luxe", val: luxury },
-            ].map((tier, i) => (
-              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <span style={{ fontSize: 11, color: "#86868b", fontWeight: 500 }}>{tier.label}</span>
-                <span style={{ fontSize: 11, color: "#1d1d1f", fontWeight: 600 }}>{tier.val} €</span>
-              </div>
+        )}
+
+        {/* Bottom row: price + category tags */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 6, marginTop: "auto" }}>
+          {price && (
+            <span style={{ fontSize: 16, fontWeight: 700, color: "#1d1d1f" }}>
+              {Math.round(price)}€
+            </span>
+          )}
+          <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+            {displayCats.map((cat, i) => (
+              <span key={i} style={{
+                padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700,
+                letterSpacing: ".5px", textTransform: "uppercase",
+                background: "#1d1d1f", color: "#fff",
+              }}>{cat}</span>
             ))}
           </div>
-          <div style={{ marginTop: 8, padding: "4px 8px", borderRadius: 6, background: "#f5f5f7", display: "inline-block" }}>
-            <span style={{ fontSize: 10, fontWeight: 600, color: "#1d1d1f", letterSpacing: ".3px" }}>
-              MARGE: {marginLow}% – {marginHigh}%
-            </span>
-          </div>
-          <p style={{ fontSize: 13, fontWeight: 700, color: "#1d1d1f", marginTop: 6 }}>
-            {price.toFixed(2)} €
-          </p>
         </div>
-      )}
+      </div>
     </motion.div>
   );
 }
@@ -346,61 +370,68 @@ export default function DashboardPage() {
         </button>
       </motion.div>
 
-      {/* Catalogue header */}
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
-        <span style={{ fontSize: 11, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>
-          Catalogue
-        </span>
-        <div style={{ display: "flex", alignItems: "center", gap: 4, color: "#d1d1d6" }}>
-          <Icons.search size={14} />
-          <span style={{ fontSize: 11 }}>{products.length} produits</span>
+      {/* Catalogue section — fond lavande comme le rendu attendu */}
+      <div style={{
+        background: "#eeecf8", borderRadius: 24, padding: "28px 24px",
+        marginLeft: -40, marginRight: -40,
+      }}>
+        {/* Catalogue header */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+          <span style={{ fontSize: 11, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+            Catalogue
+          </span>
+          <div style={{ display: "flex", alignItems: "center", gap: 4, color: "#d1d1d6" }}>
+            <Icons.search size={14} />
+            <span style={{ fontSize: 11 }}>{products.length} produits</span>
+          </div>
         </div>
+
+        {/* Category pills */}
+        {categories.length > 0 && (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 24 }}>
+            <Pill label="Tous" active={activeCat === null} onClick={() => setActiveCat(null)} />
+            {categories.map(cat => (
+              <Pill key={cat.id} label={cat.name} active={activeCat === cat.id} onClick={() => setActiveCat(cat.id)} />
+            ))}
+          </div>
+        )}
+
+        {/* Error */}
+        {error && (
+          <div style={{ textAlign: "center", padding: "48px 0" }}>
+            <p style={{ fontSize: 14, color: "#86868b" }}>Erreur de connexion au catalogue</p>
+            <p style={{ fontSize: 12, color: "#d1d1d6", marginTop: 4 }}>{error}</p>
+          </div>
+        )}
+
+        {/* Loading skeletons */}
+        {loading && (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px" }}>
+            {Array.from({ length: 8 }).map((_, i) => <ProductSkeleton key={i} />)}
+          </div>
+        )}
+
+        {/* Products grid */}
+        {!loading && !error && products.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.1 }}
+            style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "16px" }}
+          >
+            {products.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
+          </motion.div>
+        )}
+
+        {/* Empty */}
+        {!loading && !error && products.length === 0 && (
+          <div style={{ textAlign: "center", padding: "64px 0" }}>
+            <Icons.box size={32} sw={1} />
+            <p style={{ fontSize: 14, color: "#86868b", marginTop: 12 }}>Aucun produit dans cette catégorie</p>
+          </div>
+        )}
       </div>
-
-      {/* Category pills */}
-      {categories.length > 0 && (
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 24 }}>
-          <Pill label="Tous" active={activeCat === null} onClick={() => setActiveCat(null)} />
-          {categories.map(cat => (
-            <Pill key={cat.id} label={cat.name} active={activeCat === cat.id} onClick={() => setActiveCat(cat.id)} />
-          ))}
-        </div>
-      )}
-
-      {/* Error */}
-      {error && (
-        <div style={{ textAlign: "center", padding: "48px 0" }}>
-          <p style={{ fontSize: 14, color: "#86868b" }}>Erreur de connexion au catalogue</p>
-          <p style={{ fontSize: 12, color: "#d1d1d6", marginTop: 4 }}>{error}</p>
-        </div>
-      )}
-
-      {/* Loading skeletons */}
-      {loading && (
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "24px 16px" }}>
-          {Array.from({ length: 8 }).map((_, i) => <ProductSkeleton key={i} />)}
-        </div>
-      )}
-
-      {/* Products grid */}
-      {!loading && !error && products.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.1 }}
-          style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "32px 16px" }}
-        >
-          {products.map(p => <ProductCard key={p.id} product={p} />)}
-        </motion.div>
-      )}
-
-      {/* Empty */}
-      {!loading && !error && products.length === 0 && (
-        <div style={{ textAlign: "center", padding: "64px 0" }}>
-          <Icons.box size={32} sw={1} />
-          <p style={{ fontSize: 14, color: "#86868b", marginTop: 12 }}>Aucun produit dans cette catégorie</p>
-        </div>
-      )}
     </div>
   );
 }
+
