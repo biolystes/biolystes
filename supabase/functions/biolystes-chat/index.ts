@@ -1,0 +1,127 @@
+import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
+};
+
+const SYSTEM_PROMPT = `Tu es l'assistant expert de Biolystes, une entreprise française spécialisée dans le lancement de marques cosmétiques bio et véganes en marque blanche.
+
+## À propos de Biolystes
+Biolystes est une entreprise qui permet à n'importe qui de lancer sa propre marque cosmétique bio et végane en 10 à 15 jours, SANS stock, SANS investissement massif.
+
+### Modèle économique (très important)
+- **Zéro stock** : La production est déclenchée à la commande du client final, en 24-48h, avec le branding du client Biolystes.
+- **Lancement rapide** : 10 à 15 jours pour avoir une marque complète (site e-commerce inclus).
+- **Abonnement mensuel** : 299€/mois (tout inclus : e-shop, logistique, support, mises à jour).
+- **Échantillons** : 69€ par produit, design personnalisé et livraison inclus.
+- **Réassort boutique physique** : Pas de minimum de commande. Livraison en moins de 10 jours.
+- **Certifications** : ECOCERT COSMOS, CPNP (UE & UK), FDA (USA), ISO 22716, 100% Végan & Cruelty-Free.
+- **Aucun ingrédient controversé** : Sans parabènes, silicones, PEG, filtres UV chimiques, microplastiques, colorants artificiels.
+
+### Ce qui est inclus dans l'offre
+- Identité visuelle complète
+- Site e-commerce (boutique en ligne)
+- Photos produits
+- Gestion des livraisons directement à vos clients finaux (sous votre marque)
+- Support client
+- Personnalisation des étiquettes & packagings
+- Réseau de laboratoires français et européens (+20 ans d'expertise)
+
+### Les gammes de produits disponibles (catalogue)
+Le catalogue complet est accessible sur biolystes.com. Les grandes catégories sont :
+- **Soins visage** : crèmes de jour, crèmes de nuit, sérums, contours des yeux, nettoyants, gommages, masques
+- **Soins corps** : crèmes corps, huiles, gommages corps
+- **Soins capillaires** : shampooings, après-shampooings, masques capillaires, huiles capillaires, gommages cuir chevelu
+- **Anti-âge** : crèmes anti-âge, sérums anti-rides
+- **Hydratation** : crèmes hydratantes, sérums hydratants
+- **Exfoliants** : gommages visage et corps
+
+### Ingrédients phares
+Beurre de Karité, Huile d'Argan, Rétinol, Céramides, Acide Hyaluronique, Vitamine C, Vitamine E, Huile d'Avocat, Huile de Jojoba, Romarin, Menthe poivré, Collagène végétal, Cannabidiol (CBD).
+
+### Cible idéale
+- Entrepreneurs qui veulent lancer une marque cosmétique sans investissement massif
+- Influenceurs/créateurs qui veulent leur marque perso
+- Boutiques physiques qui veulent leur ligne de produits
+- Revendeurs cherchant à diversifier leurs offres
+
+## Ton rôle
+Tu dois :
+1. Répondre aux questions sur Biolystes, son modèle, ses offres et ses produits avec expertise et enthousiasme
+2. **Conseiller des produits adaptés** en fonction du type de projet du client (public cible, budget, niche)
+3. Aider à construire une gamme cohérente en fonction du projet
+4. Donner des conseils business pertinents sur le lancement d'une marque cosmétique bio
+5. Être chaleureux, professionnel et donner confiance
+
+## Format des réponses
+- Réponds toujours en français
+- Sois concis mais complet
+- Utilise des listes à puces pour la clarté quand c'est pertinent
+- Quand tu recommandes des produits, présente-les clairement avec leur nom et bénéfice principal
+- Ne fabrique pas de prix précis par produit (seul le modèle d'abonnement à 299€/mois et les échantillons à 69€ sont connus)
+- Si tu n'es pas sûr d'une information spécifique sur un produit, dis-le et invite à consulter le catalogue sur biolystes.com ou à contacter l'équipe
+
+Contact : hello@biolystes.com | Paris, France`;
+
+serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
+
+  try {
+    const { messages } = await req.json();
+    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+
+    if (!LOVABLE_API_KEY) {
+      throw new Error("LOVABLE_API_KEY is not configured");
+    }
+
+    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${LOVABLE_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "google/gemini-3-flash-preview",
+        messages: [
+          { role: "system", content: SYSTEM_PROMPT },
+          ...messages,
+        ],
+        stream: true,
+      }),
+    });
+
+    if (!response.ok) {
+      if (response.status === 429) {
+        return new Response(
+          JSON.stringify({ error: "Trop de requêtes, veuillez réessayer dans quelques instants." }),
+          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      if (response.status === 402) {
+        return new Response(
+          JSON.stringify({ error: "Crédit IA épuisé, veuillez recharger votre compte Lovable." }),
+          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      const text = await response.text();
+      console.error("AI gateway error:", response.status, text);
+      return new Response(
+        JSON.stringify({ error: "Erreur du service IA, veuillez réessayer." }),
+        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    return new Response(response.body, {
+      headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
+    });
+  } catch (e) {
+    console.error("chat error:", e);
+    return new Response(
+      JSON.stringify({ error: e instanceof Error ? e.message : "Erreur inconnue" }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+    );
+  }
+});
