@@ -206,10 +206,9 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
   const cats = product.categories?.map(c => c.name) || [];
   const isVegan = tags.some(t => t.toLowerCase().includes("vegan"));
   const isBio = tags.some(t => t.toLowerCase().includes("bio") || t.toLowerCase().includes("ecocert") || t.toLowerCase().includes("cosmos"));
-  const priceHT = price ? price / 1.2 : null;
-  const midRange = priceHT ? Math.round(priceHT * 2.2) : null;
-  const bio = priceHT ? Math.round(priceHT * 3.5) : null;
-  const luxury = priceHT ? Math.round(priceHT * 4.5) : null;
+  const midRange = price ? Math.round(price * 2.2) : null;
+  const bio = price ? Math.round(price * 3.5) : null;
+  const luxury = price ? Math.round(price * 4.5) : null;
 
   return (
     <>
@@ -260,7 +259,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
           )}
 
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            {price && <span style={{ fontSize: 22, fontWeight: 700, color: "#1d1d1f" }}>{Math.round(price / 1.2)}€ <span style={{ fontSize: 12, fontWeight: 400, color: "#86868b" }}>HT</span></span>}
+            {price && <span style={{ fontSize: 22, fontWeight: 700, color: "#1d1d1f" }}>{Math.round(price)}€ <span style={{ fontSize: 12, fontWeight: 400, color: "#86868b" }}>HT</span></span>}
             <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
               {cats.slice(0, 3).map((cat, i) => (
                 <span key={i} style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700, letterSpacing: ".5px", textTransform: "uppercase", background: "#1d1d1f", color: "#fff" }}>{cat}</span>
@@ -286,10 +285,9 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
   const isVegan = tags.some(t => t.toLowerCase().includes("vegan"));
   const isBio = tags.some(t => t.toLowerCase().includes("bio") || t.toLowerCase().includes("ecocert") || t.toLowerCase().includes("cosmos"));
   const price = product.price ? parseFloat(product.price) : null;
-  const priceHT = price ? price / 1.2 : null;
-  const midRange = priceHT ? Math.round(priceHT * 2.2) : null;
-  const bioPrix = priceHT ? Math.round(priceHT * 3.5) : null;
-  const luxury = priceHT ? Math.round(priceHT * 4.5) : null;
+  const midRange = price ? Math.round(price * 2.2) : null;
+  const bioPrix = price ? Math.round(price * 3.5) : null;
+  const luxury = price ? Math.round(price * 4.5) : null;
   const displayCats = cats.filter(c => c.length < 24).slice(0, 2);
 
   return (
@@ -346,7 +344,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
           </div>
         )}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "nowrap", gap: 6, marginTop: "auto", overflow: "hidden" }}>
-          {price && <span style={{ fontSize: 16, fontWeight: 700, color: "#1d1d1f", flexShrink: 0 }}>{Math.round(price / 1.2)}€ <span style={{ fontSize: 10, fontWeight: 400, color: "#86868b" }}>HT</span></span>}
+          {price && <span style={{ fontSize: 16, fontWeight: 700, color: "#1d1d1f", flexShrink: 0 }}>{Math.round(price)}€ <span style={{ fontSize: 10, fontWeight: 400, color: "#86868b" }}>HT</span></span>}
           <div style={{ display: "flex", gap: 5, flexWrap: "nowrap", overflow: "hidden", justifyContent: "flex-end" }}>
             {displayCats.slice(0, 2).map((cat, i) => (
               <span key={i} style={{ padding: "4px 10px", borderRadius: 20, fontSize: 8, fontWeight: 700, letterSpacing: ".4px", textTransform: "uppercase", background: "#1d1d1f", color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 110 }}>{cat}</span>
