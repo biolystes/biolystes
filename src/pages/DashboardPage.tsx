@@ -670,15 +670,17 @@ export default function DashboardPage() {
 
       {/* Hero */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: 32 }}>
-        <p style={{ fontSize: 14, fontWeight: 500, color: "#86868b", marginBottom: 4 }}>
+        <p style={{ fontSize: 13, fontWeight: 500, color: "#86868b", marginBottom: 6 }}>
           {profile?.first_name ? `Bonjour, ${profile.first_name}` : "Bonjour"}
         </p>
-        <h1 style={{ fontSize: 36, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.1, letterSpacing: "-.5px" }}>
-          Lancez votre marque<br />
-          <span style={{ color: "#d1d1d6" }}>cosmétique bio.</span>
+        <h1 style={{ fontSize: 48, fontWeight: 800, color: "#1d1d1f", lineHeight: 1.05, letterSpacing: "-1px", marginBottom: 0 }}>
+          Lancez votre marque
         </h1>
-        <p style={{ fontSize: 14, color: "#86868b", marginTop: 12, maxWidth: 460, lineHeight: 1.65 }}>
-          Décrivez votre projet, discutez avec notre assistant IA, et obtenez une sélection personnalisée de produits en marque blanche.
+        <h1 style={{ fontSize: 48, fontWeight: 800, color: "#d1d1d6", lineHeight: 1.05, letterSpacing: "-1px", marginBottom: 16 }}>
+          cosmétique bio.
+        </h1>
+        <p style={{ fontSize: 14, color: "#86868b", marginTop: 0, maxWidth: 520, lineHeight: 1.65 }}>
+          Décrivez votre projet, discutez avec notre assistant IA, et obtenez<br />une sélection personnalisée de produits en marque blanche.
         </p>
       </motion.div>
 
