@@ -207,8 +207,9 @@ function ProductCard({ block }: { block: ProductBlock }) {
           {block.image && (
             <img
               src={block.image}
-              alt={block.titre}
-              style={{ width: 64, height: 64, objectFit: "cover", borderRadius: 8, flexShrink: 0 }}
+              alt=""
+              style={{ width: 64, height: 64, objectFit: "cover", borderRadius: 8, flexShrink: 0, background: "#e5e5e7" }}
+              onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
             />
           )}
           <p style={{ margin: 0, fontSize: 11, color: "#6e6e73", lineHeight: 1.55, fontStyle: "italic" }}>
