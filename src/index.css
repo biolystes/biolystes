@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Krona+One&family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,7 +6,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 97.6%;
+    --background: 0 0% 100%;
     --foreground: 0 0% 7%;
     --card: 0 0% 100%;
     --card-foreground: 0 0% 7%;
@@ -35,11 +35,6 @@
     --sidebar-icon-active-bg: 0 0% 7%;
     --sidebar-icon-active-color: 0 0% 100%;
 
-    /* Question card */
-    --question-card-bg: 0 0% 100%;
-    --question-card-border: 0 0% 91%;
-    --question-card-hover-border: 0 0% 80%;
-
     /* Chat */
     --chat-bg: 0 0% 97%;
     --chat-border: 0 0% 91%;
@@ -50,11 +45,7 @@
     /* Stat card */
     --card-stat-bg: 0 0% 96%;
 
-    /* Agent badge */
-    --agent-badge-bg: 0 0% 95%;
-    --agent-badge-text: 0 0% 30%;
-
-    /* Sidebar tokens (used by shadcn sidebar) */
+    /* Sidebar tokens (shadcn) */
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 240 10% 3.9%;
     --sidebar-primary: 240 5.9% 10%;
@@ -93,9 +84,6 @@
     --sidebar-icon-active-bg: 0 0% 98%;
     --sidebar-icon-active-color: 240 5.9% 10%;
 
-    --question-card-bg: 240 10% 3.9%;
-    --question-card-border: 240 3.7% 15.9%;
-    --question-card-hover-border: 240 3.7% 25%;
     --chat-bg: 240 3.7% 15.9%;
     --chat-send-bg: 0 0% 98%;
     --card-stat-bg: 150 10% 20%;
@@ -117,19 +105,12 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Inter', -apple-system, 'SF Pro Display', sans-serif;
+    background: #FFFFFF;
   }
   h1, h2, h3 {
-    font-family: 'Krona One', sans-serif;
+    font-family: 'Inter', -apple-system, sans-serif;
   }
-}
-
-.pacifico { font-family: 'Pacifico', cursive; }
-.krona { font-family: 'Krona One', sans-serif; }
-
-/* Title — strict black */
-.title-gradient {
-  color: hsl(var(--foreground));
 }
 
 /* Icon sidebar */
@@ -156,29 +137,10 @@
   background: hsl(0 0% 15%);
 }
 
-/* Question card */
-.question-card {
-  background: hsl(var(--question-card-bg));
-  border: 1px solid hsl(var(--question-card-border));
-  border-radius: 16px;
-  padding: 20px;
-  transition: border-color 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-}
-.question-card:hover {
-  border-color: hsl(var(--question-card-hover-border));
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-}
+/* Clean card — no shadow, no border */
+.clean-card { @apply bg-card rounded-2xl; }
 
-/* Chat input */
-.chat-wrap {
-  background: hsl(var(--chat-bg));
-  border: 1px solid hsl(var(--chat-border));
-  border-radius: 16px;
-  padding: 12px 16px;
-}
-
-/* Nav item (kept for layout pages) */
+/* Nav item */
 .nav-item {
   @apply flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-150 text-muted-foreground hover:text-foreground;
 }
@@ -188,17 +150,8 @@
   color: hsl(var(--sidebar-icon-active-color));
 }
 
-/* Stat card bg */
+/* Stat card */
 .stat-bg { background-color: hsl(var(--card-stat-bg)); }
-
-/* Agent badge */
-.agent-badge {
-  background-color: hsl(var(--agent-badge-bg));
-  color: hsl(var(--agent-badge-text));
-}
-
-/* Clean card */
-.clean-card { @apply bg-card border border-border rounded-2xl shadow-sm; }
 
 /* Logo spin */
 @keyframes tourne {
