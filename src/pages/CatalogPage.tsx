@@ -90,7 +90,6 @@ const COLOR_MAP: Record<string, string> = {
 };
 
 const TAG_GROUP_LABELS: Record<string, string> = {
-  "types de peau": "Type", "type de peau": "Type", "type": "Type",
   "réclamations": "Réclamations", "reclamations": "Réclamations", "claims": "Réclamations",
   "inquiétude": "Besoin", "inquietude": "Besoin", "concern": "Besoin",
   "préoccupation": "Besoin", "préoccupations": "Besoin",
@@ -99,7 +98,7 @@ const TAG_GROUP_LABELS: Record<string, string> = {
   "couleur de l'emballage": "Couleur de l'emballage", "couleur": "Couleur de l'emballage",
 };
 
-const FILTER_ORDER = ["Type", "Réclamations", "Besoin", "Principes actifs", "Couleur de l'emballage"];
+const FILTER_ORDER = ["Réclamations", "Besoin", "Principes actifs", "Couleur de l'emballage"];
 
 
 function parseTag(tagName: string): { displayName: string; group: string | null } {
