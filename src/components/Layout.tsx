@@ -162,7 +162,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </Button>
         </header>
 
-        <main className="p-6 lg:p-10">
+        <main className="p-6 lg:p-10" style={{ background: "#F5F5F7", minHeight: "100vh" }}>
           <div className="max-w-[1008px] mx-auto">
             {children}
           </div>

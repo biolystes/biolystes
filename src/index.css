@@ -106,7 +106,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, 'SF Pro Display', sans-serif;
-    background: #FFFFFF;
+    background: #F5F5F7;
   }
   h1, h2, h3 {
     font-family: 'Inter', -apple-system, sans-serif;

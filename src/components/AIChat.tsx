@@ -267,14 +267,15 @@ export default function AIChat({
                 onClick={() => sendMessage(card.text)}
                 style={{
                   display: "flex", flexDirection: "column", justifyContent: "space-between",
-                  padding: 16, borderRadius: 16, background: "#f5f5f7", border: "none",
+                  padding: 16, borderRadius: 16, background: "#ffffff",
+                  border: "1px solid #e5e5e7",
                   textAlign: "left", cursor: "pointer", minHeight: 96, transition: "background .15s",
                 }}
-                onMouseEnter={e => (e.currentTarget.style.background = "#ebebed")}
-                onMouseLeave={e => (e.currentTarget.style.background = "#f5f5f7")}
+                onMouseEnter={e => (e.currentTarget.style.background = "#f5f5f7")}
+                onMouseLeave={e => (e.currentTarget.style.background = "#ffffff")}
               >
                 <p style={{ fontSize: 12, fontWeight: 500, color: "#424245", lineHeight: 1.45 }}>{card.text}</p>
-                <div style={{ alignSelf: "flex-end", marginTop: 8, color: "#d1d1d6", fontSize: 14 }}>{card.icon}</div>
+                <div style={{ alignSelf: "flex-end", marginTop: 8, color: "#c7c7cc", fontSize: 16 }}>{card.icon}</div>
               </button>
             ))}
           </div>
@@ -325,15 +326,17 @@ export default function AIChat({
         {/* ── Input bar ─────────────────────────────────────── */}
         <div style={{
           display: "flex", alignItems: "center", gap: 10,
-          borderRadius: 16, background: "#f5f5f7",
+          borderRadius: 16, background: "#ffffff",
+          border: "1px solid #e5e5e7",
           padding: "10px 16px",
         }}>
-          <Mic size={15} color="#d1d1d6" />
+          <Paperclip size={15} color="#c7c7cc" style={{ cursor: "pointer", flexShrink: 0 }} />
+          <Mic size={15} color="#c7c7cc" style={{ flexShrink: 0 }} />
           <input
             value={input}
             onChange={e => { setInput(e.target.value); onInputChange?.(e.target.value); }}
             onKeyDown={e => e.key === "Enter" && !e.shiftKey && sendMessage(input)}
-            placeholder="Posez vos questions sur Biolystes..."
+            placeholder="Posez vos questions..."
             disabled={typing}
             style={{ flex: 1, border: "none", background: "transparent", fontSize: 14, color: "#1d1d1f", outline: "none" }}
           />
