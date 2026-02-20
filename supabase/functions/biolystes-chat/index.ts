@@ -81,14 +81,23 @@ Tu dois :
 
 ### Recommandations produits
 Quand tu recommandes des produits du catalogue Biolystes, utilise ce format EXACT pour chaque produit (un bloc par produit).
-Tu DOIS inclure une image réelle du produit quand tu la connais. Voici les URLs d'images connues :
+**IMPORTANT** : recommande TOUS les produits pertinents du catalogue, ne te limite pas à ceux dont tu connais l'image. Si tu ne connais pas l'URL exacte de l'image, omets simplement le champ image (ne mets JAMAIS d'URL inventée).
+
+Voici les URLs d'images connues :
 - Lait nettoyant doux : https://biolystes.com/wp-content/uploads/2025/04/I5J9D9fsoSw0EvGMdJfD0XEWX2ypDjfB-scaled.jpg
 - Crème de jour anti-âge : https://biolystes.com/wp-content/uploads/2025/04/Creme-de-jour-anti-age-scaled.jpg
 - Crème de nuit hydratante au céramide : https://biolystes.com/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg
 - Crème contour des yeux apaisante : https://biolystes.com/wp-content/uploads/2025/04/Creme-contour-des-yeux-scaled.jpg
 - Crème riche nourrissante : https://biolystes.com/wp-content/uploads/2025/04/Creme-riche-nourrissante-scaled.jpg
 - Gommage profond cuir chevelu : https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg
-Si tu ne connais pas l'image exacte d'un produit, omets le champ image (ne mets JAMAIS d'URL inventée).
+
+Voici le catalogue complet des produits Biolystes avec leurs slugs :
+**Soins Visage** : lait-nettoyant-doux, gel-nettoyant-purifiant, mousse-nettoyante-douce, eau-micellaire-apaisante, gommage-visage-eclat, masque-purifiant-argile, masque-hydratant-nuit, serum-vitamine-c-eclat, serum-acide-hyaluronique, serum-retinol-anti-age, serum-niacinamide, creme-de-jour-anti-age, creme-de-nuit-hydratante-au-ceramide, creme-riche-nourrissante, creme-contour-des-yeux
+**Soins Corps** : creme-corps-karité, huile-corps-argan-karité, gommage-corps-sucre, beurre-corps-vanille, lait-corps-hydratant
+**Soins Capillaires** : shampooing-nourrissant-karite, shampooing-hydratant-aloe-vera, apres-shampooing-karité, masque-capillaire-nourrissant, huile-capillaire-karité-argan, gommage-cuir-chevelu-profond, creme-coiffante-boucles
+**Anti-âge & Spéciaux** : contour-yeux-anti-rides, serum-anti-taches, creme-solaire-spf50, baume-levres-hydratant
+
+Pour chaque produit, construis l'URL ainsi : https://biolystes.com/product/[slug]/
 
 :::product
 numero: 1
