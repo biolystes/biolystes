@@ -46,6 +46,13 @@ import sevmylook7 from "@/assets/sevmylook-7.jpg";
 import sevmylook8 from "@/assets/sevmylook-8.jpg";
 import sevmylook9 from "@/assets/sevmylook-9.jpg";
 import sevmylook10 from "@/assets/sevmylook-10.jpg";
+import sevmylook11 from "@/assets/sevmylook-11.jpg";
+import sevmylook12 from "@/assets/sevmylook-12.jpg";
+import sevmylook13 from "@/assets/sevmylook-13.jpg";
+import sevmylook14 from "@/assets/sevmylook-14.jpg";
+import sevmylook15 from "@/assets/sevmylook-15.jpg";
+import sevmylook16 from "@/assets/sevmylook-16.jpg";
+import sevmylook17 from "@/assets/sevmylook-17.jpg";
 
 // ─── Data ─────────────────────────────────────────────────
 export interface Brand {
@@ -90,6 +97,8 @@ export const BRANDS: Brand[] = [
     photos: [
       sevmylook1, sevmylook2, sevmylook3, sevmylook4, sevmylook5,
       sevmylook6, sevmylook7, sevmylook8, sevmylook9, sevmylook10,
+      sevmylook11, sevmylook12, sevmylook13, sevmylook14, sevmylook15,
+      sevmylook16, sevmylook17,
     ],
   },
 ];
