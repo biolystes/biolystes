@@ -11,7 +11,18 @@ const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
 const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
 const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
 
-// Map normalisé : nom_sans_accents → image URL (chargé une seule fois)
+// Map hardcodée : mots-clés normalisés → image (produits du system prompt)
+const HARDCODED_IMAGES: Array<{ keywords: string[]; url: string }> = [
+  { keywords: ["lait", "nettoyant"], url: "https://biolystes.com/wp-content/uploads/2025/04/I5J9D9fsoSw0EvGMdJfD0XEWX2ypDjfB-scaled.jpg" },
+  { keywords: ["creme", "jour", "anti", "age"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-jour-anti-age-scaled.jpg" },
+  { keywords: ["creme", "nuit", "ceramide"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg" },
+  { keywords: ["contour", "yeux"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-contour-des-yeux-scaled.jpg" },
+  { keywords: ["creme", "riche", "nourrissante"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-riche-nourrissante-scaled.jpg" },
+  { keywords: ["gommage", "cuir", "chevelu"], url: "https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg" },
+  { keywords: ["gommage", "profond"], url: "https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg" },
+];
+
+// Map WC : nom_normalisé/slug → image URL (chargé une seule fois depuis WooCommerce)
 const wcProductImageMap: Record<string, string> = {};
 let wcCatalogLoaded = false;
 let wcCatalogLoading: Promise<void> | null = null;
@@ -21,13 +32,13 @@ function normalizeName(s: string): string {
   return s
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")  // supprime les accents
+    .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9\s]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
 }
 
-/** Charge tout le catalogue WC (max 100 produits) et construit le map nom→image */
+/** Charge tout le catalogue WC en une seule requête */
 async function loadWcCatalog(): Promise<void> {
   if (wcCatalogLoaded) return;
   if (wcCatalogLoading) return wcCatalogLoading;
@@ -57,24 +68,36 @@ async function loadWcCatalog(): Promise<void> {
   return wcCatalogLoading;
 }
 
-/** Cherche l'image la plus proche pour un nom de produit donné */
+/** Cherche l'image la plus proche pour un produit donné */
 function findProductImage(name: string, slug?: string | null): string | undefined {
-  // 1. Slug exact
-  if (slug && wcProductImageMap[slug]) return wcProductImageMap[slug];
-  // 2. Nom normalisé exact
   const norm = normalizeName(name);
+  const words = norm.split(" ").filter(w => w.length > 2);
+
+  // 1. Images hardcodées (system prompt) — matching par mots-clés
+  for (const entry of HARDCODED_IMAGES) {
+    const matchCount = entry.keywords.filter(k => norm.includes(k)).length;
+    if (matchCount >= entry.keywords.length) {
+      return entry.url;
+    }
+  }
+
+  // 2. Slug exact WC
+  if (slug && wcProductImageMap[slug]) return wcProductImageMap[slug];
+
+  // 3. Nom normalisé exact WC
   if (wcProductImageMap[norm]) return wcProductImageMap[norm];
-  // 3. Matching partiel : score basé sur le nombre de mots-clés communs
-  const words = norm.split(" ").filter(w => w.length > 3);
-  if (words.length === 0) return undefined;
+
+  // 4. Matching partiel WC : score sur mots significatifs (> 3 lettres)
+  const sigWords = words.filter(w => w.length > 3);
+  if (sigWords.length === 0) return undefined;
 
   let bestKey: string | undefined;
   let bestScore = 0;
 
   for (const key of Object.keys(wcProductImageMap)) {
-    const matchCount = words.filter(w => key.includes(w)).length;
-    const score = matchCount / words.length;
-    if (score > bestScore && matchCount >= Math.min(2, words.length)) {
+    const matchCount = sigWords.filter(w => key.includes(w)).length;
+    const score = matchCount / sigWords.length;
+    if (score > bestScore && matchCount >= Math.min(2, sigWords.length)) {
       bestScore = score;
       bestKey = key;
     }
@@ -88,6 +111,7 @@ function slugFromUrl(url?: string): string | null {
   const m = url.match(/\/product\/([^/]+)\//);
   return m ? m[1] : null;
 }
+
 
 
 // ─── Types ───────────────────────────────────────────────

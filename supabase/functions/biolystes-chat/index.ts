@@ -100,11 +100,11 @@ Voici les URLs d'images disponibles (utilise-les quand le produit correspond) :
 - Gommage profond cuir chevelu : https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg
 Si tu n'as pas d'image pour un produit, omets simplement le champ image (ne mets JAMAIS d'URL inventée).
 
-Voici le catalogue complet des produits Biolystes avec leurs slugs exacts :
-**Soins Visage** : lait-nettoyant-doux, gel-nettoyant-purifiant, mousse-nettoyante-douce, eau-micellaire-apaisante, gommage-visage-eclat, masque-purifiant-argile, masque-hydratant-nuit, serum-vitamine-c-eclat, serum-acide-hyaluronique, serum-retinol-anti-age, serum-niacinamide, creme-de-jour-anti-age, creme-de-nuit-hydratante-au-ceramide, creme-riche-nourrissante, creme-contour-des-yeux
-**Soins Corps** : creme-corps-karite, huile-corps-argan-karite, gommage-corps-sucre, beurre-corps-vanille, lait-corps-hydratant
-**Soins Capillaires** : shampooing-nourrissant-karite, shampooing-hydratant-aloe-vera, apres-shampooing-karite, masque-capillaire-nourrissant, huile-capillaire-karite-argan, gommage-cuir-chevelu-profond, creme-coiffante-boucles
-**Anti-âge & Spéciaux** : contour-yeux-anti-rides, serum-anti-taches, creme-solaire-spf50, baume-levres-hydratant
+Voici le catalogue complet des produits Biolystes avec leurs slugs exacts (utilise ces slugs pour construire les URLs) :
+**Soins Visage** : lait-nettoyant-doux, gel-nettoyant-purifiant, mousse-nettoyante-douce, eau-micellaire-apaisante, gommage-visage-eclat, masque-purifiant-argile, masque-hydratant-nuit, serum-a-la-vitamine-c, serum-acide-hyaluronique, serum-retinol-anti-age, gel-hydratant-a-la-niacinamide, creme-de-jour-anti-age-3, creme-de-nuit-hydratante-au-ceramide, creme-riche-nourrissante, creme-contour-des-yeux-3-en-1
+**Soins Corps** : creme-pour-le-corps-a-luree-pour-peaux-rugueuses, gel-lavant-mains-corps-pamplemousse, gel-lavant-mains-corps-cedre-menthe-poivree, serum-corporel-silk-skin-ambre-boise-et-cuir, creme-pour-les-mains-silk-skin-epices-et-bois-de-santal
+**Soins Capillaires** : shampooing-pour-cuir-chevelu-sensible, shampooing-pour-cheveux-colores, apres-shampooing-smoky-green-vetiver, gommage-profond-pour-cuir-chevelu-romarin-menthe, brume-capillaire-sans-rincage-keratin-shine
+**Anti-âge & Spéciaux** : serum-aux-peptides-effet-botox, serum-collagene-boost, creme-de-nuit-anti-age-au-collagene, soin-anti-acne, concentre-peeling-aha, serum-naturel-a-base-dhuile-alternatif-au-retinol, protection-solaire-spf-30-pour-visage-corps
 
 Produits contenant du beurre de karité : Crème riche nourrissante, Lait nettoyant doux, Crème corps karité, Huile corps argan-karité, Shampooing nourrissant karité, Après-shampooing karité, Masque capillaire nourrissant, Huile capillaire karité-argan, Beurre corps vanille.
 
