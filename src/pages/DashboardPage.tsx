@@ -100,7 +100,7 @@ const Icons = {
 const prompts = [
   { text: "Comment lancer ses propres produits bio sans acheter de stock ?", icon: "box" },
   { text: "La création d'un e-shop et les photos produits sont inclus ?", icon: "sparkle" },
-  { text: "Peut-on avoir des échantillons pour vérifier la qualité ?", icon: "shield" },
+  { text: "Peut-on avoir des échantillons personnalisés ? (79€ pour la 1ère commande)", icon: "shield" },
   { text: "Y a-t-il d'autres frais ou un engagement minimum ?", icon: "arrow" },
 ];
 
