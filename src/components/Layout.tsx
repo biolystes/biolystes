@@ -160,7 +160,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </Button>
         </header>
 
-        <main className="p-6 lg:p-8 max-w-5xl mx-auto">
+        <main className="p-6 lg:p-10">
           {children}
         </main>
       </div>
