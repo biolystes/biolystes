@@ -60,7 +60,6 @@ export default {
         teal: {
           50: "hsl(var(--teal-50))",
           100: "hsl(var(--teal-100))",
-          200: "hsl(var(--teal-200))",
           500: "hsl(var(--teal-500))",
           600: "hsl(var(--teal-600))",
           700: "hsl(var(--teal-700))",
@@ -68,6 +67,10 @@ export default {
         emerald: {
           300: "hsl(var(--emerald-300))",
           400: "hsl(var(--emerald-400))",
+        },
+        gradient: {
+          purple: "hsl(var(--gradient-purple))",
+          blue: "hsl(var(--gradient-blue))",
         },
       },
       borderRadius: {
