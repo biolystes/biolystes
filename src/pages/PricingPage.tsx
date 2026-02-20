@@ -271,6 +271,7 @@ const aboPro = [
 ];
 
 const aboIA = [
+  "Toutes les prestations de l'abonnement Pro",
   "Photos UGC authentiques",
   "Photos lifestyle immersives",
   "Photos studio professionnelles",
@@ -340,7 +341,7 @@ function TabAbonnement() {
           <p style={{ fontSize: 13, color: "#86868b", lineHeight: 1.6, marginBottom: 16 }}>Des visuels professionnels générés par IA pour sublimer votre marque.</p>
           <div style={{ marginBottom: 4 }}>
             <span style={{ fontSize: 32, fontWeight: 800, color: "#1d1d1f" }}>99€</span>
-            <span style={{ fontSize: 13, color: "#86868b", marginLeft: 6 }}>/photos</span>
+            <span style={{ fontSize: 13, color: "#86868b", marginLeft: 6 }}>/mois</span>
           </div>
           <p style={{ fontSize: 12, fontWeight: 600, color: "#86868b", marginBottom: 20 }}>Sans engagement</p>
           <p style={{ fontSize: 12, fontWeight: 700, color: "#1d1d1f", marginBottom: 12 }}>Ce qui est inclus :</p>
