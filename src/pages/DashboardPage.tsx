@@ -864,6 +864,7 @@ const CLIENTS = [
   {
     slug: "kaniwa",
     name: "Kaniwa Botanique",
+    url: "https://kaniwabotanique.com/",
     tagline: "Marque bio & vegan lancée en 12 jours · Gamme soins visage, corps & rasage",
     tags: ["Bio & Vegan", "France", "12 jours"],
     accentColor: "#1d1d1f",
@@ -874,6 +875,7 @@ const CLIENTS = [
   {
     slug: "fralene",
     name: "Fralène",
+    url: "https://fraleneparis.com/",
     tagline: "Gamme soins visage premium · Huile nettoyante lactée & démaquillant biphasique",
     tags: ["Soins visage", "Sans parfum", "Premium"],
     accentColor: "#6b21a8",
@@ -884,6 +886,7 @@ const CLIENTS = [
   {
     slug: "sevmylook",
     name: "Sevmylook",
+    url: "https://sevmylook.com/",
     tagline: "Gamme solaire & soins visage · Protection SPF 30, crème hydratante Séverine & huile Jouvence",
     tags: ["Soins visage", "SPF 30", "Gamme complète"],
     accentColor: "#b5896b",
@@ -894,6 +897,7 @@ const CLIENTS = [
   {
     slug: "pmyrris",
     name: "Pmyrris Beauty",
+    url: "https://pmyrrisbeauty.fr/",
     tagline: "Gamme soins capillaires pour cheveux bouclés · Shampoing, conditionneur & spray définissant",
     tags: ["Soins capillaires", "Bouclés", "Naturel"],
     accentColor: "#5c2d1e",
@@ -1017,7 +1021,24 @@ function ClientShowcase() {
               <p style={{ fontSize: 14, color: "#1d1d1f", fontWeight: 500, lineHeight: 1.6, fontStyle: "italic", marginBottom: 6 }}>
                 "{client.quote}"
               </p>
-              <p style={{ fontSize: 11, color: "#86868b" }}>{client.quoteAuthor}</p>
+              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+                <p style={{ fontSize: 11, color: "#86868b" }}>{client.quoteAuthor}</p>
+                <a
+                  href={client.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontSize: 11, fontWeight: 600, color: client.accentColor,
+                    textDecoration: "none", display: "flex", alignItems: "center", gap: 4,
+                    padding: "3px 10px", borderRadius: 12,
+                    border: `1px solid ${client.accentColor}40`,
+                    background: `${client.accentColor}08`,
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  Voir le site ↗
+                </a>
+              </div>
             </div>
           </div>
         </motion.div>
