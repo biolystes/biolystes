@@ -719,6 +719,16 @@ export default function DashboardPage() {
         <AIChat onConversationStart={() => setChatStarted(true)} />
       </motion.div>
 
+      {/* ── Cas clients ──────────────────────────────────────── */}
+      <AnimatePresence>
+        {!chatStarted && (
+          <>
+            <KaniwaSection />
+            <FraleneSection />
+          </>
+        )}
+      </AnimatePresence>
+
       {/* Catalogue — masqué quand le chat démarre */}
       <AnimatePresence>
         {!chatStarted && (
@@ -823,20 +833,6 @@ export default function DashboardPage() {
 
       <AnimatePresence>
         {selectedProduct && <ProductPanel product={selectedProduct} onClose={() => setSelectedProduct(null)} />}
-      </AnimatePresence>
-
-      {/* ── Cas client : Kaniwa Botanique ────────────────────── */}
-      <AnimatePresence>
-        {!chatStarted && (
-          <KaniwaSection />
-        )}
-      </AnimatePresence>
-
-      {/* ── Cas client : Fralène ─────────────────────────────── */}
-      <AnimatePresence>
-        {!chatStarted && (
-          <FraleneSection />
-        )}
       </AnimatePresence>
     </>
   );
