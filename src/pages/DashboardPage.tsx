@@ -501,9 +501,6 @@ const COLOR_MAP: Record<string, string> = {
 // ─── Tag group names → filter label mapping ───────────────
 // Tags have format "Name (Group)" — we parse groups exactly like selfnamed
 const TAG_GROUP_LABELS: Record<string, string> = {
-  "types de peau": "Type",
-  "type de peau": "Type",
-  "type": "Type",
   "réclamations": "Réclamations",
   "reclamations": "Réclamations",
   "réclamation": "Réclamations",
@@ -524,7 +521,7 @@ const TAG_GROUP_LABELS: Record<string, string> = {
   "packaging color": "Couleur de l'emballage",
 };
 
-const FILTER_ORDER = ["Type", "Réclamations", "Besoin", "Principes actifs", "Couleur de l'emballage"];
+const FILTER_ORDER = ["Réclamations", "Besoin", "Principes actifs", "Couleur de l'emballage"];
 
 
 // Parse WC tag name: "Name (Group)" → { name, group }
