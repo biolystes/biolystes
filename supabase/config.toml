@@ -1,0 +1,4 @@
+project_id = "nftpssrtcbwputfwjdfi"
+
+[functions.biolystes-chat]
+verify_jwt = false
