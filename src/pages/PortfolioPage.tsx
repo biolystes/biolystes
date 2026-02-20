@@ -64,6 +64,9 @@ import pmyrris6 from "@/assets/pmyrris-6.jpg";
 import pmyrris7 from "@/assets/pmyrris-7.jpg";
 import pmyrris8 from "@/assets/pmyrris-8.jpg";
 import pmyrris9 from "@/assets/pmyrris-9.jpg";
+import pmyrris10 from "@/assets/pmyrris-10.jpg";
+import pmyrris11 from "@/assets/pmyrris-11.jpg";
+import pmyrris12 from "@/assets/pmyrris-12.jpg";
 
 // ─── Data ─────────────────────────────────────────────────
 export interface Brand {
@@ -121,6 +124,7 @@ export const BRANDS: Brand[] = [
     photos: [
       pmyrris1, pmyrris2, pmyrris3, pmyrris4, pmyrris5,
       pmyrris6, pmyrris7, pmyrris8, pmyrris9,
+      pmyrris10, pmyrris11, pmyrris12,
     ],
   },
 ];
