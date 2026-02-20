@@ -347,16 +347,17 @@ function ProductCard({ product, onSelect, vatEnabled = false }: { product: WCPro
         )}
 
         {/* Bottom: price left + category pills right */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 6, marginTop: "auto" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "nowrap", gap: 6, marginTop: "auto", overflow: "hidden" }}>
           {price && (
-            <span style={{ fontSize: 16, fontWeight: 700, color: "#1d1d1f" }}>{vatEnabled ? Math.round(price * 1.2) : Math.round(price)}€ <span style={{ fontSize: 10, fontWeight: 400, color: "#86868b" }}>{vatEnabled ? "TTC" : "HT"}</span></span>
+            <span style={{ fontSize: 16, fontWeight: 700, color: "#1d1d1f", flexShrink: 0 }}>{vatEnabled ? Math.round(price * 1.2) : Math.round(price)}€ <span style={{ fontSize: 10, fontWeight: 400, color: "#86868b" }}>{vatEnabled ? "TTC" : "HT"}</span></span>
           )}
-          <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
-            {displayCats.map((cat, i) => (
+          <div style={{ display: "flex", gap: 5, flexWrap: "nowrap", overflow: "hidden", justifyContent: "flex-end" }}>
+            {displayCats.slice(0, 2).map((cat, i) => (
               <span key={i} style={{
                 padding: "4px 10px", borderRadius: 20, fontSize: 8, fontWeight: 700,
                 letterSpacing: ".4px", textTransform: "uppercase",
                 background: "#1d1d1f", color: "#fff",
+                whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 110,
               }}>{cat}</span>
             ))}
           </div>
