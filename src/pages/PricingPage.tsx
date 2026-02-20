@@ -33,7 +33,7 @@ function Badge({ label }: { label: string }) {
 
 // ─── CTA Button ───────────────────────────────────────────
 function CtaButton({ label, filled = false, onClick }: { label: string; filled?: boolean; onClick?: () => void }) {
-  const RDV_URL = "https://cal.com/biolystes";
+  const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
   return (
     <a
       href={onClick ? undefined : RDV_URL}
