@@ -11,23 +11,38 @@ const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
 const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
 const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
 
-// Map hardcodée : mots-clés normalisés → image (produits du system prompt)
-const HARDCODED_IMAGES: Array<{ keywords: string[]; url: string }> = [
-  { keywords: ["lait", "nettoyant"], url: "https://biolystes.com/wp-content/uploads/2025/04/I5J9D9fsoSw0EvGMdJfD0XEWX2ypDjfB-scaled.jpg" },
-  { keywords: ["creme", "jour", "anti", "age"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-jour-anti-age-scaled.jpg" },
-  { keywords: ["creme", "nuit", "ceramide"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg" },
-  { keywords: ["contour", "yeux"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-contour-des-yeux-scaled.jpg" },
-  { keywords: ["creme", "riche", "nourrissante"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-riche-nourrissante-scaled.jpg" },
-  { keywords: ["gommage", "cuir", "chevelu"], url: "https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg" },
-  { keywords: ["gommage", "profond"], url: "https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg" },
+// ─── Images produits (hardcodées + WC dynamique) ─────────
+// Map slug WC → image URL (hardcodée pour garantir l'affichage)
+const SLUG_TO_IMAGE: Record<string, string> = {
+  // Images connues du system prompt
+  "lait-nettoyant-doux": "https://biolystes.com/wp-content/uploads/2025/04/I5J9D9fsoSw0EvGMdJfD0XEWX2ypDjfB-scaled.jpg",
+  "creme-de-jour-anti-age": "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-jour-anti-age-scaled.jpg",
+  "creme-de-jour-anti-age-3": "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-jour-anti-age-scaled.jpg",
+  "creme-de-nuit-hydratante-au-ceramide": "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg",
+  "creme-contour-des-yeux": "https://biolystes.com/wp-content/uploads/2025/04/Creme-contour-des-yeux-scaled.jpg",
+  "creme-contour-des-yeux-3-en-1": "https://biolystes.com/wp-content/uploads/2025/04/Creme-contour-des-yeux-scaled.jpg",
+  "creme-riche-nourrissante": "https://biolystes.com/wp-content/uploads/2025/04/Creme-riche-nourrissante-scaled.jpg",
+  "gommage-profond-pour-cuir-chevelu-romarin-menthe": "https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg",
+  "gommage-cuir-chevelu-profond": "https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg",
+};
+
+// Mots-clés → image (fallback quand le slug ne matche pas)
+const KEYWORD_TO_IMAGE: Array<{ keys: string[]; url: string }> = [
+  { keys: ["lait", "nettoyant"], url: "https://biolystes.com/wp-content/uploads/2025/04/I5J9D9fsoSw0EvGMdJfD0XEWX2ypDjfB-scaled.jpg" },
+  { keys: ["creme", "jour", "anti", "age"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-jour-anti-age-scaled.jpg" },
+  { keys: ["creme", "nuit", "ceramide"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg" },
+  { keys: ["creme", "nuit", "hydratante"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg" },
+  { keys: ["contour", "yeux"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-contour-des-yeux-scaled.jpg" },
+  { keys: ["creme", "riche", "nourrissante"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-riche-nourrissante-scaled.jpg" },
+  { keys: ["gommage", "cuir", "chevelu"], url: "https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg" },
+  { keys: ["gommage", "profond"], url: "https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg" },
 ];
 
-// Map WC : nom_normalisé/slug → image URL (chargé une seule fois depuis WooCommerce)
-const wcProductImageMap: Record<string, string> = {};
+// Cache WC dynamique (complète les hardcodées)
+const wcImageCache: Record<string, string> = { ...SLUG_TO_IMAGE };
 let wcCatalogLoaded = false;
 let wcCatalogLoading: Promise<void> | null = null;
 
-/** Normalise un nom : minuscules, sans accents, sans caractères spéciaux */
 function normalizeName(s: string): string {
   return s
     .toLowerCase()
@@ -38,11 +53,9 @@ function normalizeName(s: string): string {
     .trim();
 }
 
-/** Charge tout le catalogue WC en une seule requête */
 async function loadWcCatalog(): Promise<void> {
   if (wcCatalogLoaded) return;
   if (wcCatalogLoading) return wcCatalogLoading;
-
   wcCatalogLoading = (async () => {
     try {
       const url = new URL(`${WC_BASE}/products`);
@@ -51,59 +64,50 @@ async function loadWcCatalog(): Promise<void> {
       url.searchParams.set("per_page", "100");
       url.searchParams.set("status", "publish");
       url.searchParams.set("_fields", "slug,name,images");
-
       const res = await fetch(url.toString());
       if (!res.ok) return;
       const products: { slug: string; name: string; images: { src: string }[] }[] = await res.json();
       products.forEach(p => {
         if (p.images?.[0]?.src) {
-          wcProductImageMap[normalizeName(p.name)] = p.images[0].src;
-          wcProductImageMap[p.slug] = p.images[0].src;
+          wcImageCache[p.slug] = p.images[0].src;
+          wcImageCache[normalizeName(p.name)] = p.images[0].src;
         }
       });
       wcCatalogLoaded = true;
     } catch { /* silencieux */ }
   })();
-
   return wcCatalogLoading;
 }
 
-/** Cherche l'image la plus proche pour un produit donné */
 function findProductImage(name: string, slug?: string | null): string | undefined {
-  const norm = normalizeName(name);
-  const words = norm.split(" ").filter(w => w.length > 2);
+  // 1. Slug exact (hardcodé ou WC)
+  if (slug && wcImageCache[slug]) return wcImageCache[slug];
 
-  // 1. Images hardcodées (system prompt) — matching par mots-clés
-  for (const entry of HARDCODED_IMAGES) {
-    const matchCount = entry.keywords.filter(k => norm.includes(k)).length;
-    if (matchCount >= entry.keywords.length) {
-      return entry.url;
-    }
+  const norm = normalizeName(name);
+
+  // 2. Nom normalisé exact
+  if (wcImageCache[norm]) return wcImageCache[norm];
+
+  // 3. Matching par mots-clés hardcodés
+  for (const entry of KEYWORD_TO_IMAGE) {
+    if (entry.keys.every(k => norm.includes(k))) return entry.url;
   }
 
-  // 2. Slug exact WC
-  if (slug && wcProductImageMap[slug]) return wcProductImageMap[slug];
-
-  // 3. Nom normalisé exact WC
-  if (wcProductImageMap[norm]) return wcProductImageMap[norm];
-
-  // 4. Matching partiel WC : score sur mots significatifs (> 3 lettres)
-  const sigWords = words.filter(w => w.length > 3);
-  if (sigWords.length === 0) return undefined;
+  // 4. Matching partiel sur mots significatifs (≥4 lettres) dans le cache WC
+  const words = norm.split(" ").filter(w => w.length >= 4);
+  if (words.length === 0) return undefined;
 
   let bestKey: string | undefined;
   let bestScore = 0;
-
-  for (const key of Object.keys(wcProductImageMap)) {
-    const matchCount = sigWords.filter(w => key.includes(w)).length;
-    const score = matchCount / sigWords.length;
-    if (score > bestScore && matchCount >= Math.min(2, sigWords.length)) {
+  for (const key of Object.keys(wcImageCache)) {
+    const hits = words.filter(w => key.includes(w)).length;
+    const score = hits / words.length;
+    if (score > bestScore && hits >= Math.min(2, words.length)) {
       bestScore = score;
       bestKey = key;
     }
   }
-
-  return bestKey ? wcProductImageMap[bestKey] : undefined;
+  return bestKey ? wcImageCache[bestKey] : undefined;
 }
 
 function slugFromUrl(url?: string): string | null {
@@ -111,6 +115,7 @@ function slugFromUrl(url?: string): string | null {
   const m = url.match(/\/product\/([^/]+)\//);
   return m ? m[1] : null;
 }
+
 
 
 
