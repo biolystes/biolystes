@@ -9,6 +9,7 @@ import DashboardPage from "./pages/DashboardPage";
 import CatalogPage from "./pages/CatalogPage";
 import SettingsPage from "./pages/SettingsPage";
 import PortfolioPage from "./pages/PortfolioPage";
+import PricingPage from "./pages/PricingPage";
 import PublicAgentPage from "./pages/PublicAgentPage";
 import NotFound from "./pages/NotFound";
 
@@ -31,6 +32,7 @@ function AppRoutes() {
       <Route path="/" element={<Layout><DashboardPage /></Layout>} />
       <Route path="/catalog" element={<Layout><CatalogPage /></Layout>} />
       <Route path="/portfolio" element={<Layout><PortfolioPage /></Layout>} />
+      <Route path="/pricing" element={<Layout><PricingPage /></Layout>} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
 
       <Route path="*" element={<NotFound />} />
