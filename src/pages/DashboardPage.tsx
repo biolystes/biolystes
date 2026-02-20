@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import AIChat from "@/components/AIChat";
 import { motion, AnimatePresence } from "framer-motion";
 
 // ─── WooCommerce config ───────────────────────────────────
@@ -549,7 +550,6 @@ export default function DashboardPage() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [chatInput, setChatInput] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<WCProduct | null>(null);
 
   // ─── Fetch all data in parallel ──────────────────────────
@@ -697,7 +697,7 @@ export default function DashboardPage() {
       <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }`}</style>
 
       {/* Hero */}
-      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: 40 }}>
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: 32 }}>
         <p style={{ fontSize: 14, fontWeight: 500, color: "#86868b", marginBottom: 4 }}>Bonjour, Jean Pierre</p>
         <h1 style={{ fontSize: 36, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.1, letterSpacing: "-.5px" }}>
           Lancez votre marque<br />
@@ -708,48 +708,11 @@ export default function DashboardPage() {
         </p>
       </motion.div>
 
-      {/* Prompt cards */}
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.4 }}
-        style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, marginBottom: 20 }}>
-        {prompts.map((card, i) => {
-          const Ic = Icons[card.icon as keyof typeof Icons];
-          return (
-            <button key={i} onClick={() => setChatInput(card.text)} style={{
-              display: "flex", flexDirection: "column", justifyContent: "space-between",
-              padding: 16, borderRadius: 16, background: "#f5f5f7", border: "none",
-              textAlign: "left", cursor: "pointer", minHeight: 96, transition: "background .15s",
-            }}
-            onMouseEnter={e => (e.currentTarget.style.background = "#ebebed")}
-            onMouseLeave={e => (e.currentTarget.style.background = "#f5f5f7")}
-            >
-              <p style={{ fontSize: 12, fontWeight: 500, color: "#424245", lineHeight: 1.45 }}>{card.text}</p>
-              <div style={{ alignSelf: "flex-end", marginTop: 8, color: "#d1d1d6" }}><Ic size={15} /></div>
-            </button>
-          );
-        })}
+      {/* AI Chat (prompt cards + input + conversation) */}
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.4 }} style={{ marginBottom: 48 }}>
+        <AIChat />
       </motion.div>
 
-      {/* Chat */}
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.4 }}
-        style={{ display: "flex", alignItems: "center", gap: 10, borderRadius: 16, background: "#f5f5f7", padding: "10px 16px", marginBottom: 40 }}>
-        <div style={{ color: "#d1d1d6", display: "flex" }}><Icons.clip size={15} /></div>
-        <div style={{ color: "#d1d1d6", display: "flex" }}><Icons.mic size={15} /></div>
-        <input value={chatInput} onChange={e => setChatInput(e.target.value)}
-          onKeyDown={e => e.key === "Enter" && chatInput.trim() && setChatInput("")}
-          placeholder="Posez vos questions..."
-          style={{ flex: 1, border: "none", background: "transparent", fontSize: 14, color: "#1d1d1f", outline: "none" }}
-        />
-        <span style={{ fontSize: 10, color: "#d1d1d6" }}>{chatInput.length}/1000</span>
-        <button style={{
-          width: 30, height: 30, borderRadius: 15, border: "none",
-          background: chatInput.trim() ? "#1d1d1f" : "#e5e5e7",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          cursor: chatInput.trim() ? "pointer" : "default", transition: "background .15s",
-          color: chatInput.trim() ? "#fff" : "#86868b",
-        }}>
-          <Icons.arrow size={13} sw={2} />
-        </button>
-      </motion.div>
 
       {/* Catalogue */}
       <div style={{ background: "transparent", padding: "0", marginTop: 8 }}>
