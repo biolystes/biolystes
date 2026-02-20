@@ -277,22 +277,22 @@ function ProductCard({ product, onSelect }: { product: WCProduct; onSelect: () =
           fontSize: 10, fontWeight: 700, color: "#86868b",
         }}>#</div>
 
-        {/* VEGAN / BIO — green badges top-right */}
+        {/* VEGAN / BIO badges */}
         {(isVegan || isBio) && (
-          <div style={{ position: "absolute", top: 12, right: 12, zIndex: 2, display: "flex", gap: 5 }}>
+          <div style={{ position: "absolute", top: 10, right: 10, zIndex: 2, display: "flex", gap: 4 }}>
             {isVegan && (
               <span style={{
-                padding: "4px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700,
-                letterSpacing: ".5px", textTransform: "uppercase",
-                background: "#c8f0d8", color: "#1a6b3a",
-              }}>VEGAN</span>
+                padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 600,
+                letterSpacing: ".4px", textTransform: "uppercase",
+                background: "rgba(255,255,255,0.9)", color: "#1d1d1f",
+              }}>Vegan</span>
             )}
             {isBio && (
               <span style={{
-                padding: "4px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700,
-                letterSpacing: ".5px", textTransform: "uppercase",
-                background: "#c8f0d8", color: "#1a6b3a",
-              }}>BIO</span>
+                padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 600,
+                letterSpacing: ".4px", textTransform: "uppercase",
+                background: "rgba(255,255,255,0.9)", color: "#1d1d1f",
+              }}>Bio</span>
             )}
           </div>
         )}
