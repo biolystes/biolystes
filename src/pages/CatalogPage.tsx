@@ -291,63 +291,66 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
   const displayCats = cats.filter(c => c.length < 24).slice(0, 2);
 
   return (
-    <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.15 }} onClick={onSelect}
-      style={{ display: "flex", flexDirection: "column", cursor: "pointer", background: "#fff", borderRadius: 16, overflow: "hidden", outline: isSelected ? "2.5px solid #1d1d1f" : "2.5px solid transparent", transition: "outline .15s" }}>
-      <div style={{ position: "relative", width: "100%", aspectRatio: "3/4", background: "#f5f5f7", overflow: "hidden" }}>
-        {/* Selection checkbox */}
+    <motion.div
+      whileHover={{ y: -3, scale: 1.01 }}
+      transition={{ duration: 0.18 }}
+      onClick={onSelect}
+      style={{
+        display: "flex", flexDirection: "column", cursor: "pointer",
+        borderRadius: 20, overflow: "hidden",
+        outline: isSelected ? "2.5px solid #1d1d1f" : "2.5px solid transparent",
+        transition: "outline .15s",
+        background: "linear-gradient(160deg, #e8eef5 0%, #dce6f0 100%)",
+      }}
+    >
+      {/* Image area */}
+      <div style={{ position: "relative", width: "100%", aspectRatio: "3/4", overflow: "hidden", display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
+        {/* # badge top-left */}
+        <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, width: 26, height: 26, borderRadius: 8, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#86868b" }}>#</div>
+
+        {/* Selection checkbox top-right */}
         {onToggleSelect && (
           <button
             onClick={onToggleSelect}
             style={{
-              position: "absolute", top: 10, left: 10, zIndex: 10, width: 26, height: 26,
+              position: "absolute", top: 10, right: 10, zIndex: 10, width: 26, height: 26,
               borderRadius: 8, border: isSelected ? "none" : "2px solid rgba(255,255,255,0.9)",
-              background: isSelected ? "#1d1d1f" : "rgba(255,255,255,0.75)",
+              background: isSelected ? "#1d1d1f" : "rgba(255,255,255,0.6)",
               backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center",
-              cursor: "pointer", transition: "all .15s", boxShadow: "0 1px 4px rgba(0,0,0,.15)",
+              cursor: "pointer", transition: "all .15s",
             }}
           >
             {isSelected && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
           </button>
         )}
-        <div style={{ position: "absolute", top: 12, right: 12, zIndex: 2, width: 24, height: 24, borderRadius: 6, background: "rgba(255,255,255,0.85)", backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, color: "#86868b" }}>#</div>
+
+        {/* Vegan / Bio badges */}
         {(isVegan || isBio) && (
-          <div style={{ position: "absolute", top: 10, right: 10, zIndex: 2, display: "flex", gap: 4 }}>
-            {isVegan && <span style={{ padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 600, letterSpacing: ".4px", textTransform: "uppercase", background: "rgba(255,255,255,0.9)", color: "#1d1d1f" }}>Vegan</span>}
-            {isBio && <span style={{ padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 600, letterSpacing: ".4px", textTransform: "uppercase", background: "rgba(255,255,255,0.9)", color: "#1d1d1f" }}>Bio</span>}
+          <div style={{ position: "absolute", bottom: 90, right: 12, zIndex: 2, display: "flex", gap: 4, flexDirection: "column", alignItems: "flex-end" }}>
+            {isVegan && <span style={{ padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 600, letterSpacing: ".4px", textTransform: "uppercase", background: "rgba(255,255,255,0.85)", color: "#1d1d1f" }}>Vegan</span>}
+            {isBio && <span style={{ padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 600, letterSpacing: ".4px", textTransform: "uppercase", background: "rgba(255,255,255,0.85)", color: "#1d1d1f" }}>Bio</span>}
           </div>
         )}
+
         {img
-          ? <img src={img} alt={product.name} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .4s" }}
-              onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.04)")}
+          ? <img src={img} alt={product.name} loading="lazy"
+              style={{ width: "80%", height: "85%", objectFit: "contain", objectPosition: "bottom center", transition: "transform .4s" }}
+              onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
               onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
-          : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#d1d1d6" }}><Icons.box size={36} sw={1} /></div>
+          : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#b0bec5" }}><Icons.box size={40} sw={1} /></div>
         }
       </div>
-      <div style={{ padding: "16px", display: "flex", flexDirection: "column", flex: 1 }}>
-        <h3 style={{ fontSize: 11, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.4, marginBottom: 14, textTransform: "uppercase", letterSpacing: ".3px", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+
+      {/* Footer */}
+      <div style={{ padding: "14px 16px 16px", background: "rgba(255,255,255,0.45)", backdropFilter: "blur(4px)" }}>
+        <h3 style={{ fontSize: 11, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.4, marginBottom: 6, textTransform: "uppercase", letterSpacing: ".3px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
           {product.name}
         </h3>
-        {price && (
-          <div style={{ marginBottom: 14 }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", paddingBottom: 8, borderBottom: "1px solid #e5e5e7", marginBottom: 8 }}>
-              <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".8px", textTransform: "uppercase", color: "#1d1d1f" }}>Prix de vente conseillé</span>
-              <span style={{ fontSize: 8, fontWeight: 800, padding: "2px 6px", borderRadius: 4, background: "#1d1d1f", color: "#fff" }}>IA</span>
-            </div>
-            {[{ label: "Milieu de gamme", val: midRange }, { label: "Marché bio", val: bioPrix }, { label: "Marché luxe", val: luxury }].map((tier, i) => (
-              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: i < 2 ? 5 : 0 }}>
-                <span style={{ fontSize: 10, color: "#86868b", fontWeight: 500, display: "flex", alignItems: "center", gap: 6, textTransform: "uppercase", letterSpacing: ".2px" }}>
-                  <span style={{ fontSize: 8, color: "#d1d1d6" }}>○</span> {tier.label}
-                </span>
-                <span style={{ fontSize: 11, color: "#1d1d1f", fontWeight: 700 }}>{tier.val}€</span>
-              </div>
-            ))}
-          </div>
-        )}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "nowrap", gap: 6, marginTop: "auto", overflow: "hidden" }}>
-          {price && <span style={{ fontSize: 16, fontWeight: 700, color: "#1d1d1f", flexShrink: 0 }}>{Math.round(price)}€ <span style={{ fontSize: 10, fontWeight: 400, color: "#86868b" }}>HT</span></span>}
-          <div style={{ display: "flex", gap: 5, flexWrap: "nowrap", overflow: "hidden", justifyContent: "flex-end" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "nowrap", gap: 6, overflow: "hidden" }}>
+          {price && <span style={{ fontSize: 15, fontWeight: 700, color: "#1d1d1f", flexShrink: 0 }}>{Math.round(price)}€ <span style={{ fontSize: 9, fontWeight: 400, color: "#86868b" }}>HT</span></span>}
+          <div style={{ display: "flex", gap: 4, flexWrap: "nowrap", overflow: "hidden", justifyContent: "flex-end" }}>
             {displayCats.slice(0, 2).map((cat, i) => (
-              <span key={i} style={{ padding: "4px 10px", borderRadius: 20, fontSize: 8, fontWeight: 700, letterSpacing: ".4px", textTransform: "uppercase", background: "#1d1d1f", color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 110 }}>{cat}</span>
+              <span key={i} style={{ padding: "3px 9px", borderRadius: 20, fontSize: 8, fontWeight: 700, letterSpacing: ".4px", textTransform: "uppercase", background: "#1d1d1f", color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 100 }}>{cat}</span>
             ))}
           </div>
         </div>
@@ -359,11 +362,11 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
 // ─── Skeleton ─────────────────────────────────────────────
 function ProductSkeleton() {
   return (
-    <div style={{ borderRadius: 16, overflow: "hidden", background: "#fff" }}>
-      <div style={{ width: "100%", aspectRatio: "1", background: "#f5f5f7", animation: "pulse 1.5s infinite" }} />
-      <div style={{ padding: "14px" }}>
-        <div style={{ height: 10, width: "80%", background: "#f5f5f7", borderRadius: 4, marginBottom: 8 }} />
-        <div style={{ height: 8, width: "55%", background: "#f5f5f7", borderRadius: 4 }} />
+    <div style={{ borderRadius: 20, overflow: "hidden", background: "linear-gradient(160deg, #e8eef5 0%, #dce6f0 100%)" }}>
+      <div style={{ width: "100%", aspectRatio: "3/4", animation: "pulse 1.5s infinite" }} />
+      <div style={{ padding: "14px 16px", background: "rgba(255,255,255,0.45)" }}>
+        <div style={{ height: 10, width: "75%", background: "#c8d6e0", borderRadius: 4, marginBottom: 8, animation: "pulse 1.5s infinite" }} />
+        <div style={{ height: 8, width: "40%", background: "#c8d6e0", borderRadius: 4, animation: "pulse 1.5s infinite" }} />
       </div>
     </div>
   );
