@@ -204,7 +204,7 @@ function TabAvecSite() {
               99€<span style={{ fontSize: 13, fontWeight: 500, color: "#86868b" }}>/mois</span>
             </p>
             <p style={{ fontSize: 11, color: "#86868b", marginTop: 2 }}>
-              1er mois offert · Hébergement, livraisons, SEO, support & IA inclus
+              Hébergement, livraisons, SEO, support & IA inclus
             </p>
           </div>
 
