@@ -868,8 +868,6 @@ const CLIENTS = [
     tagline: "Marque bio & vegan lancée en 12 jours · Gamme soins visage, corps & rasage",
     tags: ["Bio & Vegan", "France", "12 jours"],
     accentColor: "#1d1d1f",
-    quote: "Grâce à Biolystes, j'ai lancé ma marque cosmétique bio en moins de deux semaines, sans stock, sans laboratoire.",
-    quoteAuthor: "Fondatrice de Kaniwa Botanique — Paris, France",
     photos: [kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7, kaniwa8, kaniwa9, kaniwa10, kaniwa11, kaniwa12, kaniwa14],
   },
   {
@@ -879,8 +877,6 @@ const CLIENTS = [
     tagline: "Gamme soins visage premium · Huile nettoyante lactée & démaquillant biphasique",
     tags: ["Soins visage", "Sans parfum", "Premium"],
     accentColor: "#6b21a8",
-    quote: "Biolystes m'a permis de créer une ligne de soins haut de gamme avec un packaging élégant, sans avoir à gérer la production.",
-    quoteAuthor: "Fondatrice de Fralène — France",
     photos: [fralene1, fralene2, fralene3, fralene4, fralene5, fralene6, fralene7, fralene8, fralene9, fralene10, fralene11, fralene12, fralene13, fralene14, fralene15],
   },
   {
@@ -890,8 +886,6 @@ const CLIENTS = [
     tagline: "Gamme solaire & soins visage · Protection SPF 30, crème hydratante Séverine & huile Jouvence",
     tags: ["Soins visage", "SPF 30", "Gamme complète"],
     accentColor: "#b5896b",
-    quote: "Biolystes a su créer une identité visuelle cohérente et des formules de qualité pour toute notre gamme.",
-    quoteAuthor: "Fondatrice de Sevmylook — France",
     photos: [sevmylook1, sevmylook2, sevmylook3, sevmylook4, sevmylook6, sevmylook7, sevmylook8, sevmylook9, sevmylook10],
   },
   {
@@ -901,8 +895,6 @@ const CLIENTS = [
     tagline: "Gamme soins capillaires pour cheveux bouclés · Shampoing, conditionneur & spray définissant",
     tags: ["Soins capillaires", "Bouclés", "Naturel"],
     accentColor: "#5c2d1e",
-    quote: "Biolystes a transformé mon concept en une gamme capillaire complète, avec un packaging qui correspond parfaitement à mon univers.",
-    quoteAuthor: "Fondatrice de Pmyrris Beauty — France",
     photos: [pmyrris1, pmyrris2, pmyrris3, pmyrris4, pmyrris5, pmyrris7, pmyrris8, pmyrris9, pmyrris10],
   },
 ];
@@ -963,9 +955,25 @@ function ClientShowcase() {
           {/* Header */}
           <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 20 }}>
             <div>
-              <h2 style={{ fontSize: 22, fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.4px" }}>
-                {client.name}
-              </h2>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
+                <h2 style={{ fontSize: 22, fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.4px", margin: 0 }}>
+                  {client.name}
+                </h2>
+                <a
+                  href={client.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    fontSize: 12, fontWeight: 700, color: "#fff",
+                    textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 5,
+                    padding: "5px 14px", borderRadius: 20,
+                    background: client.accentColor,
+                    flexShrink: 0,
+                  }}
+                >
+                  Voir le site ↗
+                </a>
+              </div>
               <p style={{ fontSize: 13, color: "#86868b", marginTop: 4, maxWidth: 420 }}>
                 {client.tagline}
               </p>
@@ -1012,35 +1020,6 @@ function ClientShowcase() {
             </div>
           </div>
 
-          {/* Quote */}
-          <div style={{ marginTop: 16, padding: "20px 24px", borderRadius: 16, background: "#fff", border: "1px solid #f0f0f0", display: "flex", alignItems: "center", gap: 20 }}>
-            <div style={{ width: 44, height: 44, borderRadius: "50%", background: client.accentColor, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 16, fontWeight: 700, flexShrink: 0 }}>
-              {client.name[0]}
-            </div>
-            <div style={{ flex: 1 }}>
-              <p style={{ fontSize: 14, color: "#1d1d1f", fontWeight: 500, lineHeight: 1.6, fontStyle: "italic", marginBottom: 6 }}>
-                "{client.quote}"
-              </p>
-              <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-                <p style={{ fontSize: 11, color: "#86868b" }}>{client.quoteAuthor}</p>
-                <a
-                  href={client.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  style={{
-                    fontSize: 11, fontWeight: 600, color: client.accentColor,
-                    textDecoration: "none", display: "flex", alignItems: "center", gap: 4,
-                    padding: "3px 10px", borderRadius: 12,
-                    border: `1px solid ${client.accentColor}40`,
-                    background: `${client.accentColor}08`,
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  Voir le site ↗
-                </a>
-              </div>
-            </div>
-          </div>
         </motion.div>
       </AnimatePresence>
     </motion.div>
