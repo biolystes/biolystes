@@ -184,7 +184,7 @@ interface ProductBlock {
 function ProductItem({ block }: { block: ProductBlock }) {
   return (
     <div className="space-y-3">
-      {/* Numbered title + description */}
+      {/* Badge numéroté + titre + description */}
       <div className="flex gap-3">
         <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-1">
           {block.numero || "•"}
@@ -195,13 +195,13 @@ function ProductItem({ block }: { block: ProductBlock }) {
         </div>
       </div>
 
-      {/* Indented mini-card */}
+      {/* Mini-card indentée : image + nom + description italique + lien */}
       <div className="ml-9 p-3 border rounded-lg flex items-start gap-3 bg-muted/50">
         {block.image && (
           <img
             src={block.image}
-            alt=""
-            className="w-16 h-16 object-cover rounded-md flex-shrink-0"
+            alt={block.titre}
+            className="w-16 h-16 object-contain rounded-md flex-shrink-0 bg-white"
             onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
           />
         )}
@@ -213,10 +213,10 @@ function ProductItem({ block }: { block: ProductBlock }) {
               href={block.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline mt-2"
+              className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-2"
             >
               Voir le produit
-              <svg fill="none" width="12" height="12" viewBox="0 0 12 12">
+              <svg fill="none" width="16" height="16" viewBox="0 0 12 12" style={{ minWidth: 16, minHeight: 16, display: "inline-block", verticalAlign: "middle", marginLeft: 4 }}>
                 <path fillRule="evenodd" clipRule="evenodd" d="M4.6318 2.6318C4.80754 2.45607 5.09246 2.45607 5.2682 2.6318L8.2682 5.6318C8.44393 5.80754 8.44393 6.09246 8.2682 6.2682L5.2682 9.2682C5.09246 9.44393 4.80754 9.44393 4.6318 9.2682C4.45607 9.09246 4.45607 8.80754 4.6318 8.6318L7.3136 5.95L4.6318 3.2682C4.45607 3.09246 4.45607 2.80754 4.6318 2.6318Z" fill="currentColor"/>
               </svg>
             </a>
@@ -227,22 +227,11 @@ function ProductItem({ block }: { block: ProductBlock }) {
   );
 }
 
-// Wrapper that groups multiple products into one card
+// Groupe les produits consécutifs sans wrapper card (design RoutineDisplay)
 function ProductGroupCard({ blocks }: { blocks: ProductBlock[] }) {
   return (
-    <div className="bg-card p-5 rounded-xl border shadow-sm space-y-5">
-      <div className="flex items-center gap-3 pb-3 border-b">
-        <div className="p-2 bg-muted rounded-lg" style={{ transform: "rotate(2deg)" }}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground">
-            <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
-            <path d="M9 18h6"/><path d="M10 22h4"/>
-          </svg>
-        </div>
-        <h3 className="text-sm font-semibold text-card-foreground">Produits conseillés pour votre lancement</h3>
-      </div>
-      <div className="space-y-5">
-        {blocks.map((b, i) => <ProductItem key={i} block={b} />)}
-      </div>
+    <div className="space-y-4">
+      {blocks.map((b, i) => <ProductItem key={i} block={b} />)}
     </div>
   );
 }
