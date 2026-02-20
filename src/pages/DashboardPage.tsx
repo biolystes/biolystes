@@ -25,6 +25,12 @@ import fralene6 from "@/assets/fralene-6.jpg";
 import fralene7 from "@/assets/fralene-7.jpg";
 import fralene8 from "@/assets/fralene-8.jpg";
 import fralene9 from "@/assets/fralene-9.jpg";
+import fralene10 from "@/assets/fralene-10.jpg";
+import fralene11 from "@/assets/fralene-11.jpg";
+import fralene12 from "@/assets/fralene-12.jpg";
+import fralene13 from "@/assets/fralene-13.jpg";
+import fralene14 from "@/assets/fralene-14.jpg";
+import fralene15 from "@/assets/fralene-15.jpg";
 
 // ─── WooCommerce config ───────────────────────────────────
 const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
@@ -932,11 +938,12 @@ function KaniwaSection() {
 // ─── Fralène showcase ─────────────────────────────────────
 const ALL_FRALENE = [
   fralene1, fralene2, fralene3, fralene4, fralene5,
-  fralene6, fralene7, fralene8, fralene9,
+  fralene6, fralene7, fralene8, fralene9, fralene10,
+  fralene11, fralene12, fralene13, fralene14, fralene15,
 ];
 
-const FRALENE_ROW_A = ALL_FRALENE.slice(0, 5);
-const FRALENE_ROW_B = ALL_FRALENE.slice(4, 9);
+const FRALENE_ROW_A = ALL_FRALENE.slice(0, 8);
+const FRALENE_ROW_B = ALL_FRALENE.slice(7, 15);
 
 function FraleneSection() {
   return (
