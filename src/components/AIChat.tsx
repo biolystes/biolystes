@@ -124,38 +124,175 @@ const PROMPTS = [
   { text: "Y a-t-il des frais supplémentaires ou un engagement minimum ?", icon: "→" },
 ];
 
+// ─── Product card block ───────────────────────────────────
+interface ProductBlock {
+  numero?: string;
+  titre: string;
+  description: string;
+  url?: string;
+}
+
+function ProductCard({ block }: { block: ProductBlock }) {
+  return (
+    <a
+      href={block.url || "https://biolystes.com"}
+      target="_blank"
+      rel="noopener noreferrer"
+      style={{
+        display: "flex", alignItems: "center", gap: 12,
+        padding: "10px 14px", borderRadius: 12,
+        border: "1px solid #e5e5e7", background: "#fafafa",
+        textDecoration: "none", color: "inherit",
+        transition: "background .15s",
+      }}
+      onMouseEnter={e => (e.currentTarget.style.background = "#f0f0f2")}
+      onMouseLeave={e => (e.currentTarget.style.background = "#fafafa")}
+    >
+      <div style={{
+        width: 36, height: 36, borderRadius: 8, background: "#1d1d1f",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        flexShrink: 0, fontSize: 13, color: "#fff", fontWeight: 700,
+      }}>
+        {block.numero || "✦"}
+      </div>
+      <div style={{ flex: 1, minWidth: 0 }}>
+        <p style={{ margin: 0, fontSize: 12, fontWeight: 600, color: "#1d1d1f" }}>{block.titre}</p>
+        <p style={{ margin: 0, fontSize: 11, color: "#86868b", lineHeight: 1.4, marginTop: 2 }}>{block.description}</p>
+      </div>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#c7c7cc" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+      </svg>
+    </a>
+  );
+}
+
+// ─── Market card block ─────────────────────────────────────
+interface MarketBlock {
+  titre: string;
+  analyse: string;
+  regions: string; // "France:85,Europe:70,..."
+}
+
+function MarketCard({ block }: { block: MarketBlock }) {
+  const regions = block.regions.split(",").map(r => {
+    const [name, score] = r.split(":");
+    return { name: name.trim(), score: parseInt(score?.trim() || "0", 10) };
+  }).filter(r => !isNaN(r.score));
+
+  return (
+    <div style={{
+      borderRadius: 12, border: "1px solid #e5e5e7",
+      background: "#fafafa", padding: "14px 16px", marginTop: 4,
+    }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
+        <span style={{ fontSize: 14 }}>📊</span>
+        <p style={{ margin: 0, fontSize: 12, fontWeight: 700, color: "#1d1d1f", letterSpacing: "0.5px" }}>
+          {block.titre}
+        </p>
+      </div>
+      <p style={{ margin: "0 0 12px 0", fontSize: 11, color: "#424245", lineHeight: 1.6 }}>{block.analyse}</p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+        {regions.map((r, i) => (
+          <div key={i}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 3 }}>
+              <span style={{ fontSize: 11, color: "#424245" }}>{r.name}</span>
+              <span style={{ fontSize: 11, fontWeight: 600, color: "#1d1d1f" }}>{r.score}/100</span>
+            </div>
+            <div style={{ height: 5, borderRadius: 3, background: "#e5e5e7" }}>
+              <div style={{
+                height: "100%", borderRadius: 3,
+                background: r.score >= 75 ? "#1d1d1f" : r.score >= 50 ? "#6e6e73" : "#c7c7cc",
+                width: `${r.score}%`, transition: "width 0.6s ease",
+              }} />
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Parse special blocks from AI content ─────────────────
+interface ParsedSegment {
+  type: "text" | "product" | "market";
+  content: string;
+  data?: ProductBlock | MarketBlock;
+}
+
+function parseSpecialBlocks(raw: string): ParsedSegment[] {
+  const segments: ParsedSegment[] = [];
+  const blockRegex = /:::(product|market)\n([\s\S]*?):::/g;
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+
+  while ((match = blockRegex.exec(raw)) !== null) {
+    if (match.index > lastIndex) {
+      segments.push({ type: "text", content: raw.slice(lastIndex, match.index) });
+    }
+    const kind = match[1] as "product" | "market";
+    const body = match[2];
+    const fields: Record<string, string> = {};
+    body.split("\n").forEach(line => {
+      const colonIdx = line.indexOf(":");
+      if (colonIdx === -1) return;
+      const key = line.slice(0, colonIdx).trim();
+      const val = line.slice(colonIdx + 1).trim();
+      if (key) fields[key] = val;
+    });
+    segments.push({ type: kind, content: match[0], data: fields as any });
+    lastIndex = match.index + match[0].length;
+  }
+
+  if (lastIndex < raw.length) {
+    segments.push({ type: "text", content: raw.slice(lastIndex) });
+  }
+
+  return segments.filter(s => s.type !== "text" || s.content.trim() !== "");
+}
+
 // ─── Render markdown-ish text ──────────────────────────────
 function MessageContent({ content }: { content: string }) {
-  // Simple rendering: bold, bullets, line breaks
-  const lines = content.split("\n");
+  const segments = parseSpecialBlocks(content);
+
   return (
-    <div className="text-sm leading-relaxed space-y-1">
-      {lines.map((line, i) => {
-        if (!line.trim()) return <br key={i} />;
-        // bullet
-        if (line.startsWith("- ") || line.startsWith("• ")) {
-          const text = line.replace(/^[-•]\s+/, "");
-          return (
-            <div key={i} className="flex gap-2">
-              <span className="text-muted-foreground mt-0.5">•</span>
-              <span dangerouslySetInnerHTML={{ __html: formatInline(text) }} />
-            </div>
-          );
+    <div className="text-sm leading-relaxed space-y-2">
+      {segments.map((seg, si) => {
+        if (seg.type === "product") {
+          return <ProductCard key={si} block={seg.data as ProductBlock} />;
         }
-        // numbered
-        if (/^\d+\.\s/.test(line)) {
-          const match = line.match(/^(\d+)\.\s+(.*)/);
-          if (match) return (
-            <div key={i} className="flex gap-2">
-              <span className="text-muted-foreground font-medium min-w-[1.2rem]">{match[1]}.</span>
-              <span dangerouslySetInnerHTML={{ __html: formatInline(match[2]) }} />
-            </div>
-          );
+        if (seg.type === "market") {
+          return <MarketCard key={si} block={seg.data as MarketBlock} />;
         }
-        // heading ##
-        if (line.startsWith("## ")) return <p key={i} className="font-semibold text-foreground mt-2" dangerouslySetInnerHTML={{ __html: formatInline(line.slice(3)) }} />;
-        if (line.startsWith("### ")) return <p key={i} className="font-medium text-foreground" dangerouslySetInnerHTML={{ __html: formatInline(line.slice(4)) }} />;
-        return <p key={i} dangerouslySetInnerHTML={{ __html: formatInline(line) }} />;
+        // plain text
+        const lines = seg.content.split("\n");
+        return (
+          <div key={si} className="space-y-1">
+            {lines.map((line, i) => {
+              if (!line.trim()) return <br key={i} />;
+              if (line.startsWith("- ") || line.startsWith("• ")) {
+                const text = line.replace(/^[-•]\s+/, "");
+                return (
+                  <div key={i} className="flex gap-2">
+                    <span className="text-muted-foreground mt-0.5">•</span>
+                    <span dangerouslySetInnerHTML={{ __html: formatInline(text) }} />
+                  </div>
+                );
+              }
+              if (/^\d+\.\s/.test(line)) {
+                const m = line.match(/^(\d+)\.\s+(.*)/);
+                if (m) return (
+                  <div key={i} className="flex gap-2">
+                    <span className="text-muted-foreground font-medium min-w-[1.2rem]">{m[1]}.</span>
+                    <span dangerouslySetInnerHTML={{ __html: formatInline(m[2]) }} />
+                  </div>
+                );
+              }
+              if (line.startsWith("## ")) return <p key={i} className="font-semibold text-foreground mt-2" dangerouslySetInnerHTML={{ __html: formatInline(line.slice(3)) }} />;
+              if (line.startsWith("### ")) return <p key={i} className="font-medium text-foreground" dangerouslySetInnerHTML={{ __html: formatInline(line.slice(4)) }} />;
+              return <p key={i} dangerouslySetInnerHTML={{ __html: formatInline(line) }} />;
+            })}
+          </div>
+        );
       })}
     </div>
   );
@@ -167,6 +304,7 @@ function formatInline(text: string): string {
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
     .replace(/`(.+?)`/g, "<code class='bg-muted px-1 rounded text-xs'>$1</code>");
 }
+
 
 // ─── Main AIChat component ────────────────────────────────
 export default function AIChat({
