@@ -27,7 +27,7 @@ function IconSidebar() {
       style={{
         width: "64px",
         background: "hsl(var(--sidebar-bg))",
-        borderRight: "1px solid hsl(var(--sidebar-border))",
+        
       }}
     >
       {/* Logo */}
