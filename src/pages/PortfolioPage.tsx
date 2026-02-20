@@ -80,6 +80,7 @@ export interface Brand {
   tagline: string;
   tags: string[];
   accentColor: string;
+  url: string;
   photos: string[];
 }
 
@@ -90,6 +91,7 @@ export const BRANDS: Brand[] = [
     tagline: "Marque bio & vegan · Gamme soins visage, corps & rasage · Lancée en 12 jours",
     tags: ["Bio & Vegan", "France", "12 jours"],
     accentColor: "#1d1d1f",
+    url: "https://kaniwabotanique.com/",
     photos: [
       kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7,
       kaniwa8, kaniwa9, kaniwa10, kaniwa11, kaniwa12, kaniwa14,
@@ -101,6 +103,7 @@ export const BRANDS: Brand[] = [
     tagline: "Gamme soins visage premium · Huile nettoyante lactée & démaquillant biphasique",
     tags: ["Soins visage", "Sans parfum", "Premium"],
     accentColor: "#6b21a8",
+    url: "https://fraleneparis.com/",
     photos: [
       fralene1, fralene2, fralene3, fralene4, fralene5,
       fralene6, fralene7, fralene8, fralene9, fralene10,
@@ -113,6 +116,7 @@ export const BRANDS: Brand[] = [
     tagline: "Gamme solaire & soins visage · Protection SPF 30, crème hydratante Séverine & huile Jouvence",
     tags: ["Soins visage", "SPF 30", "Gamme complète"],
     accentColor: "#b5896b",
+    url: "https://sevmylook.com/",
     photos: [
       sevmylook1, sevmylook2, sevmylook3, sevmylook4,
       sevmylook6, sevmylook7, sevmylook8, sevmylook9, sevmylook10,
@@ -126,6 +130,7 @@ export const BRANDS: Brand[] = [
     tagline: "Gamme soins capillaires · Shampoing lissant, conditionneur & spray définissant pour cheveux bouclés",
     tags: ["Soins capillaires", "Cheveux bouclés", "Naturel"],
     accentColor: "#5c2d1e",
+    url: "https://pmyrrisbeauty.fr/",
     photos: [
       pmyrris1, pmyrris2, pmyrris3, pmyrris4, pmyrris5,
       pmyrris7, pmyrris8, pmyrris9,
@@ -236,6 +241,23 @@ function BrandAlbum({ brand, index }: { brand: Brand; index: number }) {
               <h2 style={{ fontSize: 22, fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.3px" }}>
                 {brand.name}
               </h2>
+              <a
+                href={brand.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  fontSize: 11, fontWeight: 600, color: brand.accentColor,
+                  textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4,
+                  padding: "4px 12px", borderRadius: 20,
+                  border: `1px solid ${brand.accentColor}40`,
+                  transition: "background .15s",
+                  whiteSpace: "nowrap",
+                }}
+                onMouseEnter={e => (e.currentTarget.style.background = `${brand.accentColor}12`)}
+                onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+              >
+                Voir le site ↗
+              </a>
             </div>
             <p style={{ fontSize: 13, color: "#86868b", paddingLeft: 42 }}>{brand.tagline}</p>
           </div>
