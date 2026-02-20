@@ -375,7 +375,7 @@ export default function CatalogPage() {
       fetch(buildUrl("/products/tags", { per_page: "100", hide_empty: "true" })).then(r => r.json()),
       fetch(buildUrl("/products/attributes", { per_page: "50" })).then(r => r.json()),
     ]).then(([cats, tags, attrs]: [WCCategory[], WCTag[], WCAttribute[]]) => {
-      setAllCategories(cats.filter(c => c.slug !== "uncategorized" && c.count > 0).sort((a, b) => b.count - a.count));
+      setAllCategories(cats.filter(c => c.slug !== "uncategorized" && c.count > 0 && !/^\d+$/.test(c.name.trim()) && !["type", "types"].includes(c.name.toLowerCase().trim())).sort((a, b) => b.count - a.count));
       setAllTags(tags.filter(t => t.count > 0).sort((a, b) => b.count - a.count));
       setAttributes(attrs);
       Promise.all(
