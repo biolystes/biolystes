@@ -17,7 +17,44 @@ import kaniwa12 from "@/assets/kaniwa-12.jpg";
 
 import kaniwa14 from "@/assets/kaniwa-14.jpg";
 
-// ─── WooCommerce config ───────────────────────────────────
+// ─── Fralène imports ──────────────────────────────────────
+import fralene1 from "@/assets/fralene-1.jpg";
+import fralene2 from "@/assets/fralene-2.jpg";
+import fralene3 from "@/assets/fralene-3.jpg";
+import fralene4 from "@/assets/fralene-4.jpg";
+import fralene5 from "@/assets/fralene-5.jpg";
+import fralene6 from "@/assets/fralene-6.jpg";
+import fralene7 from "@/assets/fralene-7.jpg";
+import fralene8 from "@/assets/fralene-8.jpg";
+import fralene9 from "@/assets/fralene-9.jpg";
+import fralene10 from "@/assets/fralene-10.jpg";
+import fralene11 from "@/assets/fralene-11.jpg";
+import fralene12 from "@/assets/fralene-12.jpg";
+import fralene13 from "@/assets/fralene-13.jpg";
+import fralene14 from "@/assets/fralene-14.jpg";
+import fralene15 from "@/assets/fralene-15.jpg";
+
+// ─── Sevmylook imports ────────────────────────────────────
+import sevmylook1 from "@/assets/sevmylook-1.jpg";
+import sevmylook2 from "@/assets/sevmylook-2.jpg";
+import sevmylook3 from "@/assets/sevmylook-3.jpg";
+import sevmylook4 from "@/assets/sevmylook-4.jpg";
+import sevmylook6 from "@/assets/sevmylook-6.jpg";
+import sevmylook7 from "@/assets/sevmylook-7.jpg";
+import sevmylook8 from "@/assets/sevmylook-8.jpg";
+import sevmylook9 from "@/assets/sevmylook-9.jpg";
+import sevmylook10 from "@/assets/sevmylook-10.jpg";
+
+// ─── Pmyrris imports ──────────────────────────────────────
+import pmyrris1 from "@/assets/pmyrris-1.jpg";
+import pmyrris2 from "@/assets/pmyrris-2.jpg";
+import pmyrris3 from "@/assets/pmyrris-3.jpg";
+import pmyrris4 from "@/assets/pmyrris-4.jpg";
+import pmyrris5 from "@/assets/pmyrris-5.jpg";
+import pmyrris7 from "@/assets/pmyrris-7.jpg";
+import pmyrris8 from "@/assets/pmyrris-8.jpg";
+import pmyrris9 from "@/assets/pmyrris-9.jpg";
+import pmyrris10 from "@/assets/pmyrris-10.jpg";
 const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
 const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
 const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
@@ -704,12 +741,10 @@ export default function DashboardPage() {
         <AIChat onConversationStart={() => setChatStarted(true)} />
       </motion.div>
 
-      {/* ── Cas clients ──────────────────────────────────────── */}
+      {/* ── Cas clients (tabulations) ────────────────────────── */}
       <AnimatePresence>
         {!chatStarted && (
-          <>
-            <KaniwaSection />
-          </>
+          <ClientShowcase />
         )}
       </AnimatePresence>
 
@@ -822,17 +857,59 @@ export default function DashboardPage() {
   );
 }
 
-// ─── Kaniwa Botanique showcase ────────────────────────────
-const ALL_KANIWA = [
-  kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7,
-  kaniwa8, kaniwa9, kaniwa10, kaniwa11, kaniwa12, kaniwa14,
+
+
+// ─── Client data ──────────────────────────────────────────
+const CLIENTS = [
+  {
+    slug: "kaniwa",
+    name: "Kaniwa Botanique",
+    tagline: "Marque bio & vegan lancée en 12 jours · Gamme soins visage, corps & rasage",
+    tags: ["Bio & Vegan", "France", "12 jours"],
+    accentColor: "#1d1d1f",
+    quote: "Grâce à Biolystes, j'ai lancé ma marque cosmétique bio en moins de deux semaines, sans stock, sans laboratoire.",
+    quoteAuthor: "Fondatrice de Kaniwa Botanique — Paris, France",
+    photos: [kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7, kaniwa8, kaniwa9, kaniwa10, kaniwa11, kaniwa12, kaniwa14],
+  },
+  {
+    slug: "fralene",
+    name: "Fralène",
+    tagline: "Gamme soins visage premium · Huile nettoyante lactée & démaquillant biphasique",
+    tags: ["Soins visage", "Sans parfum", "Premium"],
+    accentColor: "#6b21a8",
+    quote: "Biolystes m'a permis de créer une ligne de soins haut de gamme avec un packaging élégant, sans avoir à gérer la production.",
+    quoteAuthor: "Fondatrice de Fralène — France",
+    photos: [fralene1, fralene2, fralene3, fralene4, fralene5, fralene6, fralene7, fralene8, fralene9, fralene10, fralene11, fralene12, fralene13, fralene14, fralene15],
+  },
+  {
+    slug: "sevmylook",
+    name: "Sevmylook",
+    tagline: "Gamme solaire & soins visage · Protection SPF 30, crème hydratante Séverine & huile Jouvence",
+    tags: ["Soins visage", "SPF 30", "Gamme complète"],
+    accentColor: "#b5896b",
+    quote: "Biolystes a su créer une identité visuelle cohérente et des formules de qualité pour toute notre gamme.",
+    quoteAuthor: "Fondatrice de Sevmylook — France",
+    photos: [sevmylook1, sevmylook2, sevmylook3, sevmylook4, sevmylook6, sevmylook7, sevmylook8, sevmylook9, sevmylook10],
+  },
+  {
+    slug: "pmyrris",
+    name: "Pmyrris Beauty",
+    tagline: "Gamme soins capillaires pour cheveux bouclés · Shampoing, conditionneur & spray définissant",
+    tags: ["Soins capillaires", "Bouclés", "Naturel"],
+    accentColor: "#5c2d1e",
+    quote: "Biolystes a transformé mon concept en une gamme capillaire complète, avec un packaging qui correspond parfaitement à mon univers.",
+    quoteAuthor: "Fondatrice de Pmyrris Beauty — France",
+    photos: [pmyrris1, pmyrris2, pmyrris3, pmyrris4, pmyrris5, pmyrris7, pmyrris8, pmyrris9, pmyrris10],
+  },
 ];
 
-// Two rows: first 7 left, last 7 right (opposite directions)
-const ROW_A = ALL_KANIWA.slice(0, 7);
-const ROW_B = ALL_KANIWA.slice(7, 14);
+// ─── Client Showcase (tabbed) ─────────────────────────────
+function ClientShowcase() {
+  const [activeTab, setActiveTab] = useState(0);
+  const client = CLIENTS[activeTab];
+  const rowA = client.photos.slice(0, Math.ceil(client.photos.length / 2));
+  const rowB = client.photos.slice(Math.floor(client.photos.length / 2));
 
-function KaniwaSection() {
   return (
     <motion.div
       initial={{ opacity: 0, y: 24 }}
@@ -841,77 +918,114 @@ function KaniwaSection() {
       transition={{ delay: 0.3, duration: 0.5 }}
       style={{ marginTop: 64 }}
     >
-      {/* Header */}
-      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 24 }}>
-        <div>
-          <span style={{ fontSize: 10, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>
-            Cas client
-          </span>
-          <h2 style={{ fontSize: 24, fontWeight: 700, color: "#1d1d1f", marginTop: 4, letterSpacing: "-0.4px" }}>
-            Kaniwa Botanique
-          </h2>
-          <p style={{ fontSize: 13, color: "#86868b", marginTop: 4, maxWidth: 420 }}>
-            Marque bio & vegan lancée en 12 jours · Gamme soins visage, corps & rasage
-          </p>
-        </div>
-        <div style={{ display: "flex", gap: 6 }}>
-          {["Bio & Vegan", "France", "12 jours"].map((tag, i) => (
-            <span key={i} style={{
-              padding: "5px 12px", borderRadius: 20, fontSize: 11, fontWeight: 600,
-              background: i === 0 ? "#1d1d1f" : "#f0f0f2",
-              color: i === 0 ? "#fff" : "#86868b",
-            }}>{tag}</span>
-          ))}
-        </div>
+      {/* Section label */}
+      <span style={{ fontSize: 10, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+        Cas clients
+      </span>
+
+      {/* Tabs */}
+      <div style={{ display: "flex", gap: 8, marginTop: 12, marginBottom: 24, flexWrap: "wrap" }}>
+        {CLIENTS.map((c, i) => (
+          <button
+            key={c.slug}
+            onClick={() => setActiveTab(i)}
+            style={{
+              padding: "8px 18px",
+              borderRadius: 24,
+              fontSize: 13,
+              fontWeight: 600,
+              border: "none",
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+              background: activeTab === i ? c.accentColor : "#f0f0f2",
+              color: activeTab === i ? "#fff" : "#86868b",
+              boxShadow: activeTab === i ? `0 2px 12px ${c.accentColor}40` : "none",
+            }}
+          >
+            {c.name}
+          </button>
+        ))}
       </div>
 
-      {/* Infinite carousel — 2 rows */}
-      <style>{`
-        @keyframes scrollLeft  { from { transform: translateX(0) } to { transform: translateX(-50%) } }
-        @keyframes scrollRight { from { transform: translateX(-50%) } to { transform: translateX(0) } }
-        .scroll-left  { animation: scrollLeft  40s linear infinite; }
-        .scroll-right { animation: scrollRight 40s linear infinite; }
-        .kaniwa-strip:hover .scroll-left,
-        .kaniwa-strip:hover .scroll-right { animation-play-state: paused; }
-      `}</style>
-
-      <div className="kaniwa-strip" style={{ display: "flex", flexDirection: "column", gap: 10, overflow: "hidden", borderRadius: 20 }}>
-        {/* Row A — scroll left */}
-        <div style={{ overflow: "hidden" }}>
-          <div className="scroll-left" style={{ display: "flex", gap: 10, width: "max-content" }}>
-            {[...ROW_A, ...ROW_A].map((src, i) => (
-              <div key={i} style={{ width: 220, height: 160, borderRadius: 14, overflow: "hidden", flexShrink: 0 }}>
-                <img src={src} alt="Kaniwa" loading="lazy"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              </div>
-            ))}
+      {/* Active client content */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={client.slug}
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.25 }}
+        >
+          {/* Header */}
+          <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 20 }}>
+            <div>
+              <h2 style={{ fontSize: 22, fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.4px" }}>
+                {client.name}
+              </h2>
+              <p style={{ fontSize: 13, color: "#86868b", marginTop: 4, maxWidth: 420 }}>
+                {client.tagline}
+              </p>
+            </div>
+            <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
+              {client.tags.map((tag, i) => (
+                <span key={i} style={{
+                  padding: "5px 12px", borderRadius: 20, fontSize: 11, fontWeight: 600,
+                  background: i === 0 ? client.accentColor : "#f0f0f2",
+                  color: i === 0 ? "#fff" : "#86868b",
+                }}>{tag}</span>
+              ))}
+            </div>
           </div>
-        </div>
 
-        {/* Row B — scroll right */}
-        <div style={{ overflow: "hidden" }}>
-          <div className="scroll-right" style={{ display: "flex", gap: 10, width: "max-content" }}>
-            {[...ROW_B, ...ROW_B].map((src, i) => (
-              <div key={i} style={{ width: 220, height: 160, borderRadius: 14, overflow: "hidden", flexShrink: 0 }}>
-                <img src={src} alt="Kaniwa" loading="lazy"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          {/* Carousel */}
+          <style>{`
+            @keyframes scrollL { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+            @keyframes scrollR { from { transform: translateX(-50%) } to { transform: translateX(0) } }
+            .anim-l { animation: scrollL 40s linear infinite; }
+            .anim-r { animation: scrollR 40s linear infinite; }
+            .client-strip:hover .anim-l,
+            .client-strip:hover .anim-r { animation-play-state: paused; }
+          `}</style>
+
+          <div className="client-strip" style={{ display: "flex", flexDirection: "column", gap: 10, overflow: "hidden", borderRadius: 20 }}>
+            <div style={{ overflow: "hidden" }}>
+              <div className="anim-l" style={{ display: "flex", gap: 10, width: "max-content" }}>
+                {[...rowA, ...rowA].map((src, i) => (
+                  <div key={i} style={{ width: 220, height: 160, borderRadius: 14, overflow: "hidden", flexShrink: 0 }}>
+                    <img src={src} alt={client.name} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+            <div style={{ overflow: "hidden" }}>
+              <div className="anim-r" style={{ display: "flex", gap: 10, width: "max-content" }}>
+                {[...rowB, ...rowB].map((src, i) => (
+                  <div key={i} style={{ width: 220, height: 160, borderRadius: 14, overflow: "hidden", flexShrink: 0 }}>
+                    <img src={src} alt={client.name} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      {/* Citation */}
-      <div style={{ marginTop: 16, padding: "20px 24px", borderRadius: 16, background: "#fff", border: "1px solid #f0f0f0", display: "flex", alignItems: "center", gap: 20 }}>
-        <div style={{ width: 44, height: 44, borderRadius: "50%", background: "#1d1d1f", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 16, fontWeight: 700, flexShrink: 0 }}>K</div>
-        <div style={{ flex: 1 }}>
-          <p style={{ fontSize: 14, color: "#1d1d1f", fontWeight: 500, lineHeight: 1.6, fontStyle: "italic", marginBottom: 6 }}>
-            "Grâce à Biolystes, j'ai lancé ma marque cosmétique bio en moins de deux semaines, sans stock, sans laboratoire."
-          </p>
-          <p style={{ fontSize: 11, color: "#86868b" }}>Fondatrice de Kaniwa Botanique — Paris, France</p>
-        </div>
-      </div>
+          {/* Quote */}
+          <div style={{ marginTop: 16, padding: "20px 24px", borderRadius: 16, background: "#fff", border: "1px solid #f0f0f0", display: "flex", alignItems: "center", gap: 20 }}>
+            <div style={{ width: 44, height: 44, borderRadius: "50%", background: client.accentColor, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 16, fontWeight: 700, flexShrink: 0 }}>
+              {client.name[0]}
+            </div>
+            <div style={{ flex: 1 }}>
+              <p style={{ fontSize: 14, color: "#1d1d1f", fontWeight: 500, lineHeight: 1.6, fontStyle: "italic", marginBottom: 6 }}>
+                "{client.quote}"
+              </p>
+              <p style={{ fontSize: 11, color: "#86868b" }}>{client.quoteAuthor}</p>
+            </div>
+          </div>
+        </motion.div>
+      </AnimatePresence>
     </motion.div>
   );
 }
 
+function KaniwaSection() {
+  return null;
+}
