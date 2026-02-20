@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Mic, Send, Minimize2, Maximize2,
+  Send, Minimize2, Maximize2,
   Bot, User, AlertCircle
 } from "lucide-react";
 import { toast } from "sonner";
@@ -584,8 +584,6 @@ export default function AIChat({
           borderRadius: 16, background: "#ffffff",
           padding: "10px 16px",
         }}>
-          
-          <Mic size={15} color="#c7c7cc" style={{ flexShrink: 0 }} />
           <input
             value={input}
             onChange={e => { setInput(e.target.value); onInputChange?.(e.target.value); }}
