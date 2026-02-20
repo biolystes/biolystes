@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, LayoutGrid, Settings, Menu, X } from "lucide-react";
+import { Sparkles, LayoutGrid, Settings, Menu, X, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
   { path: "/", icon: Sparkles, label: "Configurateur" },
@@ -15,20 +16,21 @@ const bottomItems = [
 
 function IconSidebar() {
   const location = useLocation();
+  const { profile, signOut } = useAuth();
 
   const isActive = (path: string) => {
     if (path === "/") return location.pathname === "/";
     return location.pathname.startsWith(path);
   };
 
+  const initials = profile
+    ? `${profile.first_name?.[0] ?? ""}${profile.last_name?.[0] ?? ""}`.toUpperCase() || "?"
+    : "?";
+
   return (
     <aside
       className="hidden md:flex flex-col items-center fixed inset-y-0 left-0 z-30 py-5 gap-2"
-      style={{
-        width: "64px",
-        background: "hsl(var(--sidebar-bg))",
-        
-      }}
+      style={{ width: "64px", background: "hsl(var(--sidebar-bg))" }}
     >
       {/* Logo */}
       <Link to="/" className="mb-6">
@@ -50,7 +52,7 @@ function IconSidebar() {
         ))}
       </div>
 
-      {/* Bas : réglages + avatar */}
+      {/* Bas : réglages + déconnexion + avatar */}
       <div className="flex flex-col items-center gap-3 mt-auto">
         {bottomItems.map((item) => (
           <Link key={item.path} to={item.path} title={item.label}>
@@ -59,8 +61,18 @@ function IconSidebar() {
             </div>
           </Link>
         ))}
-        <div className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center text-background text-xs font-bold cursor-pointer">
-          JP
+        <button
+          onClick={signOut}
+          title="Se déconnecter"
+          className="sidebar-icon-btn"
+        >
+          <LogOut size={16} strokeWidth={1.5} />
+        </button>
+        <div
+          className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center text-background text-xs font-bold cursor-pointer"
+          title={profile ? `${profile.first_name} ${profile.last_name}` : ""}
+        >
+          {initials}
         </div>
       </div>
     </aside>
@@ -70,6 +82,7 @@ function IconSidebar() {
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
+  const { signOut } = useAuth();
 
   const isActive = (path: string) => {
     if (path === "/") return location.pathname === "/";
@@ -78,7 +91,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen bg-background">
-      {/* Sidebar desktop */}
       <IconSidebar />
 
       {/* Overlay mobile */}
@@ -97,7 +109,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               animate={{ x: 0 }}
               exit={{ x: -220 }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-y-0 left-0 w-56 bg-card border-r border-border z-50 md:hidden flex flex-col p-4"
+              className="fixed inset-y-0 left-0 w-56 bg-card z-50 md:hidden flex flex-col p-4"
             >
               <div className="flex items-center gap-2 mb-6">
                 <img
@@ -119,6 +131,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     {item.label}
                   </Link>
                 ))}
+                <button
+                  onClick={signOut}
+                  className="nav-item w-full text-left"
+                  style={{ display: "flex", alignItems: "center", gap: 12 }}
+                >
+                  <LogOut size={16} strokeWidth={1.5} />
+                  Se déconnecter
+                </button>
               </nav>
             </motion.aside>
           </>
@@ -128,7 +148,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       {/* Contenu principal */}
       <div className="flex-1 md:ml-16">
         {/* Header mobile */}
-        <header className="md:hidden bg-card border-b border-border px-4 py-3 flex items-center justify-between sticky top-0 z-20">
+        <header className="md:hidden bg-card px-4 py-3 flex items-center justify-between sticky top-0 z-20">
           <div className="flex items-center gap-2">
             <img
               src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
@@ -151,4 +171,3 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-

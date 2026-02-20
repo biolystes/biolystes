@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import AIChat from "@/components/AIChat";
+import { useAuth } from "@/contexts/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 // ─── WooCommerce config ───────────────────────────────────
@@ -535,6 +536,7 @@ function parseTag(tagName: string): { displayName: string; group: string | null 
 
 // ─── Main Dashboard (Configurateur IA) ──────────────────
 export default function DashboardPage() {
+  const { profile } = useAuth();
   const [chatStarted, setChatStarted] = useState(false);
 
   // Catalogue state (affiché tant qu'on n'a pas démarré le chat)
@@ -668,7 +670,9 @@ export default function DashboardPage() {
 
       {/* Hero */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: 32 }}>
-        <p style={{ fontSize: 14, fontWeight: 500, color: "#86868b", marginBottom: 4 }}>Bonjour, Jean Pierre</p>
+        <p style={{ fontSize: 14, fontWeight: 500, color: "#86868b", marginBottom: 4 }}>
+          {profile?.first_name ? `Bonjour, ${profile.first_name}` : "Bonjour"}
+        </p>
         <h1 style={{ fontSize: 36, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.1, letterSpacing: "-.5px" }}>
           Lancez votre marque<br />
           <span style={{ color: "#d1d1d6" }}>cosmétique bio.</span>
