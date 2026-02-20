@@ -2,6 +2,10 @@ import { useState, useEffect } from "react";
 import AIChat from "@/components/AIChat";
 import { useAuth } from "@/contexts/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
+import kaniwa1 from "@/assets/kaniwa-1.jpg";
+import kaniwa2 from "@/assets/kaniwa-2.jpg";
+import kaniwa3 from "@/assets/kaniwa-3.jpg";
+import kaniwa4 from "@/assets/kaniwa-4.jpg";
 
 // ─── WooCommerce config ───────────────────────────────────
 const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
@@ -794,6 +798,89 @@ export default function DashboardPage() {
 
       <AnimatePresence>
         {selectedProduct && <ProductPanel product={selectedProduct} onClose={() => setSelectedProduct(null)} />}
+      </AnimatePresence>
+
+      {/* ── Cas client : Kaniwa Botanique ────────────────────── */}
+      <AnimatePresence>
+        {!chatStarted && (
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            style={{ marginTop: 64 }}
+          >
+            {/* Label */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
+              <div>
+                <span style={{ fontSize: 10, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+                  Cas client
+                </span>
+                <h2 style={{ fontSize: 22, fontWeight: 700, color: "#1d1d1f", marginTop: 4, letterSpacing: "-0.3px" }}>
+                  Kaniwa Botanique
+                </h2>
+                <p style={{ fontSize: 13, color: "#86868b", marginTop: 4 }}>
+                  Marque bio &amp; vegan lancée en 12 jours avec Biolystes — gamme soins visage &amp; corps
+                </p>
+              </div>
+              <div style={{ display: "flex", gap: 6 }}>
+                {["Bio &amp; Vegan", "France", "12 jours"].map((tag, i) => (
+                  <span key={i} style={{
+                    padding: "5px 12px", borderRadius: 20, fontSize: 11, fontWeight: 600,
+                    background: i === 0 ? "#1d1d1f" : "#f0f0f0",
+                    color: i === 0 ? "#fff" : "#86868b",
+                    letterSpacing: ".2px",
+                  }}>{tag}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* Grille photos */}
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gridTemplateRows: "auto", gap: 10 }}>
+              {/* Grande photo à gauche */}
+              <div style={{ gridColumn: "1 / 3", gridRow: "1 / 2", borderRadius: 20, overflow: "hidden", aspectRatio: "4/3" }}>
+                <img src={kaniwa3} alt="Kaniwa Botanique crème corps" loading="lazy"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .5s" }}
+                  onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.03)")}
+                  onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+              </div>
+              {/* Colonne droite : 2 petites */}
+              <div style={{ gridColumn: "3 / 4", borderRadius: 20, overflow: "hidden", aspectRatio: "4/3" }}>
+                <img src={kaniwa1} alt="Kaniwa Botanique flacon" loading="lazy"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .5s" }}
+                  onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.03)")}
+                  onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+              </div>
+              <div style={{ gridColumn: "4 / 5", borderRadius: 20, overflow: "hidden", aspectRatio: "4/3" }}>
+                <img src={kaniwa2} alt="Kaniwa Botanique huile barbe" loading="lazy"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .5s" }}
+                  onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.03)")}
+                  onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+              </div>
+              {/* Photo pleine largeur bas */}
+              <div style={{ gridColumn: "1 / 5", borderRadius: 20, overflow: "hidden", height: 260 }}>
+                <img src={kaniwa4} alt="Kaniwa Botanique lifestyle" loading="lazy"
+                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 35%", transition: "transform .5s" }}
+                  onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.02)")}
+                  onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+              </div>
+            </div>
+
+            {/* Citation */}
+            <div style={{ marginTop: 20, padding: "20px 24px", borderRadius: 16, background: "#fff", border: "1px solid #f0f0f0" }}>
+              <p style={{ fontSize: 15, color: "#1d1d1f", fontWeight: 500, lineHeight: 1.6, fontStyle: "italic" }}>
+                "Grâce à Biolystes, j'ai lancé ma marque cosmétique bio en moins de deux semaines, sans stock, sans laboratoire. Le résultat final a dépassé mes attentes."
+              </p>
+              <div style={{ marginTop: 12, display: "flex", alignItems: "center", gap: 10 }}>
+                <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#1d1d1f", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 13, fontWeight: 700 }}>K</div>
+                <div>
+                  <p style={{ fontSize: 13, fontWeight: 700, color: "#1d1d1f" }}>Kaniwa Botanique</p>
+                  <p style={{ fontSize: 11, color: "#86868b" }}>Fondatrice — Paris, France</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        )}
       </AnimatePresence>
     </>
   );
