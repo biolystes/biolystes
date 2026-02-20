@@ -53,6 +53,8 @@ import sevmylook14 from "@/assets/sevmylook-14.jpg";
 import sevmylook15 from "@/assets/sevmylook-15.jpg";
 import sevmylook16 from "@/assets/sevmylook-16.jpg";
 import sevmylook17 from "@/assets/sevmylook-17.jpg";
+import sevmylook18 from "@/assets/sevmylook-18.jpg";
+import sevmylook19 from "@/assets/sevmylook-19.jpg";
 
 // ─── Pmyrris Beauty ───────────────────────────────────────
 import pmyrris1 from "@/assets/pmyrris-1.jpg";
@@ -115,7 +117,7 @@ export const BRANDS: Brand[] = [
       sevmylook1, sevmylook2, sevmylook3, sevmylook4,
       sevmylook6, sevmylook7, sevmylook8, sevmylook9, sevmylook10,
       sevmylook11, sevmylook12, sevmylook13, sevmylook14, sevmylook15,
-      sevmylook16, sevmylook17,
+      sevmylook16, sevmylook17, sevmylook18, sevmylook19,
     ],
   },
   {
