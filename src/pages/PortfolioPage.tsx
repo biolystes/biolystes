@@ -54,6 +54,17 @@ import sevmylook15 from "@/assets/sevmylook-15.jpg";
 import sevmylook16 from "@/assets/sevmylook-16.jpg";
 import sevmylook17 from "@/assets/sevmylook-17.jpg";
 
+// ─── Pmyrris Beauty ───────────────────────────────────────
+import pmyrris1 from "@/assets/pmyrris-1.jpg";
+import pmyrris2 from "@/assets/pmyrris-2.jpg";
+import pmyrris3 from "@/assets/pmyrris-3.jpg";
+import pmyrris4 from "@/assets/pmyrris-4.jpg";
+import pmyrris5 from "@/assets/pmyrris-5.jpg";
+import pmyrris6 from "@/assets/pmyrris-6.jpg";
+import pmyrris7 from "@/assets/pmyrris-7.jpg";
+import pmyrris8 from "@/assets/pmyrris-8.jpg";
+import pmyrris9 from "@/assets/pmyrris-9.jpg";
+
 // ─── Data ─────────────────────────────────────────────────
 export interface Brand {
   slug: string;
@@ -99,6 +110,17 @@ export const BRANDS: Brand[] = [
       sevmylook6, sevmylook7, sevmylook8, sevmylook9, sevmylook10,
       sevmylook11, sevmylook12, sevmylook13, sevmylook14, sevmylook15,
       sevmylook16, sevmylook17,
+    ],
+  },
+  {
+    slug: "pmyrris",
+    name: "Pmyrris Beauty",
+    tagline: "Gamme soins capillaires · Shampoing lissant, conditionneur & spray définissant pour cheveux bouclés",
+    tags: ["Soins capillaires", "Cheveux bouclés", "Naturel"],
+    accentColor: "#5c2d1e",
+    photos: [
+      pmyrris1, pmyrris2, pmyrris3, pmyrris4, pmyrris5,
+      pmyrris6, pmyrris7, pmyrris8, pmyrris9,
     ],
   },
 ];
