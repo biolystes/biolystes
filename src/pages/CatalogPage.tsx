@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
+import { toast } from "sonner";
 
 // ─── WooCommerce config ───────────────────────────────────
 const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
@@ -275,7 +278,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
 }
 
 // ─── Product Card ─────────────────────────────────────────
-function ProductCard({ product, onSelect, vatEnabled = false }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean }) {
+function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void }) {
   const img = product.images?.[0]?.src;
   const tags = product.tags?.map(t => t.name) || [];
   const cats = product.categories?.map(c => c.name) || [];
@@ -289,9 +292,24 @@ function ProductCard({ product, onSelect, vatEnabled = false }: { product: WCPro
 
   return (
     <motion.div whileHover={{ y: -2 }} transition={{ duration: 0.15 }} onClick={onSelect}
-      style={{ display: "flex", flexDirection: "column", cursor: "pointer", background: "#fff", borderRadius: 16, overflow: "hidden" }}>
+      style={{ display: "flex", flexDirection: "column", cursor: "pointer", background: "#fff", borderRadius: 16, overflow: "hidden", outline: isSelected ? "2.5px solid #1d1d1f" : "2.5px solid transparent", transition: "outline .15s" }}>
       <div style={{ position: "relative", width: "100%", aspectRatio: "3/4", background: "#f5f5f7", overflow: "hidden" }}>
-        <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, width: 24, height: 24, borderRadius: 6, background: "rgba(255,255,255,0.85)", backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, color: "#86868b" }}>#</div>
+        {/* Selection checkbox */}
+        {onToggleSelect && (
+          <button
+            onClick={onToggleSelect}
+            style={{
+              position: "absolute", top: 10, left: 10, zIndex: 10, width: 26, height: 26,
+              borderRadius: 8, border: isSelected ? "none" : "2px solid rgba(255,255,255,0.9)",
+              background: isSelected ? "#1d1d1f" : "rgba(255,255,255,0.75)",
+              backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center",
+              cursor: "pointer", transition: "all .15s", boxShadow: "0 1px 4px rgba(0,0,0,.15)",
+            }}
+          >
+            {isSelected && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
+          </button>
+        )}
+        <div style={{ position: "absolute", top: 12, right: 12, zIndex: 2, width: 24, height: 24, borderRadius: 6, background: "rgba(255,255,255,0.85)", backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, color: "#86868b" }}>#</div>
         {(isVegan || isBio) && (
           <div style={{ position: "absolute", top: 10, right: 10, zIndex: 2, display: "flex", gap: 4 }}>
             {isVegan && <span style={{ padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 600, letterSpacing: ".4px", textTransform: "uppercase", background: "rgba(255,255,255,0.9)", color: "#1d1d1f" }}>Vegan</span>}
@@ -368,6 +386,11 @@ export default function CatalogPage() {
   const [vatEnabled, setVatEnabled] = useState(false);
   const [sortBy, setSortBy] = useState<"date" | "price-asc" | "price-desc">("date");
   const [sortOpen, setSortOpen] = useState(false);
+  // ─── Multi-selection for sharing ──────────────────────────
+  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
+  const [selectionMode, setSelectionMode] = useState(false);
+  const [sharing, setSharing] = useState(false);
+  const { user } = useAuth();
 
   useEffect(() => {
     Promise.all([
@@ -435,6 +458,56 @@ export default function CatalogPage() {
     }
     return true;
   });
+
+  const toggleSelect = (productId: number, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(productId)) next.delete(productId);
+      else next.add(productId);
+      return next;
+    });
+    if (!selectionMode) setSelectionMode(true);
+  };
+
+  const shareSelection = async () => {
+    const selectedProducts = products
+      .filter(p => selectedIds.has(p.id))
+      .map(p => ({
+        id: p.id,
+        name: p.name,
+        price: p.price,
+        image: p.images?.[0]?.src || "",
+        permalink: p.permalink,
+        categories: p.categories.map(c => c.name),
+      }));
+
+    if (selectedProducts.length === 0) return;
+    setSharing(true);
+
+    try {
+      const userId = user?.id;
+      const { data, error } = await supabase
+        .from("product_selections")
+        .insert({
+          user_id: userId || "00000000-0000-0000-0000-000000000000",
+          title: `Sélection Biolystes — ${selectedProducts.length} produit${selectedProducts.length > 1 ? "s" : ""}`,
+          products: selectedProducts as any,
+        })
+        .select("id")
+        .single();
+
+      if (error || !data) throw error;
+
+      const shareUrl = `${window.location.origin}/selection/${data.id}`;
+      await navigator.clipboard.writeText(shareUrl);
+      toast.success("Lien copié !", { description: "Partagez ce lien pour présenter votre sélection." });
+    } catch (err) {
+      toast.error("Erreur lors de la création du lien.");
+    } finally {
+      setSharing(false);
+    }
+  };
 
   const products = [...filteredProducts].sort((a, b) => {
     if (sortBy === "price-asc") return (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0);
@@ -574,7 +647,14 @@ export default function CatalogPage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
             style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
             {products.map(p => (
-              <ProductCard key={p.id} product={p} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} />
+              <ProductCard
+                key={p.id}
+                product={p}
+                onSelect={() => setSelectedProduct(p)}
+                vatEnabled={vatEnabled}
+                isSelected={selectedIds.has(p.id)}
+                onToggleSelect={(e) => toggleSelect(p.id, e)}
+              />
             ))}
           </motion.div>
         )}
@@ -590,6 +670,60 @@ export default function CatalogPage() {
       <AnimatePresence>
         {selectedProduct && <ProductPanel product={selectedProduct} onClose={() => setSelectedProduct(null)} />}
       </AnimatePresence>
+
+      <AnimatePresence>
+        {selectedIds.size > 0 && (
+          <motion.div
+            initial={{ y: 80, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 80, opacity: 0 }}
+            transition={{ type: "spring", damping: 28, stiffness: 300 }}
+            style={{
+              position: "fixed", bottom: 28, left: "50%", transform: "translateX(-50%)",
+              zIndex: 200, display: "flex", alignItems: "center", gap: 12,
+              background: "#1d1d1f", borderRadius: 20, padding: "12px 16px 12px 20px",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.28)", whiteSpace: "nowrap",
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ width: 26, height: 26, borderRadius: "50%", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: "#1d1d1f" }}>
+                {selectedIds.size}
+              </span>
+              <span style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.85)" }}>
+                produit{selectedIds.size > 1 ? "s" : ""} sélectionné{selectedIds.size > 1 ? "s" : ""}
+              </span>
+            </div>
+            <button
+              onClick={() => setSelectedIds(new Set())}
+              style={{ background: "rgba(255,255,255,0.12)", border: "none", borderRadius: 10, padding: "6px 12px", color: "rgba(255,255,255,0.7)", fontSize: 12, cursor: "pointer" }}
+            >
+              Effacer
+            </button>
+            <button
+              onClick={shareSelection}
+              disabled={sharing}
+              style={{
+                display: "flex", alignItems: "center", gap: 7,
+                background: "#fff", border: "none", borderRadius: 12,
+                padding: "8px 16px", fontSize: 13, fontWeight: 700,
+                color: "#1d1d1f", cursor: sharing ? "default" : "pointer",
+                opacity: sharing ? 0.7 : 1, transition: "opacity .15s",
+              }}
+            >
+              {sharing ? (
+                <svg style={{ animation: "spin .8s linear infinite" }} width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+              ) : (
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+                </svg>
+              )}
+              {sharing ? "Création…" : "Partager la sélection"}
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
+
