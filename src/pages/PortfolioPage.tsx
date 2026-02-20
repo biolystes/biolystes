@@ -40,7 +40,7 @@ import sevmylook1 from "@/assets/sevmylook-1.jpg";
 import sevmylook2 from "@/assets/sevmylook-2.jpg";
 import sevmylook3 from "@/assets/sevmylook-3.jpg";
 import sevmylook4 from "@/assets/sevmylook-4.jpg";
-import sevmylook5 from "@/assets/sevmylook-5.jpg";
+
 import sevmylook6 from "@/assets/sevmylook-6.jpg";
 import sevmylook7 from "@/assets/sevmylook-7.jpg";
 import sevmylook8 from "@/assets/sevmylook-8.jpg";
@@ -112,7 +112,7 @@ export const BRANDS: Brand[] = [
     tags: ["Soins visage", "SPF 30", "Gamme complète"],
     accentColor: "#b5896b",
     photos: [
-      sevmylook1, sevmylook2, sevmylook3, sevmylook4, sevmylook5,
+      sevmylook1, sevmylook2, sevmylook3, sevmylook4,
       sevmylook6, sevmylook7, sevmylook8, sevmylook9, sevmylook10,
       sevmylook11, sevmylook12, sevmylook13, sevmylook14, sevmylook15,
       sevmylook16, sevmylook17,
