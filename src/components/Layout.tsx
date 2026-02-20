@@ -81,6 +81,49 @@ function IconSidebar() {
   );
 }
 
+const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
+
+function TopBar() {
+  return (
+    <div style={{
+      position: "fixed", top: 0, left: 64, right: 0, zIndex: 25,
+      display: "flex", justifyContent: "flex-end", alignItems: "center",
+      padding: "10px 28px",
+      pointerEvents: "none",
+    }} className="hidden md:flex">
+      <a
+        href={RDV_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          pointerEvents: "all",
+          fontSize: 11, fontWeight: 700, letterSpacing: "1.2px",
+          textTransform: "uppercase", textDecoration: "none",
+          color: "#1d1d1f", border: "1.5px solid #1d1d1f",
+          padding: "7px 18px", borderRadius: 20,
+          background: "rgba(245,245,247,0.85)",
+          backdropFilter: "blur(8px)",
+          transition: "all .15s",
+          display: "flex", alignItems: "center", gap: 7,
+        }}
+        onMouseEnter={e => {
+          (e.currentTarget as HTMLElement).style.background = "#1d1d1f";
+          (e.currentTarget as HTMLElement).style.color = "#fff";
+        }}
+        onMouseLeave={e => {
+          (e.currentTarget as HTMLElement).style.background = "rgba(245,245,247,0.85)";
+          (e.currentTarget as HTMLElement).style.color = "#1d1d1f";
+        }}
+      >
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        Prendre rendez-vous
+      </a>
+    </div>
+  );
+}
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
@@ -94,6 +137,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex min-h-screen bg-background">
       <IconSidebar />
+      <TopBar />
 
       {/* Overlay mobile */}
       <AnimatePresence>
