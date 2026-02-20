@@ -11,64 +11,76 @@ const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
 const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
 const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
 
-// Cache slug → image URL pour éviter les refetch
-const imageCache: Record<string, string> = {};
-// Cache name → image URL (fallback par recherche textuelle)
-const imageCacheByName: Record<string, string> = {};
+// Map normalisé : nom_sans_accents → image URL (chargé une seule fois)
+const wcProductImageMap: Record<string, string> = {};
+let wcCatalogLoaded = false;
+let wcCatalogLoading: Promise<void> | null = null;
 
-async function fetchWcImages(slugs: string[], names: string[]): Promise<void> {
-  const missingSlugs = (slugs || []).filter(s => s && !(s in imageCache));
-  const missingNames = (names || []).filter(n => n && !(n in imageCacheByName));
-
-  // Fetch par slug en batch
-  if (missingSlugs.length > 0) {
-    try {
-      const url = new URL(`${WC_BASE}/products`);
-      url.searchParams.set("consumer_key", CK);
-      url.searchParams.set("consumer_secret", CS);
-      url.searchParams.set("slug", missingSlugs.join(","));
-      url.searchParams.set("per_page", "50");
-      url.searchParams.set("_fields", "slug,name,images");
-
-      const res = await fetch(url.toString());
-      if (res.ok) {
-        const products: { slug: string; name: string; images: { src: string }[] }[] = await res.json();
-        products.forEach(p => {
-          if (p.images?.[0]?.src) {
-            imageCache[p.slug] = p.images[0].src;
-            // Aussi indexer par nom normalisé
-            imageCacheByName[normalizeStr(p.name)] = p.images[0].src;
-          }
-        });
-      }
-    } catch { /* silencieux */ }
-  }
-
-  // Pour les slugs qui n'ont pas retourné d'image, chercher par nom
-  const stillMissing = missingNames.filter(n => !imageCacheByName[n]);
-  for (const name of stillMissing) {
-    try {
-      const url = new URL(`${WC_BASE}/products`);
-      url.searchParams.set("consumer_key", CK);
-      url.searchParams.set("consumer_secret", CS);
-      url.searchParams.set("search", name);
-      url.searchParams.set("per_page", "5");
-      url.searchParams.set("_fields", "slug,name,images");
-
-      const res = await fetch(url.toString());
-      if (res.ok) {
-        const products: { slug: string; name: string; images: { src: string }[] }[] = await res.json();
-        if (products[0]?.images?.[0]?.src) {
-          imageCacheByName[name] = products[0].images[0].src;
-          imageCache[products[0].slug] = products[0].images[0].src;
-        }
-      }
-    } catch { /* silencieux */ }
-  }
+/** Normalise un nom : minuscules, sans accents, sans caractères spéciaux */
+function normalizeName(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")  // supprime les accents
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
-function normalizeStr(s: string): string {
-  return s.toLowerCase().trim();
+/** Charge tout le catalogue WC (max 100 produits) et construit le map nom→image */
+async function loadWcCatalog(): Promise<void> {
+  if (wcCatalogLoaded) return;
+  if (wcCatalogLoading) return wcCatalogLoading;
+
+  wcCatalogLoading = (async () => {
+    try {
+      const url = new URL(`${WC_BASE}/products`);
+      url.searchParams.set("consumer_key", CK);
+      url.searchParams.set("consumer_secret", CS);
+      url.searchParams.set("per_page", "100");
+      url.searchParams.set("status", "publish");
+      url.searchParams.set("_fields", "slug,name,images");
+
+      const res = await fetch(url.toString());
+      if (!res.ok) return;
+      const products: { slug: string; name: string; images: { src: string }[] }[] = await res.json();
+      products.forEach(p => {
+        if (p.images?.[0]?.src) {
+          wcProductImageMap[normalizeName(p.name)] = p.images[0].src;
+          wcProductImageMap[p.slug] = p.images[0].src;
+        }
+      });
+      wcCatalogLoaded = true;
+    } catch { /* silencieux */ }
+  })();
+
+  return wcCatalogLoading;
+}
+
+/** Cherche l'image la plus proche pour un nom de produit donné */
+function findProductImage(name: string, slug?: string | null): string | undefined {
+  // 1. Slug exact
+  if (slug && wcProductImageMap[slug]) return wcProductImageMap[slug];
+  // 2. Nom normalisé exact
+  const norm = normalizeName(name);
+  if (wcProductImageMap[norm]) return wcProductImageMap[norm];
+  // 3. Matching partiel : score basé sur le nombre de mots-clés communs
+  const words = norm.split(" ").filter(w => w.length > 3);
+  if (words.length === 0) return undefined;
+
+  let bestKey: string | undefined;
+  let bestScore = 0;
+
+  for (const key of Object.keys(wcProductImageMap)) {
+    const matchCount = words.filter(w => key.includes(w)).length;
+    const score = matchCount / words.length;
+    if (score > bestScore && matchCount >= Math.min(2, words.length)) {
+      bestScore = score;
+      bestKey = key;
+    }
+  }
+
+  return bestKey ? wcProductImageMap[bestKey] : undefined;
 }
 
 function slugFromUrl(url?: string): string | null {
@@ -76,6 +88,7 @@ function slugFromUrl(url?: string): string | null {
   const m = url.match(/\/product\/([^/]+)\//);
   return m ? m[1] : null;
 }
+
 
 // ─── Types ───────────────────────────────────────────────
 interface ChatMessage {
@@ -303,21 +316,17 @@ function ProductItem({ block, resolvedImage }: { block: ProductBlock; resolvedIm
   );
 }
 
-// Groupe les produits consécutifs — résout les images WC en batch
+// Groupe les produits consécutifs — résout les images WC via catalogue préchargé
 function ProductGroupCard({ blocks }: { blocks: ProductBlock[] }) {
   const [wcImages, setWcImages] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    const slugs = blocks.map(b => slugFromUrl(b.url)).filter(Boolean) as string[];
-    const names = blocks.map(b => normalizeStr(b.titre)).filter(Boolean);
-
-    fetchWcImages(slugs, names).then(() => {
+    loadWcCatalog().then(() => {
       const resolved: Record<string, string> = {};
       blocks.forEach(b => {
         const slug = slugFromUrl(b.url);
-        const name = normalizeStr(b.titre);
-        const img = (slug && imageCache[slug]) || imageCacheByName[name];
-        if (img) resolved[slug || name] = img;
+        const img = findProductImage(b.titre, slug);
+        if (img) resolved[b.titre] = img;
       });
       setWcImages(resolved);
     });
@@ -325,12 +334,9 @@ function ProductGroupCard({ blocks }: { blocks: ProductBlock[] }) {
 
   return (
     <div className="space-y-4">
-      {blocks.map((b, i) => {
-        const slug = slugFromUrl(b.url);
-        const name = normalizeStr(b.titre);
-        const resolvedImage = (slug && wcImages[slug]) || wcImages[name] || undefined;
-        return <ProductItem key={i} block={b} resolvedImage={resolvedImage} />;
-      })}
+      {blocks.map((b, i) => (
+        <ProductItem key={i} block={b} resolvedImage={wcImages[b.titre]} />
+      ))}
     </div>
   );
 }
