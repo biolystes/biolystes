@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Send, Minimize2, Maximize2,
@@ -181,64 +181,68 @@ interface ProductBlock {
   image?: string;
 }
 
-function ProductCard({ block }: { block: ProductBlock }) {
+function ProductItem({ block }: { block: ProductBlock }) {
   return (
-    <div style={{
-      borderRadius: 12,
-      background: "#f5f5f7", overflow: "hidden",
-    }}>
-      {/* Header with number + title */}
-      <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px 10px" }}>
-        <div style={{
-          width: 28, height: 28, borderRadius: 8, background: "#1d1d1f",
-          display: "flex", alignItems: "center", justifyContent: "center",
-          flexShrink: 0, fontSize: 12, color: "#fff", fontWeight: 800,
-        }}>
-          {block.numero || "✦"}
+    <div className="space-y-3">
+      {/* Numbered title + description */}
+      <div className="flex gap-3">
+        <div className="w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-1">
+          {block.numero || "•"}
         </div>
-        <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.3 }}>
-          {block.titre}
-        </p>
+        <div>
+          <strong className="font-semibold block">{block.titre}</strong>
+          <p className="text-muted-foreground text-sm leading-relaxed">{block.description}</p>
+        </div>
       </div>
 
-      {/* Body: image + description */}
-      {(block.image || block.description) && (
-        <div style={{ display: "flex", gap: 12, padding: "0 14px 10px", alignItems: "flex-start" }}>
-          {block.image && (
-            <img
-              src={block.image}
-              alt=""
-              style={{ width: 64, height: 64, objectFit: "cover", borderRadius: 8, flexShrink: 0, background: "#e5e5e7" }}
-              onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
-            />
+      {/* Indented mini-card */}
+      <div className="ml-9 p-3 border rounded-lg flex items-start gap-3 bg-muted/50">
+        {block.image && (
+          <img
+            src={block.image}
+            alt=""
+            className="w-16 h-16 object-cover rounded-md flex-shrink-0"
+            onError={e => { (e.currentTarget as HTMLImageElement).style.display = "none"; }}
+          />
+        )}
+        <div className="flex-1 min-w-0">
+          <h5 className="font-semibold text-sm">{block.titre}</h5>
+          <p className="text-xs text-muted-foreground italic mt-1">"{block.description}"</p>
+          {block.url && (
+            <a
+              href={block.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline mt-2"
+            >
+              Voir le produit
+              <svg fill="none" width="12" height="12" viewBox="0 0 12 12">
+                <path fillRule="evenodd" clipRule="evenodd" d="M4.6318 2.6318C4.80754 2.45607 5.09246 2.45607 5.2682 2.6318L8.2682 5.6318C8.44393 5.80754 8.44393 6.09246 8.2682 6.2682L5.2682 9.2682C5.09246 9.44393 4.80754 9.44393 4.6318 9.2682C4.45607 9.09246 4.45607 8.80754 4.6318 8.6318L7.3136 5.95L4.6318 3.2682C4.45607 3.09246 4.45607 2.80754 4.6318 2.6318Z" fill="currentColor"/>
+              </svg>
+            </a>
           )}
-          <p style={{ margin: 0, fontSize: 11, color: "#6e6e73", lineHeight: 1.55, fontStyle: "italic" }}>
-            "{block.description}"
-          </p>
         </div>
-      )}
+      </div>
+    </div>
+  );
+}
 
-      {/* Footer: link */}
-      {block.url && (
-        <div style={{ borderTop: "1px solid #eee", padding: "8px 14px" }}>
-          <a
-            href={block.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-flex", alignItems: "center", gap: 5,
-              fontSize: 11, fontWeight: 600, color: "#1d1d1f", textDecoration: "none",
-            }}
-            onMouseEnter={e => (e.currentTarget.style.textDecoration = "underline")}
-            onMouseLeave={e => (e.currentTarget.style.textDecoration = "none")}
-          >
-            Voir le produit
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-          </a>
+// Wrapper that groups multiple products into one card
+function ProductGroupCard({ blocks }: { blocks: ProductBlock[] }) {
+  return (
+    <div className="bg-card p-5 rounded-xl border shadow-sm space-y-5">
+      <div className="flex items-center gap-3 pb-3 border-b">
+        <div className="p-2 bg-muted rounded-lg" style={{ transform: "rotate(2deg)" }}>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground">
+            <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/>
+            <path d="M9 18h6"/><path d="M10 22h4"/>
+          </svg>
         </div>
-      )}
+        <h3 className="text-sm font-semibold text-card-foreground">Produits conseillés pour votre lancement</h3>
+      </div>
+      <div className="space-y-5">
+        {blocks.map((b, i) => <ProductItem key={i} block={b} />)}
+      </div>
     </div>
   );
 }
@@ -331,46 +335,58 @@ function parseSpecialBlocks(raw: string): ParsedSegment[] {
 function MessageContent({ content }: { content: string }) {
   const segments = parseSpecialBlocks(content);
 
+  // Group consecutive product segments into a single ProductGroupCard
+  const rendered: React.ReactNode[] = [];
+  let i = 0;
+  while (i < segments.length) {
+    const seg = segments[i];
+    if (seg.type === "product") {
+      const group: ProductBlock[] = [seg.data as ProductBlock];
+      while (i + 1 < segments.length && segments[i + 1].type === "product") {
+        i++;
+        group.push(segments[i].data as ProductBlock);
+      }
+      rendered.push(<ProductGroupCard key={i} blocks={group} />);
+    } else if (seg.type === "market") {
+      rendered.push(<MarketCard key={i} block={seg.data as MarketBlock} />);
+    } else {
+      // plain text
+      const lines = seg.content.split("\n");
+      rendered.push(
+        <div key={i} className="space-y-1">
+          {lines.map((line, li) => {
+            if (!line.trim()) return <br key={li} />;
+            if (line.startsWith("- ") || line.startsWith("• ")) {
+              const text = line.replace(/^[-•]\s+/, "");
+              return (
+                <div key={li} className="flex gap-2">
+                  <span className="text-muted-foreground mt-0.5">•</span>
+                  <span dangerouslySetInnerHTML={{ __html: formatInline(text) }} />
+                </div>
+              );
+            }
+            if (/^\d+\.\s/.test(line)) {
+              const m = line.match(/^(\d+)\.\s+(.*)/);
+              if (m) return (
+                <div key={li} className="flex gap-2">
+                  <span className="text-muted-foreground font-medium min-w-[1.2rem]">{m[1]}.</span>
+                  <span dangerouslySetInnerHTML={{ __html: formatInline(m[2]) }} />
+                </div>
+              );
+            }
+            if (line.startsWith("## ")) return <p key={li} className="font-semibold text-foreground mt-2" dangerouslySetInnerHTML={{ __html: formatInline(line.slice(3)) }} />;
+            if (line.startsWith("### ")) return <p key={li} className="font-medium text-foreground" dangerouslySetInnerHTML={{ __html: formatInline(line.slice(4)) }} />;
+            return <p key={li} dangerouslySetInnerHTML={{ __html: formatInline(line) }} />;
+          })}
+        </div>
+      );
+    }
+    i++;
+  }
+
   return (
-    <div className="text-sm leading-relaxed space-y-2">
-      {segments.map((seg, si) => {
-        if (seg.type === "product") {
-          return <ProductCard key={si} block={seg.data as ProductBlock} />;
-        }
-        if (seg.type === "market") {
-          return <MarketCard key={si} block={seg.data as MarketBlock} />;
-        }
-        // plain text
-        const lines = seg.content.split("\n");
-        return (
-          <div key={si} className="space-y-1">
-            {lines.map((line, i) => {
-              if (!line.trim()) return <br key={i} />;
-              if (line.startsWith("- ") || line.startsWith("• ")) {
-                const text = line.replace(/^[-•]\s+/, "");
-                return (
-                  <div key={i} className="flex gap-2">
-                    <span className="text-muted-foreground mt-0.5">•</span>
-                    <span dangerouslySetInnerHTML={{ __html: formatInline(text) }} />
-                  </div>
-                );
-              }
-              if (/^\d+\.\s/.test(line)) {
-                const m = line.match(/^(\d+)\.\s+(.*)/);
-                if (m) return (
-                  <div key={i} className="flex gap-2">
-                    <span className="text-muted-foreground font-medium min-w-[1.2rem]">{m[1]}.</span>
-                    <span dangerouslySetInnerHTML={{ __html: formatInline(m[2]) }} />
-                  </div>
-                );
-              }
-              if (line.startsWith("## ")) return <p key={i} className="font-semibold text-foreground mt-2" dangerouslySetInnerHTML={{ __html: formatInline(line.slice(3)) }} />;
-              if (line.startsWith("### ")) return <p key={i} className="font-medium text-foreground" dangerouslySetInnerHTML={{ __html: formatInline(line.slice(4)) }} />;
-              return <p key={i} dangerouslySetInnerHTML={{ __html: formatInline(line) }} />;
-            })}
-          </div>
-        );
-      })}
+    <div className="text-sm leading-relaxed space-y-3">
+      {rendered}
     </div>
   );
 }
