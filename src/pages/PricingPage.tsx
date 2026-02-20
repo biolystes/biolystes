@@ -185,11 +185,29 @@ function TabAvecSite() {
           <Badge label="Populaire" />
           <h3 style={{ fontSize: 16, fontWeight: 800, color: "#1d1d1f", textTransform: "uppercase", letterSpacing: ".3px", marginBottom: 4 }}>Pack Agence</h3>
           <p style={{ fontSize: 12, color: "#86868b", marginBottom: 16 }}>Gestion 360°</p>
-          <div style={{ marginBottom: 6 }}>
-            <span style={{ fontSize: 28, fontWeight: 800, color: "#1d1d1f" }}>1499€</span>
+
+          {/* Prix frais uniques */}
+          <div style={{ marginBottom: 4 }}>
+            <span style={{ fontSize: 28, fontWeight: 800, color: "#1d1d1f" }}>1 499€</span>
             <span style={{ fontSize: 13, color: "#86868b", marginLeft: 6 }}>frais uniques ou 999€ en 2 fois</span>
           </div>
-          <p style={{ fontSize: 13, fontWeight: 700, color: "#1d1d1f", marginBottom: 20 }}>Abon. Agence : +99€/mois</p>
+
+          {/* Abonnement obligatoire — bien visible */}
+          <div style={{
+            background: "#f5f5f7", borderRadius: 10, padding: "10px 14px",
+            marginBottom: 20, border: "1px solid #e5e5e7"
+          }}>
+            <p style={{ fontSize: 12, fontWeight: 800, color: "#1d1d1f", marginBottom: 2, textTransform: "uppercase", letterSpacing: ".5px" }}>
+              + Abonnement Pro inclus obligatoire
+            </p>
+            <p style={{ fontSize: 22, fontWeight: 800, color: "#1d1d1f", margin: "2px 0" }}>
+              99€<span style={{ fontSize: 13, fontWeight: 500, color: "#86868b" }}>/mois</span>
+            </p>
+            <p style={{ fontSize: 11, color: "#86868b", marginTop: 2 }}>
+              1er mois offert · Hébergement, livraisons, SEO, support & IA inclus
+            </p>
+          </div>
+
           <div style={{ flex: 1, marginBottom: 24 }}>
             {packAgenceFeatures.map((f, i) => <CheckItem key={i} text={f} />)}
           </div>
@@ -199,12 +217,30 @@ function TabAvecSite() {
         {/* Pack IA */}
         <div style={{ position: "relative", border: "1.5px solid #e5e5e7", borderRadius: 16, padding: 28, display: "flex", flexDirection: "column", background: "#fff" }}>
           <h3 style={{ fontSize: 16, fontWeight: 800, color: "#1d1d1f", textTransform: "uppercase", letterSpacing: ".3px", marginBottom: 4 }}>Pack IA</h3>
-          <p style={{ fontSize: 12, color: "#86868b", marginBottom: 16 }}>Gestion 360°</p>
-          <div style={{ marginBottom: 6 }}>
-            <span style={{ fontSize: 28, fontWeight: 800, color: "#1d1d1f" }}>2999€</span>
+          <p style={{ fontSize: 12, color: "#86868b", marginBottom: 16 }}>Gestion 360° + Intelligence artificielle avancée</p>
+
+          {/* Prix frais uniques */}
+          <div style={{ marginBottom: 4 }}>
+            <span style={{ fontSize: 28, fontWeight: 800, color: "#1d1d1f" }}>2 999€</span>
             <span style={{ fontSize: 13, color: "#86868b", marginLeft: 6 }}>frais uniques ou 999€ en 2 fois</span>
           </div>
-          <p style={{ fontSize: 13, fontWeight: 700, color: "#1d1d1f", marginBottom: 20 }}>Abon. Agence : +199€/mois <span style={{ fontWeight: 500, color: "#86868b" }}>(1 mois offert)</span></p>
+
+          {/* Abonnement obligatoire — bien visible */}
+          <div style={{
+            background: "#f5f5f7", borderRadius: 10, padding: "10px 14px",
+            marginBottom: 20, border: "1px solid #e5e5e7"
+          }}>
+            <p style={{ fontSize: 12, fontWeight: 800, color: "#1d1d1f", marginBottom: 2, textTransform: "uppercase", letterSpacing: ".5px" }}>
+              + Abonnement Pro inclus obligatoire
+            </p>
+            <p style={{ fontSize: 22, fontWeight: 800, color: "#1d1d1f", margin: "2px 0" }}>
+              199€<span style={{ fontSize: 13, fontWeight: 500, color: "#86868b" }}>/mois</span>
+            </p>
+            <p style={{ fontSize: 11, color: "#86868b", marginTop: 2 }}>
+              1er mois offert · Tout le Pro + UGC IA, diagnostic IA & réseaux sociaux
+            </p>
+          </div>
+
           <div style={{ flex: 1, marginBottom: 24 }}>
             {packIAFeatures.map((f, i) => <CheckItem key={i} text={f} />)}
           </div>
