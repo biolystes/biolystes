@@ -242,7 +242,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
 }
 
 // ─── Product Card ─────────────────────────────────────────
-function ProductCard({ product, onSelect }: { product: WCProduct; onSelect: () => void }) {
+function ProductCard({ product, onSelect, vatEnabled = false }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean }) {
   const img = product.images?.[0]?.src;
   const tags = product.tags?.map(t => t.name) || [];
   const cats = product.categories?.map(c => c.name) || [];
@@ -347,7 +347,7 @@ function ProductCard({ product, onSelect }: { product: WCProduct; onSelect: () =
         {/* Bottom: price left + category pills right */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 6, marginTop: "auto" }}>
           {price && (
-            <span style={{ fontSize: 16, fontWeight: 700, color: "#1d1d1f" }}>{Math.round(price)}€</span>
+            <span style={{ fontSize: 16, fontWeight: 700, color: "#1d1d1f" }}>{vatEnabled ? Math.round(price * 1.2) : Math.round(price)}€ <span style={{ fontSize: 10, fontWeight: 400, color: "#86868b" }}>{vatEnabled ? "TTC" : "HT"}</span></span>
           )}
           <div style={{ display: "flex", gap: 5, flexWrap: "wrap" }}>
             {displayCats.map((cat, i) => (
@@ -485,10 +485,10 @@ function FilterDropdown({ label, options, selected, onChange, grid = false }: {
 const COLOR_MAP: Record<string, string> = {
   "ambre": "#c17e3f", "amber": "#c17e3f",
   "noir": "#1a1a1a", "black": "#1a1a1a", "noire": "#1a1a1a",
-  "blanche": "#f5f5f5", "blanc": "#f5f5f5", "white": "#f5f5f5",
+  "blanche": "#f9f9f9", "blanc": "#f0f0f0", "white": "#f9f9f9",
   "vert": "#4a8c4a", "verte": "#4a8c4a", "green": "#4a8c4a",
-  "transparente": "linear-gradient(135deg, #e8e8e8 25%, transparent 25%, transparent 75%, #e8e8e8 75%)",
-  "transparent": "linear-gradient(135deg, #e8e8e8 25%, transparent 25%, transparent 75%, #e8e8e8 75%)",
+  "transparente": "repeating-conic-gradient(#d4d4d4 0% 25%, #f5f5f5 0% 50%) 0 0/8px 8px",
+  "transparent": "repeating-conic-gradient(#d4d4d4 0% 25%, #f5f5f5 0% 50%) 0 0/8px 8px",
   "rose": "#e8a0b0", "pink": "#e8a0b0",
   "bleu": "#4a7cb5", "blue": "#4a7cb5",
   "violet": "#8b5cf6", "purple": "#8b5cf6",
@@ -496,6 +496,43 @@ const COLOR_MAP: Record<string, string> = {
   "argent": "#a8a8a8", "silver": "#a8a8a8",
   "or": "#d4af37", "gold": "#d4af37",
 };
+
+// ─── Tag group names → filter label mapping ───────────────
+// Tags have format "Name (Group)" — we parse groups exactly like selfnamed
+const TAG_GROUP_LABELS: Record<string, string> = {
+  "types de peau": "Type",
+  "type de peau": "Type",
+  "type": "Type",
+  "réclamations": "Réclamations",
+  "reclamations": "Réclamations",
+  "réclamation": "Réclamations",
+  "claims": "Réclamations",
+  "inquiétude": "Inquiétude",
+  "inquietude": "Inquiétude",
+  "concern": "Inquiétude",
+  "préoccupation": "Inquiétude",
+  "préoccupations": "Inquiétude",
+  "principes actifs": "Principes actifs",
+  "principe actif": "Principes actifs",
+  "actifs": "Principes actifs",
+  "active ingredients": "Principes actifs",
+  "ingrédients actifs": "Principes actifs",
+  "couleur de l'emballage": "Couleur de l'emballage",
+  "couleur emballage": "Couleur de l'emballage",
+  "couleur": "Couleur de l'emballage",
+  "packaging color": "Couleur de l'emballage",
+};
+
+const FILTER_ORDER = ["Type", "Réclamations", "Inquiétude", "Principes actifs", "Couleur de l'emballage"];
+
+// Parse WC tag name: "Name (Group)" → { name, group }
+function parseTag(tagName: string): { displayName: string; group: string | null } {
+  const match = tagName.match(/^(.+?)\s*\((.+?)\)\s*$/);
+  if (match) {
+    return { displayName: match[1].trim(), group: match[2].trim().toLowerCase() };
+  }
+  return { displayName: tagName, group: null };
+}
 
 // ─── Main Dashboard ───────────────────────────────────────
 export default function DashboardPage() {
@@ -549,11 +586,36 @@ export default function DashboardPage() {
       .catch((err: Error) => { setError(err.message); setLoading(false); });
   }, []);
 
+  // ─── TVA toggle ───────────────────────────────────────────
+  const [vatEnabled, setVatEnabled] = useState(false);
+  const [sortBy, setSortBy] = useState<"date" | "price-asc" | "price-desc">("date");
+
   // ─── Category tree (top-level only for pills) ─────────────
   const topLevel = allCategories.filter(c => c.parent === 0).sort((a, b) => b.count - a.count);
 
+  // ─── Parse tags into groups (selfnamed pattern) ────────────
+  // Tags format: "Name (Group)" → group by group name
+  const tagGroups = (() => {
+    const groups: Record<string, { label: string; tags: WCTag[]; displayNames: string[] }> = {};
+    allTags.forEach(tag => {
+      const { displayName, group } = parseTag(tag.name);
+      if (!group) return;
+      const mappedLabel = TAG_GROUP_LABELS[group];
+      if (!mappedLabel) return;
+      if (!groups[mappedLabel]) {
+        groups[mappedLabel] = { label: mappedLabel, tags: [], displayNames: [] };
+      }
+      groups[mappedLabel].tags.push(tag);
+      groups[mappedLabel].displayNames.push(displayName);
+    });
+    return groups;
+  })();
+
+  // ─── Selected tag-group filters ────────────────────────────
+  const [selectedGroupTags, setSelectedGroupTags] = useState<Record<string, number[]>>({});
+
   // ─── Client-side filtering ────────────────────────────────
-  const products = allProducts.filter(p => {
+  const filteredProducts = allProducts.filter(p => {
     const pCatIds = new Set(p.categories.map(c => c.id));
     const pTagIds = new Set(p.tags.map(t => t.id));
     const pAttrMap: Record<string, string[]> = {};
@@ -561,6 +623,13 @@ export default function DashboardPage() {
 
     if (selectedCatIds.length > 0 && !selectedCatIds.some(id => pCatIds.has(id))) return false;
     if (selectedTagIds.length > 0 && !selectedTagIds.some(id => pTagIds.has(id))) return false;
+
+    // Group-based tag filters (AND between groups, OR within a group)
+    for (const [groupLabel, tagIds] of Object.entries(selectedGroupTags)) {
+      if (tagIds.length === 0) continue;
+      if (!tagIds.some(id => pTagIds.has(id))) return false;
+    }
+
     for (const [attrId, terms] of Object.entries(selectedAttrTerms)) {
       if (terms.length === 0) continue;
       const pTerms = pAttrMap[attrId] || [];
@@ -569,61 +638,59 @@ export default function DashboardPage() {
     return true;
   });
 
+  // ─── Sort ─────────────────────────────────────────────────
+  const products = [...filteredProducts].sort((a, b) => {
+    if (sortBy === "price-asc") return (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0);
+    if (sortBy === "price-desc") return (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0);
+    return 0; // date = API order
+  });
+
   const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 ||
-    Object.values(selectedAttrTerms).some(v => v.length > 0);
+    Object.values(selectedAttrTerms).some(v => v.length > 0) ||
+    Object.values(selectedGroupTags).some(v => v.length > 0);
 
   const clearFilters = () => {
     setSelectedCatIds([]);
     setSelectedTagIds([]);
     setSelectedAttrTerms({});
+    setSelectedGroupTags({});
   };
 
-  // ─── Build filter definitions (like selfnamed) ────────────
-  // Fixed 7 filter dropdowns matching selfnamed exactly
-  const ATTR_LABELS: Record<string, string> = {
-    "type": "Type",
-    "reclamations": "Réclamations",
-    "reclamation": "Réclamations",
-    "claims": "Réclamations",
-    "inquietude": "Inquiétude",
-    "concern": "Inquiétude",
-    "principes-actifs": "Principes actifs",
-    "principes_actifs": "Principes actifs",
-    "active-ingredients": "Principes actifs",
-    "actifs": "Principes actifs",
-    "couleur": "Couleur de l'emballage",
-    "couleur-emballage": "Couleur de l'emballage",
-    "packaging-color": "Couleur de l'emballage",
-    "color": "Couleur de l'emballage",
-  };
-
-  // Top-level category options (for Catégorie dropdown)
+  // ─── Build filter groups from tag groups + categories ─────
   const catOptions: FilterOption[] = topLevel.map(c => ({ id: c.id, name: c.name }));
 
-  // Tag options (for Étiquette dropdown)
-  const tagOptions: FilterOption[] = allTags.slice(0, 30).map(t => ({ id: t.id, name: t.name }));
-
-  // Attribute dropdowns in selfnamed order
-  const ATTR_ORDER = ["type", "reclamations", "reclamation", "claims", "inquietude", "concern",
-    "principes-actifs", "principes_actifs", "active-ingredients", "actifs",
-    "couleur", "couleur-emballage", "packaging-color", "color"];
-
-  const attrFilters = attributes
-    .map(attr => {
-      const label = ATTR_LABELS[attr.slug] || attr.name;
-      const terms = attrTerms[attr.id] || [];
-      if (terms.length === 0) return null;
-      const isColor = attr.slug.includes("couleur") || attr.slug.includes("color");
-      const options: FilterOption[] = terms.map(t => ({
-        id: t.name,
-        name: t.name,
-        ...(isColor ? { image: COLOR_MAP[t.name.toLowerCase()] || "#ccc" } : {}),
-      }));
-      const sortIdx = ATTR_ORDER.findIndex(s => attr.slug.includes(s));
-      return { attr, label, options, isColor, sortIdx: sortIdx === -1 ? 99 : sortIdx };
+  // Étiquette = tags without a recognized group
+  const unGroupedTags = allTags
+    .filter(t => {
+      const { group } = parseTag(t.name);
+      if (!group) return true;
+      return !TAG_GROUP_LABELS[group];
     })
-    .filter(Boolean)
-    .sort((a, b) => a!.sortIdx - b!.sortIdx) as { attr: WCAttribute; label: string; options: FilterOption[]; isColor: boolean; sortIdx: number }[];
+    .slice(0, 30)
+    .map(t => ({ id: t.id, name: t.name }));
+
+  // Ordered group filters (Type, Réclamations, Inquiétude, Principes actifs, Couleur)
+  const groupFilters = FILTER_ORDER
+    .map(label => {
+      const group = tagGroups[label];
+      if (!group || group.tags.length === 0) return null;
+      const isColor = label === "Couleur de l'emballage";
+      const options: FilterOption[] = group.tags.map((t, i) => ({
+        id: t.id,
+        name: group.displayNames[i],
+        ...(isColor ? { image: COLOR_MAP[group.displayNames[i].toLowerCase()] || "#ccc" } : {}),
+      }));
+      return { label, options, isColor };
+    })
+    .filter(Boolean) as { label: string; options: FilterOption[]; isColor: boolean }[];
+
+  // ─── Sort dropdown state ───────────────────────────────────
+  const [sortOpen, setSortOpen] = useState(false);
+  const sortOptions = [
+    { key: "date", label: "Plus récent" },
+    { key: "price-asc", label: "Prix croissant" },
+    { key: "price-desc", label: "Prix décroissant" },
+  ];
 
   return (
     <>
@@ -694,51 +761,139 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Filter bar — exactly like selfnamed */}
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20, alignItems: "center" }}>
+        {/* ── Filter bar — exactly like selfnamed ────────────── */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
 
-          {/* 1. Catégorie */}
-          {catOptions.length > 0 && (
-            <FilterDropdown
-              label="Catégorie"
-              options={catOptions}
-              selected={selectedCatIds}
-              onChange={ids => setSelectedCatIds(ids as number[])}
-              grid={catOptions.length > 4}
-            />
-          )}
+          {/* LEFT: filter dropdowns */}
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
 
-          {/* 2. Étiquette */}
-          {tagOptions.length > 0 && (
-            <FilterDropdown
-              label="Étiquette"
-              options={tagOptions}
-              selected={selectedTagIds}
-              onChange={ids => setSelectedTagIds(ids as number[])}
-              grid={tagOptions.length > 6}
-            />
-          )}
+            {/* 1. Catégorie */}
+            {catOptions.length > 0 && (
+              <FilterDropdown
+                label="Catégorie"
+                options={catOptions}
+                selected={selectedCatIds}
+                onChange={ids => setSelectedCatIds(ids as number[])}
+                grid={catOptions.length > 4}
+              />
+            )}
 
-          {/* 3-7. Attributes (Type, Réclamations, Inquiétude, Principes actifs, Couleur) */}
-          {attrFilters.map(f => (
-            <FilterDropdown
-              key={f.attr.id}
-              label={f.label}
-              options={f.options}
-              selected={selectedAttrTerms[f.attr.id] || []}
-              onChange={vals => setSelectedAttrTerms(prev => ({ ...prev, [f.attr.id]: vals as string[] }))}
-              grid={f.options.length > 6}
-            />
-          ))}
+            {/* 2. Étiquette */}
+            {unGroupedTags.length > 0 && (
+              <FilterDropdown
+                label="Étiquette"
+                options={unGroupedTags}
+                selected={selectedTagIds}
+                onChange={ids => setSelectedTagIds(ids as number[])}
+                grid={unGroupedTags.length > 6}
+              />
+            )}
 
-          {/* Clear all */}
-          {hasFilters && (
-            <button onClick={clearFilters} style={{
-              padding: "7px 14px", borderRadius: 20, border: "1px solid #d1d1d6",
-              background: "transparent", color: "#86868b", fontSize: 12, fontWeight: 400,
-              cursor: "pointer", marginLeft: 4,
-            }}>✕ Effacer</button>
-          )}
+            {/* 3–7. Type, Réclamations, Inquiétude, Principes actifs, Couleur */}
+            {groupFilters.map(f => (
+              <FilterDropdown
+                key={f.label}
+                label={f.label}
+                options={f.options}
+                selected={selectedGroupTags[f.label] || []}
+                onChange={ids => setSelectedGroupTags(prev => ({ ...prev, [f.label]: ids as number[] }))}
+                grid={f.options.length > 6 && !f.isColor}
+              />
+            ))}
+
+            {/* Clear all */}
+            {hasFilters && (
+              <button onClick={clearFilters} style={{
+                padding: "7px 14px", borderRadius: 20, border: "1px solid #d1d1d6",
+                background: "transparent", color: "#86868b", fontSize: 12, fontWeight: 400,
+                cursor: "pointer",
+              }}>✕ Effacer</button>
+            )}
+          </div>
+
+          {/* RIGHT: TVA toggle + Trier par */}
+          <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
+
+            {/* TVA toggle */}
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ fontSize: 12, fontWeight: 500, color: "#86868b" }}>TVA</span>
+              <button
+                onClick={() => setVatEnabled(v => !v)}
+                role="switch"
+                aria-checked={vatEnabled}
+                style={{
+                  width: 36, height: 20, borderRadius: 10, border: "none",
+                  background: vatEnabled ? "#1d1d1f" : "#d1d1d6",
+                  cursor: "pointer", position: "relative", transition: "background .2s",
+                  padding: 0, flexShrink: 0,
+                }}
+              >
+                <span style={{
+                  position: "absolute", top: 2,
+                  left: vatEnabled ? 18 : 2,
+                  width: 16, height: 16, borderRadius: 8,
+                  background: "#fff", transition: "left .2s",
+                  boxShadow: "0 1px 3px rgba(0,0,0,.2)",
+                }} />
+              </button>
+            </div>
+
+            {/* Trier par */}
+            <div style={{ position: "relative" }}>
+              <button
+                onClick={() => setSortOpen(o => !o)}
+                style={{
+                  display: "flex", alignItems: "center", gap: 6,
+                  padding: "7px 14px", borderRadius: 20,
+                  border: "1px solid #d1d1d6", background: "#fff",
+                  color: "#1d1d1f", fontSize: 12, fontWeight: 500, cursor: "pointer",
+                  whiteSpace: "nowrap",
+                }}
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 6h18M7 12h10M11 18h2" />
+                </svg>
+                Trier par
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d={sortOpen ? "m18 15-6-6-6 6" : "m6 9 6 6 6-6"} />
+                </svg>
+              </button>
+              {sortOpen && (
+                <>
+                  <div onClick={() => setSortOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 98 }} />
+                  <div style={{
+                    position: "absolute", top: "calc(100% + 8px)", right: 0, zIndex: 99,
+                    background: "#fff", borderRadius: 14, minWidth: 180,
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06)",
+                    border: "1px solid #f0f0f0", padding: 8,
+                  }}>
+                    {sortOptions.map(opt => (
+                      <button
+                        key={opt.key}
+                        onClick={() => { setSortBy(opt.key as typeof sortBy); setSortOpen(false); }}
+                        style={{
+                          display: "flex", alignItems: "center", gap: 10,
+                          width: "100%", padding: "9px 10px", borderRadius: 8, border: "none",
+                          background: sortBy === opt.key ? "#f5f5f7" : "transparent",
+                          cursor: "pointer", textAlign: "left", fontSize: 13, color: "#1d1d1f",
+                        }}
+                      >
+                        <div style={{
+                          width: 16, height: 16, borderRadius: "50%", flexShrink: 0,
+                          border: sortBy === opt.key ? "none" : "1.5px solid #c7c7cc",
+                          background: sortBy === opt.key ? "#1d1d1f" : "transparent",
+                          display: "flex", alignItems: "center", justifyContent: "center",
+                        }}>
+                          {sortBy === opt.key && <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
+                        </div>
+                        {opt.label}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </div>
 
         {error && (
@@ -758,7 +913,7 @@ export default function DashboardPage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
             style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
             {products.map(p => (
-              <ProductCard key={p.id} product={p} onSelect={() => setSelectedProduct(p)} />
+              <ProductCard key={p.id} product={p} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} />
             ))}
           </motion.div>
         )}
@@ -780,3 +935,4 @@ export default function DashboardPage() {
     </>
   );
 }
+
