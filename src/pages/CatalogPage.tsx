@@ -92,14 +92,15 @@ const COLOR_MAP: Record<string, string> = {
 const TAG_GROUP_LABELS: Record<string, string> = {
   "types de peau": "Type", "type de peau": "Type", "type": "Type",
   "réclamations": "Réclamations", "reclamations": "Réclamations", "claims": "Réclamations",
-  "inquiétude": "Inquiétude", "inquietude": "Inquiétude", "concern": "Inquiétude",
-  "préoccupation": "Inquiétude", "préoccupations": "Inquiétude",
+  "inquiétude": "Besoin", "inquietude": "Besoin", "concern": "Besoin",
+  "préoccupation": "Besoin", "préoccupations": "Besoin",
   "principes actifs": "Principes actifs", "principe actif": "Principes actifs",
   "actifs": "Principes actifs", "ingrédients actifs": "Principes actifs",
   "couleur de l'emballage": "Couleur de l'emballage", "couleur": "Couleur de l'emballage",
 };
 
-const FILTER_ORDER = ["Type", "Réclamations", "Inquiétude", "Principes actifs", "Couleur de l'emballage"];
+const FILTER_ORDER = ["Type", "Réclamations", "Besoin", "Principes actifs", "Couleur de l'emballage"];
+
 
 function parseTag(tagName: string): { displayName: string; group: string | null } {
   const match = tagName.match(/^(.+?)\s*\((.+?)\)\s*$/);
