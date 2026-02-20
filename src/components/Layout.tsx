@@ -32,7 +32,7 @@ function IconSidebar() {
   return (
     <aside
       className="hidden md:flex flex-col items-center fixed inset-y-0 left-0 z-30 py-5 gap-2"
-      style={{ width: "64px", background: "#F5F5F7", borderRight: "none" }}
+      style={{ width: "64px", background: "#F5F5F7", borderRight: "1px solid #e5e5e7" }}
     >
       {/* Logo */}
       <Link to="/" className="mb-6">
