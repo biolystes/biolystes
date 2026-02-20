@@ -6,6 +6,16 @@ import kaniwa1 from "@/assets/kaniwa-1.jpg";
 import kaniwa2 from "@/assets/kaniwa-2.jpg";
 import kaniwa3 from "@/assets/kaniwa-3.jpg";
 import kaniwa4 from "@/assets/kaniwa-4.jpg";
+import kaniwa5 from "@/assets/kaniwa-5.jpg";
+import kaniwa6 from "@/assets/kaniwa-6.jpg";
+import kaniwa7 from "@/assets/kaniwa-7.jpg";
+import kaniwa8 from "@/assets/kaniwa-8.jpg";
+import kaniwa9 from "@/assets/kaniwa-9.jpg";
+import kaniwa10 from "@/assets/kaniwa-10.jpg";
+import kaniwa11 from "@/assets/kaniwa-11.jpg";
+import kaniwa12 from "@/assets/kaniwa-12.jpg";
+import kaniwa13 from "@/assets/kaniwa-13.jpg";
+import kaniwa14 from "@/assets/kaniwa-14.jpg";
 
 // ─── WooCommerce config ───────────────────────────────────
 const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
@@ -803,86 +813,103 @@ export default function DashboardPage() {
       {/* ── Cas client : Kaniwa Botanique ────────────────────── */}
       <AnimatePresence>
         {!chatStarted && (
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ delay: 0.3, duration: 0.5 }}
-            style={{ marginTop: 64 }}
-          >
-            {/* Label */}
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 20 }}>
-              <div>
-                <span style={{ fontSize: 10, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>
-                  Cas client
-                </span>
-                <h2 style={{ fontSize: 22, fontWeight: 700, color: "#1d1d1f", marginTop: 4, letterSpacing: "-0.3px" }}>
-                  Kaniwa Botanique
-                </h2>
-                <p style={{ fontSize: 13, color: "#86868b", marginTop: 4 }}>
-                  Marque bio &amp; vegan lancée en 12 jours avec Biolystes — gamme soins visage &amp; corps
-                </p>
-              </div>
-              <div style={{ display: "flex", gap: 6 }}>
-                {["Bio &amp; Vegan", "France", "12 jours"].map((tag, i) => (
-                  <span key={i} style={{
-                    padding: "5px 12px", borderRadius: 20, fontSize: 11, fontWeight: 600,
-                    background: i === 0 ? "#1d1d1f" : "#f0f0f0",
-                    color: i === 0 ? "#fff" : "#86868b",
-                    letterSpacing: ".2px",
-                  }}>{tag}</span>
-                ))}
-              </div>
-            </div>
-
-            {/* Grille photos */}
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", gridTemplateRows: "auto", gap: 10 }}>
-              {/* Grande photo à gauche */}
-              <div style={{ gridColumn: "1 / 3", gridRow: "1 / 2", borderRadius: 20, overflow: "hidden", aspectRatio: "4/3" }}>
-                <img src={kaniwa3} alt="Kaniwa Botanique crème corps" loading="lazy"
-                  style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .5s" }}
-                  onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.03)")}
-                  onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
-              </div>
-              {/* Colonne droite : 2 petites */}
-              <div style={{ gridColumn: "3 / 4", borderRadius: 20, overflow: "hidden", aspectRatio: "4/3" }}>
-                <img src={kaniwa1} alt="Kaniwa Botanique flacon" loading="lazy"
-                  style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .5s" }}
-                  onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.03)")}
-                  onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
-              </div>
-              <div style={{ gridColumn: "4 / 5", borderRadius: 20, overflow: "hidden", aspectRatio: "4/3" }}>
-                <img src={kaniwa2} alt="Kaniwa Botanique huile barbe" loading="lazy"
-                  style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .5s" }}
-                  onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.03)")}
-                  onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
-              </div>
-              {/* Photo pleine largeur bas */}
-              <div style={{ gridColumn: "1 / 5", borderRadius: 20, overflow: "hidden", height: 260 }}>
-                <img src={kaniwa4} alt="Kaniwa Botanique lifestyle" loading="lazy"
-                  style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 35%", transition: "transform .5s" }}
-                  onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.02)")}
-                  onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
-              </div>
-            </div>
-
-            {/* Citation */}
-            <div style={{ marginTop: 20, padding: "20px 24px", borderRadius: 16, background: "#fff", border: "1px solid #f0f0f0" }}>
-              <p style={{ fontSize: 15, color: "#1d1d1f", fontWeight: 500, lineHeight: 1.6, fontStyle: "italic" }}>
-                "Grâce à Biolystes, j'ai lancé ma marque cosmétique bio en moins de deux semaines, sans stock, sans laboratoire. Le résultat final a dépassé mes attentes."
-              </p>
-              <div style={{ marginTop: 12, display: "flex", alignItems: "center", gap: 10 }}>
-                <div style={{ width: 36, height: 36, borderRadius: "50%", background: "#1d1d1f", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 13, fontWeight: 700 }}>K</div>
-                <div>
-                  <p style={{ fontSize: 13, fontWeight: 700, color: "#1d1d1f" }}>Kaniwa Botanique</p>
-                  <p style={{ fontSize: 11, color: "#86868b" }}>Fondatrice — Paris, France</p>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          <KaniwaSection />
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+// ─── Kaniwa Botanique showcase ────────────────────────────
+const ALL_KANIWA = [
+  kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7,
+  kaniwa8, kaniwa9, kaniwa10, kaniwa11, kaniwa12, kaniwa13, kaniwa14,
+];
+
+// Two rows: first 7 left, last 7 right (opposite directions)
+const ROW_A = ALL_KANIWA.slice(0, 7);
+const ROW_B = ALL_KANIWA.slice(7, 14);
+
+function KaniwaSection() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ delay: 0.3, duration: 0.5 }}
+      style={{ marginTop: 64 }}
+    >
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 24 }}>
+        <div>
+          <span style={{ fontSize: 10, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+            Cas client
+          </span>
+          <h2 style={{ fontSize: 24, fontWeight: 700, color: "#1d1d1f", marginTop: 4, letterSpacing: "-0.4px" }}>
+            Kaniwa Botanique
+          </h2>
+          <p style={{ fontSize: 13, color: "#86868b", marginTop: 4, maxWidth: 420 }}>
+            Marque bio & vegan lancée en 12 jours · Gamme soins visage, corps & rasage
+          </p>
+        </div>
+        <div style={{ display: "flex", gap: 6 }}>
+          {["Bio & Vegan", "France", "12 jours"].map((tag, i) => (
+            <span key={i} style={{
+              padding: "5px 12px", borderRadius: 20, fontSize: 11, fontWeight: 600,
+              background: i === 0 ? "#1d1d1f" : "#f0f0f2",
+              color: i === 0 ? "#fff" : "#86868b",
+            }}>{tag}</span>
+          ))}
+        </div>
+      </div>
+
+      {/* Infinite carousel — 2 rows */}
+      <style>{`
+        @keyframes scrollLeft  { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+        @keyframes scrollRight { from { transform: translateX(-50%) } to { transform: translateX(0) } }
+        .scroll-left  { animation: scrollLeft  40s linear infinite; }
+        .scroll-right { animation: scrollRight 40s linear infinite; }
+        .kaniwa-strip:hover .scroll-left,
+        .kaniwa-strip:hover .scroll-right { animation-play-state: paused; }
+      `}</style>
+
+      <div className="kaniwa-strip" style={{ display: "flex", flexDirection: "column", gap: 10, overflow: "hidden", borderRadius: 20 }}>
+        {/* Row A — scroll left */}
+        <div style={{ overflow: "hidden" }}>
+          <div className="scroll-left" style={{ display: "flex", gap: 10, width: "max-content" }}>
+            {[...ROW_A, ...ROW_A].map((src, i) => (
+              <div key={i} style={{ width: 220, height: 160, borderRadius: 14, overflow: "hidden", flexShrink: 0 }}>
+                <img src={src} alt="Kaniwa" loading="lazy"
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Row B — scroll right */}
+        <div style={{ overflow: "hidden" }}>
+          <div className="scroll-right" style={{ display: "flex", gap: 10, width: "max-content" }}>
+            {[...ROW_B, ...ROW_B].map((src, i) => (
+              <div key={i} style={{ width: 220, height: 160, borderRadius: 14, overflow: "hidden", flexShrink: 0 }}>
+                <img src={src} alt="Kaniwa" loading="lazy"
+                  style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Citation */}
+      <div style={{ marginTop: 16, padding: "20px 24px", borderRadius: 16, background: "#fff", border: "1px solid #f0f0f0", display: "flex", alignItems: "center", gap: 20 }}>
+        <div style={{ width: 44, height: 44, borderRadius: "50%", background: "#1d1d1f", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 16, fontWeight: 700, flexShrink: 0 }}>K</div>
+        <div style={{ flex: 1 }}>
+          <p style={{ fontSize: 14, color: "#1d1d1f", fontWeight: 500, lineHeight: 1.6, fontStyle: "italic", marginBottom: 6 }}>
+            "Grâce à Biolystes, j'ai lancé ma marque cosmétique bio en moins de deux semaines, sans stock, sans laboratoire."
+          </p>
+          <p style={{ fontSize: 11, color: "#86868b" }}>Fondatrice de Kaniwa Botanique — Paris, France</p>
+        </div>
+      </div>
+    </motion.div>
   );
 }
 
