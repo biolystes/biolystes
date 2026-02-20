@@ -267,7 +267,7 @@ function ProductCard({ product, onSelect }: { product: WCProduct; onSelect: () =
       }}
     >
       {/* Image area — rectangle taller */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "3/4", background: "#f0f0f5", overflow: "hidden" }}>
+      <div style={{ position: "relative", width: "100%", aspectRatio: "3/4", background: "#f5f5f7", overflow: "hidden" }}>
         {/* # badge top-left */}
         <div style={{
           position: "absolute", top: 12, left: 12, zIndex: 2,
@@ -685,7 +685,7 @@ export default function DashboardPage() {
       </motion.div>
 
       {/* Catalogue */}
-      <div style={{ background: "#eeedf5", borderRadius: 20, padding: "24px 20px", marginLeft: -40, marginRight: -40 }}>
+      <div style={{ background: "transparent", padding: "0", marginTop: 8 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
           <span style={{ fontSize: 10, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>Catalogue</span>
           <div style={{ display: "flex", alignItems: "center", gap: 4, color: "#d1d1d6" }}>
