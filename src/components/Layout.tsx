@@ -1,29 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  LayoutDashboard,
-  Bot,
-  Package,
-  BarChart3,
-  Users2,
-  Settings,
-  Menu,
-  X,
-  HelpCircle,
-  FileText,
-  Search,
-} from "lucide-react";
+import { Sparkles, LayoutGrid, Settings, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
-  { path: "/", icon: LayoutDashboard, label: "Tableau de bord" },
-  { path: "/agents", icon: Bot, label: "Agents IA" },
-  { path: "/products", icon: Package, label: "Produits" },
-  { path: "/diagnostics", icon: FileText, label: "Diagnostics" },
-  { path: "/analytics", icon: BarChart3, label: "Analytics" },
-  { path: "/leads", icon: Users2, label: "Leads" },
-  { path: "/team", icon: Users2, label: "Équipe" },
+  { path: "/", icon: Sparkles, label: "Configurateur" },
+  { path: "/catalog", icon: LayoutGrid, label: "Catalogue" },
 ];
 
 const bottomItems = [
@@ -51,34 +34,33 @@ function IconSidebar() {
       <Link to="/" className="mb-6">
         <img
           src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
-          alt="Biolystes"
+          alt="Lystes"
           className="h-8 w-8 animate-tourne object-contain"
         />
       </Link>
 
-      {/* Main nav icons */}
+      {/* Navigation principale */}
       <div className="flex flex-col items-center gap-2 flex-1">
         {navItems.map((item) => (
           <Link key={item.path} to={item.path} title={item.label}>
             <div className={`sidebar-icon-btn ${isActive(item.path) ? "active" : ""}`}>
-              <item.icon size={16} />
+              <item.icon size={16} strokeWidth={1.5} />
             </div>
           </Link>
         ))}
       </div>
 
-      {/* Bottom icons */}
+      {/* Bas : réglages + avatar */}
       <div className="flex flex-col items-center gap-3 mt-auto">
         {bottomItems.map((item) => (
           <Link key={item.path} to={item.path} title={item.label}>
             <div className={`sidebar-icon-btn ${isActive(item.path) ? "active" : ""}`}>
-              <item.icon size={16} />
+              <item.icon size={16} strokeWidth={1.5} />
             </div>
           </Link>
         ))}
-        {/* Avatar */}
-        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-bold cursor-pointer">
-          A
+        <div className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center text-background text-xs font-bold cursor-pointer">
+          JP
         </div>
       </div>
     </aside>
@@ -96,10 +78,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen bg-background">
-      {/* Desktop icon sidebar */}
+      {/* Sidebar desktop */}
       <IconSidebar />
 
-      {/* Mobile overlay */}
+      {/* Overlay mobile */}
       <AnimatePresence>
         {mobileOpen && (
           <>
@@ -120,10 +102,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="flex items-center gap-2 mb-6">
                 <img
                   src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
-                  alt="Biolystes"
+                  alt="Lystes"
                   className="h-7 w-7 object-contain"
                 />
-                <span className="font-bold pacifico">Biolystes AI</span>
+                <span className="font-bold text-sm" style={{ color: "#1d1d1f" }}>Lystes.ai</span>
               </div>
               <nav className="space-y-1 flex-1">
                 {[...navItems, ...bottomItems].map((item) => (
@@ -133,7 +115,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     onClick={() => setMobileOpen(false)}
                     className={`nav-item ${isActive(item.path) ? "active" : ""}`}
                   >
-                    <item.icon size={16} />
+                    <item.icon size={16} strokeWidth={1.5} />
                     {item.label}
                   </Link>
                 ))}
@@ -143,17 +125,17 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         )}
       </AnimatePresence>
 
-      {/* Main */}
+      {/* Contenu principal */}
       <div className="flex-1 md:ml-16">
-        {/* Mobile header */}
+        {/* Header mobile */}
         <header className="md:hidden bg-card border-b border-border px-4 py-3 flex items-center justify-between sticky top-0 z-20">
           <div className="flex items-center gap-2">
             <img
               src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
-              alt="Biolystes"
+              alt="Lystes"
               className="h-7 w-7 object-contain"
             />
-            <span className="font-bold pacifico">Biolystes AI</span>
+            <span className="font-bold text-sm" style={{ color: "#1d1d1f" }}>Lystes.ai</span>
           </div>
           <Button variant="ghost" size="icon" onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X size={18} /> : <Menu size={18} />}
@@ -169,3 +151,4 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
+
