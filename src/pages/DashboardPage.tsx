@@ -14,7 +14,7 @@ import kaniwa9 from "@/assets/kaniwa-9.jpg";
 import kaniwa10 from "@/assets/kaniwa-10.jpg";
 import kaniwa11 from "@/assets/kaniwa-11.jpg";
 import kaniwa12 from "@/assets/kaniwa-12.jpg";
-import kaniwa13 from "@/assets/kaniwa-13.jpg";
+
 import kaniwa14 from "@/assets/kaniwa-14.jpg";
 import fralene1 from "@/assets/fralene-1.jpg";
 import fralene2 from "@/assets/fralene-2.jpg";
@@ -841,7 +841,7 @@ export default function DashboardPage() {
 // ─── Kaniwa Botanique showcase ────────────────────────────
 const ALL_KANIWA = [
   kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7,
-  kaniwa8, kaniwa9, kaniwa10, kaniwa11, kaniwa12, kaniwa13, kaniwa14,
+  kaniwa8, kaniwa9, kaniwa10, kaniwa11, kaniwa12, kaniwa14,
 ];
 
 // Two rows: first 7 left, last 7 right (opposite directions)
