@@ -535,25 +535,29 @@ function parseTag(tagName: string): { displayName: string; group: string | null 
   return { displayName: tagName, group: null };
 }
 
-// ─── Main Dashboard ───────────────────────────────────────
+// ─── Main Dashboard (Configurateur IA) ──────────────────
 export default function DashboardPage() {
+  const [chatStarted, setChatStarted] = useState(false);
+
+  // Catalogue state (affiché tant qu'on n'a pas démarré le chat)
   const [allProducts, setAllProducts] = useState<WCProduct[]>([]);
   const [allCategories, setAllCategories] = useState<WCCategory[]>([]);
   const [allTags, setAllTags] = useState<WCTag[]>([]);
   const [attributes, setAttributes] = useState<WCAttribute[]>([]);
   const [attrTerms, setAttrTerms] = useState<Record<number, WCAttributeTerm[]>>({});
-
-  // Active filters: key = filter group key (string), value = array of selected term names/ids
   const [selectedCatIds, setSelectedCatIds] = useState<number[]>([]);
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
   const [selectedAttrTerms, setSelectedAttrTerms] = useState<Record<number, string[]>>({});
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<WCProduct | null>(null);
+  const [vatEnabled, setVatEnabled] = useState(false);
+  const [sortBy, setSortBy] = useState<"date" | "price-asc" | "price-desc">("date");
+  const [sortOpen, setSortOpen] = useState(false);
+  const [selectedGroupTags, setSelectedGroupTags] = useState<Record<string, number[]>>({});
 
-  // ─── Fetch all data in parallel ──────────────────────────
   useEffect(() => {
+    if (chatStarted) return; // ne pas fetcher si le catalogue n'est pas visible
     Promise.all([
       fetch(buildUrl("/products/categories", { per_page: "100", hide_empty: "true" })).then(r => r.json()),
       fetch(buildUrl("/products/tags", { per_page: "100", hide_empty: "true" })).then(r => r.json()),
@@ -562,7 +566,6 @@ export default function DashboardPage() {
       setAllCategories(cats.filter(c => c.slug !== "uncategorized" && c.count > 0).sort((a, b) => b.count - a.count));
       setAllTags(tags.filter(t => t.count > 0).sort((a, b) => b.count - a.count));
       setAttributes(attrs);
-      // Fetch all attribute terms in parallel
       Promise.all(
         attrs.map(attr =>
           fetch(buildUrl(`/products/attributes/${attr.id}/terms`, { per_page: "100", hide_empty: "true" }))
@@ -575,26 +578,20 @@ export default function DashboardPage() {
         setAttrTerms(map);
       });
     }).catch(() => {});
-  }, []);
+  }, [chatStarted]);
 
   useEffect(() => {
+    if (chatStarted) return;
     setLoading(true);
     setError(null);
     fetch(buildUrl("/products", { page: "1", per_page: "100", status: "publish", orderby: "date", order: "desc" }))
       .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
       .then((prods: WCProduct[]) => { setAllProducts(prods); setLoading(false); })
       .catch((err: Error) => { setError(err.message); setLoading(false); });
-  }, []);
+  }, [chatStarted]);
 
-  // ─── TVA toggle ───────────────────────────────────────────
-  const [vatEnabled, setVatEnabled] = useState(false);
-  const [sortBy, setSortBy] = useState<"date" | "price-asc" | "price-desc">("date");
-
-  // ─── Category tree (top-level only for pills) ─────────────
   const topLevel = allCategories.filter(c => c.parent === 0).sort((a, b) => b.count - a.count);
 
-  // ─── Parse tags into groups (selfnamed pattern) ────────────
-  // Tags format: "Name (Group)" → group by group name
   const tagGroups = (() => {
     const groups: Record<string, { label: string; tags: WCTag[]; displayNames: string[] }> = {};
     allTags.forEach(tag => {
@@ -602,34 +599,24 @@ export default function DashboardPage() {
       if (!group) return;
       const mappedLabel = TAG_GROUP_LABELS[group];
       if (!mappedLabel) return;
-      if (!groups[mappedLabel]) {
-        groups[mappedLabel] = { label: mappedLabel, tags: [], displayNames: [] };
-      }
+      if (!groups[mappedLabel]) groups[mappedLabel] = { label: mappedLabel, tags: [], displayNames: [] };
       groups[mappedLabel].tags.push(tag);
       groups[mappedLabel].displayNames.push(displayName);
     });
     return groups;
   })();
 
-  // ─── Selected tag-group filters ────────────────────────────
-  const [selectedGroupTags, setSelectedGroupTags] = useState<Record<string, number[]>>({});
-
-  // ─── Client-side filtering ────────────────────────────────
   const filteredProducts = allProducts.filter(p => {
     const pCatIds = new Set(p.categories.map(c => c.id));
     const pTagIds = new Set(p.tags.map(t => t.id));
     const pAttrMap: Record<string, string[]> = {};
     p.attributes.forEach(a => { pAttrMap[a.id] = a.options.map(o => o.toLowerCase()); });
-
     if (selectedCatIds.length > 0 && !selectedCatIds.some(id => pCatIds.has(id))) return false;
     if (selectedTagIds.length > 0 && !selectedTagIds.some(id => pTagIds.has(id))) return false;
-
-    // Group-based tag filters (AND between groups, OR within a group)
-    for (const [groupLabel, tagIds] of Object.entries(selectedGroupTags)) {
+    for (const [, tagIds] of Object.entries(selectedGroupTags)) {
       if (tagIds.length === 0) continue;
       if (!tagIds.some(id => pTagIds.has(id))) return false;
     }
-
     for (const [attrId, terms] of Object.entries(selectedAttrTerms)) {
       if (terms.length === 0) continue;
       const pTerms = pAttrMap[attrId] || [];
@@ -638,11 +625,10 @@ export default function DashboardPage() {
     return true;
   });
 
-  // ─── Sort ─────────────────────────────────────────────────
   const products = [...filteredProducts].sort((a, b) => {
     if (sortBy === "price-asc") return (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0);
     if (sortBy === "price-desc") return (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0);
-    return 0; // date = API order
+    return 0;
   });
 
   const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 ||
@@ -650,42 +636,28 @@ export default function DashboardPage() {
     Object.values(selectedGroupTags).some(v => v.length > 0);
 
   const clearFilters = () => {
-    setSelectedCatIds([]);
-    setSelectedTagIds([]);
-    setSelectedAttrTerms({});
-    setSelectedGroupTags({});
+    setSelectedCatIds([]); setSelectedTagIds([]);
+    setSelectedAttrTerms({}); setSelectedGroupTags({});
   };
 
-  // ─── Build filter groups from tag groups + categories ─────
   const catOptions: FilterOption[] = topLevel.map(c => ({ id: c.id, name: c.name }));
+  const unGroupedTags = allTags.filter(t => {
+    const { group } = parseTag(t.name);
+    if (!group) return true;
+    return !TAG_GROUP_LABELS[group];
+  }).slice(0, 30).map(t => ({ id: t.id, name: t.name }));
 
-  // Étiquette = tags without a recognized group
-  const unGroupedTags = allTags
-    .filter(t => {
-      const { group } = parseTag(t.name);
-      if (!group) return true;
-      return !TAG_GROUP_LABELS[group];
-    })
-    .slice(0, 30)
-    .map(t => ({ id: t.id, name: t.name }));
+  const groupFilters = FILTER_ORDER.map(label => {
+    const group = tagGroups[label];
+    if (!group || group.tags.length === 0) return null;
+    const isColor = label === "Couleur de l'emballage";
+    const options: FilterOption[] = group.tags.map((t, i) => ({
+      id: t.id, name: group.displayNames[i],
+      ...(isColor ? { image: COLOR_MAP[group.displayNames[i].toLowerCase()] || "#ccc" } : {}),
+    }));
+    return { label, options, isColor };
+  }).filter(Boolean) as { label: string; options: FilterOption[]; isColor: boolean }[];
 
-  // Ordered group filters (Type, Réclamations, Inquiétude, Principes actifs, Couleur)
-  const groupFilters = FILTER_ORDER
-    .map(label => {
-      const group = tagGroups[label];
-      if (!group || group.tags.length === 0) return null;
-      const isColor = label === "Couleur de l'emballage";
-      const options: FilterOption[] = group.tags.map((t, i) => ({
-        id: t.id,
-        name: group.displayNames[i],
-        ...(isColor ? { image: COLOR_MAP[group.displayNames[i].toLowerCase()] || "#ccc" } : {}),
-      }));
-      return { label, options, isColor };
-    })
-    .filter(Boolean) as { label: string; options: FilterOption[]; isColor: boolean }[];
-
-  // ─── Sort dropdown state ───────────────────────────────────
-  const [sortOpen, setSortOpen] = useState(false);
   const sortOptions = [
     { key: "date", label: "Plus récent" },
     { key: "price-asc", label: "Prix croissant" },
@@ -708,192 +680,115 @@ export default function DashboardPage() {
         </p>
       </motion.div>
 
-      {/* AI Chat (prompt cards + input + conversation) */}
-      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.4 }} style={{ marginBottom: 48 }}>
-        <AIChat />
+      {/* Chat IA */}
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.12, duration: 0.4 }} style={{ marginBottom: chatStarted ? 0 : 48 }}>
+        <AIChat onConversationStart={() => setChatStarted(true)} />
       </motion.div>
 
-
-      {/* Catalogue */}
-      <div style={{ background: "transparent", padding: "0", marginTop: 8 }}>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-          <span style={{ fontSize: 10, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>Catalogue</span>
-          <div style={{ display: "flex", alignItems: "center", gap: 4, color: "#d1d1d6" }}>
-            <Icons.search size={13} />
-            <span style={{ fontSize: 11 }}>{products.length} produits</span>
-          </div>
-        </div>
-
-        {/* ── Filter bar — exactly like selfnamed ────────────── */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
-
-          {/* LEFT: filter dropdowns */}
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
-
-            {/* 1. Catégorie */}
-            {catOptions.length > 0 && (
-              <FilterDropdown
-                label="Catégorie"
-                options={catOptions}
-                selected={selectedCatIds}
-                onChange={ids => setSelectedCatIds(ids as number[])}
-                grid={catOptions.length > 4}
-              />
-            )}
-
-            {/* 2. Étiquette */}
-            {unGroupedTags.length > 0 && (
-              <FilterDropdown
-                label="Étiquette"
-                options={unGroupedTags}
-                selected={selectedTagIds}
-                onChange={ids => setSelectedTagIds(ids as number[])}
-                grid={unGroupedTags.length > 6}
-              />
-            )}
-
-            {/* 3–7. Type, Réclamations, Inquiétude, Principes actifs, Couleur */}
-            {groupFilters.map(f => (
-              <FilterDropdown
-                key={f.label}
-                label={f.label}
-                options={f.options}
-                selected={selectedGroupTags[f.label] || []}
-                onChange={ids => setSelectedGroupTags(prev => ({ ...prev, [f.label]: ids as number[] }))}
-                grid={f.options.length > 6 && !f.isColor}
-              />
-            ))}
-
-            {/* Clear all */}
-            {hasFilters && (
-              <button onClick={clearFilters} style={{
-                padding: "7px 14px", borderRadius: 20, border: "1px solid #d1d1d6",
-                background: "transparent", color: "#86868b", fontSize: 12, fontWeight: 400,
-                cursor: "pointer",
-              }}>✕ Effacer</button>
-            )}
-          </div>
-
-          {/* RIGHT: TVA toggle + Trier par */}
-          <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
-
-            {/* TVA toggle */}
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <span style={{ fontSize: 12, fontWeight: 500, color: "#86868b" }}>TVA</span>
-              <button
-                onClick={() => setVatEnabled(v => !v)}
-                role="switch"
-                aria-checked={vatEnabled}
-                style={{
-                  width: 36, height: 20, borderRadius: 10, border: "none",
-                  background: vatEnabled ? "#1d1d1f" : "#d1d1d6",
-                  cursor: "pointer", position: "relative", transition: "background .2s",
-                  padding: 0, flexShrink: 0,
-                }}
-              >
-                <span style={{
-                  position: "absolute", top: 2,
-                  left: vatEnabled ? 18 : 2,
-                  width: 16, height: 16, borderRadius: 8,
-                  background: "#fff", transition: "left .2s",
-                  boxShadow: "0 1px 3px rgba(0,0,0,.2)",
-                }} />
-              </button>
+      {/* Catalogue — masqué quand le chat démarre */}
+      <AnimatePresence>
+        {!chatStarted && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+          >
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
+              <span style={{ fontSize: 10, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>Catalogue</span>
+              <div style={{ display: "flex", alignItems: "center", gap: 4, color: "#d1d1d6" }}>
+                <Icons.search size={13} />
+                <span style={{ fontSize: 11 }}>{products.length} produits</span>
+              </div>
             </div>
 
-            {/* Trier par */}
-            <div style={{ position: "relative" }}>
-              <button
-                onClick={() => setSortOpen(o => !o)}
-                style={{
-                  display: "flex", alignItems: "center", gap: 6,
-                  padding: "7px 14px", borderRadius: 20,
-                  border: "1px solid #d1d1d6", background: "#fff",
-                  color: "#1d1d1f", fontSize: 12, fontWeight: 500, cursor: "pointer",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 6h18M7 12h10M11 18h2" />
-                </svg>
-                Trier par
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d={sortOpen ? "m18 15-6-6-6 6" : "m6 9 6 6 6-6"} />
-                </svg>
-              </button>
-              {sortOpen && (
-                <>
-                  <div onClick={() => setSortOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 98 }} />
-                  <div style={{
-                    position: "absolute", top: "calc(100% + 8px)", right: 0, zIndex: 99,
-                    background: "#fff", borderRadius: 14, minWidth: 180,
-                    boxShadow: "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06)",
-                    border: "1px solid #f0f0f0", padding: 8,
-                  }}>
-                    {sortOptions.map(opt => (
-                      <button
-                        key={opt.key}
-                        onClick={() => { setSortBy(opt.key as typeof sortBy); setSortOpen(false); }}
-                        style={{
-                          display: "flex", alignItems: "center", gap: 10,
-                          width: "100%", padding: "9px 10px", borderRadius: 8, border: "none",
-                          background: sortBy === opt.key ? "#f5f5f7" : "transparent",
-                          cursor: "pointer", textAlign: "left", fontSize: 13, color: "#1d1d1f",
-                        }}
-                      >
-                        <div style={{
-                          width: 16, height: 16, borderRadius: "50%", flexShrink: 0,
-                          border: sortBy === opt.key ? "none" : "1.5px solid #c7c7cc",
-                          background: sortBy === opt.key ? "#1d1d1f" : "transparent",
-                          display: "flex", alignItems: "center", justifyContent: "center",
-                        }}>
-                          {sortBy === opt.key && <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
-                        </div>
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
+            {/* Barre de filtres */}
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
+              <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+                {catOptions.length > 0 && (
+                  <FilterDropdown label="Catégorie" options={catOptions} selected={selectedCatIds} onChange={ids => setSelectedCatIds(ids as number[])} grid={catOptions.length > 4} />
+                )}
+                {unGroupedTags.length > 0 && (
+                  <FilterDropdown label="Étiquette" options={unGroupedTags} selected={selectedTagIds} onChange={ids => setSelectedTagIds(ids as number[])} grid={unGroupedTags.length > 6} />
+                )}
+                {groupFilters.map(f => (
+                  <FilterDropdown key={f.label} label={f.label} options={f.options} selected={selectedGroupTags[f.label] || []} onChange={ids => setSelectedGroupTags(prev => ({ ...prev, [f.label]: ids as number[] }))} grid={f.options.length > 6 && !f.isColor} />
+                ))}
+                {hasFilters && (
+                  <button onClick={clearFilters} style={{ padding: "7px 14px", borderRadius: 20, border: "1px solid #d1d1d6", background: "transparent", color: "#86868b", fontSize: 12, cursor: "pointer" }}>
+                    Effacer
+                  </button>
+                )}
+              </div>
+
+              <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <span style={{ fontSize: 12, fontWeight: 500, color: "#86868b" }}>TVA</span>
+                  <button onClick={() => setVatEnabled(v => !v)} role="switch" aria-checked={vatEnabled}
+                    style={{ width: 36, height: 20, borderRadius: 10, border: "none", background: vatEnabled ? "#1d1d1f" : "#d1d1d6", cursor: "pointer", position: "relative", transition: "background .2s", padding: 0, flexShrink: 0 }}>
+                    <span style={{ position: "absolute", top: 2, left: vatEnabled ? 18 : 2, width: 16, height: 16, borderRadius: 8, background: "#fff", transition: "left .2s", boxShadow: "0 1px 3px rgba(0,0,0,.2)" }} />
+                  </button>
+                </div>
+                <div style={{ position: "relative" }}>
+                  <button onClick={() => setSortOpen(o => !o)}
+                    style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 20, border: "1px solid #d1d1d6", background: "#fff", color: "#1d1d1f", fontSize: 12, fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap" }}>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18M7 12h10M11 18h2" /></svg>
+                    Trier
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d={sortOpen ? "m18 15-6-6-6 6" : "m6 9 6 6 6-6"} /></svg>
+                  </button>
+                  {sortOpen && (
+                    <>
+                      <div onClick={() => setSortOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 98 }} />
+                      <div style={{ position: "absolute", top: "calc(100% + 8px)", right: 0, zIndex: 99, background: "#fff", borderRadius: 14, minWidth: 180, boxShadow: "0 8px 32px rgba(0,0,0,0.14)", border: "1px solid #f0f0f0", padding: 8 }}>
+                        {sortOptions.map(opt => (
+                          <button key={opt.key} onClick={() => { setSortBy(opt.key as typeof sortBy); setSortOpen(false); }}
+                            style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "9px 10px", borderRadius: 8, border: "none", background: sortBy === opt.key ? "#f5f5f7" : "transparent", cursor: "pointer", textAlign: "left", fontSize: 13, color: "#1d1d1f" }}>
+                            <div style={{ width: 16, height: 16, borderRadius: "50%", flexShrink: 0, border: sortBy === opt.key ? "none" : "1.5px solid #c7c7cc", background: sortBy === opt.key ? "#1d1d1f" : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                              {sortBy === opt.key && <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
+                            </div>
+                            {opt.label}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        {error && (
-          <div style={{ textAlign: "center", padding: "48px 0" }}>
-            <p style={{ fontSize: 14, color: "#86868b" }}>Erreur de connexion au catalogue</p>
-            <p style={{ fontSize: 12, color: "#d1d1d6", marginTop: 4 }}>{error}</p>
-          </div>
-        )}
+            {error && (
+              <div style={{ textAlign: "center", padding: "48px 0" }}>
+                <p style={{ fontSize: 14, color: "#86868b" }}>Erreur de connexion au catalogue</p>
+                <p style={{ fontSize: 12, color: "#d1d1d6", marginTop: 4 }}>{error}</p>
+              </div>
+            )}
 
-        {loading && (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
-            {Array.from({ length: 8 }).map((_, i) => <ProductSkeleton key={i} />)}
-          </div>
-        )}
+            {loading && (
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
+                {Array.from({ length: 8 }).map((_, i) => <ProductSkeleton key={i} />)}
+              </div>
+            )}
 
-        {!loading && !error && products.length > 0 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
-            style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
-            {products.map(p => (
-              <ProductCard key={p.id} product={p} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} />
-            ))}
+            {!loading && !error && products.length > 0 && (
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
+                style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
+                {products.map(p => (
+                  <ProductCard key={p.id} product={p} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} />
+                ))}
+              </motion.div>
+            )}
+
+            {!loading && !error && products.length === 0 && (
+              <div style={{ textAlign: "center", padding: "64px 0", color: "#86868b" }}>
+                <Icons.box size={30} sw={1} />
+                <p style={{ fontSize: 14, marginTop: 12 }}>Aucun produit dans cette catégorie</p>
+              </div>
+            )}
           </motion.div>
         )}
+      </AnimatePresence>
 
-        {!loading && !error && products.length === 0 && (
-          <div style={{ textAlign: "center", padding: "64px 0", color: "#86868b" }}>
-            <Icons.box size={30} sw={1} />
-            <p style={{ fontSize: 14, marginTop: 12 }}>Aucun produit dans cette catégorie</p>
-          </div>
-        )}
-      </div>
-
-      {/* Product detail panel */}
       <AnimatePresence>
-        {selectedProduct && (
-          <ProductPanel product={selectedProduct} onClose={() => setSelectedProduct(null)} />
-        )}
+        {selectedProduct && <ProductPanel product={selectedProduct} onClose={() => setSelectedProduct(null)} />}
       </AnimatePresence>
     </>
   );

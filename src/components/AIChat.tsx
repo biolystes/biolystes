@@ -246,9 +246,11 @@ const PROMPTS = [
 export default function AIChat({
   initialInput = "",
   onInputChange,
+  onConversationStart,
 }: {
   initialInput?: string;
   onInputChange?: (v: string) => void;
+  onConversationStart?: () => void;
 }) {
   const [messages, setMessages] = useState<AIMessage[]>([]);
   const [input, setInput] = useState(initialInput);
@@ -265,13 +267,18 @@ export default function AIChat({
   const sendMessage = (text: string) => {
     if (!text.trim()) return;
 
+    // Notifier le parent que la conversation démarre (1er message)
+    if (messages.length === 0) {
+      onConversationStart?.();
+    }
+
     const userMsg: AIMessage = { id: Date.now().toString(), role: "user", text };
     setMessages(prev => [...prev, userMsg]);
     setInput("");
     onInputChange?.("");
     setTyping(true);
 
-    // Simulate AI response after 1.8s
+    // Réponse IA simulée après 1.8s
     setTimeout(() => {
       setTyping(false);
       const aiMsg: AIMessage = {
@@ -284,6 +291,7 @@ export default function AIChat({
       setMessages(prev => [...prev, aiMsg]);
     }, 1800);
   };
+
 
   const isEmpty = messages.length === 0 && !typing;
 
