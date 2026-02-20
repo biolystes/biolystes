@@ -35,6 +35,18 @@ import fralene13 from "@/assets/fralene-13.jpg";
 import fralene14 from "@/assets/fralene-14.jpg";
 import fralene15 from "@/assets/fralene-15.jpg";
 
+// ─── Sevmylook ────────────────────────────────────────────
+import sevmylook1 from "@/assets/sevmylook-1.jpg";
+import sevmylook2 from "@/assets/sevmylook-2.jpg";
+import sevmylook3 from "@/assets/sevmylook-3.jpg";
+import sevmylook4 from "@/assets/sevmylook-4.jpg";
+import sevmylook5 from "@/assets/sevmylook-5.jpg";
+import sevmylook6 from "@/assets/sevmylook-6.jpg";
+import sevmylook7 from "@/assets/sevmylook-7.jpg";
+import sevmylook8 from "@/assets/sevmylook-8.jpg";
+import sevmylook9 from "@/assets/sevmylook-9.jpg";
+import sevmylook10 from "@/assets/sevmylook-10.jpg";
+
 // ─── Data ─────────────────────────────────────────────────
 export interface Brand {
   slug: string;
@@ -67,6 +79,17 @@ export const BRANDS: Brand[] = [
       fralene1, fralene2, fralene3, fralene4, fralene5,
       fralene6, fralene7, fralene8, fralene9, fralene10,
       fralene11, fralene12, fralene13, fralene14, fralene15,
+    ],
+  },
+  {
+    slug: "sevmylook",
+    name: "Sevmylook",
+    tagline: "Gamme solaire & soins visage · Protection SPF 30, crème hydratante Séverine & huile Jouvence",
+    tags: ["Soins visage", "SPF 30", "Gamme complète"],
+    accentColor: "#b5896b",
+    photos: [
+      sevmylook1, sevmylook2, sevmylook3, sevmylook4, sevmylook5,
+      sevmylook6, sevmylook7, sevmylook8, sevmylook9, sevmylook10,
     ],
   },
 ];
