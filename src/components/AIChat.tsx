@@ -93,7 +93,55 @@ async function streamChat({
   onDone();
 }
 
-// ─── Typing indicator ─────────────────────────────────────
+// ─── Thinking indicator (before first chunk) ──────────────
+function ThinkingIndicator() {
+  const steps = ["Analyse de votre projet…", "Recherche dans le catalogue…", "Préparation des recommandations…"];
+  const [step, setStep] = useState(0);
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    // Cycle through steps
+    const stepTimer = setInterval(() => {
+      setStep(s => (s + 1) % steps.length);
+    }, 1800);
+    // Animate progress bar
+    const progressTimer = setInterval(() => {
+      setProgress(p => {
+        if (p >= 90) return 90; // Never reach 100 until done
+        return p + Math.random() * 6;
+      });
+    }, 200);
+    return () => { clearInterval(stepTimer); clearInterval(progressTimer); };
+  }, []);
+
+  return (
+    <div className="flex gap-2 items-start">
+      <div className="w-7 h-7 rounded-full border border-border flex items-center justify-center flex-shrink-0 bg-white">
+        <span style={{ fontSize: 14 }}>✦</span>
+      </div>
+      <div style={{
+        flex: 1, background: "#f5f5f7", borderRadius: 12, padding: "12px 16px",
+        maxWidth: 320,
+      }}>
+        {/* Progress bar */}
+        <div style={{ height: 3, background: "#e5e5e7", borderRadius: 2, overflow: "hidden", marginBottom: 10 }}>
+          <div style={{
+            height: "100%", background: "#1d1d1f",
+            borderRadius: 2, width: `${progress}%`,
+            transition: "width 0.2s ease-out",
+          }} />
+        </div>
+        {/* Animated step label */}
+        <p style={{ margin: 0, fontSize: 12, color: "#6e6e73", display: "flex", alignItems: "center", gap: 6 }}>
+          <span style={{ display: "inline-block", width: 6, height: 6, borderRadius: 3, background: "#1d1d1f", flexShrink: 0, animation: "biolPulse 1s ease-in-out infinite" }} />
+          {steps[step]}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+// ─── Typing indicator (dots, during streaming) ─────────────
 function TypingIndicator() {
   return (
     <div className="flex gap-2 items-start">
@@ -420,6 +468,10 @@ export default function AIChat({
           0%, 80%, 100% { transform: translateY(0); opacity: .4; }
           40% { transform: translateY(-6px); opacity: 1; }
         }
+        @keyframes biolPulse {
+          0%, 100% { opacity: 0.3; transform: scale(1); }
+          50% { opacity: 1; transform: scale(1.3); }
+        }
       `}</style>
 
       <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
@@ -521,7 +573,7 @@ export default function AIChat({
                   </div>
                 );
               })}
-              {typing && <TypingIndicator />}
+              {typing && <ThinkingIndicator />}
               <div ref={bottomRef} />
             </div>
           </div>
