@@ -149,9 +149,30 @@ export default function SharedSelectionPage() {
                   </div>
                 </div>
                 <div style={{ padding: "14px 16px 16px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
-                  <h3 style={{ fontSize: 11, fontWeight: 700, color: "#1d1d1f", textTransform: "uppercase", letterSpacing: ".3px", lineHeight: 1.4, margin: 0, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-                    {product.name}
-                  </h3>
+                  {/* Title + link side by side */}
+                  <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8 }}>
+                    <h3 style={{ fontSize: 11, fontWeight: 700, color: "#1d1d1f", textTransform: "uppercase", letterSpacing: ".3px", lineHeight: 1.4, margin: 0, display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                      {product.name}
+                    </h3>
+                    {product.permalink && (
+                      <a
+                        href={product.permalink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={e => e.stopPropagation()}
+                        style={{
+                          flexShrink: 0, display: "inline-flex", alignItems: "center", gap: 4,
+                          fontSize: 10, fontWeight: 700, color: "#1d1d1f", textDecoration: "none",
+                          padding: "4px 10px", borderRadius: 8, border: "1.5px solid #1d1d1f",
+                          whiteSpace: "nowrap", transition: "background .15s",
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.background = "#1d1d1f"; e.currentTarget.style.color = "#fff"; }}
+                        onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "#1d1d1f"; }}
+                      >
+                        Voir le site ↗
+                      </a>
+                    )}
+                  </div>
                   {price > 0 && (
                     <div style={{ background: "#f5f5f7", borderRadius: 10, padding: "10px 12px" }}>
                       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
@@ -166,60 +187,11 @@ export default function SharedSelectionPage() {
                       ))}
                     </div>
                   )}
-                  {product.permalink && (
-                    <a
-                      href={product.permalink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        marginTop: "auto", display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
-                        padding: "9px", borderRadius: 10, border: "1px solid #e5e5e7",
-                        fontSize: 11, fontWeight: 600, color: "#1d1d1f", textDecoration: "none",
-                        background: "#fff", transition: "background .15s",
-                      }}
-                      onMouseEnter={e => (e.currentTarget.style.background = "#f5f5f7")}
-                      onMouseLeave={e => (e.currentTarget.style.background = "#fff")}
-                    >
-                      Voir le produit
-                      <Icon d={["M15 3h6v6","M10 14 21 3","M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"]} size={11} />
-                    </a>
-                  )}
                 </div>
               </motion.div>
             );
           })}
         </div>
-
-        {/* CTA bottom */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-          style={{ marginTop: 48, padding: "32px", background: "#1d1d1f", borderRadius: 20, textAlign: "center" }}
-        >
-          <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1.5px", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginBottom: 10 }}>Prêt à lancer votre marque ?</p>
-          <h2 style={{ fontSize: 22, fontWeight: 800, color: "#fff", marginBottom: 8 }}>
-            Lancez votre marque bio en 10 à 15 jours
-          </h2>
-          <p style={{ fontSize: 13, color: "rgba(255,255,255,0.6)", marginBottom: 24, lineHeight: 1.6 }}>
-            Zéro stock, zéro investissement massif. Biolystes s'occupe de tout.
-          </p>
-          <a
-            href="https://app.iclosed.io/e/paylystes/r2"
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: "inline-flex", alignItems: "center", gap: 8,
-              padding: "12px 28px", borderRadius: 24, background: "#fff",
-              color: "#1d1d1f", fontSize: 13, fontWeight: 700, textDecoration: "none",
-              transition: "opacity .15s",
-            }}
-            onMouseEnter={e => (e.currentTarget.style.opacity = "0.88")}
-            onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
-          >
-            Prendre rendez-vous gratuitement →
-          </a>
-        </motion.div>
       </div>
     </div>
   );

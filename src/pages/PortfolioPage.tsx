@@ -232,41 +232,40 @@ function BrandAlbum({ brand, index }: { brand: Brand; index: number }) {
         style={{ outline: "none" }}
       >
         {/* Album header */}
-        <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 20 }}>
-          <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
-              <div style={{ width: 32, height: 32, borderRadius: "50%", background: brand.accentColor, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 13, fontWeight: 700, flexShrink: 0 }}>
-                {brand.name[0]}
-              </div>
-              <h2 style={{ fontSize: 22, fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.3px" }}>
-                {brand.name}
-              </h2>
-              <a
-                href={brand.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  fontSize: 11, fontWeight: 600, color: brand.accentColor,
-                  textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 4,
-                  padding: "4px 12px", borderRadius: 20,
-                  border: `1px solid ${brand.accentColor}40`,
-                  transition: "background .15s",
-                  whiteSpace: "nowrap",
-                }}
-                onMouseEnter={e => (e.currentTarget.style.background = `${brand.accentColor}12`)}
-                onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
-              >
-                Voir le site ↗
-              </a>
+        <div style={{ marginBottom: 20 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+            <div style={{ width: 32, height: 32, borderRadius: "50%", background: brand.accentColor, display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 13, fontWeight: 700, flexShrink: 0 }}>
+              {brand.name[0]}
             </div>
-            <p style={{ fontSize: 13, color: "#86868b", paddingLeft: 42 }}>{brand.tagline}</p>
+            <h2 style={{ fontSize: 22, fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.3px", margin: 0 }}>
+              {brand.name}
+            </h2>
+            <a
+              href={brand.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontSize: 12, fontWeight: 700, color: "#fff",
+                textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 5,
+                padding: "6px 14px", borderRadius: 20,
+                background: brand.accentColor,
+                transition: "opacity .15s",
+                whiteSpace: "nowrap", flexShrink: 0,
+              }}
+              onMouseEnter={e => (e.currentTarget.style.opacity = "0.82")}
+              onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
+            >
+              Voir le site ↗
+            </a>
           </div>
-          <div style={{ display: "flex", gap: 6, flexShrink: 0 }}>
+          <p style={{ fontSize: 13, color: "#86868b", paddingLeft: 42, marginBottom: 8 }}>{brand.tagline}</p>
+          <div style={{ paddingLeft: 42, display: "flex", gap: 6, flexWrap: "wrap" }}>
             {brand.tags.map((tag, i) => (
               <span key={i} style={{
-                padding: "5px 12px", borderRadius: 20, fontSize: 11, fontWeight: 600,
-                background: i === 0 ? brand.accentColor : "#f0f0f2",
-                color: i === 0 ? "#fff" : "#86868b",
+                padding: "4px 11px", borderRadius: 20, fontSize: 11, fontWeight: 600,
+                background: i === 0 ? `${brand.accentColor}18` : "#f0f0f2",
+                color: i === 0 ? brand.accentColor : "#86868b",
+                border: i === 0 ? `1px solid ${brand.accentColor}30` : "none",
               }}>{tag}</span>
             ))}
           </div>
