@@ -58,7 +58,7 @@ interface WCProduct {
   price: string;
   images: { src: string }[];
   tags: { name: string }[];
-  categories: { name: string }[];
+  categories: { id: number; name: string }[];
   short_description: string;
   description: string;
   permalink: string;
@@ -69,6 +69,7 @@ interface WCCategory {
   name: string;
   slug: string;
   count: number;
+  parent: number;
 }
 
 // ─── Product Detail Panel ─────────────────────────────────
@@ -357,46 +358,165 @@ function ProductSkeleton() {
 }
 
 // ─── Category Pill ────────────────────────────────────────
-function Pill({ label, active, onClick }: { label: string; active: boolean; onClick: () => void }) {
+// ─── Dropdown Filter ──────────────────────────────────────
+function FilterDropdown({ label, options, selected, onChange }: {
+  label: string;
+  options: WCCategory[];
+  selected: number[];
+  onChange: (ids: number[]) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const hasActive = selected.length > 0;
+
   return (
-    <button onClick={onClick} style={{
-      padding: "5px 12px", borderRadius: 20, border: "none",
-      fontSize: 12, fontWeight: 500, cursor: "pointer", transition: "all .15s",
-      background: active ? "#1d1d1f" : "transparent",
-      color: active ? "#fff" : "#86868b",
-    }}>{label}</button>
+    <div style={{ position: "relative" }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{
+          display: "flex", alignItems: "center", gap: 6,
+          padding: "6px 14px", borderRadius: 20, border: "1px solid #d1d1d6",
+          background: hasActive ? "#1d1d1f" : "#fff",
+          color: hasActive ? "#fff" : "#1d1d1f",
+          fontSize: 11, fontWeight: 600, cursor: "pointer",
+          letterSpacing: ".4px", textTransform: "uppercase", transition: "all .15s",
+        }}
+      >
+        {label}
+        {hasActive && <span style={{ background: "rgba(255,255,255,0.3)", borderRadius: 10, padding: "0 5px", fontSize: 9 }}>{selected.length}</span>}
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </button>
+
+      {open && (
+        <>
+          <div onClick={() => setOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 49 }} />
+          <div style={{
+            position: "absolute", top: "calc(100% + 6px)", left: 0, zIndex: 50,
+            background: "#fff", borderRadius: 12, minWidth: 200,
+            boxShadow: "0 4px 24px rgba(0,0,0,0.12)",
+            overflow: "hidden",
+          }}>
+            <div style={{ padding: "6px" }}>
+              {options.map(opt => {
+                const active = selected.includes(opt.id);
+                return (
+                  <button
+                    key={opt.id}
+                    onClick={() => {
+                      onChange(active ? selected.filter(id => id !== opt.id) : [...selected, opt.id]);
+                    }}
+                    style={{
+                      display: "flex", alignItems: "center", justifyContent: "space-between",
+                      width: "100%", padding: "8px 12px", borderRadius: 8, border: "none",
+                      background: active ? "#f5f5f7" : "transparent",
+                      cursor: "pointer", textAlign: "left", transition: "background .1s",
+                    }}
+                    onMouseEnter={e => { if (!active) e.currentTarget.style.background = "#f9f9f9"; }}
+                    onMouseLeave={e => { if (!active) e.currentTarget.style.background = "transparent"; }}
+                  >
+                    <span style={{ fontSize: 12, fontWeight: 500, color: "#1d1d1f" }}>{opt.name}</span>
+                    <div style={{
+                      width: 16, height: 16, borderRadius: 4,
+                      border: active ? "none" : "1.5px solid #d1d1d6",
+                      background: active ? "#1d1d1f" : "transparent",
+                      display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+                    }}>
+                      {active && <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
+                    </div>
+                  </button>
+                );
+              })}
+              {selected.length > 0 && (
+                <button
+                  onClick={() => onChange([])}
+                  style={{
+                    width: "100%", padding: "6px", marginTop: 4, borderRadius: 8, border: "none",
+                    background: "transparent", color: "#86868b", fontSize: 11, cursor: "pointer",
+                    borderTop: "1px solid #f5f5f7",
+                  }}
+                >
+                  Effacer
+                </button>
+              )}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
 // ─── Main Dashboard ───────────────────────────────────────
 export default function DashboardPage() {
-  const [products, setProducts] = useState<WCProduct[]>([]);
-  const [categories, setCategories] = useState<WCCategory[]>([]);
-  const [activeCat, setActiveCat] = useState<number | null>(null);
+  const [allProducts, setAllProducts] = useState<WCProduct[]>([]);
+  const [allCategories, setAllCategories] = useState<WCCategory[]>([]);
+  const [activeMainCat, setActiveMainCat] = useState<number | null>(null);
+  const [activeFilters, setActiveFilters] = useState<Record<number, number[]>>({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [chatInput, setChatInput] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<WCProduct | null>(null);
 
+  // Fetch categories (up to 100)
   useEffect(() => {
-    fetch(buildUrl("/products/categories", { per_page: "50", hide_empty: "true" }))
+    fetch(buildUrl("/products/categories", { per_page: "100", hide_empty: "true" }))
       .then(r => r.json())
       .then((cats: WCCategory[]) => {
-        setCategories(cats.filter(c => c.slug !== "uncategorized" && c.count > 0).sort((a, b) => b.count - a.count));
+        setAllCategories(cats.filter(c => c.slug !== "uncategorized" && c.count > 0).sort((a, b) => b.count - a.count));
       })
       .catch(() => {});
   }, []);
 
+  // Fetch all products once for client-side filtering
   useEffect(() => {
     setLoading(true);
     setError(null);
-    const params: Record<string, string> = { page: "1", per_page: "20", status: "publish", orderby: "date", order: "desc" };
-    if (activeCat) params.category = String(activeCat);
-    fetch(buildUrl("/products", params))
+    fetch(buildUrl("/products", { page: "1", per_page: "100", status: "publish", orderby: "date", order: "desc" }))
       .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
-      .then((prods: WCProduct[]) => { setProducts(prods); setLoading(false); })
+      .then((prods: WCProduct[]) => { setAllProducts(prods); setLoading(false); })
       .catch((err: Error) => { setError(err.message); setLoading(false); });
-  }, [activeCat]);
+  }, []);
+
+  // ─── Intelligent category tree analysis ───────────────────
+  const catById = Object.fromEntries(allCategories.map(c => [c.id, c]));
+  const topLevel = allCategories.filter(c => c.parent === 0).sort((a, b) => b.count - a.count);
+  const childrenByParent: Record<number, WCCategory[]> = {};
+  allCategories.filter(c => c.parent !== 0).forEach(c => {
+    if (!childrenByParent[c.parent]) childrenByParent[c.parent] = [];
+    childrenByParent[c.parent].push(c);
+  });
+
+  // Filter groups: parents that have >= 2 children become dropdowns
+  const filterGroups = Object.entries(childrenByParent)
+    .filter(([, children]) => children.length >= 2)
+    .map(([parentId, children]) => ({
+      parent: catById[Number(parentId)] || null,
+      children: children.sort((a, b) => b.count - a.count),
+    }))
+    .filter(g => g.parent !== null)
+    .sort((a, b) => (b.parent?.count ?? 0) - (a.parent?.count ?? 0))
+    .slice(0, 4); // max 4 dropdowns
+
+  // ─── Client-side filtering ────────────────────────────────
+  const allSelectedIds = new Set([
+    ...(activeMainCat ? [activeMainCat] : []),
+    ...Object.values(activeFilters).flat(),
+  ]);
+
+  const products = allSelectedIds.size === 0
+    ? allProducts
+    : allProducts.filter(p => {
+        const pCatIds = new Set(p.categories.map(c => c.id));
+        return [...allSelectedIds].some(id => pCatIds.has(id));
+      });
+
+  const clearFilters = () => {
+    setActiveMainCat(null);
+    setActiveFilters({});
+  };
+
+  const hasFilters = activeMainCat !== null || Object.values(activeFilters).some(v => v.length > 0);
 
   return (
     <>
@@ -467,13 +587,45 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Pills */}
-        {categories.length > 0 && (
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 2, marginBottom: 20 }}>
-            <Pill label="Tous" active={activeCat === null} onClick={() => setActiveCat(null)} />
-            {categories.map(cat => (
-              <Pill key={cat.id} label={cat.name} active={activeCat === cat.id} onClick={() => setActiveCat(cat.id)} />
+        {/* Top-level category pills */}
+        {topLevel.length > 0 && (
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 4, marginBottom: 16 }}>
+            <button onClick={() => { setActiveMainCat(null); setActiveFilters({}); }} style={{
+              padding: "5px 14px", borderRadius: 20, border: "none", fontSize: 12, fontWeight: 600,
+              cursor: "pointer", transition: "all .15s",
+              background: activeMainCat === null && !hasFilters ? "#1d1d1f" : "transparent",
+              color: activeMainCat === null && !hasFilters ? "#fff" : "#86868b",
+            }}>Tous</button>
+            {topLevel.map(cat => (
+              <button key={cat.id} onClick={() => { setActiveMainCat(cat.id); setActiveFilters({}); }} style={{
+                padding: "5px 14px", borderRadius: 20, border: "none", fontSize: 12, fontWeight: 600,
+                cursor: "pointer", transition: "all .15s",
+                background: activeMainCat === cat.id ? "#1d1d1f" : "transparent",
+                color: activeMainCat === cat.id ? "#fff" : "#86868b",
+              }}>{cat.name}</button>
             ))}
+          </div>
+        )}
+
+        {/* Intelligent filter dropdowns */}
+        {filterGroups.length > 0 && (
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 20 }}>
+            {filterGroups.map(group => (
+              <FilterDropdown
+                key={group.parent!.id}
+                label={group.parent!.name}
+                options={group.children}
+                selected={activeFilters[group.parent!.id] || []}
+                onChange={ids => setActiveFilters(f => ({ ...f, [group.parent!.id]: ids }))}
+              />
+            ))}
+            {hasFilters && (
+              <button onClick={clearFilters} style={{
+                padding: "6px 14px", borderRadius: 20, border: "1px solid #d1d1d6",
+                background: "transparent", color: "#86868b", fontSize: 11, fontWeight: 500,
+                cursor: "pointer",
+              }}>Effacer filtres</button>
+            )}
           </div>
         )}
 
