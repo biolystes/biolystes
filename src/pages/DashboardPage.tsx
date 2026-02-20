@@ -16,21 +16,6 @@ import kaniwa11 from "@/assets/kaniwa-11.jpg";
 import kaniwa12 from "@/assets/kaniwa-12.jpg";
 
 import kaniwa14 from "@/assets/kaniwa-14.jpg";
-import fralene1 from "@/assets/fralene-1.jpg";
-import fralene2 from "@/assets/fralene-2.jpg";
-import fralene3 from "@/assets/fralene-3.jpg";
-import fralene4 from "@/assets/fralene-4.jpg";
-import fralene5 from "@/assets/fralene-5.jpg";
-import fralene6 from "@/assets/fralene-6.jpg";
-import fralene7 from "@/assets/fralene-7.jpg";
-import fralene8 from "@/assets/fralene-8.jpg";
-import fralene9 from "@/assets/fralene-9.jpg";
-import fralene10 from "@/assets/fralene-10.jpg";
-import fralene11 from "@/assets/fralene-11.jpg";
-import fralene12 from "@/assets/fralene-12.jpg";
-import fralene13 from "@/assets/fralene-13.jpg";
-import fralene14 from "@/assets/fralene-14.jpg";
-import fralene15 from "@/assets/fralene-15.jpg";
 
 // ─── WooCommerce config ───────────────────────────────────
 const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
@@ -724,7 +709,6 @@ export default function DashboardPage() {
         {!chatStarted && (
           <>
             <KaniwaSection />
-            <FraleneSection />
           </>
         )}
       </AnimatePresence>
@@ -931,95 +915,3 @@ function KaniwaSection() {
   );
 }
 
-// ─── Fralène showcase ─────────────────────────────────────
-const ALL_FRALENE = [
-  fralene1, fralene2, fralene3, fralene4, fralene5,
-  fralene6, fralene7, fralene8, fralene9, fralene10,
-  fralene11, fralene12, fralene13, fralene14, fralene15,
-];
-
-const FRALENE_ROW_A = ALL_FRALENE.slice(0, 8);
-const FRALENE_ROW_B = ALL_FRALENE.slice(7, 15);
-
-function FraleneSection() {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0 }}
-      transition={{ delay: 0.5, duration: 0.5 }}
-      style={{ marginTop: 48 }}
-    >
-      {/* Header */}
-      <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 24 }}>
-        <div>
-          <span style={{ fontSize: 10, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>
-            Cas client
-          </span>
-          <h2 style={{ fontSize: 24, fontWeight: 700, color: "#1d1d1f", marginTop: 4, letterSpacing: "-0.4px" }}>
-            Fralène
-          </h2>
-          <p style={{ fontSize: 13, color: "#86868b", marginTop: 4, maxWidth: 420 }}>
-            Gamme soins visage premium · Huile nettoyante lactée & démaquillant biphasique
-          </p>
-        </div>
-        <div style={{ display: "flex", gap: 6 }}>
-          {["Soins visage", "Sans parfum", "Premium"].map((tag, i) => (
-            <span key={i} style={{
-              padding: "5px 12px", borderRadius: 20, fontSize: 11, fontWeight: 600,
-              background: i === 0 ? "#6b21a8" : "#f0f0f2",
-              color: i === 0 ? "#fff" : "#86868b",
-            }}>{tag}</span>
-          ))}
-        </div>
-      </div>
-
-      {/* Infinite carousel — 2 rows */}
-      <style>{`
-        @keyframes scrollLeftF  { from { transform: translateX(0) } to { transform: translateX(-50%) } }
-        @keyframes scrollRightF { from { transform: translateX(-50%) } to { transform: translateX(0) } }
-        .scroll-left-f  { animation: scrollLeftF  35s linear infinite; }
-        .scroll-right-f { animation: scrollRightF 35s linear infinite; }
-        .fralene-strip:hover .scroll-left-f,
-        .fralene-strip:hover .scroll-right-f { animation-play-state: paused; }
-      `}</style>
-
-      <div className="fralene-strip" style={{ display: "flex", flexDirection: "column", gap: 10, overflow: "hidden", borderRadius: 20 }}>
-        {/* Row A — scroll left */}
-        <div style={{ overflow: "hidden" }}>
-          <div className="scroll-left-f" style={{ display: "flex", gap: 10, width: "max-content" }}>
-            {[...FRALENE_ROW_A, ...FRALENE_ROW_A].map((src, i) => (
-              <div key={i} style={{ width: 220, height: 160, borderRadius: 14, overflow: "hidden", flexShrink: 0 }}>
-                <img src={src} alt="Fralène" loading="lazy"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Row B — scroll right */}
-        <div style={{ overflow: "hidden" }}>
-          <div className="scroll-right-f" style={{ display: "flex", gap: 10, width: "max-content" }}>
-            {[...FRALENE_ROW_B, ...FRALENE_ROW_B].map((src, i) => (
-              <div key={i} style={{ width: 220, height: 160, borderRadius: 14, overflow: "hidden", flexShrink: 0 }}>
-                <img src={src} alt="Fralène" loading="lazy"
-                  style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Citation */}
-      <div style={{ marginTop: 16, padding: "20px 24px", borderRadius: 16, background: "#fff", border: "1px solid #f0f0f0", display: "flex", alignItems: "center", gap: 20 }}>
-        <div style={{ width: 44, height: 44, borderRadius: "50%", background: "#6b21a8", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 16, fontWeight: 700, flexShrink: 0 }}>F</div>
-        <div style={{ flex: 1 }}>
-          <p style={{ fontSize: 14, color: "#1d1d1f", fontWeight: 500, lineHeight: 1.6, fontStyle: "italic", marginBottom: 6 }}>
-            "Biolystes m'a permis de créer une ligne de soins haut de gamme avec un packaging élégant, sans avoir à gérer la production."
-          </p>
-          <p style={{ fontSize: 11, color: "#86868b" }}>Fondatrice de Fralène — France</p>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
