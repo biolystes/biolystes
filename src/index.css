@@ -6,66 +6,53 @@
 
 @layer base {
   :root {
-    --background: 210 14% 97%;
-    --foreground: 240 10% 3.9%;
+    --background: 0 0% 99%;
+    --foreground: 0 0% 7%;
     --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
+    --card-foreground: 0 0% 7%;
     --popover: 0 0% 100%;
-    --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
+    --popover-foreground: 0 0% 7%;
+    --primary: 0 0% 7%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
-    --destructive: 0 84.2% 60.2%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 7%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 0 0% 94%;
+    --accent-foreground: 0 0% 7%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 240 5.9% 10%;
+    --border: 0 0% 91%;
+    --input: 0 0% 91%;
+    --ring: 0 0% 7%;
     --radius: 0.75rem;
 
     /* Sidebar */
     --sidebar-bg: 0 0% 100%;
-    --sidebar-border: 220 13% 91%;
-    --sidebar-icon-color: 208 7% 46%;
-    --sidebar-icon-hover-bg: 220 13% 94%;
-    --sidebar-icon-active-bg: 240 5.9% 10%;
+    --sidebar-border: 0 0% 91%;
+    --sidebar-icon-color: 0 0% 46%;
+    --sidebar-icon-hover-bg: 0 0% 95%;
+    --sidebar-icon-active-bg: 0 0% 7%;
     --sidebar-icon-active-color: 0 0% 100%;
-
-    /* Gradient colors */
-    --gradient-purple: 258 100% 64%;
-    --gradient-blue: 212 100% 62%;
 
     /* Question card */
     --question-card-bg: 0 0% 100%;
-    --question-card-border: 220 13% 91%;
-    --question-card-hover-border: 220 14% 83%;
+    --question-card-border: 0 0% 91%;
+    --question-card-hover-border: 0 0% 80%;
 
     /* Chat */
-    --chat-bg: 0 0% 100%;
-    --chat-border: 220 13% 91%;
-    --chat-placeholder: 215 16% 47%;
-    --chat-send-bg: 240 5.9% 10%;
-    --chat-send-hover: 239 84% 65%;
+    --chat-bg: 0 0% 97%;
+    --chat-border: 0 0% 91%;
+    --chat-placeholder: 0 0% 55%;
+    --chat-send-bg: 0 0% 7%;
+    --chat-send-hover: 0 0% 20%;
 
     /* Stat card */
-    --card-stat-bg: 150 15% 94%;
-
-    /* Teal */
-    --teal-50: 166 76% 97%;
-    --teal-100: 166 76% 94%;
-    --teal-500: 178 78% 57%;
-    --teal-600: 178 78% 47%;
-    --teal-700: 178 78% 37%;
-    --emerald-300: 156 73% 74%;
-    --emerald-400: 156 73% 64%;
+    --card-stat-bg: 0 0% 96%;
 
     /* Agent badge */
-    --agent-badge-bg: 336 100% 96%;
-    --agent-badge-text: 336 71% 51%;
+    --agent-badge-bg: 0 0% 95%;
+    --agent-badge-text: 0 0% 30%;
 
     /* Sidebar tokens (used by shadcn sidebar) */
     --sidebar-background: 0 0% 100%;
@@ -140,16 +127,9 @@
 .pacifico { font-family: 'Pacifico', cursive; }
 .krona { font-family: 'Krona One', sans-serif; }
 
-/* Title gradient — black → purple → blue */
+/* Title — strict black */
 .title-gradient {
-  background: linear-gradient(90deg,
-    hsl(240 10% 3.9%) 0%,
-    hsl(var(--gradient-purple)) 50%,
-    hsl(var(--gradient-blue)) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: hsl(var(--foreground));
 }
 
 /* Icon sidebar */
@@ -173,7 +153,7 @@
   color: hsl(var(--sidebar-icon-active-color));
 }
 .sidebar-icon-btn.active:hover {
-  background: hsl(var(--chat-send-hover));
+  background: hsl(0 0% 15%);
 }
 
 /* Question card */
