@@ -18,11 +18,11 @@ function CheckItem({ text }: { text: string }) {
 }
 
 // ─── Badge ────────────────────────────────────────────────
-function Badge({ label, color = "#22c55e" }: { label: string; color?: string }) {
+function Badge({ label }: { label: string }) {
   return (
     <div style={{
       position: "absolute", top: -14, left: "50%", transform: "translateX(-50%)",
-      background: color, color: "#fff", fontSize: 10, fontWeight: 700,
+      background: "#1d1d1f", color: "#fff", fontSize: 10, fontWeight: 700,
       letterSpacing: "1.2px", padding: "5px 14px", borderRadius: 20,
       textTransform: "uppercase", whiteSpace: "nowrap",
     }}>
@@ -45,21 +45,21 @@ function CtaButton({ label, filled = false, onClick }: { label: string; filled?:
         textAlign: "center", textDecoration: "none",
         fontSize: 11, fontWeight: 800, letterSpacing: "1.5px",
         textTransform: "uppercase",
-        background: filled ? "#22c55e" : "transparent",
+        background: filled ? "#1d1d1f" : "transparent",
         color: filled ? "#fff" : "#1d1d1f",
-        border: `1.5px solid ${filled ? "#22c55e" : "#1d1d1f"}`,
+        border: "1.5px solid #1d1d1f",
         borderRadius: 8, cursor: "pointer",
         transition: "all .15s",
         marginTop: "auto",
       }}
       onMouseEnter={e => {
         const el = e.currentTarget as HTMLElement;
-        el.style.background = filled ? "#16a34a" : "#1d1d1f";
+        el.style.background = "#1d1d1f";
         el.style.color = "#fff";
       }}
       onMouseLeave={e => {
         const el = e.currentTarget as HTMLElement;
-        el.style.background = filled ? "#22c55e" : "transparent";
+        el.style.background = filled ? "#1d1d1f" : "transparent";
         el.style.color = filled ? "#fff" : "#1d1d1f";
       }}
     >
@@ -182,7 +182,7 @@ function TabAvecSite() {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
         {/* Pack Agence */}
         <div style={{ position: "relative", border: "2px solid #1d1d1f", borderRadius: 16, padding: 28, display: "flex", flexDirection: "column" }}>
-          <Badge label="Populaire" color="#1d1d1f" />
+          <Badge label="Populaire" />
           <h3 style={{ fontSize: 16, fontWeight: 800, color: "#1d1d1f", textTransform: "uppercase", letterSpacing: ".3px", marginBottom: 4 }}>Pack Agence</h3>
           <p style={{ fontSize: 12, color: "#86868b", marginBottom: 16 }}>Gestion 360°</p>
           <div style={{ marginBottom: 6 }}>
@@ -204,7 +204,7 @@ function TabAvecSite() {
             <span style={{ fontSize: 28, fontWeight: 800, color: "#1d1d1f" }}>2999€</span>
             <span style={{ fontSize: 13, color: "#86868b", marginLeft: 6 }}>frais uniques ou 999€ en 2 fois</span>
           </div>
-          <p style={{ fontSize: 13, fontWeight: 700, color: "#1d1d1f", marginBottom: 20 }}>Abon. Agence : +199€/mois <span style={{ fontWeight: 500, color: "#22c55e" }}>(1 mois offert)</span></p>
+          <p style={{ fontSize: 13, fontWeight: 700, color: "#1d1d1f", marginBottom: 20 }}>Abon. Agence : +199€/mois <span style={{ fontWeight: 500, color: "#86868b" }}>(1 mois offert)</span></p>
           <div style={{ flex: 1, marginBottom: 24 }}>
             {packIAFeatures.map((f, i) => <CheckItem key={i} text={f} />)}
           </div>
@@ -290,7 +290,7 @@ function TabAbonnement() {
             <span style={{ fontSize: 32, fontWeight: 800, color: "#1d1d1f" }}>99€</span>
             <span style={{ fontSize: 13, color: "#86868b", marginLeft: 6 }}>/mois</span>
           </div>
-          <p style={{ fontSize: 12, fontWeight: 600, color: "#22c55e", marginBottom: 20 }}>1er mois offert avec un pack</p>
+          <p style={{ fontSize: 12, fontWeight: 600, color: "#86868b", marginBottom: 20 }}>1er mois offert avec un pack</p>
           <p style={{ fontSize: 12, fontWeight: 700, color: "#1d1d1f", marginBottom: 12 }}>Ce qui est inclus :</p>
           <div style={{ flex: 1, marginBottom: 24 }}>
             {aboPro.map((f, i) => <CheckItem key={i} text={f} />)}
@@ -306,7 +306,7 @@ function TabAbonnement() {
             <span style={{ fontSize: 32, fontWeight: 800, color: "#1d1d1f" }}>99€</span>
             <span style={{ fontSize: 13, color: "#86868b", marginLeft: 6 }}>/photos</span>
           </div>
-          <p style={{ fontSize: 12, fontWeight: 600, color: "#22c55e", marginBottom: 20 }}>Sans engagement</p>
+          <p style={{ fontSize: 12, fontWeight: 600, color: "#86868b", marginBottom: 20 }}>Sans engagement</p>
           <p style={{ fontSize: 12, fontWeight: 700, color: "#1d1d1f", marginBottom: 12 }}>Ce qui est inclus :</p>
           <div style={{ flex: 1, marginBottom: 24 }}>
             {aboIA.map((f, i) => <CheckItem key={i} text={f} />)}
@@ -318,15 +318,15 @@ function TabAbonnement() {
       {/* Row 2: Marketing CRO + Community Manager */}
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
         {/* Marketing + CRO */}
-        <div style={{ position: "relative", border: "2px solid #22c55e", borderRadius: 16, padding: 28, display: "flex", flexDirection: "column", background: "#fff" }}>
-          <Badge label="Recommandé" color="#22c55e" />
+        <div style={{ position: "relative", border: "2px solid #1d1d1f", borderRadius: 16, padding: 28, display: "flex", flexDirection: "column", background: "#fff" }}>
+          <Badge label="Recommandé" />
           <h3 style={{ fontSize: 16, fontWeight: 800, color: "#1d1d1f", textTransform: "uppercase", letterSpacing: ".3px", marginBottom: 8 }}>Marketing + CRO</h3>
           <p style={{ fontSize: 13, color: "#86868b", lineHeight: 1.6, marginBottom: 16 }}>Boostez vos ventes avec une stratégie marketing complète et l'optimisation de vos conversions.</p>
           <div style={{ marginBottom: 4 }}>
             <span style={{ fontSize: 32, fontWeight: 800, color: "#1d1d1f" }}>699€</span>
             <span style={{ fontSize: 13, color: "#86868b", marginLeft: 6 }}>/mois</span>
           </div>
-          <p style={{ fontSize: 12, fontWeight: 600, color: "#22c55e", marginBottom: 20 }}>Engagement flexible</p>
+          <p style={{ fontSize: 12, fontWeight: 600, color: "#86868b", marginBottom: 20 }}>Engagement flexible</p>
           <p style={{ fontSize: 12, fontWeight: 700, color: "#1d1d1f", marginBottom: 12 }}>Ce qui est inclus :</p>
           <div style={{ flex: 1, marginBottom: 24 }}>
             {marketingCRO.map((f, i) => <CheckItem key={i} text={f} />)}
@@ -342,7 +342,7 @@ function TabAbonnement() {
             <span style={{ fontSize: 32, fontWeight: 800, color: "#1d1d1f" }}>699</span>
             <span style={{ fontSize: 13, color: "#86868b", marginLeft: 4 }}>/mois</span>
           </div>
-          <p style={{ fontSize: 12, fontWeight: 600, color: "#22c55e", marginBottom: 20 }}>Engagement flexible</p>
+          <p style={{ fontSize: 12, fontWeight: 600, color: "#86868b", marginBottom: 20 }}>Engagement flexible</p>
           <p style={{ fontSize: 12, fontWeight: 700, color: "#1d1d1f", marginBottom: 12 }}>Ce qui est inclus :</p>
           <div style={{ flex: 1, marginBottom: 24 }}>
             {communityManager.map((f, i) => <CheckItem key={i} text={f} />)}
