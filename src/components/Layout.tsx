@@ -16,7 +16,7 @@ const bottomItems = [
   { path: "/settings", icon: Settings, label: "Réglages" },
 ];
 
-function IconSidebar() {
+function TextSidebar() {
   const location = useLocation();
   const { profile, signOut } = useAuth();
 
@@ -31,50 +31,57 @@ function IconSidebar() {
 
   return (
     <aside
-      className="hidden md:flex flex-col items-center fixed inset-y-0 left-0 z-30 py-5 gap-2"
-      style={{ width: "64px", background: "#F5F5F7", borderRight: "1px solid #e5e5e7" }}
+      className="hidden md:flex flex-col fixed inset-y-0 left-0 z-30 py-5"
+      style={{ width: "200px", background: "#F5F5F7", borderRight: "1px solid #e5e5e7" }}
     >
       {/* Logo */}
-      <Link to="/" className="mb-6">
+      <Link to="/" className="mb-6 flex items-center gap-2.5 px-5">
         <img
           src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
           alt="Lystes"
-          className="h-8 w-8 animate-tourne object-contain"
+          className="h-7 w-7 animate-tourne object-contain"
         />
+        <span style={{ fontSize: 14, fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.3px" }}>Lystes.ai</span>
       </Link>
 
       {/* Navigation principale */}
-      <div className="flex flex-col items-center gap-2 flex-1">
+      <div className="flex flex-col gap-1 flex-1 px-3">
         {navItems.map((item) => (
-          <Link key={item.path} to={item.path} title={item.label}>
-            <div className={`sidebar-icon-btn ${isActive(item.path) ? "active" : ""}`}>
+          <Link key={item.path} to={item.path}>
+            <div className={`nav-item ${isActive(item.path) ? "active" : ""}`}>
               <item.icon size={16} strokeWidth={1.5} />
+              {item.label}
             </div>
           </Link>
         ))}
       </div>
 
       {/* Bas : réglages + déconnexion + avatar */}
-      <div className="flex flex-col items-center gap-3 mt-auto">
+      <div className="flex flex-col gap-1 mt-auto px-3">
         {bottomItems.map((item) => (
-          <Link key={item.path} to={item.path} title={item.label}>
-            <div className={`sidebar-icon-btn ${isActive(item.path) ? "active" : ""}`}>
+          <Link key={item.path} to={item.path}>
+            <div className={`nav-item ${isActive(item.path) ? "active" : ""}`}>
               <item.icon size={16} strokeWidth={1.5} />
+              {item.label}
             </div>
           </Link>
         ))}
         <button
           onClick={signOut}
-          title="Se déconnecter"
-          className="sidebar-icon-btn"
+          className="nav-item w-full"
         >
           <LogOut size={16} strokeWidth={1.5} />
+          Se déconnecter
         </button>
-        <div
-          className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center text-background text-xs font-bold cursor-pointer"
-          title={profile ? `${profile.first_name} ${profile.last_name}` : ""}
-        >
-          {initials}
+        <div className="flex items-center gap-2.5 px-3 py-2 mt-2">
+          <div
+            className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center text-background text-xs font-bold"
+          >
+            {initials}
+          </div>
+          <span style={{ fontSize: 12, fontWeight: 600, color: "#1d1d1f" }}>
+            {profile ? `${profile.first_name ?? ""} ${profile.last_name ?? ""}`.trim() || "Mon compte" : "Mon compte"}
+          </span>
         </div>
       </div>
     </aside>
@@ -86,7 +93,7 @@ const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
 function TopBar() {
   return (
     <div style={{
-      position: "fixed", top: 0, left: 64, right: 0, zIndex: 25,
+      position: "fixed", top: 0, left: 200, right: 0, zIndex: 25,
       display: "flex", justifyContent: "flex-end", alignItems: "center",
       padding: "10px 28px",
       pointerEvents: "none",
@@ -136,7 +143,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex min-h-screen bg-background">
-      <IconSidebar />
+      <TextSidebar />
       <TopBar />
 
       {/* Overlay mobile */}
@@ -192,7 +199,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </AnimatePresence>
 
       {/* Contenu principal */}
-      <div className="flex-1 md:ml-16">
+      <div className="flex-1 md:ml-[200px]">
         {/* Header mobile */}
         <header className="md:hidden bg-card px-4 py-3 flex items-center justify-between sticky top-0 z-20">
           <div className="flex items-center gap-2">
