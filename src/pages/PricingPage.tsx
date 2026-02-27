@@ -407,7 +407,7 @@ export default function PricingPage() {
   return (
     <>
       {/* Hero */}
-      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: 40, textAlign: "center" }}>
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: 40, textAlign: "center", paddingTop: 32 }}>
         <h1 style={{ fontSize: 42, fontWeight: 800, color: "#1d1d1f", lineHeight: 1.1, letterSpacing: "-1px", textTransform: "uppercase", marginBottom: 12 }}>
           Des forfaits transparents<br />et adaptés à votre ambition
         </h1>

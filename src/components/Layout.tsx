@@ -93,7 +93,7 @@ const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
 function TopBar() {
   return (
     <div style={{
-      position: "fixed", top: 0, left: 200, right: 0, zIndex: 25,
+      position: "fixed", top: 0, right: 0, zIndex: 25,
       display: "flex", justifyContent: "flex-end", alignItems: "center",
       padding: "10px 28px",
       pointerEvents: "none",
