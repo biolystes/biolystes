@@ -69,21 +69,21 @@ function TabSansSite() {
       className="flex flex-col gap-6"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
-        {/* Option 1 */}
+        {/* Sans Design */}
         <div className="flex flex-col gap-5">
-          <span className="text-[10px] font-bold tracking-wide uppercase self-start px-3 py-1 rounded-full" style={{ color: "#86868b", background: "#ebebed" }}>Option 1</span>
+          <span className="text-[10px] font-bold tracking-wide uppercase self-start px-3 py-1 rounded-full" style={{ color: "#86868b", background: "#ebebed" }}>Formule 1</span>
           <div>
-            <h3 className="text-base md:text-lg font-extrabold uppercase tracking-tight mb-1" style={{ color: "#1d1d1f" }}>Accès Catalogue — 39€/mois</h3>
+            <h3 className="text-base md:text-lg font-extrabold uppercase tracking-tight mb-1" style={{ color: "#1d1d1f" }}>Sans Design — 39€/mois</h3>
             <p className="text-sm mb-5" style={{ color: "#86868b", lineHeight: 1.65 }}>
-              Testez nos produits sans engagement
+              Accédez au catalogue et testez sans engagement
             </p>
             <div className="flex flex-col gap-2.5 mb-7">
               {[
+                "Accès catalogue complet",
                 "Jusqu'à 4 références produits",
-                "Sans minimum de commande par produit",
                 "Étiquetage standard conforme inclus",
                 "Produits certifiés bio, vegan, COSMOS, Ecocert",
-                "35€ par référence supplémentaire",
+                "Produits facturés à l'unité (10-20€ selon la réf.)",
                 "Sans engagement, résiliable à tout moment",
               ].map((text, i) => <CheckItem key={i} text={text} />)}
             </div>
@@ -94,32 +94,37 @@ function TabSansSite() {
         {/* Divider - desktop only */}
         <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-px" style={{ background: "#f0f0f0" }} />
 
-        {/* Option 2 */}
+        {/* Avec Design */}
         <div className="flex flex-col gap-5">
-          <span className="text-[10px] font-bold tracking-wide uppercase self-start px-3 py-1 rounded-full" style={{ color: "#86868b", background: "#ebebed" }}>Option 2</span>
+          <span className="text-[10px] font-bold tracking-wide uppercase self-start px-3 py-1 rounded-full" style={{ color: "#1d1d1f", background: "#e8e8ed" }}>Formule 2 · Recommandé</span>
           <div>
-            <h3 className="text-base md:text-lg font-extrabold uppercase tracking-tight mb-1" style={{ color: "#1d1d1f" }}>Design Packaging — 79€/produit</h3>
-            <p className="text-sm mb-5" style={{ color: "#86868b", lineHeight: 1.65 }}>
-              Votre identité sur chaque produit
+            <h3 className="text-base md:text-lg font-extrabold uppercase tracking-tight mb-1" style={{ color: "#1d1d1f" }}>Avec Design — 39€/mois + 99€</h3>
+            <p className="text-sm mb-1" style={{ color: "#86868b", lineHeight: 1.65 }}>
+              Votre marque clé en main dès 138€
+            </p>
+            <p className="text-[11px] mb-5" style={{ color: "#86868b" }}>
+              39€/mois + 99€ forfait unique design
             </p>
             <div className="flex flex-col gap-2.5 mb-7">
               {[
-                "Logo et identité visuelle",
-                "Étiquette personnalisée à votre image",
+                "Tout de la Formule 1 inclus",
+                "Création de logo",
+                "Design packaging des 4 produits",
                 "Brandboard complet",
                 "3 aller-retours avec nos designers",
                 "Fichiers livrés, ils sont à vous",
+                "Produits facturés à l'unité (10-20€ selon la réf.)",
               ].map((text, i) => <CheckItem key={i} text={text} />)}
             </div>
           </div>
-          <CtaButton label="Demander un devis" />
+          <CtaButton label="Prendre RDV" />
         </div>
       </div>
 
       {/* Phrase de progression */}
       <div className="text-center pt-4">
         <p className="text-[13px] italic" style={{ color: "#86868b", lineHeight: 1.6 }}>
-          Commencez par l'Option 1 pour tester, passez à l'Option 2 quand vous êtes prêt(e).
+          Commencez sans design pour tester, ajoutez le design quand vous êtes prêt(e).
         </p>
       </div>
     </motion.div>
