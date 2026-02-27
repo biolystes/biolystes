@@ -76,27 +76,26 @@ function TabSansSite() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.25 }}
+      style={{ display: "flex", flexDirection: "column", gap: 24 }}
     >
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24 }}>
         {/* Option 1 */}
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", color: "#86868b", textTransform: "uppercase", background: "#ebebed", padding: "4px 12px", borderRadius: 20, alignSelf: "flex-start" }}>Option 1</span>
           <div>
-            <h3 style={{ fontSize: 18, fontWeight: 800, color: "#1d1d1f", textTransform: "uppercase", letterSpacing: ".3px", marginBottom: 8 }}>Offre sans site à 39€/mois</h3>
+            <h3 style={{ fontSize: 18, fontWeight: 800, color: "#1d1d1f", textTransform: "uppercase", letterSpacing: ".3px", marginBottom: 4 }}>Accès Catalogue — 39€/mois</h3>
             <p style={{ fontSize: 14, color: "#86868b", lineHeight: 1.65, marginBottom: 20 }}>
-              Accéder à notre catalogue de produits bio et végane certifié cosmo-ecocert, fda
+              Testez nos produits sans engagement
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
               {[
-                { icon: "⚡", text: "Produits disponibles en quelques jours !" },
-                { icon: "🛡", text: "Zéro Risque : Pas de minimum de stock." },
-                { icon: "🏅", text: "Qualité Garantie : Produits certifiés." },
-              ].map((item, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
-                  <span style={{ fontSize: 14 }}>{item.icon}</span>
-                  <span style={{ fontSize: 13, color: "#424245", lineHeight: 1.5 }}>{item.text}</span>
-                </div>
-              ))}
+                "Jusqu'à 4 références produits",
+                "Sans minimum de commande par produit",
+                "Étiquetage standard conforme inclus",
+                "Produits certifiés bio, vegan, COSMOS, Ecocert",
+                "35€ par référence supplémentaire",
+                "Sans engagement, résiliable à tout moment",
+              ].map((text, i) => <CheckItem key={i} text={text} />)}
             </div>
           </div>
           <CtaButton label="Explorer le catalogue" filled />
@@ -109,25 +108,29 @@ function TabSansSite() {
         <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
           <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", color: "#86868b", textTransform: "uppercase", background: "#ebebed", padding: "4px 12px", borderRadius: 20, alignSelf: "flex-start" }}>Option 2</span>
           <div>
-            <h3 style={{ fontSize: 18, fontWeight: 800, color: "#1d1d1f", textTransform: "uppercase", letterSpacing: ".3px", marginBottom: 8 }}>Design Packaging 79€</h3>
+            <h3 style={{ fontSize: 18, fontWeight: 800, color: "#1d1d1f", textTransform: "uppercase", letterSpacing: ".3px", marginBottom: 4 }}>Design Packaging — 79€/produit</h3>
             <p style={{ fontSize: 14, color: "#86868b", lineHeight: 1.65, marginBottom: 20 }}>
-              Pour les visionnaires désirant une image premium, un logo, un brandboard. Nos experts vous accompagnent.
+              Votre identité sur chaque produit
             </p>
             <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
               {[
-                { icon: "🔬", text: "Compréhension de vos attentes et votre cible" },
-                { icon: "🎨", text: "Design adapté à votre positionnement" },
-                { icon: "👥", text: "Accompagnement Expert 3 aller-retour" },
-              ].map((item, i) => (
-                <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
-                  <span style={{ fontSize: 14 }}>{item.icon}</span>
-                  <span style={{ fontSize: 13, color: "#424245", lineHeight: 1.5 }}>{item.text}</span>
-                </div>
-              ))}
+                "Logo et identité visuelle",
+                "Étiquette personnalisée à votre image",
+                "Brandboard complet",
+                "3 aller-retours avec nos designers",
+                "Fichiers livrés, ils sont à vous",
+              ].map((text, i) => <CheckItem key={i} text={text} />)}
             </div>
           </div>
           <CtaButton label="Demander un devis" />
         </div>
+      </div>
+
+      {/* Phrase de progression */}
+      <div style={{ textAlign: "center", padding: "16px 0 0" }}>
+        <p style={{ fontSize: 13, color: "#86868b", fontStyle: "italic", lineHeight: 1.6 }}>
+          Commencez par l'Option 1 pour tester, passez à l'Option 2 quand vous êtes prêt(e).
+        </p>
       </div>
     </motion.div>
   );
