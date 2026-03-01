@@ -98,7 +98,7 @@ function TabDecouverte() {
 
       <div className="text-center pt-4">
         <p className="text-[13px] italic" style={{ color: "#86868b", lineHeight: 1.6 }}>
-          Le montant de votre Pack Découverte est intégralement déduit si vous passez à l'une de nos offres avec site web.
+          Le montant de votre Pack Échantillon est intégralement déduit si vous passez à l'une de nos offres avec site web.
         </p>
       </div>
     </motion.div>
@@ -157,7 +157,7 @@ function TabSansSite() {
 
       <div className="text-center pt-4">
         <p className="text-[13px] italic" style={{ color: "#86868b", lineHeight: 1.6 }}>
-          Commencez sans design pour tester, ajoutez le design quand vous êtes prêt(e). Si vous avez pris le Pack Découverte avec branding, votre design est déjà fait — passez directement en Formule 1.
+          Commencez sans design pour tester, ajoutez le design quand vous êtes prêt(e). Si vous avez pris le Pack Échantillon avec branding, votre design est déjà fait — passez directement en Formule 1.
         </p>
       </div>
     </motion.div>
@@ -293,7 +293,7 @@ export default function PricingPage() {
   const [activeTab, setActiveTab] = useState<Tab>("decouverte");
 
   const tabs: { key: Tab; label: string; shortLabel: string; icon: React.ReactNode }[] = [
-    { key: "decouverte", label: "Pack Découverte", shortLabel: "Découverte", icon: <Package size={13} strokeWidth={1.8} /> },
+    { key: "decouverte", label: "Pack Échantillon", shortLabel: "Échantillon", icon: <Package size={13} strokeWidth={1.8} /> },
     { key: "sans-site", label: "Offre sans site web", shortLabel: "Sans site", icon: <Zap size={13} strokeWidth={1.8} /> },
     { key: "avec-site", label: "Offre avec site web", shortLabel: "Avec site", icon: <Globe size={13} strokeWidth={1.8} /> },
     { key: "abonnement", label: "Abonnement mensuel", shortLabel: "Abonnement", icon: <CreditCard size={13} strokeWidth={1.8} /> },
