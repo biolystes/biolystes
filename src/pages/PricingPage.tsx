@@ -120,6 +120,7 @@ function TabSansSite() {
               {[
                 "Accès catalogue complet",
                 "Jusqu'à 4 références produits",
+                "Aucun minimum de stock imposé",
                 "Étiquetage standard conforme inclus",
                 "Produits certifiés bio, végan, COSMOS, Ecocert",
                 "Produits facturés à l'unité (10-20€ selon la réf.)",
