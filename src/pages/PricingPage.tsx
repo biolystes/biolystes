@@ -121,6 +121,7 @@ function TabSansSite() {
                 "Accès catalogue complet",
                 "Jusqu'à 4 références produits",
                 "Aucun minimum de stock imposé",
+                "Mise en conformité étiquetage",
                 "Étiquetage standard conforme inclus",
                 "Produits certifiés bio, végan, COSMOS, Ecocert",
                 "Produits facturés à l'unité (10-20€ selon la réf.)",
@@ -143,6 +144,7 @@ function TabSansSite() {
               {[
                 "Tout de la Formule 1 inclus",
                 "Création de logo",
+                "Mise en conformité étiquetage",
                 "Design packaging des 4 produits",
                 "Brandboard complet",
                 "3 aller-retours avec nos designers",
@@ -158,7 +160,7 @@ function TabSansSite() {
 
       <div className="text-center pt-4">
         <p className="text-[13px] italic" style={{ color: "#86868b", lineHeight: 1.6 }}>
-          Commencez sans design pour tester, ajoutez le design quand vous êtes prêt(e). Si vous avez pris le Pack Échantillon avec branding, votre design est déjà fait — passez directement en Formule 1.
+          Commencez sans design pour tester, ajoutez le design quand vous êtes prêt(e). Si vous avez pris le Pack Échantillon avec branding, votre design est déjà fait — passez directement en Formule 1. Le montant du forfait design est intégralement déduit si vous passez à l'une de nos offres avec site web.
         </p>
       </div>
     </motion.div>
