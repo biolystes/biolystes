@@ -1,0 +1,1 @@
+ALTER TABLE public.product_selections ALTER COLUMN user_id SET DEFAULT '00000000-0000-0000-0000-000000000000'::uuid;
