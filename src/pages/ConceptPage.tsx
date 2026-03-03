@@ -766,13 +766,13 @@ export default function ConceptPage() {
           <div className="text-center mb-6 md:mb-8">
             <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
               className="text-[26px] md:text-[clamp(36px,5vw,52px)] font-medium tracking-[-0.03em] leading-[1.1] max-w-[900px] mx-auto text-foreground">
-              Voici ce que ça change <br className="hidden md:block" />
-              <span className="text-muted-foreground">sur votre boutique.</span>
+              Votre marque est lancée. <br className="hidden md:block" />
+              <span className="text-muted-foreground">Nos IA prennent le relais.</span>
             </motion.h2>
           </div>
           <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
             className="text-center text-sm md:text-[17px] text-muted-foreground leading-[1.7] max-w-[780px] mx-auto mb-12 md:mb-24">
-            Nos IA répondent à vos clients à votre place, leur donnent des conseils personnalisés, proposent des diagnostics de peau, vous assistent au niveau marketing et génèrent du contenu pour vous.
+            Service client, recommandations produits, diagnostics de peau, coaching post-achat, production de photos, marketing, contenu. Une fois votre site en ligne, nos IA vous assistent sur tous les fronts pour que vous ne soyez jamais seul.
           </motion.p>
 
           {/* Phone comparisons */}
