@@ -730,8 +730,8 @@ export default function ConceptPage() {
       {/* ═══ LYSTES.AI ═══ */}
       <section className="bg-foreground text-primary-foreground">
         <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
-          <SectionLabel dark label="Lystes.ai" title="Cinq départements IA. Une seule plateforme."
-            subtitle="Diagnostic, experts, coaching, contenu, pilotage. Connectée à votre boutique dès le premier jour." />
+          <SectionLabel dark label="Lystes.ai" title="Une fois lancé, vous n'êtes pas seul."
+            subtitle="Nos équipes IA, développées en interne par Biolystes, gèrent votre boutique au quotidien : ventes, support client, contenu, pilotage. Vous vous concentrez sur votre vision, elles s'occupent du reste." />
           <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {lystesAiPillars.map((pillar, i) => (
               <motion.div key={pillar.title} initial="hidden" whileInView="visible" viewport={{ once: true }}
@@ -765,14 +765,14 @@ export default function ConceptPage() {
           {/* Header */}
           <div className="text-center mb-6 md:mb-8">
             <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              className="text-[26px] md:text-[clamp(36px,5vw,52px)] font-medium tracking-[-0.03em] leading-[1.1] max-w-[900px] mx-auto">
-              Une fiche produit classique affiche. <br className="hidden md:block" />
-              <span className="italic text-muted-foreground" style={{ fontFamily: "'Georgia', serif" }}>Lystes AI convertit.</span>
+              className="text-[26px] md:text-[clamp(36px,5vw,52px)] font-medium tracking-[-0.03em] leading-[1.1] max-w-[900px] mx-auto text-foreground">
+              Voici ce que ça change <br className="hidden md:block" />
+              <span className="text-muted-foreground">sur votre boutique.</span>
             </motion.h2>
           </div>
           <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
             className="text-center text-sm md:text-[17px] text-muted-foreground leading-[1.7] max-w-[780px] mx-auto mb-12 md:mb-24">
-            Chaque visiteur est accueilli par un expert IA qui connaît vos produits, répond à ses doutes en temps réel, recommande le soin adapté à sa peau et le guide jusqu'à l'achat. Résultat : des taux de conversion jusqu'à 10× supérieurs à une fiche produit traditionnelle.
+            Même produit, même boutique. Mais avec Lystes AI, chaque visiteur est accueilli par un expert qui connaît vos formulations, répond à ses doutes et le guide jusqu'à l'achat. Résultat concret : des taux de conversion jusqu'à 10× supérieurs.
           </motion.p>
 
           {/* Phone comparisons */}
