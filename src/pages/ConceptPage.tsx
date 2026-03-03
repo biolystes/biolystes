@@ -197,6 +197,7 @@ const offresAvecSite = [
   {
     name: "Pack Agence",
     price: "1 499 €",
+    installment: "ou 750 € en 2x",
     sub: "Abonnement Pro obligatoire 99 €/mois",
     popular: true,
     features: [
@@ -215,6 +216,7 @@ const offresAvecSite = [
   {
     name: "Pack IA",
     price: "2 999 €",
+    installment: "ou 1 500 € en 2x",
     sub: "Abonnement Pro obligatoire 199 €/mois",
     features: [
       "Tout du Pack Agence",
