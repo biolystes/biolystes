@@ -2,6 +2,24 @@ import { motion } from "framer-motion";
 import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+// Brand images
+import kaniwa1 from "@/assets/kaniwa-1.jpg";
+import kaniwa2 from "@/assets/kaniwa-2.jpg";
+import kaniwa3 from "@/assets/kaniwa-3.jpg";
+import kaniwa5 from "@/assets/kaniwa-5.jpg";
+import fralene1 from "@/assets/fralene-1.jpg";
+import fralene2 from "@/assets/fralene-2.jpg";
+import fralene3 from "@/assets/fralene-3.jpg";
+import fralene5 from "@/assets/fralene-5.jpg";
+import sevmylook1 from "@/assets/sevmylook-1.jpg";
+import sevmylook3 from "@/assets/sevmylook-3.jpg";
+import sevmylook5 from "@/assets/sevmylook-5.jpg";
+import sevmylook7 from "@/assets/sevmylook-7.jpg";
+import pmyrris1 from "@/assets/pmyrris-1.jpg";
+import pmyrris2 from "@/assets/pmyrris-2.jpg";
+import pmyrris4 from "@/assets/pmyrris-4.jpg";
+import pmyrris6 from "@/assets/pmyrris-6.jpg";
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
@@ -374,6 +392,24 @@ export default function ConceptPage() {
         </div>
       </section>
 
+      {/* ═══ BRAND SHOWCASE STRIP ═══ */}
+      <section className="overflow-hidden py-6 bg-background">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="flex gap-3 px-3"
+          style={{ overflowX: "auto", scrollbarWidth: "none" }}
+        >
+          {[kaniwa1, fralene1, sevmylook1, pmyrris1, kaniwa3, fralene3, sevmylook3, pmyrris4].map((src, i) => (
+            <div key={i} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden">
+              <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+            </div>
+          ))}
+        </motion.div>
+      </section>
+
       {/* ═══ DEUX ÉTAPES ═══ */}
       <section className="max-w-5xl mx-auto px-6 py-24 md:py-32">
         <SectionLabel label="Le processus" title="Deux étapes. C'est tout." />
@@ -506,19 +542,77 @@ export default function ConceptPage() {
 
       {/* ═══ MARQUES RÉFÉRENCES ═══ */}
       <section className="bg-secondary">
-        <div className="max-w-5xl mx-auto px-6 py-24 md:py-32 text-center">
-          <SectionLabel label="Ils nous font confiance" title="Plus de 100 marques accompagnées." />
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
-            className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-6">
-            <a href="https://kaniwabotanique.com" target="_blank" rel="noopener noreferrer"
-              className="px-8 py-4 rounded-2xl bg-background hover:bg-accent transition-colors text-sm font-medium text-foreground">
-              Kaniwa Botanique
-            </a>
-            <a href="https://fraleneparis.com" target="_blank" rel="noopener noreferrer"
-              className="px-8 py-4 rounded-2xl bg-background hover:bg-accent transition-colors text-sm font-medium text-foreground">
-              Fralène Paris
-            </a>
-          </motion.div>
+        <div className="max-w-6xl mx-auto px-6 py-24 md:py-32">
+          <div className="text-center">
+            <SectionLabel label="Ils nous font confiance" title="Plus de 100 marques accompagnées." />
+          </div>
+
+          {/* Brand grids */}
+          <div className="mt-16 space-y-16">
+            {/* Kaniwa */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
+              <div className="flex items-center justify-between mb-6">
+                <p className="text-sm font-semibold tracking-wide text-foreground">Kaniwa Botanique</p>
+                <a href="https://kaniwabotanique.com" target="_blank" rel="noopener noreferrer"
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                  Voir le site <ArrowRight className="h-3 w-3" />
+                </a>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[kaniwa1, kaniwa2, kaniwa3, kaniwa5].map((src, i) => (
+                  <div key={i} className="aspect-[4/5] rounded-xl overflow-hidden">
+                    <img src={src} alt="Kaniwa Botanique" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Fralène */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}>
+              <div className="flex items-center justify-between mb-6">
+                <p className="text-sm font-semibold tracking-wide text-foreground">Fralène Paris</p>
+                <a href="https://fraleneparis.com" target="_blank" rel="noopener noreferrer"
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                  Voir le site <ArrowRight className="h-3 w-3" />
+                </a>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[fralene1, fralene2, fralene3, fralene5].map((src, i) => (
+                  <div key={i} className="aspect-[4/5] rounded-xl overflow-hidden">
+                    <img src={src} alt="Fralène Paris" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Sev My Look */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}>
+              <div className="mb-6">
+                <p className="text-sm font-semibold tracking-wide text-foreground">Sev My Look</p>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[sevmylook1, sevmylook3, sevmylook5, sevmylook7].map((src, i) => (
+                  <div key={i} className="aspect-[4/5] rounded-xl overflow-hidden">
+                    <img src={src} alt="Sev My Look" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* P'Myrris */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}>
+              <div className="mb-6">
+                <p className="text-sm font-semibold tracking-wide text-foreground">P'Myrris</p>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {[pmyrris1, pmyrris2, pmyrris4, pmyrris6].map((src, i) => (
+                  <div key={i} className="aspect-[4/5] rounded-xl overflow-hidden">
+                    <img src={src} alt="P'Myrris" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
