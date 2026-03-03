@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3, ExternalLink, ShoppingBag, HelpCircle, Star, StarHalf, Menu, Search, User, Mic, ArrowUp, ChevronLeft, ChevronRight, ClipboardCheck, ShieldCheck, Leaf, Award, Rabbit, Recycle, Ban, Sprout, Package, TestTubes, Settings, Rocket } from "lucide-react";
+import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3, ExternalLink, ShoppingBag, HelpCircle, Star, StarHalf, Menu, Search, User, Mic, ArrowUp, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Brand images
@@ -385,96 +385,6 @@ function CatalogPreview({ navigate }: { navigate: (path: string) => void }) {
   );
 }
 
-/* ── Stepper "Comment ça marche" ── */
-const stepperData = [
-  { label: "Sélection de Produits", text: "Choisissez parmi notre catalogue de produits certifiés bio, végans, conformes UE/FDA, prêts à être étiquetés avec votre marque.", image: "https://biolystes.com/wp-content/uploads/2025/03/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0tXSHhFMnBBQVltR0lCZTJpNHFwejNXM2RUdnlLZTZOLmpwZWcmd2lkdGg9ODk2-1-1.jpg" },
-  { label: "Design Packaging Personnalisé", text: "Vous nous fournissez votre logo et inspirations. Nous créons une identité visuelle unique avec des étiquettes et packagings professionnels pour votre marque.", image: "https://biolystes.com/wp-content/uploads/2025/05/FRONT-WITH-BOX_high_res-2-scaled.jpg" },
-  { label: "Envoi des échantillons", text: "Commandez vos échantillons pour découvrir et valider nos produits. C'est le moyen idéal de tester sans risque avant de lancer votre marque en toute confiance.", image: "https://biolystes.com/wp-content/uploads/2025/05/IMG_1846-2.png" },
-  { label: "Photos Packshots et Ambiance", text: "Nous réalisons un set complet de photos haute qualité (packshots produits, images d'ambiance) pour sublimer votre site et vos campagnes marketing.", image: "https://biolystes.com/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-09-at-18.08.33-3-1.jpeg" },
-  { label: "Création du Site Ecommerce", text: "Nous créons et configurons votre boutique en ligne prête à vendre, sans nécessiter d'investissement technique de votre part.", image: "https://biolystes.com/wp-content/uploads/2025/04/FireShot-Capture-044-Nairoba-Cosmetics-Sublimez-votre-beaute-relevez-votre-excellence_-lystes.pro_-1.png" },
-  { label: "Logistique & Expédition", text: "De la production à la demande à l'expédition sous votre marque, nous nous occupons de tout. Vous vous concentrez sur la croissance.", image: "https://biolystes.com/wp-content/uploads/2025/05/IMG_1896.png" },
-];
-
-function StepperSection() {
-  const [step, setStep] = useState(0);
-  const current = stepperData[step];
-
-  return (
-    <section className="max-w-5xl mx-auto px-6 py-24 md:py-32">
-      <SectionLabel
-        label="Le processus"
-        title="Comment lancer sa marque bio et végane concrètement avec Biolystes en 10-15 jours ?"
-        subtitle="Suivez notre processus simplifié, de la conception à l'automatisation."
-      />
-
-      {/* Stepper indicators */}
-      <div className="flex justify-center items-center gap-2 mt-12 mb-10">
-        {stepperData.map((_, i) => (
-          <div key={i} className="flex items-center gap-2">
-            <button
-              onClick={() => setStep(i)}
-              className={`w-9 h-9 rounded-full text-sm font-semibold flex items-center justify-center transition-colors ${
-                i === step
-                  ? "bg-foreground text-primary-foreground"
-                  : "bg-background text-foreground border border-border hover:bg-muted"
-              }`}
-            >
-              {i + 1}
-            </button>
-            {i < stepperData.length - 1 && <div className="w-6 md:w-10 h-px bg-border" />}
-          </div>
-        ))}
-      </div>
-
-      {/* Step content */}
-      <motion.div
-        key={step}
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="max-w-2xl mx-auto bg-background rounded-2xl border border-border p-6 md:p-8"
-      >
-        <div className="grid md:grid-cols-2 gap-6 items-center">
-          <div className="order-2 md:order-1">
-            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-widest block mb-2">
-              Étape {step + 1}
-            </span>
-            <h3 className="text-lg font-semibold text-foreground mb-3">{current.label}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">{current.text}</p>
-          </div>
-          <img
-            src={current.image}
-            alt={current.label}
-            className="rounded-xl w-full order-1 md:order-2 aspect-[4/3] object-cover"
-            loading="lazy"
-          />
-        </div>
-        <div className="mt-6 flex justify-between">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => setStep(Math.max(0, step - 1))}
-            disabled={step === 0}
-            className="rounded-full px-5"
-          >
-            <ArrowRight className="mr-1.5 h-3.5 w-3.5 rotate-180" />
-            Précédent
-          </Button>
-          <Button
-            size="sm"
-            onClick={() => setStep(Math.min(stepperData.length - 1, step + 1))}
-            disabled={step === stepperData.length - 1}
-            className="rounded-full px-5"
-          >
-            Suivant
-            <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
-          </Button>
-        </div>
-      </motion.div>
-    </section>
-  );
-}
-
 /* ── Animated Chat Widget (full conversation) ── */
 function AnimatedChat() {
   const [visibleMsgs, setVisibleMsgs] = useState<string[]>(["msg-1"]);
@@ -544,7 +454,7 @@ function AnimatedChat() {
   return (
     <motion.div className="mb-6 bg-background border border-border rounded-[20px] overflow-hidden shadow-sm flex flex-col"
       onViewportEnter={() => setIsVisible(true)} viewport={{ once: false, margin: "-50px" }}>
-      <div key={animKey} ref={containerRef} className="h-[291px] overflow-y-auto p-4 pt-5 flex flex-col gap-4 bg-muted/30" style={{ scrollBehavior: "smooth", scrollbarWidth: "none" }}>
+      <div ref={containerRef} className="h-[291px] overflow-y-auto p-4 pt-5 flex flex-col gap-4 bg-muted/30" style={{ scrollBehavior: "smooth", scrollbarWidth: "none" }}>
         {/* Msg 1 */}
         <div className="flex flex-col gap-1 w-full shrink-0">
           <div className="bg-background border border-border shadow-sm text-foreground text-[12px] p-3 rounded-2xl rounded-tl-sm leading-relaxed w-[92%]">
@@ -559,19 +469,19 @@ function AnimatedChat() {
             ))}
           </div>
         )}
-        {isShown("msg-2") && <div className="flex flex-col gap-1 w-full items-end shrink-0"><div className="bg-foreground text-primary-foreground text-[13px] py-3 px-4 rounded-2xl rounded-tr-sm w-fit max-w-[85%] leading-relaxed">Bonjour, j'aimerais savoir si cette crème est adaptée au peau mixte et métisse ?</div><span className="text-[9px] text-muted-foreground mr-1 font-medium">09:42</span></div>}
-        {isShown("msg-3") && <div className="flex flex-col gap-2 w-full shrink-0"><div className="bg-background border border-border shadow-sm text-foreground text-[13px] p-4 rounded-2xl rounded-tl-sm flex flex-col gap-3 w-[92%]"><span className="leading-relaxed">Absolument ! Notre formule contient des extraits marins et de l'acide hyaluronique. Voici des résultats :</span><div className="flex flex-col gap-2"><div className="flex items-center gap-3 p-2 bg-muted/50 rounded-xl border border-border"><img src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/before-after/d7bb6871-6142-4c3b-8daf-b754fb38f4eb/1766996391238.png" alt="" className="w-[76px] h-[52px] object-cover rounded-lg border border-border shadow-sm" /><div className="flex flex-col"><span className="text-[13px] font-bold leading-tight">Anti-vieillissement</span><span className="text-[11px] text-muted-foreground mt-0.5">5 semaines</span></div></div><div className="flex items-center gap-3 p-2 bg-muted/50 rounded-xl border border-border"><img src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/before-after/d7bb6871-6142-4c3b-8daf-b754fb38f4eb/1766996432144.png" alt="" className="w-[76px] h-[52px] object-cover rounded-lg border border-border shadow-sm" /><div className="flex flex-col"><span className="text-[13px] font-bold leading-tight">Anti-âge front</span><span className="text-[11px] text-muted-foreground mt-0.5">3 semaines</span></div></div></div><span className="leading-relaxed">Ces résultats vous parlent ?</span></div><span className="text-[9px] text-muted-foreground ml-1 font-medium">09:42</span></div>}
-        {isShown("msg-3b") && <div className="flex flex-col gap-1 w-full items-end shrink-0"><div className="bg-foreground text-primary-foreground text-[13px] py-3 px-4 rounded-2xl rounded-tr-sm w-fit max-w-[85%] leading-relaxed">C'est impressionnant ! Avez-vous des avis de clientes ?</div><span className="text-[9px] text-muted-foreground mr-1 font-medium">09:43</span></div>}
-        {isShown("msg-3c") && <div className="flex flex-col gap-2 w-full shrink-0"><div className="bg-background border border-border shadow-sm text-foreground text-[13px] p-3 rounded-2xl rounded-tl-sm w-[92%] leading-relaxed">Bien sûr ! Voici quelques retours vérifiés :</div><div className="relative bg-background border border-border rounded-2xl p-4 shadow-sm w-[92%] flex flex-col gap-3"><div className="flex gap-0.5 mt-1">{[...Array(5)].map((_, i) => <div key={i} className="bg-[#00B67A] text-white flex items-center justify-center w-[18px] h-[18px] rounded-[3px]"><Star className="w-[11px] h-[11px] fill-current" /></div>)}</div><p className="text-[13px] text-foreground italic leading-relaxed font-medium">"Ma peau paraît nettement plus jeune et lumineuse. Confort, éclat et peau revitalisée."</p><p className="text-[12px] text-muted-foreground">Alice - via Trustpilot</p><div className="flex items-center justify-end gap-3 mt-1"><div className="w-7 h-7 border border-border rounded-full flex items-center justify-center text-muted-foreground opacity-50 bg-muted"><ChevronLeft className="w-3 h-3" /></div><span className="text-[11px] text-muted-foreground font-medium">1 / 2</span><div className="w-7 h-7 border border-border rounded-full flex items-center justify-center text-foreground bg-background shadow-sm"><ChevronRight className="w-3 h-3" /></div></div></div><span className="text-[9px] text-muted-foreground ml-1 font-medium">09:43</span></div>}
-        {isShown("msg-4") && <div className="flex flex-col gap-1 w-full items-end shrink-0"><div className="bg-foreground text-primary-foreground text-[13px] py-3 px-4 rounded-2xl rounded-tr-sm w-fit max-w-[85%] leading-relaxed">Top ! D'autres produits pour ma routine ?</div><span className="text-[9px] text-muted-foreground mr-1 font-medium">09:44</span></div>}
-        {isShown("msg-5") && <div className="flex flex-col gap-1 w-full shrink-0"><div className="flex flex-col gap-2 w-[95%] overflow-hidden"><div className="bg-background border border-border shadow-sm text-foreground text-[13px] p-3 rounded-2xl rounded-tl-sm w-fit">Voici ce qui pourrait compléter votre routine :</div><div className="flex gap-2 overflow-x-auto pb-2 pl-1" style={{ scrollbarWidth: "none" }}>{[{ img: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/O236SDw9GkuAtxkcoHnMrhJ_9lJP7tPq-scaled.jpg?w=1930&ssl=1", name: "Sérum vitamine C", price: "35,00 €" },{ img: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2026/01/FRONT_high_res-12-scaled.jpg?w=1930&ssl=1", name: "Sérum anti-âge", price: "34,00 €" },{ img: "", name: "Gel Hydratation", price: "29,00 €" }].map((p, i) => <div key={i} className="min-w-[90px] bg-background border border-border rounded-xl p-2 flex flex-col gap-1 items-center text-center relative shadow-sm shrink-0">{p.img ? <img src={p.img} alt={p.name} className="w-12 h-14 rounded object-cover shadow-sm mb-1" /> : <div className="w-12 h-14 bg-[#c8e6c9] rounded mb-1" />}<p className="text-[9px] font-bold leading-tight h-6">{p.name}</p><p className="text-[9px] text-muted-foreground font-medium">{p.price}</p><button className="absolute -bottom-2 right-2 bg-foreground text-primary-foreground w-5 h-5 rounded-full flex items-center justify-center text-[12px] shadow-md">+</button></div>)}</div></div></div>}
-        {isShown("msg-6") && <div className="flex flex-col gap-1 w-full items-end shrink-0 mt-2"><div className="bg-foreground text-primary-foreground text-[12px] py-2.5 px-3.5 rounded-2xl rounded-tr-sm w-fit">Merci :)</div></div>}
-        {isShown("msg-7") && <div className="flex flex-col gap-1 w-full shrink-0"><div className="bg-background border border-border shadow-sm text-foreground text-[12px] p-3 rounded-2xl rounded-tl-sm leading-relaxed w-[92%]">De rien ! Crème ajoutée au panier. N'hésitez pas pour d'autres questions.</div></div>}
-        {showTyping && <div className="flex flex-col gap-1 w-full shrink-0"><div className="bg-background border border-border shadow-sm py-3 px-3.5 rounded-2xl rounded-tl-sm w-fit flex gap-1.5 items-center h-[34px]"><div className="w-1.5 h-1.5 bg-muted-foreground/60 rounded-full animate-pulse" style={{ animationDuration: "1.4s", animationDelay: "-0.32s" }} /><div className="w-1.5 h-1.5 bg-muted-foreground/60 rounded-full animate-pulse" style={{ animationDuration: "1.4s", animationDelay: "-0.16s" }} /><div className="w-1.5 h-1.5 bg-muted-foreground/60 rounded-full animate-pulse" style={{ animationDuration: "1.4s" }} /></div></div>}
+        {isShown("msg-2") && <motion.div {...pop} className="flex flex-col gap-1 w-full items-end shrink-0"><div className="bg-foreground text-primary-foreground text-[13px] py-3 px-4 rounded-2xl rounded-tr-sm w-fit max-w-[85%] leading-relaxed">Bonjour, j'aimerais savoir si cette crème est adaptée au peau mixte et métisse ?</div><span className="text-[9px] text-muted-foreground mr-1 font-medium">09:42</span></motion.div>}
+        {isShown("msg-3") && <motion.div {...pop} className="flex flex-col gap-2 w-full shrink-0"><div className="bg-background border border-border shadow-sm text-foreground text-[13px] p-4 rounded-2xl rounded-tl-sm flex flex-col gap-3 w-[92%]"><span className="leading-relaxed">Absolument ! Notre formule contient des extraits marins et de l'acide hyaluronique. Voici des résultats :</span><div className="flex flex-col gap-2"><div className="flex items-center gap-3 p-2 bg-muted/50 rounded-xl border border-border"><img src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/before-after/d7bb6871-6142-4c3b-8daf-b754fb38f4eb/1766996391238.png" alt="" className="w-[76px] h-[52px] object-cover rounded-lg border border-border shadow-sm" /><div className="flex flex-col"><span className="text-[13px] font-bold leading-tight">Anti-vieillissement</span><span className="text-[11px] text-muted-foreground mt-0.5">5 semaines</span></div></div><div className="flex items-center gap-3 p-2 bg-muted/50 rounded-xl border border-border"><img src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/before-after/d7bb6871-6142-4c3b-8daf-b754fb38f4eb/1766996432144.png" alt="" className="w-[76px] h-[52px] object-cover rounded-lg border border-border shadow-sm" /><div className="flex flex-col"><span className="text-[13px] font-bold leading-tight">Anti-âge front</span><span className="text-[11px] text-muted-foreground mt-0.5">3 semaines</span></div></div></div><span className="leading-relaxed">Ces résultats vous parlent ?</span></div><span className="text-[9px] text-muted-foreground ml-1 font-medium">09:42</span></motion.div>}
+        {isShown("msg-3b") && <motion.div {...pop} className="flex flex-col gap-1 w-full items-end shrink-0"><div className="bg-foreground text-primary-foreground text-[13px] py-3 px-4 rounded-2xl rounded-tr-sm w-fit max-w-[85%] leading-relaxed">C'est impressionnant ! Avez-vous des avis de clientes ?</div><span className="text-[9px] text-muted-foreground mr-1 font-medium">09:43</span></motion.div>}
+        {isShown("msg-3c") && <motion.div {...pop} className="flex flex-col gap-2 w-full shrink-0"><div className="bg-background border border-border shadow-sm text-foreground text-[13px] p-3 rounded-2xl rounded-tl-sm w-[92%] leading-relaxed">Bien sûr ! Voici quelques retours vérifiés :</div><div className="relative bg-background border border-border rounded-2xl p-4 shadow-sm w-[92%] flex flex-col gap-3"><div className="flex gap-0.5 mt-1">{[...Array(5)].map((_, i) => <div key={i} className="bg-[#00B67A] text-white flex items-center justify-center w-[18px] h-[18px] rounded-[3px]"><Star className="w-[11px] h-[11px] fill-current" /></div>)}</div><p className="text-[13px] text-foreground italic leading-relaxed font-medium">"Ma peau paraît nettement plus jeune et lumineuse. Confort, éclat et peau revitalisée."</p><p className="text-[12px] text-muted-foreground">Alice - via Trustpilot</p><div className="flex items-center justify-end gap-3 mt-1"><div className="w-7 h-7 border border-border rounded-full flex items-center justify-center text-muted-foreground opacity-50 bg-muted"><ChevronLeft className="w-3 h-3" /></div><span className="text-[11px] text-muted-foreground font-medium">1 / 2</span><div className="w-7 h-7 border border-border rounded-full flex items-center justify-center text-foreground bg-background shadow-sm"><ChevronRight className="w-3 h-3" /></div></div></div><span className="text-[9px] text-muted-foreground ml-1 font-medium">09:43</span></motion.div>}
+        {isShown("msg-4") && <motion.div {...pop} className="flex flex-col gap-1 w-full items-end shrink-0"><div className="bg-foreground text-primary-foreground text-[13px] py-3 px-4 rounded-2xl rounded-tr-sm w-fit max-w-[85%] leading-relaxed">Top ! D'autres produits pour ma routine ?</div><span className="text-[9px] text-muted-foreground mr-1 font-medium">09:44</span></motion.div>}
+        {isShown("msg-5") && <motion.div {...pop} className="flex flex-col gap-1 w-full shrink-0"><div className="flex flex-col gap-2 w-[95%] overflow-hidden"><div className="bg-background border border-border shadow-sm text-foreground text-[13px] p-3 rounded-2xl rounded-tl-sm w-fit">Voici ce qui pourrait compléter votre routine :</div><div className="flex gap-2 overflow-x-auto pb-2 pl-1" style={{ scrollbarWidth: "none" }}>{[{ img: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/O236SDw9GkuAtxkcoHnMrhJ_9lJP7tPq-scaled.jpg?w=1930&ssl=1", name: "Sérum vitamine C", price: "35,00 €" },{ img: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2026/01/FRONT_high_res-12-scaled.jpg?w=1930&ssl=1", name: "Sérum anti-âge", price: "34,00 €" },{ img: "", name: "Gel Hydratation", price: "29,00 €" }].map((p, i) => <div key={i} className="min-w-[90px] bg-background border border-border rounded-xl p-2 flex flex-col gap-1 items-center text-center relative shadow-sm shrink-0">{p.img ? <img src={p.img} alt={p.name} className="w-12 h-14 rounded object-cover shadow-sm mb-1" /> : <div className="w-12 h-14 bg-[#c8e6c9] rounded mb-1" />}<p className="text-[9px] font-bold leading-tight h-6">{p.name}</p><p className="text-[9px] text-muted-foreground font-medium">{p.price}</p><button className="absolute -bottom-2 right-2 bg-foreground text-primary-foreground w-5 h-5 rounded-full flex items-center justify-center text-[12px] shadow-md">+</button></div>)}</div></div></motion.div>}
+        {isShown("msg-6") && <motion.div {...pop} className="flex flex-col gap-1 w-full items-end shrink-0 mt-2"><div className="bg-foreground text-primary-foreground text-[12px] py-2.5 px-3.5 rounded-2xl rounded-tr-sm w-fit">Merci :)</div></motion.div>}
+        {isShown("msg-7") && <motion.div {...pop} className="flex flex-col gap-1 w-full shrink-0"><div className="bg-background border border-border shadow-sm text-foreground text-[12px] p-3 rounded-2xl rounded-tl-sm leading-relaxed w-[92%]">De rien ! Crème ajoutée au panier. N'hésitez pas pour d'autres questions.</div></motion.div>}
+        {showTyping && <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-1 w-full shrink-0"><div className="bg-background border border-border shadow-sm py-3 px-3.5 rounded-2xl rounded-tl-sm w-fit flex gap-1.5 items-center h-[34px]"><div className="w-1.5 h-1.5 bg-muted-foreground/60 rounded-full animate-pulse" style={{ animationDuration: "1.4s", animationDelay: "-0.32s" }} /><div className="w-1.5 h-1.5 bg-muted-foreground/60 rounded-full animate-pulse" style={{ animationDuration: "1.4s", animationDelay: "-0.16s" }} /><div className="w-1.5 h-1.5 bg-muted-foreground/60 rounded-full animate-pulse" style={{ animationDuration: "1.4s" }} /></div></motion.div>}
       </div>
       {/* Chat input with gradient border */}
       <div className="p-3 bg-background border-t border-border shrink-0">
-        <div className="relative rounded-[22px] p-[1.5px]" style={{ background: "linear-gradient(to right, hsl(var(--accent)), hsl(var(--muted)), hsl(var(--accent)))" }}>
+        <div className="relative rounded-[22px] p-[1.5px] bg-gradient-to-r from-pink-300 via-purple-200 to-green-200 shadow-sm">
           <div className="bg-background rounded-[20px] p-3 flex flex-col gap-3">
             <div className="text-[13px] pl-1 tracking-wide min-h-[20px]">
               {isTypingInput ? <span className="text-foreground">{inputText}<span className="animate-pulse ml-[1px]">|</span></span> : <span className="text-muted-foreground">{inputText}</span>}
@@ -581,7 +491,7 @@ function AnimatedChat() {
                 <div className="flex items-center pl-0.5">
                   <img src="https://i.pravatar.cc/100?img=5" className="w-6 h-6 rounded-md border-[1.5px] border-background relative z-10 object-cover" alt="" />
                   <img src="https://i.pravatar.cc/100?img=11" className="w-6 h-6 rounded-md border-[1.5px] border-background relative z-20 -ml-2 object-cover" alt="" />
-                  <div className="relative z-30 -ml-2"><img src="https://i.pravatar.cc/100?img=9" className="w-6 h-6 rounded-md border-[1.5px] border-background object-cover" alt="" /><div className="absolute -top-1.5 -right-1.5 bg-muted text-[6px] font-bold px-1 rounded shadow-sm text-foreground border border-background/80">AI</div></div>
+                  <div className="relative z-30 -ml-2"><img src="https://i.pravatar.cc/100?img=9" className="w-6 h-6 rounded-md border-[1.5px] border-background object-cover" alt="" /><div className="absolute -top-1.5 -right-1.5 bg-gradient-to-br from-pink-100 via-blue-50 to-green-100 text-[6px] font-bold px-1 rounded shadow-sm text-foreground border border-background/80">AI</div></div>
                 </div>
                 <span className="text-primary-foreground text-[10px] font-bold tracking-wide">Faire un diagnostic</span>
               </div>
@@ -668,7 +578,7 @@ export default function ConceptPage() {
                 Forts de 18 ans d'expérience dans l'e-commerce et la beauté, nous avons déjà accompagné plus de 100 marques grâce à une solution clé en main pour lancer la vôtre en seulement 10 à 15 jours.
               </p>
               <p>
-                Zéro stock, zéro risque. Votre client commande, notre réseau de laboratoires européens d'excellence fabrique le produit à la demande, et nous l'expédions directement chez lui, sous votre nom. Aucun minimum de commande.
+                Zéro stock, zéro risque. Votre client commande, notre réseau de laboratoires français et européens d'excellence fabrique le produit à la demande, et nous l'expédions directement chez lui, sous votre nom. Aucun minimum de commande.
               </p>
               <p>
                 Tous nos produits sont certifiés ECOCERT, COSMOS, et conformes aux normes européennes et américaines. C'est ce niveau d'exigence qui a convaincu des expertes internationales comme Sev Formal et ses 400 000 abonnés, ainsi que des marques comme Kaniwa Botanique et Fralène Paris, de nous confier la création de leur marque.
@@ -677,7 +587,7 @@ export default function ConceptPage() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
               className="grid sm:grid-cols-3 gap-6">
               {[
-                { icon: FlaskConical, label: "Laboratoires certifiés", sub: "Européens" },
+                { icon: FlaskConical, label: "Laboratoires certifiés", sub: "Français et européens" },
                 { icon: Truck, label: "Zéro stock", sub: "Aucun minimum de commande" },
                 { icon: Globe, label: "10 à 15 jours", sub: "Pour lancer votre marque" },
               ].map((item) => (
@@ -724,23 +634,40 @@ export default function ConceptPage() {
         </motion.div>
       </section>
 
-      {/* ═══ COMMENT ÇA MARCHE — STEPPER ═══ */}
-      <StepperSection />
+      {/* ═══ DEUX ÉTAPES ═══ */}
+      <section className="max-w-5xl mx-auto px-6 py-24 md:py-32">
+        <SectionLabel label="Le processus" title="Deux étapes. C'est tout." />
+        <div className="mt-16 grid md:grid-cols-2 gap-12 md:gap-16">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
+            <div className="flex items-center gap-4 mb-6">
+              <span className="w-10 h-10 rounded-full bg-foreground text-primary-foreground flex items-center justify-center text-sm font-semibold">1</span>
+              <h3 className="text-xl font-semibold tracking-tight">Mise en place de votre marque</h3>
+            </div>
+            <div className="space-y-4 text-muted-foreground leading-relaxed text-[15px]">
+              <p>Votre expert produit vous accompagne dans la sélection de vos cosmétiques parmi notre catalogue certifié bio et végan. Des formulations clean, sans parabènes, sans silicones, sans ingrédients controversés.</p>
+              <p>Nous réalisons un brief créatif pour comprendre l'ADN de votre projet. Un chef de projet dédié pilote l'ensemble de nos équipes. Un seul interlocuteur, zéro complexité pour vous.</p>
+              <p>En quelques jours, vous recevez l'intégralité de vos livrables : logo, identité visuelle, design packagings recyclables, photos IA hyperréalistes, contenu du site rédigé et optimisé, et votre boutique en ligne prête à vendre.</p>
+            </div>
+          </motion.div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}>
+            <div className="flex items-center gap-4 mb-6">
+              <span className="w-10 h-10 rounded-full bg-foreground text-primary-foreground flex items-center justify-center text-sm font-semibold">2</span>
+              <h3 className="text-xl font-semibold tracking-tight">Gestion au quotidien</h3>
+            </div>
+            <div className="space-y-4 text-muted-foreground leading-relaxed text-[15px]">
+              <p>Côté ventes, Lystes.ai travaille pour vous jour et nuit. Un expert produit IA répond aux questions 24h/24. Le diagnostic intelligent scanne le visage de votre client et recommande les produits adaptés.</p>
+              <p><strong className="text-foreground">Mode standard</strong> — Votre client commande, le laboratoire fabrique et expédie directement sous votre nom. Aucun stock, livraison en 6-7 jours.</p>
+              <p><strong className="text-foreground">Mode express</strong> — Livraison en 24 à 48 heures grâce à un stock tampon. Réapprovisionnement automatique chaque semaine, sans minimum.</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* ═══ LYSTES.AI ═══ */}
       <section className="bg-foreground text-primary-foreground">
         <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
-          <div className="text-center mb-6 md:mb-8">
-            <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              className="text-[26px] md:text-[clamp(36px,5vw,52px)] font-medium tracking-[-0.03em] leading-[1.1] max-w-[900px] mx-auto text-primary-foreground">
-              Votre marque est lancée. <br className="hidden md:block" />
-              <span className="text-primary-foreground/60">Nos IA prennent le relais.</span>
-            </motion.h2>
-          </div>
-          <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-            className="text-center text-sm md:text-[17px] text-primary-foreground/60 leading-[1.7] max-w-[780px] mx-auto mb-12">
-            Service client, recommandations produits, diagnostics de peau, coaching post-achat, production de photos, marketing, SEO, contenu. Une fois votre site en ligne, nos IA vous assistent sur tous les fronts pour que vous ne soyez jamais seul.
-          </motion.p>
+          <SectionLabel dark label="Lystes.ai" title="Cinq départements IA. Une seule plateforme."
+            subtitle="Diagnostic, experts, coaching, contenu, pilotage. Connectée à votre boutique dès le premier jour." />
           <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {lystesAiPillars.map((pillar, i) => (
               <motion.div key={pillar.title} initial="hidden" whileInView="visible" viewport={{ once: true }}
@@ -769,9 +696,20 @@ export default function ConceptPage() {
       </section>
 
       {/* ═══ AVANT / AVEC LYSTES ═══ */}
-      <section className="py-24 md:py-36 bg-secondary -mx-6 lg:-mx-10 px-6 lg:px-10">
+      <section className="py-24 md:py-36 bg-secondary">
         <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
           {/* Header */}
+          <div className="text-center mb-6 md:mb-8">
+            <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+              className="text-[26px] md:text-[clamp(36px,5vw,52px)] font-medium tracking-[-0.03em] leading-[1.1] max-w-[900px] mx-auto">
+              Votre boutique affiche. <br className="hidden md:block" />
+              <span className="italic text-muted-foreground" style={{ fontFamily: "'Georgia', serif" }}>Lystes AI vend</span>
+            </motion.h2>
+          </div>
+          <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
+            className="text-center text-sm md:text-[17px] text-muted-foreground leading-[1.7] max-w-[780px] mx-auto mb-12 md:mb-24">
+            Lystes AI intègre un écosystème d'équipes AI autonomes pour faire vendre votre boutique. Des marketeurs qui pilotent. Des photographes qui subliment. Des conseillers qui vendent. Des créateurs de contenu qui rassurent. Sans salaire. Sans charges. Vous branchez, ça vend.
+          </motion.p>
 
           {/* Phone comparisons */}
           <div className="w-full flex justify-center items-start overflow-x-auto" style={{ scrollbarWidth: "none" }}>
@@ -788,7 +726,7 @@ export default function ConceptPage() {
                       <Menu className="w-5 h-5 text-foreground" />
                       <Search className="w-5 h-5 text-foreground" />
                     </div>
-                    <div className="font-bold text-lg tracking-tight text-foreground">Kaniwa</div>
+                    <div className="font-serif font-bold text-2xl tracking-wide text-foreground">Expire</div>
                     <div className="flex items-center gap-3">
                       <User className="w-5 h-5 text-foreground" />
                       <div className="relative">
@@ -869,7 +807,7 @@ export default function ConceptPage() {
                         <Menu className="w-5 h-5 text-foreground" />
                         <Search className="w-5 h-5 text-foreground" />
                       </div>
-                      <div className="font-bold text-lg tracking-tight text-foreground">Kaniwa</div>
+                      <div className="font-serif font-bold text-2xl tracking-wide text-foreground">Expire</div>
                       <div className="flex items-center gap-3">
                         <User className="w-5 h-5 text-foreground" />
                         <div className="relative">
@@ -1024,22 +962,22 @@ export default function ConceptPage() {
           <SectionLabel
             label="Engagements"
             title="Nos produits bio et véganes sont certifiés ECOCERT COSMOS et enregistrés au CPN."
-            subtitle="Profitez de notre expertise et de notre réseau de laboratoires européens d'excellence."
+            subtitle="Profitez de notre expertise et de notre réseau de laboratoires français et européens d'excellence."
           />
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px bg-border rounded-2xl overflow-hidden">
             {[
-              { Icon: ClipboardCheck, title: "Enregistrement CPNP", text: "Produits enregistrés, conformes aux normes EU & UK." },
-              { Icon: ShieldCheck, title: "Conformité FDA", text: "Formulations conformes pour le marché américain." },
-              { Icon: Leaf, title: "Certification ECOCERT", text: "Répond aux standards écologiques UE, UK & USA." },
-              { Icon: Award, title: "Certification ISO 22716", text: "Bonnes pratiques de fabrication garanties." },
-              { Icon: Rabbit, title: "Non Testés sur Animaux", text: "Aucune expérimentation animale à aucun stade." },
-              { Icon: Recycle, title: "Packagings Recyclables", text: "Emballages conçus pour être recyclables." },
-              { Icon: Ban, title: "Sans Ingrédients Controversés", text: "Sans parabènes, silicones, PEG, filtres UV chimiques, microplastiques, colorants artificiels." },
-              { Icon: Sprout, title: "Parfums 100% Véganes", text: "Sans parfums synthétiques. Substances aromatiques naturelles, sans phosphates ni conservateurs synthétiques." },
-              { Icon: Package, title: "Aucun Minimum de Commande", text: "Pour les points de vente physiques, commandes flexibles." },
-              { Icon: TestTubes, title: "Échantillons Disponibles", text: "Testez les produits avant le lancement de votre marque." },
-              { Icon: Settings, title: "Production à la Demande", text: "Fabrication à la commande, adaptée à vos besoins." },
-              { Icon: Rocket, title: "Expédition Directe", text: "Envoi aux clients finaux sous votre marque." },
+              { icon: "📋", title: "Enregistrement CPNP", text: "Produits enregistrés, conformes aux normes EU & UK." },
+              { icon: "✅", title: "Conformité FDA", text: "Formulations conformes pour le marché américain." },
+              { icon: "🌿", title: "Certification ECOCERT", text: "Répond aux standards écologiques UE, UK & USA." },
+              { icon: "🏅", title: "Certification ISO 22716", text: "Bonnes pratiques de fabrication garanties." },
+              { icon: "🐰", title: "Non Testés sur Animaux", text: "Aucune expérimentation animale à aucun stade." },
+              { icon: "♻️", title: "Packagings Recyclables", text: "Emballages conçus pour être recyclables." },
+              { icon: "🚫", title: "Sans Ingrédients Controversés", text: "Sans parabènes, silicones, PEG, filtres UV chimiques, microplastiques, colorants artificiels." },
+              { icon: "🌱", title: "Parfums 100% Véganes", text: "Sans parfums synthétiques. Substances aromatiques naturelles, sans phosphates ni conservateurs synthétiques." },
+              { icon: "📦", title: "Aucun Minimum de Commande", text: "Pour les points de vente physiques, commandes flexibles." },
+              { icon: "🧪", title: "Échantillons Disponibles", text: "Testez les produits avant le lancement de votre marque." },
+              { icon: "⚙️", title: "Production à la Demande", text: "Fabrication à la commande, adaptée à vos besoins." },
+              { icon: "🚀", title: "Expédition Directe", text: "Envoi aux clients finaux sous votre marque." },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
@@ -1050,7 +988,7 @@ export default function ConceptPage() {
                 custom={i}
                 className="bg-background p-6 flex flex-col items-center text-center"
               >
-                <item.Icon className="h-6 w-6 text-muted-foreground mb-3" strokeWidth={1.5} />
+                <span className="text-2xl mb-3">{item.icon}</span>
                 <p className="text-sm font-semibold text-foreground mb-2">{item.title}</p>
                 <p className="text-xs text-muted-foreground leading-relaxed">{item.text}</p>
               </motion.div>
@@ -1167,25 +1105,22 @@ export default function ConceptPage() {
       <CatalogPreview navigate={navigate} />
 
       {/* ═══ CTA FINAL ═══ */}
-      <section className="py-32 md:py-44 text-center">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="max-w-3xl mx-auto px-6">
-          <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-6">
-            En résumé
-          </motion.p>
-          <motion.h2 variants={fadeUp} custom={1} className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.05]">
-            Vous vendez,<br />on s'occupe de tout le reste.
+      <section className="max-w-4xl mx-auto px-6 py-24 md:py-32 text-center">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-6">
+          <motion.h2 variants={fadeUp} custom={0} className="text-3xl md:text-5xl font-light tracking-tight">
+            En résumé : vous vendez, on s'occupe de tout le reste.
           </motion.h2>
-          <motion.p variants={fadeUp} custom={2} className="text-muted-foreground text-lg md:text-xl max-w-lg mx-auto leading-relaxed mt-8">
+          <motion.p variants={fadeUp} custom={1} className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
             Vous ne lancez pas juste une marque. Vous lancez une marque équipée pour vendre.
           </motion.p>
-          <motion.div variants={fadeUp} custom={3} className="flex flex-col sm:flex-row justify-center gap-4 mt-12">
+          <motion.div variants={fadeUp} custom={2} className="flex flex-wrap justify-center gap-4 mt-4">
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="rounded-full px-10 h-14 text-sm tracking-wide w-full sm:w-auto">
+              <Button size="lg" className="rounded-full px-8 h-12 text-sm tracking-wide">
                 Prendre rendez-vous avec un expert
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </a>
-            <Button size="lg" variant="outline" className="rounded-full px-10 h-14 text-sm tracking-wide"
+            <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-sm tracking-wide"
               onClick={() => navigate("/configurateur")}>
               <MessageCircle className="mr-2 h-4 w-4" />
               Poser une question
