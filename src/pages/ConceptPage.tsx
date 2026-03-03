@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3, ExternalLink, ShoppingBag, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -32,6 +34,11 @@ const fadeUp = {
 const CTA_URL = "https://app.iclosed.io/e/paylystes/r2";
 const CATALOG_URL = "/catalog";
 const CONTACT_URL = "https://app.iclosed.io/e/paylystes/r2";
+
+// WooCommerce config for catalog preview
+const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
+const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
+const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
 
 const brands = [
   { name: "Kaniwa Botanique", url: "https://kaniwabotanique.com" },
@@ -320,8 +327,67 @@ function SectionLabel({ label, title, subtitle, dark }: { label: string; title: 
   );
 }
 
+/* ── Catalog Preview ── */
+function CatalogPreview({ navigate }: { navigate: (path: string) => void }) {
+  const [products, setProducts] = useState<{ id: number; name: string; price: string; image: string }[]>([]);
+
+  useEffect(() => {
+    const url = new URL(`${WC_BASE}/products`);
+    url.searchParams.set("consumer_key", CK);
+    url.searchParams.set("consumer_secret", CS);
+    url.searchParams.set("per_page", "8");
+    url.searchParams.set("status", "publish");
+    url.searchParams.set("orderby", "popularity");
+
+    fetch(url.toString())
+      .then(r => r.json())
+      .then((data: any[]) => {
+        setProducts(data.map(p => ({
+          id: p.id,
+          name: p.name,
+          price: p.price,
+          image: p.images?.[0]?.src || "",
+        })));
+      })
+      .catch(() => {});
+  }, []);
+
+  if (products.length === 0) return null;
+
+  return (
+    <section className="max-w-6xl mx-auto px-6 py-24 md:py-32">
+      <SectionLabel label="Catalogue" title="Des formulations d'excellence, prêtes à vendre."
+        subtitle="Plus de 50 produits certifiés bio et végan, disponibles sans minimum de commande." />
+      <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+        {products.slice(0, 8).map((p, i) => (
+          <motion.div key={p.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
+            className="group cursor-pointer" onClick={() => navigate("/catalog")}>
+            <div className="aspect-square rounded-2xl overflow-hidden mb-3" style={{ background: "linear-gradient(160deg, #e8eef5 0%, #dce6f0 100%)" }}>
+              {p.image && <img src={p.image} alt={p.name} className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500" loading="lazy" />}
+            </div>
+            <p className="text-sm font-medium text-foreground truncate">{p.name}</p>
+            <p className="text-xs text-muted-foreground mt-0.5">{p.price} EUR HT</p>
+          </motion.div>
+        ))}
+      </div>
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={8} className="mt-12 text-center flex flex-wrap justify-center gap-4">
+        <Button className="rounded-full px-8 h-12 text-sm" onClick={() => navigate("/catalog")}>
+          <ShoppingBag className="mr-2 h-4 w-4" />
+          Voir tout le catalogue
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </Button>
+        <Button variant="outline" className="rounded-full px-8 h-12 text-sm" onClick={() => navigate("/")}>
+          <MessageCircle className="mr-2 h-4 w-4" />
+          Poser une question sur les produits
+        </Button>
+      </motion.div>
+    </section>
+  );
+}
+
 /* ── Main Page ── */
 export default function ConceptPage() {
+  const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background">
 
@@ -598,89 +664,49 @@ export default function ConceptPage() {
         </div>
       </section>
 
-      {/* ═══ MARQUES RÉFÉRENCES ═══ */}
+      {/* ═══ PORTFOLIO / CASE STUDIES ═══ */}
       <section className="bg-secondary">
         <div className="max-w-6xl mx-auto px-6 py-24 md:py-32">
-          <div className="text-center">
-            <SectionLabel label="Ils nous font confiance" title="Plus de 100 marques accompagnées." />
+          <SectionLabel label="Portfolio" title="Plus de 100 marques accompagnées." />
+          <div className="mt-16 space-y-20">
+            {[
+              { name: "Kaniwa Botanique", tagline: "Marque bio & vegan, lancée en 12 jours", url: "https://kaniwabotanique.com", images: [kaniwa1, kaniwa2, kaniwa3, kaniwa5] },
+              { name: "Fralène Paris", tagline: "Gamme soins visage premium", url: "https://fraleneparis.com", images: [fralene1, fralene2, fralene3, fralene5] },
+              { name: "Sev My Look", tagline: "Gamme solaire & soins visage, 400K abonnés", url: "https://sevmylook.com", images: [sevmylook1, sevmylook3, sevmylook5, sevmylook7] },
+              { name: "P'Myrris Beauty", tagline: "Soins capillaires cheveux bouclés", url: "https://pmyrrisbeauty.fr", images: [pmyrris1, pmyrris2, pmyrris4, pmyrris6] },
+            ].map((brand, bi) => (
+              <motion.div key={brand.name} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={bi}>
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+                  <div>
+                    <p className="text-lg font-semibold tracking-tight text-foreground">{brand.name}</p>
+                    <p className="text-sm text-muted-foreground mt-0.5">{brand.tagline}</p>
+                  </div>
+                  <a href={brand.url} target="_blank" rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:opacity-70 transition-opacity shrink-0">
+                    Voir le site <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {brand.images.map((src, i) => (
+                    <div key={i} className="aspect-[4/5] rounded-xl overflow-hidden">
+                      <img src={src} alt={brand.name} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
           </div>
-
-          {/* Brand grids */}
-          <div className="mt-16 space-y-16">
-            {/* Kaniwa */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-              <div className="flex items-center justify-between mb-6">
-                <p className="text-sm font-semibold tracking-wide text-foreground">Kaniwa Botanique</p>
-                <a href="https://kaniwabotanique.com" target="_blank" rel="noopener noreferrer"
-                  className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-                  Voir le site <ExternalLink className="h-3 w-3" />
-                </a>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {[kaniwa1, kaniwa2, kaniwa3, kaniwa5].map((src, i) => (
-                  <div key={i} className="aspect-[4/5] rounded-xl overflow-hidden">
-                    <img src={src} alt="Kaniwa Botanique" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Fralène */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}>
-              <div className="flex items-center justify-between mb-6">
-                <p className="text-sm font-semibold tracking-wide text-foreground">Fralène Paris</p>
-                <a href="https://fraleneparis.com" target="_blank" rel="noopener noreferrer"
-                  className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-                  Voir le site <ExternalLink className="h-3 w-3" />
-                </a>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {[fralene1, fralene2, fralene3, fralene5].map((src, i) => (
-                  <div key={i} className="aspect-[4/5] rounded-xl overflow-hidden">
-                    <img src={src} alt="Fralène Paris" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Sev My Look */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}>
-              <div className="flex items-center justify-between mb-6">
-                <p className="text-sm font-semibold tracking-wide text-foreground">Sev My Look</p>
-                <a href="https://sevmylook.com" target="_blank" rel="noopener noreferrer"
-                  className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-                  Voir le site <ExternalLink className="h-3 w-3" />
-                </a>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {[sevmylook1, sevmylook3, sevmylook5, sevmylook7].map((src, i) => (
-                  <div key={i} className="aspect-[4/5] rounded-xl overflow-hidden">
-                    <img src={src} alt="Sev My Look" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* P'Myrris */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}>
-              <div className="flex items-center justify-between mb-6">
-                <p className="text-sm font-semibold tracking-wide text-foreground">P'Myrris Beauty</p>
-                <a href="https://pmyrrisbeauty.com" target="_blank" rel="noopener noreferrer"
-                  className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-                  Voir le site <ExternalLink className="h-3 w-3" />
-                </a>
-              </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {[pmyrris1, pmyrris2, pmyrris4, pmyrris6].map((src, i) => (
-                  <div key={i} className="aspect-[4/5] rounded-xl overflow-hidden">
-                    <img src={src} alt="P'Myrris" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4} className="mt-16 text-center">
+            <button onClick={() => navigate("/portfolio")}
+              className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:opacity-70 transition-opacity">
+              Voir tout le portfolio <ArrowRight className="h-4 w-4" />
+            </button>
+          </motion.div>
         </div>
       </section>
+
+      {/* ═══ CATALOGUE PREVIEW ═══ */}
+      <CatalogPreview navigate={navigate} />
 
       {/* ═══ CTA FINAL ═══ */}
       <section className="max-w-4xl mx-auto px-6 py-24 md:py-32 text-center">
@@ -691,13 +717,18 @@ export default function ConceptPage() {
           <motion.p variants={fadeUp} custom={1} className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
             Vous ne lancez pas juste une marque. Vous lancez une marque équipée pour vendre.
           </motion.p>
-          <motion.div variants={fadeUp} custom={2}>
+          <motion.div variants={fadeUp} custom={2} className="flex flex-wrap justify-center gap-4 mt-4">
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="rounded-full px-8 h-12 text-sm tracking-wide mt-4">
+              <Button size="lg" className="rounded-full px-8 h-12 text-sm tracking-wide">
                 Prendre rendez-vous avec un expert
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </a>
+            <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-sm tracking-wide"
+              onClick={() => navigate("/")}>
+              <MessageCircle className="mr-2 h-4 w-4" />
+              Poser une question
+            </Button>
           </motion.div>
         </motion.div>
       </section>
@@ -708,6 +739,18 @@ export default function ConceptPage() {
           Biolystes — Paris, France — hello@biolystes.com
         </p>
       </footer>
+
+      {/* ═══ FLOATING CHAT BUTTON ═══ */}
+      <motion.button
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ delay: 1.5, type: "spring", stiffness: 200 }}
+        onClick={() => navigate("/")}
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-foreground text-primary-foreground flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
+        aria-label="Poser une question"
+      >
+        <MessageCircle className="h-6 w-6" />
+      </motion.button>
     </div>
   );
 }
