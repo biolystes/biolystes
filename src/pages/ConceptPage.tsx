@@ -730,8 +730,8 @@ export default function ConceptPage() {
       {/* ═══ LYSTES.AI ═══ */}
       <section className="bg-foreground text-primary-foreground">
         <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
-          <SectionLabel dark label="Lystes.ai" title="Nos IA prennent le relais."
-            subtitle="Service client, recommandations produits, diagnostics de peau, coaching post-achat, production de photos, marketing, SEO, contenu. Une fois votre site en ligne, nos IA vous assistent sur tous les fronts pour que vous ne soyez jamais seul." />
+          <SectionLabel dark label="Lystes.ai" title="Comment gérer sa marque bio et végane une fois celle-ci lancée ?"
+            subtitle="Une fois votre site en ligne, nos IA vous assistent sur tous les fronts pour que vous ne soyez jamais seul. Service client, recommandations produits, diagnostics de peau, coaching post-achat, production de photos, marketing, SEO, contenu." />
           <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {lystesAiPillars.map((pillar, i) => (
               <motion.div key={pillar.title} initial="hidden" whileInView="visible" viewport={{ once: true }}
