@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3, ExternalLink, ShoppingBag, HelpCircle, Star, StarHalf, Menu, Search, User, Mic, ArrowUp, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import CommentCaMarche from "@/components/CommentCaMarche";
 
 // Brand images
 import kaniwa1 from "@/assets/kaniwa-1.jpg";
@@ -955,6 +956,9 @@ export default function ConceptPage() {
           </motion.div>
         </div>
       </section>
+
+      {/* ═══ COMMENT ÇA MARCHE ═══ */}
+      <CommentCaMarche />
 
       {/* ═══ PRICING — PACK DÉCOUVERTE ═══ */}
       <section className="bg-secondary">
