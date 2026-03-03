@@ -664,6 +664,9 @@ export default function ConceptPage() {
         </div>
       </section>
 
+      {/* ═══ COMMENT ÇA MARCHE ═══ */}
+      <CommentCaMarche />
+
       {/* ═══ LYSTES.AI ═══ */}
       <section className="bg-foreground text-primary-foreground">
         <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
@@ -957,8 +960,7 @@ export default function ConceptPage() {
         </div>
       </section>
 
-      {/* ═══ COMMENT ÇA MARCHE ═══ */}
-      <CommentCaMarche />
+
 
       {/* ═══ PRICING — PACK DÉCOUVERTE ═══ */}
       <section className="bg-secondary">
