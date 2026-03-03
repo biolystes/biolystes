@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3 } from "lucide-react";
+import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3, ExternalLink, ShoppingBag, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Brand images
@@ -30,6 +30,15 @@ const fadeUp = {
 };
 
 const CTA_URL = "https://app.iclosed.io/e/paylystes/r2";
+const CATALOG_URL = "/catalog";
+const CONTACT_URL = "https://app.iclosed.io/e/paylystes/r2";
+
+const brands = [
+  { name: "Kaniwa Botanique", url: "https://kaniwabotanique.com" },
+  { name: "Fralène Paris", url: "https://fraleneparis.com" },
+  { name: "Sev My Look", url: "https://sevmylook.com" },
+  { name: "P'Myrris Beauty", url: "https://pmyrrisbeauty.com" },
+];
 
 const obstacles = [
   {
@@ -326,11 +335,17 @@ export default function ConceptPage() {
             className="mt-8 text-lg md:text-xl text-primary-foreground/60 max-w-2xl mx-auto leading-relaxed">
             Ce n'est pas une opinion, c'est une statistique. Nous avons éliminé chacun de ces obstacles pour que vous puissiez vous concentrer sur l'essentiel.
           </motion.p>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="mt-12">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="mt-12 flex flex-wrap justify-center gap-4">
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90 rounded-full px-8 h-12 text-sm tracking-wide">
                 Prendre rendez-vous
                 <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </a>
+            <a href={CATALOG_URL}>
+              <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-sm tracking-wide border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+                <ShoppingBag className="mr-2 h-4 w-4" />
+                Consulter le catalogue
               </Button>
             </a>
           </motion.div>
@@ -385,9 +400,23 @@ export default function ConceptPage() {
                   <item.icon className="h-5 w-5 text-foreground mb-4" />
                   <p className="text-sm font-semibold text-foreground">{item.label}</p>
                   <p className="text-sm text-muted-foreground mt-1">{item.sub}</p>
-                </div>
-              ))}
-            </motion.div>
+             </div>
+            ))}
+          </motion.div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2} className="mt-10 flex flex-wrap gap-4">
+            <a href={CATALOG_URL}>
+              <Button className="rounded-full px-6 h-11 text-sm">
+                <ShoppingBag className="mr-2 h-4 w-4" />
+                Voir le catalogue produits
+              </Button>
+            </a>
+            <a href={CONTACT_URL} target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" className="rounded-full px-6 h-11 text-sm">
+                <HelpCircle className="mr-2 h-4 w-4" />
+                Une question ? Parlons-en
+              </Button>
+            </a>
+          </motion.div>
           </div>
         </div>
       </section>
@@ -454,6 +483,20 @@ export default function ConceptPage() {
               </motion.div>
             ))}
           </div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={5} className="mt-12 flex flex-wrap gap-4">
+            <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90 rounded-full px-8 h-12 text-sm tracking-wide">
+                Prendre rendez-vous
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </a>
+            <a href={CONTACT_URL} target="_blank" rel="noopener noreferrer">
+              <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-sm tracking-wide border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+                <HelpCircle className="mr-2 h-4 w-4" />
+                Poser une question
+              </Button>
+            </a>
+          </motion.div>
         </div>
       </section>
 
@@ -497,6 +540,14 @@ export default function ConceptPage() {
               </motion.div>
             ))}
           </div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2} className="mt-8 text-center">
+            <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
+              <Button className="rounded-full px-6 h-11 text-sm">
+                Commander un pack
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </a>
+          </motion.div>
         </div>
       </section>
 
@@ -555,7 +606,7 @@ export default function ConceptPage() {
                 <p className="text-sm font-semibold tracking-wide text-foreground">Kaniwa Botanique</p>
                 <a href="https://kaniwabotanique.com" target="_blank" rel="noopener noreferrer"
                   className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-                  Voir le site <ArrowRight className="h-3 w-3" />
+                  Voir le site <ExternalLink className="h-3 w-3" />
                 </a>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -573,7 +624,7 @@ export default function ConceptPage() {
                 <p className="text-sm font-semibold tracking-wide text-foreground">Fralène Paris</p>
                 <a href="https://fraleneparis.com" target="_blank" rel="noopener noreferrer"
                   className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
-                  Voir le site <ArrowRight className="h-3 w-3" />
+                  Voir le site <ExternalLink className="h-3 w-3" />
                 </a>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -587,8 +638,12 @@ export default function ConceptPage() {
 
             {/* Sev My Look */}
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}>
-              <div className="mb-6">
+              <div className="flex items-center justify-between mb-6">
                 <p className="text-sm font-semibold tracking-wide text-foreground">Sev My Look</p>
+                <a href="https://sevmylook.com" target="_blank" rel="noopener noreferrer"
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                  Voir le site <ExternalLink className="h-3 w-3" />
+                </a>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {[sevmylook1, sevmylook3, sevmylook5, sevmylook7].map((src, i) => (
@@ -601,8 +656,12 @@ export default function ConceptPage() {
 
             {/* P'Myrris */}
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}>
-              <div className="mb-6">
-                <p className="text-sm font-semibold tracking-wide text-foreground">P'Myrris</p>
+              <div className="flex items-center justify-between mb-6">
+                <p className="text-sm font-semibold tracking-wide text-foreground">P'Myrris Beauty</p>
+                <a href="https://pmyrrisbeauty.com" target="_blank" rel="noopener noreferrer"
+                  className="text-xs text-muted-foreground hover:text-foreground transition-colors flex items-center gap-1">
+                  Voir le site <ExternalLink className="h-3 w-3" />
+                </a>
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {[pmyrris1, pmyrris2, pmyrris4, pmyrris6].map((src, i) => (
