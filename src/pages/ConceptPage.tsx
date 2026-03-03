@@ -668,7 +668,7 @@ export default function ConceptPage() {
                 Forts de 18 ans d'expérience dans l'e-commerce et la beauté, nous avons déjà accompagné plus de 100 marques grâce à une solution clé en main pour lancer la vôtre en seulement 10 à 15 jours.
               </p>
               <p>
-                Zéro stock, zéro risque. Votre client commande, notre réseau de laboratoires français et européens d'excellence fabrique le produit à la demande, et nous l'expédions directement chez lui, sous votre nom. Aucun minimum de commande.
+                Zéro stock, zéro risque. Votre client commande, notre réseau de laboratoires européens d'excellence fabrique le produit à la demande, et nous l'expédions directement chez lui, sous votre nom. Aucun minimum de commande.
               </p>
               <p>
                 Tous nos produits sont certifiés ECOCERT, COSMOS, et conformes aux normes européennes et américaines. C'est ce niveau d'exigence qui a convaincu des expertes internationales comme Sev Formal et ses 400 000 abonnés, ainsi que des marques comme Kaniwa Botanique et Fralène Paris, de nous confier la création de leur marque.
@@ -677,7 +677,7 @@ export default function ConceptPage() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
               className="grid sm:grid-cols-3 gap-6">
               {[
-                { icon: FlaskConical, label: "Laboratoires certifiés", sub: "Français et européens" },
+                { icon: FlaskConical, label: "Laboratoires certifiés", sub: "Européens" },
                 { icon: Truck, label: "Zéro stock", sub: "Aucun minimum de commande" },
                 { icon: Globe, label: "10 à 15 jours", sub: "Pour lancer votre marque" },
               ].map((item) => (
@@ -1026,7 +1026,7 @@ export default function ConceptPage() {
           <SectionLabel
             label="Engagements"
             title="Nos produits bio et véganes sont certifiés ECOCERT COSMOS et enregistrés au CPN."
-            subtitle="Profitez de notre expertise et de notre réseau de laboratoires français et européens d'excellence."
+            subtitle="Profitez de notre expertise et de notre réseau de laboratoires européens d'excellence."
           />
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px bg-border rounded-2xl overflow-hidden">
             {[
