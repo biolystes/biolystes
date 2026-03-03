@@ -265,7 +265,7 @@ function PricingCard({ name, price, installment, setup, sub, note, features, pop
   name: string; price: string; installment?: string; setup?: string; sub?: string; note?: string; features: string[]; popular?: boolean;
 }) {
   return (
-    <div className={`relative p-6 md:p-8 rounded-2xl ${popular ? "bg-foreground text-primary-foreground ring-2 ring-foreground" : "bg-background border border-border"}`}>
+    <div className={`relative p-6 md:p-8 rounded-2xl h-full flex flex-col ${popular ? "bg-foreground text-primary-foreground ring-2 ring-foreground" : "bg-background border border-border"}`}>
       {popular && (
         <span className="absolute -top-3 left-6 px-3 py-1 text-[11px] tracking-[0.15em] uppercase font-semibold bg-primary-foreground text-foreground rounded-full">
           Populaire
@@ -277,13 +277,20 @@ function PricingCard({ name, price, installment, setup, sub, note, features, pop
       {setup && <p className={`text-sm mt-1 ${popular ? "text-primary-foreground/50" : "text-muted-foreground"}`}>{setup}</p>}
       {sub && <p className={`text-xs mt-2 font-medium ${popular ? "text-primary-foreground/60" : "text-muted-foreground"}`}>{sub}</p>}
       {note && <p className={`text-xs mt-2 font-medium ${popular ? "text-primary-foreground/60" : "text-muted-foreground"}`}>{note}</p>}
-      <div className="mt-6 space-y-3">
+      <div className="mt-6 space-y-3 flex-1">
         {features.map((f) => (
           <div key={f} className="flex items-start gap-3">
             <Check className={`h-4 w-4 mt-0.5 shrink-0 ${popular ? "text-primary-foreground/70" : "text-foreground"}`} />
             <p className={`text-sm leading-relaxed ${popular ? "text-primary-foreground/80" : "text-muted-foreground"}`}>{f}</p>
           </div>
         ))}
+      </div>
+      <div className="mt-6 pt-4">
+        <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="block">
+          <button className={`w-full py-3 rounded-full text-sm font-medium transition-colors ${popular ? "bg-primary-foreground text-foreground hover:bg-primary-foreground/90" : "bg-foreground text-primary-foreground hover:bg-foreground/90"}`}>
+            Prendre rendez-vous
+          </button>
+        </a>
       </div>
     </div>
   );
@@ -343,7 +350,7 @@ export default function ConceptPage() {
               </Button>
             </a>
             <a href={CATALOG_URL}>
-              <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-sm tracking-wide border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+              <Button size="lg" className="rounded-full px-8 h-12 text-sm tracking-wide bg-transparent text-primary-foreground border border-primary-foreground/40 hover:bg-primary-foreground/10">
                 <ShoppingBag className="mr-2 h-4 w-4" />
                 Consulter le catalogue
               </Button>
@@ -582,7 +589,7 @@ export default function ConceptPage() {
       <section className="max-w-5xl mx-auto px-6 py-24 md:py-32">
         <SectionLabel label="Abonnements mensuels" title="Des services qui accompagnent votre croissance."
           subtitle="Le premier mois de l'abonnement est toujours offert." />
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="mt-12 grid sm:grid-cols-2 gap-6">
           {abonnements.map((p, i) => (
             <motion.div key={p.name} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
               <PricingCard {...p} />
