@@ -707,7 +707,7 @@ export default function ConceptPage() {
                   {/* Product image area */}
                   <div className="w-full h-64 bg-muted relative pt-4 overflow-hidden">
                     <div className="flex justify-center items-start h-full">
-                      <img src="https://lystes.ai/images/clients/kaniwa-6.jpg" alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl shadow-sm border border-border relative z-10" />
+                      <img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl shadow-sm border border-border relative z-10" />
                     </div>
                     <div className="absolute bottom-4 w-full flex justify-center gap-2 z-20">
                       <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
