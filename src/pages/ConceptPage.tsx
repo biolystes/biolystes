@@ -772,7 +772,7 @@ export default function ConceptPage() {
           </div>
           <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
             className="text-center text-sm md:text-[17px] text-muted-foreground leading-[1.7] max-w-[780px] mx-auto mb-12 md:mb-24">
-            Même produit, même boutique. Mais avec Lystes AI, chaque visiteur est accueilli par un expert qui connaît vos formulations, répond à ses doutes et le guide jusqu'à l'achat. Résultat concret : des taux de conversion jusqu'à 10× supérieurs.
+            Nos IA répondent à vos clients à votre place, leur donnent des conseils personnalisés, proposent des diagnostics de peau, vous assistent au niveau marketing et génèrent du contenu pour vous.
           </motion.p>
 
           {/* Phone comparisons */}
