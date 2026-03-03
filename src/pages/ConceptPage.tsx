@@ -484,7 +484,7 @@ export default function ConceptPage() {
               </Button>
             </a>
             <a href={CONTACT_URL} target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="rounded-full px-6 h-11 text-sm">
+              <Button className="rounded-full px-6 h-11 text-sm bg-transparent text-foreground border border-border hover:bg-accent">
                 <HelpCircle className="mr-2 h-4 w-4" />
                 Une question ? Parlons-en
               </Button>
@@ -564,7 +564,7 @@ export default function ConceptPage() {
               </Button>
             </a>
             <a href={CONTACT_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-sm tracking-wide border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+              <Button size="lg" className="rounded-full px-8 h-12 text-sm tracking-wide bg-transparent text-primary-foreground border border-primary-foreground/40 hover:bg-primary-foreground/10">
                 <HelpCircle className="mr-2 h-4 w-4" />
                 Poser une question
               </Button>
