@@ -385,6 +385,96 @@ function CatalogPreview({ navigate }: { navigate: (path: string) => void }) {
   );
 }
 
+/* ── Stepper "Comment ça marche" ── */
+const stepperData = [
+  { label: "Sélection de Produits", text: "Choisissez parmi notre catalogue de produits certifiés bio, végans, conformes UE/FDA, prêts à être étiquetés avec votre marque.", image: "https://biolystes.com/wp-content/uploads/2025/03/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0tXSHhFMnBBQVltR0lCZTJpNHFwejNXM2RUdnlLZTZOLmpwZWcmd2lkdGg9ODk2-1-1.jpg" },
+  { label: "Design Packaging Personnalisé", text: "Vous nous fournissez votre logo et inspirations. Nous créons une identité visuelle unique avec des étiquettes et packagings professionnels pour votre marque.", image: "https://biolystes.com/wp-content/uploads/2025/05/FRONT-WITH-BOX_high_res-2-scaled.jpg" },
+  { label: "Envoi des échantillons", text: "Commandez vos échantillons pour découvrir et valider nos produits. C'est le moyen idéal de tester sans risque avant de lancer votre marque en toute confiance.", image: "https://biolystes.com/wp-content/uploads/2025/05/IMG_1846-2.png" },
+  { label: "Photos Packshots et Ambiance", text: "Nous réalisons un set complet de photos haute qualité (packshots produits, images d'ambiance) pour sublimer votre site et vos campagnes marketing.", image: "https://biolystes.com/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-09-at-18.08.33-3-1.jpeg" },
+  { label: "Création du Site Ecommerce", text: "Nous créons et configurons votre boutique en ligne prête à vendre, sans nécessiter d'investissement technique de votre part.", image: "https://biolystes.com/wp-content/uploads/2025/04/FireShot-Capture-044-Nairoba-Cosmetics-Sublimez-votre-beaute-relevez-votre-excellence_-lystes.pro_-1.png" },
+  { label: "Logistique & Expédition", text: "De la production à la demande à l'expédition sous votre marque, nous nous occupons de tout. Vous vous concentrez sur la croissance.", image: "https://biolystes.com/wp-content/uploads/2025/05/IMG_1896.png" },
+];
+
+function StepperSection() {
+  const [step, setStep] = useState(0);
+  const current = stepperData[step];
+
+  return (
+    <section className="max-w-5xl mx-auto px-6 py-24 md:py-32">
+      <SectionLabel
+        label="Le processus"
+        title="Comment lancer sa marque bio et végane concrètement avec Biolystes en 10-15 jours ?"
+        subtitle="Suivez notre processus simplifié, de la conception à l'automatisation."
+      />
+
+      {/* Stepper indicators */}
+      <div className="flex justify-center items-center gap-2 mt-12 mb-10">
+        {stepperData.map((_, i) => (
+          <div key={i} className="flex items-center gap-2">
+            <button
+              onClick={() => setStep(i)}
+              className={`w-9 h-9 rounded-full text-sm font-semibold flex items-center justify-center transition-colors ${
+                i === step
+                  ? "bg-foreground text-primary-foreground"
+                  : "bg-background text-foreground border border-border hover:bg-muted"
+              }`}
+            >
+              {i + 1}
+            </button>
+            {i < stepperData.length - 1 && <div className="w-6 md:w-10 h-px bg-border" />}
+          </div>
+        ))}
+      </div>
+
+      {/* Step content */}
+      <motion.div
+        key={step}
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="max-w-2xl mx-auto bg-background rounded-2xl border border-border p-6 md:p-8"
+      >
+        <div className="grid md:grid-cols-2 gap-6 items-center">
+          <div className="order-2 md:order-1">
+            <span className="text-xs font-semibold text-muted-foreground uppercase tracking-widest block mb-2">
+              Étape {step + 1}
+            </span>
+            <h3 className="text-lg font-semibold text-foreground mb-3">{current.label}</h3>
+            <p className="text-sm text-muted-foreground leading-relaxed">{current.text}</p>
+          </div>
+          <img
+            src={current.image}
+            alt={current.label}
+            className="rounded-xl w-full order-1 md:order-2 aspect-[4/3] object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div className="mt-6 flex justify-between">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setStep(Math.max(0, step - 1))}
+            disabled={step === 0}
+            className="rounded-full px-5"
+          >
+            <ArrowRight className="mr-1.5 h-3.5 w-3.5 rotate-180" />
+            Précédent
+          </Button>
+          <Button
+            size="sm"
+            onClick={() => setStep(Math.min(stepperData.length - 1, step + 1))}
+            disabled={step === stepperData.length - 1}
+            className="rounded-full px-5"
+          >
+            Suivant
+            <ArrowRight className="ml-1.5 h-3.5 w-3.5" />
+          </Button>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
 /* ── Animated Chat Widget (full conversation) ── */
 function AnimatedChat() {
   const [visibleMsgs, setVisibleMsgs] = useState<string[]>(["msg-1"]);
@@ -634,34 +724,8 @@ export default function ConceptPage() {
         </motion.div>
       </section>
 
-      {/* ═══ DEUX ÉTAPES ═══ */}
-      <section className="max-w-5xl mx-auto px-6 py-24 md:py-32">
-        <SectionLabel label="Le processus" title="Deux étapes. C'est tout." />
-        <div className="mt-16 grid md:grid-cols-2 gap-12 md:gap-16">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="w-10 h-10 rounded-full bg-foreground text-primary-foreground flex items-center justify-center text-sm font-semibold">1</span>
-              <h3 className="text-xl font-semibold tracking-tight">Mise en place de votre marque</h3>
-            </div>
-            <div className="space-y-4 text-muted-foreground leading-relaxed text-[15px]">
-              <p>Votre expert produit vous accompagne dans la sélection de vos cosmétiques parmi notre catalogue certifié bio et végan. Des formulations clean, sans parabènes, sans silicones, sans ingrédients controversés.</p>
-              <p>Nous réalisons un brief créatif pour comprendre l'ADN de votre projet. Un chef de projet dédié pilote l'ensemble de nos équipes. Un seul interlocuteur, zéro complexité pour vous.</p>
-              <p>En quelques jours, vous recevez l'intégralité de vos livrables : logo, identité visuelle, design packagings recyclables, photos IA hyperréalistes, contenu du site rédigé et optimisé, et votre boutique en ligne prête à vendre.</p>
-            </div>
-          </motion.div>
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}>
-            <div className="flex items-center gap-4 mb-6">
-              <span className="w-10 h-10 rounded-full bg-foreground text-primary-foreground flex items-center justify-center text-sm font-semibold">2</span>
-              <h3 className="text-xl font-semibold tracking-tight">Gestion au quotidien</h3>
-            </div>
-            <div className="space-y-4 text-muted-foreground leading-relaxed text-[15px]">
-              <p>Côté ventes, Lystes.ai travaille pour vous jour et nuit. Un expert produit IA répond aux questions 24h/24. Le diagnostic intelligent scanne le visage de votre client et recommande les produits adaptés.</p>
-              <p><strong className="text-foreground">Mode standard</strong> — Votre client commande, le laboratoire fabrique et expédie directement sous votre nom. Aucun stock, livraison en 6-7 jours.</p>
-              <p><strong className="text-foreground">Mode express</strong> — Livraison en 24 à 48 heures grâce à un stock tampon. Réapprovisionnement automatique chaque semaine, sans minimum.</p>
-            </div>
-          </motion.div>
-        </div>
-      </section>
+      {/* ═══ COMMENT ÇA MARCHE — STEPPER ═══ */}
+      <StepperSection />
 
       {/* ═══ LYSTES.AI ═══ */}
       <section className="bg-foreground text-primary-foreground">
