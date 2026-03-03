@@ -21,7 +21,7 @@ function AppRoutes() {
   const location = useLocation();
   const isPublicAgentRoute = location.pathname.startsWith("/agent/");
   const isSharedSelectionRoute = location.pathname.startsWith("/selection/");
-  const isConceptRoute = location.pathname === "/concept";
+  
 
   if (isPublicAgentRoute) {
     return (
@@ -38,13 +38,6 @@ function AppRoutes() {
       </Routes>
     );
   }
-  if (isConceptRoute) {
-    return (
-      <Routes>
-        <Route path="/concept" element={<ConceptPage />} />
-      </Routes>
-    );
-  }
 
   return (
     <Routes>
@@ -52,6 +45,7 @@ function AppRoutes() {
       <Route path="/catalog" element={<Layout><CatalogPage /></Layout>} />
       <Route path="/portfolio" element={<Layout><PortfolioPage /></Layout>} />
       <Route path="/pricing" element={<Layout><PricingPage /></Layout>} />
+      <Route path="/concept" element={<Layout><ConceptPage /></Layout>} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
 
       <Route path="*" element={<NotFound />} />
