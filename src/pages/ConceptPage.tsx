@@ -1169,22 +1169,25 @@ export default function ConceptPage() {
       <CatalogPreview navigate={navigate} />
 
       {/* ═══ CTA FINAL ═══ */}
-      <section className="max-w-4xl mx-auto px-6 py-24 md:py-32 text-center">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="space-y-6">
-          <motion.h2 variants={fadeUp} custom={0} className="text-3xl md:text-5xl font-light tracking-tight">
-            En résumé : vous vendez, on s'occupe de tout le reste.
+      <section className="py-32 md:py-44 text-center">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="max-w-3xl mx-auto px-6">
+          <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-6">
+            En résumé
+          </motion.p>
+          <motion.h2 variants={fadeUp} custom={1} className="text-4xl md:text-6xl font-medium tracking-tight leading-[1.05]">
+            Vous vendez,<br />on s'occupe de tout le reste.
           </motion.h2>
-          <motion.p variants={fadeUp} custom={1} className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
+          <motion.p variants={fadeUp} custom={2} className="text-muted-foreground text-lg md:text-xl max-w-lg mx-auto leading-relaxed mt-8">
             Vous ne lancez pas juste une marque. Vous lancez une marque équipée pour vendre.
           </motion.p>
-          <motion.div variants={fadeUp} custom={2} className="flex flex-wrap justify-center gap-4 mt-4">
+          <motion.div variants={fadeUp} custom={3} className="flex flex-col sm:flex-row justify-center gap-4 mt-12">
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="rounded-full px-8 h-12 text-sm tracking-wide">
+              <Button size="lg" className="rounded-full px-10 h-14 text-sm tracking-wide w-full sm:w-auto">
                 Prendre rendez-vous avec un expert
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </a>
-            <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-sm tracking-wide"
+            <Button size="lg" variant="outline" className="rounded-full px-10 h-14 text-sm tracking-wide"
               onClick={() => navigate("/configurateur")}>
               <MessageCircle className="mr-2 h-4 w-4" />
               Poser une question
