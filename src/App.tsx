@@ -12,6 +12,7 @@ import PortfolioPage from "./pages/PortfolioPage";
 import PricingPage from "./pages/PricingPage";
 import PublicAgentPage from "./pages/PublicAgentPage";
 import SharedSelectionPage from "./pages/SharedSelectionPage";
+import ConceptPage from "./pages/ConceptPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -20,6 +21,7 @@ function AppRoutes() {
   const location = useLocation();
   const isPublicAgentRoute = location.pathname.startsWith("/agent/");
   const isSharedSelectionRoute = location.pathname.startsWith("/selection/");
+  const isConceptRoute = location.pathname === "/concept";
 
   if (isPublicAgentRoute) {
     return (
@@ -33,6 +35,13 @@ function AppRoutes() {
     return (
       <Routes>
         <Route path="/selection/:selectionId" element={<SharedSelectionPage />} />
+      </Routes>
+    );
+  }
+  if (isConceptRoute) {
+    return (
+      <Routes>
+        <Route path="/concept" element={<ConceptPage />} />
       </Routes>
     );
   }
