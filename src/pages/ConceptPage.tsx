@@ -217,7 +217,7 @@ const offresAvecSite = [
     name: "Pack IA",
     price: "2 999 €",
     installment: "ou 1 500 € en 2x",
-    sub: "Abonnement Pro obligatoire 199 €/mois",
+    sub: "Abonnement Pro obligatoire 99 €/mois",
     features: [
       "Tout du Pack Agence",
       "UGC IA Ultraréaliste",
