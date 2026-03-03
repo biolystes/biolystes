@@ -78,27 +78,37 @@ const obstacles = [
 const lystesAiPillars = [
   {
     icon: ScanFace,
-    title: "Diagnostic intelligent",
+    title: "Équipe Diagnostics AI",
     text: "Votre visiteur prend un selfie. L'IA scanne son visage, analyse sa peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.",
   },
   {
     icon: MessageCircle,
-    title: "Experts produits IA",
+    title: "Équipe Expert produit AI",
     text: "Chaque produit dispose de son propre expert dédié. Il répond instantanément aux questions sur la composition, la compatibilité, les délais. Comme votre meilleur vendeur, formé sur chaque détail.",
   },
   {
-    icon: QrCode,
-    title: "Coach post-achat",
-    text: "Via un QR code sur votre packaging, votre client accède à un coach IA personnel. Conseils d'utilisation, routines adaptées, suggestions complémentaires. Moins de retours, plus de fidélisation.",
-  },
-  {
     icon: Camera,
-    title: "Studio créatif IA",
+    title: "Équipe Photographe AI",
     text: "Photos produits niveau studio professionnel, visuels UGC avec de vrais visages pour vos réseaux sociaux, contenus marketing. En quelques secondes, sans shooting.",
   },
   {
+    icon: Globe,
+    title: "Équipe Expert SEO AI",
+    text: "Optimisation automatique de vos fiches produits, méta-descriptions, mots-clés et contenus pour que votre boutique soit visible sur Google dès le lancement.",
+  },
+  {
     icon: BarChart3,
-    title: "Tableau de bord intelligent",
+    title: "Équipe Marketing AI",
+    text: "Plans d'action marketing personnalisés, campagnes email, stratégies de conversion. Un directeur marketing qui travaille pour vous 24h/24.",
+  },
+  {
+    icon: QrCode,
+    title: "Équipe Créateur de contenu AI",
+    text: "Contenus pour vos réseaux sociaux, articles de blog, descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.",
+  },
+  {
+    icon: BarChart3,
+    title: "Équipe Analytics AI",
     text: "Un assistant IA connaît vos chiffres en temps réel. CA, tops produits, questions clients, points de blocage. Des décisions basées sur la réalité, pas sur des suppositions.",
   },
 ];
@@ -890,11 +900,11 @@ export default function ConceptPage() {
                   {/* AI Agent labels - desktop */}
                   <div className="hidden lg:block absolute -right-4 top-0 translate-x-full pl-4" style={{ height: "100%" }}>
                     {[
-                      { label: "Directeur Marketing AI", top: "80px" },
-                      { label: "Photographe AI", top: "160px" },
-                      { label: "Expert SEO AI", top: "420px" },
-                      { label: "Expert produit AI", top: "560px" },
-                      { label: "Diagnostic ou essayage virtuel AI", top: "700px" },
+                      { label: "Équipe Marketing AI", top: "80px" },
+                      { label: "Équipe Photographe AI", top: "160px" },
+                      { label: "Équipe Expert SEO AI", top: "420px" },
+                      { label: "Équipe Expert produit AI", top: "560px" },
+                      { label: "Équipe Diagnostics AI", top: "700px" },
                       { label: "Créateur de contenu AI", top: "830px" },
                     ].map((agent) => (
                       <div key={agent.label} className="flex items-center gap-2 absolute" style={{ top: agent.top }}>
@@ -910,7 +920,7 @@ export default function ConceptPage() {
 
                 {/* Mobile: agent labels */}
                 <div className="lg:hidden flex flex-wrap gap-2 justify-center mt-2">
-                  {["Directeur Marketing AI", "Photographe AI", "Expert SEO AI", "Expert produit AI", "Diagnostic AI", "Créateur de contenu AI"].map((label) => (
+                  {["Équipe Marketing AI", "Équipe Photographe AI", "Équipe Expert SEO AI", "Équipe Expert produit AI", "Équipe Diagnostics AI", "Équipe Créateur de contenu AI", "Équipe Analytics AI"].map((label) => (
                     <span key={label} className="bg-foreground text-primary-foreground text-[10px] font-medium px-3 py-1.5 rounded-lg">
                       {label}
                     </span>
