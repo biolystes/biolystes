@@ -696,7 +696,7 @@ export default function ConceptPage() {
       </section>
 
       {/* ═══ AVANT / AVEC LYSTES ═══ */}
-      <section className="py-24 md:py-36 bg-secondary">
+      <section className="py-24 md:py-36 bg-secondary -mx-6 lg:-mx-10 px-6 lg:px-10">
         <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
           {/* Header */}
           <div className="text-center mb-6 md:mb-8">
