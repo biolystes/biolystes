@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3, ExternalLink, ShoppingBag, HelpCircle, Star, StarHalf, Menu, Search, User, Mic, ArrowUp, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3, ExternalLink, ShoppingBag, HelpCircle, Star, StarHalf, Menu, Search, User, Mic, ArrowUp, ChevronLeft, ChevronRight, ClipboardCheck, ShieldCheck, Leaf, Award, Rabbit, Recycle, Ban, Sprout, Package, TestTubes, Settings, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Brand images
@@ -1030,18 +1030,18 @@ export default function ConceptPage() {
           />
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px bg-border rounded-2xl overflow-hidden">
             {[
-              { icon: "📋", title: "Enregistrement CPNP", text: "Produits enregistrés, conformes aux normes EU & UK." },
-              { icon: "✅", title: "Conformité FDA", text: "Formulations conformes pour le marché américain." },
-              { icon: "🌿", title: "Certification ECOCERT", text: "Répond aux standards écologiques UE, UK & USA." },
-              { icon: "🏅", title: "Certification ISO 22716", text: "Bonnes pratiques de fabrication garanties." },
-              { icon: "🐰", title: "Non Testés sur Animaux", text: "Aucune expérimentation animale à aucun stade." },
-              { icon: "♻️", title: "Packagings Recyclables", text: "Emballages conçus pour être recyclables." },
-              { icon: "🚫", title: "Sans Ingrédients Controversés", text: "Sans parabènes, silicones, PEG, filtres UV chimiques, microplastiques, colorants artificiels." },
-              { icon: "🌱", title: "Parfums 100% Véganes", text: "Sans parfums synthétiques. Substances aromatiques naturelles, sans phosphates ni conservateurs synthétiques." },
-              { icon: "📦", title: "Aucun Minimum de Commande", text: "Pour les points de vente physiques, commandes flexibles." },
-              { icon: "🧪", title: "Échantillons Disponibles", text: "Testez les produits avant le lancement de votre marque." },
-              { icon: "⚙️", title: "Production à la Demande", text: "Fabrication à la commande, adaptée à vos besoins." },
-              { icon: "🚀", title: "Expédition Directe", text: "Envoi aux clients finaux sous votre marque." },
+              { Icon: ClipboardCheck, title: "Enregistrement CPNP", text: "Produits enregistrés, conformes aux normes EU & UK." },
+              { Icon: ShieldCheck, title: "Conformité FDA", text: "Formulations conformes pour le marché américain." },
+              { Icon: Leaf, title: "Certification ECOCERT", text: "Répond aux standards écologiques UE, UK & USA." },
+              { Icon: Award, title: "Certification ISO 22716", text: "Bonnes pratiques de fabrication garanties." },
+              { Icon: Rabbit, title: "Non Testés sur Animaux", text: "Aucune expérimentation animale à aucun stade." },
+              { Icon: Recycle, title: "Packagings Recyclables", text: "Emballages conçus pour être recyclables." },
+              { Icon: Ban, title: "Sans Ingrédients Controversés", text: "Sans parabènes, silicones, PEG, filtres UV chimiques, microplastiques, colorants artificiels." },
+              { Icon: Sprout, title: "Parfums 100% Véganes", text: "Sans parfums synthétiques. Substances aromatiques naturelles, sans phosphates ni conservateurs synthétiques." },
+              { Icon: Package, title: "Aucun Minimum de Commande", text: "Pour les points de vente physiques, commandes flexibles." },
+              { Icon: TestTubes, title: "Échantillons Disponibles", text: "Testez les produits avant le lancement de votre marque." },
+              { Icon: Settings, title: "Production à la Demande", text: "Fabrication à la commande, adaptée à vos besoins." },
+              { Icon: Rocket, title: "Expédition Directe", text: "Envoi aux clients finaux sous votre marque." },
             ].map((item, i) => (
               <motion.div
                 key={item.title}
@@ -1052,7 +1052,7 @@ export default function ConceptPage() {
                 custom={i}
                 className="bg-background p-6 flex flex-col items-center text-center"
               >
-                <span className="text-2xl mb-3">{item.icon}</span>
+                <item.Icon className="h-6 w-6 text-muted-foreground mb-3" strokeWidth={1.5} />
                 <p className="text-sm font-semibold text-foreground mb-2">{item.title}</p>
                 <p className="text-xs text-muted-foreground leading-relaxed">{item.text}</p>
               </motion.div>
