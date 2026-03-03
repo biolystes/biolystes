@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3, ExternalLink, ShoppingBag, HelpCircle, Star, StarHalf, Menu, Search, User, Mic, ArrowUp, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3, ExternalLink, ShoppingBag, HelpCircle, Star, StarHalf, Menu, Search, User, Mic, ArrowUp, ChevronLeft, ChevronRight, FileCheck2, BadgeCheck, Leaf, Award, Rabbit, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CommentCaMarche from "@/components/CommentCaMarche";
 
@@ -1068,6 +1068,43 @@ export default function ConceptPage() {
 
       {/* ═══ CATALOGUE PREVIEW ═══ */}
       <CatalogPreview navigate={navigate} />
+
+      {/* ═══ ENGAGEMENTS & CERTIFICATIONS ═══ */}
+      <section className="max-w-6xl mx-auto px-6 py-24 md:py-32">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-16 space-y-4">
+          <motion.h2 variants={fadeUp} custom={0} className="text-3xl md:text-4xl font-light tracking-tight text-foreground">
+            Nos produits bio et véganes sont certifiés ECOCERT COSMOS et enregistrés au CPNP
+          </motion.h2>
+          <motion.p variants={fadeUp} custom={1} className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
+            Profitez de notre expertise et de notre réseau<br />de laboratoires français et européens d'excellence.
+          </motion.p>
+        </motion.div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          {[
+            { icon: FileCheck2, title: "Enregistrement CPNP", desc: "Produits enregistrés, conformes aux normes EU & UK." },
+            { icon: BadgeCheck, title: "Conformité FDA", desc: "Formulations conformes pour le marché américain." },
+            { icon: Leaf, title: "Certification ECOCERT", desc: "Répond aux standards écologiques UE, UK & USA." },
+            { icon: Award, title: "Certification ISO 22716", desc: "Bonnes pratiques de fabrication garanties." },
+            { icon: Rabbit, title: "Non Testés sur Animaux", desc: "Aucune expérimentation animale à aucun stade." },
+            { icon: Package, title: "Packagings Recyclables", desc: "Emballages conçus pour être recyclables." },
+            { icon: Award, title: "Sans Ingrédients Controversés", desc: "Sans parabènes, silicones, PEG, filtres UV chimiques, microplastiques, colorants artificiels." },
+            { icon: Leaf, title: "Parfums 100% Véganes", desc: "Sans parfums synthétiques, substances aromatiques naturelles, sans phosphates ni conservateurs synthétiques." },
+            { icon: Package, title: "Aucun Minimum de Commande", desc: "Pour les points de vente physiques, commandes flexibles." },
+            { icon: FileCheck2, title: "Échantillons Disponibles", desc: "Testez les produits avant le lancement de votre marque." },
+            { icon: Award, title: "Production à la Demande", desc: "Fabrication à la commande, adaptée à vos besoins." },
+            { icon: Package, title: "Expédition Directe", desc: "Envoi aux clients finaux sous votre marque." },
+          ].map((item, i) => (
+            <motion.div key={item.title} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
+              className="bg-card p-5 rounded-xl text-center">
+              <div className="w-10 h-10 mx-auto mb-3 rounded-full bg-muted flex items-center justify-center">
+                <item.icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />
+              </div>
+              <h4 className="text-xs font-semibold text-foreground mb-1">{item.title}</h4>
+              <p className="text-muted-foreground text-xs leading-relaxed">{item.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
       {/* ═══ CTA FINAL ═══ */}
       <section className="max-w-4xl mx-auto px-6 py-24 md:py-32 text-center">
