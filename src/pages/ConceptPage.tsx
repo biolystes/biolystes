@@ -522,7 +522,7 @@ function AnimatedChat() {
 export default function ConceptPage() {
   const navigate = useNavigate();
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background -mx-6 lg:-mx-10 -mt-6 lg:-mt-10">
 
       {/* ═══ HERO ═══ */}
       <section className="relative overflow-hidden">
