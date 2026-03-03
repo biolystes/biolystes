@@ -719,7 +719,7 @@ export default function ConceptPage() {
               {/* ── AVANT ── */}
               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
                 className="flex flex-col items-center gap-8 relative z-10 w-[320px] shrink-0">
-                <div className="bg-foreground text-primary-foreground px-5 py-2 rounded-lg font-bold text-sm tracking-widest uppercase">AVANT</div>
+                <div className="bg-foreground text-primary-foreground px-5 py-2 rounded-lg font-bold text-sm tracking-widest uppercase">AVANT <span className="font-normal normal-case tracking-normal text-primary-foreground/70">= Vos concurrents</span></div>
                 <div className="w-[320px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden relative flex flex-col">
                   {/* Nav bar */}
                   <div className="flex items-center justify-between px-5 pt-10 pb-4 z-20">
@@ -798,7 +798,7 @@ export default function ConceptPage() {
               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
                 className="flex flex-col items-center gap-8 relative w-[360px] shrink-0">
                 <div className="bg-foreground text-primary-foreground px-5 py-2 rounded-lg font-bold text-sm tracking-widest uppercase z-10">
-                  APRÈS +30% DE CA
+                  APRÈS +30% DE CA <span className="font-normal normal-case tracking-normal text-primary-foreground/70">= Vous avec Biolystes AI</span>
                 </div>
                 <div className="relative">
                   <div className="w-[360px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden relative flex flex-col z-10">
