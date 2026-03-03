@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
-  { path: "/", icon: Sparkles, label: "Configurateur" },
+  { path: "/", icon: Lightbulb, label: "Concept" },
+  { path: "/configurateur", icon: Sparkles, label: "Configurateur" },
   { path: "/catalog", icon: LayoutGrid, label: "Catalogue" },
   { path: "/portfolio", icon: Images, label: "Portfolio" },
   { path: "/pricing", icon: Tag, label: "Tarifs" },
-  { path: "/concept", icon: Lightbulb, label: "Concept" },
 ];
 
 const bottomItems = [

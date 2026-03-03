@@ -41,11 +41,11 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="/" element={<Layout><DashboardPage /></Layout>} />
+      <Route path="/" element={<Layout><ConceptPage /></Layout>} />
+      <Route path="/configurateur" element={<Layout><DashboardPage /></Layout>} />
       <Route path="/catalog" element={<Layout><CatalogPage /></Layout>} />
       <Route path="/portfolio" element={<Layout><PortfolioPage /></Layout>} />
       <Route path="/pricing" element={<Layout><PricingPage /></Layout>} />
-      <Route path="/concept" element={<Layout><ConceptPage /></Layout>} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
 
       <Route path="*" element={<NotFound />} />
