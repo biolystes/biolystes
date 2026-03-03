@@ -766,13 +766,13 @@ export default function ConceptPage() {
           <div className="text-center mb-6 md:mb-8">
             <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
               className="text-[26px] md:text-[clamp(36px,5vw,52px)] font-medium tracking-[-0.03em] leading-[1.1] max-w-[900px] mx-auto">
-              Votre boutique affiche. <br className="hidden md:block" />
-              <span className="italic text-muted-foreground" style={{ fontFamily: "'Georgia', serif" }}>Lystes AI vend</span>
+              Une fiche produit classique affiche. <br className="hidden md:block" />
+              <span className="italic text-muted-foreground" style={{ fontFamily: "'Georgia', serif" }}>Lystes AI convertit.</span>
             </motion.h2>
           </div>
           <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
             className="text-center text-sm md:text-[17px] text-muted-foreground leading-[1.7] max-w-[780px] mx-auto mb-12 md:mb-24">
-            Lystes AI intègre un écosystème d'équipes AI autonomes pour faire vendre votre boutique. Des marketeurs qui pilotent. Des photographes qui subliment. Des conseillers qui vendent. Des créateurs de contenu qui rassurent. Sans salaire. Sans charges. Vous branchez, ça vend.
+            Chaque visiteur est accueilli par un expert IA qui connaît vos produits, répond à ses doutes en temps réel, recommande le soin adapté à sa peau et le guide jusqu'à l'achat. Résultat : des taux de conversion jusqu'à 10× supérieurs à une fiche produit traditionnelle.
           </motion.p>
 
           {/* Phone comparisons */}
