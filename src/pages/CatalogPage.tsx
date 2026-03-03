@@ -500,12 +500,22 @@ export default function CatalogPage() {
         .select("id")
         .single();
 
-      if (error || !data) throw error;
+      if (error || !data) {
+        console.error("Supabase insert error:", error);
+        throw error;
+      }
 
       const shareUrl = `${window.location.origin}/selection/${data.id}`;
-      await navigator.clipboard.writeText(shareUrl);
-      toast.success("Lien copié !", { description: "Partagez ce lien pour présenter votre sélection." });
+      try {
+        await navigator.clipboard.writeText(shareUrl);
+        toast.success("Lien copié !", { description: "Partagez ce lien pour présenter votre sélection." });
+      } catch {
+        // Fallback: prompt user with the URL
+        prompt("Copiez ce lien :", shareUrl);
+        toast.success("Lien de partage créé !");
+      }
     } catch (err) {
+      console.error("Share error:", err);
       toast.error("Erreur lors de la création du lien.");
     } finally {
       setSharing(false);
