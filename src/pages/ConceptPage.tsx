@@ -772,7 +772,7 @@ export default function ConceptPage() {
           </div>
           <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
             className="text-center text-sm md:text-[17px] text-muted-foreground leading-[1.7] max-w-[780px] mx-auto mb-12 md:mb-24">
-            Service client, recommandations produits, diagnostics de peau, coaching post-achat, production de photos, marketing, contenu. Une fois votre site en ligne, nos IA vous assistent sur tous les fronts pour que vous ne soyez jamais seul.
+            Service client, recommandations produits, diagnostics de peau, coaching post-achat, production de photos, marketing, SEO, contenu. Une fois votre site en ligne, nos IA vous assistent sur tous les fronts pour que vous ne soyez jamais seul.
           </motion.p>
 
           {/* Phone comparisons */}
