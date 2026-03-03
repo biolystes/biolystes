@@ -573,6 +573,163 @@ export default function ConceptPage() {
         </div>
       </section>
 
+      {/* ═══ AVANT / AVEC LYSTES ═══ */}
+      <section className="bg-muted/50">
+        <div className="max-w-6xl mx-auto px-6 py-24 md:py-32">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="text-center mb-6 md:mb-8">
+            <motion.h2 variants={fadeUp} custom={0} className="text-3xl md:text-4xl lg:text-5xl font-medium tracking-tight leading-[1.1] max-w-3xl mx-auto">
+              Votre boutique affiche.{" "}
+              <span className="italic text-muted-foreground font-serif">Lystes AI vend</span>
+            </motion.h2>
+          </motion.div>
+          <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
+            className="text-center text-muted-foreground leading-relaxed max-w-3xl mx-auto mb-16 md:mb-24">
+            Lystes AI intègre un écosystème d'équipes AI autonomes pour faire vendre votre boutique. Des marketeurs qui pilotent. Des photographes qui subliment. Des conseillers qui vendent. Des créateurs de contenu qui rassurent. Sans salaire. Sans charges. Vous branchez, ça vend.
+          </motion.p>
+
+          <div className="flex flex-col lg:flex-row items-start justify-center gap-8 lg:gap-16">
+            {/* AVANT */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
+              className="flex flex-col items-center gap-6 w-full lg:w-[320px] shrink-0">
+              <div className="bg-foreground text-primary-foreground px-5 py-2 rounded-lg font-bold text-xs tracking-[0.15em] uppercase">
+                Avant
+              </div>
+              <div className="w-full max-w-[320px] bg-background rounded-[2rem] shadow-xl overflow-hidden border border-border">
+                <div className="p-5">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-5 h-0.5 bg-foreground" /><div className="w-5 h-0.5 bg-foreground" /><div className="w-5 h-0.5 bg-foreground" />
+                    </div>
+                    <span className="font-serif font-bold text-lg tracking-wide">Expire</span>
+                    <div className="flex items-center gap-2 text-muted-foreground text-xs">👤 🛍️</div>
+                  </div>
+                  <div className="aspect-square bg-muted rounded-xl mb-4 flex items-center justify-center">
+                    <div className="w-24 h-32 bg-muted-foreground/10 rounded-lg" />
+                  </div>
+                  <div className="flex items-center gap-1 mb-1">
+                    {"★★★★☆".split("").map((s, i) => <span key={i} className="text-xs text-foreground">{s}</span>)}
+                    <span className="text-[11px] text-muted-foreground ml-1">4.8/5 (241 avis)</span>
+                  </div>
+                  <p className="text-sm font-medium text-foreground">Crème de jour anti-âge</p>
+                  <p className="text-sm font-semibold text-foreground mt-1">49,90€</p>
+                  <p className="text-xs text-muted-foreground mt-2 leading-relaxed">Unifie le teint et repulpe la peau sans laisser de film gras. Idéale pour les peaux mixtes.</p>
+                  <div className="mt-4 bg-foreground text-primary-foreground text-center py-3 rounded-lg text-xs font-semibold tracking-wide">
+                    AJOUTER AU PANIER | 49,90€
+                  </div>
+                </div>
+                <div className="px-5 py-4 border-t border-border">
+                  <p className="text-[10px] tracking-[0.15em] uppercase text-muted-foreground mb-1">Taux de conversion</p>
+                  <div className="flex items-center gap-2">
+                    <span className="text-lg font-semibold text-foreground">3,8 %</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* AVEC LYSTES */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
+              className="flex flex-col items-center gap-6 w-full lg:max-w-[480px]">
+              <div className="bg-foreground text-primary-foreground px-5 py-2 rounded-lg font-bold text-xs tracking-[0.15em] uppercase">
+                Avec Lystes : +42% de ventes
+              </div>
+              <div className="relative w-full">
+                <div className="w-full max-w-[420px] mx-auto bg-background rounded-[2rem] shadow-xl overflow-hidden border border-border">
+                  <div className="p-5">
+                    <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center gap-3">
+                        <div className="w-5 h-0.5 bg-foreground" /><div className="w-5 h-0.5 bg-foreground" /><div className="w-5 h-0.5 bg-foreground" />
+                      </div>
+                      <span className="font-serif font-bold text-lg tracking-wide">Expire</span>
+                      <div className="flex items-center gap-2 text-muted-foreground text-xs">👤 🛍️</div>
+                    </div>
+                    {/* Promo bar */}
+                    <div className="bg-foreground text-primary-foreground text-center py-2 rounded-lg text-[10px] tracking-[0.1em] uppercase font-medium mb-3">
+                      Livraison gratuite aujourd'hui
+                    </div>
+                    {/* Product images */}
+                    <div className="grid grid-cols-3 gap-2 mb-4">
+                      <div className="col-span-2 aspect-[4/5] bg-muted rounded-xl" />
+                      <div className="aspect-[4/5] bg-muted rounded-xl" />
+                    </div>
+                    <div className="flex items-center gap-1 mb-1">
+                      {"★★★★☆".split("").map((s, i) => <span key={i} className="text-xs text-foreground">{s}</span>)}
+                      <span className="text-[11px] text-muted-foreground ml-1">4.8/5 (241 avis)</span>
+                    </div>
+                    <p className="text-sm font-medium text-foreground">Crème de jour anti-âge</p>
+                    <p className="text-[11px] text-muted-foreground mt-0.5">Vitiligo · Pores dilatés · Rougeurs</p>
+                    <p className="text-xs text-muted-foreground mt-2 leading-relaxed">
+                      Découvrez notre <strong className="text-foreground">crème de jour anti-âge</strong> formulée pour revitaliser votre peau. Ce <strong className="text-foreground">soin hydratant expert</strong> unifie le teint, repulpe l'épiderme...
+                    </p>
+                    {/* Chat preview */}
+                    <div className="mt-3 rounded-xl border border-border p-3 space-y-2">
+                      <div className="bg-muted rounded-lg px-3 py-2 text-[11px] text-muted-foreground w-fit">
+                        Comment puis-je vous aider par rapport à la Crème de jour anti-âge ?
+                      </div>
+                      <div className="bg-foreground text-primary-foreground rounded-lg px-3 py-2 text-[11px] ml-auto w-fit max-w-[80%]">
+                        Bonjour, j'aimerais savoir si cette crème est adaptée au peau mixte et métisse ?
+                      </div>
+                      <div className="flex gap-1">
+                        <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/40 animate-pulse" />
+                        <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/40 animate-pulse" style={{ animationDelay: "0.2s" }} />
+                        <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/40 animate-pulse" style={{ animationDelay: "0.4s" }} />
+                      </div>
+                    </div>
+                    <div className="mt-3 bg-foreground text-primary-foreground text-center py-3 rounded-lg text-xs font-semibold tracking-wide">
+                      AJOUTER AU PANIER | 49,90€
+                    </div>
+                  </div>
+                </div>
+
+                {/* AI Agent labels */}
+                <div className="hidden lg:block absolute -right-4 top-0 space-y-3 translate-x-full pl-6">
+                  {[
+                    { label: "Directeur Marketing AI", top: "40px" },
+                    { label: "Photographe AI", top: "100px" },
+                    { label: "Expert SEO AI", top: "240px" },
+                    { label: "Expert produit AI", top: "320px" },
+                    { label: "Diagnostic AI", top: "400px" },
+                    { label: "Créateur de contenu AI", top: "470px" },
+                  ].map((agent) => (
+                    <div key={agent.label} className="flex items-center gap-2" style={{ position: "absolute", top: agent.top }}>
+                      <div className="w-2 h-2 rounded-full bg-foreground" />
+                      <div className="w-8 h-px bg-foreground/30" />
+                      <span className="bg-foreground text-primary-foreground text-[11px] font-medium px-3 py-1.5 rounded-lg whitespace-nowrap">
+                        {agent.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile: show agent labels below */}
+              <div className="lg:hidden flex flex-wrap gap-2 justify-center mt-2">
+                {["Directeur Marketing AI", "Photographe AI", "Expert SEO AI", "Expert produit AI", "Diagnostic AI", "Créateur de contenu AI"].map((label) => (
+                  <span key={label} className="bg-foreground text-primary-foreground text-[10px] font-medium px-3 py-1.5 rounded-lg">
+                    {label}
+                  </span>
+                ))}
+              </div>
+
+              {/* Conversion rate */}
+              <div className="flex items-center gap-3 mt-2">
+                <span className="text-lg font-semibold text-muted-foreground">3,8 %</span>
+                <ArrowRight className="h-4 w-4 text-muted-foreground" />
+                <span className="text-2xl font-bold text-primary">42 %</span>
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4} className="mt-16 text-center">
+            <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="rounded-full px-8 h-12 text-sm tracking-wide">
+                Découvrir Lystes AI
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ═══ ÉLIMINE / PREND EN CHARGE ═══ */}
       <section className="max-w-5xl mx-auto px-6 py-24 md:py-32">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16">
