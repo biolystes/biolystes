@@ -730,8 +730,17 @@ export default function ConceptPage() {
       {/* ═══ LYSTES.AI ═══ */}
       <section className="bg-foreground text-primary-foreground">
         <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
-          <SectionLabel dark label="Lystes.ai" title="Comment gérer sa marque bio et végane une fois celle-ci lancée ?"
-            subtitle="Une fois votre site en ligne, nos IA vous assistent sur tous les fronts pour que vous ne soyez jamais seul. Service client, recommandations produits, diagnostics de peau, coaching post-achat, production de photos, marketing, SEO, contenu." />
+          <div className="text-center mb-6 md:mb-8">
+            <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+              className="text-[26px] md:text-[clamp(36px,5vw,52px)] font-medium tracking-[-0.03em] leading-[1.1] max-w-[900px] mx-auto text-primary-foreground">
+              Votre marque est lancée. <br className="hidden md:block" />
+              <span className="text-primary-foreground/60">Nos IA prennent le relais.</span>
+            </motion.h2>
+          </div>
+          <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
+            className="text-center text-sm md:text-[17px] text-primary-foreground/60 leading-[1.7] max-w-[780px] mx-auto mb-12">
+            Service client, recommandations produits, diagnostics de peau, coaching post-achat, production de photos, marketing, SEO, contenu. Une fois votre site en ligne, nos IA vous assistent sur tous les fronts pour que vous ne soyez jamais seul.
+          </motion.p>
           <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {lystesAiPillars.map((pillar, i) => (
               <motion.div key={pillar.title} initial="hidden" whileInView="visible" viewport={{ once: true }}
@@ -763,17 +772,6 @@ export default function ConceptPage() {
       <section className="py-24 md:py-36 bg-secondary -mx-6 lg:-mx-10 px-6 lg:px-10">
         <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
           {/* Header */}
-          <div className="text-center mb-6 md:mb-8">
-            <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              className="text-[26px] md:text-[clamp(36px,5vw,52px)] font-medium tracking-[-0.03em] leading-[1.1] max-w-[900px] mx-auto text-foreground">
-              Votre marque est lancée. <br className="hidden md:block" />
-              <span className="text-muted-foreground">Nos IA prennent le relais.</span>
-            </motion.h2>
-          </div>
-          <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-            className="text-center text-sm md:text-[17px] text-muted-foreground leading-[1.7] max-w-[780px] mx-auto mb-12 md:mb-24">
-            Service client, recommandations produits, diagnostics de peau, coaching post-achat, production de photos, marketing, SEO, contenu. Une fois votre site en ligne, nos IA vous assistent sur tous les fronts pour que vous ne soyez jamais seul.
-          </motion.p>
 
           {/* Phone comparisons */}
           <div className="w-full flex justify-center items-start overflow-x-auto" style={{ scrollbarWidth: "none" }}>
