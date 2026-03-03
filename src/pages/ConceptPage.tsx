@@ -956,47 +956,6 @@ export default function ConceptPage() {
         </div>
       </section>
 
-      {/* ═══ ENGAGEMENTS & CERTIFICATIONS ═══ */}
-      <section className="bg-secondary">
-        <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
-          <SectionLabel
-            label="Engagements"
-            title="Nos produits bio et véganes sont certifiés ECOCERT COSMOS et enregistrés au CPN."
-            subtitle="Profitez de notre expertise et de notre réseau de laboratoires français et européens d'excellence."
-          />
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-px bg-border rounded-2xl overflow-hidden">
-            {[
-              { icon: "📋", title: "Enregistrement CPNP", text: "Produits enregistrés, conformes aux normes EU & UK." },
-              { icon: "✅", title: "Conformité FDA", text: "Formulations conformes pour le marché américain." },
-              { icon: "🌿", title: "Certification ECOCERT", text: "Répond aux standards écologiques UE, UK & USA." },
-              { icon: "🏅", title: "Certification ISO 22716", text: "Bonnes pratiques de fabrication garanties." },
-              { icon: "🐰", title: "Non Testés sur Animaux", text: "Aucune expérimentation animale à aucun stade." },
-              { icon: "♻️", title: "Packagings Recyclables", text: "Emballages conçus pour être recyclables." },
-              { icon: "🚫", title: "Sans Ingrédients Controversés", text: "Sans parabènes, silicones, PEG, filtres UV chimiques, microplastiques, colorants artificiels." },
-              { icon: "🌱", title: "Parfums 100% Véganes", text: "Sans parfums synthétiques. Substances aromatiques naturelles, sans phosphates ni conservateurs synthétiques." },
-              { icon: "📦", title: "Aucun Minimum de Commande", text: "Pour les points de vente physiques, commandes flexibles." },
-              { icon: "🧪", title: "Échantillons Disponibles", text: "Testez les produits avant le lancement de votre marque." },
-              { icon: "⚙️", title: "Production à la Demande", text: "Fabrication à la commande, adaptée à vos besoins." },
-              { icon: "🚀", title: "Expédition Directe", text: "Envoi aux clients finaux sous votre marque." },
-            ].map((item, i) => (
-              <motion.div
-                key={item.title}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={i}
-                className="bg-background p-6 flex flex-col items-center text-center"
-              >
-                <span className="text-2xl mb-3">{item.icon}</span>
-                <p className="text-sm font-semibold text-foreground mb-2">{item.title}</p>
-                <p className="text-xs text-muted-foreground leading-relaxed">{item.text}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ═══ PRICING — PACK DÉCOUVERTE ═══ */}
       <section className="bg-secondary">
         <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
