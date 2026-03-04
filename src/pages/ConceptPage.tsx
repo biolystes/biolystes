@@ -537,7 +537,7 @@ export default function ConceptPage() {
             </span>
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-3xl md:text-5xl lg:text-6xl font-black text-foreground leading-[1.1] tracking-tight uppercase">
+            className="text-3xl md:text-5xl lg:text-[4.5rem] font-black text-foreground leading-[1.05] tracking-tight uppercase">
             Sans vous ruiner<br />
             lancez votre propre marque<br />
             cosmétique bio et végane
