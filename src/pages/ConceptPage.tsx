@@ -820,68 +820,6 @@ export default function ConceptPage() {
 
 
 
-      {/* ═══ PRICING — PACK DÉCOUVERTE ═══ */}
-      <section className="bg-secondary">
-        <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
-          <SectionLabel label="Pack Découverte" title="Testez avant de vous engager."
-            subtitle="Le montant du Pack Découverte est intégralement déduit si vous passez à une offre avec site web." />
-          <div className="mt-12 grid md:grid-cols-2 gap-6">
-            {packDecouverte.map((p, i) => (
-              <motion.div key={p.name} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
-                <PricingCard {...p} />
-              </motion.div>
-            ))}
-          </div>
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2} className="mt-8 text-center">
-            <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
-              <Button className="rounded-full px-6 h-11 text-sm">
-                Commander un pack
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </a>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══ PRICING — SANS SITE ═══ */}
-      <section className="max-w-5xl mx-auto px-6 py-24 md:py-32">
-        <SectionLabel label="Offre sans site web" title="Vendez en autonomie."
-          subtitle="Accédez à notre catalogue et vendez sur vos propres canaux." />
-        <div className="mt-12 grid md:grid-cols-2 gap-6">
-          {offresSansSite.map((p, i) => (
-            <motion.div key={p.name} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
-              <PricingCard {...p} />
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ═══ PRICING — AVEC SITE ═══ */}
-      <section className="bg-secondary">
-        <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
-          <SectionLabel label="Offre avec site web" title="Votre business clé en main." />
-          <div className="mt-12 grid md:grid-cols-2 gap-6">
-            {offresAvecSite.map((p, i) => (
-              <motion.div key={p.name} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
-                <PricingCard {...p} />
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ ABONNEMENTS ═══ */}
-      <section className="max-w-5xl mx-auto px-6 py-24 md:py-32">
-        <SectionLabel label="Abonnements mensuels" title="Des services qui accompagnent votre croissance."
-          subtitle="Le premier mois de l'abonnement est toujours offert." />
-        <div className="mt-12 grid sm:grid-cols-2 gap-6">
-          {abonnements.map((p, i) => (
-            <motion.div key={p.name} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}>
-              <PricingCard {...p} />
-            </motion.div>
-          ))}
-        </div>
-      </section>
 
       {/* ═══ PORTFOLIO / CASE STUDIES ═══ */}
       <section className="bg-secondary">
