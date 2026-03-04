@@ -397,7 +397,7 @@ function CatalogPreview({ navigate }: { navigate: (path: string) => void }) {
           Voir tout le catalogue
           <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
-        <Button variant="outline" className="rounded-full px-8 h-12 text-sm" onClick={() => navigate("/configurateur")}>
+        <Button variant="outline" className="rounded-full px-8 h-12 text-sm" onClick={() => navigate("/")}>
           <MessageCircle className="mr-2 h-4 w-4" />
           Poser une question sur les produits
         </Button>
@@ -1161,7 +1161,7 @@ export default function ConceptPage() {
               </Button>
             </a>
             <Button size="lg" variant="outline" className="rounded-full px-8 h-12 text-sm tracking-wide"
-              onClick={() => navigate("/configurateur")}>
+              onClick={() => navigate("/")}>
               <MessageCircle className="mr-2 h-4 w-4" />
               Poser une question
             </Button>
@@ -1181,7 +1181,7 @@ export default function ConceptPage() {
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.5, type: "spring", stiffness: 200 }}
-        onClick={() => navigate("/configurateur")}
+        onClick={() => navigate("/")}
         className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full bg-foreground text-primary-foreground flex items-center justify-center shadow-lg hover:scale-110 transition-transform"
         aria-label="Poser une question"
       >
