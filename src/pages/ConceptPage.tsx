@@ -751,26 +751,7 @@ export default function ConceptPage() {
       {/* ═══ AVANT / AVEC LYSTES ═══ */}
       <section className="py-24 md:py-36 bg-secondary">
         <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
-import cert1 from "@/assets/cert-1.png";
-import cert2 from "@/assets/cert-2.png";
-import cert3 from "@/assets/cert-3.png";
-import cert4 from "@/assets/cert-4.png";
-import cert5 from "@/assets/cert-5.png";
-import cert6 from "@/assets/cert-6.png";
-import cert7 from "@/assets/cert-7.png";
-import cert8 from "@/assets/cert-8.png";
 
-const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7, cert8];
-import cert1 from "@/assets/cert-1.png";
-import cert2 from "@/assets/cert-2.png";
-import cert3 from "@/assets/cert-3.png";
-import cert4 from "@/assets/cert-4.png";
-import cert5 from "@/assets/cert-5.png";
-import cert6 from "@/assets/cert-6.png";
-import cert7 from "@/assets/cert-7.png";
-import cert8 from "@/assets/cert-8.png";
-
-const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7, cert8];
 
           {/* Phone comparisons */}
           <div className="w-full flex justify-center items-start overflow-x-auto" style={{ scrollbarWidth: "none" }}>
