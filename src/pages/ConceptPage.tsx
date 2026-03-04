@@ -22,6 +22,16 @@ import pmyrris1 from "@/assets/pmyrris-1.jpg";
 import pmyrris2 from "@/assets/pmyrris-2.jpg";
 import pmyrris4 from "@/assets/pmyrris-4.jpg";
 import pmyrris6 from "@/assets/pmyrris-6.jpg";
+import cert1 from "@/assets/cert-1.png";
+import cert2 from "@/assets/cert-2.png";
+import cert3 from "@/assets/cert-3.png";
+import cert4 from "@/assets/cert-4.png";
+import cert5 from "@/assets/cert-5.png";
+import cert6 from "@/assets/cert-6.png";
+import cert7 from "@/assets/cert-7.png";
+import cert8 from "@/assets/cert-8.png";
+
+const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7, cert8];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -575,6 +585,20 @@ export default function ConceptPage() {
         </div>
       </section>
 
+      {/* ═══ CERTIFICATIONS CAROUSEL ═══ */}
+      <div className="overflow-hidden py-8 bg-background">
+        <motion.div
+          className="flex gap-12 items-center"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+          style={{ width: "max-content" }}
+        >
+          {[...certLogos, ...certLogos].map((logo, i) => (
+            <img key={i} src={logo} alt="Certification" className="h-16 md:h-20 w-auto object-contain opacity-70 grayscale" />
+          ))}
+        </motion.div>
+      </div>
+
       {/* ═══ LES OBSTACLES ═══ */}
       <section className="max-w-5xl mx-auto px-6 py-24 md:py-32">
         <SectionLabel label="Le constat" title="Les raisons sont presque toujours les mêmes." />
@@ -729,8 +753,26 @@ export default function ConceptPage() {
       {/* ═══ AVANT / AVEC LYSTES ═══ */}
       <section className="py-24 md:py-36 bg-secondary">
         <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
+import cert1 from "@/assets/cert-1.png";
+import cert2 from "@/assets/cert-2.png";
+import cert3 from "@/assets/cert-3.png";
+import cert4 from "@/assets/cert-4.png";
+import cert5 from "@/assets/cert-5.png";
+import cert6 from "@/assets/cert-6.png";
+import cert7 from "@/assets/cert-7.png";
+import cert8 from "@/assets/cert-8.png";
 
+const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7, cert8];
+import cert1 from "@/assets/cert-1.png";
+import cert2 from "@/assets/cert-2.png";
+import cert3 from "@/assets/cert-3.png";
+import cert4 from "@/assets/cert-4.png";
+import cert5 from "@/assets/cert-5.png";
+import cert6 from "@/assets/cert-6.png";
+import cert7 from "@/assets/cert-7.png";
+import cert8 from "@/assets/cert-8.png";
 
+const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7, cert8];
 
           {/* Phone comparisons */}
           <div className="w-full flex justify-center items-start overflow-x-auto" style={{ scrollbarWidth: "none" }}>
