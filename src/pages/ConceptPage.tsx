@@ -584,7 +584,7 @@ export default function ConceptPage() {
       </section>
 
       {/* ═══ CERTIFICATIONS CAROUSEL ═══ */}
-      <div className="overflow-hidden py-8 bg-background">
+      <div className="overflow-hidden py-2 bg-background">
         <motion.div
           className="flex gap-12 items-center"
           animate={{ x: ["0%", "-50%"] }}
