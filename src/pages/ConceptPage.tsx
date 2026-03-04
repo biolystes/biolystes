@@ -548,16 +548,17 @@ export default function ConceptPage() {
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="mt-10 flex flex-wrap justify-center gap-4">
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-foreground text-primary-foreground hover:bg-foreground/90 rounded-none px-10 h-14 text-sm tracking-[0.15em] uppercase font-semibold">
-                Créer ma marque
+              <Button size="lg" className="bg-foreground text-primary-foreground hover:bg-foreground/90 rounded-full px-10 h-14 text-sm tracking-wide font-medium">
+                Prendre rendez-vous
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </a>
-            <Button size="lg" variant="outline" className="rounded-none px-10 h-14 text-sm tracking-[0.15em] uppercase font-semibold border-foreground text-foreground hover:bg-foreground hover:text-primary-foreground"
-              onClick={() => {
-                document.getElementById('comment-ca-marche')?.scrollIntoView({ behavior: 'smooth' });
-              }}>
-              Comment ça marche ?
-            </Button>
+            <a href={CATALOG_URL}>
+              <Button size="lg" variant="outline" className="rounded-full px-10 h-14 text-sm tracking-wide font-medium border-muted-foreground/40 text-foreground hover:bg-foreground hover:text-primary-foreground">
+                <ShoppingBag className="mr-2 h-4 w-4" />
+                Consulter le catalogue
+              </Button>
+            </a>
           </motion.div>
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }}
             className="mt-10 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
