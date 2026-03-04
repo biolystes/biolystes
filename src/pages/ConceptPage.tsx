@@ -536,7 +536,7 @@ export default function ConceptPage() {
 
       {/* ═══ HERO ═══ */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(270,40%,96%)] via-background to-background">
-        <div className="relative max-w-4xl mx-auto px-6 py-20 md:py-28 text-center">
+        <div className="relative max-w-4xl mx-auto px-6 pt-20 pb-10 md:pt-28 md:pb-14 text-center">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}
             className="flex items-center justify-center gap-3 mb-8">
             <span className="bg-foreground text-primary-foreground text-xs font-semibold tracking-[0.15em] uppercase px-5 py-2 rounded-full">
