@@ -552,7 +552,7 @@ export default function ConceptPage() {
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-8 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Les raisons sont presque toujours les mêmes.
+            Oubliez le sourcing des meilleurs laboratoires français et européens, l'investissement dans le stock, la gestion des livraisons, la conception du site, le design du packaging ou même la gestion de votre support client.
           </motion.p>
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="mt-10 flex flex-wrap justify-center gap-4">
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
