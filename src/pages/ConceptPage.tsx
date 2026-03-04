@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3, ExternalLink, ShoppingBag, HelpCircle, Star, StarHalf, Menu, Search, User, Mic, ArrowUp, ChevronLeft, ChevronRight, FileCheck2, BadgeCheck, Leaf, Award, Rabbit, Package } from "lucide-react";
+import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3, ExternalLink, ShoppingBag, HelpCircle, Star, StarHalf, Menu, Search, User, Mic, ArrowUp, ChevronLeft, ChevronRight, FileCheck2, BadgeCheck, Leaf, Award, Rabbit, Package, CheckCircle2, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CommentCaMarche from "@/components/CommentCaMarche";
 
@@ -525,35 +525,51 @@ export default function ConceptPage() {
     <div className="min-h-screen bg-background -mx-6 lg:-mx-10 -mt-6 lg:-mt-10">
 
       {/* ═══ HERO ═══ */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-foreground" />
+      <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(270,40%,96%)] via-background to-background">
         <div className="relative max-w-4xl mx-auto px-6 py-32 md:py-44 text-center">
-          <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}
-            className="text-primary-foreground/50 text-sm tracking-[0.3em] uppercase mb-8">
-            Biolystes
-          </motion.p>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}
+            className="flex items-center justify-center gap-3 mb-8">
+            <span className="bg-foreground text-primary-foreground text-xs font-semibold tracking-[0.15em] uppercase px-5 py-2 rounded-full">
+              En 10 jours
+            </span>
+            <span className="text-muted-foreground text-sm tracking-wide">
+              Profitez de plus de 18 ans d'expérience
+            </span>
+          </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-light text-primary-foreground leading-[1.1] tracking-tight">
-            Sur dix marques qui se lancent,{" "}
-            <span className="font-semibold">huit échouent.</span>
+            className="text-3xl md:text-5xl lg:text-6xl font-black text-foreground leading-[1.1] tracking-tight uppercase">
+            Sans vous ruiner<br />
+            lancez votre propre marque<br />
+            cosmétique bio et végane
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-8 text-lg md:text-xl text-primary-foreground/60 max-w-2xl mx-auto leading-relaxed">
-            Ce n'est pas une opinion, c'est une statistique. Nous avons éliminé chacun de ces obstacles pour que vous puissiez vous concentrer sur l'essentiel.
+            className="mt-8 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Oubliez le sourcing des meilleurs laboratoires français et européens, l'investissement dans le stock, la gestion des livraisons, la conception du site, le design du packaging ou même la gestion de votre support client.
           </motion.p>
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="mt-12 flex flex-wrap justify-center gap-4">
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="mt-10 flex flex-wrap justify-center gap-4">
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-primary-foreground text-foreground hover:bg-primary-foreground/90 rounded-full px-8 h-12 text-sm tracking-wide">
-                Prendre rendez-vous
-                <ArrowRight className="ml-2 h-4 w-4" />
+              <Button size="lg" className="bg-foreground text-primary-foreground hover:bg-foreground/90 rounded-none px-10 h-14 text-sm tracking-[0.15em] uppercase font-semibold">
+                Créer ma marque
               </Button>
             </a>
-            <a href={CATALOG_URL}>
-              <Button size="lg" className="rounded-full px-8 h-12 text-sm tracking-wide bg-transparent text-primary-foreground border border-primary-foreground/40 hover:bg-primary-foreground/10">
-                <ShoppingBag className="mr-2 h-4 w-4" />
-                Consulter le catalogue
-              </Button>
-            </a>
+            <Button size="lg" variant="outline" className="rounded-none px-10 h-14 text-sm tracking-[0.15em] uppercase font-semibold border-foreground text-foreground hover:bg-foreground hover:text-primary-foreground"
+              onClick={() => {
+                document.getElementById('comment-ca-marche')?.scrollIntoView({ behavior: 'smooth' });
+              }}>
+              Comment ça marche ?
+            </Button>
+          </motion.div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }}
+            className="mt-10 flex flex-wrap justify-center gap-6 text-sm text-muted-foreground">
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="h-4 w-4" /> Certifié Bio & Végan
+            </span>
+            <span className="flex items-center gap-1.5">
+              <CheckCircle2 className="h-4 w-4" /> Conformité COSMOS/ECOCERT/FDA
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Rocket className="h-4 w-4" /> Lancement Rapide
+            </span>
           </motion.div>
         </div>
       </section>
