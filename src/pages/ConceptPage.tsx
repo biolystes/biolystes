@@ -599,7 +599,7 @@ export default function ConceptPage() {
 
       {/* ═══ LES OBSTACLES ═══ */}
       <section className="max-w-5xl mx-auto px-6 py-24 md:py-32">
-        <SectionLabel label="Le constat" title="Les raisons sont presque toujours les mêmes." />
+        <SectionLabel label="Le constat" title="Nous avons créé Biolystes car de nombreuses personnes échouent souvent en raison de choix irrationnels dans le cadre du lancement de leurs marque Bio." />
         <div className="mt-16 grid gap-0 divide-y divide-border">
           {obstacles.map((item, i) => (
             <motion.div key={item.title} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}
