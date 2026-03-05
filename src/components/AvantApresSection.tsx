@@ -13,7 +13,7 @@ const CTA_URL = "https://app.iclosed.io/e/paylystes/r2";
 export default function AvantApresSection() {
   return (
     <section className="py-24 md:py-36 bg-secondary">
-      <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
+      <div className="max-w-5xl mx-auto px-6">
         <div className="w-full flex justify-center items-start overflow-x-auto" style={{ scrollbarWidth: "none" }}>
           <div className="relative flex flex-col md:flex-row items-start justify-center gap-10 md:gap-16">
 
