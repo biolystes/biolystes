@@ -210,7 +210,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </header>
 
         <main className="p-6 lg:p-10 md:pt-[80px]" style={{ background: "#F5F5F7", minHeight: "100vh" }}>
-          <div className="max-w-[1008px] mx-auto">
+          <div className="w-full">
             {children}
           </div>
         </main>
