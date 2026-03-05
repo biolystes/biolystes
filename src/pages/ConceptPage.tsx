@@ -199,7 +199,7 @@ function CatalogPreview({ navigate }: { navigate: (path: string) => void }) {
   return (
     <section className="max-w-6xl mx-auto px-6 py-24 md:py-32">
       <SectionLabel label="Catalogue" title="Des formulations d'excellence, prêtes à vendre."
-        subtitle="Plus de 50 produits certifiés bio et végan, disponibles sans minimum de commande." />
+        subtitle="Plus de 100 produits certifiés bio et végan, disponibles sans minimum de commande." />
       <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
         {products.slice(0, 8).map((p, i) => (
           <motion.div key={p.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}

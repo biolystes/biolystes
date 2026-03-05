@@ -582,7 +582,7 @@ export default function DecouvertePage() {
               Des formulations d'excellence, prêtes à vendre.
             </motion.h2>
             <motion.p variants={fadeUp} custom={2} className="text-muted-foreground max-w-xl leading-relaxed">
-              Plus de 50 produits certifiés bio et végan, disponibles sans minimum de commande.
+              Plus de 100 produits certifiés bio et végan, disponibles sans minimum de commande.
             </motion.p>
           </motion.div>
 
