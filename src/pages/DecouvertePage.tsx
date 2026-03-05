@@ -423,7 +423,7 @@ export default function DecouvertePage() {
             { num: "3", title: "Profitez de notre réseau pour vous développer", desc: "Accédez à nos partenaires experts pour accélérer votre croissance sans multiplier les prestataires." },
           ].map((item) => (
             <div key={item.num} className="px-8 py-10 md:py-8">
-              <span className="text-4xl font-black text-foreground">{item.num}</span>
+              <span className="text-4xl text-foreground" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 100 }}>{item.num}</span>
               <h3 className="text-sm font-black uppercase tracking-wide text-foreground mt-3 mb-3">{item.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
             </div>
