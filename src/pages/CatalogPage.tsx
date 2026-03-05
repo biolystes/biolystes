@@ -374,11 +374,14 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
 // ─── Skeleton ─────────────────────────────────────────────
 function ProductSkeleton() {
   return (
-    <div style={{ borderRadius: 20, overflow: "hidden", background: "linear-gradient(160deg, #e8eef5 0%, #dce6f0 100%)" }}>
-      <div style={{ width: "100%", aspectRatio: "3/4", animation: "pulse 1.5s infinite" }} />
-      <div style={{ padding: "14px 16px", background: "rgba(255,255,255,0.45)" }}>
-        <div style={{ height: 10, width: "75%", background: "#c8d6e0", borderRadius: 4, marginBottom: 8, animation: "pulse 1.5s infinite" }} />
-        <div style={{ height: 8, width: "40%", background: "#c8d6e0", borderRadius: 4, animation: "pulse 1.5s infinite" }} />
+    <div style={{ borderRadius: 20, overflow: "hidden", border: "1px solid #ebebed", background: "#fff" }}>
+      <div style={{ width: "100%", aspectRatio: "1", background: "#f5f5f7", animation: "pulse 1.5s infinite" }} />
+      <div style={{ padding: "16px 18px" }}>
+        <div style={{ height: 10, width: "75%", background: "#e5e5e7", borderRadius: 4, marginBottom: 8, animation: "pulse 1.5s infinite" }} />
+        <div style={{ height: 10, width: "55%", background: "#e5e5e7", borderRadius: 4, marginBottom: 12, animation: "pulse 1.5s infinite" }} />
+        <div style={{ height: 8, width: "90%", background: "#f0f0f0", borderRadius: 4, marginBottom: 6, animation: "pulse 1.5s infinite" }} />
+        <div style={{ height: 8, width: "80%", background: "#f0f0f0", borderRadius: 4, marginBottom: 6, animation: "pulse 1.5s infinite" }} />
+        <div style={{ height: 8, width: "70%", background: "#f0f0f0", borderRadius: 4, animation: "pulse 1.5s infinite" }} />
       </div>
     </div>
   );
