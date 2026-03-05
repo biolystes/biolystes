@@ -48,7 +48,7 @@ function TopNavBar() {
           alt="Lystes"
           className="h-7 w-7 animate-tourne object-contain"
         />
-        <span style={{ fontSize: 14, fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.3px" }}>Lystes.ai</span>
+        <span style={{ fontSize: 14, fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.3px" }}>Biolystes</span>
       </Link>
 
       {/* Navigation */}
@@ -156,7 +156,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   alt="Lystes"
                   className="h-7 w-7 object-contain"
                 />
-                <span className="font-bold text-sm" style={{ color: "#1d1d1f" }}>Lystes.ai</span>
+                <span className="font-bold text-sm" style={{ color: "#1d1d1f" }}>Biolystes</span>
               </div>
               <nav className="space-y-1 flex-1">
                 {navItems.map((item) => (
@@ -202,7 +202,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               alt="Lystes"
               className="h-7 w-7 object-contain"
             />
-            <span className="font-bold text-sm" style={{ color: "#1d1d1f" }}>Lystes.ai</span>
+            <span className="font-bold text-sm" style={{ color: "#1d1d1f" }}>Biolystes</span>
           </div>
           <Button variant="ghost" size="icon" onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X size={18} /> : <Menu size={18} />}
