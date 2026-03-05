@@ -275,7 +275,7 @@ function TeamPhotographe() {
 function TeamSEO() {
   return (
     <TeamRow bg="bg-secondary" reversed title="Visible sur Google dès le lancement" kicker="Équipe Expert SEO AI"
-      desc="Optimisation automatique de vos fiches produits, méta-descriptions, mots-clés et contenus pour que votre boutique soit visible sur Google dès le lancement.">
+      desc="Nous mettons en place une équipe Expert SEO AI, qui optimise automatiquement vos fiches produits, méta-descriptions, mots-clés et contenus pour que votre boutique soit visible sur Google dès le lancement.">
       <div>
         <div className="flex items-center gap-2.5 mb-4">
           <div className="w-3 h-3 rounded-full bg-[#34d399]" />
