@@ -110,8 +110,8 @@ function StepProgress({ activeStep }: { activeStep: StepKey }) {
 
   return (
     <div className="fixed top-14 left-0 right-0 z-20 bg-background/90 backdrop-blur-md border-b border-border">
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="flex items-center justify-between py-3 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+      <div className="max-w-4xl mx-auto px-2 md:px-4">
+        <div className="flex items-center justify-start md:justify-between py-2 md:py-3 overflow-x-auto gap-1" style={{ scrollbarWidth: "none" }}>
           {steps.map((s, i) => {
             const isActive = s.key === activeStep;
             const isPast = i < activeIdx;
