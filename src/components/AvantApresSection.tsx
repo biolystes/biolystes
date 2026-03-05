@@ -66,7 +66,7 @@ export default function AvantApresSection() {
                   <p className="text-[13px] text-muted-foreground leading-relaxed mb-8 h-[72px]">
                     Unifie le teint et repulpe la peau sans laisser de film gras. Idéale pour les peaux mixtes et les problématiques de pigmentation.
                   </p>
-                  <button className="w-full bg-foreground text-primary-foreground py-4 rounded-xl font-bold flex items-center justify-center gap-2 text-[13px] tracking-wide shadow-lg uppercase mb-4">
+                  <button className="w-full bg-foreground text-primary-foreground py-4 rounded-xl font-bold flex items-center justify-center gap-2 text-[13px] tracking-wide uppercase mb-4">
                     AJOUTER AU PANIER<span className="w-px h-4 bg-muted-foreground/50 mx-2" />49,90€
                   </button>
                   <div className="flex justify-center items-center gap-3">
