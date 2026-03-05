@@ -103,7 +103,7 @@ export default function WirtzkinSection() {
         <h3 className="text-base font-semibold text-foreground mb-2">Retrouvez les produits Wirtzkin</h3>
         <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-4">
           <MapPin className="h-4 w-4 shrink-0" strokeWidth={1.5} />
-          <span>Clinique Wirtzkin — Consultez leur site pour les points de vente</span>
+          <span>Centre médical esthétique Wirtzkin — Consultez leur site pour les points de vente</span>
         </div>
         <a
           href="https://www.wirtzkin.com"
