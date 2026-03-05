@@ -115,7 +115,13 @@ function TopNavBar() {
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
-  const { signOut } = useAuth();
+  const { user, signOut, isAdmin } = useAuth();
+
+  const navItems = [
+    ...publicNavItems,
+    ...(user ? [{ path: "/espace-client", icon: LayoutDashboard, label: "Mon espace" }] : []),
+    ...(isAdmin ? [{ path: "/admin", icon: Shield, label: "Admin" }] : []),
+  ];
 
   const isActive = (path: string) => {
     if (path === "/") return location.pathname === "/";
