@@ -8,7 +8,6 @@ import { useAuth } from "@/contexts/AuthContext";
 const navItems = [
   { path: "/", icon: Compass, label: "Découverte" },
   { path: "/chat", icon: Sparkles, label: "Posez vos questions" },
-  { path: "/catalog", icon: LayoutGrid, label: "Catalogue" },
 ];
 
 const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
