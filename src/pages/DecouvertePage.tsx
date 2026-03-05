@@ -127,12 +127,12 @@ function StepProgress({ activeStep }: { activeStep: StepKey }) {
                     : "border-transparent hover:border-border"
                 }`}
               >
-                <span className={`text-[10px] uppercase tracking-widest mb-0.5 ${
+                <span className={`text-[9px] md:text-[10px] uppercase tracking-widest mb-0.5 ${
                   isActive ? "text-foreground font-extrabold" : "text-muted-foreground font-semibold"
                 }`}>
                   {i + 1}. {s.label}
                 </span>
-                <span className={`text-[11px] ${isActive ? "text-foreground font-bold" : "text-muted-foreground"}`}>
+                <span className={`text-[10px] md:text-[11px] hidden md:block ${isActive ? "text-foreground font-bold" : "text-muted-foreground"}`}>
                   {s.subtitle}
                 </span>
               </button>
