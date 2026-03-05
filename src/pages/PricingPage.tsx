@@ -167,7 +167,7 @@ function TabSansSite() {
                 "3 aller-retours avec nos designers",
                 "Fichiers livrés, ils sont à vous",
                 "Produits facturés à l'unité (10-20€ selon la réf.)",
-                "Référence produit supplémentaire : +19€ de design/produit",
+                "Référence produit supplémentaire : +49€ de design/produit",
               ].map((t, i) => <CheckItem key={i} text={t} />)}
             </div>
           </div>
