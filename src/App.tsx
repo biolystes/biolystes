@@ -13,6 +13,7 @@ import PricingPage from "./pages/PricingPage";
 import PublicAgentPage from "./pages/PublicAgentPage";
 import SharedSelectionPage from "./pages/SharedSelectionPage";
 import ConceptPage from "./pages/ConceptPage";
+import DecouvertePage from "./pages/DecouvertePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
