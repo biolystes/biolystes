@@ -71,6 +71,7 @@ const steps: { key: StepKey; label: string; subtitle: string }[] = [
   { key: "portfolio", label: "Nos clients", subtitle: "Portfolio" },
   { key: "catalogue", label: "Catalogue", subtitle: "Nos produits" },
   { key: "tarifs", label: "Tarifs", subtitle: "Nos offres" },
+  { key: "constat", label: "Le constat", subtitle: "Pourquoi Biolystes" },
   { key: "lance", label: "Je me lance", subtitle: "Passez à l'action" },
 ];
 
