@@ -589,19 +589,19 @@ export default function DecouvertePage() {
               </div>
             </motion.div>
 
-            {/* Offre Sans Site */}
+            {/* Offre Avec Site */}
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
               className="p-8 rounded-2xl bg-secondary border border-border">
-              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-4">Offre Sans Site</p>
-              <div className="flex items-end gap-2 mb-4">
-                <span className="text-3xl font-black text-foreground">39€</span>
-                <span className="text-sm text-muted-foreground mb-1">/mois</span>
+              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-4">Offre Avec Site</p>
+              <div className="flex items-end gap-2 mb-1">
+                <span className="text-3xl font-black text-foreground">1 499€</span>
               </div>
+              <p className="text-xs text-muted-foreground mb-4">ou 2× 750€ · + 99€/mois (1er mois offert)</p>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Vous avez déjà un site ? On s'occupe du design, du packaging et de la logistique.
+                Solution complète : site e-commerce, design, packaging, photos et lancement en 10-15 jours.
               </p>
               <div className="space-y-2">
-                {["Design packaging inclus", "Conformité étiquetage", "Produits facturés à l'unité", "Référence produit supplémentaire : +49€ de design/produit"].map(t => (
+                {["Site e-commerce inclus", "Design packaging inclus", "Photos IA hyperréalistes", "SEO & indexation Google", "Abonnement Pro 99€/mois"].map(t => (
                   <div key={t} className="flex items-center gap-2 text-sm text-foreground">
                     <Check className="h-3.5 w-3.5 shrink-0" /> {t}
                   </div>
@@ -609,19 +609,19 @@ export default function DecouvertePage() {
               </div>
             </motion.div>
 
-            {/* Offre Avec Site */}
+            {/* Offre Avec Site + IA */}
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
               className="p-8 rounded-2xl bg-foreground text-primary-foreground border-2 border-foreground">
-              <p className="text-xs tracking-[0.2em] uppercase text-primary-foreground/50 mb-4">Offre Avec Site</p>
+              <p className="text-xs tracking-[0.2em] uppercase text-primary-foreground/50 mb-4">Offre Avec Site + IA</p>
               <div className="flex items-end gap-2 mb-1">
-                <span className="text-3xl font-black">1 499€</span>
+                <span className="text-3xl font-black">2 999€</span>
               </div>
-              <p className="text-xs text-primary-foreground/50 mb-4">ou 2× 750€ · + 99€/mois (1er mois offert)</p>
+              <p className="text-xs text-primary-foreground/50 mb-4">ou 2× 1 500€ · + 199€/mois (1er mois offert)</p>
               <p className="text-sm text-primary-foreground/70 leading-relaxed mb-6">
-                Solution complète : site e-commerce, design, packaging, photos et lancement en 10-15 jours.
+                Tout de l'offre Avec Site + UGC IA, diagnostic intelligent et gestion réseaux sociaux.
               </p>
               <div className="space-y-2">
-                {["Tout de l'offre Sans Site", "Site e-commerce inclus", "Photos IA hyperréalistes", "SEO & indexation Google", "Abonnement Pro 99€/mois"].map(t => (
+                {["Tout de l'offre Avec Site", "UGC IA ultraréaliste", "Diagnostic intelligent par IA", "Recommandations produits par IA", "Gestion réseaux sociaux 1 mois"].map(t => (
                   <div key={t} className="flex items-center gap-2 text-sm text-primary-foreground">
                     <Check className="h-3.5 w-3.5 shrink-0" /> {t}
                   </div>
