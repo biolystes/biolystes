@@ -320,7 +320,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 18 ANS D'EXPÉRIENCE ═══ */}
-      <section className="py-24 md:py-32 bg-background">
+      <section id="section-experience" ref={setRef("experience")} className="py-24 md:py-32 bg-background">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground">
