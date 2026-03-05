@@ -36,15 +36,15 @@ function LystesHero() {
 
       {/* Stats */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
-        className="grid grid-cols-3 max-w-xl mx-auto pt-14 pb-6 divide-x divide-border">
+        className="grid grid-cols-3 max-w-xl mx-auto pt-14 pb-6 divide-x divide-white/20">
         {[
           { num: "7", label: "Équipes AI dédiées" },
           { num: "24h/24", label: "Disponibilité" },
           { num: "80%", label: "Économie vs agence" },
         ].map((s) => (
           <div key={s.label} className="text-center px-4 md:px-8">
-            <div className="text-2xl md:text-3xl font-light leading-none text-foreground tracking-tight italic">{s.num}</div>
-            <div className="text-[10px] text-muted-foreground font-semibold mt-3 uppercase tracking-[0.15em] whitespace-nowrap">{s.label}</div>
+            <div className="text-2xl md:text-3xl font-light leading-none text-white tracking-tight italic">{s.num}</div>
+            <div className="text-[10px] text-white/50 font-semibold mt-3 uppercase tracking-[0.15em] whitespace-nowrap">{s.label}</div>
           </div>
         ))}
       </motion.div>
