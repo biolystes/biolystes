@@ -98,7 +98,7 @@ export default function CommentCaMarche() {
         </div>
 
         {/* Step content */}
-        <div className="max-w-2xl mx-auto bg-background rounded-2xl border border-border p-6 md:p-10">
+        <div className="max-w-2xl mx-auto bg-background rounded-2xl p-6 md:p-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={current}
