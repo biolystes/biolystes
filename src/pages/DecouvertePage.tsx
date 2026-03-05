@@ -321,7 +321,7 @@ export default function DecouvertePage() {
           </div>
 
           {/* ═══ PRÉSENTATION PRODUITS (INSTA FEED) ═══ */}
-          <div className="mt-16 mb-16">
+          <div className="mt-8 mb-8">
             <InstaFeedSection />
           </div>
 
