@@ -309,73 +309,52 @@ function TeamSEO() {
 
 function TeamMarketing() {
   const tasks = [
-    { day: "Lun", task: "Campagne email de bienvenue", status: "done" },
-    { day: "Mar", task: "Post Instagram — Avant/Après", status: "done" },
-    { day: "Mer", task: "Story UGC — Témoignage cliente", status: "now" },
-    { day: "Jeu", task: "Relance panier abandonné", status: "wait" },
-    { day: "Ven", task: "Newsletter promo weekend", status: "wait" },
+    { label: "Lundi", title: "Campagne email de bienvenue", value: "Envoyée à 100% des nouveaux inscrits", status: "done" },
+    { label: "Mardi", title: "Post Instagram — Avant/Après", value: "Publié avec 12 hashtags optimisés", status: "done" },
+    { label: "Mercredi", title: "Story UGC — Témoignage cliente", value: "En cours de montage / Validation nécessaire", status: "now" },
+    { label: "Jeudi", title: "Relance panier abandonné", value: "Prévu pour demain 10h00", status: "wait" },
+    { label: "Vendredi", title: "Newsletter promo weekend", value: "En attente de rédaction", status: "wait" },
   ];
 
   return (
     <TeamRow bg="bg-background" title="Votre directeur marketing 24h/24" kicker="Équipe Marketing AI"
       desc="Plans d'action marketing personnalisés, campagnes email, stratégies de conversion. Un directeur marketing qui travaille pour vous 24h/24.">
-      <div className="w-full max-w-xl mx-auto bg-background rounded-[1.5rem] border border-border overflow-hidden">
+      <div className="w-full max-w-2xl mx-auto space-y-3">
         {/* Header */}
-        <div className="px-5 pt-5 pb-3 flex items-center justify-between">
-          <div>
-            <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-muted-foreground">Progression</span>
-            <h3 className="text-lg font-bold tracking-tight text-foreground mt-0.5">Semaine 1</h3>
+        <div className="flex items-center justify-between px-1 mb-4">
+          <div className="flex items-center gap-2.5">
+            <div className="w-3 h-3 rounded-full bg-[#6EE7B7]" />
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Plan d'action</span>
           </div>
-          <div className="h-8 w-8 rounded-xl bg-muted/50 flex items-center justify-center border border-border">
-            <div className="w-4 h-1 bg-muted rounded-full relative overflow-hidden">
-              <div className="absolute left-0 top-0 h-full w-3/5 bg-blue-500 rounded-full" />
-            </div>
+          <div className="flex items-baseline gap-1">
+            <span className="text-[26px] font-extrabold tracking-tighter text-foreground">40</span>
+            <span className="text-[13px] font-bold text-[#10b981]">/100</span>
           </div>
         </div>
 
-        {/* Task list */}
-        <div className="px-4 pb-3 space-y-0.5">
+        {/* Task cards */}
+        <div className="space-y-2">
           {tasks.map(t => (
-            <div key={t.day} className={`flex items-center justify-between px-4 py-2.5 rounded-xl transition-all duration-300 border ${
-              t.status === "now" ? "bg-blue-50/30 border-blue-100" : "bg-transparent border-transparent"
-            }`}>
-              <div className="flex items-center gap-4">
-                <span className={`w-8 text-[10px] font-extrabold tracking-widest ${
-                  t.status === "done" ? "text-muted-foreground/40" : "text-muted-foreground"
-                }`}>{t.day}</span>
-                <span className={`text-[13px] font-semibold ${
-                  t.status === "done" ? "text-muted-foreground/40 line-through" : "text-foreground"
-                }`}>{t.task}</span>
-              </div>
-              <div className={`w-5 h-5 rounded-full flex items-center justify-center ${
-                t.status === "done" ? "bg-foreground" : t.status === "now" ? "bg-blue-500" : "bg-muted"
+            <div key={t.label} className="bg-background p-4 rounded-2xl flex items-start gap-3 border border-border/50">
+              <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
+                t.status === "done" ? "bg-[#e6f6ef]" : t.status === "now" ? "bg-[#ebf5ff]" : "bg-muted border border-border"
               }`}>
-                {t.status === "done" && <Check className="w-2.5 h-2.5 text-primary-foreground" strokeWidth={3} />}
-                {t.status === "now" && <Play className="w-2.5 h-2.5 text-white fill-white" />}
-                {t.status === "wait" && <Minus className="w-2.5 h-2.5 text-muted-foreground" strokeWidth={3} />}
+                {t.status === "done" && <Check className="w-3.5 h-3.5 text-[#22c55e]" strokeWidth={3} />}
+                {t.status === "now" && <Play className="w-3.5 h-3.5 text-[#3b82f6] fill-[#3b82f6]" />}
+                {t.status === "wait" && <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />}
+              </div>
+              <div className="space-y-0.5">
+                <p className="text-[12px] font-bold text-muted-foreground">{t.label} — {t.title}</p>
+                <p className="text-[13px] font-medium text-foreground leading-relaxed">{t.value}</p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Objectifs */}
-        <div className="mx-4 mb-4 px-5 py-4 bg-foreground rounded-xl text-primary-foreground">
-          <div className="flex items-center gap-2 mb-3 opacity-40">
-            <span className="text-[9px] font-bold uppercase tracking-[0.25em]">Objectifs Business</span>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-0.5">
-              <div className="flex items-center gap-1.5">
-                <span className="text-xl font-bold tracking-tight">+25%</span>
-                <ArrowUp className="w-3 h-3 text-[#34d399]" />
-              </div>
-              <p className="text-[9px] opacity-40 font-bold uppercase tracking-[0.1em]">Trafic hebdomadaire</p>
-            </div>
-            <div className="space-y-0.5 border-l border-primary-foreground/10 pl-4">
-              <div className="text-xl font-bold tracking-tight">15</div>
-              <p className="text-[9px] opacity-40 font-bold uppercase tracking-[0.1em]">Ventes confirmées</p>
-            </div>
-          </div>
+        {/* Footer */}
+        <div className="bg-[#ecfdf5] rounded-xl p-3 flex items-center justify-center text-[#065f46] font-semibold text-[11px] gap-1.5">
+          <Sparkles className="w-3.5 h-3.5" />
+          Plan d'action optimisé automatiquement par l'IA
         </div>
       </div>
     </TeamRow>
