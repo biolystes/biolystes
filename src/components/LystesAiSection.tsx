@@ -57,7 +57,7 @@ function LystesHero() {
    ═══════════════════════════════════════════════════ */
 function BeforeAfterPhones() {
   return (
-    <div className="w-full max-w-5xl mx-auto flex justify-center items-start py-12 px-6 gap-10 md:gap-16" style={{ scrollbarWidth: "none", overflowX: "clip", overflowY: "visible" }}>
+    <div className="w-full max-w-5xl mx-auto flex justify-center items-start py-12 px-6 gap-10 md:gap-16" style={{ scrollbarWidth: "none", overflow: "visible" }}>
       <div className="relative flex flex-col md:flex-row items-start justify-center gap-10 md:gap-16" style={{ overflow: "visible" }}>
 
         {/* ── AVANT ── */}
