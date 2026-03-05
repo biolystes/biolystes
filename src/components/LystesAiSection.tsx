@@ -206,9 +206,15 @@ function TeamDiagnostics() {
   return (
     <TeamRow bg="bg-background" title="Diagnostic peau intelligent" kicker="Équipe Diagnostics AI"
       desc="Votre visiteur prend un selfie. L'IA scanne son visage, analyse sa peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.">
-      <video autoPlay muted loop playsInline className="w-full h-[400px] object-cover rounded-2xl">
-        <source src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/video//diagnosticai.mp4" type="video/mp4" />
-      </video>
+      <div className="flex flex-col md:flex-row gap-4 items-stretch">
+        <video autoPlay muted loop playsInline className="w-full md:w-1/2 h-[400px] object-cover rounded-2xl">
+          <source src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/video//diagnosticai.mp4" type="video/mp4" />
+        </video>
+        <div className="flex flex-col gap-4 w-full md:w-1/2">
+          <img src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/widget-avatars/avatar3.jpeg" alt="Diagnostic résultat" className="w-full h-[190px] object-cover rounded-2xl" />
+          <img src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/widget-avatars/avatar1.jpeg" alt="Diagnostic résultat" className="w-full h-[190px] object-cover rounded-2xl" />
+        </div>
+      </div>
     </TeamRow>
   );
 }
