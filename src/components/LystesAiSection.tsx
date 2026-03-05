@@ -172,7 +172,7 @@ function BeforeAfterPhones() {
               { label: "Diagnostic ou essayage virtuel AI", top: "1073px" },
               { label: "Créateur de contenu AI", top: "1291px" },
             ].map((agent) => (
-              <div key={agent.label} className="hidden lg:flex absolute z-50 left-full items-center gap-0" style={{ top: agent.top }}>
+              <div key={agent.label} className="hidden lg:flex absolute z-50 items-center gap-0 left-[calc(100%-4.5rem)] xl:left-full" style={{ top: agent.top }}>
                 <div className="w-3 h-3 rounded-full bg-foreground border-2 border-background shrink-0 -ml-1.5" />
                 <div className="w-5 h-px bg-foreground" />
                 <div className="bg-foreground text-primary-foreground rounded-full px-4 py-2 text-[11px] font-medium whitespace-nowrap">
