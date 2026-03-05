@@ -222,7 +222,7 @@ function TeamDiagnostics() {
 function TeamExpertProduit() {
   return (
     <TeamRow bg="bg-secondary" reversed title="Agent conversationnel AI sur chaque fiche produit" kicker="Équipe Expert Produit AI"
-      desc="Nous mettons en place une équipe Expert Produit AI, qui répond instantanément aux questions de vos clients sur la composition, la compatibilité et les délais. Comme votre meilleur vendeur, formé sur chaque détail de chaque produit.">
+      desc="Nous déployons une équipe d'agents conversationnels IA dédiée à chaque produit, capable de répondre instantanément aux questions de vos clients concernant la composition, la compatibilité ou les délais. Fonctionnant comme votre meilleur vendeur, parfaitement formé sur chaque détail de vos produits, cette solution vise à maximiser vos ventes et à réduire les abandons de panier. De plus, elle identifie et remonte les préoccupations récurrentes de vos clients, vous permettant ainsi d'optimiser vos stratégies marketing.">
       <div className="flex justify-center">
         <div className="w-[320px] bg-background rounded-[2rem] overflow-hidden border border-border">
           <PhoneHeader small />
