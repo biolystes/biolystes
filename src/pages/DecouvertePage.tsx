@@ -477,11 +477,6 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ 3. JE COMPRENDS — LA MISE EN PLACE ═══ */}
-      <section id="section-comprend" ref={setRef("comprend")} className="py-0">
-        <CommentCaMarche />
-      </section>
-
       {/* ═══ 3. LA QUALITÉ — NOS ENGAGEMENTS ═══ */}
       <section id="section-qualite" ref={setRef("qualite")} className="py-24 md:py-32">
         <div className="max-w-4xl mx-auto px-6">
@@ -546,7 +541,12 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ 4. LA LIVRAISON ═══ */}
+      {/* ═══ 4. JE COMPRENDS — LA MISE EN PLACE ═══ */}
+      <section id="section-comprend" ref={setRef("comprend")} className="py-0">
+        <CommentCaMarche />
+      </section>
+
+      {/* ═══ 5. LA LIVRAISON ═══ */}
       <section id="section-livraison" ref={setRef("livraison")} className="bg-secondary py-24 md:py-32">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
