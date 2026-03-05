@@ -396,6 +396,16 @@ export default function DecouvertePage() {
               { src: "/videos/exp-8.mov" },
               { src: "/videos/exp-9.mp4" },
               { src: "/videos/exp-10.mov" },
+              { src: "/videos/exp-11.mp4" },
+              { src: "/videos/exp-12.mp4" },
+              { src: "/videos/exp-13.mov" },
+              { src: "/videos/exp-14.mov" },
+              { src: "/videos/exp-15.mov" },
+              { src: "/videos/exp-16.mov" },
+              { src: "/videos/exp-17.mov" },
+              { src: "/videos/exp-18.mov" },
+              { src: "/videos/exp-19.mov" },
+              { src: "/videos/exp-20.mov" },
             ].map((video, i) => (
               <motion.div
                 key={i}
