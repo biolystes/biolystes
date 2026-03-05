@@ -754,10 +754,6 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ PRÉSENTATION PRODUITS (INSTA FEED) ═══ */}
-      <section className="py-24 md:py-32">
-        <InstaFeedSection />
-      </section>
 
       {/* ═══ WIRTZKIN ═══ */}
       <section className="py-24 md:py-32 bg-background">
