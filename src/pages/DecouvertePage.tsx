@@ -367,7 +367,6 @@ export default function DecouvertePage() {
             </video>
           </div>
         </div>
-        </div>
       </section>
 
       {/* ═══ 3. LA QUALITÉ — NOS ENGAGEMENTS ═══ */}
