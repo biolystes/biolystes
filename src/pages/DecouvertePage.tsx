@@ -359,6 +359,15 @@ export default function DecouvertePage() {
             </p>
           </motion.div>
         </div>
+        {/* Video présentation */}
+        <div className="max-w-5xl mx-auto px-6 mt-16">
+          <div className="rounded-2xl overflow-hidden">
+            <video autoPlay muted loop playsInline className="w-full h-auto rounded-2xl">
+              <source src="https://biolystes.com/wp-content/uploads/2025/09/ok.mov" type="video/mp4" />
+            </video>
+          </div>
+        </div>
+        </div>
       </section>
 
       {/* ═══ 3. LA QUALITÉ — NOS ENGAGEMENTS ═══ */}
