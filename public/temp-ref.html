@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Comment gérer sa marque — Biolystes</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Satoshi:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Satoshi', sans-serif; background: #fff; color: #111; -webkit-font-smoothing: antialiased; }
+.serif { font-family: 'Instrument Serif', Georgia, serif; }
+.sans { font-family: 'Satoshi', sans-serif; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+.hero { padding: 80px 24px 48px; text-align: center; max-width: 1120px; margin: 0 auto; }
+.hero h1 { font-size: clamp(32px, 5vw, 54px); font-weight: 400; line-height: 1.15; max-width: 780px; margin: 0 auto 24px; }
+.hero h1 em { font-style: italic; }
+.hero p { font-size: 17px; color: #666; line-height: 1.7; max-width: 600px; margin: 0 auto; }
+.label-up { font-size: 10px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #888; margin-bottom: 20px; }
+.stats { display: flex; justify-content: center; gap: 56px; padding: 40px 0 24px; flex-wrap: wrap; }
+.stat-num { font-size: 44px; font-weight: 900; line-height: 1; }
+.stat-label { font-size: 12px; color: #888; font-weight: 600; margin-top: 6px; }
+
+/* Before/After */
+.ba-wrap { display: flex; justify-content: center; align-items: flex-start; gap: 48px; padding: 48px 24px 64px; overflow-x: auto; }
+.ba-col { display: flex; flex-direction: column; align-items: center; gap: 12px; flex-shrink: 0; }
+.ba-tag { background: #111; color: #fff; padding: 7px 20px; border-radius: 8px; font-weight: 700; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+.phone-shell { background: #fff; border-radius: 40px; overflow: hidden; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.1); display: flex; flex-direction: column; }
+.phone-before { width: 320px; height: 740px; }
+.phone-after { width: 360px; height: 1340px; }
+.ph-header { display: flex; align-items: center; justify-content: space-between; padding: 28px 18px 14px; background: #fff; z-index: 20; flex-shrink: 0; }
+.ph-header-icons { display: flex; align-items: center; gap: 12px; }
+.ph-brand { font-family: Georgia, serif; font-weight: 700; font-size: 22px; letter-spacing: 1px; color: #111; }
+.ph-banner { background: #111; color: #fff; text-align: center; font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; padding: 5px 0; flex-shrink: 0; }
+.ph-scroll { flex: 1; overflow-y: auto; padding-bottom: 32px; }
+.ph-simple-carousel { width: 100%; height: 256px; background: #f8f8f8; position: relative; padding-top: 16px; overflow: hidden; }
+.ph-simple-carousel img { width: 140px; height: 200px; object-fit: cover; border-radius: 16px; border: 1px solid #f0f0f0; display: block; margin: 0 auto; }
+.ph-carousel-track { display: flex; overflow-x: auto; gap: 16px; padding: 8px 20px 24px; scroll-snap-type: x mandatory; }
+.ph-carousel-item { flex-shrink: 0; scroll-snap-align: start; position: relative; display: flex; flex-direction: column; align-items: center; }
+.ph-carousel-item img { width: 240px; height: 280px; object-fit: cover; border-radius: 16px; border: 1px solid #f0f0f0; position: relative; z-index: 1; }
+.ph-carousel-shadow { position: absolute; bottom: -6px; width: 85%; height: 16px; background: rgba(0,0,0,0.1); filter: blur(10px); border-radius: 100%; }
+.ph-dots { display: flex; justify-content: center; gap: 6px; padding: 4px 0; }
+.ph-dot { width: 6px; height: 6px; border-radius: 50%; background: #ddd; }
+.ph-dot.active { width: 16px; height: 6px; border-radius: 4px; background: #111; }
+.ph-info { padding: 0 24px; margin-top: 32px; }
+.ph-stars { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.ph-stars svg { width: 14px; height: 14px; }
+.ph-title { font-size: 22px; font-weight: 700; color: #111; margin-bottom: 4px; line-height: 1.2; }
+.ph-tags { font-size: 10px; font-weight: 700; color: #888; margin-bottom: 12px; }
+.ph-desc { font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 24px; }
+.conv-card { background: #fff; padding: 16px 20px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-top: 8px; width: 320px; }
+.conv-label { font-size: 10px; font-weight: 700; color: #aaa; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+.conv-row { display: flex; align-items: center; gap: 12px; }
+.conv-num { font-size: 22px; font-weight: 700; }
+.conv-green { color: #10b981; }
+
+/* Chat */
+.chat-box { margin: 8px 20px 24px; background: #fafafa; border: 1px solid #eee; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
+.chat-messages { padding: 20px 16px; display: flex; flex-direction: column; gap: 16px; max-height: 300px; overflow-y: auto; scroll-behavior: smooth; }
+.msg { display: flex; flex-direction: column; gap: 4px; }
+.msg.user { align-items: flex-end; }
+.msg-bubble { border-radius: 16px; padding: 10px 14px; font-size: 12px; line-height: 1.55; max-width: 90%; }
+.msg-ai { background: #fff; border: 1px solid #eee; color: #222; border-top-left-radius: 4px; }
+.msg-user { background: #111; color: #fff; border-top-right-radius: 4px; }
+.msg-time { font-size: 9px; color: #aaa; font-weight: 500; }
+.ba-result { display: flex; align-items: center; gap: 12px; padding: 8px; background: #fcfcfc; border-radius: 12px; border: 1px solid #f0f0f0; margin-top: 8px; }
+.ba-result img { width: 76px; height: 52px; object-fit: cover; border-radius: 8px; border: 1px solid #f0f0f0; }
+.ba-result-title { font-size: 13px; font-weight: 700; color: #111; }
+.ba-result-sub { font-size: 11px; color: #888; margin-top: 2px; }
+.review-card { background: #fff; border: 1px solid #f0f0f0; border-radius: 16px; padding: 16px; margin-top: 8px; }
+.review-stars { display: flex; gap: 2px; margin-bottom: 10px; }
+.review-star { width: 18px; height: 18px; background: #00B67A; border-radius: 3px; display: flex; align-items: center; justify-content: center; }
+.review-star svg { width: 11px; height: 11px; fill: #fff; stroke: #fff; stroke-width: 1; }
+.review-text { font-size: 13px; color: #333; font-style: italic; line-height: 1.5; font-weight: 500; margin-bottom: 6px; }
+.review-author { font-size: 12px; color: #888; }
+.review-nav { display: flex; align-items: center; justify-content: flex-end; gap: 10px; margin-top: 8px; }
+.review-nav-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #eee; display: flex; align-items: center; justify-content: center; background: #fff; }
+.review-nav-btn.disabled { opacity: 0.4; background: #f5f5f5; }
+.suggestions { display: flex; gap: 10px; overflow-x: auto; padding: 4px 0 16px; }
+.suggestion-card { min-width: 130px; max-width: 130px; background: #fff; border: 1px solid #f0f0f0; border-radius: 16px; overflow: hidden; flex-shrink: 0; position: relative; padding-bottom: 20px; }
+.suggestion-card img { width: 100%; aspect-ratio: 1; object-fit: contain; background: #f3f3f3; padding: 12px; }
+.suggestion-card .info { padding: 8px; }
+.suggestion-card .info p { font-size: 10px; font-weight: 600; color: #111; line-height: 1.3; }
+.suggestion-card .info .price { color: #888; font-weight: 500; margin-top: 4px; }
+.suggestion-add { position: absolute; bottom: -1px; left: 50%; transform: translateX(-50%); width: 24px; height: 24px; background: #111; color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; border: none; cursor: pointer; }
+.chat-input { padding: 12px; background: #fff; border-top: 1px solid #f0f0f0; flex-shrink: 0; }
+.chat-input-inner { border-radius: 22px; padding: 1.5px; background: linear-gradient(to right, #f9a8d4, #c4b5fd, #86efac); }
+.chat-input-box { background: #fff; border-radius: 20px; padding: 12px; }
+.chat-input-text { font-size: 13px; color: #111; margin-bottom: 8px; }
+.cursor { display: inline-block; animation: blink 1s step-end infinite; margin-left: 1px; }
+@keyframes blink { 50% { opacity: 0; } }
+.chat-input-actions { display: flex; align-items: center; justify-content: space-between; }
+.chat-diag-btn { background: #111; border-radius: 100px; padding: 6px; display: flex; align-items: center; gap: 10px; border: none; cursor: pointer; }
+.chat-diag-avatars { display: flex; padding-left: 2px; }
+.chat-diag-avatars img { width: 24px; height: 24px; border-radius: 6px; border: 1.5px solid #fff; object-fit: cover; }
+.chat-diag-avatars img:not(:first-child) { margin-left: -8px; }
+.ai-badge { position: absolute; top: -6px; right: -6px; background: linear-gradient(135deg, #fce7f3, #dbeafe, #d1fae5); font-size: 6px; font-weight: 700; padding: 1px 4px; border-radius: 4px; color: #111; border: 1px solid rgba(255,255,255,0.8); }
+.chat-diag-label { color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; padding-right: 12px; }
+.chat-send { width: 28px; height: 28px; background: #111; border-radius: 50%; display: flex; align-items: center; justify-content: center; border: none; cursor: pointer; }
+.typing { display: flex; gap: 4px; align-items: center; padding: 10px 14px; background: #fff; border: 1px solid #eee; border-radius: 16px; border-top-left-radius: 4px; width: fit-content; }
+.typing-dot { width: 6px; height: 6px; background: #bbb; border-radius: 50%; animation: typingBounce 1.4s infinite; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
+
+/* Pointer labels */
+.phone-after-wrap { position: relative; }
+.pointer-label { position: absolute; left: 100%; display: flex; align-items: center; z-index: 50; white-space: nowrap; }
+.pointer-dot { width: 12px; height: 12px; border-radius: 50%; background: #111; border: 2px solid #fff; flex-shrink: 0; margin-left: -6px; }
+.pointer-line { width: 20px; height: 1px; background: #111; }
+.pointer-tag { background: #111; color: #fff; border-radius: 100px; padding: 8px 16px; font-size: 11px; font-weight: 600; }
+
+/* Bottom fixed */
+.ph-bottom-fixed { position: absolute; bottom: 0; left: 0; width: 100%; background: #fff; border-top: 1px solid #f0f0f0; padding: 16px 16px 20px; z-index: 40; box-shadow: 0 -10px 30px rgba(0,0,0,0.05); }
+.ph-bottom-ugc { display: flex; gap: 8px; margin-top: 16px; padding-top: 16px; border-top: 1px solid #f0f0f0; }
+.ph-bottom-ugc img { width: calc(33.33% - 5px); aspect-ratio: 3/4; object-fit: cover; border-radius: 16px; }
+
+/* Team rows */
+.container { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+.row { display: flex; align-items: center; gap: 48px; padding: 56px 40px; flex-wrap: wrap; }
+.row.reversed { flex-direction: row-reverse; }
+.row-light { background: #fff; }
+.row-tinted { background: #f7f7f7; }
+.row-text { flex: 1 1 320px; min-width: 260px; }
+.row-text h2 { font-size: 30px; font-weight: 400; line-height: 1.25; margin-bottom: 14px; font-family: 'Instrument Serif', Georgia, serif; }
+.row-text p { font-size: 15px; color: #666; line-height: 1.7; }
+.row-visual { flex: 1 1 500px; min-width: 300px; }
+.row-visual video { width: 100%; height: 400px; object-fit: cover; border-radius: 16px; display: block; }
+.kicker { display: inline-block; background: #111; color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 16px; border-radius: 100px; margin-bottom: 20px; }
+.gallery { display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 180px); gap: 6px; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; display: block; }
+.gallery .wide { grid-column: span 2; }
+.seo-header { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; }
+.seo-dot { width: 12px; height: 12px; border-radius: 50%; background: #34d399; }
+.seo-score { margin-left: auto; font-size: 26px; font-weight: 800; }
+.seo-score span { font-size: 13px; color: #10b981; }
+.seo-row { display: flex; align-items: flex-start; gap: 10px; padding: 10px 12px; background: #fff; border-radius: 10px; margin-bottom: 6px; }
+.seo-check { width: 18px; height: 18px; border-radius: 50%; background: #d1fae5; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+.seo-row-label { font-weight: 700; font-size: 11px; color: #666; margin-bottom: 2px; }
+.seo-row-val { font-size: 12px; color: #333; line-height: 1.4; }
+.seo-footer { margin-top: 14px; padding: 10px; background: #ecfdf5; border-radius: 10px; font-size: 11px; color: #065f46; font-weight: 600; text-align: center; }
+.plan-title { font-size: 13px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.plan-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; background: #fff; border-radius: 10px; margin-bottom: 6px; }
+.plan-row.active { background: #f0f9ff; }
+.plan-day { width: 36px; font-weight: 700; font-size: 11px; color: #888; }
+.plan-task { flex: 1; font-size: 12.5px; color: #222; }
+.plan-status { width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.plan-status.done { background: #111; }
+.plan-status.now { background: #3b82f6; }
+.plan-status.wait { background: #e5e5e5; }
+.plan-footer { margin-top: 10px; padding: 10px; background: #f5f5f5; border-radius: 10px; font-size: 11px; color: #666; text-align: center; }
+.plan-footer strong { color: #111; }
+.ugc { display: flex; gap: 14px; align-items: stretch; flex-wrap: wrap; }
+.ugc-img { flex: 1 1 160px; min-width: 140px; border-radius: 14px; overflow: hidden; position: relative; }
+.ugc-img img { width: 100%; height: 280px; object-fit: cover; display: block; }
+.ugc-img .overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.55)); padding: 32px 12px 12px; color: #fff; font-size: 11px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.ugc-text { flex: 1 1 200px; min-width: 180px; background: #fff; border-radius: 14px; padding: 24px; display: flex; flex-direction: column; justify-content: center; gap: 10px; }
+.ugc-text .tag { font-size: 10px; font-weight: 700; color: #888; letter-spacing: 1px; text-transform: uppercase; }
+.ugc-text h4 { font-size: 15px; font-weight: 700; line-height: 1.4; }
+.ugc-text p { font-size: 12px; color: #666; line-height: 1.5; }
+.ugc-text .speed { font-size: 11px; color: #10b981; font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.analytics-kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+.kpi { background: #fff; border-radius: 12px; padding: 14px 10px; text-align: center; }
+.kpi-label { font-size: 10px; color: #888; font-weight: 600; margin-bottom: 4px; }
+.kpi-val { font-size: 17px; font-weight: 800; }
+.kpi-trend { font-size: 10px; color: #10b981; font-weight: 600; margin-top: 2px; }
+.bars { display: flex; align-items: flex-end; gap: 8px; height: 100px; padding: 0 4px; }
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.bar { width: 100%; border-radius: 6px; background: #e5e5e5; }
+.bar.highlight { background: #111; }
+.bar-label { font-size: 10px; color: #888; font-weight: 600; }
+.alerts { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+.alert-item { flex: 1 1 180px; padding: 8px 10px; background: #fff7ed; border-radius: 10px; font-size: 11px; color: #92400e; display: flex; align-items: center; gap: 6px; }
+
+.fade-in { opacity: 0; transform: translateY(32px); transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1); }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 900px) {
+  .ba-wrap { flex-direction: column; align-items: center; gap: 32px; }
+  .pointer-label { display: none; }
+  .row { padding: 36px 20px; gap: 32px; }
+  .gallery { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 140px); }
+  .ugc { flex-direction: column; }
+  .analytics-kpis { grid-template-columns: 1fr; }
+  .stats { gap: 32px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero fade-in">
+  <div class="label-up sans">Comment gérer sa marque</div>
+  <h1 class="serif">Comment gérer sa marque bio et végane <em>sans engager trop de dépenses</em> ?</h1>
+  <p class="sans">Nous mettons à votre disposition <strong style="color:#111">7 équipes d'agents IA</strong> spécialisées qui travaillent ensemble pour gérer votre marque au quotidien — photos, SEO, ventes, marketing, analytics — le tout sans embaucher.</p>
+</div>
+<div class="stats fade-in" style="transition-delay:0.2s">
+  <div style="text-align:center"><div class="stat-num sans" data-count="7">0</div><div class="stat-label sans">Équipes AI dédiées</div></div>
+  <div style="text-align:center"><div class="stat-num sans" data-count="24" data-suffix="h/24">0</div><div class="stat-label sans">Disponibilité</div></div>
+  <div style="text-align:center"><div class="stat-num sans" data-count="80" data-suffix="%">0</div><div class="stat-label sans">Économie vs agence</div></div>
+</div>
+
+<!-- AVANT / AVEC LYSTES -->
+<div class="ba-wrap fade-in" style="transition-delay:0.3s">
+  <!-- AVANT -->
+  <div class="ba-col">
+    <div class="ba-tag">AVANT</div>
+    <div class="phone-shell phone-before">
+      <div class="ph-header" style="border-bottom:1px solid #f0f0f0">
+        <div class="ph-header-icons"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+        <div class="ph-brand">Expire</div>
+        <div class="ph-header-icons"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="position:relative"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span style="position:absolute;top:-4px;right:-4px;background:#111;color:#fff;font-size:8px;font-weight:700;width:14px;height:14px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1.5px solid #fff">1</span></span></div>
+      </div>
+      <div class="ph-scroll no-scrollbar">
+        <div class="ph-simple-carousel">
+          <img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" alt="">
+          <div class="ph-dots" style="position:absolute;bottom:16px;width:100%"><div class="ph-dot active" style="width:6px"></div><div class="ph-dot"></div></div>
+        </div>
+        <div class="ph-info">
+          <div class="ph-stars"><svg viewBox="0 0 24 24" fill="#111" stroke="#111" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#111" stroke="#111" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#111" stroke="#111" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#111" stroke="#111" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><strong style="font-size:12px">4.8/5</strong><span style="font-size:11px;color:#888">(241 avis)</span></div>
+          <div class="ph-title" style="white-space:nowrap">Crème de jour anti-âge</div>
+          <div style="font-size:18px;font-weight:700;margin-bottom:16px">49,90€</div>
+          <div class="ph-desc" style="height:72px;overflow:hidden">Unifie le teint et repulpe la peau sans laisser de film gras. Idéale pour les peaux mixtes et les problématiques de pigmentation.</div>
+          <div style="background:#111;color:#fff;text-align:center;padding:16px;border-radius:12px;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase">AJOUTER AU PANIER · 49,90€</div>
+        </div>
+      </div>
+    </div>
+    <div class="conv-card">
+      <div class="conv-label sans">Taux de conversion</div>
+      <div class="conv-row"><span class="conv-num sans">3,8 %</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg><span class="conv-num conv-green sans">42 %</span><svg style="margin-left:auto" width="64" height="24" viewBox="0 0 100 30" fill="none"><path d="M0 20 Q 15 0, 30 15 T 60 15 T 90 10 T 100 5" stroke="#38bdf8" stroke-width="2.5" stroke-linecap="round"/></svg></div>
+    </div>
+  </div>
+
+  <!-- AVEC LYSTES -->
+  <div class="ba-col">
+    <div class="ba-tag">AVEC LYSTES : +42% DE VENTES</div>
+    <div class="phone-after-wrap">
+      <div class="phone-shell phone-after">
+        <div class="ph-header" style="border-bottom:1px solid #f0f0f0">
+          <div class="ph-header-icons"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+          <div class="ph-brand">Expire</div>
+          <div class="ph-header-icons"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span style="position:relative"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span style="position:absolute;top:-4px;right:-4px;background:#111;color:#fff;font-size:8px;font-weight:700;width:14px;height:14px;display:flex;align-items:center;justify-content:center;border-radius:50%;border:1.5px solid #fff">1</span></span></div>
+        </div>
+        <div class="ph-banner">Livraison gratuite aujourd'hui</div>
+        <div class="ph-scroll no-scrollbar" style="padding-bottom:200px">
+          <div style="position:relative;padding-top:8px">
+            <div class="ph-carousel-track no-scrollbar">
+              <div class="ph-carousel-item"><div class="ph-carousel-shadow"></div><img src="https://lystes.ai/images/clients/kaniwa-6.jpg" alt=""></div>
+              <div class="ph-carousel-item"><div class="ph-carousel-shadow"></div><img src="https://lystes.ai/images/clients/kaniwa-ugc-1.jpg" alt=""></div>
+              <div class="ph-carousel-item"><div class="ph-carousel-shadow"></div><img src="https://lystes.ai/images/clients/kaniwa-8.jpg" alt=""></div>
+              <div class="ph-carousel-item"><div class="ph-carousel-shadow"></div><img src="https://lystes.ai/images/clients/kaniwa-ugc-4.jpg" alt=""></div>
+              <div class="ph-carousel-item"><div class="ph-carousel-shadow"></div><img src="https://lystes.ai/images/clients/kaniwa-7.jpg" alt=""></div>
+              <div class="ph-carousel-item"><div class="ph-carousel-shadow"></div><img src="https://lystes.ai/images/clients/kaniwa-ugc-3.jpg" alt=""></div>
+              <div class="ph-carousel-item"><div class="ph-carousel-shadow"></div><img src="https://lystes.ai/images/clients/kaniwa-4.jpg" alt=""></div>
+              <div class="ph-carousel-item"><div class="ph-carousel-shadow"></div><img src="https://lystes.ai/images/clients/kaniwa-5.jpg" alt=""></div>
+            </div>
+            <div class="ph-dots"><div class="ph-dot active"></div><div class="ph-dot"></div><div class="ph-dot"></div><div class="ph-dot"></div><div class="ph-dot"></div></div>
+          </div>
+          <div class="ph-info">
+            <div class="ph-stars"><svg viewBox="0 0 24 24" fill="#111" stroke="#111" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#111" stroke="#111" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#111" stroke="#111" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="#111" stroke="#111" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><strong style="font-size:12px">4.8/5</strong><span style="font-size:11px;color:#888">(241 avis)</span></div>
+            <div class="ph-title">Crème de jour anti-âge</div>
+            <div class="ph-tags">Vitiligo · Pores dilatés · Rougeurs</div>
+            <div class="ph-desc" style="height:auto">Découvrez notre <strong>crème de jour anti-âge</strong> formulée pour revitaliser votre peau. Ce <strong>soin hydratant expert</strong> unifie le teint, repulpe l'épiderme et aide à réduire l'apparence des taches pigmentaires.</div>
+          </div>
+          <!-- Chat -->
+          <div class="chat-box">
+            <div class="chat-messages no-scrollbar" id="chatMessages">
+              <div class="msg" id="m1"><div class="msg-bubble msg-ai">Comment puis-je vous aider par rapport à la Crème de jour anti-âge ?</div><div class="msg-time" style="margin-left:4px">Maintenant</div></div>
+              <div class="msg user" id="m2" style="display:none"><div class="msg-bubble msg-user">Bonjour, j'aimerais savoir si cette crème est adaptée au peau mixte et métisse ?</div><div class="msg-time" style="margin-right:4px">09:42</div></div>
+              <div class="msg" id="mT1" style="display:none"><div class="typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>
+              <div class="msg" id="m3" style="display:none"><div class="msg-bubble msg-ai" style="display:flex;flex-direction:column;gap:10px"><span>Absolument ! Notre formule contient des extraits marins et de l'acide hyaluronique. Voici des résultats :</span><div class="ba-result"><img src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/before-after/d7bb6871-6142-4c3b-8daf-b754fb38f4eb/1766996391238.png" alt=""><div><div class="ba-result-title">Anti-vieillissement</div><div class="ba-result-sub">5 semaines</div></div></div><div class="ba-result"><img src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/before-after/d7bb6871-6142-4c3b-8daf-b754fb38f4eb/1766996432144.png" alt=""><div><div class="ba-result-title">Anti-âge front</div><div class="ba-result-sub">3 semaines</div></div></div><span>Ces résultats vous parlent ?</span></div><div class="msg-time" style="margin-left:4px">09:42</div></div>
+              <div class="msg user" id="m4" style="display:none"><div class="msg-bubble msg-user">C'est impressionnant ! Avez-vous des avis de clientes ?</div><div class="msg-time" style="margin-right:4px">09:43</div></div>
+              <div class="msg" id="mT2" style="display:none"><div class="typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>
+              <div class="msg" id="m5" style="display:none"><div class="msg-bubble msg-ai">Bien sûr ! Voici quelques retours vérifiés :</div><div class="review-card"><div class="review-stars"><div class="review-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="review-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="review-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="review-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="review-star"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div></div><div class="review-text">"Ma peau paraît nettement plus jeune et lumineuse. Confort, éclat et peau revitalisée."</div><div class="review-author">Alice — via Trustpilot</div><div class="review-nav"><div class="review-nav-btn disabled"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m15 18-6-6 6-6"/></svg></div><span style="font-size:11px;color:#888">1 / 2</span><div class="review-nav-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg></div></div></div><div class="msg-time" style="margin-left:4px">09:43</div></div>
+              <div class="msg user" id="m6" style="display:none"><div class="msg-bubble msg-user">Top ! Et avez-vous d'autres produits pour ma routine ?</div><div class="msg-time" style="margin-right:4px">09:44</div></div>
+              <div class="msg" id="mT3" style="display:none"><div class="typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>
+              <div class="msg" id="m7" style="display:none"><div class="msg-bubble msg-ai" style="padding:12px">Voici ce qui pourrait compléter votre routine :</div><div class="suggestions no-scrollbar" style="margin-top:8px"><div class="suggestion-card"><img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/O236SDw9GkuAtxkcoHnMrhJ_9lJP7tPq-scaled.jpg?w=1930&ssl=1" alt=""><div class="info"><p>Sérum à la vitamine C</p><p class="price">35,00 €</p></div><button class="suggestion-add">+</button></div><div class="suggestion-card"><img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2026/01/FRONT_high_res-12-scaled.jpg?w=1930&ssl=1" alt=""><div class="info"><p>Sérum anti-âge peptides</p><p class="price">34,00 €</p></div><button class="suggestion-add">+</button></div><div class="suggestion-card"><div style="width:100%;aspect-ratio:1;background:#f3f3f3;border-radius:16px 16px 0 0;display:flex;align-items:center;justify-content:center;padding:12px"><div style="width:64px;height:80px;background:#c8e6c9;border-radius:6px"></div></div><div class="info"><p>Gel Boost Hydratation</p><p class="price">29,00 €</p></div><button class="suggestion-add">+</button></div></div></div>
+            </div>
+            <div class="chat-input">
+              <div class="chat-input-inner"><div class="chat-input-box">
+                <div class="chat-input-text sans">Bonjour, j'aimerais savoir si cette crème est adaptée au peau mixte et métis<span class="cursor">|</span></div>
+                <div class="chat-input-actions">
+                  <div class="chat-diag-btn"><div class="chat-diag-avatars"><img src="https://i.pravatar.cc/100?img=5" alt="" style="position:relative;z-index:10"><img src="https://i.pravatar.cc/100?img=11" alt="" style="position:relative;z-index:20"><span style="position:relative;z-index:30;display:inline-block"><img src="https://i.pravatar.cc/100?img=9" alt=""><span class="ai-badge">AI</span></span></div><span class="chat-diag-label">Faire un diagnostic</span></div>
+                  <div style="display:flex;align-items:center;gap:12px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg><button class="chat-send"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg></button></div>
+                </div>
+              </div></div>
+            </div>
+          </div>
+          <!-- Bottom -->
+          <div class="ph-bottom-fixed">
+            <div style="background:#111;color:#fff;text-align:center;padding:16px;border-radius:12px;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase">AJOUTER AU PANIER · 49,90€</div>
+            <div class="ph-bottom-ugc"><img src="https://lystes.ai/images/clients/kaniwa-ugc-4.jpg" alt=""><img src="https://lystes.ai/images/clients/kaniwa-ugc-3.jpg" alt=""><img src="https://lystes.ai/images/clients/kaniwa-ugc-1.jpg" alt=""></div>
+          </div>
+        </div>
+      </div>
+      <!-- Pointer labels -->
+      <div class="pointer-label" style="top:151px"><div class="pointer-dot"></div><div class="pointer-line"></div><div class="pointer-tag">Directeur Marketing AI</div></div>
+      <div class="pointer-label" style="top:280px"><div class="pointer-dot"></div><div class="pointer-line"></div><div class="pointer-tag">Photographe AI</div></div>
+      <div class="pointer-label" style="top:640px"><div class="pointer-dot"></div><div class="pointer-line"></div><div class="pointer-tag">Expert SEO AI</div></div>
+      <div class="pointer-label" style="top:820px"><div class="pointer-dot"></div><div class="pointer-line"></div><div class="pointer-tag">Expert produit AI</div></div>
+      <div class="pointer-label" style="top:1073px"><div class="pointer-dot"></div><div class="pointer-line"></div><div class="pointer-tag">Diagnostic ou essayage virtuel AI</div></div>
+      <div class="pointer-label" style="top:1291px"><div class="pointer-dot"></div><div class="pointer-line"></div><div class="pointer-tag">Créateur de contenu AI</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TEAM SECTIONS -->
+<div class="row-light fade-in"><div class="row container"><div class="row-text"><div class="kicker sans">Équipe Diagnostics AI</div><h2>Diagnostic peau intelligent</h2><p class="sans">Votre visiteur prend un selfie. L'IA scanne son visage, analyse sa peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.</p></div><div class="row-visual"><video autoplay muted loop playsinline><source src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/video//diagnosticai.mp4" type="video/mp4"></video></div></div></div>
+
+<div class="row-tinted fade-in"><div class="row reversed container"><div class="row-text"><div class="kicker sans">Équipe Expert Produit AI</div><h2>Un vendeur expert sur chaque fiche</h2><p class="sans">Chaque produit dispose de son propre expert dédié. Il répond instantanément aux questions sur la composition, la compatibilité, les délais. Comme votre meilleur vendeur, formé sur chaque détail.</p></div><div class="row-visual" style="display:flex;justify-content:center"><div style="width:320px;background:#fff;border-radius:32px;overflow:hidden;border:1px solid #e0e0e0"><div style="display:flex;align-items:center;justify-content:space-between;padding:26px 18px 12px;border-bottom:1px solid #f0f0f0"><span style="display:flex;gap:10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></span><span style="font-family:Georgia,serif;font-weight:700;font-size:20px;letter-spacing:1px">Expire</span><span style="display:flex;gap:10px"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span></div><div style="background:#111;color:#fff;text-align:center;font-size:9px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:5px 0">Livraison gratuite aujourd'hui</div><img src="https://lystes.ai/images/clients/kaniwa-6.jpg" alt="" style="width:100%;height:200px;object-fit:cover"><div style="padding:14px 18px"><div style="font-size:12px;color:#111;margin-bottom:6px"><svg style="width:13px;height:13px;vertical-align:middle" viewBox="0 0 24 24" fill="#111" stroke="#111" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg style="width:13px;height:13px;vertical-align:middle" viewBox="0 0 24 24" fill="#111" stroke="#111" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg style="width:13px;height:13px;vertical-align:middle" viewBox="0 0 24 24" fill="#111" stroke="#111" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg style="width:13px;height:13px;vertical-align:middle" viewBox="0 0 24 24" fill="#111" stroke="#111" stroke-width="1"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg style="width:13px;height:13px;vertical-align:middle" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> <strong>4.8/5</strong> <span style="color:#888;font-weight:400">(241 avis)</span></div><h3 style="font-size:18px;font-weight:700;margin-bottom:4px">Crème de jour anti-âge</h3><div style="font-size:10px;font-weight:700;color:#888">Vitiligo · Pores dilatés · Rougeurs</div></div><div style="margin:0 14px;background:#f8f8f8;border-radius:16px;padding:12px;display:flex;flex-direction:column;gap:8px"><div style="background:#fff;border:1px solid #eee;border-radius:14px;padding:10px 12px;font-size:12px;color:#333;line-height:1.5;max-width:90%;border-top-left-radius:4px">Parfait ! J'ai analysé votre diagnostic. Peau de type <strong>Mixte</strong>. Comment puis-je vous aider ?</div><div style="align-self:flex-end;background:#111;color:#fff;border-radius:14px;padding:10px 14px;font-size:12px;line-height:1.5;max-width:80%;border-top-right-radius:4px">Cette crème est adaptée aux peaux mixtes et métisses ?</div><div style="background:#fff;border:1px solid #eee;border-radius:14px;padding:10px 12px;font-size:12px;color:#333;line-height:1.5;max-width:90%;border-top-left-radius:4px">Absolument ! Notre formule contient des extraits marins et de l'acide hyaluronique, parfaitement adaptés.</div></div><div style="margin:14px;background:#111;color:#fff;text-align:center;padding:14px;border-radius:12px;font-weight:700;font-size:12px;letter-spacing:1px;text-transform:uppercase">Ajouter au panier — 49,90€</div></div></div></div></div>
+
+<div class="row-light fade-in"><div class="row container"><div class="row-text"><div class="kicker sans">Équipe Photographe AI</div><h2>Photos studio en quelques secondes</h2><p class="sans">Photos produits niveau studio professionnel, visuels UGC avec de vrais visages pour vos réseaux sociaux, contenus marketing. En quelques secondes, sans shooting.</p></div><div class="row-visual"><div class="gallery"><img class="wide" src="https://lystes.ai/images/clients/kaniwa-1.jpg" alt=""><img src="https://lystes.ai/images/clients/kaniwa-6.jpg" alt=""><img src="https://lystes.ai/images/clients/kaniwa-5.jpg" alt=""><img src="https://lystes.ai/images/clients/kaniwa-3.jpg" alt=""><img src="https://lystes.ai/images/clients/fralene-2.jpg" alt=""><img class="wide" src="https://lystes.ai/images/clients/fralene-3.jpg" alt=""><img src="https://lystes.ai/images/clients/sevmylook-3.jpg" alt=""><img src="https://lystes.ai/images/clients/sevmylook-1.jpg" alt=""></div></div></div></div>
+
+<div class="row-tinted fade-in"><div class="row reversed container"><div class="row-text"><div class="kicker sans">Équipe Expert SEO AI</div><h2>Visible sur Google dès le lancement</h2><p class="sans">Optimisation automatique de vos fiches produits, méta-descriptions, mots-clés et contenus pour que votre boutique soit visible sur Google dès le lancement.</p></div><div class="row-visual"><div class="seo-header"><div class="seo-dot"></div><span class="label-up sans" style="margin-bottom:0;color:#888">Score SEO</span><div class="seo-score sans">92<span>/100</span></div></div><div class="seo-row"><div class="seo-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#065f46" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="seo-row-label sans">Meta Title</div><div class="seo-row-val">Crème Anti-Âge Bio — Soin Visage Naturel | Expire</div></div></div><div class="seo-row"><div class="seo-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#065f46" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="seo-row-label sans">Meta Description</div><div class="seo-row-val">Découvrez notre crème anti-âge bio formulée avec des actifs marins…</div></div></div><div class="seo-row"><div class="seo-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#065f46" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="seo-row-label sans">H1</div><div class="seo-row-val">Crème de jour anti-âge bio et végane</div></div></div><div class="seo-row"><div class="seo-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#065f46" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="seo-row-label sans">Mots-clés</div><div class="seo-row-val">crème anti-âge bio, soin visage naturel, cosmétique végane</div></div></div><div class="seo-row"><div class="seo-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#065f46" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div><div><div class="seo-row-label sans">Alt images</div><div class="seo-row-val">3/3 optimisées</div></div></div><div class="seo-footer"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align:middle"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg> Fiche produit optimisée automatiquement par l'IA</div></div></div></div>
+
+<div class="row-light fade-in"><div class="row container"><div class="row-text"><div class="kicker sans">Équipe Marketing AI</div><h2>Votre directeur marketing 24h/24</h2><p class="sans">Plans d'action marketing personnalisés, campagnes email, stratégies de conversion. Un directeur marketing qui travaille pour vous 24h/24.</p></div><div class="row-visual"><div class="plan-title sans"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg> Plan d'action — Semaine 1</div><div class="plan-row"><div class="plan-day">Lun</div><div class="plan-task sans">Campagne email de bienvenue</div><div class="plan-status done"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="plan-row"><div class="plan-day">Mar</div><div class="plan-task sans">Post Instagram — Avant/Après</div><div class="plan-status done"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div></div><div class="plan-row active"><div class="plan-day">Mer</div><div class="plan-task sans" style="font-weight:600">Story UGC — Témoignage cliente</div><div class="plan-status now"><svg width="10" height="10" viewBox="0 0 24 24" fill="#fff" stroke="#fff" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div><div class="plan-row"><div class="plan-day">Jeu</div><div class="plan-task sans">Relance panier abandonné</div><div class="plan-status wait"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="plan-row"><div class="plan-day">Ven</div><div class="plan-task sans">Newsletter promo weekend</div><div class="plan-status wait"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="plan-footer sans">Objectif : <strong>+25% trafic</strong> · <strong>15 ventes</strong> cette semaine</div></div></div></div>
+
+<div class="row-tinted fade-in"><div class="row reversed container"><div class="row-text"><div class="kicker sans">Équipe Créateur de contenu AI</div><h2>Du contenu pro en quelques secondes</h2><p class="sans">Contenus pour vos réseaux sociaux, articles de blog, descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.</p></div><div class="row-visual"><div class="ugc"><div class="ugc-img"><img src="https://lystes.ai/images/clients/kaniwa-ugc-1.jpg" alt=""><div class="overlay"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> Post Instagram</div></div><div class="ugc-img"><img src="https://lystes.ai/images/clients/kaniwa-ugc-4.jpg" alt=""><div class="overlay"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg> Story Réseaux</div></div><div class="ugc-text"><div class="tag sans">Blog Article</div><h4>5 routines beauté bio pour peaux sensibles</h4><p class="sans">Découvrez comment prendre soin de votre peau avec des produits 100% naturels et végans…</p><div class="speed"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg> Rédigé en 12 secondes</div></div></div></div></div></div>
+
+<div class="row-light fade-in" style="padding-bottom:80px"><div class="row container"><div class="row-text"><div class="kicker sans">Équipe Analytics AI</div><h2>Des décisions basées sur la réalité</h2><p class="sans">Un assistant IA connaît vos chiffres en temps réel. CA, tops produits, questions clients, points de blocage. Des décisions basées sur la réalité, pas sur des suppositions.</p></div><div class="row-visual"><div class="analytics-kpis"><div class="kpi"><div class="kpi-label sans">CA Semaine</div><div class="kpi-val sans">2 847€</div><div class="kpi-trend sans">+18%</div></div><div class="kpi"><div class="kpi-label sans">Top Produit</div><div class="kpi-val sans" style="font-size:13px">Crème Anti-Âge</div><div class="kpi-trend sans">34 ventes</div></div><div class="kpi"><div class="kpi-label sans">Taux Conversion</div><div class="kpi-val sans">4.2%</div><div class="kpi-trend sans">+0.8pt</div></div></div><div class="bars"><div class="bar-col"><div class="bar" style="height:38px"></div><span class="bar-label sans">L</span></div><div class="bar-col"><div class="bar" style="height:52px"></div><span class="bar-label sans">M</span></div><div class="bar-col"><div class="bar" style="height:45px"></div><span class="bar-label sans">M</span></div><div class="bar-col"><div class="bar" style="height:68px"></div><span class="bar-label sans">J</span></div><div class="bar-col"><div class="bar" style="height:82px"></div><span class="bar-label sans">V</span></div><div class="bar-col"><div class="bar" style="height:74px"></div><span class="bar-label sans">S</span></div><div class="bar-col"><div class="bar highlight" style="height:91px"></div><span class="bar-label sans">D</span></div></div><div class="alerts"><div class="alert-item sans"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="flex-shrink:0"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> 12 questions clients non répondues</div><div class="alert-item sans"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> 3 produits en rupture bientôt</div></div></div></div></div>
+
+<script>
+// Fade-in
+const fadeObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => fadeObs.observe(el));
+
+// Counters
+document.querySelectorAll('[data-count]').forEach(el => {
+  const end = parseInt(el.dataset.count), suffix = el.dataset.suffix || '';
+  const obs = new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) {
+      obs.disconnect();
+      let v = 0; const step = Math.max(1, Math.floor(end / 40));
+      const id = setInterval(() => { v += step; if (v >= end) { v = end; clearInterval(id); } el.textContent = v + suffix; }, 30);
+    }
+  }, { threshold: 0.5 });
+  obs.observe(el);
+});
+
+// Chat animation
+const chat = document.getElementById('chatMessages');
+const seq = [
+  { id: 'm2', delay: 2000 },
+  { id: 'mT1', delay: 800 },
+  { id: 'm3', delay: 1800, hide: 'mT1' },
+  { id: 'm4', delay: 2500 },
+  { id: 'mT2', delay: 800 },
+  { id: 'm5', delay: 2000, hide: 'mT2' },
+  { id: 'm6', delay: 3000 },
+  { id: 'mT3', delay: 800 },
+  { id: 'm7', delay: 2000, hide: 'mT3' },
+];
+function runChat() {
+  let t = 0;
+  seq.forEach(s => {
+    t += s.delay;
+    setTimeout(() => {
+      if (s.hide) { const h = document.getElementById(s.hide); if (h) h.style.display = 'none'; }
+      const el = document.getElementById(s.id);
+      if (el) {
+        el.style.display = ''; el.style.opacity = '0'; el.style.transform = 'translateY(12px)';
+        requestAnimationFrame(() => {
+          el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+          el.style.opacity = '1'; el.style.transform = 'translateY(0)';
+        });
+        chat.scrollTop = chat.scrollHeight;
+      }
+    }, t);
+  });
+}
+const phoneEl = document.querySelector('.phone-after');
+const chatObs = new IntersectionObserver(([e]) => {
+  if (e.isIntersecting) { chatObs.disconnect(); runChat(); }
+}, { threshold: 0.15 });
+chatObs.observe(phoneEl);
+</script>
+</body>
+</html>
