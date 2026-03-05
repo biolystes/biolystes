@@ -119,7 +119,7 @@ function StepProgress({ activeStep }: { activeStep: StepKey }) {
               <button
                 key={s.key}
                 onClick={() => scrollToSection(s.key)}
-                className={`flex flex-col items-center px-3 md:px-5 py-2 rounded-xl cursor-pointer transition-all duration-200 border shrink-0 ${
+                className={`flex flex-col items-center px-2 md:px-5 py-1.5 md:py-2 rounded-xl cursor-pointer transition-all duration-200 border shrink-0 ${
                   isActive
                     ? "border-foreground bg-foreground/[0.03] font-bold"
                     : isPast
