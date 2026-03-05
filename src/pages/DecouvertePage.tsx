@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import LystesAiSection from "@/components/LystesAiSection";
 import InstaFeedSection from "@/components/InstaFeedSection";
+import WirtzkinSection from "@/components/WirtzkinSection";
 import AvantApresSection from "@/components/AvantApresSection";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
@@ -782,6 +783,11 @@ export default function DecouvertePage() {
       {/* ═══ PRÉSENTATION PRODUITS (INSTA FEED) ═══ */}
       <section className="py-24 md:py-32">
         <InstaFeedSection />
+      </section>
+
+      {/* ═══ WIRTZKIN ═══ */}
+      <section className="py-24 md:py-32 bg-background">
+        <WirtzkinSection />
       </section>
 
       {/* ═══ 10. JE ME LANCE ═══ */}
