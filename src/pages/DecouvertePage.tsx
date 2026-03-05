@@ -14,11 +14,11 @@ import { ExternalLink } from "lucide-react";
 
 // Brand images for portfolio
 import kaniwa1 from "@/assets/kaniwa-1.jpg";
-import kaniwa2 from "@/assets/kaniwa-2.jpg";
+
 import kaniwa3 from "@/assets/kaniwa-3.jpg";
 import kaniwa5 from "@/assets/kaniwa-5.jpg";
 import kaniwa6 from "@/assets/kaniwa-6.jpg";
-import kaniwa7 from "@/assets/kaniwa-7.jpg";
+
 import fralene1 from "@/assets/fralene-1.jpg";
 import fralene2 from "@/assets/fralene-2.jpg";
 import fralene3 from "@/assets/fralene-3.jpg";
@@ -77,7 +77,7 @@ const portfolioBrands = [
     name: "Kaniwa Botanique",
     tagline: "Marque bio & vegan, lancée en 12 jours",
     url: "https://kaniwabotanique.com/",
-    photos: [kaniwa1, kaniwa2, kaniwa3, kaniwa5, kaniwa6, kaniwa7],
+    photos: [kaniwa1, kaniwa3, kaniwa5, kaniwa6],
   },
   {
     name: "Fralène",
