@@ -58,7 +58,7 @@ export default function SignupPage() {
         {/* Logo */}
         <div style={{ textAlign: "center", marginBottom: 40 }}>
           <span style={{ fontSize: 22, fontWeight: 700, color: "#1D1D1F", letterSpacing: "-0.5px" }}>
-            Lystes.ai
+            Biolystes
           </span>
         </div>
 
