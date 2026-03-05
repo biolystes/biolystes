@@ -45,31 +45,35 @@ export default function InstaFeedSection() {
         </motion.p>
       </motion.div>
 
-      <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-6 px-6">
-        {posts.map((post, i) => (
-          <motion.button
-            key={i}
-            onClick={() => setActiveVideo(i)}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeUp}
-            custom={i}
-            className="relative flex-shrink-0 w-[260px] md:w-[280px] aspect-[9/16] rounded-2xl overflow-hidden group snap-start cursor-pointer border-0 p-0 bg-transparent"
-          >
-            <img
-              src={post.src}
-              alt={post.alt}
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 transition-colors">
-              <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-                <Play className="h-5 w-5 text-foreground ml-0.5" fill="currentColor" />
-              </div>
-            </div>
-          </motion.button>
-        ))}
+      <div className="overflow-hidden -mx-6">
+        <motion.div
+          className="flex gap-4 px-6"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+          style={{ width: "max-content" }}
+        >
+          {[...Array(2)].flatMap((_, dupeIdx) =>
+            posts.map((post, i) => (
+              <button
+                key={`${dupeIdx}-${i}`}
+                onClick={() => setActiveVideo(i)}
+                className="relative flex-shrink-0 w-[260px] md:w-[280px] aspect-[9/16] rounded-2xl overflow-hidden group cursor-pointer border-0 p-0 bg-transparent"
+              >
+                <img
+                  src={post.src}
+                  alt={post.alt}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/10 group-hover:bg-black/20 transition-colors">
+                  <div className="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+                    <Play className="h-5 w-5 text-foreground ml-0.5" fill="currentColor" />
+                  </div>
+                </div>
+              </button>
+            ))
+          )}
+        </motion.div>
       </div>
 
       {/* Video Modal */}
