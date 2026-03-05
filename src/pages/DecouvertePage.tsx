@@ -234,7 +234,7 @@ export default function DecouvertePage() {
               { icon: Truck, title: "Zéro stock, zéro risque", desc: "Votre client commande, on fabrique et on expédie directement sous votre nom." },
               { icon: Globe, title: "Lancement en 10 jours", desc: "Logo, packaging, site e-commerce, photos — tout est prêt en 10 à 15 jours." },
             ].map((item, i) => (
-              <div key={item.title} className="p-6 rounded-2xl bg-secondary">
+              <div key={item.title} className="p-6 rounded-2xl">
                 <item.icon className="h-5 w-5 text-foreground mb-4" strokeWidth={1.5} />
                 <p className="text-sm font-semibold text-foreground mb-1">{item.title}</p>
                 <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
