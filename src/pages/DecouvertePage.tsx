@@ -209,7 +209,10 @@ export default function DecouvertePage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}
             className="flex items-center justify-center gap-3 mb-8">
             <span className="bg-foreground text-primary-foreground text-xs font-semibold tracking-[0.15em] uppercase px-5 py-2 rounded-full">
-              Découverte
+              En 10 jours
+            </span>
+            <span className="text-sm text-muted-foreground font-medium tracking-wide uppercase">
+              Profitez de plus de 18 ans d'expérience
             </span>
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
@@ -240,8 +243,23 @@ export default function DecouvertePage() {
         </div>
 
 
+        {/* Certification text badges */}
+        <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.8 }}
+          className="flex items-center justify-center gap-6 flex-wrap mt-12 mb-2">
+          {[
+            { icon: Leaf, label: "Certifié Bio & Végan" },
+            { icon: Shield, label: "Conformité COSMOS/ECOCERT/FDA" },
+            { icon: Zap, label: "Lancement Rapide" },
+          ].map((item) => (
+            <span key={item.label} className="flex items-center gap-2 text-sm text-muted-foreground">
+              <item.icon className="h-4 w-4" strokeWidth={1.5} />
+              {item.label}
+            </span>
+          ))}
+        </motion.div>
+
         {/* Certifications carousel */}
-        <div className="overflow-hidden py-8 mt-8">
+        <div className="overflow-hidden py-8 mt-2">
           <motion.div
             className="flex gap-12 items-center"
             animate={{ x: ["0%", "-50%"] }}
