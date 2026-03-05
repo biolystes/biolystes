@@ -595,7 +595,7 @@ export default function DecouvertePage() {
                     <p className="text-sm text-muted-foreground">{brand.tagline}</p>
                   </div>
                   <a href={brand.url} target="_blank" rel="noopener noreferrer"
-                    className="flex items-center gap-1.5 text-sm font-medium text-foreground hover:opacity-70 transition-opacity shrink-0">
+                    className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-foreground hover:opacity-80 transition-opacity shrink-0 rounded-full px-4 py-2">
                     Voir le site <ExternalLink className="h-3.5 w-3.5" />
                   </a>
                 </div>
