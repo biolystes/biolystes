@@ -949,9 +949,9 @@ export default function DecouvertePage() {
           <div className="border-t border-primary-foreground/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-xs opacity-40">©2025 Biolystes</p>
             <div className="flex items-center gap-6 text-xs opacity-40">
-              <a href="#" className="hover:opacity-100 transition-opacity">Mentions légales</a>
-              <a href="#" className="hover:opacity-100 transition-opacity">Politique de Confidentialité</a>
-              <a href="#" className="hover:opacity-100 transition-opacity">CGV</a>
+              <a href="https://biolystes.com/mentions-legales" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Mentions légales</a>
+              <a href="https://biolystes.com/politique-de-confidentialite" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Politique de Confidentialité</a>
+              <a href="https://biolystes.com/cgv" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">CGV</a>
             </div>
           </div>
         </div>
