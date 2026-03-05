@@ -364,7 +364,7 @@ function TeamMarketing() {
 function TeamContenu() {
   return (
     <TeamRow bg="bg-secondary" reversed title="Du contenu pro en quelques secondes" kicker="Équipe Créateur de contenu AI"
-      desc="Contenus pour vos réseaux sociaux, articles de blog, descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
+      desc="Nous mettons en place une équipe Créateur de contenu AI, qui produit des contenus pour vos réseaux sociaux, articles de blog et descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
       <div className="flex gap-3.5 flex-wrap">
         {[
           { src: "https://lystes.ai/images/clients/kaniwa-ugc-1.jpg", label: "Post Instagram" },
