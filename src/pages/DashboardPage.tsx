@@ -595,7 +595,7 @@ export default function DashboardPage() {
   const [selectedProduct, setSelectedProduct] = useState<WCProduct | null>(null);
 
   return (
-    <div className="px-6 lg:px-10 py-6">
+    <div className="max-w-5xl mx-auto px-6 py-6">
       <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }`}</style>
 
       {/* Hero */}
