@@ -171,7 +171,75 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ 2. JE COMPRENDS — LA MISE EN PLACE ═══ */}
+      {/* ═══ 2. LE CONSTAT ═══ */}
+      <section id="section-constat" ref={setRef("constat")} className="bg-secondary py-24 md:py-32">
+        <div className="max-w-4xl mx-auto px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16 text-center">
+            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Le constat</motion.p>
+            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed">
+              Nous avons créé Biolystes car de nombreuses personnes échouent en raison de choix inadaptés lors du lancement de leur marque cosmétique bio et végane.
+            </motion.h2>
+          </motion.div>
+
+          <div className="space-y-6">
+            {[
+              {
+                icon: Warehouse,
+                title: "Le stock",
+                desc: "La majorité des créateurs investissent jusqu'à 90 % de leur budget dans l'achat de stock. Une fois la marque lancée, il ne reste plus rien pour se faire connaître. Sans visibilité, pas de ventes. Le stock dort, la trésorerie fond, et le projet s'arrête.",
+              },
+              {
+                icon: FlaskConical,
+                title: "La fabrication",
+                desc: "Trouver la bonne formule, le bon dosage, le bon équilibre. Certains de nos clients avaient passé huit mois, un an, parfois des années en allers-retours avec des laboratoires, sans jamais réussir à finaliser un seul produit.",
+              },
+              {
+                icon: Users,
+                title: "La chaîne de prestataires",
+                desc: "Il ne suffit pas de trouver un bon laboratoire. Il faut aussi le bon designer, le bon photographe, le bon développeur. Si un seul maillon est faible, c'est toute votre image de marque qui en souffre.",
+              },
+              {
+                icon: Timer,
+                title: "La procrastination",
+                desc: "Des projets qui restent à l'état d'idée pendant des mois, parce que la complexité du parcours pousse à toujours remettre à demain.",
+              },
+              {
+                icon: Award,
+                title: "Les certifications",
+                desc: "COSMOS, ECOCERT, FDA, CPNP, ISO 22716, packaging recyclable, sans parabènes, sans silicones, sans microplastiques. Cocher toutes ces cases par vous-même, ça prend des années.",
+              },
+              {
+                icon: Eye,
+                title: "Le manque de recul",
+                desc: "Chaque nouvelle formulation demande du temps pour être affinée. C'est un investissement en temps que la plupart des créateurs n'ont tout simplement pas.",
+              },
+            ].map((item, i) => (
+              <motion.div key={item.title} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-30px" }}
+                variants={fadeUp} custom={i} className="p-6 md:p-8 rounded-2xl bg-background border border-border">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center shrink-0 mt-0.5">
+                    <item.icon className="h-5 w-5 text-destructive" strokeWidth={1.5} />
+                  </div>
+                  <div>
+                    <h3 className="text-base font-semibold text-foreground mb-2">{item.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+            className="mt-16 p-8 md:p-12 rounded-2xl bg-foreground text-primary-foreground text-center">
+            <AlertTriangle className="h-6 w-6 mx-auto mb-4 opacity-70" strokeWidth={1.5} />
+            <p className="text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto">
+              Huit chances sur dix de tomber dans un de ces cas de figure. C'est ce constat qui a donné naissance à Biolystes. Nous avons éliminé chacun de ces obstacles, un par un, pour que vous puissiez vous concentrer sur l'essentiel : <span className="font-semibold">vendre et développer votre marque.</span>
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══ 3. JE COMPRENDS — LA MISE EN PLACE ═══ */}
       <section id="section-comprend" ref={setRef("comprend")} className="bg-secondary py-24 md:py-32">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
