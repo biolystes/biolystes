@@ -235,14 +235,6 @@ export default function DecouvertePage() {
           </motion.div>
         </div>
 
-        {/* Video présentation */}
-        <div className="max-w-5xl mx-auto px-6 pt-12">
-          <div className="rounded-2xl overflow-hidden">
-            <video autoPlay muted loop playsInline className="w-full h-auto rounded-2xl">
-              <source src="https://biolystes.com/wp-content/uploads/2025/09/ok.mov" type="video/mp4" />
-            </video>
-          </div>
-        </div>
 
         {/* Certifications carousel */}
         <div className="overflow-hidden py-8 mt-8">
