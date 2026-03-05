@@ -226,23 +226,6 @@ export default function DecouvertePage() {
             Biolystes est une solution clé en main qui vous permet de créer et vendre votre propre marque de cosmétiques bio et végane, sans stock, sans minimum de commande, et sans vous noyer dans la complexité.
           </motion.p>
 
-          {/* Key pillars */}
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }}
-            className="mt-14 grid sm:grid-cols-3 gap-6 text-left">
-            {[
-              { icon: FlaskConical, title: "Laboratoires d'excellence", desc: "Formulations certifiées bio et vegan par les meilleurs laboratoires français et européens." },
-              { icon: Truck, title: "Zéro stock, zéro risque", desc: "Votre client commande, on fabrique et on expédie directement sous votre nom." },
-              { icon: Globe, title: "Lancement en 10 jours", desc: "Logo, packaging, site e-commerce, photos — tout est prêt en 10 à 15 jours." },
-            ].map((item, i) => (
-              <div key={item.title} className="p-6 rounded-2xl">
-                <item.icon className="h-5 w-5 text-foreground mb-4" strokeWidth={1.5} />
-                <p className="text-sm font-semibold text-foreground mb-1">{item.title}</p>
-                <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </motion.div>
-        </div>
-
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }}
             className="mt-8 flex flex-wrap justify-center gap-4">
             <a href="https://app.iclosed.io/e/paylystes/r2" target="_blank" rel="noopener noreferrer"
@@ -280,6 +263,23 @@ export default function DecouvertePage() {
           >
             {[...certLogos, ...certLogos].map((logo, i) => (
               <img key={i} src={logo} alt="Certification" className="w-auto object-contain" style={{ maxHeight: 80, filter: "brightness(0)" }} />
+            ))}
+          </motion.div>
+        </div>
+
+          {/* Key pillars */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-8 grid sm:grid-cols-3 gap-6 text-left max-w-4xl mx-auto px-6">
+            {[
+              { icon: FlaskConical, title: "Laboratoires d'excellence", desc: "Formulations certifiées bio et vegan par les meilleurs laboratoires français et européens." },
+              { icon: Truck, title: "Zéro stock, zéro risque", desc: "Votre client commande, on fabrique et on expédie directement sous votre nom." },
+              { icon: Globe, title: "Lancement en 10 jours", desc: "Logo, packaging, site e-commerce, photos — tout est prêt en 10 à 15 jours." },
+            ].map((item, i) => (
+              <div key={item.title} className="p-6 rounded-2xl">
+                <item.icon className="h-5 w-5 text-foreground mb-4" strokeWidth={1.5} />
+                <p className="text-sm font-semibold text-foreground mb-1">{item.title}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+              </div>
             ))}
           </motion.div>
         </div>
