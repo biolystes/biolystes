@@ -246,7 +246,7 @@ function AnimatedChat() {
   );
 }
 
-
+export default function DecouvertePage() {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState<StepKey>("decouvre");
   const sectionRefs = useRef<Record<StepKey, HTMLElement | null>>({
