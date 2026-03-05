@@ -14,7 +14,13 @@ const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
 
 function TopNavBar() {
   const location = useLocation();
-  const { profile, signOut } = useAuth();
+  const { user, profile, signOut, isAdmin } = useAuth();
+
+  const navItems = [
+    ...publicNavItems,
+    ...(user ? [{ path: "/espace-client", icon: LayoutDashboard, label: "Mon espace" }] : []),
+    ...(isAdmin ? [{ path: "/admin", icon: Shield, label: "Admin" }] : []),
+  ];
 
   const isActive = (path: string) => {
     if (path === "/") return location.pathname === "/";
