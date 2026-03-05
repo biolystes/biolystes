@@ -23,15 +23,15 @@ function LystesHero() {
     <div className="text-center max-w-[1120px] mx-auto px-6 pt-24 pb-12">
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
         className="text-[10px] font-bold tracking-[2.5px] uppercase text-muted-foreground mb-5">
-        Comment gérer sa marque
+        Votre équipe intégrée
       </motion.p>
       <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
         className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-foreground">
-        Comment gérer sa marque bio et végane <em className="italic">sans engager trop de dépenses</em> ?
+        Nous mettons en place une équipe complète <em className="italic">qui gère votre marque au quotidien</em>
       </motion.h2>
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
         className="text-[17px] text-muted-foreground leading-[1.7] max-w-[600px] mx-auto">
-        Nous mettons à votre disposition <strong className="text-foreground">7 équipes d'agents IA</strong> spécialisées qui travaillent ensemble pour gérer votre marque au quotidien — photos, SEO, ventes, marketing, analytics — le tout sans embaucher.
+        Une fois votre marque lancée, nos <strong className="text-foreground">7 équipes IA</strong> prennent le relais : photos produits, SEO, marketing, analytics, support client — voici ce qu'elles font pour vous.
       </motion.p>
 
       {/* Stats */}
