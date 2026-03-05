@@ -533,7 +533,7 @@ export default function LystesAiSection() {
   return (
     <>
       <LystesHero />
-      <BeforeAfterPhones />
+      
       <TeamDiagnostics />
       <TeamExpertProduit />
       <TeamPhotographe />
