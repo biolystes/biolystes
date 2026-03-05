@@ -130,7 +130,7 @@ export default function DecouvertePage() {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState<StepKey>("decouvre");
   const sectionRefs = useRef<Record<StepKey, HTMLElement | null>>({
-    decouvre: null, constat: null, comprend: null, qualite: null, livraison: null, lance: null,
+    decouvre: null, constat: null, comprend: null, qualite: null, livraison: null, lystesai: null, lance: null,
   });
 
   useEffect(() => {
