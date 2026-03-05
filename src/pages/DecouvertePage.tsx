@@ -699,6 +699,11 @@ export default function DecouvertePage() {
         </div>
       </section>
 
+      {/* ═══ PRÉSENTATION PRODUITS (INSTA FEED) ═══ */}
+      <section className="py-24 md:py-32">
+        <InstaFeedSection />
+      </section>
+
       {/* ═══ 10. JE ME LANCE ═══ */}
       <section id="section-lance" ref={setRef("lance")} className="bg-secondary py-24 md:py-32">
         <div className="max-w-4xl mx-auto px-6 text-center">
