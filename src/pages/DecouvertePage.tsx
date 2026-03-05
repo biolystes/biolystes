@@ -64,7 +64,7 @@ const steps: { key: StepKey; label: string; subtitle: string }[] = [
   { key: "qualite", label: "La qualité", subtitle: "Nos engagements" },
   { key: "comprend", label: "Je comprends", subtitle: "La mise en place" },
   { key: "livraison", label: "La livraison", subtitle: "Comment ça marche" },
-  { key: "lystesai", label: "Lystes.ai", subtitle: "Vos agents IA" },
+  { key: "lystesai", label: "Votre assistant", subtitle: "Gestion incluse" },
   { key: "portfolio", label: "Nos clients", subtitle: "Portfolio" },
   { key: "catalogue", label: "Catalogue", subtitle: "Nos produits" },
   { key: "tarifs", label: "Tarifs", subtitle: "Nos offres" },
