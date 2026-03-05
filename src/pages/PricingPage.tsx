@@ -118,7 +118,7 @@ function TabDecouverte() {
           <CtaButton label="Commander mes échantillons" filled />
         </div>
 
-        <DeductionBanner text="147€ déduits de toute Offre Sans Site ou Avec Site souscrite dans les 30 jours. Votre test devient un acompte, pas une dépense." />
+        <DeductionBanner text="147€ déduits de toute Offre Avec Site souscrite dans les 30 jours. Votre test devient un acompte, pas une dépense." />
       </div>
     </motion.div>
   );
