@@ -267,7 +267,7 @@ export default function DecouvertePage() {
             style={{ width: "max-content" }}
           >
             {[...certLogos, ...certLogos].map((logo, i) => (
-              <img key={i} src={logo} alt="Certification" className="w-auto object-contain" style={{ maxHeight: 54, filter: "invert(1) hue-rotate(180deg) contrast(2)" }} />
+              <img key={i} src={logo} alt="Certification" className="w-auto object-contain animate-tourne" style={{ maxHeight: 54 }} />
             ))}
           </motion.div>
         </div>
