@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import LystesAiSection from "@/components/LystesAiSection";
 import InstaFeedSection from "@/components/InstaFeedSection";
+import AvantApresSection from "@/components/AvantApresSection";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 
@@ -522,6 +523,9 @@ export default function DecouvertePage() {
       <section id="section-lystesai" ref={setRef("lystesai")} className="bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8">
         <LystesAiSection />
       </section>
+
+      {/* ═══ AVANT / AVEC BIOLYSTES ═══ */}
+      <AvantApresSection />
 
       {/* ═══ 7. PORTFOLIO — NOS CLIENTS ═══ */}
       <section id="section-portfolio" ref={setRef("portfolio")} className="py-24 md:py-32">

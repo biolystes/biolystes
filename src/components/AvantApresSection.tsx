@@ -1,0 +1,232 @@
+import { motion } from "framer-motion";
+import { Star, StarHalf, Menu, Search, User, ShoppingBag, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { AnimatedChat } from "@/components/AnimatedChat";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } }),
+};
+
+const CTA_URL = "https://app.iclosed.io/e/paylystes/r2";
+
+export default function AvantApresSection() {
+  return (
+    <section className="py-24 md:py-36 bg-secondary">
+      <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
+        <div className="w-full flex justify-center items-start overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+          <div className="relative flex flex-col md:flex-row items-start justify-center gap-10 md:gap-16">
+
+            {/* ── AVANT (Concurrents) ── */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
+              className="flex flex-col items-center gap-8 relative z-10 w-[320px] shrink-0">
+              <div className="bg-foreground text-primary-foreground px-5 py-2 rounded-lg font-bold text-sm tracking-widest uppercase">Vos concurrents</div>
+              <div className="w-[320px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden relative flex flex-col">
+                {/* Nav bar */}
+                <div className="flex items-center justify-between px-5 pt-10 pb-4 z-20">
+                  <div className="flex items-center gap-4">
+                    <Menu className="w-5 h-5 text-foreground" />
+                    <Search className="w-5 h-5 text-foreground" />
+                  </div>
+                  <div className="font-serif font-bold text-2xl tracking-wide text-foreground">Expire</div>
+                  <div className="flex items-center gap-3">
+                    <User className="w-5 h-5 text-foreground" />
+                    <div className="relative">
+                      <ShoppingBag className="w-5 h-5 text-foreground" />
+                      <span className="absolute -top-1 -right-1 bg-foreground text-primary-foreground text-[9px] font-bold w-3.5 h-3.5 flex items-center justify-center rounded-full">1</span>
+                    </div>
+                  </div>
+                </div>
+                {/* Product image area */}
+                <div className="w-full h-64 bg-muted relative pt-4 overflow-hidden">
+                  <div className="flex justify-center items-start h-full">
+                    <img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl shadow-sm border border-border relative z-10" />
+                  </div>
+                  <div className="absolute bottom-4 w-full flex justify-center gap-2 z-20">
+                    <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />
+                  </div>
+                </div>
+                {/* Product info */}
+                <div className="px-6 mt-8 pb-8">
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <div className="flex text-foreground text-sm">
+                      {[...Array(4)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
+                      <StarHalf className="w-3.5 h-3.5 fill-current" />
+                    </div>
+                    <span className="text-xs font-bold text-foreground">4.8/5</span>
+                    <span className="text-xs text-muted-foreground">(241 avis)</span>
+                  </div>
+                  <h3 className="text-[22px] font-bold leading-tight text-foreground mb-1">Crème de jour<br />anti-âge</h3>
+                  <p className="text-[11px] font-bold text-muted-foreground mb-3">Vitiligo • Pores dilatés • Rougeurs</p>
+                  <div className="flex items-end gap-2 mb-4">
+                    <span className="text-lg font-bold text-foreground">49,90€</span>
+                    <span className="text-sm text-muted-foreground line-through mb-0.5">65,00€</span>
+                  </div>
+                  <p className="text-[13px] text-muted-foreground leading-relaxed mb-8 h-[72px]">
+                    Unifie le teint et repulpe la peau sans laisser de film gras. Idéale pour les peaux mixtes et les problématiques de pigmentation.
+                  </p>
+                  <button className="w-full bg-foreground text-primary-foreground py-4 rounded-xl font-bold flex items-center justify-center gap-2 text-[13px] tracking-wide shadow-lg uppercase mb-4">
+                    AJOUTER AU PANIER<span className="w-px h-4 bg-muted-foreground/50 mx-2" />49,90€
+                  </button>
+                  <div className="flex justify-center items-center gap-3">
+                    <div className="px-2.5 py-0.5 border border-border rounded text-[10px] font-bold text-[#1434CB] italic">VISA</div>
+                    <div className="w-7 h-4 border border-border rounded relative overflow-hidden flex items-center justify-center bg-background">
+                      <div className="w-3.5 h-3.5 bg-[#EB001B] rounded-full absolute -ml-2.5 opacity-90" />
+                      <div className="w-3.5 h-3.5 bg-[#F79E1B] rounded-full absolute ml-2.5 opacity-90" />
+                    </div>
+                    <div className="px-2.5 py-0.5 border border-border rounded text-[10px] font-bold flex items-center gap-1 text-foreground"> Pay</div>
+                    <div className="px-2.5 py-0.5 border border-border rounded text-[10px] font-bold flex items-center gap-1 text-muted-foreground">G Pay</div>
+                  </div>
+                </div>
+              </div>
+              {/* Conversion rate card */}
+              <div className="w-[320px] bg-background px-5 py-4 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] relative z-20">
+                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block mb-2">TAUX DE CONVERSION</span>
+                <div className="flex items-center gap-3">
+                  <span className="text-[22px] font-bold text-foreground">3,8 %</span>
+                  <span className="text-primary font-bold text-sm">→</span>
+                  <span className="text-[22px] font-bold text-primary">42 %</span>
+                  <svg className="w-16 h-6 ml-auto" viewBox="0 0 100 30" fill="none">
+                    <path d="M0 20 Q 15 0, 30 15 T 60 15 T 90 10 T 100 5" stroke="hsl(var(--primary))" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* ── AVEC BIOLYSTES ── */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
+              className="flex flex-col items-center gap-8 relative w-[360px] shrink-0">
+              <div className="bg-foreground text-primary-foreground px-5 py-2 rounded-lg font-bold text-sm tracking-widest uppercase z-10">
+                Vous avec Biolystes AI
+              </div>
+              <div className="relative">
+                <div className="w-[360px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden relative flex flex-col z-10">
+                  {/* Nav bar */}
+                  <div className="flex items-center justify-between px-5 pt-10 pb-4 z-20 shrink-0 border-b border-border">
+                    <div className="flex items-center gap-4">
+                      <Menu className="w-5 h-5 text-foreground" />
+                      <Search className="w-5 h-5 text-foreground" />
+                    </div>
+                    <div className="font-serif font-bold text-2xl tracking-wide text-foreground">Expire</div>
+                    <div className="flex items-center gap-3">
+                      <User className="w-5 h-5 text-foreground" />
+                      <div className="relative">
+                        <ShoppingBag className="w-5 h-5 text-foreground" />
+                        <span className="absolute -top-1 -right-1 bg-foreground text-primary-foreground text-[9px] font-bold w-3.5 h-3.5 flex items-center justify-center rounded-full">1</span>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Promo bar */}
+                  <div className="w-full bg-foreground text-primary-foreground text-center text-[10px] font-medium tracking-widest uppercase py-1.5 shrink-0">
+                    Livraison gratuite aujourd'hui
+                  </div>
+                  {/* Product images carousel */}
+                  <div className="w-full relative mt-2 shrink-0">
+                    <div className="flex overflow-x-auto gap-4 px-5 pb-6 pt-2" style={{ scrollbarWidth: "none" }}>
+                      {[
+                        "https://lystes.ai/images/clients/kaniwa-6.jpg",
+                        "https://lystes.ai/images/clients/kaniwa-ugc-1.jpg",
+                        "https://lystes.ai/images/clients/kaniwa-8.jpg",
+                        "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg",
+                        "https://lystes.ai/images/clients/kaniwa-7.jpg",
+                        "https://lystes.ai/images/clients/kaniwa-ugc-3.jpg",
+                        "https://lystes.ai/images/clients/kaniwa-4.jpg",
+                        "https://lystes.ai/images/clients/kaniwa-5.jpg",
+                      ].map((src, i) => (
+                        <div key={i} className="snap-start shrink-0 relative flex flex-col items-center">
+                          <div className="absolute -bottom-1.5 w-[85%] h-4 bg-foreground/15 blur-md rounded-[100%] z-0" />
+                          <img src={src} alt="" className="w-[240px] h-[280px] object-cover rounded-2xl shadow-sm relative z-10 border border-border" />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="absolute bottom-1 w-full flex justify-center gap-1.5 z-20">
+                      <div className="w-4 h-1.5 rounded-full bg-foreground" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />
+                      <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />
+                    </div>
+                  </div>
+                  {/* Product info */}
+                  <div className="px-6 mt-8">
+                    <div className="flex items-center gap-1.5 mb-2">
+                      <div className="flex text-foreground text-sm">
+                        {[...Array(4)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
+                        <StarHalf className="w-3.5 h-3.5 fill-current" />
+                      </div>
+                      <span className="text-xs font-bold text-foreground">4.8/5</span>
+                      <span className="text-xs text-muted-foreground">(241 avis)</span>
+                    </div>
+                    <h3 className="text-[22px] font-bold leading-tight text-foreground mb-1">Crème de jour anti-âge</h3>
+                    <p className="text-[11px] font-bold text-muted-foreground mb-3">Vitiligo • Pores dilatés • Rougeurs</p>
+                    <p className="text-[13px] text-muted-foreground leading-relaxed mb-6">
+                      Découvrez notre <strong className="text-foreground">crème de jour anti-âge</strong> formulée pour revitaliser votre peau. Ce <strong className="text-foreground">soin hydratant expert</strong> unifie le teint, repulpe l'épiderme et aide à réduire l'apparence des taches pigmentaires.
+                    </p>
+                    {/* Animated Chat widget */}
+                    <AnimatedChat />
+                    {/* Add to cart */}
+                    <button className="w-full bg-foreground text-primary-foreground py-4 rounded-xl font-bold flex items-center justify-center gap-2 mb-6 text-[13px] tracking-wide shadow-lg uppercase">
+                      AJOUTER AU PANIER<span className="w-px h-4 bg-muted-foreground/50 mx-2" />49,90€
+                    </button>
+                    {/* UGC images */}
+                    <div className="flex gap-2 pb-6">
+                      {[
+                        "https://lystes.ai/images/clients/kaniwa-ugc-1.jpg",
+                        "https://lystes.ai/images/clients/kaniwa-ugc-3.jpg",
+                        "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg",
+                      ].map((src, i) => (
+                        <div key={i} className="w-20 h-20 rounded-xl overflow-hidden">
+                          <img src={src} alt="" className="w-full h-full object-cover" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* AI Agent labels - desktop */}
+                <div className="hidden lg:block absolute -right-4 top-0 translate-x-full pl-4" style={{ height: "100%" }}>
+                  {[
+                    { label: "Équipe Marketing AI", top: "80px" },
+                    { label: "Équipe Photographe AI", top: "160px" },
+                    { label: "Équipe Expert SEO AI", top: "420px" },
+                    { label: "Équipe Expert produit AI", top: "560px" },
+                    { label: "Équipe Diagnostics AI", top: "700px" },
+                    { label: "Créateur de contenu AI", top: "830px" },
+                  ].map((agent) => (
+                    <div key={agent.label} className="flex items-center gap-2 absolute" style={{ top: agent.top }}>
+                      <div className="w-2 h-2 rounded-full bg-foreground border-2 border-background shadow" />
+                      <div className="w-10 h-px bg-foreground/20" />
+                      <span className="bg-foreground text-primary-foreground text-[11px] font-medium px-3 py-1.5 rounded-lg whitespace-nowrap shadow-sm">
+                        {agent.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile: agent labels */}
+              <div className="lg:hidden flex flex-wrap gap-2 justify-center mt-2">
+                {["Équipe Marketing AI", "Équipe Photographe AI", "Équipe Expert SEO AI", "Équipe Expert produit AI", "Équipe Diagnostics AI", "Équipe Créateur de contenu AI", "Équipe Analytics AI"].map((label) => (
+                  <span key={label} className="bg-foreground text-primary-foreground text-[10px] font-medium px-3 py-1.5 rounded-lg">
+                    {label}
+                  </span>
+                ))}
+              </div>
+            </motion.div>
+
+          </div>
+        </div>
+
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4} className="mt-16 text-center">
+          <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
+            <Button size="lg" className="rounded-full px-8 h-12 text-sm tracking-wide">
+              Découvrir Lystes AI
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </a>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
