@@ -267,7 +267,7 @@ export default function PricingPage() {
       <div className="space-y-8">
         <motion.div ref={(el) => { packRefs.current.decouverte = el; }}
           initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-          className="max-w-lg mx-auto">
+          className="w-full">
           <PackDecouverte />
           <div className="mt-5">
             <DeductionBanner text="147€ déduits de toute Offre Avec Site souscrite dans les 30 jours. Votre test devient un acompte, pas une dépense." />
