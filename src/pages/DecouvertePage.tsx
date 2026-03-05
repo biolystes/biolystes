@@ -288,6 +288,19 @@ export default function DecouvertePage() {
 
 
 
+      {/* ═══ PORTFOLIO IMAGES MARQUEE ═══ */}
+      <section className="overflow-hidden py-6 bg-background">
+        <div className="flex gap-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
+          {[
+            kaniwa1, fralene1, sevmylook1, pmyrris1, kaniwa3, fralene3, sevmylook3, pmyrris4,
+          ].map((src, i) => (
+            <div key={i} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden">
+              <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ═══ 3. LA QUALITÉ — NOS ENGAGEMENTS ═══ */}
       <section id="section-qualite" ref={setRef("qualite")} className="py-24 md:py-32">
         <div className="max-w-4xl mx-auto px-6">
