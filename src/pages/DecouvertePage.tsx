@@ -288,7 +288,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 3. LA QUALITÉ — NOS ENGAGEMENTS ═══ */}
-      <section id="section-qualite" ref={setRef("qualite")} className="py-24 md:py-32">
+      <section id="section-qualite" ref={setRef("qualite")} className="py-12 md:py-16">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16 text-center">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Nos engagements</motion.p>
