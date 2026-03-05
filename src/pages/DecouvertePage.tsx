@@ -201,7 +201,7 @@ export default function DecouvertePage() {
   };
 
   return (
-    <div className="min-h-screen bg-background -mx-6 lg:-mx-10 -mt-6 lg:-mt-10">
+    <div className="min-h-screen bg-background -mx-6 lg:-mx-10 -mt-6 lg:-mt-10 overflow-x-clip">
       <StepProgress activeStep={activeStep} />
 
       {/* ═══ 1. JE DÉCOUVRE ═══ */}
