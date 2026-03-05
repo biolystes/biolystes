@@ -308,8 +308,8 @@ export default function PricingPage() {
       >
         <AnimatePresence mode="wait">
           {activeTab === "decouverte" && <TabDecouverte key="decouverte" />}
-          {activeTab === "sans-site" && <TabSansSite key="sans-site" />}
           {activeTab === "avec-site" && <TabAvecSite key="avec-site" />}
+          {activeTab === "avec-site-ai" && <TabAvecSiteAI key="avec-site-ai" />}
           {activeTab === "abonnement" && <TabAbonnement key="abonnement" />}
         </AnimatePresence>
       </motion.div>
