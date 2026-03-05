@@ -26,7 +26,7 @@ function LystesHero() {
         Votre équipe intégrée
       </motion.p>
       <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-        className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-foreground">
+        className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-white">
         Comment gérer sa marque, <em className="italic">une fois celle-ci mise en place ?</em>
       </motion.h2>
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
