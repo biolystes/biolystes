@@ -785,6 +785,11 @@ export default function DecouvertePage() {
         <InstaFeedSection />
       </section>
 
+      {/* ═══ WIRTZKIN ═══ */}
+      <section className="py-24 md:py-32 bg-background">
+        <WirtzkinSection />
+      </section>
+
       {/* ═══ 10. JE ME LANCE ═══ */}
       <section id="section-lance" ref={setRef("lance")} className="bg-secondary py-24 md:py-32">
         <div className="max-w-4xl mx-auto px-6 text-center">
