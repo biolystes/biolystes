@@ -216,8 +216,8 @@ export default function DecouvertePage() {
             </span>
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-foreground uppercase max-w-4xl mx-auto text-[22px] md:text-[32px] lg:text-[38px]"
-            style={{ fontFamily: "'Krona One', sans-serif", lineHeight: 1.45 }}>
+            className="text-foreground max-w-[726px] mx-auto text-[36px] md:text-[56px] lg:text-[74px]"
+            style={{ fontFamily: "'Instrument Serif', serif", lineHeight: "1em", letterSpacing: 0 }}>
             Lancez votre marque cosmétique bio et végane sans vous ruiner
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
