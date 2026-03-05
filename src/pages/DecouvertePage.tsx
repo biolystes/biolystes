@@ -54,7 +54,7 @@ const fadeUp = {
   }),
 };
 
-type StepKey = "decouvre" | "constat" | "comprend" | "qualite" | "livraison" | "lystesai" | "portfolio" | "lance";
+type StepKey = "decouvre" | "constat" | "comprend" | "qualite" | "livraison" | "lystesai" | "portfolio" | "catalogue" | "tarifs" | "lance";
 
 const steps: { key: StepKey; label: string; subtitle: string }[] = [
   { key: "decouvre", label: "Je découvre", subtitle: "Le concept" },
@@ -64,6 +64,8 @@ const steps: { key: StepKey; label: string; subtitle: string }[] = [
   { key: "livraison", label: "La livraison", subtitle: "Comment ça marche" },
   { key: "lystesai", label: "Lystes.ai", subtitle: "Vos agents IA" },
   { key: "portfolio", label: "Nos clients", subtitle: "Portfolio" },
+  { key: "catalogue", label: "Catalogue", subtitle: "Nos produits" },
+  { key: "tarifs", label: "Tarifs", subtitle: "Nos offres" },
   { key: "lance", label: "Je me lance", subtitle: "Passez à l'action" },
 ];
 
