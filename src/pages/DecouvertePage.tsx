@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import LystesAiSection from "@/components/LystesAiSection";
 import InstaFeedSection from "@/components/InstaFeedSection";
+import AvantApresSection from "@/components/AvantApresSection";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 
