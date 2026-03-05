@@ -194,9 +194,9 @@ export default function AvantApresSection() {
                     { label: "Créateur de contenu AI", top: "830px" },
                   ].map((agent) => (
                     <div key={agent.label} className="flex items-center gap-2 absolute" style={{ top: agent.top }}>
-                      <div className="w-2 h-2 rounded-full bg-foreground border-2 border-background shadow" />
+                      <div className="w-2 h-2 rounded-full bg-foreground border-2 border-background" />
                       <div className="w-10 h-px bg-foreground/20" />
-                      <span className="bg-foreground text-primary-foreground text-[11px] font-medium px-3 py-1.5 rounded-lg whitespace-nowrap shadow-sm">
+                      <span className="bg-foreground text-primary-foreground text-[11px] font-medium px-3 py-1.5 rounded-lg whitespace-nowrap">
                         {agent.label}
                       </span>
                     </div>
