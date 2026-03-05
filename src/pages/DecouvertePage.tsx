@@ -370,9 +370,9 @@ export default function DecouvertePage() {
                 Voir notre dernier projet
               </Button>
             </a>
-            <a href="/catalog">
+            <a href="https://app.iclosed.io/e/paylystes/r2" target="_blank" rel="noopener noreferrer">
               <Button size="lg" variant="outline" className="rounded-full px-10 h-14 text-sm tracking-wide font-medium border-muted-foreground/40 text-foreground hover:bg-foreground hover:text-primary-foreground uppercase">
-                Voir nos produits bio
+                Demander l'accès à nos produits
               </Button>
             </a>
           </motion.div>
