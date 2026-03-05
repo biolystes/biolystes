@@ -242,6 +242,7 @@ export default function DecouvertePage() {
               <source src="https://biolystes.com/wp-content/uploads/2025/09/ok.mov" type="video/mp4" />
             </video>
           </div>
+        </div>
 
         {/* Certifications carousel */}
         <div className="overflow-hidden py-8 mt-8">
