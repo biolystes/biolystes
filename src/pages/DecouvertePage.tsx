@@ -610,14 +610,6 @@ export default function DecouvertePage() {
             ))}
           </div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-            className="mt-16 text-center">
-            <Button variant="outline" className="rounded-full px-8 h-12 text-sm border-muted-foreground/40"
-              onClick={() => navigate("/portfolio")}>
-              Voir tout le portfolio
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </motion.div>
         </div>
       </section>
 
