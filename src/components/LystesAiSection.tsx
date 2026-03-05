@@ -31,7 +31,7 @@ function LystesHero() {
       </motion.h2>
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
         className="text-[17px] text-muted-foreground leading-[1.7] max-w-[600px] mx-auto">
-        Une fois votre marque lancée, nos <strong className="text-foreground">7 équipes IA</strong> prennent le relais : photos produits, SEO, marketing, analytics, support client — voici ce qu'elles font pour vous.
+        Une fois votre marque lancée, en plus de s'occuper de l'hébergement et de la gestion du site internet, nous vous mettons à disposition nos <strong className="text-foreground">7 équipes IA</strong> : photos produits, SEO, marketing, analytics, support client — voici ce qu'elles font pour vous.
       </motion.p>
 
       {/* Stats */}
