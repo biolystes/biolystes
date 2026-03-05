@@ -4,7 +4,7 @@ import { Package, Zap, Globe, CreditCard, Check, Info, ArrowRight } from "lucide
 
 const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
 
-type Tab = "decouverte" | "sans-site" | "avec-site" | "abonnement";
+type Tab = "decouverte" | "avec-site" | "avec-site-ai" | "abonnement";
 
 function CheckItem({ text }: { text: string }) {
   return (
@@ -60,8 +60,8 @@ function DeductionBanner({ text }: { text: string }) {
 function StepProgress({ activeTab, onTabChange }: { activeTab: Tab; onTabChange: (t: Tab) => void }) {
   const steps: { key: Tab; step: string; label: string; price: string }[] = [
     { key: "decouverte", step: "1", label: "Je teste", price: "Dès 147€" },
-    { key: "sans-site", step: "2", label: "Je vends", price: "Dès 138€" },
-    { key: "avec-site", step: "3", label: "Je lance", price: "Dès 1 499€" },
+    { key: "avec-site", step: "2", label: "Je lance", price: "Dès 1 499€" },
+    { key: "avec-site-ai", step: "3", label: "Je lance + IA", price: "Dès 2 999€" },
   ];
 
   return (
@@ -118,64 +118,8 @@ function TabDecouverte() {
           <CtaButton label="Commander mes échantillons" filled />
         </div>
 
-        <DeductionBanner text="147€ déduits de toute Offre Sans Site ou Avec Site souscrite dans les 30 jours. Votre test devient un acompte, pas une dépense." />
+        <DeductionBanner text="147€ déduits de toute Offre Avec Site souscrite dans les 30 jours. Votre test devient un acompte, pas une dépense." />
       </div>
-    </motion.div>
-  );
-}
-
-// ─── OFFRE SANS SITE WEB ──────────────────────────────────
-function TabSansSite() {
-  return (
-    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="flex flex-col gap-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="relative rounded-2xl p-5 md:p-7 flex flex-col border border-border">
-          <Badge label="Formule 1" />
-          <div className="mt-2">
-            <h3 className="text-base md:text-lg font-extrabold uppercase tracking-tight mb-1 text-foreground">Sans Design — 39€/mois</h3>
-            <p className="text-sm mb-5 text-muted-foreground leading-relaxed">Accédez au catalogue et testez sans engagement</p>
-            <div className="flex flex-col gap-2.5 mb-7">
-              {[
-                "Accès catalogue complet",
-                "Jusqu'à 4 références produits",
-                "Aucun minimum de stock imposé",
-                "Mise en conformité étiquetage",
-                "Étiquetage standard conforme inclus",
-                "Produits certifiés bio, végan, COSMOS, Ecocert",
-                "Produits facturés à l'unité (10-20€ selon la réf.)",
-                "Accompagnement dans la sélection de vos produits",
-                "Sans engagement, résiliable à tout moment",
-              ].map((t, i) => <CheckItem key={i} text={t} />)}
-            </div>
-          </div>
-          <CtaButton label="Explorer le catalogue" filled />
-        </div>
-
-        <div className="relative rounded-2xl p-5 md:p-7 flex flex-col border-2 border-foreground">
-          <Badge label="Formule 2 · Recommandé" popular />
-          <div className="mt-2">
-            <h3 className="text-base md:text-lg font-extrabold uppercase tracking-tight mb-1 text-foreground">Avec Design — 39€/mois + 99€</h3>
-            <p className="text-sm mb-1 text-muted-foreground leading-relaxed">Votre marque clé en main dès 138€</p>
-            <p className="text-[11px] mb-5 text-muted-foreground">39€/mois + 99€ forfait unique design</p>
-            <div className="flex flex-col gap-2.5 mb-7">
-              {[
-                "Tout de la Formule 1 inclus",
-                "Création de logo",
-                "Mise en conformité étiquetage",
-                "Design packaging des 4 produits",
-                "Brandboard complet",
-                "3 aller-retours avec nos designers",
-                "Fichiers livrés, ils sont à vous",
-                "Produits facturés à l'unité (10-20€ selon la réf.)",
-                "Référence produit supplémentaire : +49€ de design/produit",
-              ].map((t, i) => <CheckItem key={i} text={t} />)}
-            </div>
-          </div>
-          <CtaButton label="Prendre RDV" />
-        </div>
-      </div>
-
-      <DeductionBanner text="Vous avez commandé un Pack Échantillon ? Vos 147€ sont déduits du forfait design (99€ offerts + 48€ déduits du 1er mois)." />
     </motion.div>
   );
 }
@@ -183,8 +127,8 @@ function TabSansSite() {
 // ─── OFFRE AVEC SITE WEB ──────────────────────────────────
 function TabAvecSite() {
   return (
-    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="flex flex-col items-center">
+      <div className="w-full max-w-lg">
         <div className="relative rounded-2xl p-5 md:p-7 flex flex-col border-2 border-foreground">
           <Badge label="Populaire" popular />
           <h3 className="text-base font-extrabold uppercase tracking-tight mb-1 mt-2 text-foreground">Pack Agence</h3>
@@ -201,9 +145,18 @@ function TabAvecSite() {
           <div className="flex-1 mb-6">
             {["Création de logo", "Design Packaging", "Contenu textuel clé en main", "Photographie IA hyperréaliste", "Site e-commerce", "Indexation Google", "Automatisation livraison", "Support premium", "Expert produit dédié en votre nom", "Achat de stock pas nécessaire", "Aucune quantité min en cas d'achat de stock", "Optimisation SEO avancée", "CRO standard"].map((f, i) => <CheckItem key={i} text={f} />)}
           </div>
-          <CtaButton label="Prendre RDV" />
+          <CtaButton label="Prendre RDV" filled />
         </div>
+        <DeductionBanner text="Vous avez commandé un Pack Échantillon ? Vos 147€ sont déduits de la mise en place." />
+      </div>
+    </motion.div>
+  );
+}
 
+function TabAvecSiteAI() {
+  return (
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="flex flex-col items-center">
+      <div className="w-full max-w-lg">
         <div className="relative rounded-2xl p-5 md:p-7 flex flex-col border border-border">
           <h3 className="text-base font-extrabold uppercase tracking-tight mb-1 text-foreground">Pack IA</h3>
           <p className="text-xs mb-4 text-muted-foreground">Gestion 360° + Intelligence artificielle avancée</p>
@@ -221,9 +174,8 @@ function TabAvecSite() {
           </div>
           <CtaButton label="Prendre RDV" />
         </div>
+        <DeductionBanner text="Vous avez commandé un Pack Échantillon ? Vos 147€ sont déduits de la mise en place." />
       </div>
-
-      <DeductionBanner text="Vous avez commandé un Pack Échantillon ? Vos 147€ sont déduits de la mise en place." />
     </motion.div>
   );
 }
@@ -306,8 +258,8 @@ export default function PricingPage() {
 
   const tabs: { key: Tab; label: string; shortLabel: string; icon: React.ReactNode }[] = [
     { key: "decouverte", label: "Pack Échantillon", shortLabel: "Échantillon", icon: <Package size={13} strokeWidth={1.8} /> },
-    { key: "sans-site", label: "Offre sans site web", shortLabel: "Sans site", icon: <Zap size={13} strokeWidth={1.8} /> },
-    { key: "avec-site", label: "Offre avec site web", shortLabel: "Avec site", icon: <Globe size={13} strokeWidth={1.8} /> },
+    { key: "avec-site", label: "Offre avec site", shortLabel: "Avec site", icon: <Globe size={13} strokeWidth={1.8} /> },
+    { key: "avec-site-ai", label: "Offre avec site + IA", shortLabel: "Avec site IA", icon: <Zap size={13} strokeWidth={1.8} /> },
     { key: "abonnement", label: "Abonnement mensuel", shortLabel: "Abonnement", icon: <CreditCard size={13} strokeWidth={1.8} /> },
   ];
 
@@ -356,8 +308,8 @@ export default function PricingPage() {
       >
         <AnimatePresence mode="wait">
           {activeTab === "decouverte" && <TabDecouverte key="decouverte" />}
-          {activeTab === "sans-site" && <TabSansSite key="sans-site" />}
           {activeTab === "avec-site" && <TabAvecSite key="avec-site" />}
+          {activeTab === "avec-site-ai" && <TabAvecSiteAI key="avec-site-ai" />}
           {activeTab === "abonnement" && <TabAbonnement key="abonnement" />}
         </AnimatePresence>
       </motion.div>
