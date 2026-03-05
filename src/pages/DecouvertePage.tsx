@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import CommentCaMarche from "@/components/CommentCaMarche";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
