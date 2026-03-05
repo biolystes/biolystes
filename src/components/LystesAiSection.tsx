@@ -22,29 +22,29 @@ function LystesHero() {
   return (
     <div className="text-center max-w-[1120px] mx-auto px-6 pt-24 pb-12">
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-        className="text-[10px] font-bold tracking-[2.5px] uppercase text-muted-foreground mb-5">
+        className="text-[10px] font-bold tracking-[2.5px] uppercase text-white/50 mb-5">
         Votre équipe intégrée
       </motion.p>
       <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-        className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-foreground">
+        className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-white">
         Comment gérer sa marque, <em className="italic">une fois celle-ci mise en place ?</em>
       </motion.h2>
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
-        className="text-[17px] text-muted-foreground leading-[1.7] max-w-[600px] mx-auto">
-        Une fois votre marque lancée, en plus de s'occuper de l'hébergement et de la gestion du site internet, nous vous mettons à disposition nos <strong className="text-foreground">7 équipes IA</strong> : photos produits, SEO, marketing, analytics, support client — voici ce qu'elles font pour vous.
+        className="text-[17px] text-white/50 leading-[1.7] max-w-[600px] mx-auto">
+        Une fois votre marque lancée, en plus de s'occuper de l'hébergement et de la gestion du site internet, nous vous mettons à disposition nos <strong className="text-white">7 équipes IA</strong> : photos produits, SEO, marketing, analytics, support client — voici ce qu'elles font pour vous.
       </motion.p>
 
       {/* Stats */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
-        className="grid grid-cols-3 max-w-xl mx-auto pt-14 pb-6 divide-x divide-border">
+        className="grid grid-cols-3 max-w-xl mx-auto pt-14 pb-6 divide-x divide-white/20">
         {[
           { num: "7", label: "Équipes AI dédiées" },
           { num: "24h/24", label: "Disponibilité" },
           { num: "80%", label: "Économie vs agence" },
         ].map((s) => (
           <div key={s.label} className="text-center px-4 md:px-8">
-            <div className="text-2xl md:text-3xl font-light leading-none text-foreground tracking-tight italic">{s.num}</div>
-            <div className="text-[10px] text-muted-foreground font-semibold mt-3 uppercase tracking-[0.15em] whitespace-nowrap">{s.label}</div>
+            <div className="text-2xl md:text-3xl font-light leading-none text-white tracking-tight italic">{s.num}</div>
+            <div className="text-[10px] text-white/50 font-semibold mt-3 uppercase tracking-[0.15em] whitespace-nowrap">{s.label}</div>
           </div>
         ))}
       </motion.div>
