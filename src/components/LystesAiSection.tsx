@@ -222,7 +222,7 @@ function TeamDiagnostics() {
 function TeamExpertProduit() {
   return (
     <TeamRow bg="bg-secondary" reversed title="Un vendeur expert sur chaque fiche" kicker="Équipe Expert Produit AI"
-      desc="Chaque produit dispose de son propre expert dédié. Il répond instantanément aux questions sur la composition, la compatibilité, les délais. Comme votre meilleur vendeur, formé sur chaque détail.">
+      desc="Nous mettons en place une équipe Expert Produit AI, qui répond instantanément aux questions de vos clients sur la composition, la compatibilité et les délais. Comme votre meilleur vendeur, formé sur chaque détail de chaque produit.">
       <div className="flex justify-center">
         <div className="w-[320px] bg-background rounded-[2rem] overflow-hidden border border-border">
           <PhoneHeader small />
