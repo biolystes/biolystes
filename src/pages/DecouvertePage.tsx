@@ -62,8 +62,8 @@ type StepKey = "decouvre" | "constat" | "comprend" | "qualite" | "livraison" | "
 const steps: { key: StepKey; label: string; subtitle: string }[] = [
   { key: "decouvre", label: "Je découvre", subtitle: "Le concept" },
   { key: "constat", label: "Le constat", subtitle: "Pourquoi Biolystes" },
-  { key: "comprend", label: "Je comprends", subtitle: "La mise en place" },
   { key: "qualite", label: "La qualité", subtitle: "Nos engagements" },
+  { key: "comprend", label: "Je comprends", subtitle: "La mise en place" },
   { key: "livraison", label: "La livraison", subtitle: "Comment ça marche" },
   { key: "lystesai", label: "Lystes.ai", subtitle: "Vos agents IA" },
   { key: "portfolio", label: "Nos clients", subtitle: "Portfolio" },
@@ -477,11 +477,6 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ 3. JE COMPRENDS — LA MISE EN PLACE ═══ */}
-      <section id="section-comprend" ref={setRef("comprend")} className="py-0">
-        <CommentCaMarche />
-      </section>
-
       {/* ═══ 3. LA QUALITÉ — NOS ENGAGEMENTS ═══ */}
       <section id="section-qualite" ref={setRef("qualite")} className="py-24 md:py-32">
         <div className="max-w-4xl mx-auto px-6">
@@ -546,7 +541,12 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ 4. LA LIVRAISON ═══ */}
+      {/* ═══ 4. JE COMPRENDS — LA MISE EN PLACE ═══ */}
+      <section id="section-comprend" ref={setRef("comprend")} className="py-0">
+        <CommentCaMarche />
+      </section>
+
+      {/* ═══ 5. LA LIVRAISON ═══ */}
       <section id="section-livraison" ref={setRef("livraison")} className="bg-secondary py-24 md:py-32">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
