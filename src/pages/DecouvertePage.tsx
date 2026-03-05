@@ -588,7 +588,7 @@ export default function DecouvertePage() {
                 <motion.div key={p.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
                   className="group cursor-pointer" onClick={() => navigate("/catalog")}>
                   <div className="aspect-square rounded-2xl overflow-hidden mb-3 bg-muted">
-                    {p.image && <img src={p.image} alt={p.name} className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500" loading="lazy" />}
+                    {p.image && <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />}
                   </div>
                   <p className="text-sm font-medium text-foreground truncate">{p.name}</p>
                   <p className="text-xs text-muted-foreground mt-0.5">{p.price} EUR HT</p>
