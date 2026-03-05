@@ -319,25 +319,63 @@ function TeamMarketing() {
   return (
     <TeamRow bg="bg-background" title="Votre directeur marketing 24h/24" kicker="Équipe Marketing AI"
       desc="Plans d'action marketing personnalisés, campagnes email, stratégies de conversion. Un directeur marketing qui travaille pour vous 24h/24.">
-      <div>
-        <div className="text-[13px] font-bold text-foreground mb-4 flex items-center gap-2">
-          <ClipboardList className="w-4 h-4" /> Plan d'action — Semaine 1
-        </div>
-        {tasks.map(t => (
-          <div key={t.day} className={`flex items-center gap-3 p-3 rounded-xl mb-1.5 ${t.status === "now" ? "bg-blue-50" : "bg-background"}`}>
-            <span className="w-9 font-bold text-[11px] text-muted-foreground">{t.day}</span>
-            <span className={`flex-1 text-[12.5px] text-foreground ${t.status === "now" ? "font-semibold" : ""}`}>{t.task}</span>
-            <div className={`w-[22px] h-[22px] rounded-full flex items-center justify-center ${
-              t.status === "done" ? "bg-foreground" : t.status === "now" ? "bg-blue-500" : "bg-muted"
-            }`}>
-              {t.status === "done" && <Check className="w-[10px] h-[10px] text-primary-foreground" strokeWidth={3} />}
-              {t.status === "now" && <Play className="w-[10px] h-[10px] text-white fill-white" />}
-              {t.status === "wait" && <Minus className="w-[10px] h-[10px] text-muted-foreground" strokeWidth={3} />}
+      <div className="w-full max-w-xl mx-auto bg-background rounded-[2.5rem] border border-border overflow-hidden">
+        {/* Header */}
+        <div className="px-8 pt-10 pb-6 flex items-center justify-between">
+          <div>
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-muted-foreground">Progression</span>
+            <h3 className="text-2xl font-bold tracking-tight text-foreground mt-1">Semaine 1</h3>
+          </div>
+          <div className="h-12 w-12 rounded-2xl bg-muted/50 flex items-center justify-center border border-border">
+            <div className="w-6 h-1 bg-muted rounded-full relative overflow-hidden">
+              <div className="absolute left-0 top-0 h-full w-3/5 bg-blue-500 rounded-full" />
             </div>
           </div>
-        ))}
-        <div className="mt-2.5 p-2.5 bg-muted rounded-xl text-[11px] text-muted-foreground text-center">
-          Objectif : <strong className="text-foreground">+25% trafic</strong> · <strong className="text-foreground">15 ventes</strong> cette semaine
+        </div>
+
+        {/* Task list */}
+        <div className="px-6 pb-6 space-y-2">
+          {tasks.map(t => (
+            <div key={t.day} className={`flex items-center justify-between p-5 rounded-[1.25rem] transition-all duration-300 border ${
+              t.status === "now" ? "bg-blue-50/30 border-blue-100" : "bg-transparent border-transparent"
+            }`}>
+              <div className="flex items-center gap-6">
+                <span className={`w-10 text-[11px] font-extrabold tracking-widest ${
+                  t.status === "done" ? "text-muted-foreground/40" : "text-muted-foreground"
+                }`}>{t.day}</span>
+                <span className={`text-[15px] font-semibold ${
+                  t.status === "done" ? "text-muted-foreground/40 line-through" : "text-foreground"
+                }`}>{t.task}</span>
+              </div>
+              <div className={`w-[26px] h-[26px] rounded-full flex items-center justify-center ${
+                t.status === "done" ? "bg-foreground" : t.status === "now" ? "bg-blue-500" : "bg-muted"
+              }`}>
+                {t.status === "done" && <Check className="w-3 h-3 text-primary-foreground" strokeWidth={3} />}
+                {t.status === "now" && <Play className="w-3 h-3 text-white fill-white" />}
+                {t.status === "wait" && <Minus className="w-3 h-3 text-muted-foreground" strokeWidth={3} />}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Objectifs */}
+        <div className="m-6 p-8 bg-foreground rounded-[2rem] text-primary-foreground">
+          <div className="flex items-center gap-2 mb-6 opacity-40">
+            <span className="text-[10px] font-bold uppercase tracking-[0.25em]">Objectifs Business</span>
+          </div>
+          <div className="grid grid-cols-2 gap-8">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2">
+                <span className="text-3xl font-bold tracking-tight">+25%</span>
+                <ArrowUp className="w-4 h-4 text-[#34d399]" />
+              </div>
+              <p className="text-[10px] opacity-40 font-bold uppercase tracking-[0.1em]">Trafic hebdomadaire</p>
+            </div>
+            <div className="space-y-1 border-l border-primary-foreground/10 pl-8">
+              <div className="text-3xl font-bold tracking-tight">15</div>
+              <p className="text-[10px] opacity-40 font-bold uppercase tracking-[0.1em]">Ventes confirmées</p>
+            </div>
+          </div>
         </div>
       </div>
     </TeamRow>
