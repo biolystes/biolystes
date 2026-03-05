@@ -487,7 +487,16 @@ export default function ConceptPage() {
         </div>
       </section>
 
-      {/* ═══ BRAND SHOWCASE STRIP ═══ */}
+      {/* ═══ VIDEO PRÉSENTATION ═══ */}
+      <section className="max-w-5xl mx-auto px-6 py-16 md:py-24">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+          className="rounded-2xl overflow-hidden">
+          <video autoPlay muted loop playsInline className="w-full h-auto rounded-2xl">
+            <source src="https://biolystes.com/wp-content/uploads/2025/09/ok.mov" type="video/mp4" />
+          </video>
+        </motion.div>
+      </section>
+
       <section className="overflow-hidden py-6 bg-background">
         <motion.div
           initial={{ opacity: 0 }}
