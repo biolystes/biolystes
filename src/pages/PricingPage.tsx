@@ -4,7 +4,7 @@ import { Package, Zap, Globe, CreditCard, Check, Info, ArrowRight } from "lucide
 
 const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
 
-type Tab = "decouverte" | "sans-site" | "avec-site" | "abonnement";
+type Tab = "decouverte" | "avec-site" | "avec-site-ai" | "abonnement";
 
 function CheckItem({ text }: { text: string }) {
   return (
