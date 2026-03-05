@@ -245,10 +245,10 @@ function BrandAlbum({ brand, index }: { brand: Brand; index: number }) {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                fontSize: 12, fontWeight: 700, color: "#fff",
-                textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 5,
-                padding: "6px 14px", borderRadius: 20,
-                background: brand.accentColor,
+                fontSize: 13, fontWeight: 600, color: "#fff",
+                textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 6,
+                padding: "8px 18px", borderRadius: 24,
+                background: "#1d1d1f",
                 transition: "opacity .15s",
                 whiteSpace: "nowrap", flexShrink: 0,
               }}
