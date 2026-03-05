@@ -292,14 +292,6 @@ export default function DecouvertePage() {
           ))}
         </motion.div>
 
-        {/* Video présentation */}
-        <div className="max-w-5xl mx-auto px-6 mt-16">
-          <div className="rounded-2xl overflow-hidden">
-            <video autoPlay muted loop playsInline className="w-full h-auto rounded-2xl">
-              <source src="https://biolystes.com/wp-content/uploads/2025/09/ok.mov" type="video/mp4" />
-            </video>
-          </div>
-        </div>
       </section>
 
       <section id="section-constat" ref={setRef("constat")} className="bg-secondary py-24 md:py-32">
