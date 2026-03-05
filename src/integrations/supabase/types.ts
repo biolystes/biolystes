@@ -14,6 +14,66 @@ export type Database = {
   }
   public: {
     Tables: {
+      briefs: {
+        Row: {
+          additional_notes: string | null
+          brand_description: string | null
+          brand_name: string | null
+          budget_range: string | null
+          created_at: string | null
+          id: string
+          inspiration_brands: string | null
+          key_ingredients: string | null
+          packaging_preferences: string | null
+          positioning: string | null
+          product_types: string[] | null
+          status: string | null
+          target_audience: string | null
+          target_market: string | null
+          timeline: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          additional_notes?: string | null
+          brand_description?: string | null
+          brand_name?: string | null
+          budget_range?: string | null
+          created_at?: string | null
+          id?: string
+          inspiration_brands?: string | null
+          key_ingredients?: string | null
+          packaging_preferences?: string | null
+          positioning?: string | null
+          product_types?: string[] | null
+          status?: string | null
+          target_audience?: string | null
+          target_market?: string | null
+          timeline?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          additional_notes?: string | null
+          brand_description?: string | null
+          brand_name?: string | null
+          budget_range?: string | null
+          created_at?: string | null
+          id?: string
+          inspiration_brands?: string | null
+          key_ingredients?: string | null
+          packaging_preferences?: string | null
+          positioning?: string | null
+          product_types?: string[] | null
+          status?: string | null
+          target_audience?: string | null
+          target_market?: string | null
+          timeline?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       chat_messages: {
         Row: {
           content: string
@@ -48,6 +108,102 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      client_contracts: {
+        Row: {
+          created_at: string | null
+          id: string
+          pdf_url: string | null
+          signed_at: string | null
+          status: string | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          pdf_url?: string | null
+          signed_at?: string | null
+          status?: string | null
+          title?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          pdf_url?: string | null
+          signed_at?: string | null
+          status?: string | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      client_orders: {
+        Row: {
+          created_at: string | null
+          id: string
+          items: Json | null
+          notes: string | null
+          status: string | null
+          total: number | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          items?: Json | null
+          notes?: string | null
+          status?: string | null
+          total?: number | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          items?: Json | null
+          notes?: string | null
+          status?: string | null
+          total?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      client_selections: {
+        Row: {
+          created_at: string | null
+          id: string
+          notes: string | null
+          quantity: number | null
+          user_id: string
+          wc_product_id: number
+          wc_product_image: string | null
+          wc_product_name: string | null
+          wc_product_price: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          quantity?: number | null
+          user_id: string
+          wc_product_id: number
+          wc_product_image?: string | null
+          wc_product_name?: string | null
+          wc_product_price?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          quantity?: number | null
+          user_id?: string
+          wc_product_id?: number
+          wc_product_image?: string | null
+          wc_product_name?: string | null
+          wc_product_price?: number | null
+        }
+        Relationships: []
       }
       contracts: {
         Row: {
@@ -372,15 +528,40 @@ export type Database = {
           },
         ]
       }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       user_owns_project: { Args: { _project_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "moderator" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -507,6 +688,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "moderator", "user"],
+    },
   },
 } as const
