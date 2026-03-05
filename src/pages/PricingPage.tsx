@@ -124,62 +124,6 @@ function TabDecouverte() {
   );
 }
 
-// ─── OFFRE SANS SITE WEB ──────────────────────────────────
-function TabSansSite() {
-  return (
-    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="flex flex-col gap-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="relative rounded-2xl p-5 md:p-7 flex flex-col border border-border">
-          <Badge label="Formule 1" />
-          <div className="mt-2">
-            <h3 className="text-base md:text-lg font-extrabold uppercase tracking-tight mb-1 text-foreground">Sans Design — 39€/mois</h3>
-            <p className="text-sm mb-5 text-muted-foreground leading-relaxed">Accédez au catalogue et testez sans engagement</p>
-            <div className="flex flex-col gap-2.5 mb-7">
-              {[
-                "Accès catalogue complet",
-                "Jusqu'à 4 références produits",
-                "Aucun minimum de stock imposé",
-                "Mise en conformité étiquetage",
-                "Étiquetage standard conforme inclus",
-                "Produits certifiés bio, végan, COSMOS, Ecocert",
-                "Produits facturés à l'unité (10-20€ selon la réf.)",
-                "Accompagnement dans la sélection de vos produits",
-                "Sans engagement, résiliable à tout moment",
-              ].map((t, i) => <CheckItem key={i} text={t} />)}
-            </div>
-          </div>
-          <CtaButton label="Explorer le catalogue" filled />
-        </div>
-
-        <div className="relative rounded-2xl p-5 md:p-7 flex flex-col border-2 border-foreground">
-          <Badge label="Formule 2 · Recommandé" popular />
-          <div className="mt-2">
-            <h3 className="text-base md:text-lg font-extrabold uppercase tracking-tight mb-1 text-foreground">Avec Design — 39€/mois + 99€</h3>
-            <p className="text-sm mb-1 text-muted-foreground leading-relaxed">Votre marque clé en main dès 138€</p>
-            <p className="text-[11px] mb-5 text-muted-foreground">39€/mois + 99€ forfait unique design</p>
-            <div className="flex flex-col gap-2.5 mb-7">
-              {[
-                "Tout de la Formule 1 inclus",
-                "Création de logo",
-                "Mise en conformité étiquetage",
-                "Design packaging des 4 produits",
-                "Brandboard complet",
-                "3 aller-retours avec nos designers",
-                "Fichiers livrés, ils sont à vous",
-                "Produits facturés à l'unité (10-20€ selon la réf.)",
-                "Référence produit supplémentaire : +49€ de design/produit",
-              ].map((t, i) => <CheckItem key={i} text={t} />)}
-            </div>
-          </div>
-          <CtaButton label="Prendre RDV" />
-        </div>
-      </div>
-
-      <DeductionBanner text="Vous avez commandé un Pack Échantillon ? Vos 147€ sont déduits du forfait design (99€ offerts + 48€ déduits du 1er mois)." />
-    </motion.div>
-  );
-}
-
 // ─── OFFRE AVEC SITE WEB ──────────────────────────────────
 function TabAvecSite() {
   return (
