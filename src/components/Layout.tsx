@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, LayoutGrid, Settings, Menu, X, LogOut, Images, Tag, Lightbulb } from "lucide-react";
+import { Sparkles, LayoutGrid, Settings, Menu, X, LogOut, Images, Tag, Lightbulb, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
