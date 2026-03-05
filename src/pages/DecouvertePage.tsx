@@ -374,7 +374,7 @@ export default function DecouvertePage() {
         <div className="max-w-4xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16 text-center">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Nos engagements</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground">
+            <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-5xl lg:text-[3.5rem] font-black text-foreground leading-[1.05] tracking-[-0.02em] uppercase max-w-4xl mx-auto">
               Des cosmétiques d'excellence, certifiés et responsables
             </motion.h2>
             <motion.p variants={fadeUp} custom={2} className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
