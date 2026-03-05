@@ -45,6 +45,9 @@ import cert8 from "@/assets/cert-8.png";
 const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7, cert8];
 
 const CTA_URL = "https://app.iclosed.io/e/paylystes/r2";
+const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
+const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
+const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
