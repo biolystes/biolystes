@@ -38,7 +38,7 @@ export default function InstaFeedSection() {
   const [activeVideo, setActiveVideo] = useState<number | null>(null);
 
   return (
-    <div className="w-full px-6">
+    <div className="w-full">
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-12 text-center">
         <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">
           Avis d'une de nos clientes sur sa sélection de produits
