@@ -205,7 +205,7 @@ function BeforeAfterPhones() {
 function TeamDiagnostics() {
   return (
     <TeamRow bg="bg-background" title="Diagnostic peau intelligent" kicker="Équipe Diagnostics AI"
-      desc="Votre visiteur prend un selfie. L'IA scanne son visage, analyse sa peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.">
+      desc="Nous mettons en place une équipe Diagnostics AI, qui scanne le visage de vos visiteurs via un simple selfie, analyse leur peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.">
       <div className="flex flex-col md:flex-row gap-4 items-stretch">
         <video autoPlay muted loop playsInline className="w-full md:w-1/2 h-[400px] object-cover rounded-2xl">
           <source src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/video//diagnosticai.mp4" type="video/mp4" />
