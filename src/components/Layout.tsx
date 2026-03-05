@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, LayoutGrid, Settings, Menu, X, LogOut, Images, Tag, Lightbulb, Compass } from "lucide-react";
+import { Sparkles, Settings, Menu, X, LogOut, Compass, LayoutDashboard, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
-const navItems = [
+const publicNavItems = [
   { path: "/", icon: Compass, label: "Découverte" },
   { path: "/chat", icon: Sparkles, label: "Posez vos questions" },
 ];
@@ -14,7 +14,13 @@ const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
 
 function TopNavBar() {
   const location = useLocation();
-  const { profile, signOut } = useAuth();
+  const { user, profile, signOut, isAdmin } = useAuth();
+
+  const navItems = [
+    ...publicNavItems,
+    ...(user ? [{ path: "/espace-client", icon: LayoutDashboard, label: "Mon espace" }] : []),
+    ...(isAdmin ? [{ path: "/admin", icon: Shield, label: "Admin" }] : []),
+  ];
 
   const isActive = (path: string) => {
     if (path === "/") return location.pathname === "/";
@@ -109,7 +115,13 @@ function TopNavBar() {
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const location = useLocation();
-  const { signOut } = useAuth();
+  const { user, signOut, isAdmin } = useAuth();
+
+  const navItems = [
+    ...publicNavItems,
+    ...(user ? [{ path: "/espace-client", icon: LayoutDashboard, label: "Mon espace" }] : []),
+    ...(isAdmin ? [{ path: "/admin", icon: Shield, label: "Admin" }] : []),
+  ];
 
   const isActive = (path: string) => {
     if (path === "/") return location.pathname === "/";

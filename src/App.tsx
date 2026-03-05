@@ -14,6 +14,13 @@ import PublicAgentPage from "./pages/PublicAgentPage";
 import SharedSelectionPage from "./pages/SharedSelectionPage";
 import ConceptPage from "./pages/ConceptPage";
 import DecouvertePage from "./pages/DecouvertePage";
+import LoginPage from "./pages/LoginPage";
+import SignupPage from "./pages/SignupPage";
+import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import ClientDashboardPage from "./pages/ClientDashboardPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import AdminRoute from "./components/AdminRoute";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,22 +29,12 @@ function AppRoutes() {
   const location = useLocation();
   const isPublicAgentRoute = location.pathname.startsWith("/agent/");
   const isSharedSelectionRoute = location.pathname.startsWith("/selection/");
-  
 
   if (isPublicAgentRoute) {
-    return (
-      <Routes>
-        <Route path="/agent/:agentId" element={<PublicAgentPage />} />
-      </Routes>
-    );
+    return <Routes><Route path="/agent/:agentId" element={<PublicAgentPage />} /></Routes>;
   }
-
   if (isSharedSelectionRoute) {
-    return (
-      <Routes>
-        <Route path="/selection/:selectionId" element={<SharedSelectionPage />} />
-      </Routes>
-    );
+    return <Routes><Route path="/selection/:selectionId" element={<SharedSelectionPage />} /></Routes>;
   }
 
   return (
@@ -50,6 +47,17 @@ function AppRoutes() {
       <Route path="/portfolio" element={<Layout><PortfolioPage /></Layout>} />
       <Route path="/pricing" element={<Layout><PricingPage /></Layout>} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
+
+      {/* Auth */}
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
+      {/* Client Dashboard */}
+      <Route path="/espace-client" element={<ProtectedRoute><Layout><ClientDashboardPage /></Layout></ProtectedRoute>} />
+
+      {/* Admin Dashboard */}
+      <Route path="/admin" element={<AdminRoute><Layout><AdminDashboardPage /></Layout></AdminRoute>} />
 
       <Route path="*" element={<NotFound />} />
     </Routes>

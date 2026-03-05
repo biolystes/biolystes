@@ -20,7 +20,7 @@ export default function LoginPage() {
         ? "Email ou mot de passe incorrect."
         : error.message);
     } else {
-      navigate("/");
+      navigate("/espace-client");
     }
     setLoading(false);
   };

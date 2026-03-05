@@ -31,8 +31,8 @@ export default function SignupPage() {
     if (error) {
       toast.error(error.message);
     } else {
-      toast.success("Compte créé avec succès !");
-      navigate("/");
+      toast.success("Compte créé ! Vérifiez votre email pour confirmer.");
+      navigate("/login");
     }
     setLoading(false);
   };
