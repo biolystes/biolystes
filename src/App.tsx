@@ -44,6 +44,7 @@ function AppRoutes() {
     <Routes>
       <Route path="/" element={<Layout><DashboardPage /></Layout>} />
       <Route path="/concept" element={<Layout><ConceptPage /></Layout>} />
+      <Route path="/decouverte" element={<Layout><DecouvertePage /></Layout>} />
       <Route path="/catalog" element={<Layout><CatalogPage /></Layout>} />
       <Route path="/portfolio" element={<Layout><PortfolioPage /></Layout>} />
       <Route path="/pricing" element={<Layout><PricingPage /></Layout>} />

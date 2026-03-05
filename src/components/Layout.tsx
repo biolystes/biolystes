@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
 const navItems = [
+  { path: "/decouverte", icon: Compass, label: "Découverte" },
   { path: "/concept", icon: Lightbulb, label: "Concept" },
   { path: "/", icon: Sparkles, label: "Posez vos questions" },
   { path: "/catalog", icon: LayoutGrid, label: "Catalogue" },
