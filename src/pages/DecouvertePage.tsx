@@ -648,7 +648,7 @@ export default function DecouvertePage() {
               <div className="flex items-end gap-2 mb-1">
                 <span className="text-3xl font-black text-foreground">1 499€</span>
               </div>
-              <p className="text-xs text-muted-foreground mb-4">ou 2× 750€ · + 99€/mois (1er mois offert)</p>
+              <p className="text-xs text-muted-foreground mb-4">ou 2× 750€ · + 99€/mois</p>
               <p className="text-sm text-muted-foreground leading-relaxed mb-6">
                 Solution complète : site e-commerce, design, packaging, photos et lancement en 10-15 jours.
               </p>
@@ -668,7 +668,7 @@ export default function DecouvertePage() {
               <div className="flex items-end gap-2 mb-1">
                 <span className="text-3xl font-black">2 999€</span>
               </div>
-              <p className="text-xs text-primary-foreground/50 mb-4">ou 2× 1 500€ · + 199€/mois (1er mois offert)</p>
+              <p className="text-xs text-primary-foreground/50 mb-4">ou 2× 1 500€ · + 199€/mois</p>
               <p className="text-sm text-primary-foreground/70 leading-relaxed mb-6">
                 Tout de l'offre Avec Site + UGC IA, diagnostic intelligent et gestion réseaux sociaux.
               </p>
