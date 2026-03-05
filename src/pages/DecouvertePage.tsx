@@ -303,9 +303,31 @@ function AnimatedChat() {
 export default function DecouvertePage() {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState<StepKey>("decouvre");
+  const [catalogProducts, setCatalogProducts] = useState<{ id: number; name: string; price: string; image: string }[]>([]);
   const sectionRefs = useRef<Record<StepKey, HTMLElement | null>>({
     decouvre: null, constat: null, comprend: null, qualite: null, livraison: null, lystesai: null, portfolio: null, catalogue: null, tarifs: null, lance: null,
   });
+
+  // Fetch catalog products
+  useEffect(() => {
+    const url = new URL(`${WC_BASE}/products`);
+    url.searchParams.set("consumer_key", CK);
+    url.searchParams.set("consumer_secret", CS);
+    url.searchParams.set("per_page", "8");
+    url.searchParams.set("status", "publish");
+    url.searchParams.set("orderby", "popularity");
+    fetch(url.toString())
+      .then(r => r.json())
+      .then((data: any[]) => {
+        setCatalogProducts(data.map(p => ({
+          id: p.id,
+          name: p.name,
+          price: p.price,
+          image: p.images?.[0]?.src || "",
+        })));
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
