@@ -127,8 +127,8 @@ function TabDecouverte() {
 // ─── OFFRE AVEC SITE WEB ──────────────────────────────────
 function TabAvecSite() {
   return (
-    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="flex flex-col items-center">
+      <div className="w-full max-w-lg">
         <div className="relative rounded-2xl p-5 md:p-7 flex flex-col border-2 border-foreground">
           <Badge label="Populaire" popular />
           <h3 className="text-base font-extrabold uppercase tracking-tight mb-1 mt-2 text-foreground">Pack Agence</h3>
@@ -145,9 +145,18 @@ function TabAvecSite() {
           <div className="flex-1 mb-6">
             {["Création de logo", "Design Packaging", "Contenu textuel clé en main", "Photographie IA hyperréaliste", "Site e-commerce", "Indexation Google", "Automatisation livraison", "Support premium", "Expert produit dédié en votre nom", "Achat de stock pas nécessaire", "Aucune quantité min en cas d'achat de stock", "Optimisation SEO avancée", "CRO standard"].map((f, i) => <CheckItem key={i} text={f} />)}
           </div>
-          <CtaButton label="Prendre RDV" />
+          <CtaButton label="Prendre RDV" filled />
         </div>
+        <DeductionBanner text="Vous avez commandé un Pack Échantillon ? Vos 147€ sont déduits de la mise en place." />
+      </div>
+    </motion.div>
+  );
+}
 
+function TabAvecSiteAI() {
+  return (
+    <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.25 }} className="flex flex-col items-center">
+      <div className="w-full max-w-lg">
         <div className="relative rounded-2xl p-5 md:p-7 flex flex-col border border-border">
           <h3 className="text-base font-extrabold uppercase tracking-tight mb-1 text-foreground">Pack IA</h3>
           <p className="text-xs mb-4 text-muted-foreground">Gestion 360° + Intelligence artificielle avancée</p>
@@ -165,9 +174,8 @@ function TabAvecSite() {
           </div>
           <CtaButton label="Prendre RDV" />
         </div>
+        <DeductionBanner text="Vous avez commandé un Pack Échantillon ? Vos 147€ sont déduits de la mise en place." />
       </div>
-
-      <DeductionBanner text="Vous avez commandé un Pack Échantillon ? Vos 147€ sont déduits de la mise en place." />
     </motion.div>
   );
 }
