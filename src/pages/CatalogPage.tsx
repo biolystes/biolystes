@@ -280,10 +280,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
 // ─── Product Card ─────────────────────────────────────────
 function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void }) {
   const img = product.images?.[0]?.src;
-  const tags = product.tags?.map(t => t.name) || [];
   const cats = product.categories?.map(c => c.name) || [];
-  const isVegan = tags.some(t => t.toLowerCase().includes("vegan"));
-  const isBio = tags.some(t => t.toLowerCase().includes("bio") || t.toLowerCase().includes("ecocert") || t.toLowerCase().includes("cosmos"));
   const price = product.price ? parseFloat(product.price) : null;
   const midRange = price ? Math.round(price * 2.2) : null;
   const bioPrix = price ? Math.round(price * 3.5) : null;
@@ -298,13 +295,14 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
       style={{
         display: "flex", flexDirection: "column", cursor: "pointer",
         borderRadius: 20, overflow: "hidden",
-        outline: isSelected ? "2.5px solid #1d1d1f" : "2.5px solid transparent",
+        outline: isSelected ? "2.5px solid #1d1d1f" : "none",
+        border: "1px solid #ebebed",
         transition: "outline .15s",
-        background: "linear-gradient(160deg, #e8eef5 0%, #dce6f0 100%)",
+        background: "#fff",
       }}
     >
       {/* Image area */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "3/4", overflow: "hidden", display: "flex", alignItems: "flex-end", justifyContent: "center" }}>
+      <div style={{ position: "relative", width: "100%", aspectRatio: "1", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#f5f5f7" }}>
         {/* # badge top-left */}
         <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, width: 26, height: 26, borderRadius: 8, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#86868b" }}>#</div>
 
@@ -314,7 +312,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
             onClick={onToggleSelect}
             style={{
               position: "absolute", top: 10, right: 10, zIndex: 10, width: 26, height: 26,
-              borderRadius: 8, border: isSelected ? "none" : "2px solid rgba(255,255,255,0.9)",
+              borderRadius: 8, border: isSelected ? "none" : "2px solid rgba(0,0,0,0.15)",
               background: isSelected ? "#1d1d1f" : "rgba(255,255,255,0.6)",
               backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center",
               cursor: "pointer", transition: "all .15s",
@@ -324,29 +322,43 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
           </button>
         )}
 
-        {/* Vegan / Bio badges */}
-        {(isVegan || isBio) && (
-          <div style={{ position: "absolute", bottom: 90, right: 12, zIndex: 2, display: "flex", gap: 4, flexDirection: "column", alignItems: "flex-end" }}>
-            {isVegan && <span style={{ padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 600, letterSpacing: ".4px", textTransform: "uppercase", background: "rgba(255,255,255,0.85)", color: "#1d1d1f" }}>Vegan</span>}
-            {isBio && <span style={{ padding: "3px 8px", borderRadius: 20, fontSize: 9, fontWeight: 600, letterSpacing: ".4px", textTransform: "uppercase", background: "rgba(255,255,255,0.85)", color: "#1d1d1f" }}>Bio</span>}
-          </div>
-        )}
-
         {img
           ? <img src={img} alt={product.name} loading="lazy"
-              style={{ width: "80%", height: "85%", objectFit: "contain", objectPosition: "bottom center", transition: "transform .4s" }}
+              style={{ width: "75%", height: "80%", objectFit: "contain", transition: "transform .4s" }}
               onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
               onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
           : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#b0bec5" }}><Icons.box size={40} sw={1} /></div>
         }
       </div>
 
-      {/* Footer */}
-      <div style={{ padding: "14px 16px 16px", background: "rgba(255,255,255,0.45)", backdropFilter: "blur(4px)" }}>
-        <h3 style={{ fontSize: 11, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.4, marginBottom: 6, textTransform: "uppercase", letterSpacing: ".3px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+      {/* Content */}
+      <div style={{ padding: "16px 18px 18px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
+        <h3 style={{ fontSize: 11, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.4, textTransform: "uppercase", letterSpacing: ".3px", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden", minHeight: 44, margin: 0 }}>
           {product.name}
         </h3>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "nowrap", gap: 6, overflow: "hidden" }}>
+
+        {/* Price tiers */}
+        {price && (
+          <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+              <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#86868b" }}>Prix de vente conseillé</span>
+              <span style={{ fontSize: 8, fontWeight: 800, padding: "2px 6px", borderRadius: 4, background: "#1d1d1f", color: "#fff" }}>AI</span>
+            </div>
+            {[
+              { label: "Milieu de gamme", val: midRange },
+              { label: "Marché Bio", val: bioPrix },
+              { label: "Marché Luxe", val: luxury },
+            ].map((tier, i) => (
+              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "4px 0" }}>
+                <span style={{ fontSize: 11, color: "#86868b", fontWeight: 400 }}>{tier.label}</span>
+                <span style={{ fontSize: 12, color: "#1d1d1f", fontWeight: 600 }}>{tier.val}€</span>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Bottom: price + categories */}
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "nowrap", gap: 6, overflow: "hidden", marginTop: "auto", paddingTop: 6, borderTop: "1px solid #f0f0f0" }}>
           {price && <span style={{ fontSize: 15, fontWeight: 700, color: "#1d1d1f", flexShrink: 0 }}>{Math.round(price)}€ <span style={{ fontSize: 9, fontWeight: 400, color: "#86868b" }}>HT</span></span>}
           <div style={{ display: "flex", gap: 4, flexWrap: "nowrap", overflow: "hidden", justifyContent: "flex-end" }}>
             {displayCats.slice(0, 2).map((cat, i) => (
@@ -362,11 +374,14 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
 // ─── Skeleton ─────────────────────────────────────────────
 function ProductSkeleton() {
   return (
-    <div style={{ borderRadius: 20, overflow: "hidden", background: "linear-gradient(160deg, #e8eef5 0%, #dce6f0 100%)" }}>
-      <div style={{ width: "100%", aspectRatio: "3/4", animation: "pulse 1.5s infinite" }} />
-      <div style={{ padding: "14px 16px", background: "rgba(255,255,255,0.45)" }}>
-        <div style={{ height: 10, width: "75%", background: "#c8d6e0", borderRadius: 4, marginBottom: 8, animation: "pulse 1.5s infinite" }} />
-        <div style={{ height: 8, width: "40%", background: "#c8d6e0", borderRadius: 4, animation: "pulse 1.5s infinite" }} />
+    <div style={{ borderRadius: 20, overflow: "hidden", border: "1px solid #ebebed", background: "#fff" }}>
+      <div style={{ width: "100%", aspectRatio: "1", background: "#f5f5f7", animation: "pulse 1.5s infinite" }} />
+      <div style={{ padding: "16px 18px" }}>
+        <div style={{ height: 10, width: "75%", background: "#e5e5e7", borderRadius: 4, marginBottom: 8, animation: "pulse 1.5s infinite" }} />
+        <div style={{ height: 10, width: "55%", background: "#e5e5e7", borderRadius: 4, marginBottom: 12, animation: "pulse 1.5s infinite" }} />
+        <div style={{ height: 8, width: "90%", background: "#f0f0f0", borderRadius: 4, marginBottom: 6, animation: "pulse 1.5s infinite" }} />
+        <div style={{ height: 8, width: "80%", background: "#f0f0f0", borderRadius: 4, marginBottom: 6, animation: "pulse 1.5s infinite" }} />
+        <div style={{ height: 8, width: "70%", background: "#f0f0f0", borderRadius: 4, animation: "pulse 1.5s infinite" }} />
       </div>
     </div>
   );
