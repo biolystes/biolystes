@@ -249,7 +249,7 @@ export default function DecouvertePage() {
             style={{ width: "max-content" }}
           >
             {[...certLogos, ...certLogos].map((logo, i) => (
-              <img key={i} src={logo} alt="Certification" className="h-14 md:h-18 w-auto object-contain opacity-60 grayscale" />
+              <img key={i} src={logo} alt="Certification" className="h-24 md:h-28 w-auto object-contain opacity-60 grayscale" />
             ))}
           </motion.div>
         </div>
