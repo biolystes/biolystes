@@ -258,8 +258,8 @@ export default function PricingPage() {
 
   const tabs: { key: Tab; label: string; shortLabel: string; icon: React.ReactNode }[] = [
     { key: "decouverte", label: "Pack Échantillon", shortLabel: "Échantillon", icon: <Package size={13} strokeWidth={1.8} /> },
-    { key: "sans-site", label: "Offre sans site web", shortLabel: "Sans site", icon: <Zap size={13} strokeWidth={1.8} /> },
-    { key: "avec-site", label: "Offre avec site web", shortLabel: "Avec site", icon: <Globe size={13} strokeWidth={1.8} /> },
+    { key: "avec-site", label: "Offre avec site", shortLabel: "Avec site", icon: <Globe size={13} strokeWidth={1.8} /> },
+    { key: "avec-site-ai", label: "Offre avec site + IA", shortLabel: "Avec site IA", icon: <Zap size={13} strokeWidth={1.8} /> },
     { key: "abonnement", label: "Abonnement mensuel", shortLabel: "Abonnement", icon: <CreditCard size={13} strokeWidth={1.8} /> },
   ];
 
