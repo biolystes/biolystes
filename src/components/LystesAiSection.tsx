@@ -22,7 +22,7 @@ function LystesHero() {
   return (
     <div className="text-center max-w-[1120px] mx-auto px-6 pt-24 pb-12">
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-        className="text-[10px] font-bold tracking-[2.5px] uppercase text-muted-foreground mb-5">
+        className="text-[10px] font-bold tracking-[2.5px] uppercase text-white/50 mb-5">
         Votre équipe intégrée
       </motion.p>
       <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
