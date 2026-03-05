@@ -205,7 +205,7 @@ function BeforeAfterPhones() {
 function TeamDiagnostics() {
   return (
     <TeamRow bg="bg-background" title="Diagnostic peau intelligent" kicker="Équipe Diagnostics AI"
-      desc="Votre visiteur prend un selfie. L'IA scanne son visage, analyse sa peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.">
+      desc="Nous mettons en place une équipe Diagnostics AI, qui scanne le visage de vos visiteurs via un simple selfie, analyse leur peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.">
       <div className="flex flex-col md:flex-row gap-4 items-stretch">
         <video autoPlay muted loop playsInline className="w-full md:w-1/2 h-[400px] object-cover rounded-2xl">
           <source src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/video//diagnosticai.mp4" type="video/mp4" />
@@ -222,7 +222,7 @@ function TeamDiagnostics() {
 function TeamExpertProduit() {
   return (
     <TeamRow bg="bg-secondary" reversed title="Un vendeur expert sur chaque fiche" kicker="Équipe Expert Produit AI"
-      desc="Chaque produit dispose de son propre expert dédié. Il répond instantanément aux questions sur la composition, la compatibilité, les délais. Comme votre meilleur vendeur, formé sur chaque détail.">
+      desc="Nous mettons en place une équipe Expert Produit AI, qui répond instantanément aux questions de vos clients sur la composition, la compatibilité et les délais. Comme votre meilleur vendeur, formé sur chaque détail de chaque produit.">
       <div className="flex justify-center">
         <div className="w-[320px] bg-background rounded-[2rem] overflow-hidden border border-border">
           <PhoneHeader small />
@@ -259,7 +259,7 @@ function TeamExpertProduit() {
 function TeamPhotographe() {
   return (
     <TeamRow bg="bg-background" title="Photos studio en quelques secondes" kicker="Équipe Photographe AI"
-      desc="Photos produits niveau studio professionnel, visuels UGC avec de vrais visages pour vos réseaux sociaux, contenus marketing. En quelques secondes, sans shooting.">
+      desc="Nous mettons en place une équipe Photographe AI, qui génère des photos produits niveau studio professionnel, des visuels UGC avec de vrais visages pour vos réseaux sociaux et des contenus marketing. En quelques secondes, sans shooting.">
       <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-1.5" style={{ gridAutoRows: "180px" }}>
         <img className="col-span-2 w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-1.jpg" alt="" />
         <img className="w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-6.jpg" alt="" />
@@ -275,7 +275,7 @@ function TeamPhotographe() {
 function TeamSEO() {
   return (
     <TeamRow bg="bg-secondary" reversed title="Visible sur Google dès le lancement" kicker="Équipe Expert SEO AI"
-      desc="Optimisation automatique de vos fiches produits, méta-descriptions, mots-clés et contenus pour que votre boutique soit visible sur Google dès le lancement.">
+      desc="Nous mettons en place une équipe Expert SEO AI, qui optimise automatiquement vos fiches produits, méta-descriptions, mots-clés et contenus pour que votre boutique soit visible sur Google dès le lancement.">
       <div>
         <div className="flex items-center gap-2.5 mb-4">
           <div className="w-3 h-3 rounded-full bg-[#34d399]" />
@@ -318,7 +318,7 @@ function TeamMarketing() {
 
   return (
     <TeamRow bg="bg-background" title="Votre directeur marketing 24h/24" kicker="Équipe Marketing AI"
-      desc="Plans d'action marketing personnalisés, campagnes email, stratégies de conversion. Un directeur marketing qui travaille pour vous 24h/24.">
+      desc="Nous mettons en place une équipe Marketing AI, qui crée des plans d'action personnalisés, des campagnes email et des stratégies de conversion. Un directeur marketing qui travaille pour vous 24h/24.">
       <div className="w-full max-w-2xl mx-auto space-y-3">
         {/* Header */}
         <div className="flex items-center justify-between px-1 mb-4">
@@ -364,7 +364,7 @@ function TeamMarketing() {
 function TeamContenu() {
   return (
     <TeamRow bg="bg-secondary" reversed title="Du contenu pro en quelques secondes" kicker="Équipe Créateur de contenu AI"
-      desc="Contenus pour vos réseaux sociaux, articles de blog, descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
+      desc="Nous mettons en place une équipe Créateur de contenu AI, qui produit des contenus pour vos réseaux sociaux, articles de blog et descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
       <div className="flex gap-3.5 flex-wrap">
         {[
           { src: "https://lystes.ai/images/clients/kaniwa-ugc-1.jpg", label: "Post Instagram" },
@@ -396,7 +396,7 @@ function TeamAnalytics() {
 
   return (
     <TeamRow bg="bg-background" title="Des décisions basées sur la réalité" kicker="Équipe Analytics AI"
-      desc="Un assistant IA connaît vos chiffres en temps réel. CA, tops produits, questions clients, points de blocage. Des décisions basées sur la réalité, pas sur des suppositions.">
+      desc="Nous mettons en place une équipe Analytics AI, qui connaît vos chiffres en temps réel. CA, tops produits, questions clients, points de blocage. Des décisions basées sur la réalité, pas sur des suppositions.">
       <div>
         {/* KPIs */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 mb-5">
