@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import CommentCaMarche from "@/components/CommentCaMarche";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import {
@@ -240,48 +241,8 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 3. JE COMPRENDS — LA MISE EN PLACE ═══ */}
-      <section id="section-comprend" ref={setRef("comprend")} className="bg-secondary py-24 md:py-32">
-        <div className="max-w-4xl mx-auto px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
-            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">La mise en place</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl text-foreground">
-              Comment ça se passe concrètement ?
-            </motion.h2>
-          </motion.div>
-
-          {/* Timeline steps */}
-          <div className="space-y-0 divide-y divide-border">
-            {[
-              { step: "01", title: "Sélection des produits", desc: "Choisissez vos cosmétiques parmi notre catalogue de formulations certifiées bio et végan. Un expert vous accompagne pour sélectionner les produits les plus adaptés à votre positionnement.", icon: ShoppingBag },
-              { step: "02", title: "Création de votre identité", desc: "Logo, charte graphique, design packaging recyclable, brandboard complet. Nos designers créent une identité visuelle unique et professionnelle pour votre marque.", icon: Palette },
-              { step: "03", title: "Photographie et contenu", desc: "Photos produits hyperréalistes générées par IA, contenus textuels optimisés pour le SEO. Tout est prêt pour vendre dès le premier jour.", icon: Camera },
-              { step: "04", title: "Votre boutique en ligne", desc: "Un site e-commerce complet, hébergé et sécurisé, avec paiement intégré, nom de domaine et certificat SSL inclus. Indexé sur Google dès le lancement.", icon: Globe2 },
-              { step: "05", title: "Lancement et accompagnement", desc: "Votre marque est en ligne. Notre équipe et nos agents IA vous accompagnent au quotidien : support client, marketing, analytics, contenu.", icon: Sparkles },
-            ].map((item, i) => (
-              <motion.div key={item.step} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}
-                variants={fadeUp} custom={i} className="py-10 grid md:grid-cols-[80px_1fr] gap-4 md:gap-8">
-                <div className="flex items-start gap-4">
-                  <span className="text-2xl font-black text-foreground/20">{item.step}</span>
-                  <item.icon className="h-5 w-5 text-foreground mt-1 md:hidden" strokeWidth={1.5} />
-                </div>
-                <div>
-                  <div className="flex items-center gap-3 mb-2">
-                    <item.icon className="h-5 w-5 text-foreground hidden md:block" strokeWidth={1.5} />
-                    <h3 className="text-base font-semibold text-foreground">{item.title}</h3>
-                  </div>
-                  <p className="text-muted-foreground leading-relaxed">{item.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-            className="mt-16 p-8 md:p-12 rounded-2xl bg-foreground text-primary-foreground">
-            <p className="text-xl md:text-2xl font-light leading-relaxed">
-              Un seul interlocuteur, zéro complexité. Vous avez juste à <span className="font-semibold">choisir vos produits et vendre.</span> On s'occupe de tout le reste.
-            </p>
-          </motion.div>
-        </div>
+      <section id="section-comprend" ref={setRef("comprend")} className="py-0">
+        <CommentCaMarche />
       </section>
 
       {/* ═══ 3. LA QUALITÉ — NOS ENGAGEMENTS ═══ */}
