@@ -382,51 +382,39 @@ export default function DecouvertePage() {
           ))}
         </motion.div>
 
-        {/* Video carousel */}
-        <div className="max-w-5xl mx-auto px-6 mt-16">
-          <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-6 px-6">
-            {[
-              { src: "/videos/exp-1.mp4" },
-              { src: "/videos/exp-2.mov" },
-              { src: "/videos/exp-3.mov" },
-              { src: "/videos/exp-4.mov" },
-              { src: "/videos/exp-5.mov" },
-              { src: "/videos/exp-6.mov" },
-              { src: "/videos/exp-7.mov" },
-              { src: "/videos/exp-8.mov" },
-              { src: "/videos/exp-9.mp4" },
-              { src: "/videos/exp-10.mov" },
-              { src: "/videos/exp-11.mp4" },
-              { src: "/videos/exp-12.mp4" },
-              { src: "/videos/exp-13.mov" },
-              { src: "/videos/exp-14.mov" },
-              { src: "/videos/exp-15.mov" },
-              { src: "/videos/exp-16.mov" },
-              { src: "/videos/exp-17.mov" },
-              { src: "/videos/exp-18.mov" },
-              { src: "/videos/exp-19.mov" },
-              { src: "/videos/exp-20.mov" },
-            ].map((video, i) => (
-              <motion.div
-                key={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                custom={i}
-                className="flex-shrink-0 w-[220px] md:w-[260px] aspect-[9/16] rounded-2xl overflow-hidden bg-black snap-start"
-              >
-                <video
-                  src={video.src}
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
-            ))}
-          </div>
+        {/* Video carousel - auto-scrolling */}
+        <div className="max-w-5xl mx-auto mt-16 overflow-hidden">
+          <motion.div
+            className="flex gap-4"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+            style={{ width: "max-content" }}
+          >
+            {[...Array(2)].flatMap((_, dupeIdx) =>
+              [
+                "/videos/exp-1.mp4", "/videos/exp-2.mov", "/videos/exp-3.mov", "/videos/exp-4.mov",
+                "/videos/exp-5.mov", "/videos/exp-6.mov", "/videos/exp-7.mov", "/videos/exp-8.mov",
+                "/videos/exp-9.mp4", "/videos/exp-10.mov", "/videos/exp-11.mp4", "/videos/exp-12.mp4",
+                "/videos/exp-13.mov", "/videos/exp-14.mov", "/videos/exp-15.mov", "/videos/exp-16.mov",
+                "/videos/exp-17.mov", "/videos/exp-18.mov", "/videos/exp-19.mov", "/videos/exp-20.mov",
+                "/videos/exp-21.mov",
+              ].map((src, i) => (
+                <div
+                  key={`${dupeIdx}-${i}`}
+                  className="flex-shrink-0 w-[200px] md:w-[240px] aspect-[9/16] rounded-2xl overflow-hidden bg-black"
+                >
+                  <video
+                    src={src}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))
+            )}
+          </motion.div>
         </div>
       </section>
 
