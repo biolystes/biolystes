@@ -438,7 +438,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 4. JE COMPRENDS — LA MISE EN PLACE ═══ */}
-      <section id="section-comprend" ref={setRef("comprend")} className="py-0 mt-[59px] mb-[34px]">
+      <section id="section-comprend" ref={setRef("comprend")} className="bg-secondary">
         <CommentCaMarche />
       </section>
 
