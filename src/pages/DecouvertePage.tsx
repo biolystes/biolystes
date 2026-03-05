@@ -344,7 +344,7 @@ export default function DecouvertePage() {
       <section id="section-experience" ref={setRef("experience")} className="py-24 md:py-32 bg-background">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-            className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground">
+            className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed">
             18 ans d'expérience dans le secteur de la beauté ont donné naissance à Biolystes
           </motion.h2>
           <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
