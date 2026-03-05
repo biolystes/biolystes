@@ -382,12 +382,40 @@ export default function DecouvertePage() {
           ))}
         </motion.div>
 
-        {/* Video présentation */}
+        {/* Video carousel */}
         <div className="max-w-5xl mx-auto px-6 mt-16">
-          <div className="rounded-2xl overflow-hidden">
-            <video autoPlay muted loop playsInline className="w-full h-auto rounded-2xl">
-              <source src="https://biolystes.com/wp-content/uploads/2025/09/ok.mov" type="video/mp4" />
-            </video>
+          <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-6 px-6">
+            {[
+              { src: "/videos/exp-1.mp4" },
+              { src: "/videos/exp-2.mov" },
+              { src: "/videos/exp-3.mov" },
+              { src: "/videos/exp-4.mov" },
+              { src: "/videos/exp-5.mov" },
+              { src: "/videos/exp-6.mov" },
+              { src: "/videos/exp-7.mov" },
+              { src: "/videos/exp-8.mov" },
+              { src: "/videos/exp-9.mp4" },
+              { src: "/videos/exp-10.mov" },
+            ].map((video, i) => (
+              <motion.div
+                key={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeUp}
+                custom={i}
+                className="flex-shrink-0 w-[220px] md:w-[260px] aspect-[9/16] rounded-2xl overflow-hidden bg-black snap-start"
+              >
+                <video
+                  src={video.src}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
