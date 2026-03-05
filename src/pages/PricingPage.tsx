@@ -131,7 +131,7 @@ function PackIA() {
           "Automatisation livraison", "Support premium", "Expert produit dédié en votre nom",
           "Achat de stock pas nécessaire", "Aucune quantité min en cas d'achat de stock",
           "UGC IA Ultraréaliste", "Optimisation SEO avancée", "CRO standard",
-          "Expert produit dédié", "Diagnostic intelligent par IA",
+          "Expert produit dédié", "Diagnostic intelligent par IA (Option)",
           "Recommandations produits par IA", "Gestion réseaux sociaux 1 mois",
         ].map((f, i) => <CheckItem key={i} text={f} />)}
       </div>

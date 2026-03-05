@@ -730,7 +730,7 @@ export default function DecouvertePage() {
                   <p className="text-[11px] mt-0.5 text-muted-foreground">1er mois offert · Tout le Pro + UGC IA, diagnostic IA & réseaux sociaux</p>
                 </div>
                 <div className="flex flex-col mb-8 flex-1">
-                  {["Création de logo", "Design Packaging", "Contenu textuel clé en main", "Photographie IA hyperréaliste", "Site e-commerce", "Indexation Google", "Automatisation livraison", "Support premium", "Expert produit dédié en votre nom", "Achat de stock pas nécessaire", "Aucune quantité min en cas d'achat de stock", "UGC IA Ultraréaliste", "Optimisation SEO avancée", "CRO standard", "Expert produit dédié", "Diagnostic intelligent par IA", "Recommandations produits par IA", "Gestion réseaux sociaux 1 mois"].map((f, i) => (
+                  {["Création de logo", "Design Packaging", "Contenu textuel clé en main", "Photographie IA hyperréaliste", "Site e-commerce", "Indexation Google", "Automatisation livraison", "Support premium", "Expert produit dédié en votre nom", "Achat de stock pas nécessaire", "Aucune quantité min en cas d'achat de stock", "UGC IA Ultraréaliste", "Optimisation SEO avancée", "CRO standard", "Expert produit dédié", "Diagnostic intelligent par IA (Option)", "Recommandations produits par IA", "Gestion réseaux sociaux 1 mois"].map((f, i) => (
                     <div key={i} className="flex items-start gap-3 py-1.5">
                       <Check size={14} strokeWidth={2} className="flex-shrink-0 mt-0.5 text-muted-foreground" />
                       <span className="text-[13px] leading-relaxed text-muted-foreground">{f}</span>
