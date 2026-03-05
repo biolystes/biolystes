@@ -63,6 +63,7 @@ type StepKey = "decouvre" | "constat" | "experience" | "comprend" | "qualite" | 
 
 const steps: { key: StepKey; label: string; subtitle: string }[] = [
   { key: "decouvre", label: "Je découvre", subtitle: "Le concept" },
+  { key: "qualite", label: "La qualité", subtitle: "Nos engagements" },
   { key: "experience", label: "L'expérience", subtitle: "18 ans d'expertise" },
   { key: "qualite", label: "La qualité", subtitle: "Nos engagements" },
   { key: "comprend", label: "Je comprends", subtitle: "La mise en place" },
