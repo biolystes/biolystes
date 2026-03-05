@@ -26,7 +26,7 @@ function LystesHero() {
         Comment gérer sa marque
       </motion.p>
       <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-        className="text-[clamp(32px,5vw,54px)] font-light leading-[1.15] max-w-[780px] mx-auto mb-6 text-foreground">
+        className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-foreground">
         Comment gérer sa marque bio et végane <em className="italic">sans engager trop de dépenses</em> ?
       </motion.h2>
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
