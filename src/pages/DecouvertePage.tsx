@@ -518,7 +518,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 6. LYSTES.AI ═══ */}
-      <section id="section-lystesai" ref={setRef("lystesai")}>
+      <section id="section-lystesai" ref={setRef("lystesai")} className="bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8">
         <LystesAiSection />
       </section>
 
