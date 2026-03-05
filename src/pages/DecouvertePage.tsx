@@ -416,11 +416,6 @@ export default function DecouvertePage() {
             )}
           </motion.div>
         </div>
-                />
-              </motion.div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* ═══ 3. LA QUALITÉ — NOS ENGAGEMENTS ═══ */}
