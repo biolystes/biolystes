@@ -98,44 +98,6 @@ const portfolioBrands = [
   },
 ];
 
-const lystesAiPillars = [
-  {
-    icon: ScanFace,
-    title: "Équipe Diagnostics AI",
-    text: "Votre visiteur prend un selfie. L'IA scanne son visage, analyse sa peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.",
-  },
-  {
-    icon: MessageCircle,
-    title: "Équipe Expert produit AI",
-    text: "Chaque produit dispose de son propre expert dédié. Il répond instantanément aux questions sur la composition, la compatibilité, les délais. Comme votre meilleur vendeur, formé sur chaque détail.",
-  },
-  {
-    icon: Camera,
-    title: "Équipe Photographe AI",
-    text: "Photos produits niveau studio professionnel, visuels UGC avec de vrais visages pour vos réseaux sociaux, contenus marketing. En quelques secondes, sans shooting.",
-  },
-  {
-    icon: Globe,
-    title: "Équipe Expert SEO AI",
-    text: "Optimisation automatique de vos fiches produits, méta-descriptions, mots-clés et contenus pour que votre boutique soit visible sur Google dès le lancement.",
-  },
-  {
-    icon: BarChart3,
-    title: "Équipe Marketing AI",
-    text: "Plans d'action marketing personnalisés, campagnes email, stratégies de conversion. Un directeur marketing qui travaille pour vous 24h/24.",
-  },
-  {
-    icon: QrCode,
-    title: "Équipe Créateur de contenu AI",
-    text: "Contenus pour vos réseaux sociaux, articles de blog, descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.",
-  },
-  {
-    icon: BarChart3,
-    title: "Équipe Analytics AI",
-    text: "Un assistant IA connaît vos chiffres en temps réel. CA, tops produits, questions clients, points de blocage. Des décisions basées sur la réalité, pas sur des suppositions.",
-  },
-];
-
 function StepProgress({ activeStep }: { activeStep: StepKey }) {
   const activeIdx = steps.findIndex(s => s.key === activeStep);
 
