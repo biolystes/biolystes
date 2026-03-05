@@ -595,7 +595,7 @@ export default function DashboardPage() {
   const [selectedProduct, setSelectedProduct] = useState<WCProduct | null>(null);
 
   return (
-    <>
+    <div className="px-6 lg:px-10 py-6">
       <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }`}</style>
 
       {/* Hero */}
@@ -664,7 +664,7 @@ export default function DashboardPage() {
       <AnimatePresence>
         {selectedProduct && <ProductPanel product={selectedProduct} onClose={() => setSelectedProduct(null)} />}
       </AnimatePresence>
-    </>
+    </div>
   );
 }
 
