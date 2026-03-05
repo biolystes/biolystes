@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import {
   ArrowRight, Check, FlaskConical, Truck, Globe, Package, Leaf, Award,
   Rabbit, FileCheck2, BadgeCheck, ShoppingBag, MessageCircle, HelpCircle,
-  Camera, Palette, Globe2, BarChart3, Sparkles, Clock, Shield, Zap
+  Camera, Palette, Globe2, BarChart3, Sparkles, Clock, Shield, Zap,
+  AlertTriangle, Warehouse, Users, Eye, Timer
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
