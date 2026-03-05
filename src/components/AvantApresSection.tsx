@@ -165,7 +165,7 @@ export default function AvantApresSection() {
                     {/* Animated Chat widget */}
                     <AnimatedChat />
                     {/* Add to cart */}
-                    <button className="w-full bg-foreground text-primary-foreground py-4 rounded-xl font-bold flex items-center justify-center gap-2 mb-6 text-[13px] tracking-wide shadow-lg uppercase">
+                    <button className="w-full bg-foreground text-primary-foreground py-4 rounded-xl font-bold flex items-center justify-center gap-2 mb-6 text-[13px] tracking-wide uppercase">
                       AJOUTER AU PANIER<span className="w-px h-4 bg-muted-foreground/50 mx-2" />49,90€
                     </button>
                     {/* UGC images */}
