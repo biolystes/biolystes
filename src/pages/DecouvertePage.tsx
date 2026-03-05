@@ -883,7 +883,137 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ 8. JE ME LANCE ═══ */}
+      {/* ═══ 8. CATALOGUE ═══ */}
+      <section id="section-catalogue" ref={setRef("catalogue")} className="bg-secondary py-24 md:py-32">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
+            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Catalogue</motion.p>
+            <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl text-foreground">
+              Des formulations d'excellence, prêtes à vendre.
+            </motion.h2>
+            <motion.p variants={fadeUp} custom={2} className="text-muted-foreground max-w-xl leading-relaxed">
+              Plus de 50 produits certifiés bio et végan, disponibles sans minimum de commande.
+            </motion.p>
+          </motion.div>
+
+          {catalogProducts.length > 0 && (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {catalogProducts.slice(0, 8).map((p, i) => (
+                <motion.div key={p.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
+                  className="group cursor-pointer" onClick={() => navigate("/catalog")}>
+                  <div className="aspect-square rounded-2xl overflow-hidden mb-3 bg-muted">
+                    {p.image && <img src={p.image} alt={p.name} className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500" loading="lazy" />}
+                  </div>
+                  <p className="text-sm font-medium text-foreground truncate">{p.name}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">{p.price} EUR HT</p>
+                </motion.div>
+              ))}
+            </div>
+          )}
+
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+            className="mt-12 text-center flex flex-wrap justify-center gap-4">
+            <Button className="rounded-full px-8 h-12 text-sm" onClick={() => navigate("/catalog")}>
+              <ShoppingBag className="mr-2 h-4 w-4" />
+              Voir tout le catalogue
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══ 9. TARIFS ═══ */}
+      <section id="section-tarifs" ref={setRef("tarifs")} className="py-24 md:py-32">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16 text-center">
+            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Tarifs</motion.p>
+            <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground">
+              Des offres claires, sans surprise.
+            </motion.h2>
+            <motion.p variants={fadeUp} custom={2} className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
+              Tous les prix sont en HT. Le montant du Pack Échantillon est déduit de toute offre souscrite dans les 30 jours.
+            </motion.p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {/* Pack Échantillon */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+              className="p-8 rounded-2xl bg-secondary border border-border">
+              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-4">Pack Échantillon</p>
+              <div className="flex items-end gap-2 mb-4">
+                <span className="text-3xl font-black text-foreground">147€</span>
+                <span className="text-sm text-muted-foreground mb-1">ou 3× 49€</span>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                Testez nos formulations avant de vous lancer. Montant intégralement déduit de toute offre souscrite sous 30 jours.
+              </p>
+              <div className="space-y-2">
+                {["Jusqu'à 5 échantillons", "Formulations certifiées bio", "Livraison incluse"].map(t => (
+                  <div key={t} className="flex items-center gap-2 text-sm text-foreground">
+                    <Check className="h-3.5 w-3.5 shrink-0" /> {t}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Offre Sans Site */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
+              className="p-8 rounded-2xl bg-secondary border border-border">
+              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-4">Offre Sans Site</p>
+              <div className="flex items-end gap-2 mb-4">
+                <span className="text-3xl font-black text-foreground">39€</span>
+                <span className="text-sm text-muted-foreground mb-1">/mois</span>
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+                Vous avez déjà un site ? On s'occupe du design, du packaging et de la logistique.
+              </p>
+              <div className="space-y-2">
+                {["Design packaging inclus", "Conformité étiquetage", "Produits facturés à l'unité", "Référence produit supplémentaire : +49€ de design/produit"].map(t => (
+                  <div key={t} className="flex items-center gap-2 text-sm text-foreground">
+                    <Check className="h-3.5 w-3.5 shrink-0" /> {t}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Offre Avec Site */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
+              className="p-8 rounded-2xl bg-foreground text-primary-foreground border-2 border-foreground">
+              <p className="text-xs tracking-[0.2em] uppercase text-primary-foreground/50 mb-4">Offre Avec Site</p>
+              <div className="flex items-end gap-2 mb-1">
+                <span className="text-3xl font-black">1 499€</span>
+              </div>
+              <p className="text-xs text-primary-foreground/50 mb-4">ou 2× 750€ · + 99€/mois (1er mois offert)</p>
+              <p className="text-sm text-primary-foreground/70 leading-relaxed mb-6">
+                Solution complète : site e-commerce, design, packaging, photos et lancement en 10-15 jours.
+              </p>
+              <div className="space-y-2">
+                {["Tout de l'offre Sans Site", "Site e-commerce inclus", "Photos IA hyperréalistes", "SEO & indexation Google", "Abonnement Pro 99€/mois"].map(t => (
+                  <div key={t} className="flex items-center gap-2 text-sm text-primary-foreground">
+                    <Check className="h-3.5 w-3.5 shrink-0" /> {t}
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
+            className="mt-12 text-center flex flex-wrap justify-center gap-4">
+            <Button className="rounded-full px-8 h-12 text-sm" onClick={() => navigate("/pricing")}>
+              Voir le détail des tarifs
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+            <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
+              <Button variant="outline" className="rounded-full px-8 h-12 text-sm border-muted-foreground/40">
+                <HelpCircle className="mr-2 h-4 w-4" />
+                Prendre rendez-vous
+              </Button>
+            </a>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══ 10. JE ME LANCE ═══ */}
       <section id="section-lance" ref={setRef("lance")} className="bg-secondary py-24 md:py-32">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-6">
