@@ -612,94 +612,151 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ 9. TARIFS ═══ */}
+      {/* ═══ 9. TARIFS (DÉTAILLÉ) ═══ */}
       <section id="section-tarifs" ref={setRef("tarifs")} className="py-24 md:py-32">
         <div className="max-w-5xl mx-auto px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16 text-center">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-12 text-center">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Tarifs</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground">
-              Des offres claires, sans surprise.
+            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-[42px] font-extrabold uppercase leading-tight tracking-tight text-foreground">
+              Des forfaits transparents<br className="hidden md:block" /> et adaptés à votre ambition
             </motion.h2>
-            <motion.p variants={fadeUp} custom={2} className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
-              Tous les prix sont en HT. Le montant du Pack Échantillon est déduit de toute offre souscrite dans les 30 jours.
+            <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground leading-relaxed">
+              Le premier mois de l'abonnement est toujours offert !
             </motion.p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-6">
-            {/* Pack Échantillon */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              className="p-8 rounded-2xl bg-secondary border border-border">
-              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-4">Pack Échantillon</p>
-              <div className="flex items-end gap-2 mb-4">
-                <span className="text-3xl font-black text-foreground">147€</span>
-                <span className="text-sm text-muted-foreground mb-1">ou 3× 49€</span>
+          {/* Step Progress */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+            className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-0 mb-10 md:mb-14">
+            {[
+              { step: "1", label: "Je teste", price: "Dès 147€" },
+              { step: "2", label: "Je lance", price: "Dès 1 499€" },
+              { step: "3", label: "Je lance + IA", price: "Dès 2 999€" },
+            ].map((s, i) => (
+              <div key={s.step} className="flex items-center gap-0">
+                <div className="flex flex-col items-center px-6 md:px-8 py-3.5 rounded-xl border border-transparent">
+                  <span className="text-[11px] uppercase tracking-widest mb-0.5 text-muted-foreground font-semibold">
+                    {s.step}. {s.label}
+                  </span>
+                  <span className="text-[12px] text-muted-foreground">{s.price}</span>
+                </div>
+                {i < 2 && <ArrowRight size={14} strokeWidth={1.8} className="text-muted-foreground hidden md:block mx-1" />}
               </div>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Testez nos formulations avant de vous lancer. Montant intégralement déduit de toute offre souscrite sous 30 jours.
+            ))}
+          </motion.div>
+
+          {/* Pack Découverte */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
+            className="max-w-lg mx-auto mb-8">
+            <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border-2 border-foreground">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-foreground text-background">
+                Pack découverte
+              </div>
+              <h3 className="text-lg md:text-xl font-extrabold uppercase tracking-tight mb-1 mt-2 text-foreground">
+                Testez nos produits — 147€
+              </h3>
+              <p className="text-sm mb-8 text-muted-foreground leading-relaxed">
+                ou 3× 49€ — Validez la qualité avant de vous lancer
               </p>
-              <div className="space-y-2">
-                {["Jusqu'à 5 échantillons", "Formulations certifiées bio", "Livraison incluse"].map(t => (
-                  <div key={t} className="flex items-center gap-2 text-sm text-foreground">
-                    <Check className="h-3.5 w-3.5 shrink-0" /> {t}
+              <div className="flex flex-col mb-8">
+                {["4 produits échantillons (sérum, crème, nettoyant, soin spécifique)", "Accompagnement personnalisé dans la sélection par nos experts", "Étiquetage standard conforme Biolystes", "Certifié Bio & Végan / COSMOS / ECOCERT / FDA", "Livraison incluse sous 7 à 8 jours"].map((t, i) => (
+                  <div key={i} className="flex items-start gap-3 py-1.5">
+                    <Check size={14} strokeWidth={2} className="flex-shrink-0 mt-0.5 text-muted-foreground" />
+                    <span className="text-[13px] leading-relaxed text-muted-foreground">{t}</span>
                   </div>
                 ))}
+              </div>
+              <a href={CTA_URL} target="_blank" rel="noopener noreferrer"
+                className="block w-full py-4 text-center no-underline text-[11px] font-extrabold tracking-[1.5px] uppercase rounded-xl bg-foreground text-background border-2 border-foreground hover:opacity-90 transition-opacity mt-auto">
+                Commander mes échantillons
+              </a>
+            </div>
+            <div className="rounded-2xl px-6 py-5 text-center bg-secondary border border-border mt-5">
+              <div className="flex items-center justify-center gap-2 mb-1.5">
+                <HelpCircle size={14} strokeWidth={1.8} className="text-muted-foreground" />
+                <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Bon à savoir</span>
+              </div>
+              <p className="text-[13px] leading-relaxed text-muted-foreground">147€ déduits de toute Offre Avec Site souscrite dans les 30 jours. Votre test devient un acompte, pas une dépense.</p>
+            </div>
+          </motion.div>
+
+          {/* Pack Agence + Pack IA */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+            {/* Pack Agence */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
+              <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border-2 border-foreground h-full">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-foreground text-background">
+                  Populaire
+                </div>
+                <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 mt-2 text-foreground">Pack Agence</h3>
+                <p className="text-xs mb-5 text-muted-foreground">Gestion 360°</p>
+                <div className="mb-2">
+                  <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">1 499€</span>
+                  <span className="text-[13px] ml-2 text-muted-foreground">frais uniques ou 999€ en 2 fois</span>
+                </div>
+                <div className="rounded-xl p-4 mb-7 bg-muted/50 border border-border">
+                  <p className="text-xs font-extrabold uppercase tracking-wide mb-0.5 text-foreground">+ Abonnement Pro inclus obligatoire</p>
+                  <p className="text-2xl font-extrabold my-0.5 text-foreground">99€<span className="text-[13px] font-medium text-muted-foreground">/mois</span></p>
+                  <p className="text-[11px] mt-0.5 text-muted-foreground">Hébergement, livraisons, SEO, support & IA inclus</p>
+                </div>
+                <div className="flex flex-col mb-8 flex-1">
+                  {["Création de logo", "Design Packaging", "Contenu textuel clé en main", "Photographie IA hyperréaliste", "Site e-commerce", "Indexation Google", "Automatisation livraison", "Support premium", "Expert produit dédié en votre nom", "Achat de stock pas nécessaire", "Aucune quantité min en cas d'achat de stock", "Optimisation SEO avancée", "CRO standard"].map((f, i) => (
+                    <div key={i} className="flex items-start gap-3 py-1.5">
+                      <Check size={14} strokeWidth={2} className="flex-shrink-0 mt-0.5 text-muted-foreground" />
+                      <span className="text-[13px] leading-relaxed text-muted-foreground">{f}</span>
+                    </div>
+                  ))}
+                </div>
+                <a href={CTA_URL} target="_blank" rel="noopener noreferrer"
+                  className="block w-full py-4 text-center no-underline text-[11px] font-extrabold tracking-[1.5px] uppercase rounded-xl bg-foreground text-background border-2 border-foreground hover:opacity-90 transition-opacity mt-auto">
+                  Prendre RDV
+                </a>
+              </div>
+              <div className="rounded-2xl px-6 py-5 text-center bg-secondary border border-border mt-5">
+                <div className="flex items-center justify-center gap-2 mb-1.5">
+                  <HelpCircle size={14} strokeWidth={1.8} className="text-muted-foreground" />
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Bon à savoir</span>
+                </div>
+                <p className="text-[13px] leading-relaxed text-muted-foreground">Vous avez commandé un Pack Échantillon ? Vos 147€ sont déduits de la mise en place.</p>
               </div>
             </motion.div>
 
-            {/* Offre Avec Site */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-              className="p-8 rounded-2xl bg-secondary border border-border">
-              <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground mb-4">Offre Avec Site</p>
-              <div className="flex items-end gap-2 mb-1">
-                <span className="text-3xl font-black text-foreground">1 499€</span>
+            {/* Pack IA */}
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}>
+              <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border border-border h-full">
+                <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 text-foreground">Pack IA</h3>
+                <p className="text-xs mb-5 text-muted-foreground">Gestion 360° + Intelligence artificielle avancée</p>
+                <div className="mb-2">
+                  <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">2 999€</span>
+                  <span className="text-[13px] ml-2 text-muted-foreground">frais uniques ou 999€ en 2 fois</span>
+                </div>
+                <div className="rounded-xl p-4 mb-7 bg-muted/50 border border-border">
+                  <p className="text-xs font-extrabold uppercase tracking-wide mb-0.5 text-foreground">+ Abonnement Pro inclus obligatoire</p>
+                  <p className="text-2xl font-extrabold my-0.5 text-foreground">199€<span className="text-[13px] font-medium text-muted-foreground">/mois</span></p>
+                  <p className="text-[11px] mt-0.5 text-muted-foreground">1er mois offert · Tout le Pro + UGC IA, diagnostic IA & réseaux sociaux</p>
+                </div>
+                <div className="flex flex-col mb-8 flex-1">
+                  {["Création de logo", "Design Packaging", "Contenu textuel clé en main", "Photographie IA hyperréaliste", "Site e-commerce", "Indexation Google", "Automatisation livraison", "Support premium", "Expert produit dédié en votre nom", "Achat de stock pas nécessaire", "Aucune quantité min en cas d'achat de stock", "UGC IA Ultraréaliste", "Optimisation SEO avancée", "CRO standard", "Expert produit dédié", "Diagnostic intelligent par IA", "Recommandations produits par IA", "Gestion réseaux sociaux 1 mois"].map((f, i) => (
+                    <div key={i} className="flex items-start gap-3 py-1.5">
+                      <Check size={14} strokeWidth={2} className="flex-shrink-0 mt-0.5 text-muted-foreground" />
+                      <span className="text-[13px] leading-relaxed text-muted-foreground">{f}</span>
+                    </div>
+                  ))}
+                </div>
+                <a href={CTA_URL} target="_blank" rel="noopener noreferrer"
+                  className="block w-full py-4 text-center no-underline text-[11px] font-extrabold tracking-[1.5px] uppercase rounded-xl bg-background text-foreground border-2 border-foreground hover:bg-foreground hover:text-background transition-all mt-auto">
+                  Prendre RDV
+                </a>
               </div>
-              <p className="text-xs text-muted-foreground mb-4">ou 2× 750€ · + 99€/mois</p>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-6">
-                Solution complète : site e-commerce, design, packaging, photos et lancement en 10-15 jours.
-              </p>
-              <div className="space-y-2">
-                {["Site e-commerce inclus", "Design packaging inclus", "Photos IA hyperréalistes", "SEO & indexation Google", "Abonnement Pro 99€/mois"].map(t => (
-                  <div key={t} className="flex items-center gap-2 text-sm text-foreground">
-                    <Check className="h-3.5 w-3.5 shrink-0" /> {t}
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Offre Avec Site + IA */}
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
-              className="p-8 rounded-2xl bg-foreground text-primary-foreground border-2 border-foreground">
-              <p className="text-xs tracking-[0.2em] uppercase text-primary-foreground/50 mb-4">Offre Avec Site + IA</p>
-              <div className="flex items-end gap-2 mb-1">
-                <span className="text-3xl font-black">2 999€</span>
-              </div>
-              <p className="text-xs text-primary-foreground/50 mb-4">ou 2× 1 500€ · + 199€/mois</p>
-              <p className="text-sm text-primary-foreground/70 leading-relaxed mb-6">
-                Tout de l'offre Avec Site + UGC IA, diagnostic intelligent et gestion réseaux sociaux.
-              </p>
-              <div className="space-y-2">
-                {["Tout de l'offre Avec Site", "UGC IA ultraréaliste", "Diagnostic intelligent par IA", "Recommandations produits par IA", "Gestion réseaux sociaux 1 mois"].map(t => (
-                  <div key={t} className="flex items-center gap-2 text-sm text-primary-foreground">
-                    <Check className="h-3.5 w-3.5 shrink-0" /> {t}
-                  </div>
-                ))}
+              <div className="rounded-2xl px-6 py-5 text-center bg-secondary border border-border mt-5">
+                <div className="flex items-center justify-center gap-2 mb-1.5">
+                  <HelpCircle size={14} strokeWidth={1.8} className="text-muted-foreground" />
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Bon à savoir</span>
+                </div>
+                <p className="text-[13px] leading-relaxed text-muted-foreground">Vous avez commandé un Pack Échantillon ? Vos 147€ sont déduits de la mise en place.</p>
               </div>
             </motion.div>
           </div>
-
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
-            className="mt-12 text-center flex flex-wrap justify-center gap-4">
-            <Button className="rounded-full px-8 h-12 text-sm" onClick={() => navigate("/pricing")}>
-              Voir le détail des tarifs
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
-              <Button variant="outline" className="rounded-full px-8 h-12 text-sm border-muted-foreground/40">
-                <HelpCircle className="mr-2 h-4 w-4" />
-                Prendre rendez-vous
-              </Button>
-            </a>
-          </motion.div>
         </div>
       </section>
 
