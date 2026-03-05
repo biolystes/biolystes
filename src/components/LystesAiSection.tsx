@@ -20,7 +20,7 @@ const fadeUp = {
    ═══════════════════════════════════════════════════ */
 function LystesHero() {
   return (
-    <div className="text-center max-w-[1120px] mx-auto px-6 pt-24 pb-12">
+    <div className="text-center max-w-5xl mx-auto px-6 pt-24 pb-12">
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
         className="text-[10px] font-bold tracking-[2.5px] uppercase text-white/50 mb-5">
         Votre équipe intégrée
@@ -57,7 +57,7 @@ function LystesHero() {
    ═══════════════════════════════════════════════════ */
 function BeforeAfterPhones() {
   return (
-    <div className="w-full flex justify-center items-start py-12 px-6 gap-10 md:gap-16" style={{ scrollbarWidth: "none", overflowX: "clip", overflowY: "visible" }}>
+    <div className="w-full max-w-5xl mx-auto flex justify-center items-start py-12 px-6 gap-10 md:gap-16" style={{ scrollbarWidth: "none", overflowX: "clip", overflowY: "visible" }}>
       <div className="relative flex flex-col md:flex-row items-start justify-center gap-10 md:gap-16" style={{ overflow: "visible" }}>
 
         {/* ── AVANT ── */}
@@ -489,7 +489,7 @@ function TeamRow({ bg, reversed, title, kicker, desc, children }: {
   return (
     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeUp} custom={0}
       className={`${bg} py-14 md:py-20`}>
-      <div className={`max-w-[1120px] mx-auto px-6 flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-12`}>
+      <div className={`max-w-5xl mx-auto px-6 flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-12`}>
         <div className="flex-1 min-w-[260px]">
           <span className="inline-block bg-foreground text-primary-foreground text-[10px] font-bold tracking-[2px] uppercase px-4 py-1.5 rounded-full mb-5">
             {kicker}
