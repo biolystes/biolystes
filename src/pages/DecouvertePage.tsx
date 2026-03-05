@@ -316,7 +316,7 @@ export default function DecouvertePage() {
               },
             ].map((item, i) => (
               <motion.div key={item.title} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-30px" }}
-                variants={fadeUp} custom={i} className="p-6 md:p-8 rounded-2xl bg-background border border-border">
+                variants={fadeUp} custom={i} className="p-6 md:p-8 rounded-2xl bg-background">
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center shrink-0 mt-0.5">
                     <item.icon className="h-5 w-5 text-destructive" strokeWidth={1.5} />
