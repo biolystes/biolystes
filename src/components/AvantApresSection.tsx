@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Star, StarHalf, Menu, Search, User, ShoppingBag, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import AnimatedChat from "@/components/AnimatedChat";
+import { AnimatedChat } from "@/components/AnimatedChat";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
