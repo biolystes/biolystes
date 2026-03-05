@@ -156,7 +156,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   alt="Lystes"
                   className="h-7 w-7 object-contain"
                 />
-                <span className="font-bold text-sm" style={{ color: "#1d1d1f" }}>Lystes.ai</span>
+                <span className="font-bold text-sm" style={{ color: "#1d1d1f" }}>Biolystes</span>
               </div>
               <nav className="space-y-1 flex-1">
                 {navItems.map((item) => (
