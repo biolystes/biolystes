@@ -378,7 +378,6 @@ function TeamMarketing() {
           </div>
         </div>
       </div>
-      </div>
     </TeamRow>
   );
 }
