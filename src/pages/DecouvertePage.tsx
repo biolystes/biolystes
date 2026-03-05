@@ -56,11 +56,12 @@ const fadeUp = {
   }),
 };
 
-type StepKey = "decouvre" | "constat" | "comprend" | "qualite" | "livraison" | "lystesai" | "portfolio" | "catalogue" | "tarifs" | "lance";
+type StepKey = "decouvre" | "constat" | "experience" | "comprend" | "qualite" | "livraison" | "lystesai" | "portfolio" | "catalogue" | "tarifs" | "lance";
 
 const steps: { key: StepKey; label: string; subtitle: string }[] = [
   { key: "decouvre", label: "Je découvre", subtitle: "Le concept" },
   { key: "constat", label: "Le constat", subtitle: "Pourquoi Biolystes" },
+  { key: "experience", label: "L'expérience", subtitle: "18 ans d'expertise" },
   { key: "qualite", label: "La qualité", subtitle: "Nos engagements" },
   { key: "comprend", label: "Je comprends", subtitle: "La mise en place" },
   { key: "livraison", label: "La livraison", subtitle: "Comment ça marche" },
@@ -146,7 +147,7 @@ export default function DecouvertePage() {
   const [activeStep, setActiveStep] = useState<StepKey>("decouvre");
   const [catalogProducts, setCatalogProducts] = useState<{ id: number; name: string; price: string; image: string }[]>([]);
   const sectionRefs = useRef<Record<StepKey, HTMLElement | null>>({
-    decouvre: null, constat: null, comprend: null, qualite: null, livraison: null, lystesai: null, portfolio: null, catalogue: null, tarifs: null, lance: null,
+    decouvre: null, constat: null, experience: null, comprend: null, qualite: null, livraison: null, lystesai: null, portfolio: null, catalogue: null, tarifs: null, lance: null,
   });
 
   // Fetch catalog products
@@ -319,7 +320,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 18 ANS D'EXPÉRIENCE ═══ */}
-      <section className="py-24 md:py-32 bg-background">
+      <section id="section-experience" ref={setRef("experience")} className="py-24 md:py-32 bg-background">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground">
