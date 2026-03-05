@@ -320,6 +320,11 @@ export default function DecouvertePage() {
             ))}
           </div>
 
+          {/* ═══ PRÉSENTATION PRODUITS (INSTA FEED) ═══ */}
+          <div className="mt-16 mb-16">
+            <InstaFeedSection />
+          </div>
+
           {/* What we eliminate */}
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="mt-16 grid md:grid-cols-2 gap-8">
