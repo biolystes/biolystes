@@ -11,6 +11,27 @@ import {
   ChevronLeft, ChevronRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ExternalLink } from "lucide-react";
+
+// Brand images for portfolio
+import kaniwa1 from "@/assets/kaniwa-1.jpg";
+import kaniwa2 from "@/assets/kaniwa-2.jpg";
+import kaniwa3 from "@/assets/kaniwa-3.jpg";
+import kaniwa5 from "@/assets/kaniwa-5.jpg";
+import kaniwa6 from "@/assets/kaniwa-6.jpg";
+import kaniwa7 from "@/assets/kaniwa-7.jpg";
+import fralene1 from "@/assets/fralene-1.jpg";
+import fralene2 from "@/assets/fralene-2.jpg";
+import fralene3 from "@/assets/fralene-3.jpg";
+import fralene5 from "@/assets/fralene-5.jpg";
+import sevmylook1 from "@/assets/sevmylook-1.jpg";
+import sevmylook3 from "@/assets/sevmylook-3.jpg";
+import sevmylook7 from "@/assets/sevmylook-7.jpg";
+import sevmylook9 from "@/assets/sevmylook-9.jpg";
+import pmyrris1 from "@/assets/pmyrris-1.jpg";
+import pmyrris2 from "@/assets/pmyrris-2.jpg";
+import pmyrris4 from "@/assets/pmyrris-4.jpg";
+import pmyrris5 from "@/assets/pmyrris-5.jpg";
 
 import cert1 from "@/assets/cert-1.png";
 import cert2 from "@/assets/cert-2.png";
@@ -33,7 +54,7 @@ const fadeUp = {
   }),
 };
 
-type StepKey = "decouvre" | "constat" | "comprend" | "qualite" | "livraison" | "lystesai" | "lance";
+type StepKey = "decouvre" | "constat" | "comprend" | "qualite" | "livraison" | "lystesai" | "portfolio" | "lance";
 
 const steps: { key: StepKey; label: string; subtitle: string }[] = [
   { key: "decouvre", label: "Je découvre", subtitle: "Le concept" },
@@ -42,7 +63,35 @@ const steps: { key: StepKey; label: string; subtitle: string }[] = [
   { key: "qualite", label: "La qualité", subtitle: "Nos engagements" },
   { key: "livraison", label: "La livraison", subtitle: "Comment ça marche" },
   { key: "lystesai", label: "Lystes.ai", subtitle: "Vos agents IA" },
+  { key: "portfolio", label: "Nos clients", subtitle: "Portfolio" },
   { key: "lance", label: "Je me lance", subtitle: "Passez à l'action" },
+];
+
+const portfolioBrands = [
+  {
+    name: "Kaniwa Botanique",
+    tagline: "Marque bio & vegan, lancée en 12 jours",
+    url: "https://kaniwabotanique.com/",
+    photos: [kaniwa1, kaniwa2, kaniwa3, kaniwa5, kaniwa6, kaniwa7],
+  },
+  {
+    name: "Fralène",
+    tagline: "Gamme soins visage premium",
+    url: "https://fraleneparis.com/",
+    photos: [fralene1, fralene2, fralene3, fralene5],
+  },
+  {
+    name: "Sevmylook",
+    tagline: "Gamme solaire & soins visage par Séverine Formal",
+    url: "https://sevmylook.com/",
+    photos: [sevmylook1, sevmylook3, sevmylook7, sevmylook9],
+  },
+  {
+    name: "Pmyrris Beauty",
+    tagline: "Gamme soins capillaires naturels",
+    url: "https://pmyrrisbeauty.fr/",
+    photos: [pmyrris1, pmyrris2, pmyrris4, pmyrris5],
+  },
 ];
 
 const lystesAiPillars = [
@@ -250,7 +299,7 @@ export default function DecouvertePage() {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState<StepKey>("decouvre");
   const sectionRefs = useRef<Record<StepKey, HTMLElement | null>>({
-    decouvre: null, constat: null, comprend: null, qualite: null, livraison: null, lystesai: null, lance: null,
+    decouvre: null, constat: null, comprend: null, qualite: null, livraison: null, lystesai: null, portfolio: null, lance: null,
   });
 
   useEffect(() => {
@@ -761,8 +810,54 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ 7. JE ME LANCE ═══ */}
-      <section id="section-lance" ref={setRef("lance")} className="py-24 md:py-32">
+      {/* ═══ 7. PORTFOLIO — NOS CLIENTS ═══ */}
+      <section id="section-portfolio" ref={setRef("portfolio")} className="py-24 md:py-32">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
+            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Portfolio</motion.p>
+            <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl text-foreground">
+              Plus de 100 marques accompagnées.
+            </motion.h2>
+          </motion.div>
+
+          <div className="space-y-16">
+            {portfolioBrands.map((brand, idx) => (
+              <motion.div key={brand.name} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}
+                variants={fadeUp} custom={idx}>
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-base font-semibold text-foreground">{brand.name}</h3>
+                    <p className="text-sm text-muted-foreground">{brand.tagline}</p>
+                  </div>
+                  <a href={brand.url} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-sm font-medium text-foreground hover:opacity-70 transition-opacity shrink-0">
+                    Voir le site <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {brand.photos.map((src, i) => (
+                    <div key={i} className="aspect-[3/4] rounded-2xl overflow-hidden">
+                      <img src={src} alt={`${brand.name} ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+            className="mt-16 text-center">
+            <Button variant="outline" className="rounded-full px-8 h-12 text-sm border-muted-foreground/40"
+              onClick={() => navigate("/portfolio")}>
+              Voir tout le portfolio
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══ 8. JE ME LANCE ═══ */}
+      <section id="section-lance" ref={setRef("lance")} className="bg-secondary py-24 md:py-32">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-6">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Passez à l'action</motion.p>
