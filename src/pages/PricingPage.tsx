@@ -60,8 +60,8 @@ function DeductionBanner({ text }: { text: string }) {
 function StepProgress({ activeTab, onTabChange }: { activeTab: Tab; onTabChange: (t: Tab) => void }) {
   const steps: { key: Tab; step: string; label: string; price: string }[] = [
     { key: "decouverte", step: "1", label: "Je teste", price: "Dès 147€" },
-    { key: "sans-site", step: "2", label: "Je vends", price: "Dès 138€" },
-    { key: "avec-site", step: "3", label: "Je lance", price: "Dès 1 499€" },
+    { key: "avec-site", step: "2", label: "Je lance", price: "Dès 1 499€" },
+    { key: "avec-site-ai", step: "3", label: "Je lance + IA", price: "Dès 2 999€" },
   ];
 
   return (
