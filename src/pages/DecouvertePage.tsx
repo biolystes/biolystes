@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import CommentCaMarche from "@/components/CommentCaMarche";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,9 @@ import {
   ArrowRight, Check, FlaskConical, Truck, Globe, Package, Leaf, Award,
   Rabbit, FileCheck2, BadgeCheck, ShoppingBag, MessageCircle, HelpCircle,
   Camera, Palette, Globe2, BarChart3, Sparkles, Clock, Shield, Zap,
-  AlertTriangle, Warehouse, Users, Eye, Timer
+  AlertTriangle, Warehouse, Users, Eye, Timer,
+  ScanFace, QrCode, Star, StarHalf, Menu, Search, User, Mic, ArrowUp,
+  ChevronLeft, ChevronRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
