@@ -14,7 +14,7 @@ import { ExternalLink } from "lucide-react";
 
 // Brand images for portfolio
 import kaniwa1 from "@/assets/kaniwa-1.jpg";
-import kaniwa2 from "@/assets/kaniwa-2.jpg";
+
 import kaniwa3 from "@/assets/kaniwa-3.jpg";
 import kaniwa5 from "@/assets/kaniwa-5.jpg";
 import kaniwa6 from "@/assets/kaniwa-6.jpg";
