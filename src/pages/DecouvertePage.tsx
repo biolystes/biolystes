@@ -147,7 +147,7 @@ export default function DecouvertePage() {
   const [activeStep, setActiveStep] = useState<StepKey>("decouvre");
   const [catalogProducts, setCatalogProducts] = useState<{ id: number; name: string; price: string; image: string }[]>([]);
   const sectionRefs = useRef<Record<StepKey, HTMLElement | null>>({
-    decouvre: null, constat: null, comprend: null, qualite: null, livraison: null, lystesai: null, portfolio: null, catalogue: null, tarifs: null, lance: null,
+    decouvre: null, constat: null, experience: null, comprend: null, qualite: null, livraison: null, lystesai: null, portfolio: null, catalogue: null, tarifs: null, lance: null,
   });
 
   // Fetch catalog products
