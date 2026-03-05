@@ -110,8 +110,8 @@ function StepProgress({ activeStep }: { activeStep: StepKey }) {
 
   return (
     <div className="fixed top-14 left-0 right-0 z-20 bg-background/90 backdrop-blur-md border-b border-border">
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="flex items-center justify-between py-3 overflow-x-auto" style={{ scrollbarWidth: "none" }}>
+      <div className="max-w-4xl mx-auto px-2 md:px-4">
+        <div className="flex items-center justify-start md:justify-between py-2 md:py-3 overflow-x-auto gap-1" style={{ scrollbarWidth: "none" }}>
           {steps.map((s, i) => {
             const isActive = s.key === activeStep;
             const isPast = i < activeIdx;
@@ -119,7 +119,7 @@ function StepProgress({ activeStep }: { activeStep: StepKey }) {
               <button
                 key={s.key}
                 onClick={() => scrollToSection(s.key)}
-                className={`flex flex-col items-center px-3 md:px-5 py-2 rounded-xl cursor-pointer transition-all duration-200 border shrink-0 ${
+                className={`flex flex-col items-center px-2 md:px-5 py-1.5 md:py-2 rounded-xl cursor-pointer transition-all duration-200 border shrink-0 ${
                   isActive
                     ? "border-foreground bg-foreground/[0.03] font-bold"
                     : isPast
@@ -127,12 +127,12 @@ function StepProgress({ activeStep }: { activeStep: StepKey }) {
                     : "border-transparent hover:border-border"
                 }`}
               >
-                <span className={`text-[10px] uppercase tracking-widest mb-0.5 ${
+                <span className={`text-[9px] md:text-[10px] uppercase tracking-widest mb-0.5 ${
                   isActive ? "text-foreground font-extrabold" : "text-muted-foreground font-semibold"
                 }`}>
                   {i + 1}. {s.label}
                 </span>
-                <span className={`text-[11px] ${isActive ? "text-foreground font-bold" : "text-muted-foreground"}`}>
+                <span className={`text-[10px] md:text-[11px] hidden md:block ${isActive ? "text-foreground font-bold" : "text-muted-foreground"}`}>
                   {s.subtitle}
                 </span>
               </button>
@@ -216,8 +216,8 @@ export default function DecouvertePage() {
             </span>
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-foreground uppercase max-w-4xl mx-auto"
-            style={{ fontSize: 38, fontFamily: "'Krona One', sans-serif", lineHeight: "56px" }}>
+            className="text-foreground uppercase max-w-4xl mx-auto text-[22px] md:text-[32px] lg:text-[38px]"
+            style={{ fontFamily: "'Krona One', sans-serif", lineHeight: 1.45 }}>
             Lancez votre marque cosmétique bio et végane sans vous ruiner
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
@@ -344,7 +344,7 @@ export default function DecouvertePage() {
       <section id="section-experience" ref={setRef("experience")} className="py-24 md:py-32 bg-background">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-            className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground">
+            className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed">
             18 ans d'expérience dans le secteur de la beauté ont donné naissance à Biolystes
           </motion.h2>
           <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
@@ -396,7 +396,7 @@ export default function DecouvertePage() {
         <div className="max-w-4xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16 text-center">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Nos engagements</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground">
+            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed">
               Des cosmétiques d'excellence, certifiés et responsables
             </motion.h2>
             <motion.p variants={fadeUp} custom={2} className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
@@ -465,7 +465,7 @@ export default function DecouvertePage() {
         <div className="max-w-4xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">La livraison</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl text-foreground">
+            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl text-foreground leading-relaxed">
               Comment fonctionne l'expédition de vos commandes ?
             </motion.h2>
           </motion.div>
@@ -551,7 +551,7 @@ export default function DecouvertePage() {
         <div className="max-w-5xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Portfolio</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl text-foreground">
+            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl text-foreground leading-relaxed">
               Plus de 100 marques accompagnées.
             </motion.h2>
           </motion.div>
@@ -597,7 +597,7 @@ export default function DecouvertePage() {
         <div className="max-w-5xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Catalogue</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl text-foreground">
+            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl text-foreground leading-relaxed">
               Des formulations d'excellence, prêtes à vendre.
             </motion.h2>
             <motion.p variants={fadeUp} custom={2} className="text-muted-foreground max-w-xl leading-relaxed">
@@ -636,8 +636,8 @@ export default function DecouvertePage() {
         <div className="max-w-5xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-12 text-center">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Tarifs</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-[42px] font-extrabold uppercase leading-tight tracking-tight text-foreground">
-              Des forfaits transparents<br className="hidden md:block" /> et adaptés à votre ambition
+             <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed">
+              Des forfaits transparents adaptés à votre ambition
             </motion.h2>
             <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground leading-relaxed">
               Le premier mois de l'abonnement est toujours offert !
@@ -789,7 +789,7 @@ export default function DecouvertePage() {
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-6">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Passez à l'action</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-5xl font-light tracking-tight text-foreground">
+            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed">
               Prêt à lancer votre marque ?
             </motion.h2>
             <motion.p variants={fadeUp} custom={2} className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
@@ -811,7 +811,7 @@ export default function DecouvertePage() {
               className="p-6 rounded-2xl bg-secondary hover:bg-accent transition-colors text-left group">
               <ShoppingBag className="h-6 w-6 text-foreground mb-4" strokeWidth={1.5} />
               <h3 className="text-sm font-semibold text-foreground mb-1">Explorer le catalogue</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">Plus de 50 formulations certifiées bio et végan, prêtes à vendre sous votre marque.</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">Plus de 100 formulations certifiées bio et végan, prêtes à vendre sous votre marque.</p>
               <ArrowRight className="h-4 w-4 text-foreground mt-4 group-hover:translate-x-1 transition-transform" />
             </button>
 
