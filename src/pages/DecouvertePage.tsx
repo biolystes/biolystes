@@ -360,7 +360,7 @@ export default function DecouvertePage() {
       {/* ═══ 18 ANS D'EXPÉRIENCE ═══ */}
       <section id="section-experience" ref={setRef("experience")} className="py-24 md:py-32 bg-background">
         {/* Video carousel - auto-scrolling */}
-        <div className="max-w-5xl mx-auto overflow-hidden mb-16">
+        <div className="w-full overflow-hidden mb-16">
           <motion.div
             className="flex gap-4"
             animate={{ x: ["0%", "-50%"] }}
