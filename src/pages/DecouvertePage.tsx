@@ -11,6 +11,27 @@ import {
   ChevronLeft, ChevronRight
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ExternalLink } from "lucide-react";
+
+// Brand images for portfolio
+import kaniwa1 from "@/assets/kaniwa-1.jpg";
+import kaniwa2 from "@/assets/kaniwa-2.jpg";
+import kaniwa3 from "@/assets/kaniwa-3.jpg";
+import kaniwa5 from "@/assets/kaniwa-5.jpg";
+import kaniwa6 from "@/assets/kaniwa-6.jpg";
+import kaniwa7 from "@/assets/kaniwa-7.jpg";
+import fralene1 from "@/assets/fralene-1.jpg";
+import fralene2 from "@/assets/fralene-2.jpg";
+import fralene3 from "@/assets/fralene-3.jpg";
+import fralene5 from "@/assets/fralene-5.jpg";
+import sevmylook1 from "@/assets/sevmylook-1.jpg";
+import sevmylook3 from "@/assets/sevmylook-3.jpg";
+import sevmylook7 from "@/assets/sevmylook-7.jpg";
+import sevmylook9 from "@/assets/sevmylook-9.jpg";
+import pmyrris1 from "@/assets/pmyrris-1.jpg";
+import pmyrris2 from "@/assets/pmyrris-2.jpg";
+import pmyrris4 from "@/assets/pmyrris-4.jpg";
+import pmyrris5 from "@/assets/pmyrris-5.jpg";
 
 import cert1 from "@/assets/cert-1.png";
 import cert2 from "@/assets/cert-2.png";
