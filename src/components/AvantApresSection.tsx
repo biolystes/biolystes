@@ -21,7 +21,7 @@ export default function AvantApresSection() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
               className="flex flex-col items-center gap-8 relative z-10 w-[320px] shrink-0">
               <div className="bg-foreground text-primary-foreground px-5 py-2 rounded-lg font-bold text-sm tracking-widest uppercase">Vos concurrents</div>
-              <div className="w-[320px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden relative flex flex-col">
+              <div className="w-[320px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col border border-border">
                 {/* Nav bar */}
                 <div className="flex items-center justify-between px-5 pt-10 pb-4 z-20">
                   <div className="flex items-center gap-4">
@@ -40,7 +40,7 @@ export default function AvantApresSection() {
                 {/* Product image area */}
                 <div className="w-full h-64 bg-muted relative pt-4 overflow-hidden">
                   <div className="flex justify-center items-start h-full">
-                    <img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl shadow-sm border border-border relative z-10" />
+                    <img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl border border-border relative z-10" />
                   </div>
                   <div className="absolute bottom-4 w-full flex justify-center gap-2 z-20">
                     <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
@@ -66,7 +66,7 @@ export default function AvantApresSection() {
                   <p className="text-[13px] text-muted-foreground leading-relaxed mb-8 h-[72px]">
                     Unifie le teint et repulpe la peau sans laisser de film gras. Idéale pour les peaux mixtes et les problématiques de pigmentation.
                   </p>
-                  <button className="w-full bg-foreground text-primary-foreground py-4 rounded-xl font-bold flex items-center justify-center gap-2 text-[13px] tracking-wide shadow-lg uppercase mb-4">
+                  <button className="w-full bg-foreground text-primary-foreground py-4 rounded-xl font-bold flex items-center justify-center gap-2 text-[13px] tracking-wide uppercase mb-4">
                     AJOUTER AU PANIER<span className="w-px h-4 bg-muted-foreground/50 mx-2" />49,90€
                   </button>
                   <div className="flex justify-center items-center gap-3">
@@ -81,7 +81,7 @@ export default function AvantApresSection() {
                 </div>
               </div>
               {/* Conversion rate card */}
-              <div className="w-[320px] bg-background px-5 py-4 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] relative z-20">
+              <div className="w-[320px] bg-background px-5 py-4 rounded-2xl border border-border relative z-20">
                 <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block mb-2">TAUX DE CONVERSION</span>
                 <div className="flex items-center gap-3">
                   <span className="text-[22px] font-bold text-foreground">3,8 %</span>
@@ -101,7 +101,7 @@ export default function AvantApresSection() {
                 Vous avec Biolystes AI
               </div>
               <div className="relative">
-                <div className="w-[360px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden relative flex flex-col z-10">
+                <div className="w-[360px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col z-10 border border-border">
                   {/* Nav bar */}
                   <div className="flex items-center justify-between px-5 pt-10 pb-4 z-20 shrink-0 border-b border-border">
                     <div className="flex items-center gap-4">
@@ -135,8 +135,7 @@ export default function AvantApresSection() {
                         "https://lystes.ai/images/clients/kaniwa-5.jpg",
                       ].map((src, i) => (
                         <div key={i} className="snap-start shrink-0 relative flex flex-col items-center">
-                          <div className="absolute -bottom-1.5 w-[85%] h-4 bg-foreground/15 blur-md rounded-[100%] z-0" />
-                          <img src={src} alt="" className="w-[240px] h-[280px] object-cover rounded-2xl shadow-sm relative z-10 border border-border" />
+                          <img src={src} alt="" className="w-[240px] h-[280px] object-cover rounded-2xl relative z-10 border border-border" />
                         </div>
                       ))}
                     </div>
@@ -166,7 +165,7 @@ export default function AvantApresSection() {
                     {/* Animated Chat widget */}
                     <AnimatedChat />
                     {/* Add to cart */}
-                    <button className="w-full bg-foreground text-primary-foreground py-4 rounded-xl font-bold flex items-center justify-center gap-2 mb-6 text-[13px] tracking-wide shadow-lg uppercase">
+                    <button className="w-full bg-foreground text-primary-foreground py-4 rounded-xl font-bold flex items-center justify-center gap-2 mb-6 text-[13px] tracking-wide uppercase">
                       AJOUTER AU PANIER<span className="w-px h-4 bg-muted-foreground/50 mx-2" />49,90€
                     </button>
                     {/* UGC images */}
@@ -195,9 +194,9 @@ export default function AvantApresSection() {
                     { label: "Créateur de contenu AI", top: "830px" },
                   ].map((agent) => (
                     <div key={agent.label} className="flex items-center gap-2 absolute" style={{ top: agent.top }}>
-                      <div className="w-2 h-2 rounded-full bg-foreground border-2 border-background shadow" />
+                      <div className="w-2 h-2 rounded-full bg-foreground border-2 border-background" />
                       <div className="w-10 h-px bg-foreground/20" />
-                      <span className="bg-foreground text-primary-foreground text-[11px] font-medium px-3 py-1.5 rounded-lg whitespace-nowrap shadow-sm">
+                      <span className="bg-foreground text-primary-foreground text-[11px] font-medium px-3 py-1.5 rounded-lg whitespace-nowrap">
                         {agent.label}
                       </span>
                     </div>
