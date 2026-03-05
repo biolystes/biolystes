@@ -9,7 +9,6 @@ const navItems = [
   { path: "/", icon: Compass, label: "Découverte" },
   { path: "/chat", icon: Sparkles, label: "Posez vos questions" },
   { path: "/catalog", icon: LayoutGrid, label: "Catalogue" },
-  { path: "/pricing", icon: Tag, label: "Tarifs" },
 ];
 
 const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
