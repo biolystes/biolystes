@@ -354,6 +354,43 @@ export default function DecouvertePage() {
 
       {/* ═══ 18 ANS D'EXPÉRIENCE ═══ */}
       <section id="section-experience" ref={setRef("experience")} className="py-24 md:py-32 bg-background">
+        {/* Video carousel - auto-scrolling */}
+        <div className="max-w-5xl mx-auto overflow-hidden mb-16">
+          <motion.div
+            className="flex gap-4"
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+            style={{ width: "max-content" }}
+          >
+            {[...Array(2)].flatMap((_, dupeIdx) =>
+              [
+                "/videos/exp-1.mp4", "/videos/exp-2.mov", "/videos/exp-3.mov", "/videos/exp-4.mov",
+                "/videos/exp-5.mov", "/videos/exp-6.mov", "/videos/exp-7.mov", "/videos/exp-8.mov",
+                "/videos/exp-9.mp4", "/videos/exp-10.mov", "/videos/exp-11.mp4", "/videos/exp-12.mp4",
+                "/videos/exp-13.mov", "/videos/exp-14.mov", "/videos/exp-15.mov", "/videos/exp-16.mov",
+                "/videos/exp-17.mov", "/videos/exp-18.mov", "/videos/exp-19.mov", "/videos/exp-20.mov",
+                "/videos/exp-21.mov", "/videos/exp-22.mov", "/videos/exp-23.mov", "/videos/exp-24.mov",
+                "/videos/exp-25.mov", "/videos/exp-26.mov", "/videos/exp-27.mov", "/videos/exp-28.mov",
+                "/videos/exp-29.mov", "/videos/exp-30.mov", "/videos/exp-31.mov",
+              ].map((src, i) => (
+                <div
+                  key={`${dupeIdx}-${i}`}
+                  className="flex-shrink-0 w-[200px] md:w-[240px] aspect-[9/16] rounded-2xl overflow-hidden bg-black"
+                >
+                  <video
+                    src={src}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              ))
+            )}
+          </motion.div>
+        </div>
+
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed">
