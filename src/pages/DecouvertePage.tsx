@@ -56,7 +56,7 @@ const fadeUp = {
   }),
 };
 
-type StepKey = "decouvre" | "constat" | "comprend" | "qualite" | "livraison" | "lystesai" | "portfolio" | "catalogue" | "tarifs" | "lance";
+type StepKey = "decouvre" | "constat" | "experience" | "comprend" | "qualite" | "livraison" | "lystesai" | "portfolio" | "catalogue" | "tarifs" | "lance";
 
 const steps: { key: StepKey; label: string; subtitle: string }[] = [
   { key: "decouvre", label: "Je découvre", subtitle: "Le concept" },
