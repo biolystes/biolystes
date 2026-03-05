@@ -43,9 +43,6 @@ export default function InstaFeedSection() {
         <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">
           Nos produits en action
         </motion.p>
-        <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground">
-          Découvrez quelques-uns de nos produits
-        </motion.h2>
       </motion.div>
 
       <div className="flex gap-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-6 px-6">
