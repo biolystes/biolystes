@@ -636,8 +636,8 @@ export default function DecouvertePage() {
         <div className="max-w-5xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-12 text-center">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Tarifs</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-[42px] font-extrabold uppercase leading-tight tracking-tight text-foreground">
-              Des forfaits transparents<br className="hidden md:block" /> et adaptés à votre ambition
+             <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed">
+              Des forfaits transparents adaptés à votre ambition
             </motion.h2>
             <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground leading-relaxed">
               Le premier mois de l'abonnement est toujours offert !
