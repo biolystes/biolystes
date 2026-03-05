@@ -9,6 +9,7 @@ import {
   AlertTriangle, Warehouse, Users, Eye, Timer,
 } from "lucide-react";
 import LystesAiSection from "@/components/LystesAiSection";
+import InstaFeedSection from "@/components/InstaFeedSection";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from "lucide-react";
 
@@ -696,6 +697,11 @@ export default function DecouvertePage() {
             </a>
           </motion.div>
         </div>
+      </section>
+
+      {/* ═══ PRÉSENTATION PRODUITS (INSTA FEED) ═══ */}
+      <section className="py-24 md:py-32">
+        <InstaFeedSection />
       </section>
 
       {/* ═══ 10. JE ME LANCE ═══ */}
