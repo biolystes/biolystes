@@ -320,6 +320,11 @@ export default function DecouvertePage() {
             ))}
           </div>
 
+          {/* ═══ PRÉSENTATION PRODUITS (INSTA FEED) ═══ */}
+          <div className="mt-16 mb-16">
+            <InstaFeedSection />
+          </div>
+
           {/* What we eliminate */}
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="mt-16 grid md:grid-cols-2 gap-8">
@@ -749,10 +754,6 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ PRÉSENTATION PRODUITS (INSTA FEED) ═══ */}
-      <section className="py-24 md:py-32">
-        <InstaFeedSection />
-      </section>
 
       {/* ═══ WIRTZKIN ═══ */}
       <section className="py-24 md:py-32 bg-background">
