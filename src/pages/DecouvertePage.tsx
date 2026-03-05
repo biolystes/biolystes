@@ -810,8 +810,54 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ 7. JE ME LANCE ═══ */}
-      <section id="section-lance" ref={setRef("lance")} className="py-24 md:py-32">
+      {/* ═══ 7. PORTFOLIO — NOS CLIENTS ═══ */}
+      <section id="section-portfolio" ref={setRef("portfolio")} className="py-24 md:py-32">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
+            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Portfolio</motion.p>
+            <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl text-foreground">
+              Plus de 100 marques accompagnées.
+            </motion.h2>
+          </motion.div>
+
+          <div className="space-y-16">
+            {portfolioBrands.map((brand, idx) => (
+              <motion.div key={brand.name} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }}
+                variants={fadeUp} custom={idx}>
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 className="text-base font-semibold text-foreground">{brand.name}</h3>
+                    <p className="text-sm text-muted-foreground">{brand.tagline}</p>
+                  </div>
+                  <a href={brand.url} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-sm font-medium text-foreground hover:opacity-70 transition-opacity shrink-0">
+                    Voir le site <ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  {brand.photos.map((src, i) => (
+                    <div key={i} className="aspect-[3/4] rounded-2xl overflow-hidden">
+                      <img src={src} alt={`${brand.name} ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+            className="mt-16 text-center">
+            <Button variant="outline" className="rounded-full px-8 h-12 text-sm border-muted-foreground/40"
+              onClick={() => navigate("/portfolio")}>
+              Voir tout le portfolio
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ═══ 8. JE ME LANCE ═══ */}
+      <section id="section-lance" ref={setRef("lance")} className="bg-secondary py-24 md:py-32">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-6">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Passez à l'action</motion.p>
