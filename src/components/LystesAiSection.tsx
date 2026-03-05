@@ -396,7 +396,7 @@ function TeamAnalytics() {
 
   return (
     <TeamRow bg="bg-background" title="Des décisions basées sur la réalité" kicker="Équipe Analytics AI"
-      desc="Un assistant IA connaît vos chiffres en temps réel. CA, tops produits, questions clients, points de blocage. Des décisions basées sur la réalité, pas sur des suppositions.">
+      desc="Nous mettons en place une équipe Analytics AI, qui connaît vos chiffres en temps réel. CA, tops produits, questions clients, points de blocage. Des décisions basées sur la réalité, pas sur des suppositions.">
       <div>
         {/* KPIs */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 mb-5">
