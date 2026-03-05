@@ -54,7 +54,7 @@ const fadeUp = {
   }),
 };
 
-type StepKey = "decouvre" | "constat" | "comprend" | "qualite" | "livraison" | "lystesai" | "lance";
+type StepKey = "decouvre" | "constat" | "comprend" | "qualite" | "livraison" | "lystesai" | "portfolio" | "lance";
 
 const steps: { key: StepKey; label: string; subtitle: string }[] = [
   { key: "decouvre", label: "Je découvre", subtitle: "Le concept" },
@@ -63,7 +63,35 @@ const steps: { key: StepKey; label: string; subtitle: string }[] = [
   { key: "qualite", label: "La qualité", subtitle: "Nos engagements" },
   { key: "livraison", label: "La livraison", subtitle: "Comment ça marche" },
   { key: "lystesai", label: "Lystes.ai", subtitle: "Vos agents IA" },
+  { key: "portfolio", label: "Nos clients", subtitle: "Portfolio" },
   { key: "lance", label: "Je me lance", subtitle: "Passez à l'action" },
+];
+
+const portfolioBrands = [
+  {
+    name: "Kaniwa Botanique",
+    tagline: "Marque bio & vegan, lancée en 12 jours",
+    url: "https://kaniwabotanique.com/",
+    photos: [kaniwa1, kaniwa2, kaniwa3, kaniwa5, kaniwa6, kaniwa7],
+  },
+  {
+    name: "Fralène",
+    tagline: "Gamme soins visage premium",
+    url: "https://fraleneparis.com/",
+    photos: [fralene1, fralene2, fralene3, fralene5],
+  },
+  {
+    name: "Sevmylook",
+    tagline: "Gamme solaire & soins visage par Séverine Formal",
+    url: "https://sevmylook.com/",
+    photos: [sevmylook1, sevmylook3, sevmylook7, sevmylook9],
+  },
+  {
+    name: "Pmyrris Beauty",
+    tagline: "Gamme soins capillaires naturels",
+    url: "https://pmyrrisbeauty.fr/",
+    photos: [pmyrris1, pmyrris2, pmyrris4, pmyrris5],
+  },
 ];
 
 const lystesAiPillars = [
