@@ -33,10 +33,10 @@ export default function WirtzkinSection() {
           Ils nous font confiance
         </motion.p>
         <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground">
-          La clinique Wirtzkin nous a choisi
+          Le centre médical esthétique Wirtzkin nous a choisi
         </motion.h2>
         <motion.p variants={fadeUp} custom={2} className="text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          Wirtzkin, clinique spécialisée dans les soins de la peau, a décidé de faire confiance à Biolystes pour la production de ses produits cosmétiques bio et végane.
+          Wirtzkin, centre médical esthétique spécialisé dans les soins de la peau, a décidé de faire confiance à Biolystes pour la production de ses produits cosmétiques bio et végane.
         </motion.p>
       </motion.div>
 
@@ -103,7 +103,7 @@ export default function WirtzkinSection() {
         <h3 className="text-base font-semibold text-foreground mb-2">Retrouvez les produits Wirtzkin</h3>
         <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-4">
           <MapPin className="h-4 w-4 shrink-0" strokeWidth={1.5} />
-          <span>Clinique Wirtzkin — Consultez leur site pour les points de vente</span>
+          <span>Centre médical esthétique Wirtzkin — Consultez leur site pour les points de vente</span>
         </div>
         <a
           href="https://www.wirtzkin.com"
