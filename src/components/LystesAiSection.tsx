@@ -400,15 +400,6 @@ function TeamAnalytics() {
           ))}
         </div>
 
-        {/* Alerts */}
-        <div className="flex gap-2 mt-3.5 flex-wrap">
-          <div className="flex-1 min-w-[180px] p-2.5 bg-orange-50 rounded-xl text-[11px] text-orange-800 flex items-center gap-1.5">
-            <MessageSquare className="w-3.5 h-3.5 shrink-0" /> 12 questions clients non répondues
-          </div>
-          <div className="flex-1 min-w-[180px] p-2.5 bg-orange-50 rounded-xl text-[11px] text-orange-800 flex items-center gap-1.5">
-            <AlertTriangle className="w-3.5 h-3.5 shrink-0" /> 3 produits en rupture bientôt
-          </div>
-        </div>
       </div>
     </TeamRow>
   );
