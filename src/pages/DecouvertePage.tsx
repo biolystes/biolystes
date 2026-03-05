@@ -259,7 +259,48 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ 2. LE CONSTAT ═══ */}
+      {/* ═══ 18 ANS D'EXPÉRIENCE ═══ */}
+      <section className="py-24 md:py-32 bg-background">
+        <div className="max-w-5xl mx-auto px-6 text-center">
+          <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+            className="text-3xl md:text-5xl lg:text-[3.5rem] font-black text-foreground leading-[1.05] tracking-[-0.02em] uppercase max-w-4xl mx-auto">
+            18 ans d'expérience dans le secteur de la beauté ont donné naissance à Biolystes
+          </motion.h2>
+          <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
+            className="mt-6 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Nous avons éliminé les obstacles pour vous permettre de vous concentrer sur l'essentiel : bâtir une marque qui vous ressemble.
+          </motion.p>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
+            className="mt-10 flex flex-wrap justify-center gap-4">
+            <a href="https://kaniwabotanique.com" target="_blank" rel="noopener noreferrer">
+              <Button size="lg" className="bg-foreground text-primary-foreground hover:bg-foreground/90 rounded-full px-10 h-14 text-sm tracking-wide font-medium uppercase">
+                Voir notre dernier projet
+              </Button>
+            </a>
+            <a href="/catalog">
+              <Button size="lg" variant="outline" className="rounded-full px-10 h-14 text-sm tracking-wide font-medium border-muted-foreground/40 text-foreground hover:bg-foreground hover:text-primary-foreground uppercase">
+                Voir nos produits bio
+              </Button>
+            </a>
+          </motion.div>
+        </div>
+
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
+          className="max-w-5xl mx-auto px-6 mt-20 grid md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-border">
+          {[
+            { num: "1", title: "Profitez de 18 ans d'expérience e-commerce", desc: "Nous vous accompagnons avec un savoir-faire éprouvé dans le e-commerce et la cosmétique naturelle." },
+            { num: "2", title: "Offrez vous des services 360° premium", desc: "Identité visuelle, packagings et boutique en ligne conçus pour valoriser votre marque dès le départ." },
+            { num: "3", title: "Profitez de notre réseau pour vous développer", desc: "Accédez à nos partenaires experts pour accélérer votre croissance sans multiplier les prestataires." },
+          ].map((item) => (
+            <div key={item.num} className="px-8 py-10 md:py-8">
+              <span className="text-4xl font-black text-foreground">{item.num}</span>
+              <h3 className="text-sm font-black uppercase tracking-wide text-foreground mt-3 mb-3">{item.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </motion.div>
+      </section>
+
       <section id="section-constat" ref={setRef("constat")} className="bg-secondary py-24 md:py-32">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16 text-center">
