@@ -722,7 +722,7 @@ export default function DecouvertePage() {
 
             {/* Pack IA */}
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}>
-              <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border border-border h-full">
+              <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border border-border">
                 <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 text-foreground">Pack IA</h3>
                 <p className="text-xs mb-5 text-muted-foreground">Gestion 360° + Intelligence artificielle avancée</p>
                 <div className="mb-2">
