@@ -70,7 +70,7 @@ function TopNavBar() {
         <Link to="/chat">
           <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-foreground text-foreground text-sm font-medium transition-all duration-150 hover:bg-foreground hover:text-background">
             Tester un expert
-            <ArrowRight size={15} strokeWidth={2} />
+            <CircleArrowRight size={18} strokeWidth={1.5} />
           </div>
         </Link>
 
