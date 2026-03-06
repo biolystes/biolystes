@@ -339,3 +339,114 @@ section.py-16.md\:py-24 .hidden.md\:block.absolute.-right-16.bottom-20.bg-second
   background: #2f5955 !important;
   padding: 6px;
 }
+
+/* Page wrapper & sections crème */
+.min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-clip {
+  background: #f5f4df;
+}
+.min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-clip .bg-secondary.py-14.md\:py-20 {
+  background: #f5f4df !important;
+}
+.min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-clip .bg-background.py-14.md\:py-20 {
+  background: #f5f4df !important;
+}
+.max-w-2xl.mx-auto.bg-background.rounded-2xl.p-6.md\:p-10 {
+  background: #f5f4df !important;
+}
+
+/* Textes blancs → crème */
+h2.text-3xl.md\:text-4xl.font-light.tracking-tight.max-w-\[780px\].mx-auto.mb-6.text-white {
+  color: #f5f4df;
+}
+p.text-\[17px\].text-white\/50.leading-\[1\.7\].max-w-\[600px\].mx-auto {
+  color: #f5f4df;
+}
+.text-2xl.md\:text-3xl.font-light.leading-none.text-white.tracking-tight.italic {
+  color: #f5f4df;
+}
+.text-\[10px\].text-white\/50.font-semibold.mt-3.uppercase.tracking-\[0\.15em\].whitespace-nowrap {
+  color: #f5f4df;
+}
+
+/* Cercles & badges → blanc */
+.w-7.h-7.rounded-full.flex.items-center.justify-center.shrink-0.mt-0\.5.bg-\[\#e6f6ef\] {
+  background: #fff;
+}
+.bg-\[\#ecfdf5\].rounded-xl.p-3.flex.items-center.justify-center.text-\[\#065f46\].font-semibold.text-\[11px\].gap-1\.5 {
+  background: #fff;
+}
+.mt-3\.5.p-2\.5.bg-\[\#ecfdf5\].rounded-xl.text-\[11px\].text-\[\#065f46\].font-semibold.text-center.flex.items-center.justify-center.gap-1\.5 {
+  background: #fff;
+}
+.w-\[18px\].h-\[18px\].rounded-full.bg-\[\#d1fae5\].flex.items-center.justify-center.shrink-0.mt-0\.5 {
+  background: #fff;
+}
+
+/* Cards & containers */
+.bg-background.p-4.rounded-2xl.flex.items-start.gap-3.border.border-border\/50 {
+  border: 1px solid;
+}
+.flex.items-start.gap-2\.5.p-3.bg-background.rounded-xl.mb-1\.5 {
+  border: 1px solid;
+}
+p.text-xs.text-foreground.leading-snug {
+  font-size: 11px;
+}
+.w-full.rounded-md.bg-muted {
+  background: #fff;
+}
+
+/* Phone mockups */
+.w-\[360px\].bg-background.rounded-\[2\.5rem\].overflow-hidden.relative.flex.flex-col.z-10.border.border-border {
+  background: #fff;
+  border: 0;
+}
+.w-\[320px\].bg-background.rounded-\[2\.5rem\].overflow-hidden.relative.flex.flex-col.border.border-border {
+  background: #fff;
+  border: 0;
+}
+.bg-background.rounded-\[20px\].p-3.flex.flex-col.gap-3 {
+  background: #fff;
+  border: 0;
+}
+.rounded-2xl.px-6.py-5.text-center.bg-secondary.border.border-border.mt-5 {
+  background: #fff;
+  border: 0;
+}
+.w-\[320px\].bg-background.rounded-\[2rem\].overflow-hidden.border.border-border {
+  background: #fff;
+}
+
+/* Pricing cards borders */
+.relative.rounded-2xl.p-7.md\:p-9.flex.flex-col.border.border-border {
+  border-color: hsl(var(--foreground));
+  border: 2px solid;
+}
+
+/* Section lance */
+section#section-lance {
+  background: #f5f4df !important;
+}
+button.p-6.rounded-2xl.bg-secondary.hover\:bg-accent.transition-colors.text-left.group {
+  background: #fff;
+}
+.p-6.md\:p-8.rounded-2xl.bg-background {
+  background: #fff;
+}
+.rounded-xl.p-4.mb-7.bg-muted\/50.border.border-border {
+  background: transparent;
+  border: 2px solid;
+}
+span.text-\[13px\].leading-relaxed.text-muted-foreground {
+  color: #000;
+}
+.w-7.h-7.rounded-full.flex.items-center.justify-center.shrink-0.mt-0\.5.bg-muted.border.border-border {
+  background: transparent !important;
+  border: 1px solid;
+}
+.w-1\.5.h-1\.5.rounded-full.bg-muted-foreground\/30 {
+  background: #000;
+}
+.divide-border > :not([hidden]) ~ :not([hidden]) {
+  border-color: #000;
+}
