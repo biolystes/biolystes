@@ -321,3 +321,21 @@ img.rounded-lg.w-full.object-cover.order-1.md\:order-2 {
 .bg-foreground.text-primary-foreground.px-5.py-2.rounded-lg.font-bold.text-sm.tracking-widest.uppercase {
   font-size: 11px !important;
 }
+
+/* Réassort Sans Minimum */
+section.py-16.md\:py-24 {
+  background: #f5f4df;
+  margin-top: 73px;
+  margin-bottom: 73px;
+}
+
+section.py-16.md\:py-24 .bg-secondary.rounded-xl.p-6.md\:p-10 {
+  background: #2f5955 !important;
+  padding: 13px;
+}
+
+section.py-16.md\:py-24 .hidden.md\:block.absolute.-right-16.bottom-20.bg-secondary.rounded-xl.p-3.max-w-\[220px\].shadow-lg {
+  transform: rotate(3deg);
+  background: #2f5955 !important;
+  padding: 6px;
+}
