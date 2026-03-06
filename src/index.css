@@ -176,26 +176,26 @@
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
 .bg-background.py-14.md\:py-20 {
-  border-radius: 32px;
-  margin: 24px;
-  padding: 56px;
+  border-radius: 32px !important;
+  margin: 24px !important;
+  padding: 56px !important;
 }
 
 .bg-secondary.py-14.md\:py-20 {
-  border-radius: 32px;
-  margin: 24px;
-  padding: 56px;
-  background: #ffffff;
+  border-radius: 32px !important;
+  margin: 24px !important;
+  padding: 56px !important;
+  background: #ffffff !important;
 }
 
 .w-\[320px\].bg-background.rounded-\[2rem\].overflow-hidden.border.border-border {
-  border: 0;
+  border: 0 !important;
 }
 
 p.text-\[17px\].font-black.text-foreground {
-  font-size: 10px;
+  font-size: 10px !important;
 }
 
 section#section-lystesai {
-  margin-bottom: 88px;
+  margin-bottom: 88px !important;
 }
