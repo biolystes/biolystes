@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Settings, Menu, X, LogOut, Compass, LayoutDashboard, Shield, CircleArrowRight } from "lucide-react";
+import { Settings, Menu, X, LogOut, Compass, LayoutDashboard, Shield, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -51,38 +51,40 @@ function TopNavBar() {
       </Link>
 
       {/* Navigation */}
-      <nav className="flex items-center gap-1 flex-1 justify-end">
+      <nav className="flex items-center gap-3 flex-1 justify-end">
         {navItems.map((item) => (
           <Link key={item.path} to={item.path}>
-            <div
-              className={`flex items-center gap-2 px-3 py-1.5 text-sm font-medium transition-all duration-150 ${
+            <span
+              className={`text-sm font-medium transition-colors ${
                 isActive(item.path)
-                  ? "text-foreground border-b-2 border-foreground"
-                  : "text-muted-foreground hover:text-foreground"
+                  ? "text-foreground"
+                  : "text-foreground/70 hover:text-foreground"
               }`}
             >
               {item.label}
-            </div>
+            </span>
           </Link>
         ))}
 
-        {/* Posez vos questions — pill blanc */}
-        <Link to="/chat">
-          <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-foreground text-foreground text-sm font-medium transition-all duration-150 hover:bg-foreground hover:text-background">
-            Posez vos questions
-            <CircleArrowRight size={18} strokeWidth={1.5} />
-          </div>
+        {/* Posez vos questions — btn-outline */}
+        <Link to="/chat" className="btn-outline">
+          <span>Poser vos questions</span>
+          <span className="arrow-circle">
+            <ArrowRight className="w-3.5 h-3.5" />
+          </span>
         </Link>
 
-        {/* Prendre RDV — pill noir */}
+        {/* Prendre RDV — btn-startup */}
         <a
           href={RDV_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-2 px-5 py-2 rounded-full bg-foreground text-background text-sm font-medium transition-all duration-150 hover:opacity-80"
+          className="btn-startup"
         >
-          Prendre RDV
-          <CircleArrowRight size={18} strokeWidth={1.5} />
+          <span>Prendre RDV</span>
+          <span className="arrow-circle">
+            <ArrowRight className="w-3.5 h-3.5" />
+          </span>
         </a>
       </nav>
     </header>
