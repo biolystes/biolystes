@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Settings, Menu, X, LogOut, Compass, LayoutDashboard, Shield, ArrowRight } from "lucide-react";
+import { Settings, Menu, X, LogOut, Compass, LayoutDashboard, Shield, CircleArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -70,7 +70,7 @@ function TopNavBar() {
         <Link to="/chat">
           <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-foreground text-foreground text-sm font-medium transition-all duration-150 hover:bg-foreground hover:text-background">
             Tester un expert
-            <ArrowRight size={15} strokeWidth={2} />
+            <CircleArrowRight size={18} strokeWidth={1.5} />
           </div>
         </Link>
 
@@ -82,7 +82,7 @@ function TopNavBar() {
           className="flex items-center gap-2 px-5 py-2 rounded-full bg-foreground text-background text-sm font-medium transition-all duration-150 hover:opacity-80"
         >
           Essai gratuit
-          <ArrowRight size={15} strokeWidth={2} />
+          <CircleArrowRight size={18} strokeWidth={1.5} />
         </a>
       </nav>
     </header>
