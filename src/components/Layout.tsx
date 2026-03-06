@@ -81,7 +81,7 @@ function TopNavBar() {
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-5 py-2 rounded-full bg-foreground text-background text-sm font-medium transition-all duration-150 hover:opacity-80"
         >
-          Essai gratuit
+          Prendre RDV
           <CircleArrowRight size={18} strokeWidth={1.5} />
         </a>
       </nav>
