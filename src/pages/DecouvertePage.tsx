@@ -413,7 +413,7 @@ export default function DecouvertePage() {
               </Button>
             </a>
             <a href="https://app.iclosed.io/e/paylystes/r2" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" variant="outline" className="rounded-full px-10 h-14 text-sm tracking-wide font-medium border-muted-foreground/40 text-foreground hover:bg-foreground hover:text-primary-foreground uppercase">
+              <Button size="lg" variant="outline" className="rounded-full px-10 h-14 text-sm tracking-wide font-medium border-0 text-foreground hover:bg-foreground hover:text-primary-foreground uppercase">
                 Demander l'accès à nos produits
               </Button>
             </a>
