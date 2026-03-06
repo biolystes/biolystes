@@ -96,11 +96,6 @@ function TopNavBar() {
         </Link>
 
 
-        <div
-          className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center text-background text-xs font-bold ml-1"
-        >
-          {initials}
-        </div>
       </div>
     </header>
   );
