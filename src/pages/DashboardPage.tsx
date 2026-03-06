@@ -710,9 +710,9 @@ function ClientShowcase() {
               border: "none",
               cursor: "pointer",
               transition: "all 0.2s ease",
-              background: activeTab === i ? c.accentColor : "#f0f0f2",
+              background: activeTab === i ? "#1d1d1f" : "#fff",
               color: activeTab === i ? "#fff" : "#86868b",
-              boxShadow: activeTab === i ? `0 2px 12px ${c.accentColor}40` : "none",
+              boxShadow: "none",
             }}
           >
             {c.name}
