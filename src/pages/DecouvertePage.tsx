@@ -614,10 +614,10 @@ export default function DecouvertePage() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-12 text-center">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Tarifs</motion.p>
             <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed">
-              Pas besoin de tout décider maintenant<br />Votre meilleure réflexion, c'est un test à 147€
+              Pas besoin de tout décider maintenant<br />Votre meilleure réflexion, c'est un test à 147€ déduit si vous passez à l'étape suivante.
             </motion.h2>
             <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground leading-relaxed">
-              4 produits certifiés bio chez vous en 7 jours. Montant déduit si vous passez à l'étape suivante.
+              4 produits certifiés bio chez vous en 7 jours.
             </motion.p>
           </motion.div>
 
