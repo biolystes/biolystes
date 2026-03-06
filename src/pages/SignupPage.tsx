@@ -131,7 +131,7 @@ export default function SignupPage() {
             />
             <span style={{ fontSize: 13, color: "#86868B", lineHeight: 1.5 }}>
               J'accepte les{" "}
-              <a href="https://biolystes.com/cgv" target="_blank" rel="noopener noreferrer"
+              <a href="/cgv"
                 style={{ color: "#1D1D1F", textDecoration: "none", fontWeight: 500 }}>
                 Conditions Générales de Vente
               </a>

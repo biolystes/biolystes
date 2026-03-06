@@ -22,6 +22,9 @@ import AdminDashboardPage from "./pages/AdminDashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import NotFound from "./pages/NotFound";
+import MentionsLegalesPage from "./pages/MentionsLegalesPage";
+import PolitiqueConfidentialitePage from "./pages/PolitiqueConfidentialitePage";
+import CGVPage from "./pages/CGVPage";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +50,9 @@ function AppRoutes() {
       <Route path="/portfolio" element={<Layout><PortfolioPage /></Layout>} />
       <Route path="/pricing" element={<Layout><PricingPage /></Layout>} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
+      <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
+      <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
+      <Route path="/cgv" element={<Layout><CGVPage /></Layout>} />
 
       {/* Auth */}
       <Route path="/login" element={<LoginPage />} />

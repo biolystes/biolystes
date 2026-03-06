@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import CommentCaMarche from "@/components/CommentCaMarche";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   ArrowRight, Check, FlaskConical, Truck, Globe, Package, Leaf, Award,
   Rabbit, FileCheck2, BadgeCheck, ShoppingBag, MessageCircle, HelpCircle,
@@ -999,9 +999,9 @@ export default function DecouvertePage() {
           <div className="border-t border-primary-foreground/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-xs opacity-40">©2025 Biolystes</p>
             <div className="flex items-center gap-6 text-xs opacity-40">
-              <a href="https://biolystes.com/mentions-legales" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Mentions légales</a>
-              <a href="https://biolystes.com/politique-de-confidentialite" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">Politique de Confidentialité</a>
-              <a href="https://biolystes.com/cgv" target="_blank" rel="noopener noreferrer" className="hover:opacity-100 transition-opacity">CGV</a>
+              <Link to="/mentions-legales" className="hover:opacity-100 transition-opacity">Mentions légales</Link>
+              <Link to="/politique-confidentialite" className="hover:opacity-100 transition-opacity">Politique de Confidentialité</Link>
+              <Link to="/cgv" className="hover:opacity-100 transition-opacity">CGV</Link>
             </div>
           </div>
         </div>
