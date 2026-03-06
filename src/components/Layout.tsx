@@ -47,7 +47,7 @@ function TopNavBar() {
           alt="Lystes"
           className="h-14 w-14 animate-tourne object-contain"
         />
-        <span style={{ fontSize: 14, fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.3px" }}>Biolystes</span>
+        
       </Link>
 
       {/* Navigation */}
