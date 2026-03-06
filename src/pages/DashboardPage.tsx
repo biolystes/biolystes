@@ -613,39 +613,6 @@ export default function DashboardPage() {
           Décrivez votre projet, discutez avec notre assistant IA, et obtenez<br />une sélection personnalisée de produits en marque blanche.
         </p>
 
-        {/* Quick navigation CTAs */}
-        <div style={{ display: "flex", gap: 10, marginTop: 20, flexWrap: "wrap" }}>
-          {[
-            { to: "/catalog", label: "Voir le catalogue", icon: "📦" },
-            { to: "/pricing", label: "Voir les tarifs", icon: "💰" },
-            { to: "/portfolio", label: "Portfolio clients", icon: "🖼️" },
-          ].map((cta) => (
-            <Link
-              key={cta.to}
-              to={cta.to}
-              style={{
-                display: "inline-flex", alignItems: "center", gap: 8,
-                padding: "10px 20px", borderRadius: 24,
-                background: "#fff", border: "1.5px solid #e5e5e7",
-                color: "#1d1d1f", fontSize: 13, fontWeight: 600,
-                textDecoration: "none", transition: "all .15s",
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.background = "#1d1d1f";
-                (e.currentTarget as HTMLElement).style.color = "#fff";
-                (e.currentTarget as HTMLElement).style.borderColor = "#1d1d1f";
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.background = "#fff";
-                (e.currentTarget as HTMLElement).style.color = "#1d1d1f";
-                (e.currentTarget as HTMLElement).style.borderColor = "#e5e5e7";
-              }}
-            >
-              <span>{cta.icon}</span>
-              {cta.label}
-            </Link>
-          ))}
-        </div>
       </motion.div>
 
       {/* Chat IA */}
