@@ -399,7 +399,7 @@ export default function DecouvertePage() {
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed">
-            18 ans d'expérience dans le secteur de la beauté<br /> ont donné naissance à Biolystes
+            18 ans d'expérience<br /> dans le secteur de la beauté ont donné naissance à Biolystes
           </motion.h2>
           <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
             className="mt-6 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
