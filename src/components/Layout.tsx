@@ -83,17 +83,6 @@ function TopNavBar() {
           RDV
         </a>
 
-        <Link to="/settings">
-          <div
-            className={`flex items-center justify-center w-8 h-8 rounded-lg transition-all duration-150 ${
-              isActive("/settings")
-                ? "bg-foreground text-background"
-                : "text-muted-foreground hover:text-foreground hover:bg-accent"
-            }`}
-          >
-            <Settings size={16} strokeWidth={1.5} />
-          </div>
-        </Link>
 
 
       </div>
