@@ -604,7 +604,7 @@ export default function DashboardPage() {
         <h1 style={{ fontSize: 48, fontWeight: 800, color: "#1d1d1f", lineHeight: 1.05, letterSpacing: "-1px", marginBottom: 0 }}>
           Lancez votre marque
         </h1>
-        <h1 style={{ fontSize: 48, fontWeight: 800, color: "#d1d1d6", lineHeight: 1.05, letterSpacing: "-1px", marginBottom: 16 }}>
+        <h1 style={{ fontSize: 48, fontWeight: 800, color: "rgb(77, 77, 77)", lineHeight: 1.05, letterSpacing: "-1px", marginBottom: 16 }}>
           cosmétique bio.
         </h1>
         <p style={{ fontSize: 14, color: "#86868b", marginTop: 0, maxWidth: 520, lineHeight: 1.65 }}>
