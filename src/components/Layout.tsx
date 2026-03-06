@@ -95,12 +95,6 @@ function TopNavBar() {
           </div>
         </Link>
 
-        <button
-          onClick={signOut}
-          className="flex items-center justify-center w-8 h-8 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-all duration-150"
-        >
-          <LogOut size={16} strokeWidth={1.5} />
-        </button>
 
         <div
           className="w-8 h-8 rounded-full bg-foreground flex items-center justify-center text-background text-xs font-bold ml-1"
