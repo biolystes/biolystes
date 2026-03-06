@@ -50,7 +50,7 @@ function PackDecouverte() {
 
       <div className="flex flex-col mb-8">
         {[
-          "4 produits échantillons (sérum, crème, nettoyant, soin spécifique)",
+          "4 produits échantillons",
           "Accompagnement personnalisé dans la sélection par nos experts",
           "Étiquetage standard conforme Biolystes",
           "Certifié Bio & Végan / COSMOS / ECOCERT / FDA",
