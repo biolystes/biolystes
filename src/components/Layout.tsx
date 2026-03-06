@@ -52,7 +52,7 @@ function TopNavBar() {
       </Link>
 
       {/* Navigation */}
-      <nav className="flex items-center gap-1 flex-1">
+      <nav className="flex items-center gap-1 flex-1 justify-end">
         {navItems.map((item) => (
           <Link key={item.path} to={item.path}>
             <div
