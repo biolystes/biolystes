@@ -84,7 +84,7 @@ function TopNavBar() {
           Essai gratuit
           <ArrowRight size={15} strokeWidth={2} />
         </a>
-      </div>
+      </nav>
     </header>
   );
 }
