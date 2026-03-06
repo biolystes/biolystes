@@ -199,3 +199,72 @@ p.text-\[17px\].font-black.text-foreground {
 section#section-lystesai {
   margin-bottom: 88px !important;
 }
+
+/* Fond jaune pâle sur les sections principales */
+section#section-experience,
+section#section-decouvre,
+section.overflow-hidden.py-6.bg-background,
+section#section-qualite,
+section#section-livraison,
+section.py-24.md\:py-36.bg-secondary,
+section#section-catalogue,
+section#section-constat {
+  background: #f5f4df !important;
+}
+
+section#section-lance {
+  background: #fff !important;
+}
+
+.bg-secondary.p-5.rounded-xl {
+  background: #fff !important;
+}
+
+.w-10.h-10.mb-3.rounded-full.bg-background.flex.items-center.justify-center {
+  background: #f5f4df !important;
+}
+
+/* Comment ça marche — fond noir */
+section#section-comprend section.bg-secondary {
+  background: #000 !important;
+}
+
+h2.text-3xl.md\:text-4xl.font-light.tracking-tight.text-foreground.max-w-3xl.mx-auto {
+  color: #fff !important;
+}
+
+button.w-8.h-8.rounded-full.text-xs.font-semibold.border.transition-colors.bg-background.text-foreground.border-border.hover\:border-foreground\/40 {
+  background: #ffffff59 !important;
+  color: #fff !important;
+  border: 1px solid #ffffff59 !important;
+}
+
+.w-4.md\:w-6.h-px.bg-border {
+  background: #ffffff59 !important;
+}
+
+button.w-8.h-8.rounded-full.text-xs.font-semibold.border.transition-colors.bg-foreground.text-background.border-foreground {
+  background: #fff !important;
+  color: #000 !important;
+  border-color: #fff !important;
+}
+
+/* Sticky nav & header */
+.fixed.top-14.left-0.right-0.z-20.bg-background\/90.backdrop-blur-md.border-b.border-border {
+  background: #f5f4df !important;
+  border-bottom: 1px solid !important;
+}
+
+header.hidden.md\:flex.items-center.fixed.top-0.left-0.right-0.z-30.px-6.gap-6 {
+  background: #f5f4df !important;
+  border-bottom: 1px solid #000 !important;
+}
+
+/* Badges uppercase */
+.bg-foreground.text-primary-foreground.px-5.py-2.rounded-lg.font-bold.text-sm.tracking-widest.uppercase.z-10 {
+  font-size: 11px !important;
+}
+
+.bg-foreground.text-primary-foreground.px-5.py-2.rounded-lg.font-bold.text-sm.tracking-widest.uppercase {
+  font-size: 11px !important;
+}
