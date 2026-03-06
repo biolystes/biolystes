@@ -678,7 +678,7 @@ export default function DecouvertePage() {
             <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground leading-relaxed">
               Le premier mois de l'abonnement est toujours offert !
             </motion.p>
-            <div className="inline-block mt-5 px-6 py-3 rounded-xl bg-red-600 text-white text-sm font-extrabold uppercase tracking-wide shadow-lg animate-none opacity-100">
+            <div className="inline-block mt-5 px-6 py-3 rounded-xl bg-red-600 text-white text-sm font-extrabold uppercase tracking-wide animate-none opacity-100">
               🔥 Cette semaine : -20% sur toutes nos offres
             </div>
           </motion.div>
