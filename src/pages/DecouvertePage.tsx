@@ -612,7 +612,7 @@ export default function DecouvertePage() {
       <section id="section-tarifs-2" className="py-24 md:py-32">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-12 text-center">
-            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Tarifs</motion.p>
+            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Payable en 3 fois</motion.p>
             <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed">
               Pas besoin de tout décider maintenant<br />Votre meilleure réflexion, c'est un test à 147€ déduit si vous passez à l'étape suivante.
             </motion.h2>
