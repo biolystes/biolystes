@@ -608,12 +608,71 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ 9. TARIFS (DÉTAILLÉ) ═══ */}
+      {/* ═══ 9a. TARIFS – PACK DÉCOUVERTE ═══ */}
+      <section id="section-tarifs-2" className="py-24 md:py-32">
+        <div className="max-w-5xl mx-auto px-6">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-12 text-center">
+            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Tarifs</motion.p>
+            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed">
+              Pas besoin de tout décider maintenant<br />Votre meilleure réflexion, c'est un test à 147€
+            </motion.h2>
+            <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground leading-relaxed">
+              4 produits certifiés bio chez vous en 7 jours. Montant déduit si vous passez à l'étape suivante.
+            </motion.p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
+              className="mb-8">
+              <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border-2 border-foreground">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-foreground text-background">
+                  Pack découverte
+                </div>
+                <h3 className="text-lg md:text-xl font-extrabold uppercase tracking-tight mb-1 mt-2 text-foreground">
+                  Testez nos produits — 147€
+                </h3>
+                <p className="text-sm mb-8 text-muted-foreground leading-relaxed">
+                  ou 3× 49€ — Validez la qualité avant de vous lancer
+                </p>
+                <div className="flex flex-col mb-8">
+                  {["4 produits échantillons (sérum, crème, nettoyant, soin spécifique)", "Accompagnement personnalisé dans la sélection par nos experts", "Étiquetage standard conforme Biolystes", "Certifié Bio & Végan / COSMOS / ECOCERT / FDA", "Livraison incluse sous 7 à 8 jours"].map((t, i) => (
+                    <div key={i} className="flex items-start gap-3 py-1.5">
+                      <Check size={14} strokeWidth={2} className="flex-shrink-0 mt-0.5 text-muted-foreground" />
+                      <span className="text-[13px] leading-relaxed text-muted-foreground">{t}</span>
+                    </div>
+                  ))}
+                </div>
+                <a href={CTA_URL} target="_blank" rel="noopener noreferrer"
+                  className="block w-full py-4 text-center no-underline text-[11px] font-extrabold tracking-[1.5px] uppercase rounded-xl bg-foreground text-background border-2 border-foreground hover:opacity-90 transition-opacity mt-auto">
+                  Commander mes échantillons
+                </a>
+              </div>
+              <div className="rounded-2xl px-6 py-5 text-center bg-secondary border border-border mt-5">
+                <div className="flex items-center justify-center gap-2 mb-1.5">
+                  <HelpCircle size={14} strokeWidth={1.8} className="text-muted-foreground" />
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Bon à savoir</span>
+                </div>
+                <p className="text-[13px] leading-relaxed text-muted-foreground">147€ déduits de toute Offre Avec Site souscrite dans les 30 jours. Votre test devient un acompte, pas une dépense.</p>
+              </div>
+            </motion.div>
+
+            <img
+              src="https://lystes.ai/images/clients/kaniwa-ugc-4.jpg"
+              alt="Produit cosmétique bio"
+              className="rounded-xl object-cover w-full h-auto hidden md:block"
+              style={{ border: "5px solid", borderRadius: "12px", transform: "rotate(2deg)", margin: "0 36px", maxWidth: "calc(100% - 72px)", marginBottom: "33px" }}
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ 9b. TARIFS – PACKS AGENCE & IA ═══ */}
       <section id="section-tarifs" ref={setRef("tarifs")} className="py-24 md:py-32">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-12 text-center">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Tarifs</motion.p>
-             <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed">
+            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed">
               Des forfaits transparents adaptés à votre ambition
             </motion.h2>
             <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground leading-relaxed">
@@ -621,62 +680,6 @@ export default function DecouvertePage() {
             </motion.p>
           </motion.div>
 
-          {/* Step Progress */}
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-            className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-0 mb-10 md:mb-14">
-            {[
-              { step: "1", label: "Je teste", price: "Dès 147€" },
-              { step: "2", label: "Je lance", price: "Dès 1 499€" },
-              { step: "3", label: "Je lance + IA", price: "Dès 2 999€" },
-            ].map((s, i) => (
-              <div key={s.step} className="flex items-center gap-0">
-                <div className="flex flex-col items-center px-6 md:px-8 py-3.5 rounded-xl border border-transparent">
-                  <span className="text-[11px] uppercase tracking-widest mb-0.5 text-muted-foreground font-semibold">
-                    {s.step}. {s.label}
-                  </span>
-                  <span className="text-[12px] text-muted-foreground">{s.price}</span>
-                </div>
-                {i < 2 && <ArrowRight size={14} strokeWidth={1.8} className="text-muted-foreground hidden md:block mx-1" />}
-              </div>
-            ))}
-          </motion.div>
-
-          {/* Pack Découverte */}
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-            className="mb-8">
-            <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border-2 border-foreground">
-              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-foreground text-background">
-                Pack découverte
-              </div>
-              <h3 className="text-lg md:text-xl font-extrabold uppercase tracking-tight mb-1 mt-2 text-foreground">
-                Testez nos produits — 147€
-              </h3>
-              <p className="text-sm mb-8 text-muted-foreground leading-relaxed">
-                ou 3× 49€ — Validez la qualité avant de vous lancer
-              </p>
-              <div className="flex flex-col mb-8">
-                {["4 produits échantillons (sérum, crème, nettoyant, soin spécifique)", "Accompagnement personnalisé dans la sélection par nos experts", "Étiquetage standard conforme Biolystes", "Certifié Bio & Végan / COSMOS / ECOCERT / FDA", "Livraison incluse sous 7 à 8 jours"].map((t, i) => (
-                  <div key={i} className="flex items-start gap-3 py-1.5">
-                    <Check size={14} strokeWidth={2} className="flex-shrink-0 mt-0.5 text-muted-foreground" />
-                    <span className="text-[13px] leading-relaxed text-muted-foreground">{t}</span>
-                  </div>
-                ))}
-              </div>
-              <a href={CTA_URL} target="_blank" rel="noopener noreferrer"
-                className="block w-full py-4 text-center no-underline text-[11px] font-extrabold tracking-[1.5px] uppercase rounded-xl bg-foreground text-background border-2 border-foreground hover:opacity-90 transition-opacity mt-auto">
-                Commander mes échantillons
-              </a>
-            </div>
-            <div className="rounded-2xl px-6 py-5 text-center bg-secondary border border-border mt-5">
-              <div className="flex items-center justify-center gap-2 mb-1.5">
-                <HelpCircle size={14} strokeWidth={1.8} className="text-muted-foreground" />
-                <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Bon à savoir</span>
-              </div>
-              <p className="text-[13px] leading-relaxed text-muted-foreground">147€ déduits de toute Offre Avec Site souscrite dans les 30 jours. Votre test devient un acompte, pas une dépense.</p>
-            </div>
-          </motion.div>
-
-          {/* Pack Agence + Pack IA */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
             {/* Pack Agence */}
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
