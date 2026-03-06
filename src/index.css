@@ -207,7 +207,7 @@ section#section-lystesai {
   gap: 8px;
   padding: 8px 8px 8px 20px;
   border-radius: 9999px;
-  border: 1.5px solid hsl(var(--foreground) / 0.2);
+  border: 1px solid;
   font-size: 13px;
   font-weight: 500;
   color: hsl(var(--foreground));
