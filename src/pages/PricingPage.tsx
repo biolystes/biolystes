@@ -238,6 +238,9 @@ export default function PricingPage() {
         <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed">
           Le premier mois de l'abonnement est toujours offert !
         </p>
+        <div className="inline-block mt-4 px-5 py-2.5 rounded-full bg-foreground text-background text-xs font-bold uppercase tracking-widest animate-pulse">
+          🔥 Cette semaine : -20% sur toutes nos offres
+        </div>
       </motion.div>
 
       {/* Step Progress */}
