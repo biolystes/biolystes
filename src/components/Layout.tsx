@@ -143,7 +143,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     onClick={() => setMobileOpen(false)}
                     className={`nav-item ${isActive(item.path) ? "active" : ""}`}
                   >
-                    <item.icon size={16} strokeWidth={1.5} />
+                    {'icon' in item && item.icon && <item.icon size={16} strokeWidth={1.5} />}
                     {item.label}
                   </Link>
                 ))}
