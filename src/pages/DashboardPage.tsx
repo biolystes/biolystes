@@ -633,6 +633,7 @@ export default function DashboardPage() {
         {selectedProduct && <ProductPanel product={selectedProduct} onClose={() => setSelectedProduct(null)} />}
       </AnimatePresence>
     </div>
+    </main>
   );
 }
 
