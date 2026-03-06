@@ -200,6 +200,51 @@ section#section-lystesai {
   margin-bottom: 88px !important;
 }
 
+/* Nav buttons */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px 8px 20px;
+  border-radius: 9999px;
+  border: 1.5px solid hsl(var(--foreground) / 0.2);
+  font-size: 13px;
+  font-weight: 500;
+  color: hsl(var(--foreground));
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.btn-outline:hover {
+  border-color: hsl(var(--foreground));
+}
+
+.btn-startup {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 8px 8px 20px;
+  border-radius: 9999px;
+  background: hsl(var(--foreground));
+  color: hsl(var(--background));
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.btn-startup:hover {
+  opacity: 0.85;
+}
+
+.arrow-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+}
+
 /* Fond jaune pâle sur les sections principales */
 section#section-experience,
 section#section-decouvre,
