@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Settings, Menu, X, LogOut, Compass, LayoutDashboard, Shield } from "lucide-react";
+import { Settings, Menu, X, LogOut, Compass, LayoutDashboard, Shield, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
 const publicNavItems = [
-  { path: "/", icon: Compass, label: "Découverte" },
-  { path: "/chat", icon: Sparkles, label: "Posez vos questions" },
+  { path: "/", label: "Découverte" },
 ];
 
 const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
@@ -66,22 +65,26 @@ function TopNavBar() {
             </div>
           </Link>
         ))}
-      </nav>
 
-      {/* Right side: RDV + Settings + Logout + Avatar */}
-      <div className="flex items-center gap-2 shrink-0">
+        {/* Posez vos questions — pill blanc */}
+        <Link to="/chat">
+          <div className="flex items-center gap-2 px-5 py-2 rounded-full border border-foreground text-foreground text-sm font-medium transition-all duration-150 hover:bg-foreground hover:text-background">
+            Tester un expert
+            <ArrowRight size={15} strokeWidth={2} />
+          </div>
+        </Link>
+
+        {/* Prendre RDV — pill noir */}
         <a
           href={RDV_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1.5 text-muted-foreground hover:text-foreground text-xs font-semibold uppercase tracking-wider px-3 py-1.5 rounded-lg border border-border hover:bg-accent transition-all duration-150"
+          className="flex items-center gap-2 px-5 py-2 rounded-full bg-foreground text-background text-sm font-medium transition-all duration-150 hover:opacity-80"
         >
-          Prendre RDV
+          Essai gratuit
+          <ArrowRight size={15} strokeWidth={2} />
         </a>
-
-
-
-      </div>
+      </nav>
     </header>
   );
 }
@@ -140,7 +143,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                     onClick={() => setMobileOpen(false)}
                     className={`nav-item ${isActive(item.path) ? "active" : ""}`}
                   >
-                    <item.icon size={16} strokeWidth={1.5} />
+                    {'icon' in item && item.icon && <item.icon size={16} strokeWidth={1.5} />}
                     {item.label}
                   </Link>
                 ))}
