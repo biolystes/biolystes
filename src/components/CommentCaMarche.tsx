@@ -84,8 +84,8 @@ export default function CommentCaMarche() {
                 onClick={() => setCurrent(i)}
                 className={`w-8 h-8 rounded-full text-xs font-semibold border transition-colors ${
                   i === current
-                    ? "bg-foreground text-background border-foreground"
-                    : "bg-foreground text-background border-foreground opacity-40 hover:opacity-70"
+                    ? "bg-white text-black border-white"
+                    : "bg-transparent text-white border-white hover:bg-white/20"
                 }`}
               >
                 {i + 1}
