@@ -82,7 +82,7 @@ function TopNavBar() {
           className="flex items-center gap-2 px-5 py-2 rounded-full bg-foreground text-background text-sm font-medium transition-all duration-150 hover:opacity-80"
         >
           Essai gratuit
-          <ArrowRight size={15} strokeWidth={2} />
+          <CircleArrowRight size={18} strokeWidth={1.5} />
         </a>
       </nav>
     </header>
