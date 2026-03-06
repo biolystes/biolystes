@@ -522,47 +522,6 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ RÉASSORT SANS MINIMUM ═══ */}
-      <section className="py-16 md:py-24">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed"
-              style={{ fontFamily: "'Instrument Serif', serif" }}>
-              Réassort Sans Minimum<br />
-              Vous êtes un institut ? un centre médical ? un salon de coiffure
-            </h2>
-            <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed text-sm">
-              Pas besoin de minimum de stock pour vos points de vente physiques. Commandez 1, 10 ou 1000 produits selon vos besoins réels. Livré dans votre établissement en moins de 15 jours.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
-            {[
-              { icon: MousePointerClick, title: "Commande automatisée", desc: "Vous passez vos commandes via notre plateforme avec votre branding." },
-              { icon: PackagePlus, title: "Fabrication Rapide", desc: "Le laboratoire fabrique le produit commandé 72h, avec votre branding." },
-              { icon: SendHorizontal, title: "Livraison Directe", desc: "Le logisticien récupère votre colis au laboratoire et l'expédie dans votre établissement." },
-            ].map((item) => (
-              <div key={item.title} className="text-center">
-                <div className="inline-flex items-center justify-center w-10 h-10 bg-background rounded-full mb-3">
-                  <item.icon className="w-4 h-4 text-foreground" strokeWidth={1} />
-                </div>
-                <h4 className="text-xs font-semibold text-foreground mb-1 uppercase tracking-wide">{item.title}</h4>
-                <p className="text-muted-foreground text-xs leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="relative max-w-[944px] mx-auto">
-            <div className="bg-secondary rounded-xl p-6 md:p-10">
-              <img src={salonCoiffure} alt="Salon de coiffure" className="w-full rounded-lg" loading="lazy" />
-            </div>
-            <div className="hidden md:block absolute -right-16 bottom-20 bg-secondary rounded-xl p-3 max-w-[220px] shadow-lg">
-              <img src={productBox} alt="Produit cosmétique" className="w-full rounded-lg" loading="lazy" />
-            </div>
-          </div>
-        </div>
-      </section>
-
 
       <section id="section-lystesai" ref={setRef("lystesai")} className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8" style={{ overflow: "visible" }}>
         <LystesAiSection />
