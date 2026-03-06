@@ -174,3 +174,28 @@
 /* Hide scrollbar utility */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+.bg-background.py-14.md\:py-20 {
+  border-radius: 32px;
+  margin: 24px;
+  padding: 56px;
+}
+
+.bg-secondary.py-14.md\:py-20 {
+  border-radius: 32px;
+  margin: 24px;
+  padding: 56px;
+  background: #ffffff;
+}
+
+.w-\[320px\].bg-background.rounded-\[2rem\].overflow-hidden.border.border-border {
+  border: 0;
+}
+
+p.text-\[17px\].font-black.text-foreground {
+  font-size: 10px;
+}
+
+section#section-lystesai {
+  margin-bottom: 88px;
+}
