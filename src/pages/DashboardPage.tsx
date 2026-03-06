@@ -601,9 +601,6 @@ export default function DashboardPage() {
 
       {/* Hero */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: 32 }}>
-        <p style={{ fontSize: 13, fontWeight: 500, color: "#86868b", marginBottom: 6 }}>
-          {profile?.first_name ? `Bonjour, ${profile.first_name}` : "Bonjour"}
-        </p>
         <h1 style={{ fontSize: 48, fontWeight: 800, color: "#1d1d1f", lineHeight: 1.05, letterSpacing: "-1px", marginBottom: 0 }}>
           Lancez votre marque
         </h1>
