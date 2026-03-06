@@ -625,11 +625,12 @@ export default function AIChat({
                 onClick={() => sendMessage(card.text)}
                 style={{
                   display: "flex", flexDirection: "column", justifyContent: "space-between",
-                  padding: 16, borderRadius: 16, background: "#ffffff",
+                  padding: 16, borderRadius: 16, background: "rgb(237, 236, 216)",
                   textAlign: "left", cursor: "pointer", minHeight: 96, transition: "background .15s",
+                  border: "none",
                 }}
-                onMouseEnter={e => (e.currentTarget.style.background = "#f5f5f7")}
-                onMouseLeave={e => (e.currentTarget.style.background = "#ffffff")}
+                onMouseEnter={e => (e.currentTarget.style.background = "rgb(227, 226, 206)")}
+                onMouseLeave={e => (e.currentTarget.style.background = "rgb(237, 236, 216)")}
               >
                 <p style={{ fontSize: 12, fontWeight: 500, color: "#424245", lineHeight: 1.45 }}>{card.text}</p>
                 <div style={{ alignSelf: "flex-end", marginTop: 8, color: "#c7c7cc", fontSize: 16 }}>{card.icon}</div>
