@@ -55,10 +55,10 @@ function TopNavBar() {
         {navItems.map((item) => (
           <Link key={item.path} to={item.path}>
             <div
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-150 ${
+              className={`flex items-center gap-2 px-3 py-1.5 text-sm font-medium transition-all duration-150 ${
                 isActive(item.path)
-                  ? "bg-foreground text-background"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                  ? "text-foreground border-b-2 border-foreground"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {item.label}
