@@ -62,7 +62,6 @@ function TopNavBar() {
                   : "text-muted-foreground hover:text-foreground hover:bg-accent"
               }`}
             >
-              <item.icon size={15} strokeWidth={1.5} />
               {item.label}
             </div>
           </Link>
