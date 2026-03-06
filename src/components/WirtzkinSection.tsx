@@ -97,24 +97,6 @@ export default function WirtzkinSection() {
         </div>
       </motion.div>
 
-      {/* Address card */}
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4}
-        className="mt-12 p-6 md:p-8 rounded-2xl bg-secondary text-center">
-        <h3 className="text-base font-semibold text-foreground mb-2">Retrouvez les produits Wirtzkin</h3>
-        <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground mb-4">
-          <MapPin className="h-4 w-4 shrink-0" strokeWidth={1.5} />
-          <span>Centre médical esthétique Wirtzkin — Consultez leur site pour les points de vente</span>
-        </div>
-        <a
-          href="https://www.wirtzkin.com"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-sm font-medium text-foreground hover:opacity-70 transition-opacity"
-        >
-          Voir le site Wirtzkin
-          <ExternalLink className="h-4 w-4" />
-        </a>
-      </motion.div>
 
       {/* Fullscreen video modal */}
       <AnimatePresence>
