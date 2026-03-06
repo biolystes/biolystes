@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
 const publicNavItems = [
-  { path: "/", icon: Compass, label: "Découverte" },
-  { path: "/chat", icon: Sparkles, label: "Posez vos questions" },
+  { path: "/", label: "Découverte" },
 ];
 
 const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
