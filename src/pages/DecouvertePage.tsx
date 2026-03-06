@@ -13,7 +13,9 @@ import InstaFeedSection from "@/components/InstaFeedSection";
 import WirtzkinSection from "@/components/WirtzkinSection";
 import AvantApresSection from "@/components/AvantApresSection";
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, MousePointerClick, PackagePlus, SendHorizontal } from "lucide-react";
+import salonCoiffure from "@/assets/salon-coiffure.webp";
+import productBox from "@/assets/product-box.jpg";
 
 // Brand images for portfolio
 import kaniwa1 from "@/assets/kaniwa-1.jpg";
