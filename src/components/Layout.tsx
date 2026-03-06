@@ -45,7 +45,7 @@ function TopNavBar() {
         <img
           src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
           alt="Lystes"
-          className="h-10 w-10 animate-tourne object-contain"
+          className="h-14 w-14 animate-tourne object-contain"
         />
         <span style={{ fontSize: 14, fontWeight: 700, color: "#1d1d1f", letterSpacing: "-0.3px" }}>Biolystes</span>
       </Link>
