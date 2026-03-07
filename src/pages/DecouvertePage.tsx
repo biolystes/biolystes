@@ -784,7 +784,7 @@ export default function DecouvertePage() {
               { icon: PackagePlus, title: "Fabrication Rapide", desc: "Le laboratoire fabrique le produit commandé 72h, avec votre branding." },
               { icon: SendHorizontal, title: "Livraison Directe", desc: "Le logisticien récupère votre colis au laboratoire et l'expédie dans votre établissement." },
             ].map((item) => (
-              <div key={item.title} className="text-center">
+              <div key={item.title} className="text-center bg-foreground/[0.02] p-[34px] rounded-[33px]">
                 <div className="inline-flex items-center justify-center w-10 h-10 bg-background rounded-full mb-3">
                   <item.icon className="w-4 h-4 text-foreground" strokeWidth={1} />
                 </div>
