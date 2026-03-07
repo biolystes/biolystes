@@ -19,6 +19,7 @@ import salonCoiffure from "@/assets/salon-coiffure.webp";
 import productBox from "@/assets/product-box.jpg";
 import product235th1 from "@/assets/product-235th-1.jpg";
 import product235th2 from "@/assets/product-235th-2.jpg";
+import product235th3 from "@/assets/product-235th-3.jpg";
 
 // Brand images for portfolio
 import kaniwa1 from "@/assets/kaniwa-1.jpg";
