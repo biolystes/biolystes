@@ -39,18 +39,10 @@ export default function SafeVideo({
     if (!video || error) return;
 
     const handleError = () => setError(true);
-    const handleStalled = () => {
-      // If stalled for too long, consider it failed
-      setTimeout(() => {
-        if (video.readyState < 2) setError(true);
-      }, 3000);
-    };
 
     video.addEventListener("error", handleError);
-    video.addEventListener("stalled", handleStalled);
     return () => {
       video.removeEventListener("error", handleError);
-      video.removeEventListener("stalled", handleStalled);
     };
   }, [error, src]);
 
