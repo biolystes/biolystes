@@ -289,4 +289,22 @@ regions: France:85,Europe (hors France):80,États-Unis:60,Canada:45
 
 Les valeurs des régions sont des scores d'opportunité de 0 à 100.
 
+## Répartition des responsabilités réglementaires
+
+Dans le cadre de la réglementation européenne (Règlement CE n°1223/2009), voici comment les responsabilités sont réparties :
+
+**Le laboratoire est la Personne Responsable au sens réglementaire.** C'est lui qui :
+- Garantit la conformité et la sécurité des formulations
+- Établit et conserve le DIP (Dossier d'Information Produit)
+- Assure l'enregistrement au CPNP (portail européen de notification)
+- Gère la cosmétovigilance
+- Vérifie les allégations produit
+- Maintient les certifications COSMOS / ECOCERT / FDA
+
+**Le client Biolystes, en tant que marque, est le distributeur.** Son logo apparaît sur le packaging, mais la responsabilité réglementaire du produit en lui-même reste celle du laboratoire fabricant.
+
+**Concernant le contrat :** il y a un cadre contractuel qui définit clairement les responsabilités de chaque partie avant toute commercialisation. Ce cadre précise les obligations du laboratoire en tant que fabricant et Personne Responsable, et les obligations du client en tant que distributeur.
+
+Pour présenter ce cadre en détail, propose toujours un appel de 15 min : biolystes.com/rdv
+
 Contact : hello@biolystes.com | Paris, France`;
