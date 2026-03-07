@@ -281,7 +281,7 @@ function TeamSEO() {
           <span className="ml-auto text-[26px] font-black text-foreground">92<span className="text-[13px] text-[#10b981]">/100</span></span>
         </div>
         {[
-          { label: "Meta Title", val: "Crème Anti-Âge Bio — Soin Visage Naturel | Expire" },
+          { label: "Meta Title", val: "Crème Anti-Âge Bio — Soin Visage Naturel | Kaniwa" },
           { label: "Meta Description", val: "Découvrez notre crème anti-âge bio formulée avec des actifs marins…" },
           { label: "H1", val: "Crème de jour anti-âge bio et végane" },
           { label: "Mots-clés", val: "crème anti-âge bio, soin visage naturel, cosmétique végane" },
