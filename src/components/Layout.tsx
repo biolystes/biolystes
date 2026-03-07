@@ -31,63 +31,73 @@ function TopNavBar() {
     : "?";
 
   return (
-    <header
-      className="hidden md:flex items-center fixed top-0 left-0 right-0 z-30 px-6 gap-6"
-      style={{
-        height: 56,
-        background: "rgba(245,245,247,0.85)",
-        backdropFilter: "blur(12px)",
-        borderBottom: "1px solid #e5e5e7",
-      }}
-    >
-      {/* Logo */}
-      <Link to="/" className="flex items-center gap-2 mr-4 shrink-0">
-        <img
-          src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
-          alt="Lystes"
-          className="h-14 w-14 animate-tourne object-contain"
-        />
-        
-      </Link>
+    <>
+      {/* Top promo bar */}
+      <div
+        className="fixed top-0 left-0 right-0 z-40 flex items-center justify-center gap-2 text-sm font-bold tracking-wide"
+        style={{ height: 36, background: "#f5f4df", borderBottom: "1px solid #e5e5e7" }}
+      >
+        🔥 CETTE SEMAINE : -20% SUR TOUTES NOS OFFRES
+      </div>
 
-      {/* Navigation */}
-      <nav className="flex items-center gap-3 flex-1 justify-end">
-        {navItems.map((item) => (
-          <Link key={item.path} to={item.path}>
-            <span
-              className={`text-sm font-medium transition-colors ${
-                isActive(item.path)
-                  ? "text-foreground"
-                  : "text-foreground/70 hover:text-foreground"
-              }`}
-            >
-              {item.label}
-            </span>
-          </Link>
-        ))}
-
-        {/* Posez vos questions — btn-outline */}
-        <Link to="/chat" className="btn-outline">
-          <span>Poser vos questions</span>
-          <span className="arrow-circle">
-            <ArrowRight className="w-3.5 h-3.5" />
-          </span>
+      <header
+        className="hidden md:flex items-center fixed left-0 right-0 z-30 px-6 gap-6"
+        style={{
+          top: 36,
+          height: 56,
+          background: "rgba(245,245,247,0.85)",
+          backdropFilter: "blur(12px)",
+          borderBottom: "1px solid #e5e5e7",
+        }}
+      >
+        {/* Logo */}
+        <Link to="/" className="flex items-center gap-2 mr-4 shrink-0">
+          <img
+            src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
+            alt="Lystes"
+            className="h-14 w-14 animate-tourne object-contain"
+          />
         </Link>
 
-        {/* Prendre RDV — btn-startup */}
-        <a
-          href={RDV_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-startup"
-        >
-          <span>Prendre RDV</span>
-          <span className="arrow-circle">
-            <ArrowRight className="w-3.5 h-3.5" />
-          </span>
-        </a>
-      </nav>
-    </header>
+        {/* Navigation */}
+        <nav className="flex items-center gap-3 flex-1 justify-end">
+          {navItems.map((item) => (
+            <Link key={item.path} to={item.path}>
+              <span
+                className={`text-sm font-medium transition-colors ${
+                  isActive(item.path)
+                    ? "text-foreground"
+                    : "text-foreground/70 hover:text-foreground"
+                }`}
+              >
+                {item.label}
+              </span>
+            </Link>
+          ))}
+
+          {/* Posez vos questions — btn-outline */}
+          <Link to="/chat" className="btn-outline">
+            <span>Poser vos questions</span>
+            <span className="arrow-circle">
+              <ArrowRight className="w-3.5 h-3.5" />
+            </span>
+          </Link>
+
+          {/* Prendre RDV — btn-startup */}
+          <a
+            href={RDV_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-startup"
+          >
+            <span>Prendre RDV</span>
+            <span className="arrow-circle">
+              <ArrowRight className="w-3.5 h-3.5" />
+            </span>
+          </a>
+        </nav>
+      </header>
+    </>
   );
 }
 
