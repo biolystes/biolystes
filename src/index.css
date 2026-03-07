@@ -331,6 +331,7 @@ section.py-16.md\:py-24 {
   background: #f5f4df;
 }
 
+section.py-12.md\:py-16 .bg-secondary.rounded-xl.p-6.md\:p-10,
 section.py-16.md\:py-24 .bg-secondary.rounded-xl.p-6.md\:p-10 {
   background: #2f5955 !important;
   padding: 13px;
