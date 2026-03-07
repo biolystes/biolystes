@@ -466,3 +466,10 @@ button.w-2.h-2.rounded-full.transition-all.bg-muted-foreground\/30 {
 button.w-2.h-2.rounded-full.transition-all.bg-foreground.w-6 {
   background: #fff;
 }
+.p-6.md\:p-8.rounded-2xl.bg-background {
+  background: transparent;
+  border: 1px solid;
+}
+.bg-destructive\/10 {
+  background-color: #fff;
+}
