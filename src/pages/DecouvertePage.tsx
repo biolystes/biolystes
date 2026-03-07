@@ -690,7 +690,7 @@ export default function DecouvertePage() {
             <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed">
               Votre meilleure réflexion, testez nos produits <br />avec votre branding pour 147€, montant déduit si vous passez à l'étape suivante
             </motion.h2>
-            <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground leading-relaxed">
+            <motion.p variants={fadeUp} custom={2} className="text-sm text-foreground leading-relaxed">
               4 produits certifiés bio chez vous en 7 jours. Création de votre logo, design packaging et shooting photo IA de vos produits.
             </motion.p>
           </motion.div>
