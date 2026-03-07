@@ -4,6 +4,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import CommentCaMarche from "@/components/CommentCaMarche";
 import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
+import SafeVideo from "@/components/SafeVideo";
 import {
   ArrowRight, Check, FlaskConical, Truck, Globe, Package, Leaf, Award,
   Rabbit, FileCheck2, BadgeCheck, ShoppingBag, MessageCircle, HelpCircle,
