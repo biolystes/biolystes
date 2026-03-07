@@ -134,11 +134,8 @@ export default function WirtzkinSection() {
               className="relative w-full max-w-sm aspect-[9/16] rounded-2xl overflow-hidden bg-black"
               onClick={(e) => e.stopPropagation()}
             >
-              <video
+              <SafeVideo
                 src={videos[fullscreen].src}
-                autoPlay
-                loop
-                playsInline
                 controls
                 className="w-full h-full object-cover"
               />
