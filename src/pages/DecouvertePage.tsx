@@ -189,7 +189,7 @@ function BrandCarousel({ brand }: { brand: typeof portfolioBrands[0] }) {
   );
 }
 
-
+function StepProgress({ activeStep }: { activeStep: StepKey }) {
   const activeIdx = steps.findIndex(s => s.key === activeStep);
 
   const scrollToSection = (key: StepKey) => {
