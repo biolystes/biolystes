@@ -252,6 +252,7 @@ section#section-lystesai {
 /* Fond jaune pâle sur les sections principales */
 section#section-experience,
 section#section-decouvre,
+section.overflow-hidden.py-3.bg-background,
 section.overflow-hidden.py-6.bg-background,
 section#section-qualite,
 section#section-livraison,
