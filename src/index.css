@@ -468,6 +468,10 @@ span.text-\[13px\].leading-relaxed.text-muted-foreground {
 section.py-24.md\:py-32.bg-background {
   background: #000;
 }
+
+section.py-12.md\:py-16.bg-background {
+  background: #000;
+}
 h2.text-3xl.md\:text-4xl.font-light.tracking-tight.max-w-3xl.mx-auto.text-foreground {
   color: #fff;
 }
