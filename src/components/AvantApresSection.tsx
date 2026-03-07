@@ -3,6 +3,7 @@ import { Star, StarHalf, Menu, Search, User, ShoppingBag, ArrowRight } from "luc
 import { Button } from "@/components/ui/button";
 import { AnimatedChat } from "@/components/AnimatedChat";
 import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
+import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },

@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { AnimatedChat } from "./AnimatedChat";
 import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
+import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
