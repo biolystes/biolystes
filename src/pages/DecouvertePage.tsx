@@ -736,6 +736,7 @@ export default function DecouvertePage() {
               muted
               loop
               playsInline
+              preload="metadata"
               className="rounded-xl object-cover w-full h-auto hidden md:block"
               style={{ border: "5px solid", borderRadius: "12px", transform: "rotate(2deg)", margin: "0 36px", maxWidth: "calc(100% - 72px)", marginBottom: "33px" }}
             />
