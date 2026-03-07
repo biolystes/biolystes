@@ -474,7 +474,7 @@ export default function DecouvertePage() {
             </motion.div>
 
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-              className="p-8 rounded-2xl bg-background border-2 border-foreground">
+              className="p-8 rounded-2xl border-2 border-foreground">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-full bg-foreground text-primary-foreground flex items-center justify-center">
                   <Zap className="h-5 w-5" strokeWidth={1.5} />
