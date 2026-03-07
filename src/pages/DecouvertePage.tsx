@@ -378,7 +378,7 @@ export default function DecouvertePage() {
       <section id="section-qualite" ref={setRef("qualite")} className="py-8 md:py-12">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16 text-center">
-            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Nos engagements</motion.p>
+            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-foreground">Nos engagements</motion.p>
             <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed">
               Des cosmétiques d'excellence, certifiés et responsables
             </motion.h2>
