@@ -300,7 +300,7 @@ button.w-8.h-8.rounded-full.text-xs.font-semibold.border.transition-colors.bg-fo
 }
 
 /* Sticky nav & header */
-.fixed.top-14.left-0.right-0.z-20.bg-background\/90.backdrop-blur-md.border-b.border-border {
+.fixed.left-0.right-0.z-20.bg-background\/90.backdrop-blur-md.border-b.border-border {
   background: #f5f4df !important;
   border-bottom: 1px solid #1d1d1f !important;
 }
