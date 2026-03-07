@@ -564,7 +564,7 @@ export default function DecouvertePage() {
                 </div>
                 <div>
                   <h3 className="text-base font-semibold text-foreground">Mode Express</h3>
-                  <p className="text-xs text-muted-foreground">Livraison en 24-48h</p>
+                  <p className="text-xs text-foreground">Livraison en 24-48h</p>
                 </div>
               </div>
               <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
