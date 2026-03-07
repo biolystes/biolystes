@@ -73,12 +73,8 @@ export default function WirtzkinSection() {
               onClick={() => setFullscreen(i)}
               className="relative flex-shrink-0 w-[300px] md:w-[400px] aspect-[9/16] rounded-2xl overflow-hidden group snap-start cursor-pointer border-0 p-0 bg-black"
             >
-              <video
+              <SafeVideo
                 src={video.src}
-                muted
-                loop
-                playsInline
-                autoPlay
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
