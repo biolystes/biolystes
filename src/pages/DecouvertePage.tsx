@@ -1010,17 +1010,10 @@ export default function DecouvertePage() {
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4}
             className="mt-16 flex flex-wrap justify-center gap-4">
-            <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="rounded-full px-10 h-14 text-sm tracking-wide font-medium">
-                Prendre rendez-vous avec un expert
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
+            <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
+              <span>Prendre rendez-vous avec un expert</span>
+              <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
-            <Button size="lg" variant="outline" className="rounded-full px-10 h-14 text-sm tracking-wide font-medium border-muted-foreground/40"
-              onClick={() => navigate("/pricing")}>
-              Voir les tarifs
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
           </motion.div>
         </div>
       </section>
