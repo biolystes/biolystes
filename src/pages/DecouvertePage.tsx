@@ -416,7 +416,7 @@ export default function DecouvertePage() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="mt-16 grid md:grid-cols-2 gap-8">
             <div>
-              <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-6">Nos formulations excluent</p>
+              <p className="text-xs tracking-[0.3em] uppercase text-foreground mb-6">Nos formulations excluent</p>
               <div className="space-y-3">
                 {["Parabènes", "Silicones", "PEG", "Filtres UV chimiques", "Microplastiques", "Colorants artificiels", "Phosphates", "Conservateurs synthétiques"].map(item => (
                   <div key={item} className="flex items-center gap-3">
