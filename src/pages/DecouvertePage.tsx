@@ -343,7 +343,7 @@ export default function DecouvertePage() {
         </motion.div>
 
         {/* Certifications carousel */}
-        <div className="overflow-hidden py-8 mt-4">
+        <div className="overflow-hidden py-4 mt-2">
           <motion.div
             className="flex gap-12 items-center"
             animate={{ x: ["0%", "-50%"] }}
