@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, X, MapPin, ExternalLink } from "lucide-react";
 
@@ -26,6 +26,21 @@ export default function WirtzkinSection() {
       child?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
     }
   };
+
+  useEffect(() => {
+    if (fullscreen !== null) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        const next = (prev + 1) % videos.length;
+        if (scrollRef.current) {
+          const child = scrollRef.current.children[next] as HTMLElement;
+          child?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+        }
+        return next;
+      });
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [fullscreen]);
 
   return (
     <div className="max-w-5xl mx-auto px-6">
