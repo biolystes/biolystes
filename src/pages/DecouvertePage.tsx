@@ -456,7 +456,7 @@ export default function DecouvertePage() {
 
           <div className="grid md:grid-cols-2 gap-8">
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              className="p-8 rounded-2xl border border-border">
+              className="p-8 rounded-2xl border-2 border-foreground">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-full bg-foreground text-primary-foreground flex items-center justify-center">
                   <Clock className="h-5 w-5" strokeWidth={1.5} />
