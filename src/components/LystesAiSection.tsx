@@ -374,11 +374,15 @@ function TeamContenu() {
       desc="Nous mettons en place une équipe Créateur de contenu AI, qui produit des contenus pour vos réseaux sociaux, articles de blog et descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
       <div className="flex gap-3.5 flex-wrap">
         {[
-          { src: kaniwaUgc2, label: "Post Instagram" },
-          { src: kaniwaUgc4, label: "Story Réseaux" },
+          { src: kaniwaUgc2, label: "Post Instagram", type: "image" as const },
+          { src: "/videos/fralene-hero.mov", label: "Story Réseaux", type: "video" as const },
         ].map(img => (
           <div key={img.label} className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
-            <img src={img.src} alt="" className="w-full h-[280px] object-cover block" />
+            {img.type === "video" ? (
+              <video src={img.src} autoPlay loop muted playsInline className="w-full h-[280px] object-cover block" />
+            ) : (
+              <img src={img.src} alt="" className="w-full h-[280px] object-cover block" />
+            )}
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/55 to-transparent p-3 pt-8 text-white text-[11px] font-semibold flex items-center gap-1.5">
               📱 {img.label}
             </div>
