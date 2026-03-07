@@ -686,7 +686,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 9a. TARIFS – PACK DÉCOUVERTE ═══ */}
-      <section id="section-tarifs-2" className="py-24 md:py-32">
+      <section id="section-tarifs-2" className="py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-12 text-center">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Pas besoin de tout décider maintenant</motion.p>
