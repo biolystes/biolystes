@@ -36,6 +36,7 @@ import sevmylook1 from "@/assets/sevmylook-1.jpg";
 import sevmylook3 from "@/assets/sevmylook-3.jpg";
 import sevmylook7 from "@/assets/sevmylook-7.jpg";
 import sevmylook9 from "@/assets/sevmylook-9.jpg";
+import sevmylook20 from "@/assets/sevmylook-20.jpg";
 import pmyrris1 from "@/assets/pmyrris-1.jpg";
 import pmyrris2 from "@/assets/pmyrris-2.jpg";
 import pmyrris4 from "@/assets/pmyrris-4.jpg";
