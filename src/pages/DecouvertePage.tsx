@@ -24,6 +24,7 @@ import product235th3 from "@/assets/product-235th-3.jpg";
 // Brand images for portfolio
 import kaniwa1 from "@/assets/kaniwa-1.jpg";
 import kaniwa6 from "@/assets/kaniwa-6.jpg";
+import kaniwa7 from "@/assets/kaniwa-7.jpg";
 import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
 import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
 
