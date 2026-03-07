@@ -803,7 +803,7 @@ export default function DecouvertePage() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}>
               <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border border-border">
                 <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 text-foreground">Pack IA</h3>
-                <p className="text-xs mb-5 text-muted-foreground">Gestion 360° + Intelligence artificielle avancée</p>
+                <p className="text-xs mb-5 text-foreground">Gestion 360° + Intelligence artificielle avancée</p>
                 <div className="mb-2">
                   <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">2 999€</span>
                   <span className="text-[13px] ml-2 text-muted-foreground">frais uniques ou 999€ en 2 fois</span>
