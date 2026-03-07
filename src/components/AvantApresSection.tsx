@@ -135,9 +135,9 @@ export default function AvantApresSection() {
                         "https://lystes.ai/images/clients/kaniwa-8.jpg",
                         kaniwaUgc4,
                         "https://lystes.ai/images/clients/kaniwa-7.jpg",
-                        "https://lystes.ai/images/clients/kaniwa-ugc-3.jpg",
+                        kaniwaUgc5,
                         "https://lystes.ai/images/clients/kaniwa-4.jpg",
-                        "https://lystes.ai/images/clients/kaniwa-5.jpg",
+                        kaniwaUgc6,
                       ].map((src, i) => (
                         <div key={i} className="snap-start shrink-0 relative flex flex-col items-center">
                           <img src={src} alt="" className="w-[240px] h-[280px] object-cover rounded-2xl relative z-10 border border-border" />
