@@ -444,7 +444,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 18 ANS D'EXPÉRIENCE ═══ */}
-      <section id="section-experience" ref={setRef("experience")} className="py-24 md:py-32 bg-background">
+      <section id="section-experience" ref={setRef("experience")} className="py-12 md:py-16 bg-background">
         {/* Video carousel - auto-scrolling */}
         <div className="w-full overflow-hidden mb-16">
           <motion.div
