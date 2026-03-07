@@ -144,7 +144,52 @@ const portfolioBrands = [
   },
 ];
 
-function StepProgress({ activeStep }: { activeStep: StepKey }) {
+function BrandCarousel({ brand }: { brand: typeof portfolioBrands[0] }) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: true, dragFree: true });
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(true);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => {
+      setCanScrollPrev(emblaApi.canScrollPrev());
+      setCanScrollNext(emblaApi.canScrollNext());
+    };
+    emblaApi.on("select", onSelect);
+    onSelect();
+    return () => { emblaApi.off("select", onSelect); };
+  }, [emblaApi]);
+
+  return (
+    <div className="relative">
+      <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
+        <div className="flex gap-3">
+          {brand.photos.map((item, i) => (
+            <div key={i} className="flex-none w-[45%] md:w-[24%] aspect-[3/4] rounded-2xl overflow-hidden">
+              {typeof item === "object" && item.type === "video" ? (
+                <video src={item.src} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+              ) : (
+                <img src={typeof item === "string" ? item : ""} alt={`${brand.name} ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+      {canScrollPrev && (
+        <button onClick={() => emblaApi?.scrollPrev()} className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/80 backdrop-blur flex items-center justify-center shadow-md hover:bg-background transition-colors">
+          <ChevronLeft className="h-4 w-4" />
+        </button>
+      )}
+      {canScrollNext && (
+        <button onClick={() => emblaApi?.scrollNext()} className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/80 backdrop-blur flex items-center justify-center shadow-md hover:bg-background transition-colors">
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      )}
+    </div>
+  );
+}
+
+
   const activeIdx = steps.findIndex(s => s.key === activeStep);
 
   const scrollToSection = (key: StepKey) => {
