@@ -360,8 +360,6 @@ export default function DecouvertePage() {
 
       </section>
 
-
-
       {/* ═══ PORTFOLIO IMAGES MARQUEE ═══ */}
       <section className="overflow-hidden py-6 bg-background">
         <div className="flex gap-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
