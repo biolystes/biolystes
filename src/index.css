@@ -454,3 +454,15 @@ span.text-\[13px\].leading-relaxed.text-muted-foreground {
   background: hsl(var(--foreground) / 0.04);
   border: 0;
 }
+section.py-24.md\:py-32.bg-background {
+  background: #000;
+}
+h2.text-3xl.md\:text-4xl.font-light.tracking-tight.max-w-3xl.mx-auto.text-foreground {
+  color: #fff;
+}
+button.w-2.h-2.rounded-full.transition-all.bg-muted-foreground\/30 {
+  background: #fff;
+}
+button.w-2.h-2.rounded-full.transition-all.bg-foreground.w-6 {
+  background: #fff;
+}
