@@ -65,20 +65,27 @@ function ProductImageCycler() {
     return () => clearInterval(timer);
   }, []);
   return (
-    <div className="hidden md:block absolute -right-16 bottom-20 bg-secondary rounded-xl p-3 max-w-[220px] shadow-lg overflow-hidden">
-      <AnimatePresence mode="wait">
-        <motion.img
-          key={idx}
-          src={productImages[idx]}
-          alt="Produit cosmétique"
-          className="w-full rounded-lg object-cover aspect-square"
-          loading="lazy"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.6 }}
-        />
-      </AnimatePresence>
+    <div className="hidden md:block absolute -right-16 bottom-20 bg-secondary rounded-xl p-3 max-w-[220px] shadow-lg">
+      <div className="overflow-hidden rounded-lg">
+        <motion.div
+          className="flex"
+          animate={{ x: `-${idx * 100}%` }}
+          transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+        >
+          {productImages.map((src, i) => (
+            <img key={i} src={src} alt="Produit cosmétique" className="w-full flex-shrink-0 object-cover aspect-square" loading="lazy" />
+          ))}
+        </motion.div>
+      </div>
+      <div className="flex justify-center gap-1.5 mt-2">
+        {productImages.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setIdx(i)}
+            className={`w-1.5 h-1.5 rounded-full transition-all ${i === idx ? "bg-foreground w-4" : "bg-muted-foreground/30"}`}
+          />
+        ))}
+      </div>
     </div>
   );
 }
