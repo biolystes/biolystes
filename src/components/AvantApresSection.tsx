@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Star, StarHalf, Menu, Search, User, ShoppingBag, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedChat } from "@/components/AnimatedChat";
+import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -126,7 +127,7 @@ export default function AvantApresSection() {
                     <div className="flex overflow-x-auto gap-4 px-5 pb-6 pt-2" style={{ scrollbarWidth: "none" }}>
                       {[
                         "https://lystes.ai/images/clients/kaniwa-6.jpg",
-                        "https://lystes.ai/images/clients/kaniwa-ugc-1.jpg",
+                        kaniwaUgc2,
                         "https://lystes.ai/images/clients/kaniwa-8.jpg",
                         "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg",
                         "https://lystes.ai/images/clients/kaniwa-7.jpg",
@@ -171,7 +172,7 @@ export default function AvantApresSection() {
                     {/* UGC images */}
                     <div className="flex gap-2 pb-6">
                       {[
-                        "https://lystes.ai/images/clients/kaniwa-ugc-1.jpg",
+                        kaniwaUgc2,
                         "https://lystes.ai/images/clients/kaniwa-ugc-3.jpg",
                         "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg",
                       ].map((src, i) => (

@@ -6,6 +6,7 @@ import {
   Minus, AlertTriangle, MessageSquare
 } from "lucide-react";
 import { AnimatedChat } from "./AnimatedChat";
+import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -117,7 +118,7 @@ function BeforeAfterPhones() {
                 <div className="flex overflow-x-auto gap-4 px-5 pb-6 pt-2" style={{ scrollbarWidth: "none" }}>
                   {[
                     "https://lystes.ai/images/clients/kaniwa-6.jpg",
-                    "https://lystes.ai/images/clients/kaniwa-ugc-1.jpg",
+                    kaniwaUgc2,
                     "https://lystes.ai/images/clients/kaniwa-8.jpg",
                     "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg",
                     "https://lystes.ai/images/clients/kaniwa-7.jpg",
@@ -151,7 +152,7 @@ function BeforeAfterPhones() {
                 </button>
                 <div className="flex gap-2 pb-6">
                   {[
-                    "https://lystes.ai/images/clients/kaniwa-ugc-1.jpg",
+                    kaniwaUgc2,
                     "https://lystes.ai/images/clients/kaniwa-ugc-3.jpg",
                     "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg",
                   ].map((src, i) => (
@@ -365,7 +366,7 @@ function TeamContenu() {
       desc="Nous mettons en place une équipe Créateur de contenu AI, qui produit des contenus pour vos réseaux sociaux, articles de blog et descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
       <div className="flex gap-3.5 flex-wrap">
         {[
-          { src: "https://lystes.ai/images/clients/kaniwa-ugc-1.jpg", label: "Post Instagram" },
+          { src: kaniwaUgc2, label: "Post Instagram" },
           { src: "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg", label: "Story Réseaux" },
         ].map(img => (
           <div key={img.label} className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">

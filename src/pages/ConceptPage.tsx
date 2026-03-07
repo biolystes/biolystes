@@ -11,6 +11,7 @@ import kaniwa1 from "@/assets/kaniwa-1.jpg";
 import kaniwa2 from "@/assets/kaniwa-2.jpg";
 import kaniwa3 from "@/assets/kaniwa-3.jpg";
 import kaniwa5 from "@/assets/kaniwa-5.jpg";
+import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
 import fralene1 from "@/assets/fralene-1.jpg";
 import fralene2 from "@/assets/fralene-2.jpg";
 import fralene3 from "@/assets/fralene-3.jpg";
@@ -695,7 +696,7 @@ export default function ConceptPage() {
                       <div className="flex overflow-x-auto gap-4 px-5 pb-6 pt-2" style={{ scrollbarWidth: "none" }}>
                         {[
                           "https://lystes.ai/images/clients/kaniwa-6.jpg",
-                          "https://lystes.ai/images/clients/kaniwa-ugc-1.jpg",
+                          kaniwaUgc2,
                           "https://lystes.ai/images/clients/kaniwa-8.jpg",
                           "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg",
                           "https://lystes.ai/images/clients/kaniwa-7.jpg",
@@ -741,7 +742,7 @@ export default function ConceptPage() {
                       {/* UGC images */}
                       <div className="flex gap-2 pb-6">
                         {[
-                          "https://lystes.ai/images/clients/kaniwa-ugc-1.jpg",
+                          kaniwaUgc2,
                           "https://lystes.ai/images/clients/kaniwa-ugc-3.jpg",
                           "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg",
                         ].map((src, i) => (
