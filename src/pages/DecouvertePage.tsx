@@ -864,7 +864,7 @@ export default function DecouvertePage() {
                   <item.icon className="w-4 h-4 text-foreground" strokeWidth={1} />
                 </div>
                 <h4 className="text-xs font-semibold text-foreground mb-1 uppercase tracking-wide">{item.title}</h4>
-                <p className="text-muted-foreground text-xs leading-relaxed">{item.desc}</p>
+                <p className="text-foreground text-xs leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
