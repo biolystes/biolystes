@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Star, StarHalf, Menu, Search, User, ShoppingBag, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { AnimatedChat } from "@/components/AnimatedChat";
+import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },

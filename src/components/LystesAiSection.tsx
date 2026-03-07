@@ -6,6 +6,7 @@ import {
   Minus, AlertTriangle, MessageSquare
 } from "lucide-react";
 import { AnimatedChat } from "./AnimatedChat";
+import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
