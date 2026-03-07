@@ -317,7 +317,7 @@ export default function DecouvertePage() {
       <section className="overflow-hidden py-6 bg-background">
         <div className="flex gap-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
           {[
-            kaniwa1, fralene1, sevmylook1, pmyrris1, kaniwa6, fralene3, sevmylook3, pmyrris4,
+            kaniwa1, fralene3, sevmylook1, pmyrris1, kaniwa6, fralene10, sevmylook3, pmyrris4,
           ].map((src, i) => (
             <div key={i} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden">
               <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
