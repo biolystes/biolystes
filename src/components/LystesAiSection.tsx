@@ -287,7 +287,7 @@ function TeamSEO() {
           { label: "Mots-clés", val: "crème anti-âge bio, soin visage naturel, cosmétique végane" },
           { label: "Alt images", val: "3/3 optimisées" },
         ].map(r => (
-          <div key={r.label} className="flex items-start gap-2.5 p-3 bg-background rounded-xl mb-1.5">
+          <div key={r.label} className="flex items-start gap-2.5 p-3 rounded-xl mb-1.5 border border-border/50">
             <div className="w-[18px] h-[18px] rounded-full bg-[#d1fae5] flex items-center justify-center shrink-0 mt-0.5">
               <Check className="w-[10px] h-[10px] text-[#065f46]" strokeWidth={3} />
             </div>
