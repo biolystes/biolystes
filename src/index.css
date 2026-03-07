@@ -337,6 +337,7 @@ section.py-16.md\:py-24 .bg-secondary.rounded-xl.p-6.md\:p-10 {
   padding: 13px;
 }
 
+section.py-12.md\:py-16 .hidden.md\:block.absolute.-right-16.bottom-20.bg-secondary.rounded-xl.p-3.max-w-\[220px\].shadow-lg,
 section.py-16.md\:py-24 .hidden.md\:block.absolute.-right-16.bottom-20.bg-secondary.rounded-xl.p-3.max-w-\[220px\].shadow-lg {
   transform: rotate(3deg);
   background: #2f5955 !important;
