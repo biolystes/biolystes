@@ -103,6 +103,10 @@
   * {
     @apply border-border;
   }
+  html, body {
+    overflow-x: hidden;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, 'SF Pro Display', sans-serif;
