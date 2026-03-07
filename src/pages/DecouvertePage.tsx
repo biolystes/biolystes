@@ -725,15 +725,10 @@ export default function DecouvertePage() {
               </div>
             </motion.div>
 
-            <video
+            <SafeVideo
               src="/videos/hero-kaniwa.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
               className="rounded-xl object-cover w-full h-auto hidden md:block"
-              style={{ border: "5px solid", borderRadius: "12px", transform: "rotate(2deg)", margin: "0 36px", maxWidth: "calc(100% - 72px)", marginBottom: "33px" }}
+              lazy
             />
           </div>
         </div>
