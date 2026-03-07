@@ -16,6 +16,8 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink, MousePointerClick, PackagePlus, SendHorizontal } from "lucide-react";
 import salonCoiffure from "@/assets/salon-coiffure.webp";
 import productBox from "@/assets/product-box.jpg";
+import product235th1 from "@/assets/product-235th-1.jpg";
+import product235th2 from "@/assets/product-235th-2.jpg";
 
 // Brand images for portfolio
 import kaniwa1 from "@/assets/kaniwa-1.jpg";
