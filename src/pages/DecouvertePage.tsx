@@ -28,10 +28,9 @@ import kaniwa7 from "@/assets/kaniwa-7.jpg";
 import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
 import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
 
-import fralene1 from "@/assets/fralene-1.jpg";
-import fralene2 from "@/assets/fralene-2.jpg";
 import fralene3 from "@/assets/fralene-3.jpg";
-import fralene5 from "@/assets/fralene-5.jpg";
+import fralene10 from "@/assets/fralene-10.jpg";
+import fraleneExt1 from "@/assets/fralene-ext-1.jpg";
 import sevmylook1 from "@/assets/sevmylook-1.jpg";
 import sevmylook3 from "@/assets/sevmylook-3.jpg";
 import sevmylook7 from "@/assets/sevmylook-7.jpg";
@@ -126,7 +125,7 @@ const portfolioBrands = [
     name: "Fralène",
     tagline: "Gamme soins visage premium",
     url: "https://fraleneparis.com/",
-    photos: [{ type: "video" as const, src: "/videos/fralene-hero.mov" }, fralene2, fralene3, fralene5],
+    photos: [{ type: "video" as const, src: "/videos/fralene-hero.mov" }, fralene3, fraleneExt1, fralene10],
   },
   {
     name: "Sevmylook",
@@ -318,7 +317,7 @@ export default function DecouvertePage() {
       <section className="overflow-hidden py-6 bg-background">
         <div className="flex gap-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
           {[
-            kaniwa1, fralene1, sevmylook1, pmyrris1, kaniwa6, fralene3, sevmylook3, pmyrris4,
+            kaniwa1, fralene3, sevmylook1, pmyrris1, kaniwa6, fralene10, sevmylook3, pmyrris4,
           ].map((src, i) => (
             <div key={i} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden">
               <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
