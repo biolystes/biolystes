@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, X, MapPin, ExternalLink } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import SafeVideo from "@/components/SafeVideo";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -72,12 +73,8 @@ export default function WirtzkinSection() {
               onClick={() => setFullscreen(i)}
               className="relative flex-shrink-0 w-[300px] md:w-[400px] aspect-[9/16] rounded-2xl overflow-hidden group snap-start cursor-pointer border-0 p-0 bg-black"
             >
-              <video
+              <SafeVideo
                 src={video.src}
-                muted
-                loop
-                playsInline
-                autoPlay
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -137,11 +134,8 @@ export default function WirtzkinSection() {
               className="relative w-full max-w-sm aspect-[9/16] rounded-2xl overflow-hidden bg-black"
               onClick={(e) => e.stopPropagation()}
             >
-              <video
+              <SafeVideo
                 src={videos[fullscreen].src}
-                autoPlay
-                loop
-                playsInline
                 controls
                 className="w-full h-full object-cover"
               />

@@ -4,6 +4,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import CommentCaMarche from "@/components/CommentCaMarche";
 import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
+import SafeVideo from "@/components/SafeVideo";
 import {
   ArrowRight, Check, FlaskConical, Truck, Globe, Package, Leaf, Award,
   Rabbit, FileCheck2, BadgeCheck, ShoppingBag, MessageCircle, HelpCircle,
@@ -168,7 +169,7 @@ function BrandCarousel({ brand }: { brand: typeof portfolioBrands[0] }) {
           {brand.photos.map((item, i) => (
             <div key={i} className="flex-none w-[45%] md:w-[24%] aspect-[3/4] rounded-2xl overflow-hidden">
               {typeof item === "object" && item.type === "video" ? (
-                <video src={item.src} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                <SafeVideo src={item.src} className="w-full h-full object-cover" />
               ) : (
                 <img src={typeof item === "string" ? item : ""} alt={`${brand.name} ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
               )}
@@ -468,12 +469,8 @@ export default function DecouvertePage() {
                   key={`${dupeIdx}-${i}`}
                   className="flex-shrink-0 w-[200px] md:w-[240px] aspect-[9/16] rounded-2xl overflow-hidden bg-black"
                 >
-                  <video
+                  <SafeVideo
                     src={src}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -733,14 +730,9 @@ export default function DecouvertePage() {
               </div>
             </motion.div>
 
-            <video
+            <SafeVideo
               src="/videos/hero-kaniwa.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
               className="rounded-xl object-cover w-full h-auto hidden md:block"
-              style={{ border: "5px solid", borderRadius: "12px", transform: "rotate(2deg)", margin: "0 36px", maxWidth: "calc(100% - 72px)", marginBottom: "33px" }}
             />
           </div>
         </div>
@@ -877,12 +869,8 @@ export default function DecouvertePage() {
               <img src={salonCoiffure} alt="Salon de coiffure" className="w-full rounded-lg" loading="lazy" />
             </div>
             <div className="hidden md:block absolute -left-16 bottom-20 max-w-[220px] shadow-lg rounded-xl overflow-hidden rotate-[-3deg] p-3" style={{ backgroundColor: '#2f5955' }}>
-              <video
+              <SafeVideo
                 src="/videos/salon-235th.mp4"
-                autoPlay
-                muted
-                loop
-                playsInline
                 className="w-full rounded-xl object-cover aspect-[3/4]"
               />
             </div>
