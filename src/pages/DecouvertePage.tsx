@@ -980,7 +980,7 @@ export default function DecouvertePage() {
               className="p-6 rounded-2xl bg-secondary hover:bg-accent transition-colors text-left group">
               <MessageCircle className="h-6 w-6 text-foreground mb-4" strokeWidth={1.5} />
               <h3 className="text-sm font-semibold text-foreground mb-1">Posez vos questions</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">Notre assistant IA répond à toutes vos questions sur le lancement de votre marque.</p>
+              <p className="text-xs text-foreground leading-relaxed">Notre assistant IA répond à toutes vos questions sur le lancement de votre marque.</p>
               <ArrowRight className="h-4 w-4 text-foreground mt-4 group-hover:translate-x-1 transition-transform" />
             </button>
 
