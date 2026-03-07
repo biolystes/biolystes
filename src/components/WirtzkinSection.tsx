@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight, X, MapPin, ExternalLink } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
+import SafeVideo from "@/components/SafeVideo";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
