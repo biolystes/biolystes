@@ -848,7 +848,7 @@ export default function DecouvertePage() {
               Réassort Sans Minimum<br />
               Vous êtes un institut ? un centre médical ? un salon de coiffure
             </h2>
-            <p className="text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed text-sm">
+            <p className="text-foreground mt-4 max-w-xl mx-auto leading-relaxed text-sm">
               Pas besoin de minimum de stock pour vos points de vente physiques. Commandez 1, 10 ou 1000 produits selon vos besoins réels. Livré dans votre établissement en moins de 15 jours.
             </p>
           </div>
