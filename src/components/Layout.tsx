@@ -32,33 +32,33 @@ function TopNavBar() {
 
   return (
     <>
-      {/* Top promo bar */}
+      {/* Top promo bar with logo */}
       <div
-        className="fixed top-0 left-0 right-0 z-40 flex items-center justify-center gap-2 text-sm font-bold tracking-wide"
-        style={{ height: 36, background: "#f5f4df", borderBottom: "1px solid #e5e5e7" }}
+        className="fixed top-0 left-0 right-0 z-40 hidden md:flex items-center px-6"
+        style={{ height: 48, background: "#f5f4df", borderBottom: "1px solid #1d1d1f" }}
       >
-        🔥 CETTE SEMAINE : -20% SUR TOUTES NOS OFFRES
+        {/* Logo in promo bar */}
+        <Link to="/" className="flex items-center shrink-0">
+          <img
+            src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
+            alt="Lystes"
+            className="h-10 w-10 animate-tourne object-contain"
+          />
+        </Link>
+        <span className="flex-1 text-center text-sm font-bold tracking-wide">
+          🔥 CETTE SEMAINE : -20% SUR TOUTES NOS OFFRES
+        </span>
       </div>
 
       <header
         className="hidden md:flex items-center fixed left-0 right-0 z-30 px-6 gap-6"
         style={{
-          top: 36,
-          height: 56,
-          background: "rgba(245,245,247,0.85)",
-          backdropFilter: "blur(12px)",
-          borderBottom: "1px solid #e5e5e7",
+          top: 48,
+          height: 48,
+          background: "#f5f4df",
+          borderBottom: "1px solid #1d1d1f",
         }}
       >
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 mr-4 shrink-0">
-          <img
-            src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
-            alt="Lystes"
-            className="h-14 w-14 animate-tourne object-contain"
-          />
-        </Link>
-
         {/* Navigation */}
         <nav className="flex items-center gap-3 flex-1 justify-end">
           {navItems.map((item) => (
