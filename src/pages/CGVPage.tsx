@@ -40,10 +40,11 @@ export default function CGVPage() {
             de tout retard éventuel. Les frais de livraison sont à la charge du client, sauf accord contraire.
           </Section>
 
-          <Section title="Article 5 – Droit de rétractation">
-            Conformément au Code de la consommation, le client dispose d'un délai de 14 jours à compter
-            de la réception des produits pour exercer son droit de rétractation, sauf pour les produits
-            personnalisés qui en sont exclus.
+          <Section title="Article 5 – Retours et produits endommagés">
+            <strong>Produit endommagé ou défectueux :</strong> Seuls les produits endommagés ou défectueux sont éligibles à un retour. Si votre client reçoit un produit dans cet état, il vous contacte, vous nous transmettez la réclamation avec photo, et nous procédons au remplacement. La demande doit être faite dans le mois suivant la livraison.<br /><br />
+            Pour les commandes perdues, la réclamation doit également être soumise dans le mois suivant la date de livraison estimée.<br /><br />
+            <strong>Retour pour changement d'avis :</strong> Nos produits étant personnalisés à votre marque (logo, packaging, couleurs), ils ne sont pas éligibles au droit de rétractation classique de 14 jours, conformément à l'article L221-28 du Code de la consommation qui exclut les produits personnalisés. C'est le cas pour toutes les marques en marque blanche personnalisée.<br /><br />
+            En résumé : vos clients sont protégés en cas de problème réel (casse, défaut), mais il n'y a pas de retour pour simple changement d'avis sur un produit personnalisé.
           </Section>
 
           <Section title="Article 6 – Responsabilité">
