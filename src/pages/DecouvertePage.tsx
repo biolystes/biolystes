@@ -16,6 +16,8 @@ import { Button } from "@/components/ui/button";
 import { ExternalLink, MousePointerClick, PackagePlus, SendHorizontal } from "lucide-react";
 import salonCoiffure from "@/assets/salon-coiffure.webp";
 import productBox from "@/assets/product-box.jpg";
+import product235th1 from "@/assets/product-235th-1.jpg";
+import product235th2 from "@/assets/product-235th-2.jpg";
 
 // Brand images for portfolio
 import kaniwa1 from "@/assets/kaniwa-1.jpg";
@@ -798,8 +800,17 @@ export default function DecouvertePage() {
             <div className="bg-secondary rounded-xl p-6 md:p-10">
               <img src={salonCoiffure} alt="Salon de coiffure" className="w-full rounded-lg" loading="lazy" />
             </div>
-            <div className="hidden md:block absolute -right-16 bottom-20 bg-secondary rounded-xl p-3 max-w-[220px] shadow-lg">
-              <img src={productBox} alt="Produit cosmétique" className="w-full rounded-lg" loading="lazy" />
+            <div className="hidden md:block absolute -right-16 bottom-20 bg-secondary rounded-xl p-3 max-w-[220px] shadow-lg overflow-hidden">
+              <motion.div
+                className="flex"
+                animate={{ x: ["0%", "-66.666%"] }}
+                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+                style={{ width: "300%" }}
+              >
+                {[productBox, product235th1, product235th2, productBox, product235th1, product235th2].map((src, i) => (
+                  <img key={i} src={src} alt="Produit cosmétique" className="w-1/6 flex-shrink-0 rounded-lg object-cover" loading="lazy" />
+                ))}
+              </motion.div>
             </div>
           </div>
         </div>
