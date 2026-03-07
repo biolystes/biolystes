@@ -502,3 +502,13 @@ button.inline-flex.items-center.justify-center.gap-2.whitespace-nowrap.text-sm.f
   border: 1px solid #000 !important;
   background: transparent;
 }
+
+h2.text-3xl.md\:text-4xl.font-light.tracking-tight.max-w-3xl.mx-auto.text-foreground {
+  color: #f5f4df !important;
+}
+
+p.text-base.text-muted-foreground.max-w-2xl.mx-auto.leading-relaxed,
+p.text-xs.tracking-\[0\.3em\].uppercase.text-muted-foreground {
+  color: #f5f4df9e !important;
+  font-weight: 100;
+}
