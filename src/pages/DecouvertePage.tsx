@@ -55,8 +55,34 @@ const CTA_URL = "https://app.iclosed.io/e/paylystes/r2";
 const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
 const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
 const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
+const productImages = [productBox, product235th1, product235th2];
 
-const fadeUp = {
+function ProductImageCycler() {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => setIdx((p) => (p + 1) % productImages.length), 3000);
+    return () => clearInterval(timer);
+  }, []);
+  return (
+    <div className="hidden md:block absolute -right-16 bottom-20 bg-secondary rounded-xl p-3 max-w-[220px] shadow-lg overflow-hidden">
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={idx}
+          src={productImages[idx]}
+          alt="Produit cosmétique"
+          className="w-full rounded-lg object-cover aspect-square"
+          loading="lazy"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6 }}
+        />
+      </AnimatePresence>
+    </div>
+  );
+}
+
+
   hidden: { opacity: 0, y: 30 },
   visible: (i: number) => ({
     opacity: 1, y: 0,
