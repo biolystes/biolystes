@@ -484,3 +484,16 @@ button.w-2.h-2.rounded-full.transition-all.bg-foreground.w-6 {
 .bg-destructive\/10 {
   background-color: #fff;
 }
+
+section#section-comprend p.text-muted-foreground.mt-4.max-w-xl.mx-auto {
+  color: #f5f4df !important;
+}
+
+button.w-8.h-8.rounded-full.text-xs.font-semibold.border.transition-colors.bg-white.text-black.border-white {
+  background: #f5f4df !important;
+}
+
+button.w-8.h-8.rounded-full.text-xs.font-semibold.border.transition-colors.bg-transparent.text-white.border-white.hover\:bg-white\/20 {
+  border: 1px solid #f5f4df !important;
+  color: #f5f4df !important;
+}
