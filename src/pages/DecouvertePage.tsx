@@ -780,8 +780,8 @@ export default function DecouvertePage() {
                 <div className="flex flex-col mb-8 flex-1">
                   {["Création de logo", "Design Packaging", "Contenu textuel clé en main", "Photographie IA hyperréaliste", "Site e-commerce", "Indexation Google", "Automatisation livraison", "Support premium", "Expert produit dédié en votre nom", "Achat de stock pas nécessaire", "Aucune quantité min en cas d'achat de stock", "Optimisation SEO avancée", "CRO standard"].map((f, i) => (
                     <div key={i} className="flex items-start gap-3 py-1.5">
-                      <Check size={14} strokeWidth={2} className="flex-shrink-0 mt-0.5 text-muted-foreground" />
-                      <span className="text-[13px] leading-relaxed text-muted-foreground">{f}</span>
+                      <Check size={14} strokeWidth={2} className="flex-shrink-0 mt-0.5 text-foreground" />
+                      <span className="text-[13px] leading-relaxed text-foreground">{f}</span>
                     </div>
                   ))}
                 </div>
