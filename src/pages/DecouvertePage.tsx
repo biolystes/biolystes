@@ -634,7 +634,7 @@ export default function DecouvertePage() {
                   ou 3× 49€ — Validez la qualité avant de vous lancer
                 </p>
                 <div className="flex flex-col mb-8">
-                  {["4 produits échantillons", "Accompagnement personnalisé dans la sélection par nos experts", "Étiquetage standard conforme Biolystes", "Certifié Bio & Végan / COSMOS / ECOCERT / FDA", "Livraison incluse sous 7 à 8 jours"].map((t, i) => (
+                  {["4 produits certifiés bio chez vous en 7 jours", "Création de votre logo, design packaging et shooting photo IA de vos produits", "Accompagnement personnalisé dans la sélection par nos experts", "Certifié Bio & Végan / COSMOS / ECOCERT / FDA", "Livraison incluse sous 7 à 8 jours"].map((t, i) => (
                     <div key={i} className="flex items-start gap-3 py-1.5">
                       <Check size={14} strokeWidth={2} className="flex-shrink-0 mt-0.5 text-muted-foreground" />
                       <span className="text-[13px] leading-relaxed text-muted-foreground">{t}</span>
