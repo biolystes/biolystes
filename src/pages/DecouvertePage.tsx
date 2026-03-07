@@ -297,7 +297,7 @@ export default function DecouvertePage() {
       <section id="section-decouvre" ref={setRef("decouvre")} className="pt-36 pb-0 md:pt-44 md:pb-0">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}
-            className="flex items-center justify-center gap-3 mb-8">
+            className="flex items-center justify-center gap-3 mb-4">
             <span className="bg-foreground text-primary-foreground text-[8px] font-semibold tracking-[0.8px] uppercase px-5 py-2 rounded-full">
               En 10 jours
             </span>
