@@ -366,7 +366,7 @@ function TeamContenu() {
       desc="Nous mettons en place une équipe Créateur de contenu AI, qui produit des contenus pour vos réseaux sociaux, articles de blog et descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
       <div className="flex gap-3.5 flex-wrap">
         {[
-          { src: "https://lystes.ai/images/clients/kaniwa-ugc-1.jpg", label: "Post Instagram" },
+          { src: kaniwaUgc2, label: "Post Instagram" },
           { src: "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg", label: "Story Réseaux" },
         ].map(img => (
           <div key={img.label} className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">

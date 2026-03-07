@@ -742,7 +742,7 @@ export default function ConceptPage() {
                       {/* UGC images */}
                       <div className="flex gap-2 pb-6">
                         {[
-                          "https://lystes.ai/images/clients/kaniwa-ugc-1.jpg",
+                          kaniwaUgc2,
                           "https://lystes.ai/images/clients/kaniwa-ugc-3.jpg",
                           "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg",
                         ].map((src, i) => (
