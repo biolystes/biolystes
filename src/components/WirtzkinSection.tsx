@@ -27,6 +27,21 @@ export default function WirtzkinSection() {
     }
   };
 
+  useEffect(() => {
+    if (fullscreen !== null) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        const next = (prev + 1) % videos.length;
+        if (scrollRef.current) {
+          const child = scrollRef.current.children[next] as HTMLElement;
+          child?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+        }
+        return next;
+      });
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [fullscreen]);
+
   return (
     <div className="max-w-5xl mx-auto px-6">
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-12 text-center">
