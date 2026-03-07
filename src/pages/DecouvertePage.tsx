@@ -549,7 +549,7 @@ export default function DecouvertePage() {
                   <p className="text-xs text-foreground">Livraison en 6-7 jours</p>
                 </div>
               </div>
-              <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+              <div className="space-y-4 text-sm text-foreground leading-relaxed">
                 <p>Votre client passe commande sur votre boutique en ligne.</p>
                 <p>Le laboratoire fabrique le produit à la demande, sous votre nom, avec votre packaging.</p>
                 <p>Le colis est expédié directement chez votre client. <strong className="text-foreground">Aucun stock nécessaire.</strong></p>
