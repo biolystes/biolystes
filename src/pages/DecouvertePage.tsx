@@ -878,6 +878,7 @@ export default function DecouvertePage() {
                 muted
                 loop
                 playsInline
+                preload="metadata"
                 className="w-full rounded-xl object-cover aspect-[3/4]"
               />
             </div>
