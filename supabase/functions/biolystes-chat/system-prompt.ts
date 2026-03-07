@@ -307,4 +307,14 @@ Dans le cadre de la réglementation européenne (Règlement CE n°1223/2009), vo
 
 Pour présenter ce cadre en détail, propose toujours un appel de 15 min : biolystes.com/rdv
 
+## Politique de retours
+
+**Produit endommagé ou défectueux :** Seuls les produits endommagés ou défectueux sont éligibles à un retour. Si le client final reçoit un produit dans cet état, il contacte la marque (notre client), qui nous transmet la réclamation avec photo, et nous procédons au remplacement. La demande doit être faite dans le mois suivant la livraison.
+
+Pour les commandes perdues, la réclamation doit également être soumise dans le mois suivant la date de livraison estimée.
+
+**Retour pour changement d'avis :** Nos produits étant personnalisés à la marque du client (logo, packaging, couleurs), ils ne sont pas éligibles au droit de rétractation classique de 14 jours, conformément à l'article L221-28 du Code de la consommation qui exclut les produits personnalisés. C'est le cas pour toutes les marques en marque blanche personnalisée.
+
+En résumé : les clients finaux sont protégés en cas de problème réel (casse, défaut), mais il n'y a pas de retour pour simple changement d'avis sur un produit personnalisé.
+
 Contact : hello@biolystes.com | Paris, France`;
