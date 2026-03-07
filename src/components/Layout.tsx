@@ -32,34 +32,32 @@ function TopNavBar() {
 
   return (
     <>
-      {/* Top promo bar with logo */}
+      {/* Thin promo strip */}
       <div
-        className="fixed top-0 left-0 right-0 z-40 hidden md:flex items-center px-6"
-        style={{ height: 48, background: "#f5f4df", borderBottom: "1px solid #1d1d1f" }}
+        className="fixed top-0 left-0 right-0 z-40 hidden md:flex items-center justify-center text-xs font-bold tracking-widest uppercase"
+        style={{ height: 32, background: "#f5f4df", borderBottom: "1px solid #1d1d1f" }}
       >
-        {/* Logo in promo bar */}
-        <Link to="/" className="flex items-center shrink-0">
-          <img
-            src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
-            alt="Lystes"
-            className="h-10 w-10 animate-tourne object-contain"
-          />
-        </Link>
-        <span className="flex-1 text-center text-sm font-bold tracking-wide">
-          🔥 CETTE SEMAINE : -20% SUR TOUTES NOS OFFRES
-        </span>
+        🔥 CETTE SEMAINE : -20% SUR TOUTES NOS OFFRES
       </div>
 
+      {/* Header with logo + nav */}
       <header
         className="hidden md:flex items-center fixed left-0 right-0 z-30 px-6 gap-6"
         style={{
-          top: 48,
-          height: 48,
+          top: 32,
+          height: 56,
           background: "#f5f4df",
           borderBottom: "1px solid #1d1d1f",
         }}
       >
-        {/* Navigation */}
+        <Link to="/" className="flex items-center shrink-0 mr-4">
+          <img
+            src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
+            alt="Lystes"
+            className="h-12 w-12 animate-tourne object-contain"
+          />
+        </Link>
+
         <nav className="flex items-center gap-3 flex-1 justify-end">
           {navItems.map((item) => (
             <Link key={item.path} to={item.path}>
@@ -75,7 +73,6 @@ function TopNavBar() {
             </Link>
           ))}
 
-          {/* Posez vos questions — btn-outline */}
           <Link to="/chat" className="btn-outline">
             <span>Poser vos questions</span>
             <span className="arrow-circle">
@@ -83,7 +80,6 @@ function TopNavBar() {
             </span>
           </Link>
 
-          {/* Prendre RDV — btn-startup */}
           <a
             href={RDV_URL}
             target="_blank"
