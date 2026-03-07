@@ -15,14 +15,13 @@ export default function MentionsLegalesPage() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
           <Section title="Éditeur du site">
-            Le site biolystes.com est édité par la société <strong>Lystes</strong>.<br />
-            Forme juridique : [à compléter]<br />
-            Capital social : [à compléter]<br />
-            Siège social : [adresse à compléter]<br />
-            SIRET : [à compléter]<br />
-            RCS : [à compléter]<br />
-            Numéro de TVA intracommunautaire : [à compléter]<br />
-            Directeur de la publication : [nom à compléter]<br />
+            Le site biolystes.com est édité par la société <strong>LYSTES</strong>.<br />
+            Forme juridique : Société par actions simplifiée (SAS)<br />
+            Siège social : 26 rue du Général Beuret, 75015 Paris, France<br />
+            SIRET : 907 951 867 00015<br />
+            RCS : RCS Paris 907 951 867<br />
+            Numéro de TVA intracommunautaire : FR68 907951867<br />
+            Directeur de la publication : Jean‑Pierre BIAS, en sa qualité de président<br />
             Email : hello@biolystes.com
           </Section>
 
