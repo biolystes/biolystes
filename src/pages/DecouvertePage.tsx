@@ -119,7 +119,7 @@ const portfolioBrands = [
     name: "Kaniwa Botanique",
     tagline: "Marque bio & vegan, lancée en 12 jours",
     url: "https://kaniwabotanique.com/",
-    photos: [kaniwa1, kaniwaUgc2, kaniwa6, kaniwaUgc3],
+    photos: [kaniwa1, kaniwaUgc2, kaniwa7, kaniwaUgc3],
   },
   {
     name: "Fralène",
