@@ -294,7 +294,7 @@ export default function DecouvertePage() {
       <StepProgress activeStep={activeStep} />
 
       {/* ═══ 1. JE DÉCOUVRE ═══ */}
-      <section id="section-decouvre" ref={setRef("decouvre")} className="pt-36 pb-20 md:pt-44 md:pb-28">
+      <section id="section-decouvre" ref={setRef("decouvre")} className="pt-36 pb-0 md:pt-44 md:pb-0">
         <div className="max-w-4xl mx-auto px-6 text-center">
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}
             className="flex items-center justify-center gap-3 mb-8">
@@ -343,7 +343,7 @@ export default function DecouvertePage() {
         </motion.div>
 
         {/* Certifications carousel */}
-        <div className="overflow-hidden py-8 mt-4">
+        <div className="overflow-hidden py-4 mt-2">
           <motion.div
             className="flex gap-12 items-center"
             animate={{ x: ["0%", "-50%"] }}
@@ -362,7 +362,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ PORTFOLIO IMAGES MARQUEE ═══ */}
-      <section className="overflow-hidden py-6 bg-background">
+      <section className="overflow-hidden py-3 bg-background">
         <div className="flex gap-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
           {[
             kaniwa1, fralene3, sevmylook1, pmyrris1, kaniwa6, fralene10, sevmylook3, pmyrris4,
