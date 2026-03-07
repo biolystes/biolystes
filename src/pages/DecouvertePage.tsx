@@ -29,6 +29,7 @@ import kaniwa7 from "@/assets/kaniwa-7.jpg";
 import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
 import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
 import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
+import kaniwaUgc5 from "@/assets/kaniwa-ugc-5.png";
 import kaniwaUgc6 from "@/assets/kaniwa-ugc-6.jpg";
 
 import fralene3 from "@/assets/fralene-3.jpg";
