@@ -677,7 +677,7 @@ export default function ConceptPage() {
                         <Menu className="w-5 h-5 text-foreground" />
                         <Search className="w-5 h-5 text-foreground" />
                       </div>
-                      <div className="font-serif font-bold text-2xl tracking-wide text-foreground">Expire</div>
+                      <div className="font-serif font-bold text-2xl tracking-wide text-foreground">Kaniwa</div>
                       <div className="flex items-center gap-3">
                         <User className="w-5 h-5 text-foreground" />
                         <div className="relative">

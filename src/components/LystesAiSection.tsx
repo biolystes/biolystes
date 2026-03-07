@@ -438,7 +438,7 @@ function PhoneHeader({ small }: { small?: boolean }) {
         <Menu className={`${sz} text-foreground`} />
         <Search className={`${sz} text-foreground`} />
       </div>
-      <div className={`font-serif font-bold ${small ? "text-xl" : "text-2xl"} tracking-wide text-foreground`}>Expire</div>
+      <div className={`font-serif font-bold ${small ? "text-xl" : "text-2xl"} tracking-wide text-foreground`}>Kaniwa</div>
       <div className="flex items-center gap-3">
         <User className={`${sz} text-foreground`} />
         <div className="relative">
