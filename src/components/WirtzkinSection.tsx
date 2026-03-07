@@ -23,7 +23,9 @@ export default function WirtzkinSection() {
     setCurrentIndex(clamped);
     if (scrollRef.current) {
       const child = scrollRef.current.children[clamped] as HTMLElement;
-      child?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+      if (child) {
+        scrollRef.current.scrollTo({ left: child.offsetLeft - scrollRef.current.offsetLeft, behavior: "smooth" });
+      }
     }
   };
 
