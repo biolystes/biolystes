@@ -567,7 +567,7 @@ export default function DecouvertePage() {
                   <p className="text-xs text-foreground">Livraison en 24-48h</p>
                 </div>
               </div>
-              <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+              <div className="space-y-4 text-sm text-foreground leading-relaxed">
                 <p>Un stock tampon est maintenu pour vos produits les plus vendus.</p>
                 <p>Réapprovisionnement automatique chaque semaine, sans minimum de commande.</p>
                 <p>Vos clients reçoivent leur commande <strong className="text-foreground">en 24 à 48 heures.</strong></p>
