@@ -630,7 +630,7 @@ export default function DecouvertePage() {
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h3 className="text-base font-semibold text-foreground">{brand.name}</h3>
-                    <p className="text-sm text-muted-foreground">{brand.tagline}</p>
+                    <p className="text-sm text-foreground">{brand.tagline}</p>
                   </div>
                   <a href={brand.url} target="_blank" rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-foreground hover:opacity-80 transition-opacity shrink-0 rounded-full px-4 py-2">
