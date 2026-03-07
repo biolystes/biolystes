@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
+import useEmblaCarousel from "embla-carousel-react";
 import CommentCaMarche from "@/components/CommentCaMarche";
 import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
@@ -7,7 +8,7 @@ import {
   ArrowRight, Check, FlaskConical, Truck, Globe, Package, Leaf, Award,
   Rabbit, FileCheck2, BadgeCheck, ShoppingBag, MessageCircle, HelpCircle,
   Sparkles, Clock, Shield, Zap,
-  AlertTriangle, Warehouse, Users, Eye, Timer,
+  AlertTriangle, Warehouse, Users, Eye, Timer, ChevronLeft, ChevronRight,
 } from "lucide-react";
 import LystesAiSection from "@/components/LystesAiSection";
 import InstaFeedSection from "@/components/InstaFeedSection";
@@ -27,6 +28,8 @@ import kaniwa6 from "@/assets/kaniwa-6.jpg";
 import kaniwa7 from "@/assets/kaniwa-7.jpg";
 import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
 import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
+import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
+import kaniwaUgc6 from "@/assets/kaniwa-ugc-6.jpg";
 
 import fralene3 from "@/assets/fralene-3.jpg";
 import fralene10 from "@/assets/fralene-10.jpg";
@@ -119,7 +122,7 @@ const portfolioBrands = [
     name: "Kaniwa Botanique",
     tagline: "Marque bio & vegan, lancée en 12 jours",
     url: "https://kaniwabotanique.com/",
-    photos: [kaniwa1, kaniwaUgc2, kaniwa7, kaniwaUgc3],
+    photos: [kaniwa1, kaniwaUgc2, kaniwa7, kaniwaUgc3, kaniwaUgc4, kaniwaUgc6],
   },
   {
     name: "Fralène",
@@ -140,6 +143,51 @@ const portfolioBrands = [
     photos: [pmyrris1, pmyrris2, pmyrris4, pmyrris5],
   },
 ];
+
+function BrandCarousel({ brand }: { brand: typeof portfolioBrands[0] }) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: true, dragFree: true });
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(true);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => {
+      setCanScrollPrev(emblaApi.canScrollPrev());
+      setCanScrollNext(emblaApi.canScrollNext());
+    };
+    emblaApi.on("select", onSelect);
+    onSelect();
+    return () => { emblaApi.off("select", onSelect); };
+  }, [emblaApi]);
+
+  return (
+    <div className="relative">
+      <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
+        <div className="flex gap-3">
+          {brand.photos.map((item, i) => (
+            <div key={i} className="flex-none w-[45%] md:w-[24%] aspect-[3/4] rounded-2xl overflow-hidden">
+              {typeof item === "object" && item.type === "video" ? (
+                <video src={item.src} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+              ) : (
+                <img src={typeof item === "string" ? item : ""} alt={`${brand.name} ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+      {canScrollPrev && (
+        <button onClick={() => emblaApi?.scrollPrev()} className="absolute left-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/80 backdrop-blur flex items-center justify-center shadow-md hover:bg-background transition-colors">
+          <ChevronLeft className="h-4 w-4" />
+        </button>
+      )}
+      {canScrollNext && (
+        <button onClick={() => emblaApi?.scrollNext()} className="absolute right-2 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/80 backdrop-blur flex items-center justify-center shadow-md hover:bg-background transition-colors">
+          <ChevronRight className="h-4 w-4" />
+        </button>
+      )}
+    </div>
+  );
+}
 
 function StepProgress({ activeStep }: { activeStep: StepKey }) {
   const activeIdx = steps.findIndex(s => s.key === activeStep);
@@ -591,17 +639,7 @@ export default function DecouvertePage() {
                     Voir le site <ExternalLink className="h-3.5 w-3.5" />
                   </a>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {brand.photos.map((item, i) => (
-                    <div key={i} className="aspect-[3/4] rounded-2xl overflow-hidden">
-                      {typeof item === "object" && item.type === "video" ? (
-                        <video src={item.src} autoPlay loop muted playsInline className="w-full h-full object-cover" />
-                      ) : (
-                        <img src={typeof item === "string" ? item : ""} alt={`${brand.name} ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
-                      )}
-                    </div>
-                  ))}
-                </div>
+                <BrandCarousel brand={brand} />
               </motion.div>
             ))}
           </div>
