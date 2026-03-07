@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { AnimatePresence } from "framer-motion";
 import CommentCaMarche from "@/components/CommentCaMarche";
 import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
@@ -54,9 +55,35 @@ const CTA_URL = "https://app.iclosed.io/e/paylystes/r2";
 const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
 const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
 const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
+const productImages = [productBox, product235th1, product235th2];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
+function ProductImageCycler() {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => setIdx((p) => (p + 1) % productImages.length), 3000);
+    return () => clearInterval(timer);
+  }, []);
+  return (
+    <div className="hidden md:block absolute -right-16 bottom-20 bg-secondary rounded-xl p-3 max-w-[220px] shadow-lg overflow-hidden">
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={idx}
+          src={productImages[idx]}
+          alt="Produit cosmétique"
+          className="w-full rounded-lg object-cover aspect-square"
+          loading="lazy"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.6 }}
+        />
+      </AnimatePresence>
+    </div>
+  );
+}
+
+
+  const fadeUp = {
   visible: (i: number) => ({
     opacity: 1, y: 0,
     transition: { delay: i * 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] },
@@ -800,18 +827,7 @@ export default function DecouvertePage() {
             <div className="bg-secondary rounded-xl p-6 md:p-10">
               <img src={salonCoiffure} alt="Salon de coiffure" className="w-full rounded-lg" loading="lazy" />
             </div>
-            <div className="hidden md:block absolute -right-16 bottom-20 bg-secondary rounded-xl p-3 max-w-[220px] shadow-lg overflow-hidden">
-              <motion.div
-                className="flex"
-                animate={{ x: ["0%", "-66.666%"] }}
-                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
-                style={{ width: "300%" }}
-              >
-                {[productBox, product235th1, product235th2, productBox, product235th1, product235th2].map((src, i) => (
-                  <img key={i} src={src} alt="Produit cosmétique" className="w-1/6 flex-shrink-0 rounded-lg object-cover" loading="lazy" />
-                ))}
-              </motion.div>
-            </div>
+            <ProductImageCycler />
           </div>
         </div>
       </section>
