@@ -118,7 +118,7 @@ function BeforeAfterPhones() {
                 <div className="flex overflow-x-auto gap-4 px-5 pb-6 pt-2" style={{ scrollbarWidth: "none" }}>
                   {[
                     "https://lystes.ai/images/clients/kaniwa-6.jpg",
-                    "https://lystes.ai/images/clients/kaniwa-ugc-1.jpg",
+                    kaniwaUgc2,
                     "https://lystes.ai/images/clients/kaniwa-8.jpg",
                     "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg",
                     "https://lystes.ai/images/clients/kaniwa-7.jpg",
