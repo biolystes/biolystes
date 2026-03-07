@@ -199,7 +199,7 @@ function StepProgress({ activeStep }: { activeStep: StepKey }) {
   };
 
   return (
-    <div className="fixed left-0 right-0 z-20 bg-background/90 backdrop-blur-md border-b border-border" style={{ top: "96px" }}>
+    <div className="fixed left-0 right-0 z-20 bg-background/90 backdrop-blur-md border-b border-border" style={{ top: "88px" }}>
       <div className="max-w-4xl mx-auto px-2 md:px-4">
         <div className="flex items-center justify-start md:justify-between py-2 md:py-3 overflow-x-auto gap-1" style={{ scrollbarWidth: "none" }}>
           {steps.map((s, i) => {
