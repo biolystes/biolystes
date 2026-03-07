@@ -705,7 +705,7 @@ export default function DecouvertePage() {
                 <h3 className="text-lg md:text-xl font-extrabold uppercase tracking-tight mb-1 mt-2 text-foreground">
                   Testez nos produits — 147€
                 </h3>
-                <p className="text-sm mb-8 text-muted-foreground leading-relaxed">
+                <p className="text-sm mb-8 text-foreground leading-relaxed">
                   ou 3× 49€ — Validez la qualité avant de vous lancer
                 </p>
                 <div className="flex flex-col mb-8">
