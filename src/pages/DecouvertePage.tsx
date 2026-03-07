@@ -810,8 +810,8 @@ export default function DecouvertePage() {
                 </div>
                 <div className="rounded-xl p-4 mb-7 bg-muted/50 border border-border">
                   <p className="text-xs font-extrabold uppercase tracking-wide mb-0.5 text-foreground">+ Abonnement Pro inclus obligatoire</p>
-                  <p className="text-2xl font-extrabold my-0.5 text-foreground">199€<span className="text-[13px] font-medium text-muted-foreground">/mois</span></p>
-                  <p className="text-[11px] mt-0.5 text-muted-foreground">1er mois offert · Tout le Pro + UGC IA, diagnostic IA & réseaux sociaux</p>
+                   <p className="text-2xl font-extrabold my-0.5 text-foreground">199€<span className="text-[13px] font-medium text-foreground">/mois</span></p>
+                   <p className="text-[11px] mt-0.5 text-foreground">1er mois offert · Tout le Pro + UGC IA, diagnostic IA & réseaux sociaux</p>
                 </div>
                 <div className="flex flex-col mb-8 flex-1">
                   {["Création de logo", "Design Packaging", "Contenu textuel clé en main", "Photographie IA hyperréaliste", "Site e-commerce", "Indexation Google", "Automatisation livraison", "Support premium", "Expert produit dédié en votre nom", "Achat de stock pas nécessaire", "Aucune quantité min en cas d'achat de stock", "UGC IA Ultraréaliste", "Optimisation SEO avancée", "CRO standard", "Expert produit dédié", "Diagnostic intelligent par IA (Option)", "Recommandations produits par IA", "Gestion réseaux sociaux 1 mois"].map((f, i) => (
