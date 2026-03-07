@@ -126,9 +126,9 @@ function BeforeAfterPhones() {
                     "https://lystes.ai/images/clients/kaniwa-8.jpg",
                     kaniwaUgc4,
                     "https://lystes.ai/images/clients/kaniwa-7.jpg",
-                    "https://lystes.ai/images/clients/kaniwa-ugc-3.jpg",
+                    kaniwaUgc5,
                     "https://lystes.ai/images/clients/kaniwa-4.jpg",
-                    "https://lystes.ai/images/clients/kaniwa-5.jpg",
+                    kaniwaUgc6,
                   ].map((src, i) => (
                     <div key={i} className="snap-start shrink-0 relative flex flex-col items-center">
                       <div className="absolute -bottom-1.5 w-[85%] h-4 bg-foreground/15 blur-md rounded-[100%] z-0" />
