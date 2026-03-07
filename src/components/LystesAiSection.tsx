@@ -368,7 +368,7 @@ function TeamContenu() {
       <div className="flex gap-3.5 flex-wrap">
         {[
           { src: kaniwaUgc2, label: "Post Instagram" },
-          { src: "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg", label: "Story Réseaux" },
+          { src: kaniwaUgc4, label: "Story Réseaux" },
         ].map(img => (
           <div key={img.label} className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
             <img src={img.src} alt="" className="w-full h-[280px] object-cover block" />

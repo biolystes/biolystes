@@ -175,7 +175,7 @@ export default function AvantApresSection() {
                       {[
                         kaniwaUgc2,
                         "https://lystes.ai/images/clients/kaniwa-ugc-3.jpg",
-                        "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg",
+                        kaniwaUgc4,
                       ].map((src, i) => (
                         <div key={i} className="w-20 h-20 rounded-xl overflow-hidden">
                           <img src={src} alt="" className="w-full h-full object-cover" />
