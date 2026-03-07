@@ -10,6 +10,7 @@ const fadeUp = {
 const videos = [
   { src: "/videos/wirtzkin-1.mov", title: "Présentation clinique Wirtzkin" },
   { src: "/videos/wirtzkin-2.mov", title: "Produits Wirtzkin par Biolystes" },
+  { src: "/videos/wirtzkin-3.mov", title: "Wirtzkin en situation" },
 ];
 
 export default function WirtzkinSection() {
