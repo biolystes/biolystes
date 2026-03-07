@@ -11,13 +11,16 @@ interface SafeVideoProps {
   poster?: string;
   onClick?: () => void;
   lazy?: boolean;
+  /** Distance from viewport to start loading (default "300px") */
+  rootMargin?: string;
 }
 
 /**
  * Video component with:
  * - Fallback for unsupported formats (.mov on Android etc.)
  * - Lazy loading via IntersectionObserver (loads only when near viewport)
- * - preload="metadata" to avoid downloading full video upfront
+ * - Auto pause/play when entering/leaving viewport
+ * - preload="none" to avoid downloading anything upfront
  */
 export default function SafeVideo({
   src,
@@ -30,9 +33,10 @@ export default function SafeVideo({
   poster,
   onClick,
   lazy = true,
+  rootMargin = "300px",
 }: SafeVideoProps) {
   const [error, setError] = useState(false);
-  const [isVisible, setIsVisible] = useState(!lazy);
+  const [shouldLoad, setShouldLoad] = useState(!lazy);
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -49,15 +53,34 @@ export default function SafeVideo({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setIsVisible(true);
+          setShouldLoad(true);
           observer.disconnect();
         }
       },
-      { rootMargin: "200px" }
+      { rootMargin }
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [lazy]);
+  }, [lazy, rootMargin]);
+
+  // Auto pause when out of viewport, play when in viewport
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !autoPlay || controls) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { rootMargin: "50px" }
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, [shouldLoad, autoPlay, controls]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -68,7 +91,7 @@ export default function SafeVideo({
     return () => {
       video.removeEventListener("error", handleError);
     };
-  }, [error, src, isVisible]);
+  }, [error, src, shouldLoad]);
 
   if (error) {
     return (
@@ -85,7 +108,7 @@ export default function SafeVideo({
     );
   }
 
-  if (!isVisible) {
+  if (!shouldLoad) {
     return (
       <div
         ref={containerRef}
@@ -108,7 +131,7 @@ export default function SafeVideo({
       className={className}
       onClick={onClick}
       onError={() => setError(true)}
-      preload="metadata"
+      preload="none"
       // @ts-ignore - webkit prefix for iOS
       webkit-playsinline="true"
     />

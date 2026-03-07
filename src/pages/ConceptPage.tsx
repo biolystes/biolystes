@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3, ExternalLink, ShoppingBag, HelpCircle, Star, StarHalf, Menu, Search, User, Mic, ArrowUp, ChevronLeft, ChevronRight, FileCheck2, BadgeCheck, Leaf, Award, Rabbit, Package, CheckCircle2, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CommentCaMarche from "@/components/CommentCaMarche";
+import SafeVideo from "@/components/SafeVideo";
 
 // Brand images
 import kaniwa1 from "@/assets/kaniwa-1.jpg";
@@ -494,9 +495,7 @@ export default function ConceptPage() {
 
       <section className="max-w-5xl mx-auto px-6 py-16 md:py-24">
         <div className="rounded-2xl overflow-hidden">
-          <video autoPlay loop playsInline className="w-full h-auto rounded-2xl">
-            <source src="https://biolystes.com/wp-content/uploads/2025/09/ok.mov" type="video/mp4" />
-          </video>
+          <SafeVideo src="https://biolystes.com/wp-content/uploads/2025/09/ok.mov" className="w-full h-auto rounded-2xl" lazy />
         </div>
       </section>
 
