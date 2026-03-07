@@ -969,7 +969,7 @@ export default function DecouvertePage() {
             <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed">
               Prêt à lancer votre marque ?
             </motion.h2>
-            <motion.p variants={fadeUp} custom={2} className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
+            <motion.p variants={fadeUp} custom={2} className="text-foreground max-w-xl mx-auto leading-relaxed">
               Commencez par poser vos questions à notre assistant, explorez notre catalogue de formulations certifiées, ou prenez rendez-vous avec un expert.
             </motion.p>
           </motion.div>
