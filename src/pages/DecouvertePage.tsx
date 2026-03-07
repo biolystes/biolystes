@@ -767,7 +767,7 @@ export default function DecouvertePage() {
                   Populaire
                 </div>
                 <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 mt-2 text-foreground">Pack Agence</h3>
-                <p className="text-xs mb-5 text-muted-foreground">Gestion 360°</p>
+                <p className="text-xs mb-5 text-foreground">Gestion 360°</p>
                 <div className="mb-2">
                   <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">1 499€</span>
                   <span className="text-[13px] ml-2 text-muted-foreground">frais uniques ou 999€ en 2 fois</span>
