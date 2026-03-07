@@ -828,10 +828,10 @@ export default function DecouvertePage() {
               </div>
               <div className="rounded-2xl px-6 py-5 text-center bg-foreground/[0.02] mt-5">
                 <div className="flex items-center justify-center gap-2 mb-1.5">
-                  <HelpCircle size={14} strokeWidth={1.8} className="text-muted-foreground" />
-                  <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Bon à savoir</span>
+                  <HelpCircle size={14} strokeWidth={1.8} className="text-foreground" />
+                  <span className="text-[11px] font-bold uppercase tracking-widest text-foreground">Bon à savoir</span>
                 </div>
-                <p className="text-[13px] leading-relaxed text-muted-foreground">Vous avez commandé un Pack Échantillon ? Vos 147€ sont déduits de la mise en place.</p>
+                <p className="text-[13px] leading-relaxed text-foreground">Vous avez commandé un Pack Échantillon ? Vos 147€ sont déduits de la mise en place.</p>
               </div>
             </motion.div>
           </div>
