@@ -988,7 +988,7 @@ export default function DecouvertePage() {
               className="p-6 rounded-2xl bg-secondary hover:bg-accent transition-colors text-left group">
               <ShoppingBag className="h-6 w-6 text-foreground mb-4" strokeWidth={1.5} />
               <h3 className="text-sm font-semibold text-foreground mb-1">Explorer le catalogue</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">Plus de 100 formulations certifiées bio et végan, prêtes à vendre sous votre marque.</p>
+              <p className="text-xs text-foreground leading-relaxed">Plus de 100 formulations certifiées bio et végan, prêtes à vendre sous votre marque.</p>
               <ArrowRight className="h-4 w-4 text-foreground mt-4 group-hover:translate-x-1 transition-transform" />
             </button>
 
