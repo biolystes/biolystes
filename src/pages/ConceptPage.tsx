@@ -495,9 +495,7 @@ export default function ConceptPage() {
 
       <section className="max-w-5xl mx-auto px-6 py-16 md:py-24">
         <div className="rounded-2xl overflow-hidden">
-          <video autoPlay loop playsInline className="w-full h-auto rounded-2xl">
-            <source src="https://biolystes.com/wp-content/uploads/2025/09/ok.mov" type="video/mp4" />
-          </video>
+          <SafeVideo src="https://biolystes.com/wp-content/uploads/2025/09/ok.mov" className="w-full h-auto rounded-2xl" lazy />
         </div>
       </section>
 
