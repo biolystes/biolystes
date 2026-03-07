@@ -23,10 +23,9 @@ import product235th3 from "@/assets/product-235th-3.jpg";
 
 // Brand images for portfolio
 import kaniwa1 from "@/assets/kaniwa-1.jpg";
-
-import kaniwa3 from "@/assets/kaniwa-3.jpg";
-import kaniwa5 from "@/assets/kaniwa-5.jpg";
 import kaniwa6 from "@/assets/kaniwa-6.jpg";
+import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
+import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
 
 import fralene1 from "@/assets/fralene-1.jpg";
 import fralene2 from "@/assets/fralene-2.jpg";
@@ -119,7 +118,7 @@ const portfolioBrands = [
     name: "Kaniwa Botanique",
     tagline: "Marque bio & vegan, lancée en 12 jours",
     url: "https://kaniwabotanique.com/",
-    photos: [kaniwa1, kaniwa3, kaniwa5, kaniwa6],
+    photos: [kaniwa1, kaniwaUgc2, kaniwa6, kaniwaUgc3],
   },
   {
     name: "Fralène",
@@ -317,7 +316,7 @@ export default function DecouvertePage() {
       <section className="overflow-hidden py-6 bg-background">
         <div className="flex gap-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
           {[
-            kaniwa1, fralene1, sevmylook1, pmyrris1, kaniwa3, fralene3, sevmylook3, pmyrris4,
+            kaniwa1, fralene1, sevmylook1, pmyrris1, kaniwa6, fralene3, sevmylook3, pmyrris4,
           ].map((src, i) => (
             <div key={i} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden">
               <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
