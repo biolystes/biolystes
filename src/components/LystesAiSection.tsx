@@ -333,7 +333,7 @@ function TeamMarketing() {
         {/* Task cards */}
         <div className="space-y-2">
           {tasks.map(t => (
-            <div key={t.label} className="p-4 rounded-2xl flex items-start gap-3 border border-border/50">
+            <div key={t.label} className="p-4 rounded-2xl flex items-start gap-3 border border-foreground">
               <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
                 t.status === "done" ? "bg-[#e6f6ef]" : t.status === "now" ? "bg-[#ebf5ff]" : "bg-muted border border-border"
               }`}>
@@ -342,7 +342,7 @@ function TeamMarketing() {
                 {t.status === "wait" && <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />}
               </div>
               <div className="space-y-0.5">
-                <p className="text-[12px] font-bold text-muted-foreground">{t.label} — {t.title}</p>
+                <p className="text-[12px] font-bold text-foreground">{t.label} — {t.title}</p>
                 <p className="text-[13px] font-medium text-foreground leading-relaxed">{t.value}</p>
               </div>
             </div>
