@@ -377,7 +377,7 @@ function TeamContenu() {
         ].map(img => (
           <div key={img.label} className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
             {img.type === "video" ? (
-              <video src={img.src} autoPlay loop muted playsInline className="w-full h-[280px] object-cover block" />
+              <SafeVideo src={img.src} className="w-full h-[280px] object-cover block" lazy />
             ) : (
               <img src={img.src} alt="" className="w-full h-[280px] object-cover block" />
             )}

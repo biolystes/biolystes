@@ -455,10 +455,9 @@ export default function DecouvertePage() {
             style={{ width: "max-content" }}
           >
             {[
-              "/videos/exp-1.mp4", "/videos/exp-2.mov", "/videos/exp-3.mov", "/videos/exp-4.mov",
-              "/videos/exp-5.mov", "/videos/exp-6.mov", "/videos/exp-7.mov", "/videos/exp-8.mov",
-              "/videos/exp-9.mp4", "/videos/exp-10.mov", "/videos/exp-11.mp4", "/videos/exp-12.mp4",
-              "/videos/exp-13.mov", "/videos/exp-14.mov", "/videos/exp-15.mov",
+              "/videos/exp-1.mp4", "/videos/exp-2.mov", "/videos/exp-3.mov",
+              "/videos/exp-9.mp4", "/videos/exp-11.mp4", "/videos/exp-12.mp4",
+              "/videos/exp-4.mov", "/videos/exp-5.mov",
             ].map((src, i) => (
               <div
                 key={i}
