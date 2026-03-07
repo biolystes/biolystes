@@ -751,7 +751,7 @@ export default function DecouvertePage() {
             <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed">
               Des forfaits transparents adaptés à votre ambition
             </motion.h2>
-            <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground leading-relaxed">
+            <motion.p variants={fadeUp} custom={2} className="text-sm text-foreground leading-relaxed">
               Le premier mois de l'abonnement est toujours offert !
             </motion.p>
             <div className="inline-block mt-5 px-6 py-3 rounded-xl bg-red-600 text-white text-sm font-extrabold uppercase tracking-wide animate-none opacity-100">
