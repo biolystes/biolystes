@@ -333,7 +333,7 @@ function TeamMarketing() {
         {/* Task cards */}
         <div className="space-y-2">
           {tasks.map(t => (
-            <div key={t.label} className="p-4 rounded-2xl flex items-start gap-3 border border-border/50">
+            <div key={t.label} className="p-4 rounded-2xl flex items-start gap-3 border border-foreground">
               <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
                 t.status === "done" ? "bg-[#e6f6ef]" : t.status === "now" ? "bg-[#ebf5ff]" : "bg-muted border border-border"
               }`}>
