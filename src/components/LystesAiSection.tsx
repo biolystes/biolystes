@@ -342,7 +342,7 @@ function TeamMarketing() {
                 {t.status === "wait" && <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />}
               </div>
               <div className="space-y-0.5">
-                <p className="text-[12px] font-bold text-muted-foreground">{t.label} — {t.title}</p>
+                <p className="text-[12px] font-bold text-foreground">{t.label} — {t.title}</p>
                 <p className="text-[13px] font-medium text-foreground leading-relaxed">{t.value}</p>
               </div>
             </div>
