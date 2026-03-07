@@ -34,7 +34,9 @@ export default function WirtzkinSection() {
         const next = (prev + 1) % videos.length;
         if (scrollRef.current) {
           const child = scrollRef.current.children[next] as HTMLElement;
-          child?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+          if (child) {
+            scrollRef.current.scrollTo({ left: child.offsetLeft - scrollRef.current.offsetLeft, behavior: "smooth" });
+          }
         }
         return next;
       });
