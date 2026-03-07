@@ -835,14 +835,14 @@ export default function DecouvertePage() {
             <div className="bg-secondary rounded-xl p-6 md:p-10">
               <img src={salonCoiffure} alt="Salon de coiffure" className="w-full rounded-lg" loading="lazy" />
             </div>
-            <div className="hidden md:block absolute -left-16 bottom-20 max-w-[220px] shadow-lg rounded-xl overflow-hidden rotate-[-3deg] bg-secondary p-3">
+            <div className="hidden md:block absolute -left-16 bottom-20 max-w-[220px] shadow-lg rounded-xl overflow-hidden rotate-[-3deg] p-3" style={{ backgroundColor: '#2f5955' }}>
               <video
                 src="/videos/salon-235th.mp4"
                 autoPlay
                 muted
                 loop
                 playsInline
-                className="w-full rounded-xl object-cover aspect-square"
+                className="w-full rounded-xl object-cover aspect-[3/4]"
               />
             </div>
             <ProductImageCycler />
