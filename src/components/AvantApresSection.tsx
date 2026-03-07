@@ -3,6 +3,7 @@ import { Star, StarHalf, Menu, Search, User, ShoppingBag, ArrowRight } from "luc
 import { Button } from "@/components/ui/button";
 import { AnimatedChat } from "@/components/AnimatedChat";
 import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
+import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -129,7 +130,7 @@ export default function AvantApresSection() {
                         "https://lystes.ai/images/clients/kaniwa-6.jpg",
                         kaniwaUgc2,
                         "https://lystes.ai/images/clients/kaniwa-8.jpg",
-                        "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg",
+                        kaniwaUgc4,
                         "https://lystes.ai/images/clients/kaniwa-7.jpg",
                         "https://lystes.ai/images/clients/kaniwa-ugc-3.jpg",
                         "https://lystes.ai/images/clients/kaniwa-4.jpg",
@@ -174,7 +175,7 @@ export default function AvantApresSection() {
                       {[
                         kaniwaUgc2,
                         "https://lystes.ai/images/clients/kaniwa-ugc-3.jpg",
-                        "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg",
+                        kaniwaUgc4,
                       ].map((src, i) => (
                         <div key={i} className="w-20 h-20 rounded-xl overflow-hidden">
                           <img src={src} alt="" className="w-full h-full object-cover" />
