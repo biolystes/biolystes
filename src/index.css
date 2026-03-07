@@ -325,8 +325,8 @@ img.rounded-lg.w-full.object-cover.order-1.md\:order-2 {
 /* Réassort Sans Minimum */
 section.py-16.md\:py-24 {
   background: #f5f4df;
-  margin-top: 73px;
-  margin-bottom: 73px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 section.py-16.md\:py-24 .bg-secondary.rounded-xl.p-6.md\:p-10 {

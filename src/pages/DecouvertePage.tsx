@@ -843,7 +843,7 @@ export default function DecouvertePage() {
 
 
       {/* ═══ RÉASSORT SANS MINIMUM ═══ */}
-      <section className="py-16 md:py-24">
+      <section className="py-12 md:py-16">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed"
