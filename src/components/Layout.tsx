@@ -31,69 +31,64 @@ function TopNavBar() {
     : "?";
 
   return (
-    <>
-      {/* Thin promo strip */}
-      <div
-        className="fixed top-0 left-0 right-0 z-40 hidden md:flex items-center justify-center text-xs font-bold tracking-widest uppercase"
-        style={{ height: 32, background: "#f5f4df", borderBottom: "1px solid #1d1d1f" }}
-      >
+    <header
+      className="hidden md:flex items-center fixed top-0 left-0 right-0 z-40 px-6"
+      style={{
+        height: 56,
+        background: "#f5f4df",
+        borderBottom: "1px solid #1d1d1f",
+      }}
+    >
+      {/* Logo */}
+      <Link to="/" className="flex items-center shrink-0 mr-3">
+        <img
+          src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
+          alt="Lystes"
+          className="h-10 w-10 animate-tourne object-contain"
+        />
+      </Link>
+
+      {/* Promo text */}
+      <span className="text-xs font-bold tracking-wide whitespace-nowrap mr-auto">
         🔥 CETTE SEMAINE : -20% SUR TOUTES NOS OFFRES
-      </div>
+      </span>
 
-      {/* Header with logo + nav */}
-      <header
-        className="hidden md:flex items-center fixed left-0 right-0 z-30 px-6 gap-6"
-        style={{
-          top: 32,
-          height: 56,
-          background: "#f5f4df",
-          borderBottom: "1px solid #1d1d1f",
-        }}
-      >
-        <Link to="/" className="flex items-center shrink-0 mr-4">
-          <img
-            src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
-            alt="Lystes"
-            className="h-12 w-12 animate-tourne object-contain"
-          />
-        </Link>
-
-        <nav className="flex items-center gap-3 flex-1 justify-end">
-          {navItems.map((item) => (
-            <Link key={item.path} to={item.path}>
-              <span
-                className={`text-sm font-medium transition-colors ${
-                  isActive(item.path)
-                    ? "text-foreground"
-                    : "text-foreground/70 hover:text-foreground"
-                }`}
-              >
-                {item.label}
-              </span>
-            </Link>
-          ))}
-
-          <Link to="/chat" className="btn-outline">
-            <span>Poser vos questions</span>
-            <span className="arrow-circle">
-              <ArrowRight className="w-3.5 h-3.5" />
+      {/* Nav */}
+      <nav className="flex items-center gap-3 shrink-0">
+        {navItems.map((item) => (
+          <Link key={item.path} to={item.path}>
+            <span
+              className={`text-sm font-medium transition-colors ${
+                isActive(item.path)
+                  ? "text-foreground"
+                  : "text-foreground/70 hover:text-foreground"
+              }`}
+            >
+              {item.label}
             </span>
           </Link>
+        ))}
 
-          <a
-            href={RDV_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-startup"
-          >
-            <span>Prendre RDV</span>
-            <span className="arrow-circle">
-              <ArrowRight className="w-3.5 h-3.5" />
-            </span>
-          </a>
-        </nav>
-      </header>
-    </>
+        <Link to="/chat" className="btn-outline">
+          <span>Poser vos questions</span>
+          <span className="arrow-circle">
+            <ArrowRight className="w-3.5 h-3.5" />
+          </span>
+        </Link>
+
+        <a
+          href={RDV_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-startup"
+        >
+          <span>Prendre RDV</span>
+          <span className="arrow-circle">
+            <ArrowRight className="w-3.5 h-3.5" />
+          </span>
+        </a>
+      </nav>
+    </header>
   );
 }
 
@@ -194,7 +189,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </Button>
         </header>
 
-        <main className="md:pt-[88px]" style={{ background: "#f5f4df", minHeight: "100vh" }}>
+        <main className="md:pt-[56px]" style={{ background: "#f5f4df", minHeight: "100vh" }}>
           {children}
         </main>
       </div>
