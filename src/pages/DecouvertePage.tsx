@@ -944,7 +944,7 @@ export default function DecouvertePage() {
                   </div>
                   <div>
                     <h3 className="text-base font-semibold text-foreground mb-2">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+                    <p className="text-sm text-foreground leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
               </motion.div>
