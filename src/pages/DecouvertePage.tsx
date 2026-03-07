@@ -835,7 +835,7 @@ export default function DecouvertePage() {
             <div className="bg-secondary rounded-xl p-6 md:p-10">
               <img src={salonCoiffure} alt="Salon de coiffure" className="w-full rounded-lg" loading="lazy" />
             </div>
-            <div className="hidden md:block absolute -left-16 bottom-20 max-w-[220px] shadow-lg rounded-xl overflow-hidden rotate-[-3deg]">
+            <div className="hidden md:block absolute -left-16 bottom-20 max-w-[220px] shadow-lg rounded-xl overflow-hidden rotate-[-3deg] bg-secondary p-3">
               <video
                 src="/videos/salon-235th.mp4"
                 autoPlay
