@@ -469,12 +469,8 @@ export default function DecouvertePage() {
                   key={`${dupeIdx}-${i}`}
                   className="flex-shrink-0 w-[200px] md:w-[240px] aspect-[9/16] rounded-2xl overflow-hidden bg-black"
                 >
-                  <video
+                  <SafeVideo
                     src={src}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
                     className="w-full h-full object-cover"
                   />
                 </div>
