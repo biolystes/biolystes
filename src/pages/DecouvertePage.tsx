@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { AnimatePresence } from "framer-motion";
 import CommentCaMarche from "@/components/CommentCaMarche";
 import { motion } from "framer-motion";
 import { useNavigate, Link } from "react-router-dom";
