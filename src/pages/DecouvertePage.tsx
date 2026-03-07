@@ -485,7 +485,7 @@ export default function DecouvertePage() {
             18 ans d'expérience<br /> dans le secteur de la beauté ont donné naissance à Biolystes
           </motion.h2>
           <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-            className="mt-6 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            className="mt-6 text-base md:text-lg text-foreground max-w-2xl mx-auto leading-relaxed">
             Nous avons éliminé les obstacles pour vous permettre de vous concentrer sur l'essentiel : bâtir une marque qui vous ressemble.
           </motion.p>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
