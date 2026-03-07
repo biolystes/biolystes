@@ -316,13 +316,13 @@ export default function DecouvertePage() {
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }}
             className="mt-8 flex flex-wrap justify-center gap-4">
-            <a href="https://app.iclosed.io/e/paylystes/r2" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-foreground text-background text-sm font-semibold hover:opacity-90 transition-opacity">
-              Prendre rendez-vous
+            <a href="https://app.iclosed.io/e/paylystes/r2" target="_blank" rel="noopener noreferrer" className="btn-startup">
+              <span>Prendre rendez-vous</span>
+              <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
-            <button onClick={() => navigate("/chat")}
-              className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-foreground/20 text-foreground text-sm font-semibold hover:bg-accent transition-colors">
-              Posez vos questions
+            <button onClick={() => navigate("/chat")} className="btn-outline">
+              <span>Posez vos questions</span>
+              <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </button>
           </motion.div>
 
