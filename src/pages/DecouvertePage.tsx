@@ -592,9 +592,13 @@ export default function DecouvertePage() {
                   </a>
                 </div>
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                  {brand.photos.map((src, i) => (
+                  {brand.photos.map((item, i) => (
                     <div key={i} className="aspect-[3/4] rounded-2xl overflow-hidden">
-                      <img src={src} alt={`${brand.name} ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      {typeof item === "object" && item.type === "video" ? (
+                        <video src={item.src} autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                      ) : (
+                        <img src={typeof item === "string" ? item : ""} alt={`${brand.name} ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
+                      )}
                     </div>
                   ))}
                 </div>
