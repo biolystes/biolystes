@@ -280,7 +280,7 @@ section#section-comprend section.bg-secondary {
 }
 
 section#section-comprend h2.text-3xl.md\:text-4xl.font-light.tracking-tight.text-foreground.max-w-3xl.mx-auto {
-  color: #fff !important;
+  color: #f5f4df !important;
 }
 
 button.w-8.h-8.rounded-full.text-xs.font-semibold.border.transition-colors.bg-background.text-foreground.border-border.hover\:border-foreground\/40 {
