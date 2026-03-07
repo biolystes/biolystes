@@ -301,7 +301,7 @@ export default function DecouvertePage() {
             <span className="bg-foreground text-primary-foreground text-[8px] font-semibold tracking-[0.8px] uppercase px-5 py-2 rounded-full">
               En 10 jours
             </span>
-            <span className="text-[8px] text-muted-foreground font-medium tracking-[0.8px] uppercase">
+            <span className="text-[8px] text-foreground font-medium tracking-[0.8px] uppercase">
               Profitez de plus de 18 ans d'expérience
             </span>
           </motion.div>
