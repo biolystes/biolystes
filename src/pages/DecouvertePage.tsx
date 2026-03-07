@@ -335,7 +335,7 @@ export default function DecouvertePage() {
             { icon: Shield, label: "Conformité COSMOS/ECOCERT/FDA" },
             { icon: Zap, label: "Lancement Rapide" },
           ].map((item) => (
-            <span key={item.label} className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span key={item.label} className="flex items-center gap-2 text-sm text-foreground">
               <item.icon className="h-4 w-4" strokeWidth={1.5} />
               {item.label}
             </span>
