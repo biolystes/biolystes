@@ -362,7 +362,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ PORTFOLIO IMAGES MARQUEE ═══ */}
-      <section className="overflow-hidden py-6 bg-background">
+      <section className="overflow-hidden py-3 bg-background">
         <div className="flex gap-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
           {[
             kaniwa1, fralene3, sevmylook1, pmyrris1, kaniwa6, fralene10, sevmylook3, pmyrris4,
