@@ -47,7 +47,20 @@ export default function CGVPage() {
             En résumé : vos clients sont protégés en cas de problème réel (casse, défaut), mais il n'y a pas de retour pour simple changement d'avis sur un produit personnalisé.
           </Section>
 
-          <Section title="Article 6 – Responsabilité">
+          <Section title="Article 6 – Répartition des responsabilités réglementaires">
+            Dans le cadre de la réglementation européenne (Règlement CE n°1223/2009), les responsabilités sont réparties comme suit :<br /><br />
+            <strong>Le laboratoire est la Personne Responsable au sens réglementaire.</strong> C'est lui qui :<br />
+            – Garantit la conformité et la sécurité des formulations<br />
+            – Établit et conserve le DIP (Dossier d'Information Produit)<br />
+            – Assure l'enregistrement au CPNP (portail européen de notification)<br />
+            – Gère la cosmétovigilance<br />
+            – Vérifie les allégations produit<br />
+            – Maintient les certifications COSMOS / ECOCERT / FDA<br /><br />
+            <strong>Vous, en tant que marque, vous êtes le distributeur.</strong> Votre logo apparaît sur le packaging, mais la responsabilité réglementaire du produit en lui-même reste celle du laboratoire fabricant.<br /><br />
+            <strong>Concernant le contrat :</strong> un cadre contractuel définit clairement les responsabilités de chaque partie avant toute commercialisation. Ce cadre précise les obligations du laboratoire en tant que fabricant et Personne Responsable, et vos obligations en tant que distributeur.
+          </Section>
+
+          <Section title="Article 7 – Limitation de responsabilité">
             La responsabilité de Lystes ne saurait être engagée en cas de force majeure ou d'événements
             indépendants de sa volonté. La responsabilité est limitée au montant de la commande concernée.
           </Section>
