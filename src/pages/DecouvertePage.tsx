@@ -590,7 +590,6 @@ export default function DecouvertePage() {
                     {p.image && <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />}
                   </div>
                   <p className="text-sm font-medium text-foreground truncate">{p.name}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">{p.price} EUR HT</p>
                 </motion.div>
               ))}
             </div>
