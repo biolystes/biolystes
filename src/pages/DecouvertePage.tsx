@@ -646,7 +646,7 @@ export default function DecouvertePage() {
                   Commander mes échantillons
                 </a>
               </div>
-              <div className="rounded-2xl px-6 py-5 text-center bg-secondary border border-border mt-5">
+              <div className="rounded-2xl px-6 py-5 text-center bg-foreground/[0.02] mt-5">
                 <div className="flex items-center justify-center gap-2 mb-1.5">
                   <HelpCircle size={14} strokeWidth={1.8} className="text-muted-foreground" />
                   <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Bon à savoir</span>
@@ -715,7 +715,7 @@ export default function DecouvertePage() {
                   Prendre RDV
                 </a>
               </div>
-              <div className="rounded-2xl px-6 py-5 text-center bg-secondary border border-border mt-5">
+              <div className="rounded-2xl px-6 py-5 text-center bg-foreground/[0.02] mt-5">
                 <div className="flex items-center justify-center gap-2 mb-1.5">
                   <HelpCircle size={14} strokeWidth={1.8} className="text-muted-foreground" />
                   <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Bon à savoir</span>
@@ -751,7 +751,7 @@ export default function DecouvertePage() {
                   Prendre RDV
                 </a>
               </div>
-              <div className="rounded-2xl px-6 py-5 text-center bg-secondary border border-border mt-5">
+              <div className="rounded-2xl px-6 py-5 text-center bg-foreground/[0.02] mt-5">
                 <div className="flex items-center justify-center gap-2 mb-1.5">
                   <HelpCircle size={14} strokeWidth={1.8} className="text-muted-foreground" />
                   <span className="text-[11px] font-bold uppercase tracking-widest text-muted-foreground">Bon à savoir</span>
