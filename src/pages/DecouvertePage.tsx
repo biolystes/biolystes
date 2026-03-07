@@ -28,10 +28,9 @@ import kaniwa7 from "@/assets/kaniwa-7.jpg";
 import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
 import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
 
-import fralene1 from "@/assets/fralene-1.jpg";
-import fralene2 from "@/assets/fralene-2.jpg";
 import fralene3 from "@/assets/fralene-3.jpg";
-import fralene5 from "@/assets/fralene-5.jpg";
+import fralene10 from "@/assets/fralene-10.jpg";
+import fraleneExt1 from "@/assets/fralene-ext-1.jpg";
 import sevmylook1 from "@/assets/sevmylook-1.jpg";
 import sevmylook3 from "@/assets/sevmylook-3.jpg";
 import sevmylook7 from "@/assets/sevmylook-7.jpg";
