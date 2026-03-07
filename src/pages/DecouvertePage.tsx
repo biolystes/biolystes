@@ -132,7 +132,7 @@ const portfolioBrands = [
     name: "Sevmylook",
     tagline: "Gamme solaire & soins visage par Séverine Formal",
     url: "https://sevmylook.com/",
-    photos: [sevmylook1, sevmylook3, sevmylook7, sevmylook9],
+    photos: [sevmylook1, sevmylook20, sevmylook7, sevmylook3],
   },
   {
     name: "Pmyrris Beauty",
