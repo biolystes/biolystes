@@ -711,8 +711,8 @@ export default function DecouvertePage() {
                 <div className="flex flex-col mb-8">
                   {["4 produits certifiés bio chez vous en 7 jours", "Création de votre logo", "Design packaging", "Shooting photo IA de vos produits", "Accompagnement dans la sélection des produits", "Certifié Bio & Végan / COSMOS / ECOCERT / FDA", "Livraison incluse sous 7 à 8 jours"].map((t, i) => (
                     <div key={i} className="flex items-start gap-3 py-1.5">
-                      <Check size={14} strokeWidth={2} className="flex-shrink-0 mt-0.5 text-muted-foreground" />
-                      <span className="text-[13px] leading-relaxed text-muted-foreground">{t}</span>
+                      <Check size={14} strokeWidth={2} className="flex-shrink-0 mt-0.5 text-foreground" />
+                      <span className="text-[13px] leading-relaxed text-foreground">{t}</span>
                     </div>
                   ))}
                 </div>
