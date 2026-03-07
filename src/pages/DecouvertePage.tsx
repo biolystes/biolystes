@@ -653,7 +653,7 @@ export default function DecouvertePage() {
             <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl text-foreground leading-relaxed">
               Des formulations d'excellence, prêtes à vendre.
             </motion.h2>
-            <motion.p variants={fadeUp} custom={2} className="text-muted-foreground max-w-xl leading-relaxed">
+            <motion.p variants={fadeUp} custom={2} className="text-foreground max-w-xl leading-relaxed">
               Plus de 100 produits certifiés bio et végan, disponibles sans minimum de commande.
             </motion.p>
           </motion.div>
