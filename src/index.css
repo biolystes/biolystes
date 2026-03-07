@@ -349,13 +349,16 @@ section.py-16.md\:py-24 .hidden.md\:block.absolute.-right-16.bottom-20.bg-second
 }
 
 /* Page wrapper & sections crème */
-.min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-clip {
+.min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-clip,
+.min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-hidden {
   background: #f5f4df;
 }
-.min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-clip .bg-secondary.py-14.md\:py-20 {
+.min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-clip .bg-secondary.py-14.md\:py-20,
+.min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-hidden .bg-secondary.py-14.md\:py-20 {
   background: #f5f4df !important;
 }
-.min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-clip .bg-background.py-14.md\:py-20 {
+.min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-clip .bg-background.py-14.md\:py-20,
+.min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-hidden .bg-background.py-14.md\:py-20 {
   background: #f5f4df !important;
 }
 .max-w-2xl.mx-auto.bg-background.rounded-2xl.p-6.md\:p-10 {
