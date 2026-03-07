@@ -49,8 +49,8 @@ function TopNavBar() {
       </Link>
 
       {/* Promo text */}
-      <span className="text-xs font-bold tracking-wide whitespace-nowrap mr-auto">
-        🔥 CETTE SEMAINE : -20% SUR TOUTES NOS OFFRES
+      <span className="whitespace-nowrap mr-auto" style={{ fontFamily: "'Inter'", fontSize: "10px", fontWeight: 700 }}>
+        🔥 CETTE SEMAINE : -20% SUR NOS OFFRES
       </span>
 
       {/* Nav */}
