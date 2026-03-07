@@ -968,32 +968,8 @@ export default function DecouvertePage() {
             </motion.p>
           </motion.div>
 
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
-            className="mt-12 grid sm:grid-cols-3 gap-6 text-left">
-            <button onClick={() => navigate("/chat")}
-              className="p-6 rounded-2xl bg-secondary hover:bg-accent transition-colors text-left group">
-              <MessageCircle className="h-6 w-6 text-foreground mb-4" strokeWidth={1.5} />
-              <h3 className="text-sm font-semibold text-foreground mb-1">Posez vos questions</h3>
-              <p className="text-xs text-foreground leading-relaxed">Notre assistant IA répond à toutes vos questions sur le lancement de votre marque.</p>
-              <ArrowRight className="h-4 w-4 text-foreground mt-4 group-hover:translate-x-1 transition-transform" />
-            </button>
 
-            <button onClick={() => navigate("/catalog")}
-              className="p-6 rounded-2xl bg-secondary hover:bg-accent transition-colors text-left group">
-              <ShoppingBag className="h-6 w-6 text-foreground mb-4" strokeWidth={1.5} />
-              <h3 className="text-sm font-semibold text-foreground mb-1">Explorer le catalogue</h3>
-              <p className="text-xs text-foreground leading-relaxed">Plus de 100 formulations certifiées bio et végan, prêtes à vendre sous votre marque.</p>
-              <ArrowRight className="h-4 w-4 text-foreground mt-4 group-hover:translate-x-1 transition-transform" />
-            </button>
 
-            <a href={CTA_URL} target="_blank" rel="noopener noreferrer"
-              className="p-6 rounded-2xl bg-foreground text-primary-foreground hover:opacity-90 transition-opacity text-left group no-underline">
-              <HelpCircle className="h-6 w-6 mb-4" strokeWidth={1.5} />
-              <h3 className="text-sm font-semibold mb-1">Prendre rendez-vous</h3>
-              <p className="text-xs opacity-70 leading-relaxed">Discutez de votre projet avec un expert Biolystes. Appel gratuit et sans engagement.</p>
-              <ArrowRight className="h-4 w-4 mt-4 group-hover:translate-x-1 transition-transform" />
-            </a>
-          </motion.div>
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4}
             className="mt-16 flex flex-wrap justify-center gap-4">
