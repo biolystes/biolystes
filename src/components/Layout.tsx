@@ -52,7 +52,6 @@ function TopNavBar() {
       <span className="whitespace-nowrap mr-auto" style={{ fontFamily: "'Inter'", fontSize: "10px", fontWeight: 700 }}>
         🔥 CETTE SEMAINE : -20% SUR NOS OFFRES
       </span>
-      </span>
 
       {/* Nav */}
       <nav className="flex items-center gap-3 shrink-0">
