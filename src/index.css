@@ -110,7 +110,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, 'SF Pro Display', sans-serif;
-    background: #F5F5F7;
+    background: #f5f4df;
   }
   h1, h2, h3 {
     font-family: 'Inter', -apple-system, sans-serif;
@@ -301,12 +301,7 @@ button.w-8.h-8.rounded-full.text-xs.font-semibold.border.transition-colors.bg-fo
 /* Sticky nav & header */
 .fixed.top-14.left-0.right-0.z-20.bg-background\/90.backdrop-blur-md.border-b.border-border {
   background: #f5f4df !important;
-  border-bottom: 1px solid !important;
-}
-
-header.hidden.md\:flex.items-center.fixed.top-0.left-0.right-0.z-30.px-6.gap-6 {
-  background: #f5f4df !important;
-  border-bottom: 1px solid #000 !important;
+  border-bottom: 1px solid #1d1d1f !important;
 }
 
 /* Comment ça marche — image style */
