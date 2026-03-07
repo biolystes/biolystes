@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ArrowRight, Check, X, FlaskConical, Truck, Globe, ScanFace, MessageCircle, QrCode, Camera, BarChart3, ExternalLink, ShoppingBag, HelpCircle, Star, StarHalf, Menu, Search, User, Mic, ArrowUp, ChevronLeft, ChevronRight, FileCheck2, BadgeCheck, Leaf, Award, Rabbit, Package, CheckCircle2, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CommentCaMarche from "@/components/CommentCaMarche";
+import SafeVideo from "@/components/SafeVideo";
 
 // Brand images
 import kaniwa1 from "@/assets/kaniwa-1.jpg";
