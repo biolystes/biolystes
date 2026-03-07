@@ -360,8 +360,6 @@ export default function DecouvertePage() {
 
       </section>
 
-
-
       {/* ═══ PORTFOLIO IMAGES MARQUEE ═══ */}
       <section className="overflow-hidden py-6 bg-background">
         <div className="flex gap-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
@@ -376,7 +374,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 3. LA QUALITÉ — NOS ENGAGEMENTS ═══ */}
-      <section id="section-qualite" ref={setRef("qualite")} className="py-12 md:py-16">
+      <section id="section-qualite" ref={setRef("qualite")} className="py-8 md:py-12">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16 text-center">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Nos engagements</motion.p>
@@ -446,7 +444,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 18 ANS D'EXPÉRIENCE ═══ */}
-      <section id="section-experience" ref={setRef("experience")} className="py-24 md:py-32 bg-background">
+      <section id="section-experience" ref={setRef("experience")} className="py-12 md:py-16 bg-background">
         {/* Video carousel - auto-scrolling */}
         <div className="w-full overflow-hidden mb-16">
           <motion.div
@@ -533,7 +531,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 5. LA LIVRAISON ═══ */}
-      <section id="section-livraison" ref={setRef("livraison")} className="bg-secondary py-24 md:py-32">
+      <section id="section-livraison" ref={setRef("livraison")} className="bg-secondary py-12 md:py-16">
         <div className="max-w-4xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">La livraison</motion.p>
@@ -619,7 +617,7 @@ export default function DecouvertePage() {
       <AvantApresSection />
 
       {/* ═══ 7. PORTFOLIO — NOS CLIENTS ═══ */}
-      <section id="section-portfolio" ref={setRef("portfolio")} className="py-24 md:py-32">
+      <section id="section-portfolio" ref={setRef("portfolio")} className="py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Portfolio</motion.p>
@@ -651,7 +649,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 8. CATALOGUE ═══ */}
-      <section id="section-catalogue" ref={setRef("catalogue")} className="bg-secondary py-24 md:py-32">
+      <section id="section-catalogue" ref={setRef("catalogue")} className="bg-secondary py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Catalogue</motion.p>
@@ -688,7 +686,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 9a. TARIFS – PACK DÉCOUVERTE ═══ */}
-      <section id="section-tarifs-2" className="py-24 md:py-32">
+      <section id="section-tarifs-2" className="py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-12 text-center">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Pas besoin de tout décider maintenant</motion.p>
@@ -749,7 +747,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 9b. TARIFS – PACKS AGENCE & IA ═══ */}
-      <section id="section-tarifs" ref={setRef("tarifs")} className="py-24 md:py-32">
+      <section id="section-tarifs" ref={setRef("tarifs")} className="py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-12 text-center">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Tarifs</motion.p>
@@ -845,7 +843,7 @@ export default function DecouvertePage() {
 
 
       {/* ═══ RÉASSORT SANS MINIMUM ═══ */}
-      <section className="py-16 md:py-24">
+      <section className="py-12 md:py-16">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-10">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed"
@@ -894,12 +892,12 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ WIRTZKIN ═══ */}
-      <section className="py-24 md:py-32 bg-background">
+      <section className="py-12 md:py-16 bg-background">
         <WirtzkinSection />
       </section>
 
       {/* ═══ LE CONSTAT ═══ */}
-      <section id="section-constat" ref={setRef("constat")} className="bg-secondary py-24 md:py-32">
+      <section id="section-constat" ref={setRef("constat")} className="bg-secondary py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16 text-center">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Le constat</motion.p>
@@ -967,7 +965,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 10. JE ME LANCE ═══ */}
-      <section id="section-lance" ref={setRef("lance")} className="bg-secondary py-24 md:py-32">
+      <section id="section-lance" ref={setRef("lance")} className="bg-secondary py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-6">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Passez à l'action</motion.p>
