@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import SafeVideo from "@/components/SafeVideo";
 import {
   ScanFace, MessageCircle, Camera, Globe, BarChart3, QrCode,
   Star, StarHalf, Menu, Search, User, ShoppingBag, Mic, ArrowUp,
