@@ -965,7 +965,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ 10. JE ME LANCE ═══ */}
-      <section id="section-lance" ref={setRef("lance")} className="bg-secondary py-24 md:py-32">
+      <section id="section-lance" ref={setRef("lance")} className="bg-secondary py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-6">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">Passez à l'action</motion.p>
