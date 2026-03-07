@@ -699,7 +699,7 @@ export default function ConceptPage() {
                           "https://lystes.ai/images/clients/kaniwa-6.jpg",
                           kaniwaUgc2,
                           "https://lystes.ai/images/clients/kaniwa-8.jpg",
-                          "https://lystes.ai/images/clients/kaniwa-ugc-4.jpg",
+                          kaniwaUgc4,
                           "https://lystes.ai/images/clients/kaniwa-7.jpg",
                           "https://lystes.ai/images/clients/kaniwa-ugc-3.jpg",
                           "https://lystes.ai/images/clients/kaniwa-4.jpg",
