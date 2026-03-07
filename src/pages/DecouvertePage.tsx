@@ -423,7 +423,7 @@ export default function DecouvertePage() {
                     <div className="w-5 h-5 rounded-full bg-destructive/10 flex items-center justify-center">
                       <span className="text-destructive text-xs font-bold">✕</span>
                     </div>
-                    <span className="text-sm text-muted-foreground">{item}</span>
+                    <span className="text-sm text-foreground">{item}</span>
                   </div>
                 ))}
               </div>
