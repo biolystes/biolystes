@@ -429,7 +429,7 @@ export default function DecouvertePage() {
               </div>
             </div>
             <div>
-              <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-6">Ce que nous garantissons</p>
+              <p className="text-xs tracking-[0.3em] uppercase text-foreground mb-6">Ce que nous garantissons</p>
               <div className="space-y-3">
                 {["Ingrédients 100% naturels", "Parfums véganes", "Production à la demande", "Traçabilité complète", "Laboratoires certifiés", "Échantillons disponibles", "Aucun minimum de commande", "Expédition sous votre marque"].map(item => (
                   <div key={item} className="flex items-center gap-3">
