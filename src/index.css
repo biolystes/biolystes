@@ -450,3 +450,7 @@ span.text-\[13px\].leading-relaxed.text-muted-foreground {
 .divide-border > :not([hidden]) ~ :not([hidden]) {
   border-color: #000;
 }
+.mt-12.p-6.rounded-xl.bg-background.border.border-border.text-center {
+  background: hsl(var(--foreground) / 0.04);
+  border: 0;
+}
