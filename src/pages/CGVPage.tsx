@@ -65,7 +65,7 @@ export default function CGVPage() {
             indépendants de sa volonté. La responsabilité est limitée au montant de la commande concernée.
           </Section>
 
-          <Section title="Article 7 – Propriété intellectuelle">
+          <Section title="Article 8 – Propriété intellectuelle">
             Tous les éléments créatifs réalisés par Lystes (logos, designs, packagings) restent la propriété
             de Lystes jusqu'au paiement intégral de la prestation. Après paiement, les droits d'utilisation
             sont cédés au client pour l'usage convenu.
