@@ -292,7 +292,7 @@ function TeamSEO() {
               <Check className="w-[10px] h-[10px] text-[#065f46]" strokeWidth={3} />
             </div>
             <div>
-              <p className="text-[11px] font-bold text-muted-foreground mb-0.5">{r.label}</p>
+              <p className="text-[11px] font-bold text-foreground mb-0.5">{r.label}</p>
               <p className="text-xs text-foreground leading-snug">{r.val}</p>
             </div>
           </div>
