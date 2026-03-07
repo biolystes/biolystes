@@ -71,7 +71,7 @@ export default function CGVPage() {
             sont cédés au client pour l'usage convenu.
           </Section>
 
-          <Section title="Article 8 – Litiges">
+          <Section title="Article 9 – Litiges">
             En cas de litige, les parties s'engagent à rechercher une solution amiable avant toute action
             judiciaire. À défaut, le tribunal compétent sera celui du siège social de Lystes.
             Les présentes CGV sont soumises au droit français.
