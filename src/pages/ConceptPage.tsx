@@ -11,6 +11,7 @@ import kaniwa1 from "@/assets/kaniwa-1.jpg";
 import kaniwa2 from "@/assets/kaniwa-2.jpg";
 import kaniwa3 from "@/assets/kaniwa-3.jpg";
 import kaniwa5 from "@/assets/kaniwa-5.jpg";
+import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
 import fralene1 from "@/assets/fralene-1.jpg";
 import fralene2 from "@/assets/fralene-2.jpg";
 import fralene3 from "@/assets/fralene-3.jpg";
