@@ -8,7 +8,7 @@ import {
   ArrowRight, Check, FlaskConical, Truck, Globe, Package, Leaf, Award,
   Rabbit, FileCheck2, BadgeCheck, ShoppingBag, MessageCircle, HelpCircle,
   Sparkles, Clock, Shield, Zap,
-  AlertTriangle, Warehouse, Users, Eye, Timer,
+  AlertTriangle, Warehouse, Users, Eye, Timer, ChevronLeft, ChevronRight,
 } from "lucide-react";
 import LystesAiSection from "@/components/LystesAiSection";
 import InstaFeedSection from "@/components/InstaFeedSection";
