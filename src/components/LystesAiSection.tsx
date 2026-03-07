@@ -7,7 +7,10 @@ import {
 } from "lucide-react";
 import { AnimatedChat } from "./AnimatedChat";
 import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
+import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
 import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
+import kaniwaUgc5 from "@/assets/kaniwa-ugc-5.png";
+import kaniwaUgc6 from "@/assets/kaniwa-ugc-6.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -151,16 +154,20 @@ function BeforeAfterPhones() {
                 <button className="w-full bg-foreground text-primary-foreground py-4 rounded-xl font-bold flex items-center justify-center gap-2 mb-6 text-[13px] tracking-wide shadow-lg uppercase">
                   AJOUTER AU PANIER<span className="w-px h-4 bg-muted-foreground/50 mx-2" />49,90€
                 </button>
-                <div className="flex gap-2 pb-6">
-                  {[
-                    kaniwaUgc2,
-                    "https://lystes.ai/images/clients/kaniwa-ugc-3.jpg",
-                    kaniwaUgc4,
-                  ].map((src, i) => (
-                    <div key={i} className="w-20 h-20 rounded-xl overflow-hidden">
-                      <img src={src} alt="" className="w-full h-full object-cover" />
-                    </div>
-                  ))}
+                <div className="overflow-x-auto pb-6 -mx-2 px-2 scrollbar-hide">
+                  <div className="flex gap-2 w-max">
+                    {[
+                      kaniwaUgc2,
+                      kaniwaUgc3,
+                      kaniwaUgc4,
+                      kaniwaUgc5,
+                      kaniwaUgc6,
+                    ].map((src, i) => (
+                      <div key={i} className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
+                        <img src={src} alt="" className="w-full h-full object-cover" />
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>
