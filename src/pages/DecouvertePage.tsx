@@ -495,15 +495,17 @@ export default function DecouvertePage() {
           </motion.p>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
             className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href="https://kaniwabotanique.com" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" className="bg-foreground text-primary-foreground hover:bg-foreground/90 rounded-full px-10 h-14 text-sm tracking-wide font-medium uppercase">
-                Voir notre dernier projet
-              </Button>
+            <a href="https://kaniwabotanique.com" target="_blank" rel="noopener noreferrer" className="btn-startup">
+              <span>Voir notre dernier projet</span>
+              <span className="arrow-circle">
+                <ArrowRight className="w-3.5 h-3.5" />
+              </span>
             </a>
-            <a href="https://app.iclosed.io/e/paylystes/r2" target="_blank" rel="noopener noreferrer">
-              <Button size="lg" variant="outline" className="rounded-full px-10 h-14 text-sm tracking-wide font-medium border-0 text-foreground hover:bg-foreground hover:text-primary-foreground uppercase">
-                Demander l'accès à nos produits
-              </Button>
+            <a href="https://app.iclosed.io/e/paylystes/r2" target="_blank" rel="noopener noreferrer" className="btn-outline">
+              <span>Demander l'accès à nos produits</span>
+              <span className="arrow-circle">
+                <ArrowRight className="w-3.5 h-3.5" />
+              </span>
             </a>
           </motion.div>
         </div>
