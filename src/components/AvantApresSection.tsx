@@ -62,7 +62,7 @@ export default function AvantApresSection() {
                     <span className="text-xs font-bold text-foreground">4.8/5</span>
                     <span className="text-xs text-muted-foreground">(241 avis)</span>
                   </div>
-                  <h3 className="text-[22px] font-bold leading-tight text-foreground mb-1">Crème de jour<br />anti-âge</h3>
+                  <h3 className="text-[22px] font-bold leading-tight text-foreground mb-1">Crème de jour anti-âge</h3>
                   <p className="text-[11px] font-bold text-muted-foreground mb-3">Vitiligo • Pores dilatés • Rougeurs</p>
                   <div className="flex items-end gap-2 mb-4">
                     <span className="text-lg font-bold text-foreground">49,90€</span>
