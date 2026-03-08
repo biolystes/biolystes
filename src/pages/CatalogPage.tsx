@@ -303,7 +303,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
       }}
     >
       {/* Image area */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "1", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#ecebd7", minHeight: 423 }}>
+      <div style={{ position: "relative", width: "100%", aspectRatio: "1", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#ecebd7", minHeight: 354 }}>
         {/* # badge top-left */}
         <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, width: 26, height: 26, borderRadius: 8, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#86868b" }}>#</div>
 
