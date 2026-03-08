@@ -325,9 +325,9 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
 
         {img
           ? <img src={img} alt={product.name} loading="lazy"
-              style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1.4)", transition: "transform .4s" }}
-              onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.45)")}
-              onMouseLeave={e => (e.currentTarget.style.transform = "scale(1.4)")} />
+              style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1)", transition: "transform .4s" }}
+              onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
+              onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
           : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#b0bec5" }}><Icons.box size={40} sw={1} /></div>
         }
       </div>
