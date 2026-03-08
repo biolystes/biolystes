@@ -193,25 +193,6 @@ export default function AvantApresSection() {
                   </div>
                 </div>
 
-                {/* AI Agent labels - desktop */}
-                <div className="hidden lg:block absolute -right-4 top-0 translate-x-full pl-4" style={{ height: "100%" }}>
-                  {[
-                    { label: "Équipe Marketing AI", top: "80px" },
-                    { label: "Équipe Photographe AI", top: "160px" },
-                    { label: "Équipe Expert SEO AI", top: "420px" },
-                    { label: "Équipe Expert produit AI", top: "560px" },
-                    { label: "Équipe Diagnostics AI", top: "700px" },
-                    { label: "Créateur de contenu AI", top: "830px" },
-                  ].map((agent) => (
-                    <div key={agent.label} className="flex items-center gap-2 absolute" style={{ top: agent.top }}>
-                      <div className="w-2 h-2 rounded-full bg-foreground border-2 border-background" />
-                      <div className="w-10 h-px bg-foreground/20" />
-                      <span className="bg-foreground text-primary-foreground text-[11px] font-medium px-3 py-1.5 rounded-lg whitespace-nowrap">
-                        {agent.label}
-                      </span>
-                    </div>
-                  ))}
-                </div>
               </div>
 
               {/* Mobile: agent labels */}
