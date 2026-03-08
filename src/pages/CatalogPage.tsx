@@ -130,8 +130,8 @@ function FilterDropdown({ label, options, selected, onChange, grid = false }: {
         style={{
           display: "flex", alignItems: "center", gap: 6,
           padding: "7px 14px", borderRadius: 20,
-          border: hasActive ? "1.5px solid #1d1d1f" : "1px solid #d1d1d6",
-          background: hasActive ? "#1d1d1f" : "#fff",
+          border: hasActive ? "1.5px solid #1d1d1f" : "0px solid #d1d1d6",
+          background: hasActive ? "#1d1d1f" : "rgba(0,0,0,0.04)",
           color: hasActive ? "#fff" : "#1d1d1f",
           fontSize: 12, fontWeight: 500, cursor: "pointer",
           transition: "all .15s", whiteSpace: "nowrap",
