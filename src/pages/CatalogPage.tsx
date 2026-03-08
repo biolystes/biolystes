@@ -342,7 +342,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
         {price && (
           <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-              <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#86868b" }}>Prix de vente conseillé</span>
+              <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#111" }}>Prix de vente conseillé</span>
               <span style={{ fontSize: 8, fontWeight: 800, padding: "2px 6px", borderRadius: 4, background: "#1d1d1f", color: "#fff" }}>AI</span>
             </div>
             {[
