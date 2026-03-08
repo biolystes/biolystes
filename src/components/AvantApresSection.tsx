@@ -89,9 +89,9 @@ export default function AvantApresSection() {
               <div className="w-[320px] bg-background px-5 py-4 rounded-2xl border border-border relative z-20">
                 <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block mb-2">TAUX DE CONVERSION</span>
                 <div className="flex items-center gap-3">
-                  <span className="text-[22px] font-bold text-foreground">3,8 %</span>
+                  <span className="text-[22px] font-bold text-foreground">0,6 %</span>
                   <span className="text-primary font-bold text-sm">→</span>
-                  <span className="text-[22px] font-bold text-primary">42 %</span>
+                  <span className="text-[22px] font-bold text-primary">3,2 %</span>
                   <svg className="w-16 h-6 ml-auto" viewBox="0 0 100 30" fill="none">
                     <path d="M0 20 Q 15 0, 30 15 T 60 15 T 90 10 T 100 5" stroke="hsl(var(--primary))" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
