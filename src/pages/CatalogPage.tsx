@@ -375,7 +375,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
 // ─── Skeleton ─────────────────────────────────────────────
 function ProductSkeleton() {
   return (
-    <div style={{ borderRadius: 20, overflow: "hidden", border: "1px solid #ebebed", background: "#fff" }}>
+    <div style={{ borderRadius: 20, overflow: "hidden", border: "none", boxShadow: "none", background: "#fff" }}>
       <div style={{ width: "100%", aspectRatio: "1", background: "#f5f5f7", animation: "pulse 1.5s infinite" }} />
       <div style={{ padding: "16px 18px" }}>
         <div style={{ height: 10, width: "75%", background: "#e5e5e7", borderRadius: 4, marginBottom: 8, animation: "pulse 1.5s infinite" }} />
