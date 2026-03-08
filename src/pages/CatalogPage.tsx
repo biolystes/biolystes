@@ -296,7 +296,8 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
         display: "flex", flexDirection: "column", cursor: "pointer",
         borderRadius: 20, overflow: "hidden",
         outline: isSelected ? "2.5px solid #1d1d1f" : "none",
-        border: "1px solid #ebebed",
+        border: "none",
+        boxShadow: "none",
         transition: "outline .15s",
         background: "#fff",
       }}
