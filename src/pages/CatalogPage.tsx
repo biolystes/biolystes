@@ -351,8 +351,8 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
               { label: "Marché Luxe", val: luxury },
             ].map((tier, i) => (
               <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "4px 0" }}>
-                <span style={{ fontSize: 11, color: "#86868b", fontWeight: 400 }}>{tier.label}</span>
-                <span style={{ fontSize: 12, color: "#1d1d1f", fontWeight: 600 }}>{tier.val}€</span>
+              <span style={{ fontSize: 11, color: "#111", fontWeight: 400 }}>{tier.label}</span>
+                <span style={{ fontSize: 12, color: "#111", fontWeight: 600 }}>{tier.val}€</span>
               </div>
             ))}
           </div>
