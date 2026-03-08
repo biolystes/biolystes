@@ -602,10 +602,8 @@ export default function DecouvertePage() {
 
       <section id="section-lystesai" ref={setRef("lystesai")} className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8" style={{ overflow: "visible" }}>
         <LystesAiSection />
+        <AvantApresSection />
       </section>
-
-      {/* ═══ AVANT / AVEC BIOLYSTES ═══ */}
-      <AvantApresSection />
 
       {/* ═══ 7. PORTFOLIO — NOS CLIENTS ═══ */}
       <section id="section-portfolio" ref={setRef("portfolio")} className="py-6 md:py-8">

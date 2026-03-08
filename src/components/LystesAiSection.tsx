@@ -521,6 +521,7 @@ function TeamRow({ bg, reversed, title, kicker, desc, children }: {
 export default function LystesAiSection() {
   return (
     <>
+      <LystesHero />
       <TeamDiagnostics />
       <TeamExpertProduit />
       <TeamPhotographe />
@@ -528,7 +529,6 @@ export default function LystesAiSection() {
       <TeamMarketing />
       <TeamContenu />
       <TeamAnalytics />
-      <LystesHero />
     </>
   );
 }
