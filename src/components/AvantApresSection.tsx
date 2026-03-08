@@ -173,20 +173,22 @@ export default function AvantApresSection() {
                     <button className="w-full bg-foreground text-primary-foreground py-4 rounded-xl font-bold flex items-center justify-center gap-2 mb-6 text-[13px] tracking-wide uppercase">
                       AJOUTER AU PANIER<span className="w-px h-4 bg-muted-foreground/50 mx-2" />49,90€
                     </button>
-                    {/* UGC carousel */}
-                    <div className="overflow-x-auto pb-6 -mx-2 px-2 scrollbar-hide">
-                      <div className="flex gap-2 w-max">
+                    {/* UGC carousel - auto-scrolling */}
+                    <div className="overflow-hidden pb-6 -mx-2 px-2">
+                      <motion.div
+                        className="flex gap-2 w-max"
+                        animate={{ x: ["0%", "-50%"] }}
+                        transition={{ duration: 8, ease: "linear", repeat: Infinity }}
+                      >
                         {[
-                          kaniwaUgc2,
-                          kaniwaUgc3,
-                          kaniwaUgc4,
-                          kaniwaUgc5,
+                          kaniwaUgc2, kaniwaUgc3, kaniwaUgc4, kaniwaUgc5,
+                          kaniwaUgc2, kaniwaUgc3, kaniwaUgc4, kaniwaUgc5,
                         ].map((src, i) => (
                           <div key={i} className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
                             <img src={src} alt="" className="w-full h-full object-cover" />
                           </div>
                         ))}
-                      </div>
+                      </motion.div>
                     </div>
                   </div>
                 </div>
