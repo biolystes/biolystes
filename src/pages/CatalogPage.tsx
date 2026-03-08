@@ -585,7 +585,7 @@ export default function CatalogPage() {
         <p style={{ fontSize: 14, fontWeight: 500, color: "#86868b", marginBottom: 4 }}>Catalogue</p>
         <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.1, letterSpacing: "-.5px" }}>
           Vos produits<br />
-          <span style={{ color: "#d1d1d6" }}>en marque blanche.</span>
+          <span style={{ color: "#000" }}>en marque blanche.</span>
         </h1>
         <p style={{ fontSize: 14, color: "#86868b", marginTop: 10, maxWidth: 460, lineHeight: 1.65 }}>
           Sélectionnez les produits que vous souhaitez commercialiser sous votre propre marque.
