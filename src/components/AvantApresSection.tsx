@@ -181,7 +181,6 @@ export default function AvantApresSection() {
                           kaniwaUgc3,
                           kaniwaUgc4,
                           kaniwaUgc5,
-                          kaniwaUgc6,
                         ].map((src, i) => (
                           <div key={i} className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
                             <img src={src} alt="" className="w-full h-full object-cover" />
