@@ -25,7 +25,7 @@ export default function AvantApresSection() {
             {/* ── AVANT (Concurrents) ── */}
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
               className="flex flex-col items-center gap-8 relative z-10 w-[320px] shrink-0">
-              <div className="bg-foreground text-primary-foreground px-5 py-2 rounded-lg font-bold text-sm tracking-widest uppercase">Vos concurrents</div>
+              <div className="bg-[#f5f4df] text-[#111] px-5 py-2 rounded-lg font-bold text-[9px] tracking-widest uppercase">Vos concurrents</div>
               <div className="w-[320px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col border border-border">
                 {/* Nav bar */}
                 <div className="flex items-center justify-between px-5 pt-10 pb-4 z-20">
@@ -102,7 +102,7 @@ export default function AvantApresSection() {
             {/* ── AVEC BIOLYSTES ── */}
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
               className="flex flex-col items-center gap-8 relative w-[360px] shrink-0">
-              <div className="bg-foreground text-primary-foreground px-5 py-2 rounded-lg font-bold text-sm tracking-widest uppercase z-10">
+              <div className="bg-[#f5f4df] text-[#111] px-5 py-2 rounded-lg font-bold text-[9px] tracking-widest uppercase z-10">
                 Vous avec Biolystes AI
               </div>
               <div className="relative">
