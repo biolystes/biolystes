@@ -296,13 +296,14 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
         display: "flex", flexDirection: "column", cursor: "pointer",
         borderRadius: 20, overflow: "hidden",
         outline: isSelected ? "2.5px solid #1d1d1f" : "none",
-        border: "1px solid #ebebed",
+        border: "none",
+        boxShadow: "none",
         transition: "outline .15s",
         background: "#fff",
       }}
     >
       {/* Image area */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "1", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#f5f5f7" }}>
+      <div style={{ position: "relative", width: "100%", aspectRatio: "1", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#ecebd7" }}>
         {/* # badge top-left */}
         <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, width: 26, height: 26, borderRadius: 8, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#86868b" }}>#</div>
 
@@ -324,9 +325,9 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
 
         {img
           ? <img src={img} alt={product.name} loading="lazy"
-              style={{ width: "75%", height: "80%", objectFit: "contain", transition: "transform .4s" }}
-              onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
-              onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
+              style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1.4)", transition: "transform .4s" }}
+              onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.45)")}
+              onMouseLeave={e => (e.currentTarget.style.transform = "scale(1.4)")} />
           : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#b0bec5" }}><Icons.box size={40} sw={1} /></div>
         }
       </div>
@@ -374,7 +375,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
 // ─── Skeleton ─────────────────────────────────────────────
 function ProductSkeleton() {
   return (
-    <div style={{ borderRadius: 20, overflow: "hidden", border: "1px solid #ebebed", background: "#fff" }}>
+    <div style={{ borderRadius: 20, overflow: "hidden", border: "none", boxShadow: "none", background: "#fff" }}>
       <div style={{ width: "100%", aspectRatio: "1", background: "#f5f5f7", animation: "pulse 1.5s infinite" }} />
       <div style={{ padding: "16px 18px" }}>
         <div style={{ height: 10, width: "75%", background: "#e5e5e7", borderRadius: 4, marginBottom: 8, animation: "pulse 1.5s infinite" }} />
@@ -585,7 +586,7 @@ export default function CatalogPage() {
         <p style={{ fontSize: 14, fontWeight: 500, color: "#86868b", marginBottom: 4 }}>Catalogue</p>
         <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.1, letterSpacing: "-.5px" }}>
           Vos produits<br />
-          <span style={{ color: "#d1d1d6" }}>en marque blanche.</span>
+          <span style={{ color: "#000" }}>en marque blanche.</span>
         </h1>
         <p style={{ fontSize: 14, color: "#86868b", marginTop: 10, maxWidth: 460, lineHeight: 1.65 }}>
           Sélectionnez les produits que vous souhaitez commercialiser sous votre propre marque.
