@@ -181,8 +181,8 @@ export default function AvantApresSection() {
                         transition={{ duration: 8, ease: "linear", repeat: Infinity }}
                       >
                         {[
-                          kaniwaUgc2, kaniwaUgc3, kaniwaUgc4, kaniwaUgc5,
-                          kaniwaUgc2, kaniwaUgc3, kaniwaUgc4, kaniwaUgc5,
+                          kaniwaUgc3, kaniwaUgc4, kaniwaUgc2, kaniwaUgc5,
+                          kaniwaUgc3, kaniwaUgc4, kaniwaUgc2, kaniwaUgc5,
                         ].map((src, i) => (
                           <div key={i} className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
                             <img src={src} alt="" className="w-full h-full object-cover" />
