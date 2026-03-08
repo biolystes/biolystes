@@ -25,6 +25,7 @@ import NotFound from "./pages/NotFound";
 import MentionsLegalesPage from "./pages/MentionsLegalesPage";
 import PolitiqueConfidentialitePage from "./pages/PolitiqueConfidentialitePage";
 import CGVPage from "./pages/CGVPage";
+import OnboardingPage from "./pages/OnboardingPage";
 
 const queryClient = new QueryClient();
 
@@ -58,6 +59,9 @@ function AppRoutes() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignupPage />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+
+      {/* Onboarding */}
+      <Route path="/onboarding" element={<ProtectedRoute><OnboardingPage /></ProtectedRoute>} />
 
       {/* Client Dashboard */}
       <Route path="/espace-client" element={<ProtectedRoute><Layout><ClientDashboardPage /></Layout></ProtectedRoute>} />
