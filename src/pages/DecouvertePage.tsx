@@ -562,9 +562,9 @@ export default function DecouvertePage() {
                 </div>
               </div>
               <div className="space-y-4 text-sm text-foreground leading-relaxed">
-                <p>Un stock tampon est maintenu pour vos produits les plus vendus.</p>
-                <p>Réapprovisionnement automatique chaque semaine, sans minimum de commande.</p>
-                <p>Vos clients reçoivent leur commande <strong className="text-foreground">en 24 à 48 heures.</strong></p>
+                <p>Achetez uniquement le stock nécessaire, sans minimum de quantité ni MOQ, et placez-le chez notre logisticien.</p>
+                <p>Réapprovisionnement en une semaine au rythme de vos ventes — commandez juste ce qu'il faut, sans risque de surstock.</p>
+                <p>Vos clients reçoivent leur commande <strong className="text-foreground">en 24 à 48 heures,</strong> expédiée directement par le logisticien.</p>
               </div>
             </motion.div>
           </div>
