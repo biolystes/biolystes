@@ -303,7 +303,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
       }}
     >
       {/* Image area */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "1", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#ecebd7", minHeight: 423 }}>
+      <div style={{ position: "relative", width: "100%", aspectRatio: "1", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#ecebd7", minHeight: 354 }}>
         {/* # badge top-left */}
         <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, width: 26, height: 26, borderRadius: 8, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#86868b" }}>#</div>
 
@@ -325,9 +325,9 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
 
         {img
           ? <img src={img} alt={product.name} loading="lazy"
-              style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1.4)", transition: "transform .4s" }}
-              onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.45)")}
-              onMouseLeave={e => (e.currentTarget.style.transform = "scale(1.4)")} />
+              style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1)", transition: "transform .4s" }}
+              onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
+              onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
           : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#b0bec5" }}><Icons.box size={40} sw={1} /></div>
         }
       </div>
