@@ -205,6 +205,74 @@ export type Database = {
         }
         Relationships: []
       }
+      contract_amendments: {
+        Row: {
+          certificat_pdf_url: string | null
+          contenu_hash: string | null
+          contenu_html: string
+          created_at: string | null
+          id: string
+          motif: string
+          parent_contract_id: string
+          signature_image_url: string | null
+          signed_at: string | null
+        }
+        Insert: {
+          certificat_pdf_url?: string | null
+          contenu_hash?: string | null
+          contenu_html: string
+          created_at?: string | null
+          id?: string
+          motif: string
+          parent_contract_id: string
+          signature_image_url?: string | null
+          signed_at?: string | null
+        }
+        Update: {
+          certificat_pdf_url?: string | null
+          contenu_hash?: string | null
+          contenu_html?: string
+          created_at?: string | null
+          id?: string
+          motif?: string
+          parent_contract_id?: string
+          signature_image_url?: string | null
+          signed_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contract_amendments_parent_contract_id_fkey"
+            columns: ["parent_contract_id"]
+            isOneToOne: false
+            referencedRelation: "onboarding_contracts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contract_templates: {
+        Row: {
+          active: boolean | null
+          contenu_html: string
+          created_at: string | null
+          id: string
+          version: string
+        }
+        Insert: {
+          active?: boolean | null
+          contenu_html: string
+          created_at?: string | null
+          id?: string
+          version: string
+        }
+        Update: {
+          active?: boolean | null
+          contenu_html?: string
+          created_at?: string | null
+          id?: string
+          version?: string
+        }
+        Relationships: []
+      }
       contracts: {
         Row: {
           created_at: string | null
@@ -258,6 +326,77 @@ export type Database = {
             columns: ["subscription_id"]
             isOneToOne: false
             referencedRelation: "subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      onboarding_contracts: {
+        Row: {
+          brand_name: string | null
+          certificat_pdf_url: string | null
+          contenu_hash: string | null
+          contenu_html: string
+          created_at: string | null
+          id: string
+          montant_abonnement: number
+          montant_setup: number
+          numero_contrat: string
+          pack: string
+          produits_selectionnes: Json | null
+          signature_image_url: string | null
+          signature_ip: string | null
+          signature_ua: string | null
+          signed_at: string | null
+          statut: string
+          template_id: string | null
+          user_id: string
+        }
+        Insert: {
+          brand_name?: string | null
+          certificat_pdf_url?: string | null
+          contenu_hash?: string | null
+          contenu_html: string
+          created_at?: string | null
+          id?: string
+          montant_abonnement?: number
+          montant_setup: number
+          numero_contrat: string
+          pack: string
+          produits_selectionnes?: Json | null
+          signature_image_url?: string | null
+          signature_ip?: string | null
+          signature_ua?: string | null
+          signed_at?: string | null
+          statut?: string
+          template_id?: string | null
+          user_id: string
+        }
+        Update: {
+          brand_name?: string | null
+          certificat_pdf_url?: string | null
+          contenu_hash?: string | null
+          contenu_html?: string
+          created_at?: string | null
+          id?: string
+          montant_abonnement?: number
+          montant_setup?: number
+          numero_contrat?: string
+          pack?: string
+          produits_selectionnes?: Json | null
+          signature_image_url?: string | null
+          signature_ip?: string | null
+          signature_ua?: string | null
+          signed_at?: string | null
+          statut?: string
+          template_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "onboarding_contracts_template_id_fkey"
+            columns: ["template_id"]
+            isOneToOne: false
+            referencedRelation: "contract_templates"
             referencedColumns: ["id"]
           },
         ]
@@ -337,44 +476,89 @@ export type Database = {
         Row: {
           address: string | null
           avatar_url: string | null
+          civilite: string | null
+          code_postal: string | null
           company_name: string | null
           created_at: string | null
+          date_naissance: string | null
           email: string | null
           first_name: string | null
+          forme_juridique: string | null
           id: string
           last_name: string | null
+          nationalite: string | null
+          numero_tva: string | null
           onboarding_completed: boolean | null
+          pays: string | null
           phone: string | null
+          piece_identite_url: string | null
+          raison_sociale: string | null
+          rcs_siret: string | null
+          representant_nom: string | null
+          representant_qualite: string | null
+          siege_social: string | null
           siret: string | null
+          statut_juridique: string | null
           updated_at: string | null
+          ville: string | null
         }
         Insert: {
           address?: string | null
           avatar_url?: string | null
+          civilite?: string | null
+          code_postal?: string | null
           company_name?: string | null
           created_at?: string | null
+          date_naissance?: string | null
           email?: string | null
           first_name?: string | null
+          forme_juridique?: string | null
           id: string
           last_name?: string | null
+          nationalite?: string | null
+          numero_tva?: string | null
           onboarding_completed?: boolean | null
+          pays?: string | null
           phone?: string | null
+          piece_identite_url?: string | null
+          raison_sociale?: string | null
+          rcs_siret?: string | null
+          representant_nom?: string | null
+          representant_qualite?: string | null
+          siege_social?: string | null
           siret?: string | null
+          statut_juridique?: string | null
           updated_at?: string | null
+          ville?: string | null
         }
         Update: {
           address?: string | null
           avatar_url?: string | null
+          civilite?: string | null
+          code_postal?: string | null
           company_name?: string | null
           created_at?: string | null
+          date_naissance?: string | null
           email?: string | null
           first_name?: string | null
+          forme_juridique?: string | null
           id?: string
           last_name?: string | null
+          nationalite?: string | null
+          numero_tva?: string | null
           onboarding_completed?: boolean | null
+          pays?: string | null
           phone?: string | null
+          piece_identite_url?: string | null
+          raison_sociale?: string | null
+          rcs_siret?: string | null
+          representant_nom?: string | null
+          representant_qualite?: string | null
+          siege_social?: string | null
           siret?: string | null
+          statut_juridique?: string | null
           updated_at?: string | null
+          ville?: string | null
         }
         Relationships: []
       }
@@ -551,6 +735,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      generate_contract_number: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
