@@ -182,7 +182,7 @@ export default function StepContract() {
   if (signed) {
     return (
       <div className="max-w-xl mx-auto text-center py-12">
-        <CheckCircle2 className="w-16 h-16 mx-auto mb-4 text-green-500" />
+        <CheckCircle2 className="w-16 h-16 mx-auto mb-4 text-primary" />
         <h2 className="text-2xl font-bold mb-2 text-foreground">Contrat signé !</h2>
         <p className="text-muted-foreground mb-8">Votre contrat a été signé avec succès. Vous pouvez maintenant procéder au paiement.</p>
         <Button onClick={() => setStep(5)} size="lg" className="w-full">
