@@ -299,7 +299,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
         border: "none",
         boxShadow: "none",
         transition: "outline .15s",
-        background: "#fff",
+        background: "#ebebd6",
       }}
     >
       {/* Image area */}
