@@ -360,7 +360,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
 
         {/* Bottom: price + categories */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "nowrap", gap: 6, overflow: "hidden", marginTop: "auto", paddingTop: 6, borderTop: "1px solid #f0f0f0" }}>
-          {price && <span style={{ fontSize: 15, fontWeight: 700, color: "#1d1d1f", flexShrink: 0 }}>{Math.round(price)}€ <span style={{ fontSize: 9, fontWeight: 400, color: "#86868b" }}>HT</span></span>}
+          {price && <span style={{ fontSize: 15, fontWeight: 700, color: "#111", flexShrink: 0 }}>{Math.round(price)}€ <span style={{ fontSize: 9, fontWeight: 400, color: "#111" }}>HT</span></span>}
           <div style={{ display: "flex", gap: 4, flexWrap: "nowrap", overflow: "hidden", justifyContent: "flex-end" }}>
             {displayCats.slice(0, 2).map((cat, i) => (
               <span key={i} style={{ padding: "3px 9px", borderRadius: 20, fontSize: 8, fontWeight: 700, letterSpacing: ".4px", textTransform: "uppercase", background: "#1d1d1f", color: "#fff", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 100 }}>{cat}</span>
