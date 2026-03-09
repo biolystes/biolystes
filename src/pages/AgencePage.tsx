@@ -234,7 +234,7 @@ function StepProgress({ activeStep }: { activeStep: StepKey }) {
   );
 }
 
-export default function DecouvertePage() {
+export default function AgencePage() {
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState<StepKey>("decouvre");
   const [catalogProducts, setCatalogProducts] = useState<{ id: number; name: string; price: string; image: string }[]>([]);

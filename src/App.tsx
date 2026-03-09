@@ -27,6 +27,7 @@ import PolitiqueConfidentialitePage from "./pages/PolitiqueConfidentialitePage";
 import CGVPage from "./pages/CGVPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import AIPage from "./pages/AIPage";
+import AgencePage from "./pages/AgencePage";
 
 const queryClient = new QueryClient();
 
