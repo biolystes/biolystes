@@ -464,32 +464,8 @@ export default function DecouvertePage() {
 
       {/* ═══ 18 ANS D'EXPÉRIENCE ═══ */}
       <section id="section-experience" ref={setRef("experience")} className="py-12 md:py-16 bg-background">
-        {/* Video carousel - auto-scrolling */}
-        <div className="w-full overflow-hidden mb-16">
-          <motion.div
-            className="flex gap-4"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-            style={{ width: "max-content" }}
-          >
-            {[
-              "/videos/exp-1.mp4", "/videos/exp-2.mov", "/videos/exp-3.mov",
-              "/videos/exp-9.mp4", "/videos/exp-11.mp4", "/videos/exp-12.mp4",
-              "/videos/exp-4.mov", "/videos/exp-5.mov",
-            ].map((src, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 w-[200px] md:w-[240px] aspect-[9/16] rounded-2xl overflow-hidden bg-black"
-              >
-                <SafeVideo
-                  src={src}
-                  className="w-full h-full object-cover"
-                  lazy
-                />
-              </div>
-            ))}
-          </motion.div>
-        </div>
+        {/* Video carousel with arrows */}
+        <HomeExperienceCarousel />
 
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
