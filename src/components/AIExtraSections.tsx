@@ -11,6 +11,21 @@ const fadeUp = {
 
 /* ═══ LEAKY BUCKET ═══ */
 function LeakyBucketSection() {
+  const abandonedCarts = [
+    { id: "B8#$rY3j", amount: null },
+    { id: "a9X#4kZ", amount: "645,00 €" },
+    { id: "Q7lmP28rT", amount: "1 482,00 €" },
+    { id: "LOp#Q7", amount: "327,00 €" },
+    { id: "MSSKl3n%Lq", amount: "912,00 €" },
+    { id: "B8#$rY3j", amount: "2 301,00 €" },
+  ];
+
+  const agents = [
+    { icon: "📋", name: "Diagnostic" },
+    { icon: "✉️", name: "Expert produit" },
+    { icon: "🎯", name: "Coach post-achat" },
+  ];
+
   return (
     <section className="py-[100px] md:py-[140px] bg-background">
       <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
@@ -26,42 +41,73 @@ function LeakyBucketSection() {
         </motion.div>
         <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
           className="text-center text-[15px] md:text-[17px] text-muted-foreground leading-[1.7] max-w-[780px] mx-auto mb-16 md:mb-24">
-          Chaque mois, vous investissez en pub, en contenu, en collaborations. Le trafic arrive. Mais sur votre site, le visiteur hésite, doute, repart — pas accompagné par un expert à chaque étape de son parcours sur votre e-commerce. Et vous recommencez.
+          Chaque mois, vous investissez en pub, en contenu, en collaborations. Le trafic arrive. Mais sur votre site, le visiteur hésite, doute, repart — pas accompagné par un expert à chaque étape de son parcours.
         </motion.p>
+
+        {/* Phone mockups comparison */}
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
           className="flex justify-center">
-          {/* Visual: simplified wireframe of leaky bucket concept */}
-          <div className="w-full max-w-[900px] bg-muted/50 rounded-3xl p-8 md:p-12 border border-border">
-            <div className="grid md:grid-cols-2 gap-8 md:gap-12">
-              {/* Sans Lystes */}
-              <div className="text-center">
-                <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-muted-foreground mb-4">Sans Lystes AI</div>
-                <div className="relative mx-auto w-[160px] h-[200px] border-2 border-dashed border-muted-foreground/30 rounded-b-[40px] rounded-t-xl flex flex-col items-center justify-center">
-                  <div className="text-[32px] font-light font-['Instrument_Serif'] italic text-muted-foreground">2%</div>
-                  <div className="text-[10px] text-muted-foreground uppercase tracking-wide">conversion</div>
-                  {/* Leak holes */}
-                  {[30, 60, 90, 120].map((top, i) => (
-                    <div key={i} className="absolute -right-3 w-2 h-2 rounded-full bg-destructive/40" style={{ top }} />
-                  ))}
+          <div className="w-full max-w-[1000px] flex flex-col md:flex-row items-center md:items-start justify-center gap-6 md:gap-0 relative">
+
+            {/* Left phone — Sans Lystes */}
+            <div className="w-[280px] md:w-[320px] shrink-0">
+              <div className="rounded-[32px] border-2 border-border bg-background p-5 pt-8 relative">
+                {/* Notch */}
+                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[80px] h-[6px] bg-muted rounded-full" />
+                <h4 className="text-[14px] font-semibold text-foreground mb-4">Votre e-commerce</h4>
+                <div className="bg-muted/60 rounded-xl p-4 mb-4 text-[13px] leading-[1.8] text-foreground">
+                  <div><span className="font-semibold">Visiteurs :</span> 10 000/mois</div>
+                  <div><span className="font-semibold">Taux de conversion :</span> 1.8%</div>
+                  <div><span className="font-semibold">Ventes :</span> 180</div>
+                  <div className="text-destructive font-bold mt-1">CA perdu : -17 640€</div>
                 </div>
-                <p className="text-[12px] text-muted-foreground mt-4">98% des visiteurs repartent</p>
-              </div>
-              {/* Avec Lystes */}
-              <div className="text-center">
-                <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-foreground mb-4">Avec Lystes AI</div>
-                <div className="relative mx-auto w-[160px] h-[200px] border-2 border-foreground rounded-b-[40px] rounded-t-xl flex flex-col items-center justify-center">
-                  <div className="text-[32px] font-light font-['Instrument_Serif'] italic text-foreground">8%+</div>
-                  <div className="text-[10px] text-foreground uppercase tracking-wide">conversion</div>
-                  {/* Sealed holes */}
-                  {[30, 60, 90, 120].map((top, i) => (
-                    <div key={i} className="absolute -right-3 w-2 h-2 rounded-full bg-foreground flex items-center justify-center" style={{ top }}>
-                      <div className="w-1 h-1 rounded-full bg-background" />
+                <h5 className="text-[12px] font-semibold text-foreground mb-2">Les abandons de panier</h5>
+                <div className="space-y-0 divide-y divide-border">
+                  {abandonedCarts.map((c, i) => (
+                    <div key={i} className="flex items-center justify-between py-2 text-[12px]">
+                      <div className="flex items-center gap-2 text-muted-foreground">
+                        <span className="text-muted-foreground/50">?</span>
+                        <span className="font-mono">{c.id}</span>
+                      </div>
+                      {c.amount && <span className="text-destructive/70">~ {c.amount}</span>}
                     </div>
                   ))}
                 </div>
-                <p className="text-[12px] text-foreground font-medium mt-4">Chaque point de fuite est colmaté par un agent IA</p>
               </div>
             </div>
+
+            {/* Center connector — Lystes badge */}
+            <div className="hidden md:flex flex-col items-center justify-center self-center mx-[-20px] z-10">
+              <div className="w-[1px] h-[40px] bg-border" />
+              <div className="bg-background border border-border rounded-xl px-5 py-2.5 shadow-sm flex items-center gap-2">
+                <span className="text-[14px] font-semibold text-foreground tracking-tight">Lystes</span>
+              </div>
+              <div className="w-[1px] h-[40px] bg-border" />
+            </div>
+
+            {/* Right phone — Avec Lystes AI */}
+            <div className="w-[280px] md:w-[320px] shrink-0">
+              <div className="rounded-[32px] border-2 border-foreground bg-background p-5 pt-8 relative">
+                {/* Notch */}
+                <div className="absolute top-3 left-1/2 -translate-x-1/2 w-[80px] h-[6px] bg-muted rounded-full" />
+                <h4 className="text-[14px] font-semibold text-foreground mb-4">Avec Lystes AI</h4>
+                <div className="bg-muted/60 rounded-xl p-4 mb-4 text-[13px] leading-[1.8] text-foreground">
+                  <div><span className="font-semibold">Visiteurs :</span> 10 000/mois</div>
+                  <div><span className="font-semibold">Taux de conversion :</span> 3.6%</div>
+                  <div><span className="font-semibold">Ventes :</span> 360</div>
+                  <div className="text-green-600 font-bold mt-1">CA récupéré : +17 640€</div>
+                </div>
+                <div className="space-y-2.5">
+                  {agents.map((a) => (
+                    <div key={a.name} className="flex items-center gap-3 bg-muted/40 rounded-xl px-4 py-3 text-[13px] font-medium text-foreground">
+                      <span>{a.icon}</span>
+                      <span>{a.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
           </div>
         </motion.div>
       </div>
