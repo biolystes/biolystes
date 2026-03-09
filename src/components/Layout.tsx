@@ -44,7 +44,7 @@ function TopNavBar() {
       {/* Logo */}
       <Link to="/" className="flex items-center shrink-0 mr-3">
         <img
-          src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
+          src="https://biolystes.pro/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
           alt="Lystes"
           className="h-10 w-10 animate-tourne object-contain"
         />
