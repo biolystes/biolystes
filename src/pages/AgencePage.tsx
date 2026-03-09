@@ -117,7 +117,15 @@ export default function AgencePage() {
 
       {/* ═══ 3. LYSTES AI ═══ */}
       <section id="section-lystesai" className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8" style={{ overflow: "visible" }}>
-        <LystesAiSection />
+        <LystesAiSection titleOverrides={{
+          diagnostics: "Gestion de vos réseaux sociaux",
+          expertProduit: "Gestion de votre site ecommerce",
+          photographe: "Gestion de vos contenus photos et vidéos",
+          seo: "Gestion de votre référencement",
+          marketing: "Gestion de votre marketing",
+          contenu: "Gestion de vos contenus créatifs",
+          analytics: "Gestion de vos données et analytics",
+        }} />
         <AvantApresSection />
       </section>
 

@@ -216,9 +216,9 @@ function BeforeAfterPhones() {
    TEAM DETAIL SECTIONS
    ═══════════════════════════════════════════════════ */
 
-function TeamDiagnostics() {
+function TeamDiagnostics({ titleOverride }: { titleOverride?: string }) {
   return (
-    <TeamRow bg="bg-background" title="Diagnostic peau ou cheveux intelligent" kicker="Équipe Diagnostics AI"
+    <TeamRow bg="bg-background" title={titleOverride || "Diagnostic peau ou cheveux intelligent"} kicker="Équipe Diagnostics AI"
       desc="Nous mettons en place une équipe Diagnostics AI, qui scanne le visage de vos visiteurs via un simple selfie, analyse leur peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.">
       <div className="flex flex-col md:flex-row gap-4 items-stretch">
         <SafeVideo src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/video//diagnosticai.mp4" className="w-full md:w-1/2 h-[400px] object-cover rounded-2xl" lazy />
@@ -231,9 +231,9 @@ function TeamDiagnostics() {
   );
 }
 
-function TeamExpertProduit() {
+function TeamExpertProduit({ titleOverride }: { titleOverride?: string }) {
   return (
-    <TeamRow bg="bg-secondary" reversed title="Agent conversationnel AI sur chaque fiche produit" kicker="Équipe Expert Produit AI"
+    <TeamRow bg="bg-secondary" reversed title={titleOverride || "Agent conversationnel AI sur chaque fiche produit"} kicker="Équipe Expert Produit AI"
       desc="Nous déployons une équipe d'agents conversationnels IA dédiée à chaque produit, capable de répondre instantanément aux questions de vos clients concernant la composition, la compatibilité ou les délais. Fonctionnant comme votre meilleur vendeur, parfaitement formé sur chaque détail de vos produits, cette solution vise à maximiser vos ventes et à réduire les abandons de panier. De plus, elle identifie et remonte les préoccupations récurrentes de vos clients, vous permettant ainsi d'optimiser vos stratégies marketing.">
       <div className="flex justify-center">
         <div className="w-[320px] bg-background rounded-[2rem] overflow-hidden border border-border">
@@ -268,9 +268,9 @@ function TeamExpertProduit() {
   );
 }
 
-function TeamPhotographe() {
+function TeamPhotographe({ titleOverride }: { titleOverride?: string }) {
   return (
-    <TeamRow bg="bg-background" title="Photos studio en quelques secondes" kicker="Équipe Photographe AI"
+    <TeamRow bg="bg-background" title={titleOverride || "Photos studio en quelques secondes"} kicker="Équipe Photographe AI"
       desc="Nous mettons en place une équipe Photographe AI, qui génère des photos produits niveau studio professionnel, des visuels UGC avec de vrais visages pour vos réseaux sociaux et des contenus marketing. En quelques secondes, sans shooting.">
       <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-1.5" style={{ gridAutoRows: "180px" }}>
         <img className="col-span-2 w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-1.jpg" alt="" />
@@ -284,9 +284,9 @@ function TeamPhotographe() {
   );
 }
 
-function TeamSEO() {
+function TeamSEO({ titleOverride }: { titleOverride?: string }) {
   return (
-    <TeamRow bg="bg-secondary" reversed title="Visible sur Google dès le lancement" kicker="Équipe Expert SEO AI"
+    <TeamRow bg="bg-secondary" reversed title={titleOverride || "Visible sur Google dès le lancement"} kicker="Équipe Expert SEO AI"
       desc="Nous mettons en place une équipe Expert SEO AI, qui optimise automatiquement vos fiches produits, méta-descriptions, mots-clés et contenus pour que votre boutique soit visible sur Google dès le lancement.">
       <div>
         <div className="flex items-center gap-2.5 mb-4">
@@ -319,7 +319,7 @@ function TeamSEO() {
   );
 }
 
-function TeamMarketing() {
+function TeamMarketing({ titleOverride }: { titleOverride?: string }) {
   const tasks = [
     { label: "Lundi", title: "Campagne email de bienvenue", value: "Envoyée à 100% des nouveaux inscrits", status: "done" },
     { label: "Mardi", title: "Post Instagram — Avant/Après", value: "Publié avec 12 hashtags optimisés", status: "done" },
@@ -329,7 +329,7 @@ function TeamMarketing() {
   ];
 
   return (
-    <TeamRow bg="bg-background" title="Votre directeur marketing 24h/24" kicker="Équipe Marketing AI"
+    <TeamRow bg="bg-background" title={titleOverride || "Votre directeur marketing 24h/24"} kicker="Équipe Marketing AI"
       desc="Nous mettons en place une équipe Marketing AI, qui crée des plans d'action personnalisés, des campagnes email et des stratégies de conversion. Un directeur marketing qui travaille pour vous 24h/24.">
       <div className="w-full max-w-2xl mx-auto space-y-3">
         {/* Header */}
@@ -373,9 +373,9 @@ function TeamMarketing() {
   );
 }
 
-function TeamContenu() {
+function TeamContenu({ titleOverride }: { titleOverride?: string }) {
   return (
-    <TeamRow bg="bg-secondary" reversed title="Du contenu pro en quelques secondes" kicker="Équipe Créateur de contenu AI"
+    <TeamRow bg="bg-secondary" reversed title={titleOverride || "Du contenu pro en quelques secondes"} kicker="Équipe Créateur de contenu AI"
       desc="Nous mettons en place une équipe Créateur de contenu AI, qui produit des contenus pour vos réseaux sociaux, articles de blog et descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
       <div className="flex gap-3.5 flex-wrap">
         {[
@@ -406,12 +406,12 @@ function TeamContenu() {
   );
 }
 
-function TeamAnalytics() {
+function TeamAnalytics({ titleOverride }: { titleOverride?: string }) {
   const bars = [38, 52, 45, 68, 82, 74, 91];
   const days = ["L", "M", "M", "J", "V", "S", "D"];
 
   return (
-    <TeamRow bg="bg-background" title="Des décisions basées sur la réalité" kicker="Équipe Analytics AI"
+    <TeamRow bg="bg-background" title={titleOverride || "Des décisions basées sur la réalité"} kicker="Équipe Analytics AI"
       desc="Nous mettons en place une équipe Analytics AI, qui connaît vos chiffres en temps réel. CA, tops produits, questions clients, points de blocage. Des décisions basées sur la réalité, pas sur des suppositions.">
       <div>
         {/* KPIs */}
@@ -524,17 +524,27 @@ function TeamRow({ bg, reversed, title, kicker, desc, children }: {
 /* ═══════════════════════════════════════════════════
    MAIN EXPORT
    ═══════════════════════════════════════════════════ */
-export default function LystesAiSection() {
+export interface LystesAiTitleOverrides {
+  diagnostics?: string;
+  expertProduit?: string;
+  photographe?: string;
+  seo?: string;
+  marketing?: string;
+  contenu?: string;
+  analytics?: string;
+}
+
+export default function LystesAiSection({ titleOverrides }: { titleOverrides?: LystesAiTitleOverrides } = {}) {
   return (
     <>
       <LystesHero />
-      <TeamDiagnostics />
-      <TeamExpertProduit />
-      <TeamPhotographe />
-      <TeamSEO />
-      <TeamMarketing />
-      <TeamContenu />
-      <TeamAnalytics />
+      <TeamDiagnostics titleOverride={titleOverrides?.diagnostics} />
+      <TeamExpertProduit titleOverride={titleOverrides?.expertProduit} />
+      <TeamPhotographe titleOverride={titleOverrides?.photographe} />
+      <TeamSEO titleOverride={titleOverrides?.seo} />
+      <TeamMarketing titleOverride={titleOverrides?.marketing} />
+      <TeamContenu titleOverride={titleOverrides?.contenu} />
+      <TeamAnalytics titleOverride={titleOverrides?.analytics} />
     </>
   );
 }
