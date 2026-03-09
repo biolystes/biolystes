@@ -62,6 +62,7 @@ const homeExpVideos = [
   "/videos/exp-9.mp4", "/videos/exp-11.mp4", "/videos/exp-12.mp4",
   "/videos/exp-4.mov", "/videos/exp-5.mov",
   "/videos/exp-42.mov", "/videos/exp-43.mov",
+  "/videos/exp-44.mp4", "/videos/exp-45.mov", "/videos/exp-46.mov", "/videos/exp-47.mov",
 ];
 
 function HomeExperienceCarousel() {
