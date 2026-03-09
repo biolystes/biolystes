@@ -214,13 +214,25 @@ function BlocInfluence() {
   );
 }
 
-/* ═══ 6. REPORTING & ANALYTICS ═══ */
+/* ═══ 6. EVENTS BEAUTY ═══ */
+function BlocEvents() {
+  return (
+    <TeamRow bg="bg-secondary" reversed title="Gestion de vos events" kicker="Events Beauty"
+      desc="Nous mettons en place une organisation pour sublimer vos events beauty. Afin de vous faire connaître.">
+      <div className="rounded-2xl overflow-hidden">
+        <SafeVideo src="/videos/event-beauty.mp4" className="w-full h-[400px] object-cover" lazy />
+      </div>
+    </TeamRow>
+  );
+}
+
+/* ═══ 7. REPORTING & ANALYTICS ═══ */
 function BlocAnalytics() {
   const bars = [38, 52, 45, 68, 82, 74, 91];
   const days = ["L", "M", "M", "J", "V", "S", "D"];
 
   return (
-    <TeamRow bg="bg-secondary" reversed title="Gestion de vos campagnes Meta Ads & Google Ads" kicker="Publicité digitale"
+    <TeamRow bg="bg-background" reversed title="Gestion de vos campagnes Meta Ads & Google Ads" kicker="Publicité digitale"
       desc="On crée, optimise et pilote vos campagnes publicitaires. Ciblage précis de votre audience beauté, A/B testing des visuels, retargeting et analyse du ROI. Chaque euro investi est suivi.">
       <div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 mb-5">
@@ -229,7 +241,7 @@ function BlocAnalytics() {
             { label: "Top Produit", val: "Crème Anti-Âge", trend: "34 ventes" },
             { label: "Taux Conversion", val: "4.2%", trend: "+0.8pt" },
           ].map(k => (
-            <div key={k.label} className="bg-background rounded-xl p-3.5 text-center">
+            <div key={k.label} className="bg-secondary rounded-xl p-3.5 text-center">
               <p className="text-[10px] text-muted-foreground font-semibold mb-1">{k.label}</p>
               <p className="text-[17px] font-black text-foreground">{k.val}</p>
               <p className="text-[10px] text-[#10b981] font-semibold mt-0.5">{k.trend}</p>
@@ -259,6 +271,7 @@ export default function AgenceServicesSection() {
       <BlocContenu />
       <BlocSEO />
       <BlocInfluence />
+      <BlocEvents />
       <BlocAnalytics />
     </>
   );
