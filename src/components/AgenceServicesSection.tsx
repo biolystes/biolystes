@@ -90,7 +90,7 @@ function BlocPublicite() {
     <TeamRow bg="bg-secondary" reversed title="Création de site ecommerce" kicker="Site web & E-commerce"
       desc="On conçoit votre boutique en ligne de A à Z : design sur-mesure, fiches produits optimisées, tunnel de vente performant et intégration des moyens de paiement. Un site qui convertit, pensé pour la cosmétique.">
       <div className="rounded-2xl overflow-hidden">
-        <SafeVideo src="/videos/ecommerce-demo.mov" className="w-full h-[400px] object-cover" lazy />
+        <SafeVideo src="/videos/ecommerce-demo.mov" className="w-full object-cover" lazy />
       </div>
     </TeamRow>
   );
