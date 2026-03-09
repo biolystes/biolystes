@@ -122,6 +122,12 @@ export default function AIPage() {
       <section className="bg-foreground text-primary-foreground">
         <LystesAiSection />
       </section>
+
+      {/* ═══ TEAM ORG CHART ═══ */}
+      <AITeamOrgChart />
+
+      {/* ═══ CLIENTS SHOWCASE ═══ */}
+      <AIClientsShowcase />
     </div>
   );
 }
