@@ -92,7 +92,7 @@ export default function AITeamOrgChart() {
   };
 
   return (
-    <section className="py-[80px] md:py-[120px] bg-muted/50">
+    <section className="py-[80px] md:py-[120px] bg-transparent">
       <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
 
         {/* Header */}
