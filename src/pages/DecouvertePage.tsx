@@ -57,6 +57,42 @@ import cert8 from "@/assets/cert-8.png";
 
 const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7, cert8];
 
+const homeExpVideos = [
+  "/videos/exp-1.mp4", "/videos/exp-2.mov", "/videos/exp-3.mov",
+  "/videos/exp-9.mp4", "/videos/exp-11.mp4", "/videos/exp-12.mp4",
+  "/videos/exp-4.mov", "/videos/exp-5.mov",
+];
+
+function HomeExperienceCarousel() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: true, dragFree: true, slidesToScroll: 2 });
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const interval = setInterval(() => emblaApi.scrollNext(), 3000);
+    return () => clearInterval(interval);
+  }, [emblaApi]);
+
+  return (
+    <div className="w-full overflow-hidden mb-16 relative">
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex gap-4">
+          {homeExpVideos.map((src, i) => (
+            <div key={i} className="flex-shrink-0 w-[200px] md:w-[240px] aspect-[9/16] rounded-2xl overflow-hidden bg-black">
+              <SafeVideo src={src} className="w-full h-full object-cover" lazy />
+            </div>
+          ))}
+        </div>
+      </div>
+      <button onClick={() => emblaApi?.scrollPrev()} className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-foreground text-background flex items-center justify-center shadow-xl z-10 hover:opacity-80 transition-opacity">
+        <ChevronLeft className="h-5 w-5" />
+      </button>
+      <button onClick={() => emblaApi?.scrollNext()} className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-foreground text-background flex items-center justify-center shadow-xl z-10 hover:opacity-80 transition-opacity">
+        <ChevronRight className="h-5 w-5" />
+      </button>
+    </div>
+  );
+}
+
 const CTA_URL = "https://app.iclosed.io/e/paylystes/r2";
 const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
 const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
@@ -464,32 +500,8 @@ export default function DecouvertePage() {
 
       {/* ═══ 18 ANS D'EXPÉRIENCE ═══ */}
       <section id="section-experience" ref={setRef("experience")} className="py-12 md:py-16 bg-background">
-        {/* Video carousel - auto-scrolling */}
-        <div className="w-full overflow-hidden mb-16">
-          <motion.div
-            className="flex gap-4"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-            style={{ width: "max-content" }}
-          >
-            {[
-              "/videos/exp-1.mp4", "/videos/exp-2.mov", "/videos/exp-3.mov",
-              "/videos/exp-9.mp4", "/videos/exp-11.mp4", "/videos/exp-12.mp4",
-              "/videos/exp-4.mov", "/videos/exp-5.mov",
-            ].map((src, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 w-[200px] md:w-[240px] aspect-[9/16] rounded-2xl overflow-hidden bg-black"
-              >
-                <SafeVideo
-                  src={src}
-                  className="w-full h-full object-cover"
-                  lazy
-                />
-              </div>
-            ))}
-          </motion.div>
-        </div>
+        {/* Video carousel with arrows */}
+        <HomeExperienceCarousel />
 
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
