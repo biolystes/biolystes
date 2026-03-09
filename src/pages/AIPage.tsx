@@ -131,8 +131,6 @@ export default function AIPage() {
       {/* ═══ INTERNATIONAL ═══ */}
       <InternationalSection />
 
-      {/* ═══ SECTEURS ═══ */}
-      <SecteursSection />
 
       {/* ═══ TÉMOIGNAGES ═══ */}
       <TestimonialsSection />
