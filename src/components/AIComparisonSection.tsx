@@ -19,34 +19,46 @@ const fadeUp = {
 };
 
 export default function AIComparisonSection() {
+  const tiers = [
+    { products: 10, agents: 43 },
+    { products: 134, agents: 575 },
+    { products: 1000, agents: 4290 },
+  ];
+  const [tierIndex, setTierIndex] = useState(1);
+  const tier = tiers[tierIndex];
+
   return (
     <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
       <div className="text-center max-w-5xl mx-auto px-6 pt-24 pb-12">
         <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-          className="text-[10px] font-bold tracking-[2.5px] uppercase text-white/50 mb-5">
-          Votre équipe intégrée
+          className="text-[10px] font-bold tracking-[2.5px] uppercase text-primary-foreground/50 mb-5">
+          Équipe AI
         </motion.p>
         <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-          className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-white">
-          Automatiser la recommandation de produit en intégrant un diagnostiqueur IA à votre ecommerce
+          className="text-3xl md:text-5xl font-light tracking-tight max-w-[780px] mx-auto mb-4 text-primary-foreground">
+          Lystes <span className="italic">{tier.products} produits</span> = <span className="font-bold">{tier.agents} agents</span> dédiés
+          <br />pour booster vos ventes
         </motion.h2>
         <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
-          className="text-[17px] text-white/50 leading-[1.7] max-w-[600px] mx-auto">
-          En plus de la gestion de votre e-commerce, nous vous mettons à disposition nos <strong className="text-white">7 équipes IA</strong> pour vous assister : photos produits, SEO, marketing, analytics, support client — voici ce qu'elles font pour vous.
+          className="text-[17px] text-primary-foreground/50 leading-[1.7] max-w-[600px] mx-auto mb-10">
+          Chaque produit de votre catalogue génère automatiquement des agents spécialisés en conversion, création de contenu et marketing.
         </motion.p>
 
-        {/* Stats */}
+        {/* Tier selector */}
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
-          className="grid grid-cols-3 max-w-xl mx-auto pt-14 pb-6 divide-x divide-white/20">
-          {[
-            { num: "7", label: "Équipes AI dédiées" },
-            { num: "24h/24", label: "Disponibilité" },
-            { num: "80%", label: "Économie vs agence" },
-          ].map((s) => (
-            <div key={s.label} className="text-center px-4 md:px-8">
-              <div className="text-2xl md:text-3xl font-light leading-none text-white tracking-tight italic">{s.num}</div>
-              <div className="text-[10px] text-white/50 font-semibold mt-3 uppercase tracking-[0.15em] whitespace-nowrap">{s.label}</div>
-            </div>
+          className="flex justify-center gap-3 mb-6">
+          {tiers.map((t, i) => (
+            <button
+              key={t.products}
+              onClick={() => setTierIndex(i)}
+              className={`px-5 py-2.5 rounded-full text-sm font-semibold transition-all ${
+                i === tierIndex
+                  ? "bg-primary-foreground text-foreground"
+                  : "border border-primary-foreground/20 text-primary-foreground/60 hover:text-primary-foreground hover:border-primary-foreground/40"
+              }`}
+            >
+              {t.products} produits
+            </button>
           ))}
         </motion.div>
 
