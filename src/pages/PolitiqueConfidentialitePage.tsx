@@ -16,7 +16,7 @@ export default function PolitiqueConfidentialitePage() {
         <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
           <Section title="Responsable du traitement">
             La société <strong>Lystes</strong> est responsable du traitement des données personnelles collectées sur ce site.<br />
-            Contact : hello@biolystes.com
+            Contact : hello@biolystes.pro
           </Section>
 
           <Section title="Données collectées">
