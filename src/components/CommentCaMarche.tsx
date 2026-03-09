@@ -22,7 +22,7 @@ const steps = [
     label: "ÉTAPE 3",
     title: "Envoi des échantillons",
     text: "Commandez vos échantillons pour découvrir et valider nos produits. C'est le moyen idéal de tester sans risque avant de lancer votre marque en toute confiance.",
-    image: "https://biolystes.com/wp-content/uploads/2025/05/IMG_1846-2.png",
+    image: "https://biolystes.pro/wp-content/uploads/2025/05/IMG_1846-2.png",
     alt: "Envoi des échantillons",
   },
   {
