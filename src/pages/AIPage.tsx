@@ -4,8 +4,9 @@ import SafeVideo from "@/components/SafeVideo";
 import LystesAiSection from "@/components/LystesAiSection";
 import AITeamOrgChart from "@/components/AITeamOrgChart";
 import AIClientsShowcase from "@/components/AIClientsShowcase";
-import { LeakyBucketSection, DeploymentSection, InternationalSection, SecteursSection, TestimonialsSection, CTASection } from "@/components/AIExtraSections";
+import { LeakyBucketSection, DeploymentSection, InternationalSection, TestimonialsSection, CTASection } from "@/components/AIExtraSections";
 import aiHeroMockup from "@/assets/ai-hero-mockup.png";
+import DiagnosticComparisonSection from "@/components/DiagnosticComparisonSection";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
