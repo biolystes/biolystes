@@ -15,7 +15,7 @@ const steps = [
     label: "ÉTAPE 2",
     title: "Design Packaging Personnalisé",
     text: "Vous nous fournissez votre logo et inspirations. Nous créons une identité visuelle unique avec des étiquettes et packagings professionnels pour votre marque.",
-    image: "https://biolystes.com/wp-content/uploads/2025/05/FRONT-WITH-BOX_high_res-2-scaled.jpg",
+    image: "https://biolystes.pro/wp-content/uploads/2025/05/FRONT-WITH-BOX_high_res-2-scaled.jpg",
     alt: "Design Packaging Personnalisé",
   },
   {
