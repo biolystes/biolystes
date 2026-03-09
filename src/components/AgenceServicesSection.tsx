@@ -5,6 +5,7 @@ import {
   Check, Sparkles, Play,
 } from "lucide-react";
 import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
+import agenceReseaux from "@/assets/agence-reseaux.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -78,13 +79,7 @@ function BlocReseauxSociaux() {
   return (
     <TeamRow bg="bg-background" title="Gestion de vos réseaux sociaux" kicker="Réseaux sociaux"
       desc="On prend en main vos comptes Instagram, TikTok et Facebook. Calendrier éditorial, rédaction des publications, gestion de la communauté et analyse des performances. Vous n'avez plus qu'à valider.">
-      <div className="flex flex-col md:flex-row gap-4 items-stretch">
-        <SafeVideo src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/video//diagnosticai.mp4" className="w-full md:w-1/2 h-[400px] object-cover rounded-2xl" lazy />
-        <div className="flex flex-col gap-4 w-full md:w-1/2">
-          <img src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/widget-avatars/avatar3.jpeg" alt="Réseau social résultat" className="w-full h-[190px] object-cover rounded-2xl" />
-          <img src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/widget-avatars/avatar1.jpeg" alt="Réseau social résultat" className="w-full h-[190px] object-cover rounded-2xl" />
-        </div>
-      </div>
+      <img src={agenceReseaux} alt="Gestion réseaux sociaux" className="w-full h-[400px] object-cover rounded-2xl" />
     </TeamRow>
   );
 }
