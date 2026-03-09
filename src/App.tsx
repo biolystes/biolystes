@@ -53,6 +53,7 @@ function AppRoutes() {
       <Route path="/portfolio" element={<Layout><PortfolioPage /></Layout>} />
       <Route path="/ai" element={<Layout><AIPage /></Layout>} />
       <Route path="/agence" element={<Layout><AgencePage /></Layout>} />
+      <Route path="/pricing" element={<Layout><PricingPage /></Layout>} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
       <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
       <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
