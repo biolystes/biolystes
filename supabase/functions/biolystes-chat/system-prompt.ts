@@ -317,4 +317,4 @@ Pour les commandes perdues, la réclamation doit également être soumise dans l
 
 En résumé : les clients finaux sont protégés en cas de problème réel (casse, défaut), mais il n'y a pas de retour pour simple changement d'avis sur un produit personnalisé.
 
-Contact : hello@biolystes.com | Paris, France`;
+Contact : hello@biolystes.pro | Paris, France`;
