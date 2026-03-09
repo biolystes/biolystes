@@ -7,7 +7,7 @@ import {
 import { toast } from "sonner";
 
 // ─── WooCommerce config ──────────────────────────────────
-const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
+const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
 const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
 const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
 
@@ -15,27 +15,27 @@ const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
 // Map slug WC → image URL (hardcodée pour garantir l'affichage)
 const SLUG_TO_IMAGE: Record<string, string> = {
   // Images connues du system prompt
-  "lait-nettoyant-doux": "https://biolystes.com/wp-content/uploads/2025/04/I5J9D9fsoSw0EvGMdJfD0XEWX2ypDjfB-scaled.jpg",
-  "creme-de-jour-anti-age": "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-jour-anti-age-scaled.jpg",
-  "creme-de-jour-anti-age-3": "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-jour-anti-age-scaled.jpg",
-  "creme-de-nuit-hydratante-au-ceramide": "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg",
-  "creme-contour-des-yeux": "https://biolystes.com/wp-content/uploads/2025/04/Creme-contour-des-yeux-scaled.jpg",
-  "creme-contour-des-yeux-3-en-1": "https://biolystes.com/wp-content/uploads/2025/04/Creme-contour-des-yeux-scaled.jpg",
-  "creme-riche-nourrissante": "https://biolystes.com/wp-content/uploads/2025/04/Creme-riche-nourrissante-scaled.jpg",
-  "gommage-profond-pour-cuir-chevelu-romarin-menthe": "https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg",
-  "gommage-cuir-chevelu-profond": "https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg",
+  "lait-nettoyant-doux": "https://biolystes.pro/wp-content/uploads/2025/04/I5J9D9fsoSw0EvGMdJfD0XEWX2ypDjfB-scaled.jpg",
+  "creme-de-jour-anti-age": "https://biolystes.pro/wp-content/uploads/2025/04/Creme-de-jour-anti-age-scaled.jpg",
+  "creme-de-jour-anti-age-3": "https://biolystes.pro/wp-content/uploads/2025/04/Creme-de-jour-anti-age-scaled.jpg",
+  "creme-de-nuit-hydratante-au-ceramide": "https://biolystes.pro/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg",
+  "creme-contour-des-yeux": "https://biolystes.pro/wp-content/uploads/2025/04/Creme-contour-des-yeux-scaled.jpg",
+  "creme-contour-des-yeux-3-en-1": "https://biolystes.pro/wp-content/uploads/2025/04/Creme-contour-des-yeux-scaled.jpg",
+  "creme-riche-nourrissante": "https://biolystes.pro/wp-content/uploads/2025/04/Creme-riche-nourrissante-scaled.jpg",
+  "gommage-profond-pour-cuir-chevelu-romarin-menthe": "https://biolystes.pro/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg",
+  "gommage-cuir-chevelu-profond": "https://biolystes.pro/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg",
 };
 
 // Mots-clés → image (fallback quand le slug ne matche pas)
 const KEYWORD_TO_IMAGE: Array<{ keys: string[]; url: string }> = [
-  { keys: ["lait", "nettoyant"], url: "https://biolystes.com/wp-content/uploads/2025/04/I5J9D9fsoSw0EvGMdJfD0XEWX2ypDjfB-scaled.jpg" },
-  { keys: ["creme", "jour", "anti", "age"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-jour-anti-age-scaled.jpg" },
-  { keys: ["creme", "nuit", "ceramide"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg" },
-  { keys: ["creme", "nuit", "hydratante"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg" },
-  { keys: ["contour", "yeux"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-contour-des-yeux-scaled.jpg" },
-  { keys: ["creme", "riche", "nourrissante"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-riche-nourrissante-scaled.jpg" },
-  { keys: ["gommage", "cuir", "chevelu"], url: "https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg" },
-  { keys: ["gommage", "profond"], url: "https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg" },
+  { keys: ["lait", "nettoyant"], url: "https://biolystes.pro/wp-content/uploads/2025/04/I5J9D9fsoSw0EvGMdJfD0XEWX2ypDjfB-scaled.jpg" },
+  { keys: ["creme", "jour", "anti", "age"], url: "https://biolystes.pro/wp-content/uploads/2025/04/Creme-de-jour-anti-age-scaled.jpg" },
+  { keys: ["creme", "nuit", "ceramide"], url: "https://biolystes.pro/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg" },
+  { keys: ["creme", "nuit", "hydratante"], url: "https://biolystes.pro/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg" },
+  { keys: ["contour", "yeux"], url: "https://biolystes.pro/wp-content/uploads/2025/04/Creme-contour-des-yeux-scaled.jpg" },
+  { keys: ["creme", "riche", "nourrissante"], url: "https://biolystes.pro/wp-content/uploads/2025/04/Creme-riche-nourrissante-scaled.jpg" },
+  { keys: ["gommage", "cuir", "chevelu"], url: "https://biolystes.pro/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg" },
+  { keys: ["gommage", "profond"], url: "https://biolystes.pro/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg" },
 ];
 
 // Cache WC dynamique (complète les hardcodées)

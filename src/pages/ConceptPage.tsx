@@ -54,7 +54,7 @@ const CATALOG_URL = "/catalog";
 const CONTACT_URL = "https://app.iclosed.io/e/paylystes/r2";
 
 // WooCommerce config for catalog preview
-const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
+const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
 const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
 const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
 
@@ -495,7 +495,7 @@ export default function ConceptPage() {
 
       <section className="max-w-5xl mx-auto px-6 py-16 md:py-24">
         <div className="rounded-2xl overflow-hidden">
-          <SafeVideo src="https://biolystes.com/wp-content/uploads/2025/09/ok.mov" className="w-full h-auto rounded-2xl" lazy />
+          <SafeVideo src="https://biolystes.pro/wp-content/uploads/2025/09/ok.mov" className="w-full h-auto rounded-2xl" lazy />
         </div>
       </section>
 
@@ -946,7 +946,7 @@ export default function ConceptPage() {
       {/* ═══ FOOTER ═══ */}
       <footer className="border-t border-border py-8 text-center">
         <p className="text-xs text-muted-foreground">
-          Biolystes — Paris, France — hello@biolystes.com
+          Biolystes — Paris, France — hello@biolystes.pro
         </p>
       </footer>
 

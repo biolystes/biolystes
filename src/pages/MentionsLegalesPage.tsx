@@ -15,14 +15,14 @@ export default function MentionsLegalesPage() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
           <Section title="Éditeur du site">
-            Le site biolystes.com est édité par la société <strong>LYSTES</strong>.<br />
+            Le site biolystes.pro est édité par la société <strong>LYSTES</strong>.<br />
             Forme juridique : Société par actions simplifiée (SAS)<br />
             Siège social : 26 rue du Général Beuret, 75015 Paris, France<br />
             SIRET : 907 951 867 00015<br />
             RCS : RCS Paris 907 951 867<br />
             Numéro de TVA intracommunautaire : FR68 907951867<br />
             Directeur de la publication : Jean‑Pierre BIAS, en sa qualité de président<br />
-            Email : hello@biolystes.com
+            Email : hello@biolystes.pro
           </Section>
 
           <Section title="Hébergement">
@@ -37,7 +37,7 @@ export default function MentionsLegalesPage() {
           </Section>
 
           <Section title="Contact">
-            Pour toute question, vous pouvez nous contacter à l'adresse : hello@biolystes.com
+            Pour toute question, vous pouvez nous contacter à l'adresse : hello@biolystes.pro
           </Section>
         </div>
       </div>
