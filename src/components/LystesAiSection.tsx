@@ -268,9 +268,9 @@ function TeamExpertProduit({ titleOverride }: { titleOverride?: string }) {
   );
 }
 
-function TeamPhotographe() {
+function TeamPhotographe({ titleOverride }: { titleOverride?: string }) {
   return (
-    <TeamRow bg="bg-background" title="Photos studio en quelques secondes" kicker="Équipe Photographe AI"
+    <TeamRow bg="bg-background" title={titleOverride || "Photos studio en quelques secondes"} kicker="Équipe Photographe AI"
       desc="Nous mettons en place une équipe Photographe AI, qui génère des photos produits niveau studio professionnel, des visuels UGC avec de vrais visages pour vos réseaux sociaux et des contenus marketing. En quelques secondes, sans shooting.">
       <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-1.5" style={{ gridAutoRows: "180px" }}>
         <img className="col-span-2 w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-1.jpg" alt="" />
