@@ -112,7 +112,7 @@ export default function AIPage() {
       </section>
 
       {/* ═══ AI SECTIONS (reuse from LystesAiSection) ═══ */}
-      <section className="bg-foreground text-primary-foreground">
+      <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
         <LystesAiSection />
       </section>
 
