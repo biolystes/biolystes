@@ -4,6 +4,7 @@ import SafeVideo from "@/components/SafeVideo";
 import LystesAiSection from "@/components/LystesAiSection";
 import AITeamOrgChart from "@/components/AITeamOrgChart";
 import AIClientsShowcase from "@/components/AIClientsShowcase";
+import { LeakyBucketSection, DeploymentSection, InternationalSection, SecteursSection, TestimonialsSection, CTASection } from "@/components/AIExtraSections";
 import aiHeroMockup from "@/assets/ai-hero-mockup.png";
 
 const fadeUp = {
@@ -128,6 +129,24 @@ export default function AIPage() {
 
       {/* ═══ CLIENTS SHOWCASE ═══ */}
       <AIClientsShowcase />
+
+      {/* ═══ LEAKY BUCKET ═══ */}
+      <LeakyBucketSection />
+
+      {/* ═══ DÉPLOIEMENT ═══ */}
+      <DeploymentSection />
+
+      {/* ═══ INTERNATIONAL ═══ */}
+      <InternationalSection />
+
+      {/* ═══ SECTEURS ═══ */}
+      <SecteursSection />
+
+      {/* ═══ TÉMOIGNAGES ═══ */}
+      <TestimonialsSection />
+
+      {/* ═══ CTA FINAL ═══ */}
+      <CTASection />
     </div>
   );
 }
