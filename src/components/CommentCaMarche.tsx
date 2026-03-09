@@ -8,7 +8,7 @@ const steps = [
     label: "ÉTAPE 1",
     title: "Sélection de Produits",
     text: "Choisissez parmi notre catalogue de produits certifiés bio, végans, conformes UE/FDA, prêts à être étiquetés avec votre marque.",
-    image: "https://biolystes.com/wp-content/uploads/2025/03/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0tXSHhFMnBBQVltR0lCZTJpNHFwejNXM2RUdnlLZTZOLmpwZWcmd2lkdGg9ODk2-1-1.jpg",
+    image: "https://biolystes.pro/wp-content/uploads/2025/03/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0tXSHhFMnBBQVltR0lCZTJpNHFwejNXM2RUdnlLZTZOLmpwZWcmd2lkdGg9ODk2-1-1.jpg",
     alt: "Sélection de produits",
   },
   {
