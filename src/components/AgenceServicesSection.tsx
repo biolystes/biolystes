@@ -148,13 +148,8 @@ function BlocContenu() {
   return (
     <TeamRow bg="bg-background" title="Photos IA, vidéos UGC et visuels pour vos réseaux" kicker="Création de contenu"
       desc="Nous mettons en place une équipe Photographe AI, qui génère des photos produits niveau studio professionnel, des visuels UGC avec de vrais visages pour vos réseaux sociaux et des contenus marketing. En quelques secondes, sans shooting.">
-      <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-1.5" style={{ gridAutoRows: "180px" }}>
-        <img className="col-span-2 w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-1.jpg" alt="" />
-        <img className="w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-6.jpg" alt="" />
-        <img className="w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-5.jpg" alt="" />
-        <img className="w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-3.jpg" alt="" />
-        <img className="w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/fralene-2.jpg" alt="" />
-        <img className="col-span-2 w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/fralene-3.jpg" alt="" />
+      <div className="rounded-2xl overflow-hidden">
+        <SafeVideo src="/videos/contenu-ugc.mp4" className="w-full h-[400px] object-cover" lazy />
       </div>
     </TeamRow>
   );
