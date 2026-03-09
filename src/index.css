@@ -453,6 +453,9 @@ button.p-6.rounded-2xl.bg-secondary.hover\:bg-accent.transition-colors.text-left
   background: #fff;
 }
 span.relative.h-2.w-full.grow.overflow-hidden.rounded-full.bg-secondary {
+  background: #f5f4df;
+}
+.max-w-5xl.mx-auto.mt-8.rounded-\[2\.75rem\].p-6.md\:p-8.bg-secondary {
   background-color: #e6e5d1;
 }
 .p-6.md\:p-8.rounded-2xl.bg-background {
