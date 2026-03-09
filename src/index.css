@@ -539,3 +539,9 @@ p.text-xs.tracking-\[0\.3em\].uppercase.text-muted-foreground {
   color: #f5f4df9e !important;
   font-weight: 100;
 }
+
+@media (min-width: 768px) {
+  .md\:text-\[clamp\(42px\2c 4\.2vw\2c 69px\)\] {
+    font-size: clamp(42px, 6.2vw, 69px);
+  }
+}
