@@ -78,8 +78,8 @@ export default function DiagnosticComparisonSection() {
         </motion.p>
         <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
           className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-white">
-          Automatiser la recommandation de produit en intégrant un{" "}
-          <em className="italic">diagnostiqueur IA à votre ecommerce</em>
+          Automatiser la conversion de vos visiteurs en client en intégrant un{" "}
+          <em className="italic">agent conversationnel IA sur chaque page produit</em>
         </motion.h2>
         <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
           className="text-[17px] text-white/50 leading-[1.7] max-w-[600px] mx-auto">
