@@ -6,6 +6,7 @@ import LystesAiSection from "@/components/LystesAiSection";
 import AITeamOrgChart from "@/components/AITeamOrgChart";
 import AIClientsShowcase from "@/components/AIClientsShowcase";
 import { LeakyBucketSection, DeploymentSection, InternationalSection, SecteursSection, TestimonialsSection, CTASection } from "@/components/AIExtraSections";
+import AIComparisonSection from "@/components/AIComparisonSection";
 import aiHeroMockup from "@/assets/ai-hero-mockup.png";
 
 const fadeUp = {
