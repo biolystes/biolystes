@@ -76,7 +76,7 @@ function BeforeAfterPhones() {
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
           className="flex flex-col items-center gap-4 relative z-10 w-[320px] shrink-0">
           <div className="bg-[#f5f4df] text-[#111] px-5 py-2 rounded-lg font-bold text-[9px] tracking-widest uppercase">Vos concurrents</div>
-          <div className="w-[320px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden relative flex flex-col">
+          <div className="w-[320px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col border border-border">
             <PhoneHeader />
             <div className="w-full h-64 bg-muted relative pt-4 overflow-hidden">
               <div className="flex justify-center items-start h-full">
