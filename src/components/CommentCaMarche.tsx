@@ -29,7 +29,7 @@ const steps = [
     label: "ÉTAPE 4",
     title: "Photos Packshots et Ambiance",
     text: "Nous réalisons un set complet de photos haute qualité (packshots produits, images d'ambiance) pour sublimer votre site et vos campagnes marketing.",
-    image: "https://biolystes.com/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-09-at-18.08.33-3-1.jpeg",
+    image: "https://biolystes.pro/wp-content/uploads/2025/05/WhatsApp-Image-2025-05-09-at-18.08.33-3-1.jpeg",
     alt: "Photos Packshots et Ambiance",
   },
   {
