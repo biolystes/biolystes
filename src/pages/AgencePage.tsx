@@ -140,6 +140,10 @@ export default function AgencePage() {
             style={{ width: "max-content" }}
           >
             {[
+              "/videos/exp-32.mp4", "/videos/exp-33.mov", "/videos/exp-34.mov",
+              "/videos/exp-35.mov", "/videos/exp-36.mov", "/videos/exp-37.mp4",
+              "/videos/exp-38.mov", "/videos/exp-39.mov", "/videos/exp-40.mov",
+              "/videos/exp-41.mov",
               "/videos/exp-1.mp4", "/videos/exp-2.mov", "/videos/exp-3.mov",
               "/videos/exp-9.mp4", "/videos/exp-11.mp4", "/videos/exp-12.mp4",
               "/videos/exp-4.mov", "/videos/exp-5.mov",
