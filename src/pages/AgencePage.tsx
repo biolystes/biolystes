@@ -69,11 +69,7 @@ function BrandCarousel({ brand }: { brand: typeof portfolioBrands[0] }) {
         <div className="flex gap-3">
           {brand.photos.map((item, i) => (
             <div key={i} className="flex-none w-[45%] md:w-[24%] aspect-[3/4] rounded-2xl overflow-hidden">
-              {typeof item === "object" && item.type === "video" ? (
-                <SafeVideo src={item.src} className="w-full h-full object-cover" />
-              ) : (
-                <img src={typeof item === "string" ? item : ""} alt={`${brand.name} ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
-              )}
+              <img src={typeof item === "string" ? item : ""} alt={`${brand.name} ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
             </div>
           ))}
         </div>
