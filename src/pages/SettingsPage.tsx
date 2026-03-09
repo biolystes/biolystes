@@ -39,7 +39,7 @@ export default function SettingsPage() {
               </div>
               <div className="space-y-1.5">
                 <Label>Email</Label>
-                <Input placeholder="admin@biolystes.com" defaultValue="admin@biolystes.com" />
+                <Input placeholder="admin@biolystes.pro" defaultValue="admin@biolystes.pro" />
               </div>
             </div>
             <div className="space-y-1.5">
