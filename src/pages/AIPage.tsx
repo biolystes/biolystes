@@ -22,14 +22,6 @@ export default function AIPage() {
       {/* ═══ HERO ═══ */}
       <section className="min-h-screen pt-[140px] pb-[100px] relative overflow-hidden flex items-center">
         {/* Background video */}
-        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-          <SafeVideo
-            src="/videos/ai-hero.mp4"
-            className="w-full h-full object-cover"
-            autoPlay
-            loop
-          />
-        </div>
 
         <div className="max-w-[1280px] mx-auto px-5 md:px-10 relative z-[2]">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
