@@ -209,7 +209,7 @@ function BlocInfluence() {
           </div>
         </div>
         <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
-          <SafeVideo src="/videos/fralene-hero.mov" className="w-full h-[280px] object-cover block" lazy />
+          <SafeVideo src="/videos/fralene-ugc.mp4" className="w-full h-[280px] object-cover block" lazy />
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/55 to-transparent p-3 pt-8 text-white text-[11px] font-semibold flex items-center gap-1.5">
             📱 Story Réseaux
           </div>
