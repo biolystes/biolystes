@@ -406,12 +406,12 @@ function TeamContenu({ titleOverride }: { titleOverride?: string }) {
   );
 }
 
-function TeamAnalytics() {
+function TeamAnalytics({ titleOverride }: { titleOverride?: string }) {
   const bars = [38, 52, 45, 68, 82, 74, 91];
   const days = ["L", "M", "M", "J", "V", "S", "D"];
 
   return (
-    <TeamRow bg="bg-background" title="Des décisions basées sur la réalité" kicker="Équipe Analytics AI"
+    <TeamRow bg="bg-background" title={titleOverride || "Des décisions basées sur la réalité"} kicker="Équipe Analytics AI"
       desc="Nous mettons en place une équipe Analytics AI, qui connaît vos chiffres en temps réel. CA, tops produits, questions clients, points de blocage. Des décisions basées sur la réalité, pas sur des suppositions.">
       <div>
         {/* KPIs */}
