@@ -207,48 +207,29 @@ function BlocSEO() {
 
 /* ═══ 5. INFLUENCE MARKETING ═══ */
 function BlocInfluence() {
-  const tasks = [
-    { label: "Lundi", title: "Identification influenceuses niche beauté bio", value: "12 profils identifiés et qualifiés", status: "done" },
-    { label: "Mardi", title: "Envoi propositions de collaboration", value: "8 influenceuses contactées", status: "done" },
-    { label: "Mercredi", title: "Négociation placement produit", value: "3 partenariats confirmés", status: "now" },
-    { label: "Jeudi", title: "Envoi produits pour unboxing", value: "Prévu pour demain", status: "wait" },
-    { label: "Vendredi", title: "Suivi des publications sponsorisées", value: "En attente de publication", status: "wait" },
-  ];
-
   return (
     <TeamRow bg="bg-background" title="Mise en relation avec des influenceuses beauté" kicker="Influence Marketing"
       desc="On identifie, contacte et négocie avec les influenceuses adaptées à votre marque. Micro-influence, placements produits, unboxings — on gère la campagne de bout en bout.">
-      <div className="w-full max-w-2xl mx-auto space-y-3">
-        <div className="flex items-center justify-between px-1 mb-4">
-          <div className="flex items-center gap-2.5">
-            <div className="w-3 h-3 rounded-full bg-[#6EE7B7]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Campagne influence</span>
-          </div>
-          <div className="flex items-baseline gap-1">
-            <span className="text-[26px] font-extrabold tracking-tighter text-foreground">40</span>
-            <span className="text-[13px] font-bold text-[#10b981]">/100</span>
+      <div className="flex gap-3.5 flex-wrap">
+        <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
+          <img src={kaniwaUgc2} alt="" className="w-full h-[280px] object-cover block" />
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/55 to-transparent p-3 pt-8 text-white text-[11px] font-semibold flex items-center gap-1.5">
+            📱 Post Instagram
           </div>
         </div>
-        <div className="space-y-2">
-          {tasks.map(t => (
-            <div key={t.label} className="p-4 rounded-2xl flex items-start gap-3 border border-foreground">
-              <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                t.status === "done" ? "bg-[#e6f6ef]" : t.status === "now" ? "bg-[#ebf5ff]" : "bg-muted border border-border"
-              }`}>
-                {t.status === "done" && <Check className="w-3.5 h-3.5 text-[#22c55e]" strokeWidth={3} />}
-                {t.status === "now" && <Play className="w-3.5 h-3.5 text-[#3b82f6] fill-[#3b82f6]" />}
-                {t.status === "wait" && <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />}
-              </div>
-              <div className="space-y-0.5">
-                <p className="text-[12px] font-bold text-foreground">{t.label} — {t.title}</p>
-                <p className="text-[13px] font-medium text-foreground leading-relaxed">{t.value}</p>
-              </div>
-            </div>
-          ))}
+        <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
+          <SafeVideo src="/videos/fralene-hero.mov" className="w-full h-[280px] object-cover block" lazy />
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/55 to-transparent p-3 pt-8 text-white text-[11px] font-semibold flex items-center gap-1.5">
+            📱 Story Réseaux
+          </div>
         </div>
-        <div className="bg-[#ecfdf5] rounded-xl p-3 flex items-center justify-center text-[#065f46] font-semibold text-[11px] gap-1.5">
-          <Sparkles className="w-3.5 h-3.5" />
-          Campagne influence gérée de A à Z
+        <div className="flex-1 min-w-[180px] bg-background rounded-2xl p-6 flex flex-col justify-center gap-2.5 border border-border">
+          <span className="text-[10px] font-bold text-muted-foreground tracking-wider uppercase">Blog Article</span>
+          <h4 className="text-[15px] font-bold text-foreground leading-snug">5 routines beauté bio pour peaux sensibles</h4>
+          <p className="text-xs text-muted-foreground leading-snug">Découvrez comment prendre soin de votre peau avec des produits 100% naturels et végans…</p>
+          <div className="text-[11px] text-[#10b981] font-semibold flex items-center gap-1">
+            <Sparkles className="w-3 h-3" /> Rédigé en 12 secondes
+          </div>
         </div>
       </div>
     </TeamRow>
