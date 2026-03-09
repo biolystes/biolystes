@@ -28,14 +28,14 @@ const SLUG_TO_IMAGE: Record<string, string> = {
 
 // Mots-clés → image (fallback quand le slug ne matche pas)
 const KEYWORD_TO_IMAGE: Array<{ keys: string[]; url: string }> = [
-  { keys: ["lait", "nettoyant"], url: "https://biolystes.com/wp-content/uploads/2025/04/I5J9D9fsoSw0EvGMdJfD0XEWX2ypDjfB-scaled.jpg" },
-  { keys: ["creme", "jour", "anti", "age"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-jour-anti-age-scaled.jpg" },
-  { keys: ["creme", "nuit", "ceramide"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg" },
-  { keys: ["creme", "nuit", "hydratante"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg" },
-  { keys: ["contour", "yeux"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-contour-des-yeux-scaled.jpg" },
-  { keys: ["creme", "riche", "nourrissante"], url: "https://biolystes.com/wp-content/uploads/2025/04/Creme-riche-nourrissante-scaled.jpg" },
-  { keys: ["gommage", "cuir", "chevelu"], url: "https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg" },
-  { keys: ["gommage", "profond"], url: "https://biolystes.com/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg" },
+  { keys: ["lait", "nettoyant"], url: "https://biolystes.pro/wp-content/uploads/2025/04/I5J9D9fsoSw0EvGMdJfD0XEWX2ypDjfB-scaled.jpg" },
+  { keys: ["creme", "jour", "anti", "age"], url: "https://biolystes.pro/wp-content/uploads/2025/04/Creme-de-jour-anti-age-scaled.jpg" },
+  { keys: ["creme", "nuit", "ceramide"], url: "https://biolystes.pro/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg" },
+  { keys: ["creme", "nuit", "hydratante"], url: "https://biolystes.pro/wp-content/uploads/2025/04/Creme-de-nuit-hydratante-au-ceramide-scaled.jpg" },
+  { keys: ["contour", "yeux"], url: "https://biolystes.pro/wp-content/uploads/2025/04/Creme-contour-des-yeux-scaled.jpg" },
+  { keys: ["creme", "riche", "nourrissante"], url: "https://biolystes.pro/wp-content/uploads/2025/04/Creme-riche-nourrissante-scaled.jpg" },
+  { keys: ["gommage", "cuir", "chevelu"], url: "https://biolystes.pro/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg" },
+  { keys: ["gommage", "profond"], url: "https://biolystes.pro/wp-content/uploads/2025/04/Gommage-profond-scaled.jpg" },
 ];
 
 // Cache WC dynamique (complète les hardcodées)

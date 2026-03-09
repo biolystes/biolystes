@@ -180,7 +180,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <header className="md:hidden bg-card px-4 py-3 flex items-center justify-between sticky top-0 z-20">
           <div className="flex items-center gap-2">
             <img
-              src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
+              src="https://biolystes.pro/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
               alt="Lystes"
               className="h-7 w-7 object-contain"
             />

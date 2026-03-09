@@ -44,7 +44,7 @@ export default function SettingsPage() {
             </div>
             <div className="space-y-1.5">
               <Label>Site web</Label>
-              <Input placeholder="https://biolystes.com" defaultValue="https://biolystes.com" />
+              <Input placeholder="https://biolystes.pro" defaultValue="https://biolystes.pro" />
             </div>
             <Button onClick={() => toast({ title: "Profil sauvegardé" })}>
               Sauvegarder
