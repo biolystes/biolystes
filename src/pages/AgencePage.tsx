@@ -118,11 +118,11 @@ function ExperienceCarousel() {
           ))}
         </div>
       </div>
-      <button onClick={() => emblaApi?.scrollPrev()} className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-lg z-10">
-        <ChevronLeft className="h-5 w-5 text-foreground" />
+      <button onClick={() => emblaApi?.scrollPrev()} className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-foreground text-background flex items-center justify-center shadow-xl z-10 hover:opacity-80 transition-opacity">
+        <ChevronLeft className="h-5 w-5" />
       </button>
-      <button onClick={() => emblaApi?.scrollNext()} className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-lg z-10">
-        <ChevronRight className="h-5 w-5 text-foreground" />
+      <button onClick={() => emblaApi?.scrollNext()} className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-foreground text-background flex items-center justify-center shadow-xl z-10 hover:opacity-80 transition-opacity">
+        <ChevronRight className="h-5 w-5" />
       </button>
     </div>
   );
