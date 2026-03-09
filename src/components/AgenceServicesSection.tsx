@@ -194,7 +194,7 @@ function BlocSEO() {
 /* ═══ 5. INFLUENCE MARKETING ═══ */
 function BlocInfluence() {
   return (
-    <TeamRow bg="bg-background" title="Mise en relation avec des influenceuses beauté" kicker="Influence Marketing"
+    <TeamRow bg="bg-background" title="Gestion influenceuses beauté" kicker="Influence Marketing"
       desc="On identifie, contacte et négocie avec les influenceuses adaptées à votre marque. Micro-influence, placements produits, unboxings — on gère la campagne de bout en bout.">
       <div className="flex gap-3.5 flex-wrap">
         <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
