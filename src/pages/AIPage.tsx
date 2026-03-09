@@ -122,7 +122,7 @@ export default function AIPage() {
       </section>
 
       {/* ═══ TEAM ORG CHART ═══ */}
-      <div className="max-w-5xl mx-auto mt-8 rounded-[2.75rem] p-6 md:p-8 bg-secondary">
+      <div className="max-w-5xl mx-auto mt-8 rounded-[2.75rem] p-6 md:p-8 bg-foreground text-primary-foreground">
         <AITeamOrgChart />
       </div>
 
