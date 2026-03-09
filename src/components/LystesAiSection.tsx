@@ -284,9 +284,9 @@ function TeamPhotographe({ titleOverride }: { titleOverride?: string }) {
   );
 }
 
-function TeamSEO() {
+function TeamSEO({ titleOverride }: { titleOverride?: string }) {
   return (
-    <TeamRow bg="bg-secondary" reversed title="Visible sur Google dès le lancement" kicker="Équipe Expert SEO AI"
+    <TeamRow bg="bg-secondary" reversed title={titleOverride || "Visible sur Google dès le lancement"} kicker="Équipe Expert SEO AI"
       desc="Nous mettons en place une équipe Expert SEO AI, qui optimise automatiquement vos fiches produits, méta-descriptions, mots-clés et contenus pour que votre boutique soit visible sur Google dès le lancement.">
       <div>
         <div className="flex items-center gap-2.5 mb-4">
