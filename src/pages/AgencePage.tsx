@@ -136,7 +136,7 @@ export default function AgencePage() {
           <motion.div
             className="flex gap-4"
             animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
             style={{ width: "max-content" }}
           >
             {[
