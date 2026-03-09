@@ -461,6 +461,9 @@ span.relative.h-2.w-full.grow.overflow-hidden.rounded-full.bg-secondary {
 .max-w-5xl.mx-auto.mt-\[80px\].rounded-\[2\.75rem\].p-6.md\:p-8.bg-secondary {
   background: transparent;
 }
+section.py-\[120px\].bg-muted {
+  background: transparent;
+}
 .p-6.md\:p-8.rounded-2xl.bg-background {
   background: #fff;
 }
