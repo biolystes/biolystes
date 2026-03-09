@@ -134,7 +134,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             >
               <div className="flex items-center gap-2 mb-6">
                 <img
-                  src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
+                  src="https://biolystes.pro/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
                   alt="Lystes"
                   className="h-7 w-7 object-contain"
                 />
