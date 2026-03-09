@@ -312,7 +312,7 @@ export default function DecouvertePage() {
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-8 text-base md:text-lg text-foreground max-w-2xl mx-auto leading-relaxed">
-            Biolystes est une solution clé en main qui vous permet de créer et vendre votre propre marque de cosmétiques bio et végane, sans stock, sans minimum de commande, et sans vous noyer dans la complexité.
+            Biolystes est une solution clé en main pour les entrepreneurs qui veulent lancer leur propre marque de cosmétiques bio et végane certifiés ECOCERT et COSMOS. Pas de stock à acheter, pas de minimum de commande, pas de graphiste, pas de webmaster, pas de photographe, ni même de logisticien pour expédier les commandes. On prend tout en charge de A à Z.
           </motion.p>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }}
