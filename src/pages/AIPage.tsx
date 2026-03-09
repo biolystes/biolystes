@@ -119,8 +119,6 @@ export default function AIPage() {
       {/* ═══ TEAM ORG CHART ═══ */}
       <AITeamOrgChart />
 
-      {/* ═══ CLIENTS SHOWCASE ═══ */}
-      <AIClientsShowcase />
 
       {/* ═══ LEAKY BUCKET ═══ */}
       <LeakyBucketSection />
