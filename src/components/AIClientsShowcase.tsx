@@ -48,7 +48,7 @@ function InfiniteRow({ images, speed = 30, reverse = false }: { images: string[]
     let pos = reverse ? -(el.scrollWidth / 2) : 0;
     let raf: number;
     const step = () => {
-      pos += reverse ? 0.5 : -0.5;
+      pos += reverse ? 1.5 : -1.5;
       const half = el.scrollWidth / 2;
       if (!reverse && pos <= -half) pos = 0;
       if (reverse && pos >= 0) pos = -half;
