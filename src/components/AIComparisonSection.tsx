@@ -28,7 +28,7 @@ export default function AIComparisonSection() {
   const tier = tiers[tierIndex];
 
   return (
-    <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
+    <section className="max-w-5xl mx-auto mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground" style={{ backgroundColor: "#2b2b2b" }}>
       <div className="text-center max-w-5xl mx-auto px-6 pt-24 pb-12">
         <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
           className="text-[10px] font-bold tracking-[2.5px] uppercase text-primary-foreground/50 mb-5">
