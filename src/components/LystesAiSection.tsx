@@ -37,7 +37,7 @@ function LystesHero() {
       </motion.h2>
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
         className="text-[17px] text-white/50 leading-[1.7] max-w-[600px] mx-auto">
-        En plus de la gestion de votre e-commerce, nous vous mettons à disposition nos <strong className="text-white">7 équipes IA</strong> pour vous assister : photos produits, SEO, marketing, analytics, support client — voici ce qu'elles font pour vous.
+        Nous déployons une équipe d'agents conversationnels IA dédiée à chaque produit, capable de répondre instantanément aux questions de vos clients
       </motion.p>
 
       {/* Stats */}
