@@ -87,7 +87,7 @@ export default function SharedSelectionPage() {
       <div style={{ background: "#fff", borderBottom: "1px solid #e5e5e7", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <img
-            src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
+            src="https://biolystes.pro/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
             alt="Biolystes"
             style={{ width: 32, height: 32, objectFit: "contain" }}
           />

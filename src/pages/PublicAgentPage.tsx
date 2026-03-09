@@ -136,7 +136,7 @@ export default function PublicAgentPage() {
       >
         <div className="flex items-center justify-center gap-3 mb-3">
           <img
-            src="https://biolystes.com/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
+            src="https://biolystes.pro/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
             alt="Biolystes"
             className="h-10 w-10 rounded-xl object-contain"
           />
