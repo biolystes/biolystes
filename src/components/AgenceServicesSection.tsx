@@ -96,8 +96,8 @@ function BlocReseauxSociaux() {
 /* ═══ 2. PUBLICITÉ DIGITALE ═══ */
 function BlocPublicite() {
   return (
-    <TeamRow bg="bg-secondary" reversed title="Gestion de vos campagnes Meta Ads & Google Ads" kicker="Publicité digitale"
-      desc="On crée, optimise et pilote vos campagnes publicitaires. Ciblage précis de votre audience beauté, A/B testing des visuels, retargeting et analyse du ROI. Chaque euro investi est suivi.">
+    <TeamRow bg="bg-secondary" reversed title="Création de site ecommerce" kicker="Site web & E-commerce"
+      desc="On conçoit votre boutique en ligne de A à Z : design sur-mesure, fiches produits optimisées, tunnel de vente performant et intégration des moyens de paiement. Un site qui convertit, pensé pour la cosmétique.">
       <div className="flex justify-center">
         <div className="w-[320px] bg-background rounded-[2rem] overflow-hidden border border-border">
           <div className="flex items-center justify-between px-5 pt-7 pb-3.5 border-b border-border">
