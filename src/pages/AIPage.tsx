@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import SafeVideo from "@/components/SafeVideo";
 import LystesAiSection from "@/components/LystesAiSection";
+import AITeamOrgChart from "@/components/AITeamOrgChart";
+import AIClientsShowcase from "@/components/AIClientsShowcase";
 import aiHeroMockup from "@/assets/ai-hero-mockup.png";
 
 const fadeUp = {
@@ -120,6 +122,12 @@ export default function AIPage() {
       <section className="bg-foreground text-primary-foreground">
         <LystesAiSection />
       </section>
+
+      {/* ═══ TEAM ORG CHART ═══ */}
+      <AITeamOrgChart />
+
+      {/* ═══ CLIENTS SHOWCASE ═══ */}
+      <AIClientsShowcase />
     </div>
   );
 }
