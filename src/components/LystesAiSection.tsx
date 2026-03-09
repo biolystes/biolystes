@@ -453,7 +453,7 @@ function TeamAnalytics({ titleOverride }: { titleOverride?: string }) {
 function PhoneHeader({ small }: { small?: boolean }) {
   const sz = small ? "w-4 h-4" : "w-5 h-5";
   return (
-    <div className="flex items-center justify-between px-5 pt-7 pb-3.5 border-b border-border">
+    <div className="flex items-center justify-between px-5 pt-10 pb-4 z-20">
       <div className="flex items-center gap-3">
         <Menu className={`${sz} text-foreground`} />
         <Search className={`${sz} text-foreground`} />
