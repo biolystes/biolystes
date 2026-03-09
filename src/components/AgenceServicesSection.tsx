@@ -5,6 +5,7 @@ import {
   Check, Sparkles, Play,
 } from "lucide-react";
 import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
+import agenceReseaux from "@/assets/agence-reseaux.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
