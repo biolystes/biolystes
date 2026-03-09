@@ -50,7 +50,7 @@ const steps = [
     label: "ÉTAPE 7 (Optionnel)",
     title: "Coaching ou accompagnement",
     text: "Optimisez vos chances de réussite en vous faisant accompagner par des experts disposant de 18 ans d'expérience dans ce secteur d'activité.",
-    image: "https://biolystes.com/wp-content/uploads/2025/05/pexels-linkedin-3867836-scaled-copie-1-1.jpeg",
+    image: "https://biolystes.pro/wp-content/uploads/2025/05/pexels-linkedin-3867836-scaled-copie-1-1.jpeg",
     alt: "Coaching ou accompagnement",
   },
 ];

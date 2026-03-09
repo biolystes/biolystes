@@ -304,7 +304,7 @@ export default function PricingPage() {
         className="text-center mt-16 mb-4">
         <p className="text-xs text-muted-foreground">
           Des questions ? Contactez-nous à{" "}
-          <a href="mailto:hello@biolystes.com" className="text-foreground font-semibold no-underline">hello@biolystes.com</a>
+          <a href="mailto:hello@biolystes.pro" className="text-foreground font-semibold no-underline">hello@biolystes.pro</a>
         </p>
       </motion.div>
     </>
