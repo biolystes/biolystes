@@ -7,6 +7,7 @@ import { useAuth } from "@/contexts/AuthContext";
 
 const publicNavItems = [
   { path: "/", label: "Accueil" },
+  { path: "/agence", label: "Agence" },
 ];
 
 const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
