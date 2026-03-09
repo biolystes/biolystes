@@ -319,7 +319,7 @@ function TeamSEO({ titleOverride }: { titleOverride?: string }) {
   );
 }
 
-function TeamMarketing() {
+function TeamMarketing({ titleOverride }: { titleOverride?: string }) {
   const tasks = [
     { label: "Lundi", title: "Campagne email de bienvenue", value: "Envoyée à 100% des nouveaux inscrits", status: "done" },
     { label: "Mardi", title: "Post Instagram — Avant/Après", value: "Publié avec 12 hashtags optimisés", status: "done" },
