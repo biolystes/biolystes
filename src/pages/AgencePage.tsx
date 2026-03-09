@@ -126,7 +126,7 @@ export default function AgencePage() {
               Depuis 2005
             </span>
             <span className="text-[8px] text-foreground font-medium tracking-[0.8px] uppercase">
-              Plus de 20 ans d'expérience en communication
+              Plus de 18 ans d'expérience en communication
             </span>
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
