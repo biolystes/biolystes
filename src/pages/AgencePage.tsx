@@ -88,6 +88,46 @@ function BrandCarousel({ brand }: { brand: typeof portfolioBrands[0] }) {
   );
 }
 
+const expVideos = [
+  "/videos/exp-32.mp4", "/videos/exp-33.mov", "/videos/exp-34.mov",
+  "/videos/exp-35.mov", "/videos/exp-36.mov", "/videos/exp-37.mp4",
+  "/videos/exp-38.mov", "/videos/exp-39.mov", "/videos/exp-40.mov",
+  "/videos/exp-41.mov",
+  "/videos/exp-1.mp4", "/videos/exp-2.mov", "/videos/exp-3.mov",
+  "/videos/exp-9.mp4", "/videos/exp-11.mp4", "/videos/exp-12.mp4",
+  "/videos/exp-4.mov", "/videos/exp-5.mov",
+];
+
+function ExperienceCarousel() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: true, dragFree: true, slidesToScroll: 2 });
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const interval = setInterval(() => emblaApi.scrollNext(), 3000);
+    return () => clearInterval(interval);
+  }, [emblaApi]);
+
+  return (
+    <div className="w-full overflow-hidden mb-16 relative group">
+      <div className="overflow-hidden" ref={emblaRef}>
+        <div className="flex gap-4">
+          {expVideos.map((src, i) => (
+            <div key={i} className="flex-shrink-0 w-[200px] md:w-[240px] aspect-[9/16] rounded-2xl overflow-hidden bg-black">
+              <SafeVideo src={src} className="w-full h-full object-cover" lazy />
+            </div>
+          ))}
+        </div>
+      </div>
+      <button onClick={() => emblaApi?.scrollPrev()} className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10">
+        <ChevronLeft className="h-5 w-5 text-foreground" />
+      </button>
+      <button onClick={() => emblaApi?.scrollNext()} className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10">
+        <ChevronRight className="h-5 w-5 text-foreground" />
+      </button>
+    </div>
+  );
+}
+
 export default function AgencePage() {
   const navigate = useNavigate();
 
@@ -132,34 +172,7 @@ export default function AgencePage() {
 
       {/* ═══ EXPÉRIENCE ═══ */}
       <section id="section-experience" className="py-12 md:py-16 bg-background">
-        <div className="w-full overflow-hidden mb-16 relative group">
-          <motion.div
-            className="flex gap-4"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-            style={{ width: "max-content" }}
-          >
-            {[
-              "/videos/exp-32.mp4", "/videos/exp-33.mov", "/videos/exp-34.mov",
-              "/videos/exp-35.mov", "/videos/exp-36.mov", "/videos/exp-37.mp4",
-              "/videos/exp-38.mov", "/videos/exp-39.mov", "/videos/exp-40.mov",
-              "/videos/exp-41.mov",
-              "/videos/exp-1.mp4", "/videos/exp-2.mov", "/videos/exp-3.mov",
-              "/videos/exp-9.mp4", "/videos/exp-11.mp4", "/videos/exp-12.mp4",
-              "/videos/exp-4.mov", "/videos/exp-5.mov",
-            ].map((src, i) => (
-              <div key={i} className="flex-shrink-0 w-[200px] md:w-[240px] aspect-[9/16] rounded-2xl overflow-hidden bg-black">
-                <SafeVideo src={src} className="w-full h-full object-cover" lazy />
-              </div>
-            ))}
-          </motion.div>
-          <button className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10">
-            <ChevronLeft className="h-5 w-5 text-foreground" />
-          </button>
-          <button className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10">
-            <ChevronRight className="h-5 w-5 text-foreground" />
-          </button>
-        </div>
+        <ExperienceCarousel />
 
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
