@@ -6,6 +6,7 @@ import LystesAiSection from "@/components/LystesAiSection";
 import AITeamOrgChart from "@/components/AITeamOrgChart";
 import AIClientsShowcase from "@/components/AIClientsShowcase";
 import { LeakyBucketSection, DeploymentSection, InternationalSection, SecteursSection, TestimonialsSection, CTASection } from "@/components/AIExtraSections";
+import AITeamDetailSections from "@/components/AITeamDetailSections";
 import aiHeroMockup from "@/assets/ai-hero-mockup.png";
 
 const fadeUp = {
@@ -116,6 +117,11 @@ export default function AIPage() {
       <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
         <LystesAiSection />
       </section>
+
+      {/* ═══ TEAM DETAIL SECTIONS ═══ */}
+      <div className="max-w-5xl mx-auto mt-8">
+        <AITeamDetailSections />
+      </div>
 
       {/* ═══ TEAM ORG CHART ═══ */}
       <div className="max-w-5xl mx-auto mt-8 rounded-[2.75rem] p-6 md:p-8 bg-secondary">
