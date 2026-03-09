@@ -126,7 +126,7 @@ export default function AgencePage() {
               Depuis 2005
             </span>
             <span className="text-[8px] text-foreground font-medium tracking-[0.8px] uppercase">
-              Plus de 20 ans d'expérience en communication
+              Plus de 18 ans d'expérience en communication
             </span>
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
@@ -177,7 +177,7 @@ export default function AgencePage() {
         <div className="max-w-5xl mx-auto px-6 text-center">
           <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed">
-            20 ans d'expérience en communication<br /> ont donné naissance à notre agence cosmétique
+            18 ans d'expérience en communication<br /> ont donné naissance à notre agence cosmétique
           </motion.h2>
           <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
             className="mt-6 text-base md:text-lg text-foreground max-w-2xl mx-auto leading-relaxed">
