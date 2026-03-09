@@ -33,11 +33,11 @@ function LystesHero() {
       </motion.p>
       <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
         className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-white">
-        Automatiser la recommandation de produit en intégrant un <em className="italic">diagnostiqueur IA à votre ecommerce</em>
+        Comment se passe la gestion de votre marque, <em className="italic">une fois celle-ci mise en place ?</em>
       </motion.h2>
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
         className="text-[17px] text-white/50 leading-[1.7] max-w-[600px] mx-auto">
-        Nous mettons en place une équipe Diagnostics AI, qui scanne le visage de vos visiteurs via un simple selfie, analyse leur peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.
+        En plus de la gestion de votre e-commerce, nous vous mettons à disposition nos <strong className="text-white">7 équipes IA</strong> pour vous assister : photos produits, SEO, marketing, analytics, support client — voici ce qu'elles font pour vous.
       </motion.p>
 
       {/* Stats */}
@@ -220,8 +220,12 @@ function TeamDiagnostics({ titleOverride }: { titleOverride?: string }) {
   return (
     <TeamRow bg="bg-background" title={titleOverride || "Diagnostic peau ou cheveux intelligent"} kicker="Équipe Diagnostics AI"
       desc="Nous mettons en place une équipe Diagnostics AI, qui scanne le visage de vos visiteurs via un simple selfie, analyse leur peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.">
-      <div className="flex justify-center">
-        <SafeVideo src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/video//diagnosticai.mp4" className="w-full h-[400px] object-cover rounded-2xl" lazy />
+      <div className="flex flex-col md:flex-row gap-4 items-stretch">
+        <SafeVideo src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/video//diagnosticai.mp4" className="w-full md:w-1/2 h-[400px] object-cover rounded-2xl" lazy />
+        <div className="flex flex-col gap-4 w-full md:w-1/2">
+          <img src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/widget-avatars/avatar3.jpeg" alt="Diagnostic résultat" className="w-full h-[190px] object-cover rounded-2xl" />
+          <img src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/widget-avatars/avatar1.jpeg" alt="Diagnostic résultat" className="w-full h-[190px] object-cover rounded-2xl" />
+        </div>
       </div>
     </TeamRow>
   );
@@ -538,9 +542,9 @@ export default function LystesAiSection({ titleOverrides }: { titleOverrides?: L
       <TeamExpertProduit titleOverride={titleOverrides?.expertProduit} />
       <TeamPhotographe titleOverride={titleOverrides?.photographe} />
       
-      
-      
-      
+      <TeamMarketing titleOverride={titleOverrides?.marketing} />
+      <TeamContenu titleOverride={titleOverrides?.contenu} />
+      <TeamAnalytics titleOverride={titleOverrides?.analytics} />
     </>
   );
 }
