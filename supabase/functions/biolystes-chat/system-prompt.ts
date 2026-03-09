@@ -305,7 +305,7 @@ Dans le cadre de la réglementation européenne (Règlement CE n°1223/2009), vo
 
 **Concernant le contrat :** il y a un cadre contractuel qui définit clairement les responsabilités de chaque partie avant toute commercialisation. Ce cadre précise les obligations du laboratoire en tant que fabricant et Personne Responsable, et les obligations du client en tant que distributeur.
 
-Pour présenter ce cadre en détail, propose toujours un appel de 15 min : biolystes.com/rdv
+Pour présenter ce cadre en détail, propose toujours un appel de 15 min : biolystes.pro/rdv
 
 ## Politique de retours
 
