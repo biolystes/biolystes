@@ -373,9 +373,9 @@ function TeamMarketing({ titleOverride }: { titleOverride?: string }) {
   );
 }
 
-function TeamContenu() {
+function TeamContenu({ titleOverride }: { titleOverride?: string }) {
   return (
-    <TeamRow bg="bg-secondary" reversed title="Du contenu pro en quelques secondes" kicker="Équipe Créateur de contenu AI"
+    <TeamRow bg="bg-secondary" reversed title={titleOverride || "Du contenu pro en quelques secondes"} kicker="Équipe Créateur de contenu AI"
       desc="Nous mettons en place une équipe Créateur de contenu AI, qui produit des contenus pour vos réseaux sociaux, articles de blog et descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
       <div className="flex gap-3.5 flex-wrap">
         {[
