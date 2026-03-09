@@ -15,7 +15,7 @@ export default function MentionsLegalesPage() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: 36 }}>
           <Section title="Éditeur du site">
-            Le site biolystes.com est édité par la société <strong>LYSTES</strong>.<br />
+            Le site biolystes.pro est édité par la société <strong>LYSTES</strong>.<br />
             Forme juridique : Société par actions simplifiée (SAS)<br />
             Siège social : 26 rue du Général Beuret, 75015 Paris, France<br />
             SIRET : 907 951 867 00015<br />
