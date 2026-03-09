@@ -129,6 +129,24 @@ export default function AIPage() {
 
       {/* ═══ CLIENTS SHOWCASE ═══ */}
       <AIClientsShowcase />
+
+      {/* ═══ LEAKY BUCKET ═══ */}
+      <LeakyBucketSection />
+
+      {/* ═══ DÉPLOIEMENT ═══ */}
+      <DeploymentSection />
+
+      {/* ═══ INTERNATIONAL ═══ */}
+      <InternationalSection />
+
+      {/* ═══ SECTEURS ═══ */}
+      <SecteursSection />
+
+      {/* ═══ TÉMOIGNAGES ═══ */}
+      <TestimonialsSection />
+
+      {/* ═══ CTA FINAL ═══ */}
+      <CTASection />
     </div>
   );
 }
