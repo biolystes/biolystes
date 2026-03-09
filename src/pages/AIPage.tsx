@@ -117,24 +117,34 @@ export default function AIPage() {
       </section>
 
       {/* ═══ TEAM ORG CHART ═══ */}
-      <AITeamOrgChart />
-
+      <div className="max-w-5xl mx-auto mt-8 rounded-[2.75rem] p-6 md:p-8 bg-secondary">
+        <AITeamOrgChart />
+      </div>
 
       {/* ═══ LEAKY BUCKET ═══ */}
-      <LeakyBucketSection />
+      <div className="max-w-5xl mx-auto mt-8 rounded-[2.75rem] p-6 md:p-8 bg-secondary">
+        <LeakyBucketSection />
+      </div>
 
       {/* ═══ DÉPLOIEMENT ═══ */}
-      <DeploymentSection />
+      <div className="max-w-5xl mx-auto mt-8 rounded-[2.75rem] p-6 md:p-8 bg-secondary">
+        <DeploymentSection />
+      </div>
 
       {/* ═══ INTERNATIONAL ═══ */}
-      <InternationalSection />
-
+      <div className="max-w-5xl mx-auto mt-8 rounded-[2.75rem] p-6 md:p-8 bg-secondary">
+        <InternationalSection />
+      </div>
 
       {/* ═══ TÉMOIGNAGES ═══ */}
-      <TestimonialsSection />
+      <div className="max-w-5xl mx-auto mt-8 rounded-[2.75rem] p-6 md:p-8 bg-secondary">
+        <TestimonialsSection />
+      </div>
 
       {/* ═══ CTA FINAL ═══ */}
-      <CTASection />
+      <div className="max-w-5xl mx-auto mt-8 mb-8 rounded-[2.75rem] p-6 md:p-8 bg-secondary">
+        <CTASection />
+      </div>
     </div>
   );
 }
