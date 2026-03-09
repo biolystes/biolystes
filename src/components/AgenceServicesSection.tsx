@@ -242,8 +242,8 @@ function BlocAnalytics() {
   const days = ["L", "M", "M", "J", "V", "S", "D"];
 
   return (
-    <TeamRow bg="bg-secondary" reversed title="Rapport mensuel de nos actions" kicker="Reporting & Analytics"
-      desc="Chaque mois, un rapport clair : performances réseaux sociaux, résultats des campagnes pub, trafic SEO, engagement communauté. Des décisions basées sur des chiffres.">
+    <TeamRow bg="bg-secondary" reversed title="Gestion de vos campagnes Meta Ads & Google Ads" kicker="Publicité digitale"
+      desc="On crée, optimise et pilote vos campagnes publicitaires. Ciblage précis de votre audience beauté, A/B testing des visuels, retargeting et analyse du ROI. Chaque euro investi est suivi.">
       <div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 mb-5">
           {[
