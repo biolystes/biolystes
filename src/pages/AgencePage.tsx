@@ -132,7 +132,7 @@ export default function AgencePage() {
 
       {/* ═══ EXPÉRIENCE ═══ */}
       <section id="section-experience" className="py-12 md:py-16 bg-background">
-        <div className="w-full overflow-hidden mb-16">
+        <div className="w-full overflow-hidden mb-16 relative group">
           <motion.div
             className="flex gap-4"
             animate={{ x: ["0%", "-50%"] }}
@@ -153,6 +153,12 @@ export default function AgencePage() {
               </div>
             ))}
           </motion.div>
+          <button className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10">
+            <ChevronLeft className="h-5 w-5 text-foreground" />
+          </button>
+          <button className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10">
+            <ChevronRight className="h-5 w-5 text-foreground" />
+          </button>
         </div>
 
         <div className="max-w-5xl mx-auto px-6 text-center">
