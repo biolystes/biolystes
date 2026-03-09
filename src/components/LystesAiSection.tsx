@@ -544,7 +544,7 @@ export default function LystesAiSection({ titleOverrides }: { titleOverrides?: L
       
       
       
-      <TeamAnalytics titleOverride={titleOverrides?.analytics} />
+      
     </>
   );
 }
