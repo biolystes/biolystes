@@ -145,7 +145,75 @@ export default function AIPage() {
       {/* ═══ CTA FINAL ═══ */}
       <div className="max-w-5xl mx-auto mt-8 mb-8 rounded-[2.75rem] p-6 md:p-8 bg-secondary">
         <CTASection />
-      </div>
+
+      {/* ═══ FOOTER ═══ */}
+      <footer className="bg-foreground text-primary-foreground py-16 mt-8 rounded-t-[2.75rem]">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+            <div>
+              <h5 className="text-sm font-bold mb-3">Biolystes.</h5>
+              <p className="text-xs opacity-60 leading-relaxed mb-4">Écosystème IA qui double vos ventes e-commerce.</p>
+              <div className="flex gap-3">
+                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="opacity-50 hover:opacity-100 transition-opacity">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                </a>
+                <a href="https://instagram.com/biolystes" target="_blank" rel="noopener noreferrer" className="opacity-50 hover:opacity-100 transition-opacity">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                </a>
+                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="opacity-50 hover:opacity-100 transition-opacity">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <h6 className="text-xs font-semibold opacity-60 uppercase tracking-widest mb-3">Lystes AI</h6>
+              <ul className="space-y-2 text-xs">
+                <li className="opacity-60">Diagnostic IA</li>
+                <li className="opacity-60">Expert Produit IA</li>
+                <li className="opacity-60">Photographe IA</li>
+                <li className="opacity-60">Analytics IA</li>
+              </ul>
+            </div>
+
+            <div>
+              <h6 className="text-xs font-semibold opacity-60 uppercase tracking-widest mb-3">Nos Engagements</h6>
+              <ul className="space-y-2 text-xs">
+                {["Ecocert / Cosmos", "Conformité UE 1223/2009", "Conformité FDA", "100% Végan & Cruelty-Free"].map(e => (
+                  <li key={e} className="flex items-center gap-2 opacity-60">
+                    <Check className="h-3 w-3 shrink-0" strokeWidth={2} />
+                    {e}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h6 className="text-xs font-semibold opacity-60 uppercase tracking-widest mb-3">Restons en contact</h6>
+              <ul className="space-y-2 text-xs">
+                <li className="flex items-center gap-2 opacity-60">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                  hello@biolystes.com
+                </li>
+                <li className="flex items-center gap-2 opacity-60 whitespace-nowrap">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+                  6 avenue Émile Deschanel, 75007 Paris
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-primary-foreground/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-xs opacity-40">©2025 Biolystes</p>
+            <div className="flex items-center gap-6 text-xs opacity-40">
+              <Link to="/mentions-legales" className="hover:opacity-100 transition-opacity">Mentions légales</Link>
+              <Link to="/politique-confidentialite" className="hover:opacity-100 transition-opacity">Politique de Confidentialité</Link>
+              <Link to="/cgv" className="hover:opacity-100 transition-opacity">CGV</Link>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
     </div>
   );
 }
