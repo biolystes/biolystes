@@ -380,7 +380,7 @@ function TeamContenu({ titleOverride }: { titleOverride?: string }) {
       <div className="flex gap-3.5 flex-wrap">
         {[
           { src: kaniwaUgc2, label: "Post Instagram", type: "image" as const },
-          { src: "/videos/fralene-hero.mov", label: "Story Réseaux", type: "video" as const },
+          { src: "/videos/fralene-ugc.mp4", label: "Story Réseaux", type: "video" as const },
         ].map(img => (
           <div key={img.label} className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
             {img.type === "video" ? (

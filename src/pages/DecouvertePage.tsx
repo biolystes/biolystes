@@ -130,7 +130,7 @@ const portfolioBrands = [
     name: "Fralène",
     tagline: "Gamme soins visage premium",
     url: "https://fraleneparis.com/",
-    photos: [{ type: "video" as const, src: "/videos/fralene-hero.mov" }, fralene3, fraleneExt1, fralene10],
+    photos: [{ type: "video" as const, src: "/videos/fralene-ugc.mp4" }, fralene3, fraleneExt1, fralene10],
   },
   {
     name: "Sevmylook",
