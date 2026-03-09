@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Star, ArrowRight } from "lucide-react";
+import leakyBucketImg from "@/assets/leaky-bucket.webp";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
