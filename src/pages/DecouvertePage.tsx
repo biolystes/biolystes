@@ -242,6 +242,18 @@ export default function DecouvertePage() {
     decouvre: null, constat: null, experience: null, comprend: null, qualite: null, livraison: null, lystesai: null, portfolio: null, catalogue: null, tarifs: null, lance: null,
   });
 
+  // Fallback catalog products (used when WooCommerce API is blocked by CORS)
+  const fallbackProducts = [
+    { id: 1, name: "Crème de jour anti-âge", price: "49.90", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" },
+    { id: 2, name: "Sérum vitamine C", price: "35.00", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/O236SDw9GkuAtxkcoHnMrhJ_9lJP7tPq-scaled.jpg?w=1930&ssl=1" },
+    { id: 3, name: "Sérum anti-âge", price: "34.00", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2026/01/FRONT_high_res-12-scaled.jpg?w=1930&ssl=1" },
+    { id: 4, name: "Huile visage éclat", price: "32.00", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/SX5B5L8XNjufU23ZsLiSgqSIQEFI26rq-scaled.jpg?w=1930&ssl=1" },
+    { id: 5, name: "Gel nettoyant doux", price: "22.00", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/uclEPNm3K7Rce46UEiSGnAtnPjL5ofMO-scaled.jpg?w=1930&ssl=1" },
+    { id: 6, name: "Masque hydratant", price: "28.00", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/JE5Gw85J9r45fVxJ1EVoSJk2E5PiK4TT-scaled.jpg?w=1930&ssl=1" },
+    { id: 7, name: "Crème contour des yeux", price: "38.00", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/vj2Kf3NtViFKnDwjqeKL7H9SXr3P0sXz-scaled.jpg?w=1930&ssl=1" },
+    { id: 8, name: "Baume à lèvres nourrissant", price: "12.00", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/pzV7CQHTrOhqFDVw1F5fRfz93xhADUAo-scaled.jpg?w=1930&ssl=1" },
+  ];
+
   // Fetch catalog products
   useEffect(() => {
     const url = new URL(`${WC_BASE}/products`);
@@ -253,14 +265,20 @@ export default function DecouvertePage() {
     fetch(url.toString())
       .then(r => r.json())
       .then((data: any[]) => {
-        setCatalogProducts(data.map(p => ({
-          id: p.id,
-          name: p.name,
-          price: p.price,
-          image: p.images?.[0]?.src || "",
-        })));
+        if (Array.isArray(data) && data.length > 0) {
+          setCatalogProducts(data.map(p => ({
+            id: p.id,
+            name: p.name,
+            price: p.price,
+            image: p.images?.[0]?.src || "",
+          })));
+        } else {
+          setCatalogProducts(fallbackProducts);
+        }
       })
-      .catch(() => {});
+      .catch(() => {
+        setCatalogProducts(fallbackProducts);
+      });
   }, []);
 
   useEffect(() => {
