@@ -54,7 +54,7 @@ const CATALOG_URL = "/catalog";
 const CONTACT_URL = "https://app.iclosed.io/e/paylystes/r2";
 
 // WooCommerce config for catalog preview
-const WC_BASE = "https://biolystes.com/wp-json/wc/v3";
+const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
 const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
 const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
 
