@@ -209,14 +209,6 @@ function BlocInfluence() {
             📱 Story Réseaux
           </div>
         </div>
-        <div className="flex-1 min-w-[180px] bg-background rounded-2xl p-6 flex flex-col justify-center gap-2.5 border border-border">
-          <span className="text-[10px] font-bold text-muted-foreground tracking-wider uppercase">Blog Article</span>
-          <h4 className="text-[15px] font-bold text-foreground leading-snug">5 routines beauté bio pour peaux sensibles</h4>
-          <p className="text-xs text-muted-foreground leading-snug">Découvrez comment prendre soin de votre peau avec des produits 100% naturels et végans…</p>
-          <div className="text-[11px] text-[#10b981] font-semibold flex items-center gap-1">
-            <Sparkles className="w-3 h-3" /> Rédigé en 12 secondes
-          </div>
-        </div>
       </div>
     </TeamRow>
   );
