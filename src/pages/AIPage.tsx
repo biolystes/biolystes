@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import SafeVideo from "@/components/SafeVideo";
 import LystesAiSection from "@/components/LystesAiSection";
+import AITeamOrgChart from "@/components/AITeamOrgChart";
+import AIClientsShowcase from "@/components/AIClientsShowcase";
 import aiHeroMockup from "@/assets/ai-hero-mockup.png";
 
 const fadeUp = {
