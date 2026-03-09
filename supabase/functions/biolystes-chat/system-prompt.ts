@@ -275,7 +275,7 @@ Pour chaque produit, utilise ce format EXACT :
 numero: 1
 titre: Nom exact du produit (copié depuis le catalogue ci-dessus)
 description: Description courte et vendeuse du produit (1-2 phrases, bénéfice client)
-url: https://biolystes.com/product/slug-exact/
+url: https://biolystes.pro/product/slug-exact/
 :::
 
 ### Étude de marché
