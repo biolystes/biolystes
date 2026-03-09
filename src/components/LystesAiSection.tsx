@@ -122,7 +122,7 @@ function BeforeAfterPhones() {
             Vous avec Biolystes AI
           </div>
           <div className="relative">
-            <div className="w-[360px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden relative flex flex-col z-10">
+            <div className="w-[360px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col z-10 border border-border">
               <PhoneHeader />
               <div className="w-full bg-foreground text-primary-foreground text-center text-[10px] font-medium tracking-widest uppercase py-1.5 shrink-0">
                 Livraison gratuite aujourd'hui
