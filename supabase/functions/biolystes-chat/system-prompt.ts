@@ -178,56 +178,56 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 **⚠️ RÈGLE ABSOLUE : Tu dois utiliser UNIQUEMENT les produits listés ci-dessous avec leurs URLs exactes. Ne génère JAMAIS un slug ou un nom inventé.**
 
 **Soins Visage** :
-- Crème de jour anti-âge → https://biolystes.com/product/creme-de-jour-anti-age-3/
-- Crème de nuit hydratante au céramide → https://biolystes.com/product/creme-de-nuit-hydratante-au-ceramide/
-- Crème contour des yeux 3 en 1 → https://biolystes.com/product/creme-contour-des-yeux-3-en-1/
-- Crème hydratante pour peaux sensibles → https://biolystes.com/product/creme-hydratante-pour-peaux-sensibles-2/
-- Crème de jour hydratante → https://biolystes.com/product/creme-de-jour-hydratante-2/
-- Mousse nettoyante → https://biolystes.com/product/mousse-nettoyante/
-- Nettoyant à base d'huile et de lait pour peaux sensibles → https://biolystes.com/product/nettoyant-a-base-dhuile-et-de-lait-pour-peaux-sensibles-3/
-- Nettoyant peaux sensibles visage & corps → https://biolystes.com/product/nettoyant-peaux-sensibles-visage-corps/
-- Démaquillant BiPhasic → https://biolystes.com/product/demaquillant-biphasic-2/
-- Gel hydratant à la niacinamide → https://biolystes.com/product/gel-hydratant-a-la-niacinamide/
-- Gel Booster au ginkgo antioxydant → https://biolystes.com/product/gel-booster-au-ginkgo-antioxydant-2/
-- Gel Booster à la caféine → https://biolystes.com/product/gel-booster-a-la-cafeine-2/
-- Gel Double Hydratation Boost → https://biolystes.com/product/gel-double-hydratation-boost/
-- Sérum à la vitamine C → https://biolystes.com/product/serum-a-la-vitamine-c/
-- Sérum Collagène Boost → https://biolystes.com/product/serum-collagene-boost/
-- Sérum aux peptides effet Botox → https://biolystes.com/product/serum-aux-peptides-effet-botox/
-- Sérum naturel alternatif au rétinol → https://biolystes.com/product/serum-naturel-a-base-dhuile-alternatif-au-retinol/
-- Sérum perfecteur de pigment → https://biolystes.com/product/serum-perfecteur-de-pigment-2/
-- Concentré Peeling AHA → https://biolystes.com/product/concentre-peeling-aha/
-- Exfoliant liquide à l'acide glycolique → https://biolystes.com/product/exfoliant-liquide-a-lacide-glycolique/
-- Soin anti-acné → https://biolystes.com/product/soin-anti-acne/
-- Huile visage tout-en-un → https://biolystes.com/product/huile-visage-tout-en-un/
-- Protection solaire SPF 30 pour Visage & Corps → https://biolystes.com/product/protection-solaire-spf-30-pour-visage-corps/
-- Lotion après-soleil → https://biolystes.com/product/lotion-apres-soleil/
-- Crème de nuit anti-âge au collagène → https://biolystes.com/product/creme-de-nuit-anti-age-au-collagene/
+- Crème de jour anti-âge → https://biolystes.pro/product/creme-de-jour-anti-age-3/
+- Crème de nuit hydratante au céramide → https://biolystes.pro/product/creme-de-nuit-hydratante-au-ceramide/
+- Crème contour des yeux 3 en 1 → https://biolystes.pro/product/creme-contour-des-yeux-3-en-1/
+- Crème hydratante pour peaux sensibles → https://biolystes.pro/product/creme-hydratante-pour-peaux-sensibles-2/
+- Crème de jour hydratante → https://biolystes.pro/product/creme-de-jour-hydratante-2/
+- Mousse nettoyante → https://biolystes.pro/product/mousse-nettoyante/
+- Nettoyant à base d'huile et de lait pour peaux sensibles → https://biolystes.pro/product/nettoyant-a-base-dhuile-et-de-lait-pour-peaux-sensibles-3/
+- Nettoyant peaux sensibles visage & corps → https://biolystes.pro/product/nettoyant-peaux-sensibles-visage-corps/
+- Démaquillant BiPhasic → https://biolystes.pro/product/demaquillant-biphasic-2/
+- Gel hydratant à la niacinamide → https://biolystes.pro/product/gel-hydratant-a-la-niacinamide/
+- Gel Booster au ginkgo antioxydant → https://biolystes.pro/product/gel-booster-au-ginkgo-antioxydant-2/
+- Gel Booster à la caféine → https://biolystes.pro/product/gel-booster-a-la-cafeine-2/
+- Gel Double Hydratation Boost → https://biolystes.pro/product/gel-double-hydratation-boost/
+- Sérum à la vitamine C → https://biolystes.pro/product/serum-a-la-vitamine-c/
+- Sérum Collagène Boost → https://biolystes.pro/product/serum-collagene-boost/
+- Sérum aux peptides effet Botox → https://biolystes.pro/product/serum-aux-peptides-effet-botox/
+- Sérum naturel alternatif au rétinol → https://biolystes.pro/product/serum-naturel-a-base-dhuile-alternatif-au-retinol/
+- Sérum perfecteur de pigment → https://biolystes.pro/product/serum-perfecteur-de-pigment-2/
+- Concentré Peeling AHA → https://biolystes.pro/product/concentre-peeling-aha/
+- Exfoliant liquide à l'acide glycolique → https://biolystes.pro/product/exfoliant-liquide-a-lacide-glycolique/
+- Soin anti-acné → https://biolystes.pro/product/soin-anti-acne/
+- Huile visage tout-en-un → https://biolystes.pro/product/huile-visage-tout-en-un/
+- Protection solaire SPF 30 pour Visage & Corps → https://biolystes.pro/product/protection-solaire-spf-30-pour-visage-corps/
+- Lotion après-soleil → https://biolystes.pro/product/lotion-apres-soleil/
+- Crème de nuit anti-âge au collagène → https://biolystes.pro/product/creme-de-nuit-anti-age-au-collagene/
 
 **Soins Corps** :
-- Crème pour le corps à l'urée pour peaux rugueuses → https://biolystes.com/product/creme-pour-le-corps-a-luree-pour-peaux-rugueuses/
-- Sérum corporel Silk Skin, ambre boisé et cuir → https://biolystes.com/product/serum-corporel-silk-skin-ambre-boise-et-cuir/
-- Sérum corporel Silk Skin, épices et bois de santal → https://biolystes.com/product/serum-corporel-silk-skin-epices-et-bois-de-santal/
-- Crème pour les mains Silk Skin, épices et bois de santal → https://biolystes.com/product/creme-pour-les-mains-silk-skin-epices-et-bois-de-santal/
-- Crème pour les mains Silk Skin, ambre boisé et cuir → https://biolystes.com/product/creme-pour-les-mains-silk-skin-ambre-boise-et-cuir/
-- Gel lavant mains & corps, pamplemousse → https://biolystes.com/product/gel-lavant-mains-corps-pamplemousse/
-- Gel lavant mains & corps, Cèdre & Menthe Poivrée → https://biolystes.com/product/gel-lavant-mains-corps-cedre-menthe-poivree/
-- Gel lavant mains & corps, Cardamome & Gingembre → https://biolystes.com/product/gel-lavant-mains-corps-cardamone-gingembre/
-- Gel lavant mains & corps, Ambre & Patchouli → https://biolystes.com/product/gel-lavant-mains-corps-ambre-patchouli/
+- Crème pour le corps à l'urée pour peaux rugueuses → https://biolystes.pro/product/creme-pour-le-corps-a-luree-pour-peaux-rugueuses/
+- Sérum corporel Silk Skin, ambre boisé et cuir → https://biolystes.pro/product/serum-corporel-silk-skin-ambre-boise-et-cuir/
+- Sérum corporel Silk Skin, épices et bois de santal → https://biolystes.pro/product/serum-corporel-silk-skin-epices-et-bois-de-santal/
+- Crème pour les mains Silk Skin, épices et bois de santal → https://biolystes.pro/product/creme-pour-les-mains-silk-skin-epices-et-bois-de-santal/
+- Crème pour les mains Silk Skin, ambre boisé et cuir → https://biolystes.pro/product/creme-pour-les-mains-silk-skin-ambre-boise-et-cuir/
+- Gel lavant mains & corps, pamplemousse → https://biolystes.pro/product/gel-lavant-mains-corps-pamplemousse/
+- Gel lavant mains & corps, Cèdre & Menthe Poivrée → https://biolystes.pro/product/gel-lavant-mains-corps-cedre-menthe-poivree/
+- Gel lavant mains & corps, Cardamome & Gingembre → https://biolystes.pro/product/gel-lavant-mains-corps-cardamone-gingembre/
+- Gel lavant mains & corps, Ambre & Patchouli → https://biolystes.pro/product/gel-lavant-mains-corps-ambre-patchouli/
 
 **Soins Capillaires** :
-- Shampooing Activateur de Repousse – Cuir Chevelu Apaisé → https://biolystes.com/product/shampooing-pour-cuir-chevelu-sensible/
-- Shampooing pour cheveux colorés → https://biolystes.com/product/shampooing-pour-cheveux-colores/
-- Après-shampooing, Smoky Green Vetiver → https://biolystes.com/product/apres-shampooing-smoky-green-vetiver/
-- Gommage profond pour cuir chevelu, Romarin & Menthe → https://biolystes.com/product/gommage-profond-pour-cuir-chevelu-romarin-menthe/
-- Brume capillaire sans rinçage Keratin Shine → https://biolystes.com/product/brume-capillaire-sans-rincage-keratin-shine/
-- Huile fortifiante au romarin pour les cheveux → https://biolystes.com/product/huile-fortifiante-au-romarin-pour-les-cheveux-et-le-cuir-chevelu/
+- Shampooing Activateur de Repousse – Cuir Chevelu Apaisé → https://biolystes.pro/product/shampooing-pour-cuir-chevelu-sensible/
+- Shampooing pour cheveux colorés → https://biolystes.pro/product/shampooing-pour-cheveux-colores/
+- Après-shampooing, Smoky Green Vetiver → https://biolystes.pro/product/apres-shampooing-smoky-green-vetiver/
+- Gommage profond pour cuir chevelu, Romarin & Menthe → https://biolystes.pro/product/gommage-profond-pour-cuir-chevelu-romarin-menthe/
+- Brume capillaire sans rinçage Keratin Shine → https://biolystes.pro/product/brume-capillaire-sans-rincage-keratin-shine/
+- Huile fortifiante au romarin pour les cheveux → https://biolystes.pro/product/huile-fortifiante-au-romarin-pour-les-cheveux-et-le-cuir-chevelu/
 
 **Homme** :
-- Crème de jour anti-âge pour homme → https://biolystes.com/product/creme-de-jour-anti-age-4/
-- Crème visage à l'acide hyaluronique pour hommes → https://biolystes.com/product/creme-visage-a-lacide-hyaluronique-pour-hommes-2/
-- Nettoyant 2 en 1 cheveux & corps pour hommes → https://biolystes.com/product/nettoyant-2-en-1-pour-les-cheveux-et-le-corps-pour-les-hommes/
-- Huile à barbe adoucissante → https://biolystes.com/product/huile-a-barbe-adoucissante/
+- Crème de jour anti-âge pour homme → https://biolystes.pro/product/creme-de-jour-anti-age-4/
+- Crème visage à l'acide hyaluronique pour hommes → https://biolystes.pro/product/creme-visage-a-lacide-hyaluronique-pour-hommes-2/
+- Nettoyant 2 en 1 cheveux & corps pour hommes → https://biolystes.pro/product/nettoyant-2-en-1-pour-les-cheveux-et-le-corps-pour-les-hommes/
+- Huile à barbe adoucissante → https://biolystes.pro/product/huile-a-barbe-adoucissante/
 
 ### Ingrédients phares
 Beurre de Karité, Huile d'Argan, Rétinol, Céramides, Acide Hyaluronique, Vitamine C, Vitamine E, Huile d'Avocat, Huile de Jojoba, Romarin, Menthe poivrée, Collagène végétal, Cannabidiol (CBD).
