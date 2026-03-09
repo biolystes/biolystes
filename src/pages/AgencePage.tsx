@@ -122,10 +122,10 @@ export default function AgencePage() {
               <span>Prendre rendez-vous</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
-            <button onClick={() => navigate("/portfolio")} className="btn-outline">
-              <span>Voir nos réalisations</span>
+            <a href="https://kaniwabotanique.com/" target="_blank" rel="noopener noreferrer" className="btn-outline">
+              <span>Voir notre dernier projet</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
-            </button>
+            </a>
           </motion.div>
         </div>
       </section>
