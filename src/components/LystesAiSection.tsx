@@ -33,7 +33,7 @@ function LystesHero() {
       </motion.p>
       <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
         className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-white">
-        Comment se passe la gestion de votre marque, <em className="italic">une fois celle-ci mise en place ?</em>
+        Automatiser la conversion de vos visiteurs en client en intégrant un agent conversationnel IA sur chaque page produit
       </motion.h2>
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
         className="text-[17px] text-white/50 leading-[1.7] max-w-[600px] mx-auto">
@@ -69,14 +69,14 @@ function LystesHero() {
    ═══════════════════════════════════════════════════ */
 function BeforeAfterPhones() {
   return (
-    <div className="w-full max-w-5xl mx-auto flex justify-center items-start py-12 px-6 gap-10 md:gap-16" style={{ scrollbarWidth: "none", overflow: "visible" }}>
+    <div className="w-full max-w-5xl mx-auto flex justify-center items-start py-12 px-6 gap-10 md:gap-16" style={{ scrollbarWidth: "none" }}>
       <div className="relative flex flex-col md:flex-row items-start justify-center gap-10 md:gap-16" style={{ overflow: "visible" }}>
 
         {/* ── AVANT ── */}
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
           className="flex flex-col items-center gap-4 relative z-10 w-[320px] shrink-0">
-          <div className="bg-foreground text-primary-foreground px-5 py-2 rounded-lg font-bold text-sm tracking-widest uppercase">Vos concurrents</div>
-          <div className="w-[320px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden relative flex flex-col">
+          <div className="bg-[#f5f4df] text-[#111] px-5 py-2 rounded-lg font-bold text-[9px] tracking-widest uppercase">Vos concurrents</div>
+          <div className="w-[320px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col border border-border">
             <PhoneHeader />
             <div className="w-full h-64 bg-muted relative pt-4 overflow-hidden">
               <div className="flex justify-center items-start h-full">
@@ -102,13 +102,15 @@ function BeforeAfterPhones() {
               <PaymentIcons />
             </div>
           </div>
-          {/* Conversion card */}
-          <div className="bg-background p-4 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] w-[320px]">
-            <p className="text-[10px] font-bold tracking-[2px] uppercase text-muted-foreground mb-2">Taux de conversion</p>
+          <div className="w-[320px] bg-background px-5 py-4 rounded-2xl border border-border relative z-20">
+            <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block mb-2">TAUX DE CONVERSION</span>
             <div className="flex items-center gap-3">
-              <span className="text-[22px] font-bold text-foreground">3,8 %</span>
-              <ArrowUp className="w-4 h-4 text-[#10b981] rotate-90" />
-              <span className="text-[22px] font-bold text-[#10b981]">42 %</span>
+              <span className="text-[22px] font-bold text-foreground">0,6 %</span>
+              <span className="text-primary font-bold text-sm">→</span>
+              <span className="text-[22px] font-bold text-primary">3,2 %</span>
+              <svg className="w-16 h-6 ml-auto" viewBox="0 0 100 30" fill="none">
+                <path d="M0 20 Q 15 0, 30 15 T 60 15 T 90 10 T 100 5" stroke="hsl(var(--primary))" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
             </div>
           </div>
         </motion.div>
@@ -116,11 +118,11 @@ function BeforeAfterPhones() {
         {/* ── AVEC LYSTES ── */}
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
           className="flex flex-col items-center gap-4 relative w-[360px] shrink-0">
-          <div className="bg-foreground text-primary-foreground px-5 py-2 rounded-lg font-bold text-sm tracking-widest uppercase z-10">
+          <div className="bg-[#f5f4df] text-[#111] px-5 py-2 rounded-lg font-bold text-[9px] tracking-widest uppercase z-10">
             Vous avec Biolystes AI
           </div>
           <div className="relative">
-            <div className="w-[360px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden relative flex flex-col z-10">
+            <div className="w-[360px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col z-10 border border-border">
               <PhoneHeader />
               <div className="w-full bg-foreground text-primary-foreground text-center text-[10px] font-medium tracking-widest uppercase py-1.5 shrink-0">
                 Livraison gratuite aujourd'hui
@@ -451,7 +453,7 @@ function TeamAnalytics({ titleOverride }: { titleOverride?: string }) {
 function PhoneHeader({ small }: { small?: boolean }) {
   const sz = small ? "w-4 h-4" : "w-5 h-5";
   return (
-    <div className="flex items-center justify-between px-5 pt-7 pb-3.5 border-b border-border">
+    <div className="flex items-center justify-between px-5 pt-10 pb-4 z-20">
       <div className="flex items-center gap-3">
         <Menu className={`${sz} text-foreground`} />
         <Search className={`${sz} text-foreground`} />
