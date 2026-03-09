@@ -452,6 +452,9 @@ section#section-lance {
 button.p-6.rounded-2xl.bg-secondary.hover\:bg-accent.transition-colors.text-left.group {
   background: #fff;
 }
+span.relative.h-2.w-full.grow.overflow-hidden.rounded-full.bg-secondary {
+  background-color: #e6e5d1;
+}
 .p-6.md\:p-8.rounded-2xl.bg-background {
   background: #fff;
 }
