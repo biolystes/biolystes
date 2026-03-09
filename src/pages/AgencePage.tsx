@@ -17,10 +17,6 @@ import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
 import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
 import kaniwaUgc5 from "@/assets/kaniwa-ugc-5.png";
 import kaniwaUgc6 from "@/assets/kaniwa-ugc-6.jpg";
-import fraleneUgc from "@/assets/fralene-ugc.png";
-import fralene3 from "@/assets/fralene-3.jpg";
-import fraleneExt1 from "@/assets/fralene-ext-1.jpg";
-import fralene10 from "@/assets/fralene-10.jpg";
 import sevmylook1 from "@/assets/sevmylook-1.jpg";
 import sevmylook3 from "@/assets/sevmylook-3.jpg";
 import sevmylook7 from "@/assets/sevmylook-7.jpg";
@@ -42,12 +38,6 @@ const portfolioBrands = [
     tagline: "Stratégie réseaux sociaux + contenu IA",
     url: "https://kaniwabotanique.com/",
     photos: [kaniwa1, kaniwaUgc2, kaniwa7, kaniwaUgc3, kaniwaUgc4, kaniwaUgc5, kaniwaUgc6],
-  },
-  {
-    name: "Fralène",
-    tagline: "Campagne influence + contenu premium",
-    url: "https://fraleneparis.com/",
-    photos: [{ type: "video" as const, src: "/videos/fralene-ugc.mp4" }, fraleneUgc, fralene3, fraleneExt1, fralene10],
   },
   {
     name: "Sevmylook",
@@ -79,11 +69,7 @@ function BrandCarousel({ brand }: { brand: typeof portfolioBrands[0] }) {
         <div className="flex gap-3">
           {brand.photos.map((item, i) => (
             <div key={i} className="flex-none w-[45%] md:w-[24%] aspect-[3/4] rounded-2xl overflow-hidden">
-              {typeof item === "object" && item !== null && "type" in item && item.type === "video" ? (
-                <SafeVideo src={item.src} className="w-full h-full object-cover" />
-              ) : (
-                <img src={typeof item === "string" ? item : ""} alt={`${brand.name} ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
-              )}
+              <img src={typeof item === "string" ? item : ""} alt={`${brand.name} ${i + 1}`} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="lazy" />
             </div>
           ))}
         </div>
