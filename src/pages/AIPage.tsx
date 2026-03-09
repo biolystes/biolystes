@@ -112,6 +112,9 @@ export default function AIPage() {
       </section>
       </div>
 
+      {/* ═══ DIAGNOSTIC COMPARISON ═══ */}
+      <DiagnosticComparisonSection />
+
       {/* ═══ AI SECTIONS (reuse from LystesAiSection) ═══ */}
       <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
         <LystesAiSection />
