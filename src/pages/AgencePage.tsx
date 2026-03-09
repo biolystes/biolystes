@@ -54,12 +54,6 @@ const portfolioBrands = [
     url: "https://sevmylook.com/",
     photos: [sevmylook1, sevmylook20, sevmylook7, sevmylook3],
   },
-  {
-    name: "Pmyrris Beauty",
-    tagline: "Lancement réseaux sociaux + SEO",
-    url: "https://pmyrrisbeauty.fr/",
-    photos: [pmyrris1, pmyrris2, pmyrris4, pmyrris5],
-  },
 ];
 
 function BrandCarousel({ brand }: { brand: typeof portfolioBrands[0] }) {
