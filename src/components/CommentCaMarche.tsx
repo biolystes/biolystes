@@ -43,7 +43,7 @@ const steps = [
     label: "ÉTAPE 6",
     title: "Logistique & Expédition Simplifiées",
     text: "De la production à la demande à l'expédition sous votre marque, nous nous occupons de tout. Vous vous concentrez sur la croissance.",
-    image: "https://biolystes.com/wp-content/uploads/2025/05/IMG_1896.png",
+    image: "https://biolystes.pro/wp-content/uploads/2025/05/IMG_1896.png",
     alt: "Logistique et Expédition",
   },
   {
