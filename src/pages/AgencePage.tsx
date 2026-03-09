@@ -44,6 +44,12 @@ const portfolioBrands = [
     photos: [kaniwa1, kaniwaUgc2, kaniwa7, kaniwaUgc3, kaniwaUgc4, kaniwaUgc5, kaniwaUgc6],
   },
   {
+    name: "Fralène",
+    tagline: "Campagne influence + contenu premium",
+    url: "https://fraleneparis.com/",
+    photos: [{ type: "video" as const, src: "/videos/fralene-ugc.mp4" }, fraleneUgc, fralene3, fraleneExt1, fralene10],
+  },
+  {
     name: "Sevmylook",
     tagline: "Stratégie complète par Séverine Formal (400K abonnés)",
     url: "https://sevmylook.com/",
