@@ -54,6 +54,12 @@ function LystesHero() {
           </div>
         ))}
       </motion.div>
+
+      {/* Demo video */}
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4}
+        className="mt-10 max-w-3xl mx-auto rounded-2xl overflow-hidden">
+        <SafeVideo src="/videos/lystesai-demo.mov" className="w-full h-auto" lazy />
+      </motion.div>
     </div>
   );
 }
