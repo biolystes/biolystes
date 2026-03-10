@@ -82,7 +82,7 @@ export default function DiagnosticComparisonSection() {
           <em className="italic">agent conversationnel IA sur chaque page produit</em>
         </motion.h2>
         <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
-          className="text-[17px] text-white/50 leading-[1.7] max-w-[600px] mx-auto">
+          className="text-[17px] text-cream/50 leading-[1.7] max-w-[600px] mx-auto">
            Nous déployons une équipe d'agents conversationnels IA dédiée à chaque produit, capable de répondre instantanément aux questions de vos clients concernant la composition, la compatibilité ou les délais.
         </motion.p>
 
