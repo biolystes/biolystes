@@ -120,6 +120,10 @@ export default function AIPage() {
         <LystesAiSection />
       </section>
 
+      <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
+        <LystesAiSection />
+      </section>
+
       {/* ═══ TEAM ORG CHART ═══ */}
       <AITeamOrgChart />
 
