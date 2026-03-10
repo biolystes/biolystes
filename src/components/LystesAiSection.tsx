@@ -419,7 +419,7 @@ function TeamAnalytics({ titleOverride }: { titleOverride?: string }) {
 
   return (
     <TeamRow bg="bg-background" title={titleOverride || "Des décisions basées sur la réalité"} kicker="Équipe Analytics AI"
-      desc="Nous mettons en place une équipe Analytics AI, qui connaît vos chiffres en temps réel. CA, tops produits, questions clients, points de blocage. Des décisions basées sur la réalité, pas sur des suppositions.">
+      desc="En analysant chaque conversation entre vos agents IA et vos clients, nous identifions les questions récurrentes, les objections, les points de blocage et les produits les plus demandés. Des insights concrets tirés de vrais échanges, pas de suppositions.">
       <div>
         {/* KPIs */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 mb-5">
