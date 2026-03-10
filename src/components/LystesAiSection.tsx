@@ -569,7 +569,7 @@ export default function LystesAiSection({ titleOverrides, teams, heroOverrides }
       {show("diagnostics") && <TeamDiagnostics titleOverride={titleOverrides?.diagnostics} />}
       {show("expertProduit") && <TeamExpertProduit titleOverride={titleOverrides?.expertProduit} />}
       {show("photographe") && <TeamPhotographe titleOverride={titleOverrides?.photographe} />}
-      
+      {show("seo") && <TeamSEO titleOverride={titleOverrides?.seo} />}
       {show("marketing") && <TeamMarketing titleOverride={titleOverrides?.marketing} />}
       {show("contenu") && <TeamContenu titleOverride={titleOverrides?.contenu} />}
       {show("analytics") && <TeamAnalytics titleOverride={titleOverrides?.analytics} />}
