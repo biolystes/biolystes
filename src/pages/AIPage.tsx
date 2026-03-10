@@ -214,8 +214,6 @@ export default function AIPage() {
       {/* ═══ 5. ORGANIGRAMME IA ═══ */}
       <AITeamOrgChart />
 
-      {/* ═══ 6. CLIENTS SHOWCASE ═══ */}
-      <AIClientsShowcase />
 
       {/* ═══ 7. LEAKY BUCKET ═══ */}
       <LeakyBucketSection />
