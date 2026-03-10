@@ -20,7 +20,7 @@ export default function AIPage() {
   return (
     <div className="min-h-screen bg-background -mx-6 lg:-mx-10 -mt-6 lg:-mt-10 overflow-x-hidden">
 
-      {/* ═══ HERO ═══ */}
+      {/* ═══ 1. HERO ═══ */}
       <div className="max-w-5xl mx-auto mt-[80px] rounded-[2.75rem] p-6 md:p-8">
       <section className="py-12 md:py-20 relative overflow-hidden">
         <div className="relative z-[2]">
@@ -112,38 +112,38 @@ export default function AIPage() {
       </section>
       </div>
 
-      {/* ═══ DIAGNOSTIC COMPARISON ═══ */}
+      {/* ═══ 2. AGENTS CONVERSATIONNELS ═══ */}
       <DiagnosticComparisonSection />
 
-      {/* ═══ AI SECTIONS (reuse from LystesAiSection) ═══ */}
+      {/* ═══ 3. ÉQUIPES IA (section sombre 1) ═══ */}
       <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
         <LystesAiSection />
       </section>
 
+      {/* ═══ 4. ÉQUIPES IA (section sombre 2) ═══ */}
       <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
         <LystesAiSection />
       </section>
 
-      {/* ═══ TEAM ORG CHART ═══ */}
+      {/* ═══ 5. ORGANIGRAMME IA ═══ */}
       <AITeamOrgChart />
 
-      {/* ═══ CLIENTS SHOWCASE ═══ */}
+      {/* ═══ 6. CLIENTS SHOWCASE ═══ */}
       <AIClientsShowcase />
 
-      {/* ═══ LEAKY BUCKET ═══ */}
+      {/* ═══ 7. LEAKY BUCKET ═══ */}
       <LeakyBucketSection />
 
-      {/* ═══ DÉPLOIEMENT ═══ */}
+      {/* ═══ 8. DÉPLOIEMENT ═══ */}
       <DeploymentSection />
 
-      {/* ═══ INTERNATIONAL ═══ */}
+      {/* ═══ 9. INTERNATIONAL ═══ */}
       <InternationalSection />
 
-
-      {/* ═══ TÉMOIGNAGES ═══ */}
+      {/* ═══ 10. TÉMOIGNAGES ═══ */}
       <TestimonialsSection />
 
-      {/* ═══ CTA FINAL ═══ */}
+      {/* ═══ 11. CTA FINAL ═══ */}
       <CTASection />
     </div>
   );
