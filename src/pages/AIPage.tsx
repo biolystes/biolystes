@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import SafeVideo from "@/components/SafeVideo";
@@ -7,6 +8,30 @@ import AIClientsShowcase from "@/components/AIClientsShowcase";
 import { LeakyBucketSection, DeploymentSection, InternationalSection, TestimonialsSection, CTASection } from "@/components/AIExtraSections";
 import aiHeroMockup from "@/assets/ai-hero-mockup.png";
 import DiagnosticComparisonSection from "@/components/DiagnosticComparisonSection";
+
+import sevmylook1 from "@/assets/sevmylook-1.jpg";
+import sevmylook2 from "@/assets/sevmylook-2.jpg";
+import sevmylook3 from "@/assets/sevmylook-3.jpg";
+import sevmylook4 from "@/assets/sevmylook-4.jpg";
+import sevmylook5 from "@/assets/sevmylook-5.jpg";
+import sevmylook6 from "@/assets/sevmylook-6.jpg";
+import sevmylook7 from "@/assets/sevmylook-7.jpg";
+import sevmylook8 from "@/assets/sevmylook-8.jpg";
+import sevmylook9 from "@/assets/sevmylook-9.jpg";
+import kaniwa1 from "@/assets/kaniwa-1.jpg";
+import kaniwa2 from "@/assets/kaniwa-2.jpg";
+import kaniwa3 from "@/assets/kaniwa-3.jpg";
+import kaniwa4 from "@/assets/kaniwa-4.jpg";
+import kaniwa5 from "@/assets/kaniwa-5.jpg";
+import kaniwa6 from "@/assets/kaniwa-6.jpg";
+import kaniwa7 from "@/assets/kaniwa-7.jpg";
+import kaniwa8 from "@/assets/kaniwa-8.jpg";
+import fralene1 from "@/assets/fralene-1.jpg";
+import fralene2 from "@/assets/fralene-2.jpg";
+import fralene3 from "@/assets/fralene-3.jpg";
+import fralene4 from "@/assets/fralene-4.jpg";
+import fralene5 from "@/assets/fralene-5.jpg";
+import fralene6 from "@/assets/fralene-6.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
