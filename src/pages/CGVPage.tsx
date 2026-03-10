@@ -66,9 +66,8 @@ export default function CGVPage() {
           </Section>
 
           <Section title="Article 8 – Propriété intellectuelle">
-            Tous les éléments créatifs réalisés par Lystes (logos, designs, packagings) restent la propriété
-            de Lystes jusqu'au paiement intégral de la prestation. Après paiement, les droits d'utilisation
-            sont cédés au client pour l'usage convenu.
+            Le site web créé dans le cadre de la prestation est la propriété pleine et entière du client dès sa mise en ligne. Aucun reliquat ni frais supplémentaire n'est dû pour en conserver la propriété.<br /><br />
+            Les éléments créatifs réalisés par Lystes (logos, designs, packagings) sont cédés au client dès le paiement intégral de la prestation, sans restriction d'usage.
           </Section>
 
           <Section title="Article 9 – Litiges">
