@@ -22,7 +22,7 @@ export default function MentionsLegalesPage() {
             RCS : RCS Paris 907 951 867<br />
             Numéro de TVA intracommunautaire : FR68 907951867<br />
             Directeur de la publication : Jean‑Pierre BIAS, en sa qualité de président<br />
-            Email : hello@biolystes.pro
+            Email : hello@biolystes.com
           </Section>
 
           <Section title="Hébergement">
@@ -37,7 +37,7 @@ export default function MentionsLegalesPage() {
           </Section>
 
           <Section title="Contact">
-            Pour toute question, vous pouvez nous contacter à l'adresse : hello@biolystes.pro
+            Pour toute question, vous pouvez nous contacter à l'adresse : hello@biolystes.com
           </Section>
         </div>
       </div>
