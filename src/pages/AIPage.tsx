@@ -107,7 +107,6 @@ function UgcCarousel() {
       <ScrollingRow images={ugcRow1} speed={25} />
       <ScrollingRow images={ugcRow2} speed={20} reverse />
     </div>
-    </div>
   );
 }
 
