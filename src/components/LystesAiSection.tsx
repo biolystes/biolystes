@@ -71,13 +71,16 @@ function LystesHero({ overrides }: { overrides?: HeroOverrides }) {
       </motion.div>
 
       {/* Media */}
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4}
-        className="mt-10 mx-auto rounded-2xl overflow-hidden">
-        {overrides?.customMedia ? overrides.customMedia : (
-          <div className="max-w-3xl mx-auto">
-            <SafeVideo src={videoSrc} className="w-full h-auto" lazy />
-          </div>
-        )}
+      {(overrides?.customMedia || videoSrc) && (
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4}
+          className="mt-10 mx-auto rounded-2xl overflow-hidden">
+          {overrides?.customMedia ? overrides.customMedia : (
+            <div className="max-w-3xl mx-auto">
+              <SafeVideo src={videoSrc} className="w-full h-auto" lazy />
+            </div>
+          )}
+        </motion.div>
+      )}
       </motion.div>
     </div>
   );
