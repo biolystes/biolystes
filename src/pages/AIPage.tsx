@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import SafeVideo from "@/components/SafeVideo";
@@ -8,6 +9,30 @@ import { LeakyBucketSection, DeploymentSection, InternationalSection, Testimonia
 import aiHeroMockup from "@/assets/ai-hero-mockup.png";
 import DiagnosticComparisonSection from "@/components/DiagnosticComparisonSection";
 
+import sevmylook1 from "@/assets/sevmylook-1.jpg";
+import sevmylook2 from "@/assets/sevmylook-2.jpg";
+import sevmylook3 from "@/assets/sevmylook-3.jpg";
+import sevmylook4 from "@/assets/sevmylook-4.jpg";
+import sevmylook5 from "@/assets/sevmylook-5.jpg";
+import sevmylook6 from "@/assets/sevmylook-6.jpg";
+import sevmylook7 from "@/assets/sevmylook-7.jpg";
+import sevmylook8 from "@/assets/sevmylook-8.jpg";
+import sevmylook9 from "@/assets/sevmylook-9.jpg";
+import kaniwa1 from "@/assets/kaniwa-1.jpg";
+import kaniwa2 from "@/assets/kaniwa-2.jpg";
+import kaniwa3 from "@/assets/kaniwa-3.jpg";
+import kaniwa4 from "@/assets/kaniwa-4.jpg";
+import kaniwa5 from "@/assets/kaniwa-5.jpg";
+import kaniwa6 from "@/assets/kaniwa-6.jpg";
+import kaniwa7 from "@/assets/kaniwa-7.jpg";
+import kaniwa8 from "@/assets/kaniwa-8.jpg";
+import fralene1 from "@/assets/fralene-1.jpg";
+import fralene2 from "@/assets/fralene-2.jpg";
+import fralene3 from "@/assets/fralene-3.jpg";
+import fralene4 from "@/assets/fralene-4.jpg";
+import fralene5 from "@/assets/fralene-5.jpg";
+import fralene6 from "@/assets/fralene-6.jpg";
+
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
   visible: (i: number) => ({
@@ -15,6 +40,54 @@ const fadeUp = {
     transition: { delay: i * 0.15, duration: 0.7, ease: [0.22, 1, 0.36, 1] },
   }),
 };
+
+const row1 = [sevmylook4, sevmylook1, sevmylook2, sevmylook7, sevmylook3, sevmylook9, sevmylook5, sevmylook8, sevmylook6];
+const row2 = [kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7, kaniwa8];
+const row3 = [fralene1, fralene2, fralene3, fralene4, fralene5, fralene6];
+
+function ScrollingRow({ images, speed = 30, reverse = false }: { images: string[]; speed?: number; reverse?: boolean }) {
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    let raf: number;
+    let pos = 0;
+    const half = track.scrollWidth / 2;
+    const dir = reverse ? 1 : -1;
+
+    const animate = () => {
+      pos += dir * (speed / 60);
+      if (dir < 0 && pos <= -half) pos += half;
+      if (dir > 0 && pos >= 0) pos -= half;
+      track.style.transform = `translate3d(${pos}px, 0, 0)`;
+      raf = requestAnimationFrame(animate);
+    };
+    raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, [speed, reverse]);
+
+  const doubled = [...images, ...images];
+  return (
+    <div className="overflow-hidden">
+      <div ref={trackRef} className="flex gap-3 will-change-transform" style={{ width: "max-content" }}>
+        {doubled.map((src, i) => (
+          <img key={i} src={src} alt={`Photo AI ${i + 1}`} loading="lazy" className="h-[200px] md:h-[260px] w-auto rounded-xl object-cover shrink-0" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PhotoCarousel() {
+  return (
+    <div className="space-y-3">
+      <ScrollingRow images={row1} speed={25} />
+      <ScrollingRow images={row2} speed={20} reverse />
+      <ScrollingRow images={row3} speed={30} />
+    </div>
+  );
+}
 
 export default function AIPage() {
   return (
@@ -133,6 +206,7 @@ export default function AIPage() {
               { num: "10s", label: "Par visuel" },
               { num: "0€", label: "Coût shooting" },
             ],
+            customMedia: <PhotoCarousel />,
           }}
         />
       </section>

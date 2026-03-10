@@ -30,6 +30,7 @@ interface HeroOverrides {
   description?: string;
   stats?: { num: string; label: string }[];
   videoSrc?: string;
+  customMedia?: React.ReactNode;
 }
 
 function LystesHero({ overrides }: { overrides?: HeroOverrides }) {
@@ -69,10 +70,14 @@ function LystesHero({ overrides }: { overrides?: HeroOverrides }) {
         ))}
       </motion.div>
 
-      {/* Demo video */}
+      {/* Media */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4}
-        className="mt-10 max-w-3xl mx-auto rounded-2xl overflow-hidden">
-        <SafeVideo src={videoSrc} className="w-full h-auto" lazy />
+        className="mt-10 mx-auto rounded-2xl overflow-hidden">
+        {overrides?.customMedia ? overrides.customMedia : (
+          <div className="max-w-3xl mx-auto">
+            <SafeVideo src={videoSrc} className="w-full h-auto" lazy />
+          </div>
+        )}
       </motion.div>
     </div>
   );
