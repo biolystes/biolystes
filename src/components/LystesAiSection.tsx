@@ -403,28 +403,8 @@ function TeamContenu({ titleOverride }: { titleOverride?: string }) {
     <TeamRow bg="bg-secondary" reversed title={titleOverride || "Du contenu pro en quelques secondes"} kicker="Équipe Créateur de contenu AI"
       desc="Nous mettons en place une équipe Créateur de contenu AI, qui produit des contenus pour vos réseaux sociaux, articles de blog et descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
       <div className="flex gap-3.5 flex-wrap">
-        {[
-          { src: kaniwaUgc2, label: "Post Instagram", type: "image" as const },
-          { src: "/videos/fralene-ugc.mp4", label: "Story Réseaux", type: "video" as const },
-        ].map(img => (
-          <div key={img.label} className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
-            {img.type === "video" ? (
-              <SafeVideo src={img.src} className="w-full h-[280px] object-cover block" lazy />
-            ) : (
-              <img src={img.src} alt="" className="w-full h-[280px] object-cover block" />
-            )}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/55 to-transparent p-3 pt-8 text-cream text-[11px] font-semibold flex items-center gap-1.5">
-              📱 {img.label}
-            </div>
-          </div>
-        ))}
-        <div className="flex-1 min-w-[180px] bg-background rounded-2xl p-6 flex flex-col justify-center gap-2.5">
-          <span className="text-[10px] font-bold text-muted-foreground tracking-wider uppercase">Blog Article</span>
-          <h4 className="text-[15px] font-bold text-foreground leading-snug">5 routines beauté bio pour peaux sensibles</h4>
-          <p className="text-xs text-muted-foreground leading-snug">Découvrez comment prendre soin de votre peau avec des produits 100% naturels et végans…</p>
-          <div className="text-[11px] text-[#10b981] font-semibold flex items-center gap-1">
-            <Sparkles className="w-3 h-3" /> Rédigé en 12 secondes
-          </div>
+        <div className="flex-1 min-w-[300px] rounded-2xl overflow-hidden relative">
+          <SafeVideo src="/videos/fralene-ugc.mp4" className="w-full h-[480px] object-cover block" lazy />
         </div>
       </div>
     </TeamRow>
