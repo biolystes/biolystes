@@ -279,10 +279,6 @@ export default function AIPage() {
         <AITeamOrgChart />
       </section>
 
-      {/* ═══ 7. LEAKY BUCKET ═══ */}
-      <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
-        <LeakyBucketSection />
-      </section>
 
       {/* ═══ 8. DÉPLOIEMENT ═══ */}
       <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
