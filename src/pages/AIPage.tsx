@@ -251,6 +251,7 @@ export default function AIPage() {
               { num: "100%", label: "Data-driven" },
               { num: "+40%", label: "Conversion SEO" },
             ],
+            videoSrc: "",
           }}
         />
       </section>
