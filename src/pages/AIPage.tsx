@@ -105,7 +105,7 @@ function UgcCarousel() {
   return (
     <div className="space-y-3">
       <ScrollingRow images={ugcRow1} speed={25} />
-      <ScrollingRow images={row2} speed={20} reverse />
+      <ScrollingRow images={ugcRow2} speed={20} reverse />
       <ScrollingRow images={row3} speed={30} />
     </div>
   );
