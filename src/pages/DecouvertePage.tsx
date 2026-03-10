@@ -1004,7 +1004,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ FOOTER ═══ */}
-      <footer className="bg-foreground text-primary-foreground py-16">
+      <footer className="bg-foreground text-cream py-16">
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
             {/* Col 1 — Brand */}
