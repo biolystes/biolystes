@@ -12,6 +12,7 @@ import {
   AlertTriangle, Warehouse, Users, Eye, Timer, ChevronLeft, ChevronRight,
 } from "lucide-react";
 import LystesAiSection from "@/components/LystesAiSection";
+import ResponsabiliteSection from "@/components/ResponsabiliteSection";
 import InstaFeedSection from "@/components/InstaFeedSection";
 import WirtzkinSection from "@/components/WirtzkinSection";
 import AvantApresSection from "@/components/AvantApresSection";
@@ -637,6 +638,7 @@ export default function DecouvertePage() {
       <section id="section-lystesai" ref={setRef("lystesai")} className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8" style={{ overflow: "visible" }}>
         <LystesAiSection />
         <AvantApresSection />
+        <ResponsabiliteSection />
       </section>
 
       {/* ═══ 7. PORTFOLIO — NOS CLIENTS ═══ */}
