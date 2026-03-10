@@ -546,11 +546,11 @@ export interface LystesAiTitleOverrides {
 
 export type TeamName = "diagnostics" | "expertProduit" | "photographe" | "seo" | "marketing" | "contenu" | "analytics";
 
-export default function LystesAiSection({ titleOverrides, teams }: { titleOverrides?: LystesAiTitleOverrides; teams?: TeamName[] } = {}) {
+export default function LystesAiSection({ titleOverrides, teams, heroOverrides }: { titleOverrides?: LystesAiTitleOverrides; teams?: TeamName[]; heroOverrides?: HeroOverrides } = {}) {
   const show = (name: TeamName) => !teams || teams.includes(name);
   return (
     <>
-      <LystesHero />
+      <LystesHero overrides={heroOverrides} />
       {show("diagnostics") && <TeamDiagnostics titleOverride={titleOverrides?.diagnostics} />}
       {show("expertProduit") && <TeamExpertProduit titleOverride={titleOverrides?.expertProduit} />}
       {show("photographe") && <TeamPhotographe titleOverride={titleOverrides?.photographe} />}
