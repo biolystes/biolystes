@@ -83,7 +83,7 @@ export default function DiagnosticComparisonSection() {
         </motion.h2>
         <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
           className="text-[17px] text-white/50 leading-[1.7] max-w-[600px] mx-auto">
-           Nous mettons en place une équipe Diagnostics AI, qui scanne le visage de vos visiteurs via un simple selfie, analyse leur peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.
+           Nous déployons une équipe d'agents conversationnels IA dédiée à chaque produit, capable de répondre instantanément aux questions de vos clients concernant la composition, la compatibilité ou les délais.
         </motion.p>
 
         {/* Stats */}
