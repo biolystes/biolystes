@@ -138,10 +138,10 @@ export default function AIPage() {
 
               <motion.p initial="hidden" animate="visible" variants={fadeUp} custom={2}
                 className="text-[14px] md:text-[17px] text-foreground/50 leading-[1.7] mb-6 md:mb-8 max-w-[580px] lg:mx-0 mx-auto">
-                En e-commerce, le constat est brutal : en moyenne, seuls 2% de vos visiteurs achètent.
+                En e-commerce, en moyenne, seuls 2% de vos visiteurs achètent.
                 Les 98% restants repartent, alors qu'une partie d'entre eux aurait dû devenir clients.
-                Lystes AI résout ce problème grâce à un écosystème d'agents IA autonomes et interconnectés
-                qui identifient et éliminent, un par un, les points de friction qui vous coûtent des ventes.
+                Lystes AI résout ce problème grâce à un écosystème d'agents IA
+                qui identifient, un par un, les points de friction qui vous coûtent des ventes.
               </motion.p>
 
               <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3}
