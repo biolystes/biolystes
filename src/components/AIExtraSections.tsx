@@ -181,7 +181,7 @@ function TestimonialsSection() {
       initial: "S",
     },
     {
-      text: "Le chatbot connaît nos formulations mieux que nous. Les clientes posent des questions pointues sur les actifs et elles obtiennent des réponses précises instantanément.",
+      text: "Nos agents conversationnels connaissent nos formulations mieux que nous. Les clientes posent des questions pointues sur les actifs et elles obtiennent des réponses précises instantanément.",
       name: "Léa",
       role: "Fondatrice, Trueage Skin",
       initial: "L",
