@@ -98,7 +98,7 @@ export default function AITeamOrgChart() {
         className="text-center mb-10">
         <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-cream/50 mb-4">Équipe AI</p>
         <h2 className="text-[24px] md:text-[clamp(32px,4vw,44px)] font-medium tracking-[-0.03em] mb-4 leading-[1.15] text-cream">
-          <span className="font-['Instrument_Serif'] italic">Lystes {productCount} produits</span>{" "}
+          <span className="font-['Instrument_Serif'] italic">{productCount} produits</span>{" "}
           <span className="inline-block">= <span className="font-['Instrument_Serif'] italic text-cream/50">{totalAgents} agents dédiés</span></span>
           <br />pour booster vos ventes
         </h2>
