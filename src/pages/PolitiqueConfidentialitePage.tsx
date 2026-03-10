@@ -42,7 +42,7 @@ export default function PolitiqueConfidentialitePage() {
           <Section title="Vos droits">
             Conformément au RGPD, vous disposez des droits d'accès, de rectification, de suppression,
             de limitation, de portabilité et d'opposition concernant vos données personnelles.<br />
-            Pour exercer ces droits, contactez-nous à : hello@biolystes.pro
+            Pour exercer ces droits, contactez-nous à : hello@biolystes.com
           </Section>
 
           <Section title="Cookies">

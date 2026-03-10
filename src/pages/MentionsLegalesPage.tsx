@@ -37,7 +37,7 @@ export default function MentionsLegalesPage() {
           </Section>
 
           <Section title="Contact">
-            Pour toute question, vous pouvez nous contacter à l'adresse : hello@biolystes.pro
+            Pour toute question, vous pouvez nous contacter à l'adresse : hello@biolystes.com
           </Section>
         </div>
       </div>
