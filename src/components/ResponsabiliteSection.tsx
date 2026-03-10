@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
+import produitEndommage from "@/assets/produit-endommage.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -97,7 +97,7 @@ export default function ResponsabiliteSection() {
           <div className="flex-[1.5] min-w-[300px] w-full">
             <div className="flex gap-3.5 flex-wrap">
               <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
-                <img src={kaniwaUgc2} alt="" className="w-full h-[480px] object-cover block" loading="lazy" />
+                <img src={produitEndommage} alt="Produit endommagé" className="w-full h-[480px] object-cover block" loading="lazy" />
               </div>
             </div>
           </div>
