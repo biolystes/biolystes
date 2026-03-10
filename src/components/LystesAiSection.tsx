@@ -241,7 +241,7 @@ function TeamDiagnostics({ titleOverride }: { titleOverride?: string }) {
   return (
     <>
       <TeamRow bg="bg-background" title="Diagnostic peau intelligent" kicker="Skin AI"
-        desc="Nous déployons une équipe d'agents conversationnels IA dédiée à chaque produit, capable de répondre instantanément aux questions de vos clients concernant la composition, la compatibilité ou les délais.">
+        desc="Un diagnostic personnalisé via selfie qui analyse le type de peau, les imperfections et les besoins spécifiques de chaque client. L'IA recommande ensuite les produits les plus adaptés de votre catalogue, augmentant la conversion et la satisfaction.">
         <SafeVideo src="/videos/fralene-ugc.mp4" className="w-full h-[400px] object-cover rounded-2xl" lazy />
       </TeamRow>
       <TeamRow bg="bg-secondary" reversed title="Diagnostic cheveux intelligent" kicker="Hair AI"
