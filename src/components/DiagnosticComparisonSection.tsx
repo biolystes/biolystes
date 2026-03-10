@@ -73,30 +73,30 @@ export default function DiagnosticComparisonSection() {
       {/* ── Header ── */}
       <div className="text-center max-w-5xl mx-auto px-6 pt-24 pb-12">
         <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-          className="text-[10px] font-bold tracking-[2.5px] uppercase text-white/50 mb-5">
+          className="text-[10px] font-bold tracking-[2.5px] uppercase text-cream/50 mb-5">
           Votre équipe intégrée
         </motion.p>
         <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-          className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-white">
+          className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-cream">
           Automatiser la conversion de vos visiteurs en client en intégrant un{" "}
           <em className="italic">agent conversationnel IA sur chaque page produit</em>
         </motion.h2>
         <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
-          className="text-[17px] text-white/50 leading-[1.7] max-w-[600px] mx-auto">
+          className="text-[17px] text-cream/50 leading-[1.7] max-w-[600px] mx-auto">
            Nous déployons une équipe d'agents conversationnels IA dédiée à chaque produit, capable de répondre instantanément aux questions de vos clients concernant la composition, la compatibilité ou les délais.
         </motion.p>
 
         {/* Stats */}
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
-          className="grid grid-cols-3 max-w-xl mx-auto pt-14 pb-6 divide-x divide-white/20">
+          className="grid grid-cols-3 max-w-xl mx-auto pt-14 pb-6 divide-x divide-cream/20">
           {[
             { num: "7", label: "Équipes AI dédiées" },
             { num: "24h/24", label: "Disponibilité" },
             { num: "80%", label: "Économie vs agence" },
           ].map((s) => (
             <div key={s.label} className="text-center px-4 md:px-8">
-              <div className="text-2xl md:text-3xl font-light leading-none text-white tracking-tight italic">{s.num}</div>
-              <div className="text-[10px] text-white/50 font-semibold mt-3 uppercase tracking-[0.15em] whitespace-nowrap">{s.label}</div>
+              <div className="text-2xl md:text-3xl font-light leading-none text-cream tracking-tight italic">{s.num}</div>
+              <div className="text-[10px] text-cream/50 font-semibold mt-3 uppercase tracking-[0.15em] whitespace-nowrap">{s.label}</div>
             </div>
           ))}
         </motion.div>

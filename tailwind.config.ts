@@ -14,6 +14,7 @@ export default {
     },
     extend: {
       colors: {
+        cream: "hsl(57 52% 92%)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
