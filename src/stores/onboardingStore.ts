@@ -49,7 +49,7 @@ interface PackInfo {
 export const PACKS: Record<PackType, PackInfo> = {
   decouverte: { type: "decouverte", setup_price: 147, monthly_price: 0, monthly_name: "Aucun", label: "Découverte" },
   agence: { type: "agence", setup_price: 1499, monthly_price: 99, monthly_name: "PRO", label: "Agence" },
-  ia: { type: "ia", setup_price: 2999, monthly_price: 199, monthly_name: "PRO IA", label: "IA" },
+  ia: { type: "ia", setup_price: 2999, monthly_price: 149, monthly_name: "PRO IA", label: "IA" },
 };
 
 interface OnboardingState {

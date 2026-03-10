@@ -18,10 +18,11 @@ const FEATURES: Record<PackType, string[]> = {
   ],
   ia: [
     "Tout Agence +",
-    "Agent IA personnalisé",
-    "SEO & contenu automatisé",
-    "Analytics avancés",
-    "Abonnement PRO IA : 199€/mois",
+    "UGC IA Ultraréaliste",
+    "Diagnostic intelligent par IA",
+    "Recommandations produits par IA",
+    "Gestion réseaux sociaux 1 mois",
+    "Abonnement PRO IA : 149€/mois (1er mois offert)",
     "Support dédié 24/7",
   ],
 };
