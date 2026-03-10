@@ -28,6 +28,7 @@ import CGVPage from "./pages/CGVPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import AIPage from "./pages/AIPage";
 import AgencePage from "./pages/AgencePage";
+import TarifsPage from "./pages/TarifsPage";
 
 const queryClient = new QueryClient();
 
