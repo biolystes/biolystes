@@ -41,6 +41,54 @@ const fadeUp = {
   }),
 };
 
+const row1 = [sevmylook4, sevmylook1, sevmylook2, sevmylook7, sevmylook3, sevmylook9, sevmylook5, sevmylook8, sevmylook6];
+const row2 = [kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7, kaniwa8];
+const row3 = [fralene1, fralene2, fralene3, fralene4, fralene5, fralene6];
+
+function ScrollingRow({ images, speed = 30, reverse = false }: { images: string[]; speed?: number; reverse?: boolean }) {
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    let raf: number;
+    let pos = 0;
+    const half = track.scrollWidth / 2;
+    const dir = reverse ? 1 : -1;
+
+    const animate = () => {
+      pos += dir * (speed / 60);
+      if (dir < 0 && pos <= -half) pos += half;
+      if (dir > 0 && pos >= 0) pos -= half;
+      track.style.transform = `translate3d(${pos}px, 0, 0)`;
+      raf = requestAnimationFrame(animate);
+    };
+    raf = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(raf);
+  }, [speed, reverse]);
+
+  const doubled = [...images, ...images];
+  return (
+    <div className="overflow-hidden">
+      <div ref={trackRef} className="flex gap-3 will-change-transform" style={{ width: "max-content" }}>
+        {doubled.map((src, i) => (
+          <img key={i} src={src} alt={`Photo AI ${i + 1}`} loading="lazy" className="h-[200px] md:h-[260px] w-auto rounded-xl object-cover shrink-0" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function PhotoCarousel() {
+  return (
+    <div className="space-y-3">
+      <ScrollingRow images={row1} speed={25} />
+      <ScrollingRow images={row2} speed={20} reverse />
+      <ScrollingRow images={row3} speed={30} />
+    </div>
+  );
+}
+
 export default function AIPage() {
   return (
     <div className="min-h-screen bg-background -mx-6 lg:-mx-10 -mt-6 lg:-mt-10 overflow-x-hidden">
