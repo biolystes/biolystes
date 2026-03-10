@@ -253,7 +253,7 @@ export default function AIPage() {
       {/* ═══ 4b. AUTOMATISATION UGC ═══ */}
       <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
         <LystesAiSection
-          teams={["marketing", "contenu", "analytics"]}
+          teams={[]}
           heroOverrides={{
             kicker: "Création de contenu UGC",
             title: <>Automatiser la création de <em className="italic">contenus UGC</em> pour vos réseaux sociaux</>,
