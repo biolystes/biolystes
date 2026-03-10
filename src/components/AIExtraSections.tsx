@@ -169,22 +169,22 @@ function SecteursSection() {
 function TestimonialsSection() {
   const testimonials = [
     {
-      text: "En 3 semaines, notre taux de conversion a bondi de 85%. Les experts IA répondent aux questions que nos fiches produits ne couvrent pas.",
-      name: "Marie D.",
-      role: "CEO, Marque Cosmétique",
-      initial: "M",
-    },
-    {
-      text: "Le diagnostic peau dans nos campagnes TikTok a généré +200% de leads qualifiés.",
-      name: "Sophie M.",
-      role: "CMO, Marque Skincare",
+      text: "L'agent IA sur nos fiches produits répond aux questions que nos clientes posaient par DM. On gagne un temps fou et elles achètent plus sereinement.",
+      name: "Sev Formal",
+      role: "CEO, Sevmylook",
       initial: "S",
     },
     {
-      text: "On a remplacé 3 outils SaaS par Lystes AI. Tout est centralisé, intelligent, et nos clients adorent le diagnostic.",
-      name: "Thomas R.",
-      role: "Fondateur, E-shop Bio",
-      initial: "T",
+      text: "Depuis qu'on a intégré le diagnostic sur notre site, nos clients comprennent mieux quel produit leur correspond. Ça a clairement réduit les retours.",
+      name: "Sambou",
+      role: "CEO, 235th Barber",
+      initial: "S",
+    },
+    {
+      text: "Le chatbot connaît nos formulations mieux que nous. Les clientes posent des questions pointues sur les actifs et elles obtiennent des réponses précises instantanément.",
+      name: "Léa",
+      role: "Fondatrice, Trueage Skin",
+      initial: "L",
     },
   ];
 
