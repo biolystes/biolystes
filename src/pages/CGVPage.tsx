@@ -39,7 +39,7 @@ export default function CGVPage() {
             – <strong>Marketing + CRO</strong> : 699€/mois sans engagement — Publicités Meta &amp; TikTok, Media Buying, CRO, A/B testing, SEO, rapports détaillés.<br />
             – <strong>Community Manager</strong> : 699€/mois sans engagement — Gestion Instagram, Facebook, TikTok, Pinterest, calendrier éditorial, création de contenu, modération.<br /><br />
 
-            Les clients Biolystes bénéficient d'une remise de 20% sur les services agence et le setup IA.
+            Des offres promotionnelles temporaires peuvent être proposées. Les conditions et durées de ces promotions sont précisées sur le site au moment de leur mise en place.
           </Section>
 
           <Section title="Article 3 – Abonnements et engagement">
