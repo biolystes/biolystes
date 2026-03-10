@@ -35,8 +35,8 @@ interface HeroOverrides {
 
 function LystesHero({ overrides }: { overrides?: HeroOverrides }) {
   const kicker = overrides?.kicker ?? "Votre équipe intégrée";
-  const title = overrides?.title ?? <>Automatiser la recommandation de produit en intégrant un <em className="italic">diagnostiqueur IA à votre ecommerce</em></>;
-  const description = overrides?.description ?? "Nous mettons en place une équipe Diagnostics AI, qui scanne le visage de vos visiteurs via un simple selfie, analyse leur peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.";
+  const title = overrides?.title ?? <>Comment se passe la suite une fois votre <em className="italic">e-commerce mis en place ?</em></>;
+  const description = overrides?.description ?? "Une fois votre boutique en ligne lancée, nous déployons des équipes IA dédiées pour booster vos performances : diagnostic client, agents conversationnels sur chaque fiche produit, création de contenu et suivi analytics. Tout pour convertir plus, sans effort supplémentaire.";
   const stats = overrides?.stats ?? [
     { num: "7", label: "Équipes AI dédiées" },
     { num: "24h/24", label: "Disponibilité" },
