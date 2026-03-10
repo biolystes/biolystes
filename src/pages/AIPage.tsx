@@ -95,6 +95,16 @@ function PhotoCarousel() {
   );
 }
 
+function UgcCarousel() {
+  return (
+    <div className="space-y-3">
+      <ScrollingRow images={ugcRow1} speed={25} />
+      <ScrollingRow images={row2} speed={20} reverse />
+      <ScrollingRow images={row3} speed={30} />
+    </div>
+  );
+}
+
 export default function AIPage() {
   return (
     <div className="min-h-screen bg-background -mx-6 lg:-mx-10 -mt-6 lg:-mt-10 overflow-x-hidden">
