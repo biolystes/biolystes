@@ -530,17 +530,20 @@ export interface LystesAiTitleOverrides {
   analytics?: string;
 }
 
-export default function LystesAiSection({ titleOverrides }: { titleOverrides?: LystesAiTitleOverrides } = {}) {
+export type TeamName = "diagnostics" | "expertProduit" | "photographe" | "seo" | "marketing" | "contenu" | "analytics";
+
+export default function LystesAiSection({ titleOverrides, teams }: { titleOverrides?: LystesAiTitleOverrides; teams?: TeamName[] } = {}) {
+  const show = (name: TeamName) => !teams || teams.includes(name);
   return (
     <>
       <LystesHero />
-      <TeamDiagnostics titleOverride={titleOverrides?.diagnostics} />
-      <TeamExpertProduit titleOverride={titleOverrides?.expertProduit} />
-      <TeamPhotographe titleOverride={titleOverrides?.photographe} />
+      {show("diagnostics") && <TeamDiagnostics titleOverride={titleOverrides?.diagnostics} />}
+      {show("expertProduit") && <TeamExpertProduit titleOverride={titleOverrides?.expertProduit} />}
+      {show("photographe") && <TeamPhotographe titleOverride={titleOverrides?.photographe} />}
       
-      <TeamMarketing titleOverride={titleOverrides?.marketing} />
-      <TeamContenu titleOverride={titleOverrides?.contenu} />
-      <TeamAnalytics titleOverride={titleOverrides?.analytics} />
+      {show("marketing") && <TeamMarketing titleOverride={titleOverrides?.marketing} />}
+      {show("contenu") && <TeamContenu titleOverride={titleOverrides?.contenu} />}
+      {show("analytics") && <TeamAnalytics titleOverride={titleOverrides?.analytics} />}
     </>
   );
 }
