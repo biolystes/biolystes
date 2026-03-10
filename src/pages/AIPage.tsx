@@ -37,6 +37,11 @@ import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
 import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
 import kaniwaUgc5 from "@/assets/kaniwa-ugc-5.png";
 import kaniwaUgc6 from "@/assets/kaniwa-ugc-6.jpg";
+import pmyrrisUgc1 from "@/assets/pmyrris-ugc-1.webp";
+import pmyrrisUgc2 from "@/assets/pmyrris-ugc-2.jpg";
+import pmyrrisUgc3 from "@/assets/pmyrris-ugc-3.jpg";
+import pmyrrisUgc4 from "@/assets/pmyrris-ugc-4.jpg";
+import pmyrrisUgc5 from "@/assets/pmyrris-ugc-5.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -50,6 +55,7 @@ const row1 = [sevmylook4, sevmylook1, sevmylook2, sevmylook7, sevmylook3, sevmyl
 const row2 = [kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7, kaniwa8];
 const row3 = [fralene1, fralene2, fralene3, fralene4, fralene5, fralene6];
 const ugcRow1 = [kaniwaUgc2, kaniwaUgc3, kaniwaUgc4, kaniwaUgc5, kaniwaUgc6];
+const ugcRow2 = [pmyrrisUgc1, pmyrrisUgc2, pmyrrisUgc3, pmyrrisUgc4, pmyrrisUgc5];
 
 function ScrollingRow({ images, speed = 30, reverse = false }: { images: string[]; speed?: number; reverse?: boolean }) {
   const trackRef = useRef<HTMLDivElement>(null);
