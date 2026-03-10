@@ -120,9 +120,21 @@ export default function AIPage() {
         <LystesAiSection teams={["diagnostics"]} />
       </section>
 
-      {/* ═══ 4. AUTRES ÉQUIPES IA (section sombre 2) ═══ */}
+      {/* ═══ 4. CRÉATION DE CONTENU AI (section sombre 2) ═══ */}
       <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
-        <LystesAiSection teams={["expertProduit", "photographe", "marketing", "contenu", "analytics"]} />
+        <LystesAiSection
+          teams={["expertProduit", "photographe", "marketing", "contenu", "analytics"]}
+          heroOverrides={{
+            kicker: "Création de contenu",
+            title: <>Automatiser la création de contenus niveau <em className="italic">studio professionnel</em></>,
+            description: "Nous mettons en place une équipe Photographe AI qui génère des photos produits niveau studio professionnel, des visuels UGC avec de vrais visages pour vos réseaux sociaux et des contenus marketing. En quelques secondes, sans shooting.",
+            stats: [
+              { num: "∞", label: "Photos générées" },
+              { num: "10s", label: "Par visuel" },
+              { num: "0€", label: "Coût shooting" },
+            ],
+          }}
+        />
       </section>
 
       {/* ═══ 5. ORGANIGRAMME IA ═══ */}
