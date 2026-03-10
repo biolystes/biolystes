@@ -211,6 +211,24 @@ export default function AIPage() {
         />
       </section>
 
+      {/* ═══ 4b. CLONE CRÉATION DE CONTENU ═══ */}
+      <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
+        <LystesAiSection
+          teams={["marketing", "contenu", "analytics"]}
+          heroOverrides={{
+            kicker: "Création de contenu",
+            title: <>Automatiser la création de contenus niveau <em className="italic">studio professionnel</em></>,
+            description: "Nous mettons en place une équipe Photographe AI qui génère des photos produits niveau studio professionnel, des visuels UGC avec de vrais visages pour vos réseaux sociaux et des contenus marketing. En quelques secondes, sans shooting.",
+            stats: [
+              { num: "∞", label: "Photos générées" },
+              { num: "10s", label: "Par visuel" },
+              { num: "0€", label: "Coût shooting" },
+            ],
+            customMedia: <PhotoCarousel />,
+          }}
+        />
+      </section>
+
       {/* ═══ 5. ORGANIGRAMME IA ═══ */}
       <AITeamOrgChart />
 
