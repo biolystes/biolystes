@@ -32,6 +32,11 @@ import fralene3 from "@/assets/fralene-3.jpg";
 import fralene4 from "@/assets/fralene-4.jpg";
 import fralene5 from "@/assets/fralene-5.jpg";
 import fralene6 from "@/assets/fralene-6.jpg";
+import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
+import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
+import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
+import kaniwaUgc5 from "@/assets/kaniwa-ugc-5.png";
+import kaniwaUgc6 from "@/assets/kaniwa-ugc-6.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -44,6 +49,7 @@ const fadeUp = {
 const row1 = [sevmylook4, sevmylook1, sevmylook2, sevmylook7, sevmylook3, sevmylook9, sevmylook5, sevmylook8, sevmylook6];
 const row2 = [kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7, kaniwa8];
 const row3 = [fralene1, fralene2, fralene3, fralene4, fralene5, fralene6];
+const ugcRow1 = [kaniwaUgc2, kaniwaUgc3, kaniwaUgc4, kaniwaUgc5, kaniwaUgc6];
 
 function ScrollingRow({ images, speed = 30, reverse = false }: { images: string[]; speed?: number; reverse?: boolean }) {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -83,6 +89,16 @@ function PhotoCarousel() {
   return (
     <div className="space-y-3">
       <ScrollingRow images={row1} speed={25} />
+      <ScrollingRow images={row2} speed={20} reverse />
+      <ScrollingRow images={row3} speed={30} />
+    </div>
+  );
+}
+
+function UgcCarousel() {
+  return (
+    <div className="space-y-3">
+      <ScrollingRow images={ugcRow1} speed={25} />
       <ScrollingRow images={row2} speed={20} reverse />
       <ScrollingRow images={row3} speed={30} />
     </div>
@@ -224,7 +240,7 @@ export default function AIPage() {
               { num: "12s", label: "Par contenu" },
               { num: "0€", label: "Coût créateur" },
             ],
-            customMedia: <PhotoCarousel />,
+            customMedia: <UgcCarousel />,
           }}
         />
       </section>
