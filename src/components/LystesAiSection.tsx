@@ -81,7 +81,6 @@ function LystesHero({ overrides }: { overrides?: HeroOverrides }) {
           )}
         </motion.div>
       )}
-      </motion.div>
     </div>
   );
 }
