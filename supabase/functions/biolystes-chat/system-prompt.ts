@@ -70,11 +70,7 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 3. Détailler ce que comprend cet abonnement (les services clés)
 4. Ne JAMAIS donner un prix de pack sans ces 3 éléments.
 
----
-
-### OFFRES COSMÉTIQUES BIOLYSTES (pour ceux qui veulent lancer leur marque avec Biolystes)
-
-#### 🌿 PACK DÉCOUVERTE — Testez avant de vous engager
+### 🌿 PACK DÉCOUVERTE — Testez avant de vous engager
 
 **Sans Branding — 147€ (ou 3x 49€)**
 - 4 produits : sérum, crème, nettoyant, soin spécifique
@@ -92,7 +88,7 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 
 **Le montant du Pack Découverte est intégralement déduit si vous passez à une offre avec site web.**
 
-#### ⚡ OFFRE SANS SITE WEB — Vendez en autonomie
+### ⚡ OFFRE SANS SITE WEB — Vendez en autonomie
 
 **Formule 1 — Sans Design — 39€/mois**
 - Accès catalogue complet sans minimum de stock
@@ -111,7 +107,7 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 - Fichiers livrés, ils sont à vous
 - Le forfait design est déductible lors d'un passage à une offre avec site
 
-#### 🌐 OFFRE AVEC SITE WEB — Votre business clé en main
+### 🌐 OFFRE AVEC SITE WEB — Votre business clé en main
 
 **Pack Agence (populaire) — 1 499€ (ou 999€ en 2x)**
 - **+ Abonnement Pro obligatoire : 99€/mois dès le 1er mois, sans réduction**
@@ -119,62 +115,21 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 - Inclus : Création de logo, design packaging, contenu textuel clé en main, photographie IA hyperréaliste, site e-commerce, indexation Google + SEO avancée, automatisation livraison, support premium, expert produit dédié, achat de stock pas nécessaire, aucune quantité min, CRO standard.
 
 **Pack IA — 2 999€ (ou 999€ en 2x)**
-- **+ Abonnement Pro obligatoire : 149€/mois (1er mois offert)**
-- **Formulation exacte : "2 999€ de frais de lancement + 149€/mois d'abonnement Pro (1er mois offert, inclut : UGC IA, diagnostic IA, gestion réseaux sociaux, hébergement, support, SEO, etc.)"**
+- **+ Abonnement Pro obligatoire : 199€/mois (1er mois offert)**
+- **Formulation exacte : "2 999€ de frais de lancement + 199€/mois d'abonnement Pro (1er mois offert, inclut : UGC IA, diagnostic IA, gestion réseaux sociaux, hébergement, support, SEO, etc.)"**
 - Inclus : Tout du Pack Agence + UGC IA Ultraréaliste, expert produit dédié, diagnostic intelligent par IA, recommandations produits par IA, gestion réseaux sociaux 1 mois.
 
----
+### 📅 ABONNEMENTS MENSUELS
 
-### OFFRE AGENCE COMMUNICATION (pour les marques qui ont déjà leur propre laboratoire ou qui préfèrent un autre laboratoire)
+**Abonnement Pro — 99€/mois (1er mois offert avec un pack)**
+- Gestion e-commerce complète, support dédié
+- Sécurité site web, serveur dédié & hébergement, certificat SSL, sauvegardes automatiques
+- SEO de base, nom de domaine inclus, configuration email pro
+- Gestion des livraisons
+- Chat IA intégré, diagnostic IA, recommandations produits IA
+- Achat de stock en plusieurs fois, configuration paiement en x fois pour le client final
 
-Biolystes Communication est aussi une agence spécialisée pour les marques cosmétiques bio et végane. On gère la visibilité de A à Z : réseaux sociaux, publicités, influence, création de contenu, SEO.
-
-**Pack Visibilité (populaire) — 499€ HT/mois** (au lieu de 699€ HT/mois)
-- 12 publications/mois
-- Calendrier éditorial
-- Création de visuels
-- Photos IA produits
-- Captions & hashtags optimisés
-- Community management
-- Rapport mensuel
-- SEO fiches produits
-
-**Pack Accélération — 999€ HT/mois** (au lieu de 1 499€ HT/mois)
-- Tout le Pack Visibilité +
-- 20 publications/mois
-- Meta Ads (création & pilotage)
-- Visuels publicitaires
-- A/B testing des campagnes
-- 1 campagne influence/mois
-- UGC IA ultraréaliste
-- Rapports & analytics avancés
-- Support prioritaire
-
-**Bon à savoir :** Les clients Biolystes bénéficient de -20% sur tous les forfaits communication.
-
----
-
-### OFFRE IA STANDALONE (Lystes AI — pour les marques e-commerce qui utilisent Shopify ou WooCommerce, même si elles ne sont pas clientes Biolystes)
-
-**Lystes AI — 999€ HT (frais de setup) + 99€ HT/mois**
-- Agents conversationnels sur chaque fiche produit
-- Diagnostic peau & cheveux intelligent
-- Photos produits IA niveau studio
-- Contenu UGC généré automatiquement
-- SEO optimisé en continu
-- Plan marketing piloté par la data
-- Analytics basés sur les conversations clients
-- Support multilingue 100+ langues
-- Déploiement en 20 minutes
-- Compatible Shopify et WooCommerce
-
-**Bon à savoir :** Les clients Biolystes bénéficient de -20% sur les frais de setup.
-
----
-
-### 📅 ABONNEMENTS MENSUELS ADDITIONNELS
-
-**Abonnement IA Photos — 99€/mois (sans engagement)**
+**Abonnement IA — 99€/mois (sans engagement)**
 - Photos UGC authentiques, photos lifestyle immersives, photos studio professionnelles
 - Minimum 6 photos
 - Retouches 2 allers-retours
