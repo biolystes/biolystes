@@ -413,7 +413,7 @@ function TeamContenu({ titleOverride }: { titleOverride?: string }) {
             ) : (
               <img src={img.src} alt="" className="w-full h-[280px] object-cover block" />
             )}
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/55 to-transparent p-3 pt-8 text-white text-[11px] font-semibold flex items-center gap-1.5">
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/55 to-transparent p-3 pt-8 text-cream text-[11px] font-semibold flex items-center gap-1.5">
               📱 {img.label}
             </div>
           </div>
