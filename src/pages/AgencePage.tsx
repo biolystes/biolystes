@@ -270,6 +270,7 @@ export default function AgencePage() {
                 <div className="mb-6">
                   <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">499€</span>
                   <span className="text-[13px] ml-2 text-foreground">HT/mois</span>
+                  <span className="text-[13px] ml-2 line-through text-muted-foreground">699€ HT/mois</span>
                 </div>
                 <div className="flex flex-col mb-8 flex-1">
                   {[
