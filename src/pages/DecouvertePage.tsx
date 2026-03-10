@@ -1004,7 +1004,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ FOOTER ═══ */}
-      <footer className="bg-foreground text-primary-foreground py-16">
+      <footer className="bg-foreground text-cream py-16">
         <div className="max-w-5xl mx-auto px-6">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
             {/* Col 1 — Brand */}
@@ -1065,7 +1065,7 @@ export default function DecouvertePage() {
           </div>
 
           {/* Bottom bar */}
-          <div className="border-t border-primary-foreground/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="border-t border-cream/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-xs opacity-40">©2025 Biolystes</p>
             <div className="flex items-center gap-6 text-xs opacity-40">
               <Link to="/mentions-legales" className="hover:opacity-100 transition-opacity">Mentions légales</Link>
