@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Check } from "lucide-react";
-import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
+import produitEndommage from "@/assets/produit-endommage.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
