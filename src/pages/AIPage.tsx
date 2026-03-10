@@ -196,7 +196,7 @@ export default function AIPage() {
       {/* ═══ 4. CRÉATION DE CONTENU AI (section sombre 2) ═══ */}
       <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
         <LystesAiSection
-          teams={["marketing", "contenu", "analytics"]}
+          teams={[]}
           heroOverrides={{
             kicker: "Création de contenu",
             title: <>Automatiser la création de contenus niveau <em className="italic">studio professionnel</em></>,
