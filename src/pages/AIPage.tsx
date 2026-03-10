@@ -279,6 +279,66 @@ export default function AIPage() {
         <AITeamOrgChart />
       </section>
 
+      {/* ═══ TARIFS IA ═══ */}
+      <section id="section-tarifs" className="py-12 md:py-16">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="space-y-4 mb-12 text-center">
+            <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+              className="text-xs tracking-[0.3em] uppercase text-foreground">Tarifs</motion.p>
+            <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
+              className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed">
+              Un tarif simple, transparent
+            </motion.h2>
+          </div>
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
+            className="max-w-md mx-auto">
+            <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border-2 border-foreground">
+              <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-foreground text-background">
+                Offre IA
+              </div>
+              <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 mt-2 text-foreground">Lystes AI</h3>
+              <p className="text-xs mb-5 text-foreground">Écosystème IA complet pour votre e-commerce</p>
+              <div className="mb-2">
+                <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">999€</span>
+                <span className="text-[13px] ml-2 text-foreground">HT — frais de setup</span>
+              </div>
+              <div className="mb-6">
+                <span className="text-xl font-extrabold text-foreground tracking-tight">+ 99€</span>
+                <span className="text-[13px] ml-2 text-foreground">HT/mois</span>
+              </div>
+              <div className="flex flex-col mb-8 flex-1">
+                {[
+                  "Agents conversationnels sur chaque fiche produit",
+                  "Diagnostic peau & cheveux intelligent",
+                  "Photos produits IA niveau studio",
+                  "Contenu UGC généré automatiquement",
+                  "SEO optimisé en continu",
+                  "Plan marketing piloté par la data",
+                  "Analytics basés sur les conversations clients",
+                  "Support multilingue 100+ langues",
+                  "Déploiement en 20 minutes",
+                ].map(item => (
+                  <div key={item} className="flex items-start gap-3 py-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="flex-shrink-0 mt-0.5 text-foreground"><path d="M20 6 9 17l-5-5"/></svg>
+                    <span className="text-[13px] leading-relaxed text-foreground">{item}</span>
+                  </div>
+                ))}
+              </div>
+              <a href="https://www.cal.eu/lystes/30min?overlayCalendar=true" target="_blank" rel="noopener noreferrer"
+                className="block w-full py-4 text-center no-underline text-[11px] font-extrabold tracking-[1.5px] uppercase rounded-xl bg-foreground text-background border-2 border-foreground hover:opacity-90 transition-opacity mt-auto">
+                Prendre RDV
+              </a>
+            </div>
+            <div className="rounded-2xl px-6 py-5 text-center bg-foreground/[0.02] mt-5">
+              <div className="flex items-center justify-center gap-2 mb-1.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="text-foreground"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                <span className="text-[11px] font-bold uppercase tracking-widest text-foreground">Bon à savoir</span>
+              </div>
+              <p className="text-[13px] leading-relaxed text-foreground">Client Biolystes ? Bénéficiez de -20% sur les frais de setup.</p>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
       {/* ═══ 8. DÉPLOIEMENT ═══ */}
       <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
