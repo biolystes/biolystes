@@ -24,30 +24,44 @@ const fadeUp = {
 /* ═══════════════════════════════════════════════════
    HERO + STATS
    ═══════════════════════════════════════════════════ */
-function LystesHero() {
+interface HeroOverrides {
+  kicker?: string;
+  title?: React.ReactNode;
+  description?: string;
+  stats?: { num: string; label: string }[];
+  videoSrc?: string;
+}
+
+function LystesHero({ overrides }: { overrides?: HeroOverrides }) {
+  const kicker = overrides?.kicker ?? "Votre équipe intégrée";
+  const title = overrides?.title ?? <>Automatiser la recommandation de produit en intégrant un <em className="italic">diagnostiqueur IA à votre ecommerce</em></>;
+  const description = overrides?.description ?? "Nous mettons en place une équipe Diagnostics AI, qui scanne le visage de vos visiteurs via un simple selfie, analyse leur peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.";
+  const stats = overrides?.stats ?? [
+    { num: "7", label: "Équipes AI dédiées" },
+    { num: "24h/24", label: "Disponibilité" },
+    { num: "80%", label: "Économie vs agence" },
+  ];
+  const videoSrc = overrides?.videoSrc ?? "/videos/lystesai-demo.mov";
+
   return (
     <div className="text-center max-w-5xl mx-auto px-6 pt-24 pb-12">
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
         className="text-[10px] font-bold tracking-[2.5px] uppercase text-white/50 mb-5">
-        Votre équipe intégrée
+        {kicker}
       </motion.p>
       <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
         className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-white">
-        Automatiser la recommandation de produit en intégrant un <em className="italic">diagnostiqueur IA à votre ecommerce</em>
+        {title}
       </motion.h2>
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
         className="text-[17px] text-white/50 leading-[1.7] max-w-[600px] mx-auto">
-        Nous mettons en place une équipe Diagnostics AI, qui scanne le visage de vos visiteurs via un simple selfie, analyse leur peau en détail, et recommande automatiquement les produits les plus adaptés de votre boutique.
+        {description}
       </motion.p>
 
       {/* Stats */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
         className="grid grid-cols-3 max-w-xl mx-auto pt-14 pb-6 divide-x divide-white/20">
-        {[
-          { num: "7", label: "Équipes AI dédiées" },
-          { num: "24h/24", label: "Disponibilité" },
-          { num: "80%", label: "Économie vs agence" },
-        ].map((s) => (
+        {stats.map((s) => (
           <div key={s.label} className="text-center px-4 md:px-8">
             <div className="text-2xl md:text-3xl font-light leading-none text-white tracking-tight italic">{s.num}</div>
             <div className="text-[10px] text-white/50 font-semibold mt-3 uppercase tracking-[0.15em] whitespace-nowrap">{s.label}</div>
@@ -58,7 +72,7 @@ function LystesHero() {
       {/* Demo video */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4}
         className="mt-10 max-w-3xl mx-auto rounded-2xl overflow-hidden">
-        <SafeVideo src="/videos/lystesai-demo.mov" className="w-full h-auto" lazy />
+        <SafeVideo src={videoSrc} className="w-full h-auto" lazy />
       </motion.div>
     </div>
   );
@@ -532,11 +546,11 @@ export interface LystesAiTitleOverrides {
 
 export type TeamName = "diagnostics" | "expertProduit" | "photographe" | "seo" | "marketing" | "contenu" | "analytics";
 
-export default function LystesAiSection({ titleOverrides, teams }: { titleOverrides?: LystesAiTitleOverrides; teams?: TeamName[] } = {}) {
+export default function LystesAiSection({ titleOverrides, teams, heroOverrides }: { titleOverrides?: LystesAiTitleOverrides; teams?: TeamName[]; heroOverrides?: HeroOverrides } = {}) {
   const show = (name: TeamName) => !teams || teams.includes(name);
   return (
     <>
-      <LystesHero />
+      <LystesHero overrides={heroOverrides} />
       {show("diagnostics") && <TeamDiagnostics titleOverride={titleOverrides?.diagnostics} />}
       {show("expertProduit") && <TeamExpertProduit titleOverride={titleOverrides?.expertProduit} />}
       {show("photographe") && <TeamPhotographe titleOverride={titleOverrides?.photographe} />}
