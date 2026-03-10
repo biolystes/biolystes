@@ -239,10 +239,20 @@ function BeforeAfterPhones() {
 
 function TeamDiagnostics({ titleOverride }: { titleOverride?: string }) {
   return (
-    <TeamRow bg="bg-background" title={titleOverride || "Diagnostic peau ou cheveux intelligent"} kicker="Équipe Diagnostics AI"
-      desc="Nous déployons une équipe d'agents conversationnels IA dédiée à chaque produit, capable de répondre instantanément aux questions de vos clients concernant la composition, la compatibilité ou les délais.">
-      <SafeVideo src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/video//diagnosticai.mp4" className="w-full h-[400px] object-cover rounded-2xl" lazy />
-    </TeamRow>
+    <>
+      <TeamRow bg="bg-background" title="Diagnostic peau intelligent" kicker="Skin AI"
+        desc="Nous déployons une équipe d'agents conversationnels IA dédiée à chaque produit, capable de répondre instantanément aux questions de vos clients concernant la composition, la compatibilité ou les délais.">
+        <SafeVideo src="/videos/fralene-ugc.mp4" className="w-full h-[400px] object-cover rounded-2xl" lazy />
+      </TeamRow>
+      <TeamRow bg="bg-secondary" reversed title="Diagnostic cheveux intelligent" kicker="Hair AI"
+        desc="Nous mettons en place une équipe Créateur de contenu AI, qui produit des contenus pour vos réseaux sociaux, articles de blog et descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
+        <div className="flex gap-3.5 flex-wrap">
+          <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
+            <img src={kaniwaUgc2} alt="" className="w-full h-[480px] object-cover block" />
+          </div>
+        </div>
+      </TeamRow>
+    </>
   );
 }
 
