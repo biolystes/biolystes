@@ -240,7 +240,7 @@ export default function AIPage() {
               { num: "12s", label: "Par contenu" },
               { num: "0€", label: "Coût créateur" },
             ],
-            customMedia: <PhotoCarousel />,
+            customMedia: <UgcCarousel />,
           }}
         />
       </section>
