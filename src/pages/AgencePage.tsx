@@ -348,10 +348,6 @@ export default function AgencePage() {
         </div>
       </section>
 
-      {/* ═══ WIRTZKIN ═══ */}
-      <section className="py-12 md:py-16 bg-background">
-        <WirtzkinSection />
-      </section>
 
       {/* ═══ CTA FINAL ═══ */}
       <section id="section-lance" className="bg-secondary py-12 md:py-16">
