@@ -829,7 +829,7 @@ export default function DecouvertePage() {
                 </div>
                 <div className="rounded-xl p-4 mb-7 bg-muted/50 border border-border">
                   <p className="text-xs font-extrabold uppercase tracking-wide mb-0.5 text-foreground">+ Abonnement Pro inclus obligatoire</p>
-                   <p className="text-2xl font-extrabold my-0.5 text-foreground">199€<span className="text-[13px] font-medium text-foreground">/mois</span></p>
+                   <p className="text-2xl font-extrabold my-0.5 text-foreground">149€<span className="text-[13px] font-medium text-foreground">/mois</span></p>
                    <p className="text-[11px] mt-0.5 text-foreground">1er mois offert · Tout le Pro + UGC IA, diagnostic IA & réseaux sociaux</p>
                 </div>
                 <div className="flex flex-col mb-8 flex-1">
