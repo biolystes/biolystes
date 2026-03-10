@@ -55,7 +55,7 @@ function LystesHero({ overrides }: { overrides?: HeroOverrides }) {
         {title}
       </motion.h2>
       <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
-        className="text-[17px] text-white/50 leading-[1.7] max-w-[600px] mx-auto">
+        className="text-[17px] text-cream/50 leading-[1.7] max-w-[600px] mx-auto">
         {description}
       </motion.p>
 
