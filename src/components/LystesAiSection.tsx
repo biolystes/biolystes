@@ -405,8 +405,11 @@ function TeamContenu({ titleOverride }: { titleOverride?: string }) {
     <TeamRow bg="bg-secondary" reversed title={titleOverride || "Du contenu pro en quelques secondes"} kicker="Équipe Créateur de contenu AI"
       desc="Nous mettons en place une équipe Créateur de contenu AI, qui produit des contenus pour vos réseaux sociaux, articles de blog et descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
       <div className="flex gap-3.5 flex-wrap">
-        <div className="flex-1 min-w-[300px] rounded-2xl overflow-hidden relative">
+        <div className="flex-1 min-w-[200px] rounded-2xl overflow-hidden relative">
           <SafeVideo src="/videos/contenu-ugc-2.mov" className="w-full h-[480px] object-cover block" lazy />
+        </div>
+        <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
+          <img src={kaniwaUgc3} alt="Contenu UGC" className="w-full h-[480px] object-cover block" />
         </div>
       </div>
     </TeamRow>
