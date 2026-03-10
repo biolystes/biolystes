@@ -245,7 +245,7 @@ function TeamDiagnostics({ titleOverride }: { titleOverride?: string }) {
         <SafeVideo src="/videos/fralene-ugc.mp4" className="w-full h-[400px] object-cover rounded-2xl" lazy />
       </TeamRow>
       <TeamRow bg="bg-secondary" reversed title="Diagnostic cheveux intelligent" kicker="Hair AI"
-        desc="Nous mettons en place une équipe Créateur de contenu AI, qui produit des contenus pour vos réseaux sociaux, articles de blog et descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
+        desc="Une analyse capillaire par photo qui identifie la nature du cheveu, la porosité et les problématiques (casse, sécheresse, cuir chevelu sensible). L'IA propose une routine sur-mesure avec vos produits, pour un conseil expert automatisé 24h/24.">
         <div className="flex gap-3.5 flex-wrap">
           <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
             <img src={kaniwaUgc2} alt="" className="w-full h-[480px] object-cover block" />
