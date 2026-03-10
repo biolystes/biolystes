@@ -245,7 +245,7 @@ export default function AIPage() {
               { num: "100%", label: "Data-driven" },
               { num: "+40%", label: "Conversion SEO" },
             ],
-            customMedia: <UgcCarousel />,
+            videoSrc: "/videos/lystesai-demo.mov",
           }}
         />
       </section>
