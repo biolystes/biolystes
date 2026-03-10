@@ -230,23 +230,34 @@ export default function AIPage() {
       </section>
 
       {/* ═══ 5. ORGANIGRAMME IA ═══ */}
-      <AITeamOrgChart />
-
+      <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
+        <AITeamOrgChart />
+      </section>
 
       {/* ═══ 7. LEAKY BUCKET ═══ */}
-      <LeakyBucketSection />
+      <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
+        <LeakyBucketSection />
+      </section>
 
       {/* ═══ 8. DÉPLOIEMENT ═══ */}
-      <DeploymentSection />
+      <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
+        <DeploymentSection />
+      </section>
 
       {/* ═══ 9. INTERNATIONAL ═══ */}
-      <InternationalSection />
+      <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
+        <InternationalSection />
+      </section>
 
       {/* ═══ 10. TÉMOIGNAGES ═══ */}
-      <TestimonialsSection />
+      <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
+        <TestimonialsSection />
+      </section>
 
       {/* ═══ 11. CTA FINAL ═══ */}
-      <CTASection />
+      <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
+        <CTASection />
+      </section>
     </div>
   );
 }

@@ -13,67 +13,63 @@ const fadeUp = {
 /* ═══ LEAKY BUCKET ═══ */
 function LeakyBucketSection() {
   return (
-    <section className="py-[100px] md:py-[140px] bg-background">
-      <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-          className="text-center mb-6 md:mb-8">
-          <span className="inline-block text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground mb-4 md:mb-6">
-            Pourquoi votre taux de conversion reste bas
-          </span>
-          <h2 className="text-[26px] md:text-[clamp(36px,5vw,56px)] font-medium tracking-[-0.03em] leading-[1.1]">
-            Vous essayez de remplir un{" "}
-            <span className="font-['Instrument_Serif'] italic text-muted-foreground whitespace-nowrap">seau percé.</span>
-          </h2>
-        </motion.div>
-        <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-          className="text-center text-[15px] md:text-[17px] text-muted-foreground leading-[1.7] max-w-[780px] mx-auto mb-16 md:mb-24">
-          Chaque mois, vous investissez en pub, en contenu, en collaborations. Le trafic arrive. Mais sur votre site, le visiteur hésite, doute, repart — pas accompagné par un expert à chaque étape de son parcours.
-        </motion.p>
+    <div className="text-center pt-24 pb-12 px-6">
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+        className="mb-6 md:mb-8">
+        <span className="inline-block text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 mb-4 md:mb-6">
+          Pourquoi votre taux de conversion reste bas
+        </span>
+        <h2 className="text-[26px] md:text-[clamp(36px,5vw,56px)] font-medium tracking-[-0.03em] leading-[1.1] text-white">
+          Vous essayez de remplir un{" "}
+          <span className="font-['Instrument_Serif'] italic text-white/50 whitespace-nowrap">seau percé.</span>
+        </h2>
+      </motion.div>
+      <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
+        className="text-[15px] md:text-[17px] text-white/50 leading-[1.7] max-w-[780px] mx-auto mb-16 md:mb-24">
+        Chaque mois, vous investissez en pub, en contenu, en collaborations. Le trafic arrive. Mais sur votre site, le visiteur hésite, doute, repart — pas accompagné par un expert à chaque étape de son parcours.
+      </motion.p>
 
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
-          className="flex justify-center">
-          <img
-            src={leakyBucketImg}
-            alt="Comparaison e-commerce sans et avec Lystes AI — CA perdu vs CA récupéré"
-            className="w-full max-w-[960px] h-auto"
-          />
-        </motion.div>
-      </div>
-    </section>
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
+        className="flex justify-center">
+        <img
+          src={leakyBucketImg}
+          alt="Comparaison e-commerce sans et avec Lystes AI — CA perdu vs CA récupéré"
+          className="w-full max-w-[960px] h-auto"
+        />
+      </motion.div>
+    </div>
   );
 }
 
 /* ═══ DÉPLOIEMENT ═══ */
 function DeploymentSection() {
   return (
-    <section className="py-[120px] bg-background">
-      <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-          className="text-center mb-16">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-4">Déploiement</p>
-          <h2 className="text-[26px] md:text-[clamp(36px,5vw,52px)] font-medium tracking-[-0.03em] mb-4">
-            Opérationnel en <em className="font-['Instrument_Serif'] italic text-muted-foreground not-italic">20 minutes</em>
-          </h2>
-          <p className="text-[17px] text-muted-foreground max-w-[560px] mx-auto leading-[1.7]">
-            Pas besoin de développeur. Installation simple en 3 étapes.
-          </p>
-        </motion.div>
-        <div className="grid md:grid-cols-3 border-t border-b border-border">
-          {[
-            { step: "01", title: "Connectez", desc: "Importez votre catalogue produits depuis Shopify, WooCommerce ou via CSV. Synchronisation automatique des nouveautés." },
-            { step: "02", title: "Personnalisez", desc: "Définissez le ton de vos experts, vos couleurs de marque et les connaissances spécifiques à transmettre." },
-            { step: "03", title: "Activez", desc: "Copiez une ligne de code ou installez l'app. Vos experts sont opérationnels immédiatement." },
-          ].map((s, i) => (
-            <motion.div key={s.step} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-              className={`px-10 py-12 ${i < 2 ? "md:border-r border-border" : ""} ${i > 0 ? "md:border-t-0 border-t border-border" : ""}`}>
-              <div className="text-[10px] font-bold text-muted-foreground tracking-[0.12em] uppercase mb-5">Étape {s.step}</div>
-              <h3 className="text-[22px] font-medium tracking-[-0.02em] mb-3 text-foreground">{s.title}</h3>
-              <p className="text-[14px] text-muted-foreground leading-[1.7]">{s.desc}</p>
-            </motion.div>
-          ))}
-        </div>
+    <div className="pt-24 pb-12 px-6">
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+        className="text-center mb-16">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/50 mb-4">Déploiement</p>
+        <h2 className="text-[26px] md:text-[clamp(36px,5vw,52px)] font-medium tracking-[-0.03em] mb-4 text-white">
+          Opérationnel en <em className="font-['Instrument_Serif'] italic text-white/50 not-italic">20 minutes</em>
+        </h2>
+        <p className="text-[17px] text-white/50 max-w-[560px] mx-auto leading-[1.7]">
+          Pas besoin de développeur. Installation simple en 3 étapes.
+        </p>
+      </motion.div>
+      <div className="grid md:grid-cols-3 border-t border-b border-white/10">
+        {[
+          { step: "01", title: "Connectez", desc: "Importez votre catalogue produits depuis Shopify, WooCommerce ou via CSV. Synchronisation automatique des nouveautés." },
+          { step: "02", title: "Personnalisez", desc: "Définissez le ton de vos experts, vos couleurs de marque et les connaissances spécifiques à transmettre." },
+          { step: "03", title: "Activez", desc: "Copiez une ligne de code ou installez l'app. Vos experts sont opérationnels immédiatement." },
+        ].map((s, i) => (
+          <motion.div key={s.step} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
+            className={`px-10 py-12 ${i < 2 ? "md:border-r border-white/10" : ""} ${i > 0 ? "md:border-t-0 border-t border-white/10" : ""}`}>
+            <div className="text-[10px] font-bold text-white/40 tracking-[0.12em] uppercase mb-5">Étape {s.step}</div>
+            <h3 className="text-[22px] font-medium tracking-[-0.02em] mb-3 text-white">{s.title}</h3>
+            <p className="text-[14px] text-white/50 leading-[1.7]">{s.desc}</p>
+          </motion.div>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }
 
@@ -89,42 +85,40 @@ function InternationalSection() {
   ];
 
   return (
-    <section className="py-[120px] bg-muted">
-      <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
-        <div className="grid md:grid-cols-2 gap-20 items-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-4">International</p>
-            <h2 className="text-[24px] md:text-[clamp(32px,4vw,40px)] font-medium tracking-[-0.03em] mb-5">
-              Vos experts parlent <em className="font-['Instrument_Serif'] italic text-muted-foreground not-italic">100+ langues</em>
-            </h2>
-            <p className="text-[16px] text-muted-foreground leading-[1.7] mb-8">
-              Pas de traduction. Vos experts répondent nativement dans la langue du client, avec les nuances culturelles adaptées.
-            </p>
-            <div className="flex flex-wrap gap-2.5">
-              {languages.map(l => (
-                <span key={l.name} className={`px-[18px] py-2.5 rounded-lg text-[13px] font-medium ${
-                  l.active ? "bg-foreground text-background border border-foreground" : "bg-background border border-border"
-                }`}>
-                  {l.flag} {l.name}
-                </span>
-              ))}
-              <span className="px-[18px] py-2.5 rounded-lg text-[13px] font-medium bg-background border border-border">+95 autres</span>
+    <div className="pt-24 pb-12 px-6">
+      <div className="grid md:grid-cols-2 gap-20 items-center">
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/50 mb-4">International</p>
+          <h2 className="text-[24px] md:text-[clamp(32px,4vw,40px)] font-medium tracking-[-0.03em] mb-5 text-white">
+            Vos experts parlent <em className="font-['Instrument_Serif'] italic text-white/50 not-italic">100+ langues</em>
+          </h2>
+          <p className="text-[16px] text-white/50 leading-[1.7] mb-8">
+            Pas de traduction. Vos experts répondent nativement dans la langue du client, avec les nuances culturelles adaptées.
+          </p>
+          <div className="flex flex-wrap gap-2.5">
+            {languages.map(l => (
+              <span key={l.name} className={`px-[18px] py-2.5 rounded-lg text-[13px] font-medium ${
+                l.active ? "bg-white text-foreground border border-white" : "bg-white/10 border border-white/20 text-white/70"
+              }`}>
+                {l.flag} {l.name}
+              </span>
+            ))}
+            <span className="px-[18px] py-2.5 rounded-lg text-[13px] font-medium bg-white/10 border border-white/20 text-white/70">+95 autres</span>
+          </div>
+        </motion.div>
+        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
+          className="md:order-none order-first">
+          <div className="w-[280px] h-[280px] border border-white/20 rounded-full flex items-center justify-center relative mx-auto">
+            <div className="absolute w-2 h-2 bg-white rounded-full top-[25%] left-[25%]" />
+            <div className="absolute w-1.5 h-1.5 bg-white/50 rounded-full bottom-[35%] right-[30%]" />
+            <div className="text-center">
+              <div className="text-[48px] font-semibold tracking-[-0.03em] text-white">100+</div>
+              <div className="text-[11px] uppercase tracking-[0.1em] text-white/50">Langues natives</div>
             </div>
-          </motion.div>
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-            className="md:order-none order-first">
-            <div className="w-[280px] h-[280px] border border-border rounded-full flex items-center justify-center relative bg-background mx-auto">
-              <div className="absolute w-2 h-2 bg-foreground rounded-full top-[25%] left-[25%]" />
-              <div className="absolute w-1.5 h-1.5 bg-muted-foreground/50 rounded-full bottom-[35%] right-[30%]" />
-              <div className="text-center">
-                <div className="text-[48px] font-semibold tracking-[-0.03em] text-foreground">100+</div>
-                <div className="text-[11px] uppercase tracking-[0.1em] text-muted-foreground">Langues natives</div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
       </div>
-    </section>
+    </div>
   );
 }
 
@@ -142,34 +136,32 @@ function SecteursSection() {
   ];
 
   return (
-    <section className="py-[120px] bg-background">
-      <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-          className="text-center mb-16">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-4">Secteurs</p>
-          <h2 className="text-[26px] md:text-[clamp(36px,5vw,52px)] font-medium tracking-[-0.03em] mb-4">
-            Multi-secteurs <em className="font-['Instrument_Serif'] italic text-muted-foreground not-italic">pour chaque besoin</em>
-          </h2>
-          <p className="text-[17px] text-muted-foreground max-w-[560px] mx-auto leading-[1.7]">
-            Lystes AI s'adapte à votre vertical avec des agents spécialisés.
-          </p>
-        </motion.div>
-        <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-5">
-          {sectors.map((s, i) => (
-            <motion.div key={s.name} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i * 0.5}
-              className="p-7 border border-border rounded-2xl hover:border-foreground hover:-translate-y-1 transition-all bg-background">
-              <div className={`inline-block text-[10px] font-bold uppercase tracking-[0.08em] px-2.5 py-1 rounded mb-4 ${
-                s.active ? "bg-foreground text-background" : "bg-muted text-muted-foreground"
-              }`}>
-                {s.active ? "Actif" : "Bientôt"}
-              </div>
-              <h3 className="text-[18px] font-medium tracking-[-0.02em] mb-2 text-foreground">{s.name}</h3>
-              <p className="text-[13px] text-muted-foreground leading-relaxed">{s.desc}</p>
-            </motion.div>
-          ))}
-        </div>
+    <div className="pt-24 pb-12 px-6">
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+        className="text-center mb-16">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/50 mb-4">Secteurs</p>
+        <h2 className="text-[26px] md:text-[clamp(36px,5vw,52px)] font-medium tracking-[-0.03em] mb-4 text-white">
+          Multi-secteurs <em className="font-['Instrument_Serif'] italic text-white/50 not-italic">pour chaque besoin</em>
+        </h2>
+        <p className="text-[17px] text-white/50 max-w-[560px] mx-auto leading-[1.7]">
+          Lystes AI s'adapte à votre vertical avec des agents spécialisés.
+        </p>
+      </motion.div>
+      <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-5">
+        {sectors.map((s, i) => (
+          <motion.div key={s.name} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i * 0.5}
+            className="p-7 border border-white/10 rounded-2xl hover:border-white/30 hover:-translate-y-1 transition-all">
+            <div className={`inline-block text-[10px] font-bold uppercase tracking-[0.08em] px-2.5 py-1 rounded mb-4 ${
+              s.active ? "bg-white text-foreground" : "bg-white/10 text-white/50"
+            }`}>
+              {s.active ? "Actif" : "Bientôt"}
+            </div>
+            <h3 className="text-[18px] font-medium tracking-[-0.02em] mb-2 text-white">{s.name}</h3>
+            <p className="text-[13px] text-white/50 leading-relaxed">{s.desc}</p>
+          </motion.div>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }
 
@@ -197,69 +189,65 @@ function TestimonialsSection() {
   ];
 
   return (
-    <section className="py-[120px] bg-muted">
-      <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-          className="text-center mb-16">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-4">Témoignages</p>
-          <h2 className="text-[26px] md:text-[clamp(36px,5vw,52px)] font-medium tracking-[-0.03em]">
-            Ce qu'ils en <em className="font-['Instrument_Serif'] italic text-muted-foreground not-italic">pensent</em>
-          </h2>
-        </motion.div>
-        <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
-            <motion.div key={t.name} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-              className="bg-background rounded-[20px] p-8">
-              <div className="flex gap-1 mb-5">
-                {[...Array(5)].map((_, j) => (
-                  <Star key={j} className="w-4 h-4 fill-foreground text-foreground" />
-                ))}
+    <div className="pt-24 pb-12 px-6">
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
+        className="text-center mb-16">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/50 mb-4">Témoignages</p>
+        <h2 className="text-[26px] md:text-[clamp(36px,5vw,52px)] font-medium tracking-[-0.03em] text-white">
+          Ce qu'ils en <em className="font-['Instrument_Serif'] italic text-white/50 not-italic">pensent</em>
+        </h2>
+      </motion.div>
+      <div className="grid md:grid-cols-3 gap-6">
+        {testimonials.map((t, i) => (
+          <motion.div key={t.name} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
+            className="bg-white/5 border border-white/10 rounded-[20px] p-8">
+            <div className="flex gap-1 mb-5">
+              {[...Array(5)].map((_, j) => (
+                <Star key={j} className="w-4 h-4 fill-white text-white" />
+              ))}
+            </div>
+            <p className="text-[15px] text-white/60 leading-[1.7] mb-6">"{t.text}"</p>
+            <div className="flex items-center gap-3.5">
+              <div className="w-11 h-11 bg-white/10 rounded-full flex items-center justify-center text-[16px] font-semibold text-white/60">
+                {t.initial}
               </div>
-              <p className="text-[15px] text-muted-foreground leading-[1.7] mb-6">"{t.text}"</p>
-              <div className="flex items-center gap-3.5">
-                <div className="w-11 h-11 bg-muted rounded-full flex items-center justify-center text-[16px] font-semibold text-muted-foreground">
-                  {t.initial}
-                </div>
-                <div>
-                  <div className="text-[14px] font-semibold text-foreground">{t.name}</div>
-                  <div className="text-[12px] text-muted-foreground">{t.role}</div>
-                </div>
+              <div>
+                <div className="text-[14px] font-semibold text-white">{t.name}</div>
+                <div className="text-[12px] text-white/50">{t.role}</div>
               </div>
-            </motion.div>
-          ))}
-        </div>
+            </div>
+          </motion.div>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }
 
 /* ═══ CTA FINAL ═══ */
 function CTASection() {
   return (
-    <section className="py-[120px] md:py-[160px] bg-foreground">
-      <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)] text-center">
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
-          <h2 className="text-[28px] md:text-[clamp(40px,5vw,60px)] font-medium tracking-[-0.03em] mb-6 text-background leading-[1.1]">
-            Prêt à doubler vos <em className="font-['Instrument_Serif'] italic text-background/50 not-italic">ventes ?</em>
-          </h2>
-          <p className="text-[16px] md:text-[18px] text-background/50 leading-[1.7] max-w-[560px] mx-auto mb-10">
-            Rejoignez les marques qui ont déjà recruté leurs équipes IA. Déploiement en 20 minutes, sans engagement.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <a href="https://www.cal.eu/lystes/30min?overlayCalendar=true" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-background/30 text-background text-[14px] font-medium hover:bg-background/10 transition-colors">
-              <span>Prendre rendez-vous</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-            <a href="/signup"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-background text-foreground text-[14px] font-medium hover:bg-background/90 transition-colors">
-              <span>Essai gratuit</span>
-              <ArrowRight className="w-4 h-4" />
-            </a>
-          </div>
-        </motion.div>
-      </div>
-    </section>
+    <div className="pt-24 pb-12 px-6 text-center">
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
+        <h2 className="text-[28px] md:text-[clamp(40px,5vw,60px)] font-medium tracking-[-0.03em] mb-6 text-white leading-[1.1]">
+          Prêt à doubler vos <em className="font-['Instrument_Serif'] italic text-white/50 not-italic">ventes ?</em>
+        </h2>
+        <p className="text-[16px] md:text-[18px] text-white/50 leading-[1.7] max-w-[560px] mx-auto mb-10">
+          Rejoignez les marques qui ont déjà recruté leurs équipes IA. Déploiement en 20 minutes, sans engagement.
+        </p>
+        <div className="flex flex-wrap gap-4 justify-center">
+          <a href="https://www.cal.eu/lystes/30min?overlayCalendar=true" target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full border border-white/30 text-white text-[14px] font-medium hover:bg-white/10 transition-colors">
+            <span>Prendre rendez-vous</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
+          <a href="/signup"
+            className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-white text-foreground text-[14px] font-medium hover:bg-white/90 transition-colors">
+            <span>Essai gratuit</span>
+            <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
+      </motion.div>
+    </div>
   );
 }
 
