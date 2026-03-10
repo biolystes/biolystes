@@ -235,17 +235,17 @@ export default function AIPage() {
       {/* ═══ 4c. STRATÉGIE MARKETING AI ═══ */}
       <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
         <LystesAiSection
-          teams={[]}
+          teams={["marketing", "contenu", "analytics"]}
           heroOverrides={{
             kicker: "Stratégie marketing",
-            title: <>Automatiser votre stratégie marketing basée sur <em className="italic">la data, le SEO et le tracking</em></>,
+            title: <>Automatiser la mise en place de plan marketing basé sur <em className="italic">vos data, le SEO et le suivi de votre trafic</em></>,
             description: "Nous mettons en place une équipe Marketing AI qui analyse votre trafic en temps réel, optimise votre référencement naturel et ajuste vos campagnes automatiquement. Des décisions basées sur la data, pas sur l'intuition.",
             stats: [
               { num: "24/7", label: "Analyse trafic" },
               { num: "100%", label: "Data-driven" },
               { num: "+40%", label: "Conversion SEO" },
             ],
-            customMedia: <PhotoCarousel />,
+            customMedia: <UgcCarousel />,
           }}
         />
       </section>
