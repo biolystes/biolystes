@@ -28,6 +28,7 @@ import CGVPage from "./pages/CGVPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import AIPage from "./pages/AIPage";
 import AgencePage from "./pages/AgencePage";
+import TarifsPage from "./pages/TarifsPage";
 
 const queryClient = new QueryClient();
 
@@ -54,6 +55,7 @@ function AppRoutes() {
       <Route path="/ai" element={<Layout><AIPage /></Layout>} />
       <Route path="/agence" element={<Layout><AgencePage /></Layout>} />
       <Route path="/pricing" element={<Layout><PricingPage /></Layout>} />
+      <Route path="/tarifs" element={<Layout><TarifsPage /></Layout>} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
       <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
       <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
