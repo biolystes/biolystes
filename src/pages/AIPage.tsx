@@ -115,14 +115,14 @@ export default function AIPage() {
       {/* ═══ 2. AGENTS CONVERSATIONNELS ═══ */}
       <DiagnosticComparisonSection />
 
-      {/* ═══ 3. ÉQUIPES IA (section sombre 1) ═══ */}
+      {/* ═══ 3. ÉQUIPE DIAGNOSTICS AI (section sombre 1) ═══ */}
       <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
-        <LystesAiSection />
+        <LystesAiSection teams={["diagnostics"]} />
       </section>
 
-      {/* ═══ 4. ÉQUIPES IA (section sombre 2) ═══ */}
+      {/* ═══ 4. AUTRES ÉQUIPES IA (section sombre 2) ═══ */}
       <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
-        <LystesAiSection />
+        <LystesAiSection teams={["expertProduit", "photographe", "marketing", "contenu", "analytics"]} />
       </section>
 
       {/* ═══ 5. ORGANIGRAMME IA ═══ */}
