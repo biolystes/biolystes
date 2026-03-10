@@ -206,6 +206,7 @@ export default function AIPage() {
               { num: "10s", label: "Par visuel" },
               { num: "0€", label: "Coût shooting" },
             ],
+            customMedia: <PhotoCarousel />,
           }}
         />
       </section>
