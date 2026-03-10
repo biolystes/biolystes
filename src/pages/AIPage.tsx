@@ -412,7 +412,7 @@ export default function AIPage() {
               </ul>
             </div>
           </div>
-          <div className="border-t border-primary-foreground/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="border-t border-cream/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-xs opacity-40">©2025 Biolystes</p>
             <div className="flex items-center gap-6 text-xs opacity-40">
               <a href="/mentions-legales" className="hover:opacity-100 transition-opacity">Mentions légales</a>
