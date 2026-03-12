@@ -39,7 +39,7 @@ const articles = [
     id: 4,
     title: "Comment lancer sa marque cosmétique bio en 15 jours",
     description: "Zéro stock, zéro logistique, certifié COSMOS & ECOCERT. Le guide complet pour les entrepreneurs.",
-    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=320&h=240&fit=crop",
+    image: lancerMarqueImg,
     date: "22 février 2026",
     featured: false,
     url: "/blog/lancer-marque",
