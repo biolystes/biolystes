@@ -70,7 +70,7 @@ export default function SharedSelectionPage() {
 
   if (error || !selection) {
     return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#F5F5F7" }}>
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f5f4df" }}>
         <div style={{ textAlign: "center" }}>
           <p style={{ fontSize: 15, color: "#1d1d1f", fontWeight: 600, marginBottom: 8 }}>{error || "Sélection introuvable"}</p>
           <Link to="/" style={{ fontSize: 13, color: "#86868b", textDecoration: "underline" }}>Retour à l'accueil</Link>
