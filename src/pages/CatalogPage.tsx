@@ -210,6 +210,17 @@ const CDN_IMAGE_MAP: Record<string, string> = {
   "shampooingsmokygreenveTiver": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL19fWTlQUTJNQWg3cVlUa2hGV0xzMkVMZWFqNHowd25rLnBuZyZ3aWR0aD0xMDI0",
   "masquealargilepourlesporesetlespointsnoirs": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzFTajlFMVVSM2x6X1d0ZWtnZlUwUlRkOUdLTHgzYVY1LmpwZyZ3aWR0aD0xMDI0",
   "cremepourlevisageantitachesbrunesalacidekojique": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0xxS3pSUjVEVVpKWC1lREdfeHhrU3UwME4xd3BOWVlSLmpwZyZ3aWR0aD0xMDI0",
+  // COLLECTION BOX — variantes supplémentaires pour matching
+  "boitecollectionpourleteintclair": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3R6akJQYW1mYlU5WG5tLWp6Z3NkRkt0XzY3elVWZzlQLmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectionpourteintclair": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3R6akJQYW1mYlU5WG5tLWp6Z3NkRkt0XzY3elVWZzlQLmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectionderoutinedenuitaucollagene": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1EyakI1MGJleVJHMWttOEp2dS1CdGx6RTRmVnpZaFMwLmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectionroutinedenuitcollagene": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1EyakI1MGJleVJHMWttOEp2dS1CdGx6RTRmVnpZaFMwLmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectionultimepourlerenouveau": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzlTSnVjX3pzdERKelN0eTdlOGJ4ZGFGRG5WczVHVmF5LmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectionultimerenouveau": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzlTSnVjX3pzdERKelN0eTdlOGJ4ZGFGRG5WczVHVmF5LmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectionrituelhydratation": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3BIR1hJanpGdFRlYmlMY0g3ZHUyOEZ6S3pqaEVWNG1HLmpwZWcmd2lkdGg9MTAyNA==",
+  "boitecollectionboostserum": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzhSVFQ3S2tGNy03dkNEN0s2N2ZPQ0VrRmhlNEt3blhkLmpwZyZ3aWR0aD0xMDI0",
+  "duoroutinetachebrune": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL05hbWRDT1NMVWlNNXlGUk13aWxIR1JRTENFZmRKdkM5LmpwZyZ3aWR0aD0xMDI0",
+  "duoroutinecontretachesbrunes": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL05hbWRDT1NMVWlNNXlGUk13aWxIR1JRTENFZmRKdkM5LmpwZyZ3aWR0aD0xMDI0",
 };
 
 const NORMALIZED_CDN_IMAGE_MAP: Record<string, string> = Object.entries(CDN_IMAGE_MAP).reduce((acc, [k, v]) => {
