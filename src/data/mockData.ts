@@ -28,7 +28,7 @@ export const mockAgents = [
     leadsCount: 21,
     productCount: 5,
     qrCodeUrl: null,
-    description: "Spécialiste en analyse capillaire pour cheveux texturés",
+    description: "Spécialiste en analyse capillaire pour cheveux texturés ou bouclés",
     createdAt: "2024-02-08",
   },
   {
