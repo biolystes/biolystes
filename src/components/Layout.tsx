@@ -1,4 +1,5 @@
 import { useState } from "react";
+import BiolystesArticlesWidget from "./BiolystesArticlesWidget";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Settings, Menu, X, LogOut, Compass, LayoutDashboard, Shield, ArrowRight } from "lucide-react";
@@ -195,6 +196,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <main className="md:pt-[56px]" style={{ background: "#f5f4df", minHeight: "100vh", maxWidth: 1200, margin: "0 auto" }}>
           {children}
         </main>
+        <BiolystesArticlesWidget />
       </div>
     </div>
   );
