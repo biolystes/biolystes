@@ -229,10 +229,6 @@ function getCdnFallbackImage(name: string): string | null {
   return null;
 }
 
-function getProductImage(product: WCProduct): string | null {
-  return product.images?.[0]?.src || product._enriched?.image_src || getCdnFallbackImage(product.name);
-}
-
 const TAG_GROUP_LABELS: Record<string, string> = {
   "réclamations": "Réclamations", "reclamations": "Réclamations", "claims": "Réclamations",
   "inquiétude": "Besoin", "inquietude": "Besoin", "concern": "Besoin",
@@ -339,7 +335,7 @@ function CertBadge({ label }: { label: string }) {
 
 // ─── Product Detail Panel ─────────────────────────────────
 function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () => void }) {
-  const img = getProductImage(product);
+  const img = product.images?.[0]?.src || getCdnFallbackImage(product.name);
   const price = product.price ? parseFloat(product.price) : null;
   const desc = product._enriched?.description_full || stripHtml(product.short_description || product.description);
   const tags = product.tags?.map(t => t.name) || [];
@@ -475,7 +471,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
 
 // ─── Product Card ─────────────────────────────────────────
 function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void }) {
-  const img = getProductImage(product);
+  const img = product.images?.[0]?.src || getCdnFallbackImage(product.name);
   const cats = product.categories?.map(c => c.name) || [];
   const price = product.price ? parseFloat(product.price) : null;
   const midRange = price ? Math.round(price * 2.2) : null;
@@ -731,7 +727,7 @@ export default function CatalogPage() {
   const shareSelection = async () => {
     const selectedProducts = products
       .filter(p => selectedIds.has(p.id))
-      .map(p => ({ id: p.id, name: p.name, price: p.price, image: getProductImage(p) || "", permalink: p.permalink, categories: p.categories.map(c => c.name) }));
+      .map(p => ({ id: p.id, name: p.name, price: p.price, image: p.images?.[0]?.src || "", permalink: p.permalink, categories: p.categories.map(c => c.name) }));
     if (selectedProducts.length === 0) return;
     setSharing(true);
     try {
