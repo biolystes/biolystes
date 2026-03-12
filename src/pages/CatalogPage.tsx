@@ -3,6 +3,17 @@ import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
+import {
+  type JSONProduct,
+  type EnrichedFields,
+  buildEnrichmentMap,
+  jsonToWCProduct,
+  parseCertifications,
+  parseIngredients,
+  parseStarFeatures,
+  normalize,
+  getCategoryLabel,
+} from "@/data/productsData";
 
 // ─── WooCommerce config ───────────────────────────────────
 const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
@@ -36,8 +47,8 @@ function Icon({ d, size = 16, sw = 1.5 }: { d: string | string[]; size?: number;
 const Icons = {
   box:     (p: any) => <Icon {...p} d={["M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z","M12 22V12","M3.29 7 12 12l8.71-5","M7.5 4.27l9 5.15"]} />,
   close:   (p: any) => <Icon {...p} d={["M18 6 6 18","m6 6 12 12"]} />,
-  external:(p: any) => <Icon {...p} d={["M15 3h6v6","M10 14 21 3","M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"]} />,
   search:  (p: any) => <Icon {...p} d={["M11 3a8 8 0 1 0 0 16 8 8 0 0 0 0-16z","m21 21-4.3-4.3"]} />,
+  leaf:    (p: any) => <Icon {...p} d={["M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 1 8.5-2 3-5.5 5-9 5.5","M2 21c0-3 1.85-5.36 5.08-7C9.5 12.52 12 13 13 14"]} />,
 };
 
 // ─── Types ────────────────────────────────────────────────
@@ -52,34 +63,13 @@ interface WCProduct {
   short_description: string;
   description: string;
   permalink: string;
+  _enriched?: EnrichedFields;
 }
 
-interface WCCategory {
-  id: number;
-  name: string;
-  slug: string;
-  count: number;
-  parent: number;
-  image?: { src: string } | null;
-}
-
-interface WCTag {
-  id: number;
-  name: string;
-  count: number;
-}
-
-interface WCAttribute {
-  id: number;
-  name: string;
-  slug: string;
-}
-
-interface WCAttributeTerm {
-  id: number;
-  name: string;
-  count: number;
-}
+interface WCCategory { id: number; name: string; slug: string; count: number; parent: number; image?: { src: string } | null; }
+interface WCTag { id: number; name: string; count: number; }
+interface WCAttribute { id: number; name: string; slug: string; }
+interface WCAttributeTerm { id: number; name: string; count: number; }
 
 // ─── Color map ────────────────────────────────────────────
 const COLOR_MAP: Record<string, string> = {
@@ -103,78 +93,45 @@ const TAG_GROUP_LABELS: Record<string, string> = {
 
 const FILTER_ORDER = ["Réclamations", "Besoin", "Principes actifs", "Couleur de l'emballage"];
 
-
 function parseTag(tagName: string): { displayName: string; group: string | null } {
   const match = tagName.match(/^(.+?)\s*\((.+?)\)\s*$/);
   if (match) return { displayName: match[1].trim(), group: match[2].trim().toLowerCase() };
   return { displayName: tagName, group: null };
 }
 
+// ─── Normalize for matching ───────────────────────────────
+function normalizeStr(name: string): string {
+  return name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+}
+
 // ─── Filter Dropdown ──────────────────────────────────────
 type FilterOption = { id: number | string; name: string; image?: string };
 
 function FilterDropdown({ label, options, selected, onChange, grid = false }: {
-  label: string;
-  options: FilterOption[];
-  selected: (number | string)[];
-  onChange: (ids: (number | string)[]) => void;
-  grid?: boolean;
+  label: string; options: FilterOption[]; selected: (number | string)[]; onChange: (ids: (number | string)[]) => void; grid?: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const hasActive = selected.length > 0;
 
   return (
     <div style={{ position: "relative" }}>
-      <button
-        onClick={() => setOpen(o => !o)}
-        style={{
-          display: "flex", alignItems: "center", gap: 6,
-          padding: "7px 14px", borderRadius: 20,
-          border: hasActive ? "1.5px solid #1d1d1f" : "0px solid #d1d1d6",
-          background: hasActive ? "#1d1d1f" : "rgba(0,0,0,0.04)",
-          color: hasActive ? "#fff" : "#1d1d1f",
-          fontSize: 12, fontWeight: 500, cursor: "pointer",
-          transition: "all .15s", whiteSpace: "nowrap",
-        }}
-      >
+      <button onClick={() => setOpen(o => !o)}
+        style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 20, border: hasActive ? "1.5px solid #1d1d1f" : "0px solid #d1d1d6", background: hasActive ? "#1d1d1f" : "rgba(0,0,0,0.04)", color: hasActive ? "#fff" : "#1d1d1f", fontSize: 12, fontWeight: 500, cursor: "pointer", transition: "all .15s", whiteSpace: "nowrap" }}>
         {label}
-        {hasActive && (
-          <span style={{ background: "rgba(255,255,255,0.25)", borderRadius: 10, padding: "1px 6px", fontSize: 10, fontWeight: 700 }}>
-            {selected.length}
-          </span>
-        )}
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-          <path d={open ? "m18 15-6-6-6 6" : "m6 9 6 6 6-6"} />
-        </svg>
+        {hasActive && <span style={{ background: "rgba(255,255,255,0.25)", borderRadius: 10, padding: "1px 6px", fontSize: 10, fontWeight: 700 }}>{selected.length}</span>}
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d={open ? "m18 15-6-6-6 6" : "m6 9 6 6 6-6"} /></svg>
       </button>
-
       {open && (
         <>
           <div onClick={() => setOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 98 }} />
-          <div style={{
-            position: "absolute", top: "calc(100% + 8px)", left: 0, zIndex: 99,
-            background: "#fff", borderRadius: 14, minWidth: grid ? 380 : 220,
-            boxShadow: "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06)",
-            border: "1px solid #f0f0f0",
-          }}>
+          <div style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, zIndex: 99, background: "#fff", borderRadius: 14, minWidth: grid ? 380 : 220, boxShadow: "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06)", border: "1px solid #f0f0f0" }}>
             <div style={{ padding: 10, display: grid ? "grid" : "block", gridTemplateColumns: grid ? "1fr 1fr" : undefined, gap: grid ? 2 : 0 }}>
               {options.map(opt => {
                 const active = selected.includes(opt.id);
                 return (
                   <button key={opt.id} onClick={() => onChange(active ? selected.filter(id => id !== opt.id) : [...selected, opt.id])}
-                    style={{
-                      display: "flex", alignItems: "center", gap: 10,
-                      width: "100%", padding: "9px 10px", borderRadius: 8, border: "none",
-                      background: active ? "#f5f5f7" : "transparent",
-                      cursor: "pointer", textAlign: "left", transition: "background .1s",
-                    }}
-                  >
-                    <div style={{
-                      width: 16, height: 16, borderRadius: "50%", flexShrink: 0,
-                      border: active ? "none" : "1.5px solid #c7c7cc",
-                      background: active ? "#1d1d1f" : "transparent",
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                    }}>
+                    style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "9px 10px", borderRadius: 8, border: "none", background: active ? "#f5f5f7" : "transparent", cursor: "pointer", textAlign: "left", transition: "background .1s" }}>
+                    <div style={{ width: 16, height: 16, borderRadius: "50%", flexShrink: 0, border: active ? "none" : "1.5px solid #c7c7cc", background: active ? "#1d1d1f" : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
                       {active && <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
                     </div>
                     {opt.image && <div style={{ width: 22, height: 22, borderRadius: "50%", background: opt.image, border: "1px solid #e5e5e5", flexShrink: 0 }} />}
@@ -185,9 +142,7 @@ function FilterDropdown({ label, options, selected, onChange, grid = false }: {
             </div>
             {selected.length > 0 && (
               <div style={{ borderTop: "1px solid #f5f5f7", padding: "6px 10px" }}>
-                <button onClick={() => onChange([])} style={{ width: "100%", padding: "6px", borderRadius: 8, border: "none", background: "transparent", color: "#86868b", fontSize: 12, cursor: "pointer" }}>
-                  Effacer la sélection
-                </button>
+                <button onClick={() => onChange([])} style={{ width: "100%", padding: "6px", borderRadius: 8, border: "none", background: "transparent", color: "#86868b", fontSize: 12, cursor: "pointer" }}>Effacer la sélection</button>
               </div>
             )}
           </div>
@@ -197,18 +152,54 @@ function FilterDropdown({ label, options, selected, onChange, grid = false }: {
   );
 }
 
+// ─── Product Placeholder (no image) ───────────────────────
+function ProductPlaceholder({ name }: { name: string }) {
+  return (
+    <div style={{
+      width: "100%", height: "100%", display: "flex", flexDirection: "column",
+      alignItems: "center", justifyContent: "center", gap: 12,
+      background: "#ecebd7", padding: 24,
+    }}>
+      <Icons.leaf size={32} sw={1} />
+      <span style={{
+        fontSize: 11, fontWeight: 700, color: "#86868b",
+        textTransform: "uppercase", letterSpacing: ".5px",
+        textAlign: "center", lineHeight: 1.5, maxWidth: "80%",
+      }}>
+        {name}
+      </span>
+    </div>
+  );
+}
+
+// ─── Certification Badge ──────────────────────────────────
+function CertBadge({ label }: { label: string }) {
+  return (
+    <span style={{
+      padding: "2px 7px", borderRadius: 6, fontSize: 8, fontWeight: 600,
+      letterSpacing: ".3px", background: "rgba(0,0,0,0.06)", color: "#666",
+      whiteSpace: "nowrap",
+    }}>
+      {label}
+    </span>
+  );
+}
+
 // ─── Product Detail Panel ─────────────────────────────────
 function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () => void }) {
   const img = product.images?.[0]?.src;
   const price = product.price ? parseFloat(product.price) : null;
-  const desc = stripHtml(product.short_description || product.description);
+  const desc = product._enriched?.description_full || stripHtml(product.short_description || product.description);
   const tags = product.tags?.map(t => t.name) || [];
   const cats = product.categories?.map(c => c.name) || [];
-  const isVegan = tags.some(t => t.toLowerCase().includes("vegan"));
-  const isBio = tags.some(t => t.toLowerCase().includes("bio") || t.toLowerCase().includes("ecocert") || t.toLowerCase().includes("cosmos"));
+  const isVegan = tags.some(t => t.toLowerCase().includes("vegan")) ||
+    product._enriched?.certifications?.some(c => c.toLowerCase().includes("végan") || c.toLowerCase().includes("vegan"));
+  const isBio = tags.some(t => t.toLowerCase().includes("bio") || t.toLowerCase().includes("ecocert") || t.toLowerCase().includes("cosmos")) ||
+    product._enriched?.certifications?.some(c => c.toLowerCase().includes("bio") || c.toLowerCase().includes("certifié"));
   const midRange = price ? Math.round(price * 2.2) : null;
   const bio = price ? Math.round(price * 3.5) : null;
   const luxury = price ? Math.round(price * 4.5) : null;
+  const enriched = product._enriched;
 
   return (
     <>
@@ -229,20 +220,78 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
         <div style={{ background: "#f5f5f7", aspectRatio: "1", overflow: "hidden", flexShrink: 0 }}>
           {img
             ? <img src={img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-            : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#d1d1d6" }}><Icons.box size={40} sw={1} /></div>
+            : <ProductPlaceholder name={product.name} />
           }
         </div>
 
-        <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: 20 }}>
+        <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: 16 }}>
+          {/* Badges */}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
             {isVegan && <span style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700, letterSpacing: ".5px", textTransform: "uppercase", background: "#f5f5f7", color: "#86868b" }}>Vegan</span>}
             {isBio && <span style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700, letterSpacing: ".5px", textTransform: "uppercase", background: "#f5f5f7", color: "#86868b" }}>Bio</span>}
+            {enriched?.volume && <span style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700, letterSpacing: ".5px", textTransform: "uppercase", background: "#f5f5f7", color: "#86868b" }}>{enriched.volume}</span>}
           </div>
 
           <h2 style={{ fontSize: 16, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.4, textTransform: "uppercase", letterSpacing: ".2px" }}>{product.name}</h2>
 
-          {desc && <p style={{ fontSize: 13, color: "#86868b", lineHeight: 1.65 }}>{desc.length > 280 ? desc.slice(0, 280) + "…" : desc}</p>}
+          {/* Star features */}
+          {enriched?.star_features && enriched.star_features.length > 0 && (
+            <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+              {enriched.star_features.map((f, i) => (
+                <span key={i} style={{ padding: "4px 10px", borderRadius: 8, fontSize: 10, fontWeight: 600, background: "#e8e6d0", color: "#555" }}>
+                  {f}
+                </span>
+              ))}
+            </div>
+          )}
 
+          {desc && <p style={{ fontSize: 13, color: "#86868b", lineHeight: 1.65 }}>{desc.length > 400 ? desc.slice(0, 400) + "…" : desc}</p>}
+
+          {/* Certifications */}
+          {enriched?.certifications && enriched.certifications.length > 0 && (
+            <div>
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#86868b", display: "block", marginBottom: 8 }}>Certifications</span>
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                {enriched.certifications.map((c, i) => <CertBadge key={i} label={c} />)}
+              </div>
+            </div>
+          )}
+
+          {/* Key ingredients */}
+          {enriched?.ingredients_fr && enriched.ingredients_fr.length > 0 && (
+            <div>
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#86868b", display: "block", marginBottom: 8 }}>Ingrédients clés</span>
+              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
+                {enriched.ingredients_fr.map((ing, i) => (
+                  <span key={i} style={{ padding: "4px 10px", borderRadius: 8, fontSize: 11, fontWeight: 500, background: "#f5f5f7", color: "#555" }}>
+                    {ing}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Aroma */}
+          {enriched?.arome && enriched.arome !== "Divers" && (
+            <div>
+              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#86868b", display: "block", marginBottom: 6 }}>Arôme</span>
+              <p style={{ fontSize: 12, color: "#666", lineHeight: 1.6, fontStyle: "italic" }}>{enriched.arome}</p>
+            </div>
+          )}
+
+          {/* INCI */}
+          {enriched?.inci && (
+            <details style={{ marginTop: 4 }}>
+              <summary style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#86868b", cursor: "pointer", marginBottom: 6 }}>
+                Composition INCI
+              </summary>
+              <p style={{ fontSize: 10, color: "#999", lineHeight: 1.6, marginTop: 6 }}>
+                {enriched.inci.length > 500 ? enriched.inci.slice(0, 500) + "…" : enriched.inci}
+              </p>
+            </details>
+          )}
+
+          {/* Price tiers */}
           {price && (
             <div style={{ background: "#f5f5f7", borderRadius: 12, padding: "16px" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
@@ -266,11 +315,6 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
               ))}
             </div>
           </div>
-
-          <button onClick={() => window.open(product.permalink, "_blank")}
-            style={{ width: "100%", padding: "13px", borderRadius: 12, border: "none", background: "#1d1d1f", color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
-            Voir sur le site <Icons.external size={13} />
-          </button>
         </div>
       </motion.div>
     </>
@@ -286,6 +330,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
   const bioPrix = price ? Math.round(price * 3.5) : null;
   const luxury = price ? Math.round(price * 4.5) : null;
   const displayCats = cats.filter(c => c.length < 24).slice(0, 2);
+  const enriched = product._enriched;
 
   return (
     <motion.div
@@ -296,29 +341,27 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
         display: "flex", flexDirection: "column", cursor: "pointer",
         borderRadius: 20, overflow: "hidden",
         outline: isSelected ? "2.5px solid #1d1d1f" : "none",
-        border: "none",
-        boxShadow: "none",
+        border: "none", boxShadow: "none",
         transition: "outline .15s",
         background: "#ebebd6",
       }}
     >
       {/* Image area */}
       <div style={{ position: "relative", width: "100%", aspectRatio: "1", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#ecebd7", minHeight: 354 }}>
-        {/* # badge top-left */}
-        <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, width: 26, height: 26, borderRadius: 8, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#86868b" }}>#</div>
+        {/* Volume badge top-left */}
+        {enriched?.volume && (
+          <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, padding: "3px 10px", borderRadius: 8, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(8px)", fontSize: 9, fontWeight: 700, color: "#86868b", letterSpacing: ".3px" }}>
+            {enriched.volume}
+          </div>
+        )}
+        {!enriched?.volume && (
+          <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, width: 26, height: 26, borderRadius: 8, background: "rgba(255,255,255,0.7)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#86868b" }}>#</div>
+        )}
 
         {/* Selection checkbox top-right */}
         {onToggleSelect && (
-          <button
-            onClick={onToggleSelect}
-            style={{
-              position: "absolute", top: 10, right: 10, zIndex: 10, width: 26, height: 26,
-              borderRadius: 8, border: isSelected ? "none" : "2px solid rgba(0,0,0,0.15)",
-              background: isSelected ? "#1d1d1f" : "rgba(255,255,255,0.6)",
-              backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center",
-              cursor: "pointer", transition: "all .15s",
-            }}
-          >
+          <button onClick={onToggleSelect}
+            style={{ position: "absolute", top: 10, right: 10, zIndex: 10, width: 26, height: 26, borderRadius: 8, border: isSelected ? "none" : "2px solid rgba(0,0,0,0.15)", background: isSelected ? "#1d1d1f" : "rgba(255,255,255,0.6)", backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "all .15s" }}>
             {isSelected && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
           </button>
         )}
@@ -328,15 +371,43 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
               style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1)", transition: "transform .4s" }}
               onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
               onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
-          : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#b0bec5" }}><Icons.box size={40} sw={1} /></div>
+          : <ProductPlaceholder name={product.name} />
         }
       </div>
 
       {/* Content */}
-      <div style={{ padding: "16px 18px 18px", display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
-        <h3 style={{ fontSize: 11, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.4, textTransform: "uppercase", letterSpacing: ".3px", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden", minHeight: 44, margin: 0 }}>
+      <div style={{ padding: "16px 18px 18px", display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
+        <h3 style={{ fontSize: 11, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.4, textTransform: "uppercase", letterSpacing: ".3px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", minHeight: 30, margin: 0 }}>
           {product.name}
         </h3>
+
+        {/* Star features / short desc */}
+        {enriched?.star_features && enriched.star_features.length > 0 && (
+          <p style={{ fontSize: 10, color: "#86868b", lineHeight: 1.5, margin: 0, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+            {enriched.star_features.join(" · ")}
+          </p>
+        )}
+
+        {/* Certification badges */}
+        {enriched?.certifications && enriched.certifications.length > 0 && (
+          <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+            {enriched.certifications.slice(0, 3).map((c, i) => <CertBadge key={i} label={c} />)}
+            {enriched.certifications.length > 3 && (
+              <span style={{ fontSize: 8, fontWeight: 600, color: "#999", alignSelf: "center" }}>+{enriched.certifications.length - 3}</span>
+            )}
+          </div>
+        )}
+
+        {/* Key ingredients */}
+        {enriched?.ingredients_fr && enriched.ingredients_fr.length > 0 && (
+          <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
+            {enriched.ingredients_fr.slice(0, 3).map((ing, i) => (
+              <span key={i} style={{ fontSize: 9, fontWeight: 500, color: "#888", background: "rgba(0,0,0,0.04)", padding: "2px 6px", borderRadius: 4 }}>
+                {ing}
+              </span>
+            ))}
+          </div>
+        )}
 
         {/* Price tiers */}
         {price && (
@@ -351,7 +422,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
               { label: "Marché Luxe", val: luxury },
             ].map((tier, i) => (
               <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "4px 0" }}>
-              <span style={{ fontSize: 11, color: "#111", fontWeight: 400 }}>{tier.label}</span>
+                <span style={{ fontSize: 11, color: "#111", fontWeight: 400 }}>{tier.label}</span>
                 <span style={{ fontSize: 12, color: "#111", fontWeight: 600 }}>{tier.val}€</span>
               </div>
             ))}
@@ -405,11 +476,19 @@ export default function CatalogPage() {
   const [vatEnabled, setVatEnabled] = useState(false);
   const [sortBy, setSortBy] = useState<"date" | "price-asc" | "price-desc">("date");
   const [sortOpen, setSortOpen] = useState(false);
-  // ─── Multi-selection for sharing ──────────────────────────
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
   const [selectionMode, setSelectionMode] = useState(false);
   const [sharing, setSharing] = useState(false);
+  const [jsonProducts, setJsonProducts] = useState<JSONProduct[]>([]);
   const { user } = useAuth();
+
+  // Load JSON products
+  useEffect(() => {
+    fetch("/data/produits.json")
+      .then(r => r.json())
+      .then((data: JSONProduct[]) => setJsonProducts(data))
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     Promise.all([
@@ -443,7 +522,47 @@ export default function CatalogPage() {
       .catch((err: Error) => { setError(err.message); setLoading(false); });
   }, []);
 
+  // Merge WC products with JSON data
+  const mergedProducts = (() => {
+    if (jsonProducts.length === 0) return allProducts;
+
+    const enrichmentMap = buildEnrichmentMap(jsonProducts);
+    const wcNormalizedNames = new Set(allProducts.map(p => normalizeStr(p.name)));
+
+    // Enrich existing WC products with JSON data
+    const enrichedWC = allProducts.map(p => {
+      const key = normalizeStr(p.name);
+      const enrichment = enrichmentMap.get(key);
+      if (enrichment) {
+        return { ...p, _enriched: enrichment };
+      }
+      return p;
+    });
+
+    // Add JSON-only products (not already in WC)
+    const jsonOnlyProducts: WCProduct[] = [];
+    jsonProducts.forEach((jp, idx) => {
+      const key = normalizeStr(jp.nom);
+      if (!wcNormalizedNames.has(key)) {
+        jsonOnlyProducts.push(jsonToWCProduct(jp, idx) as WCProduct);
+      }
+    });
+
+    return [...enrichedWC, ...jsonOnlyProducts];
+  })();
+
   const topLevel = allCategories.filter(c => c.parent === 0).sort((a, b) => b.count - a.count);
+
+  // Add JSON categories to the category filter
+  const jsonCategories = (() => {
+    if (jsonProducts.length === 0) return [];
+    const cats = new Set<string>();
+    jsonProducts.forEach(jp => { if (jp.categorie) cats.add(jp.categorie); });
+    return Array.from(cats).map(slug => ({
+      id: -(slug.length * 1000 + slug.charCodeAt(0)),
+      name: getCategoryLabel(slug),
+    }));
+  })();
 
   const tagGroups = (() => {
     const groups: Record<string, { label: string; tags: WCTag[]; displayNames: string[] }> = {};
@@ -459,7 +578,7 @@ export default function CatalogPage() {
     return groups;
   })();
 
-  const filteredProducts = allProducts.filter(p => {
+  const filteredProducts = mergedProducts.filter(p => {
     const pCatIds = new Set(p.categories.map(c => c.id));
     const pTagIds = new Set(p.tags.map(t => t.id));
     const pAttrMap: Record<string, string[]> = {};
@@ -526,7 +645,6 @@ export default function CatalogPage() {
         await navigator.clipboard.writeText(shareUrl);
         toast.success("Lien copié !", { description: "Partagez ce lien pour présenter votre sélection." });
       } catch {
-        // Fallback: prompt user with the URL
         prompt("Copiez ce lien :", shareUrl);
         toast.success("Lien de partage créé !");
       }
@@ -596,9 +714,7 @@ export default function CatalogPage() {
       {/* Catalogue */}
       <div>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-          <span style={{ fontSize: 10, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>
-            Catalogue
-          </span>
+          <span style={{ fontSize: 10, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>Catalogue</span>
           <div style={{ display: "flex", alignItems: "center", gap: 4, color: "#d1d1d6" }}>
             <Icons.search size={13} />
             <span style={{ fontSize: 11 }}>{products.length} produits</span>
@@ -618,9 +734,7 @@ export default function CatalogPage() {
               <FilterDropdown key={f.label} label={f.label} options={f.options} selected={selectedGroupTags[f.label] || []} onChange={ids => setSelectedGroupTags(prev => ({ ...prev, [f.label]: ids as number[] }))} grid={f.options.length > 6 && !f.isColor} />
             ))}
             {hasFilters && (
-              <button onClick={clearFilters} style={{ padding: "7px 14px", borderRadius: 20, border: "1px solid #d1d1d6", background: "transparent", color: "#86868b", fontSize: 12, fontWeight: 400, cursor: "pointer" }}>
-                Effacer
-              </button>
+              <button onClick={clearFilters} style={{ padding: "7px 14px", borderRadius: 20, border: "1px solid #d1d1d6", background: "transparent", color: "#86868b", fontSize: 12, fontWeight: 400, cursor: "pointer" }}>Effacer</button>
             )}
           </div>
 
@@ -669,14 +783,7 @@ export default function CatalogPage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
             style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
             {products.map(p => (
-              <ProductCard
-                key={p.id}
-                product={p}
-                onSelect={() => setSelectedProduct(p)}
-                vatEnabled={vatEnabled}
-                isSelected={selectedIds.has(p.id)}
-                onToggleSelect={(e) => toggleSelect(p.id, e)}
-              />
+              <ProductCard key={p.id} product={p} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} />
             ))}
           </motion.div>
         )}
@@ -696,49 +803,21 @@ export default function CatalogPage() {
       <AnimatePresence>
         {selectedIds.size > 0 && (
           <motion.div
-            initial={{ y: 80, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 80, opacity: 0 }}
+            initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 80, opacity: 0 }}
             transition={{ type: "spring", damping: 28, stiffness: 300 }}
-            style={{
-              position: "fixed", bottom: 28, left: "50%", transform: "translateX(-50%)",
-              zIndex: 200, display: "flex", alignItems: "center", gap: 12,
-              background: "#1d1d1f", borderRadius: 20, padding: "12px 16px 12px 20px",
-              boxShadow: "0 8px 32px rgba(0,0,0,0.28)", whiteSpace: "nowrap",
-            }}
+            style={{ position: "fixed", bottom: 28, left: "50%", transform: "translateX(-50%)", zIndex: 200, display: "flex", alignItems: "center", gap: 12, background: "#1d1d1f", borderRadius: 20, padding: "12px 16px 12px 20px", boxShadow: "0 8px 32px rgba(0,0,0,0.28)", whiteSpace: "nowrap" }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <span style={{ width: 26, height: 26, borderRadius: "50%", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: "#1d1d1f" }}>
-                {selectedIds.size}
-              </span>
-              <span style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.85)" }}>
-                produit{selectedIds.size > 1 ? "s" : ""} sélectionné{selectedIds.size > 1 ? "s" : ""}
-              </span>
+              <span style={{ width: 26, height: 26, borderRadius: "50%", background: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: "#1d1d1f" }}>{selectedIds.size}</span>
+              <span style={{ fontSize: 13, fontWeight: 600, color: "rgba(255,255,255,0.85)" }}>produit{selectedIds.size > 1 ? "s" : ""} sélectionné{selectedIds.size > 1 ? "s" : ""}</span>
             </div>
-            <button
-              onClick={() => setSelectedIds(new Set())}
-              style={{ background: "rgba(255,255,255,0.12)", border: "none", borderRadius: 10, padding: "6px 12px", color: "rgba(255,255,255,0.7)", fontSize: 12, cursor: "pointer" }}
-            >
-              Effacer
-            </button>
-            <button
-              onClick={shareSelection}
-              disabled={sharing}
-              style={{
-                display: "flex", alignItems: "center", gap: 7,
-                background: "#fff", border: "none", borderRadius: 12,
-                padding: "8px 16px", fontSize: 13, fontWeight: 700,
-                color: "#1d1d1f", cursor: sharing ? "default" : "pointer",
-                opacity: sharing ? 0.7 : 1, transition: "opacity .15s",
-              }}
-            >
+            <button onClick={() => setSelectedIds(new Set())} style={{ background: "rgba(255,255,255,0.12)", border: "none", borderRadius: 10, padding: "6px 12px", color: "rgba(255,255,255,0.7)", fontSize: 12, cursor: "pointer" }}>Effacer</button>
+            <button onClick={shareSelection} disabled={sharing}
+              style={{ display: "flex", alignItems: "center", gap: 7, background: "#fff", border: "none", borderRadius: 12, padding: "8px 16px", fontSize: 13, fontWeight: 700, color: "#1d1d1f", cursor: sharing ? "default" : "pointer", opacity: sharing ? 0.7 : 1, transition: "opacity .15s" }}>
               {sharing ? (
                 <svg style={{ animation: "spin .8s linear infinite" }} width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
               ) : (
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
-                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
-                </svg>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
               )}
               {sharing ? "Création…" : "Partager la sélection"}
             </button>
@@ -748,4 +827,3 @@ export default function CatalogPage() {
     </>
   );
 }
-
