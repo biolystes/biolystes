@@ -33,7 +33,7 @@ function LeakyBucketSection() {
         className="flex justify-center">
         <img
           src={leakyBucketImg}
-          alt="Comparaison e-commerce sans et avec Lystes AI — CA perdu vs CA récupéré"
+          alt="Comparaison e-commerce sans et avec Biolystes AI — CA perdu vs CA récupéré"
           className="w-full max-w-[960px] h-auto"
         />
       </motion.div>
