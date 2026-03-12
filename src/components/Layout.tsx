@@ -1,4 +1,5 @@
 import { useState } from "react";
+import BiolystesArticlesWidget from "./BiolystesArticlesWidget";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Settings, Menu, X, LogOut, Compass, LayoutDashboard, Shield, ArrowRight } from "lucide-react";
