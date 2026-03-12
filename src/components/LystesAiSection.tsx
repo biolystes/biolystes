@@ -340,7 +340,7 @@ function TeamSEO({ titleOverride }: { titleOverride?: string }) {
             </div>
           </div>
         ))}
-        <div className="mt-3.5 p-2.5 bg-[#ecfdf5] rounded-xl text-[11px] text-[#065f46] font-semibold text-center flex items-center justify-center gap-1.5">
+        <div className="mt-3.5 p-2.5 bg-[#ecfdf5] rounded-xl text-[11px] text-[#000] font-semibold text-center flex items-center justify-center gap-1.5">
           <Sparkles className="w-3 h-3" /> Fiche produit optimisée automatiquement par l'IA
         </div>
       </div>
@@ -378,9 +378,9 @@ function TeamMarketing({ titleOverride }: { titleOverride?: string }) {
           {tasks.map(t => (
             <div key={t.label} className="p-4 rounded-2xl flex items-start gap-3 border border-foreground">
               <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                t.status === "done" ? "bg-[#e6f6ef]" : t.status === "now" ? "bg-[#ebf5ff]" : "bg-muted border border-border"
+                t.status === "done" ? "bg-white" : t.status === "now" ? "bg-[#ebf5ff]" : "bg-muted border border-border"
               }`}>
-                {t.status === "done" && <Check className="w-3.5 h-3.5 text-[#22c55e]" strokeWidth={3} />}
+                {t.status === "done" && <Check className="w-3.5 h-3.5 text-[#000]" strokeWidth={3} />}
                 {t.status === "now" && <Play className="w-3.5 h-3.5 text-[#3b82f6] fill-[#3b82f6]" />}
                 {t.status === "wait" && <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />}
               </div>
@@ -393,7 +393,7 @@ function TeamMarketing({ titleOverride }: { titleOverride?: string }) {
         </div>
 
         {/* Footer */}
-        <div className="bg-[#ecfdf5] rounded-xl p-3 flex items-center justify-center text-[#065f46] font-semibold text-[11px] gap-1.5">
+        <div className="bg-[#ecfdf5] rounded-xl p-3 flex items-center justify-center text-[#000] font-semibold text-[11px] gap-1.5">
           <Sparkles className="w-3.5 h-3.5" />
           Plan d'action optimisé automatiquement par l'IA
         </div>
