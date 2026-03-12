@@ -640,7 +640,29 @@ export default function CatalogPage() {
   const [selectionMode, setSelectionMode] = useState(false);
   const [sharing, setSharing] = useState(false);
   const [jsonProducts, setJsonProducts] = useState<JSONProduct[]>([]);
+  const [genCleanLoading, setGenCleanLoading] = useState(false);
+  const [genCleanResult, setGenCleanResult] = useState<{ name: string; original: string; generated: string } | null>(null);
   const { user } = useAuth();
+
+  const handleGenerateClean = async (product: WCProduct, imgSrc: string) => {
+    setGenCleanLoading(true);
+    setGenCleanResult(null);
+    toast.info("Génération IA en cours… (~30s)");
+    try {
+      const { data, error } = await supabase.functions.invoke("generate-clean-image", {
+        body: { imageUrl: imgSrc, productName: product.name },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      if (!data?.imageUrl) throw new Error("Pas d'image générée");
+      setGenCleanResult({ name: product.name, original: imgSrc, generated: data.imageUrl });
+      toast.success("Image générée !");
+    } catch (err: any) {
+      toast.error(err?.message || "Erreur lors de la génération");
+    } finally {
+      setGenCleanLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetch("/data/produits.json")
