@@ -364,7 +364,11 @@ export default function BiolystesArticlesWidget() {
               >
                 {article.featured ? (
                   <>
-                    <img src={article.image} alt={article.title} className="biolystes-article-featured-img" loading="lazy" />
+                    {article.video ? (
+                      <video src={article.video} autoPlay muted loop playsInline className="biolystes-article-featured-img" />
+                    ) : (
+                      <img src={article.image} alt={article.title} className="biolystes-article-featured-img" loading="lazy" />
+                    )}
                     <div className="biolystes-article-featured-title">{article.title}</div>
                     <div className="biolystes-article-featured-desc">{article.description}</div>
                     <div className="biolystes-article-featured-date">{article.date}</div>
