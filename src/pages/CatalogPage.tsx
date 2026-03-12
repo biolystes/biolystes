@@ -994,7 +994,7 @@ export default function CatalogPage() {
       </div>
 
       <AnimatePresence>
-        {selectedProduct && <ProductPanel product={selectedProduct} onClose={() => setSelectedProduct(null)} />}
+        {selectedProduct && <ProductPanel product={selectedProduct} onClose={() => setSelectedProduct(null)} overrideImage={cleanImages[selectedProduct.id] || cleanImagesByName[normalizeStr(selectedProduct.name)]} />}
       </AnimatePresence>
 
       <AnimatePresence>
