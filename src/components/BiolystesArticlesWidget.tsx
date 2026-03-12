@@ -247,7 +247,7 @@ export default function BiolystesArticlesWidget() {
 
         .biolystes-article-featured-img {
           width: 100%;
-          aspect-ratio: 2 / 1;
+          aspect-ratio: 4 / 3;
           object-fit: cover;
           border-radius: 12px;
           margin-bottom: 14px;
