@@ -22,7 +22,7 @@ const articles = [
     image: coffretsImg,
     date: "8 mars 2026",
     featured: false,
-    url: "/blog",
+    url: "/blog/coffrets",
   },
   {
     id: 7,
