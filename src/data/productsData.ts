@@ -26,6 +26,7 @@ export interface EnrichedFields {
   description_full?: string;
   inci?: string;
   arome?: string;
+  image_src?: string;
   slug?: string;
   categorie_json?: string;
 }
@@ -56,6 +57,18 @@ export function parseIngredients(str: string): string[] {
 export function parseStarFeatures(str: string): string[] {
   if (!str) return [];
   return str.split(",").map(s => s.trim()).filter(Boolean);
+}
+
+// ─── Parse primary image from JSON images field ───────────
+export function parseJsonPrimaryImage(imagesStr: string): string | null {
+  if (!imagesStr) return null;
+  const entries = imagesStr.split("|").map(s => s.trim()).filter(Boolean);
+  if (entries.length === 0) return null;
+
+  // In produits.json, first entry is often a certification icon; second is usually the main product image
+  const candidate = entries[1] || entries[0];
+  if (candidate.startsWith("http")) return candidate;
+  return `https://static.selfnamed.com${candidate.startsWith("/") ? "" : "/"}${candidate}`;
 }
 
 // ─── Category label mapping ───────────────────────────────
@@ -96,6 +109,7 @@ export function buildEnrichmentMap(jsonProducts: JSONProduct[]): Map<string, Enr
       description_full: jp.description || undefined,
       inci: jp.inci || undefined,
       arome: jp.arôme || undefined,
+      image_src: parseJsonPrimaryImage(jp.images) || undefined,
       slug: jp.slug,
       categorie_json: jp.categorie,
       jsonProduct: jp,
@@ -108,12 +122,13 @@ export function buildEnrichmentMap(jsonProducts: JSONProduct[]): Map<string, Enr
 export function jsonToWCProduct(jp: JSONProduct, index: number): any {
   const price = parseJsonPrice(jp.prix);
   const catLabel = getCategoryLabel(jp.categorie);
+  const jsonImage = parseJsonPrimaryImage(jp.images);
 
   return {
     id: -(index + 1), // negative IDs to avoid collision with WC
     name: jp.nom,
     price: price ? price.toString() : "",
-    images: [], // No images from JSON - will show placeholder
+    images: jsonImage ? [{ src: jsonImage }] : [],
     tags: parseCertifications(jp.certifications).map((cert, i) => ({
       id: -(index * 100 + i),
       name: cert,
@@ -135,6 +150,7 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
       description_full: jp.description,
       inci: jp.inci,
       arome: jp.arôme,
+      image_src: jsonImage || undefined,
       slug: jp.slug,
       categorie_json: jp.categorie,
     } as EnrichedFields,
