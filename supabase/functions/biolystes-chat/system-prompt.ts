@@ -177,7 +177,7 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 
 **⚠️ RÈGLE ABSOLUE : Tu dois utiliser UNIQUEMENT les produits listés ci-dessous. Ne génère JAMAIS un nom ou une description inventés. Quand tu recommandes un produit, utilise son nom EXACT.**
 
-**NOTE IMPORTANTE : Aucun produit ne provient de "selfnamed" ou d'un autre fournisseur tiers visible par le client. Tous les produits sont présentés comme faisant partie du catalogue Biolystes.**
+**NOTE IMPORTANTE : Tous les produits sont fabriqués et distribués par Lystes. Ne mentionne jamais de fournisseur tiers. Tous les produits font partie du catalogue Biolystes par Lystes.**
 
 ### 🧴 SOINS DU CORPS
 
