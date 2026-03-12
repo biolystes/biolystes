@@ -423,10 +423,10 @@ function ProductCard({ product, onSelect, vatEnabled = false }: { product: WCPro
 function ProductSkeleton() {
   return (
     <div style={{ borderRadius: 16, overflow: "hidden", background: "#fff" }}>
-      <div style={{ width: "100%", aspectRatio: "1", background: "#f5f5f7", animation: "pulse 1.5s infinite" }} />
+      <div style={{ width: "100%", aspectRatio: "1", background: "#f5f4df", animation: "pulse 1.5s infinite" }} />
       <div style={{ padding: "14px" }}>
-        <div style={{ height: 10, width: "80%", background: "#f5f5f7", borderRadius: 4, marginBottom: 8 }} />
-        <div style={{ height: 8, width: "55%", background: "#f5f5f7", borderRadius: 4 }} />
+        <div style={{ height: 10, width: "80%", background: "#f5f4df", borderRadius: 4, marginBottom: 8 }} />
+        <div style={{ height: 8, width: "55%", background: "#f5f4df", borderRadius: 4 }} />
       </div>
     </div>
   );
