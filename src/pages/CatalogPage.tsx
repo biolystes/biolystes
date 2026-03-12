@@ -339,7 +339,7 @@ function CertBadge({ label }: { label: string }) {
 
 // ─── Product Detail Panel ─────────────────────────────────
 function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () => void }) {
-  const img = product.images?.[0]?.src || getCdnFallbackImage(product.name);
+  const img = getProductImage(product);
   const price = product.price ? parseFloat(product.price) : null;
   const desc = product._enriched?.description_full || stripHtml(product.short_description || product.description);
   const tags = product.tags?.map(t => t.name) || [];
