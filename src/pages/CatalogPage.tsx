@@ -108,6 +108,62 @@ const TAG_GROUP_LABELS: Record<string, string> = {
 
 const FILTER_ORDER = ["Réclamations", "Besoin", "Principes actifs", "Couleur de l'emballage"];
 
+// ─── CDN fallback images for products without WC photos ───
+const CDN_IMAGE_MAP: Record<string, string> = {
+  "duo-cheveux-eclatants": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0dMOV8xZ3FFY1dyVEk3NnMtQllaeUxialVWeGlwTE5oLmpwZyZ3aWR0aD01ODA=",
+  "le duo reparation & brillance": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLy1yaE5sSjlYYjdNMWthVmJaQlhkb3BjcTg1Vk1zcGRYLmpwZyZ3aWR0aD01ODA=",
+  "coffret renaissance capillaire": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzV6TDhGMHlzREM5cTRKMWJCWDJaN2gtSmlyWjVrX28xLmpwZyZ3aWR0aD01ODA=",
+  "duo corps peaux sensibles": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2lFemJWM0F4ZnJvZVpKblcyTXFEajUzZF9DaWVSRkpyLmpwZyZ3aWR0aD01ODA=",
+  "duo performance anti-age": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3BqNWM4V0JRM0JFRmU0bDMwc2M4UkpRQUVnLVpLUWVoLmpwZyZ3aWR0aD01ODA=",
+  "duo routine contre les taches brunes": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL05hbWRDT1NMVWlNNXlGUk13aWxIR1JRTENFZmRKdkM5LmpwZyZ3aWR0aD01ODA=",
+  "duo routine taches brunes": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL05hbWRDT1NMVWlNNXlGUk13aWxIR1JRTENFZmRKdkM5LmpwZyZ3aWR0aD01ODA=",
+  "le duo d'hydratation ultime": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1BCanp5d2doOXVfbWZscUd4dXFvdzdpQlZ2ZlI2S213LmpwZyZ3aWR0aD01ODA=",
+  "boite collection teint clair": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3R6akJQYW1mYlU5WG5tLWp6Z3NkRkt0XzY3elVWZzlQLmpwZyZ3aWR0aD01ODA=",
+  "boite collection eclat intemporel": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL294UTlfeWhxTEJwWDJoR0N5WXdfY0p4T09rc0RGaHdQLmpwZWcmd2lkdGg9MTAyNA==",
+  "boite collection eclat rajeunissant": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3R1Skg2WF9xVlhxTUtlSXExWnB5VFowcU13cWNWUGgwLmpwZyZ3aWR0aD01ODA=",
+  "boite collection trio anti-age": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzBHazNvZWpiSV9JajBCMk1kR3EzWVlFYzFDemJnVm83LmpwZyZ3aWR0aD01ODA=",
+  "boite collection luminous skin": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVmLVFvOEMtazJRZlRMU3pFOG1oa3lwdVdtaURVOThkLnBuZyZ3aWR0aD01ODA=",
+  "boite collection trio glowy skin": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0JOeS1rQ0JaX2twRER3amtpcDhPZGlxcU5XOUFrc3B0LnBuZyZ3aWR0aD01ODA=",
+  "boite collection hydratation profonde": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3h5aUpRdmlDbDR0RlBBaVRVVHROMURjcEFLZW9SU01mLmpwZyZ3aWR0aD01ODA=",
+  "la boite collection ultime renouveau": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzlTSnVjX3pzdERKelN0eTdlOGJ4ZGFGRG5WczVHVmF5LmpwZyZ3aWR0aD01ODA=",
+  "boite collection routine nuit collagene": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1EyakI1MGJleVJHMWttOEp2dS1CdGx6RTRmVnpZaFMwLmpwZyZ3aWR0aD01ODA=",
+  "boite collection eclat quotidien": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2JSaXZpQkE4ZmtmZy1nTEdGVkthSVFBTU5PWHdlbWh0LmpwZWcmd2lkdGg9MTAyNA==",
+  "boite collection rituel d'hydratation": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3BIR1hJanpGdFRlYmlMY0g3ZHUyOEZ6S3pqaEVWNG1HLmpwZWcmd2lkdGg9MTAyNA==",
+  "boitier collection boost serum": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzhSVFQ3S2tGNy03dkNEN0s2N2ZPQ0VrRmhlNEt3blhkLmpwZyZ3aWR0aD01ODA=",
+  "boite collection anti-age": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0ZIRm8wdWpPQzBqSWUxZE5ONWJmNHFEMTJSRDIweVhBLmpwZyZ3aWR0aD01ODA=",
+  "boite collection acne care": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0NEMmdyNTFIOHllZ21Mc21zblhPQlR6QlM3V3R4dUhRLnBuZyZ3aWR0aD01ODA=",
+  "gel lavant pour bebe": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0tqTmdreHE1VERIUlkxYVc5a05Xb0NLOHNRUERxakdxLnBuZyZ3aWR0aD01ODA=",
+  "shampooing doux pour bebe": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3JpWklIdGxwUy1RT0pyQUdKdkd0QWEyLVBWdUhvWDhuLnBuZyZ3aWR0aD01ODA=",
+  "creme hydratante alternative au retinol": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3dGdXlYR29Zd3Q2WjE5RERSSXRIWmlBWlhLWkdUcXV4LmpwZyZ3aWR0aD01ODA=",
+  "huile corporelle omega 6-9": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1F4QjVzNm5aNWE1QVlDNnVnckxweWwzbFBuNGZZVGxKLmpwZyZ3aWR0aD01ODA=",
+  "nettoyant visage eclat radieux": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2xzajQtRDhyeFh5TVVENmJ5QXNGZWowLWY0bHExUTJhLmpwZyZ3aWR0aD01ODA=",
+  "creme de nuit peaux sensibles sans parfum": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3pBVzBrZms2dnF0Z3A4bFFxQ2RSZmxYTmJSeVRpT2NqLmpwZyZ3aWR0aD01ODA=",
+  "masque capillaire keratine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL243NDcwV3NDTzM5LXJhdHJrcDJoaHhDc2dNM2NDSXluLmpwZyZ3aWR0aD01ODA=",
+  "exfoliant eclaircissant acide kojique": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2JVN0h6UjJEUVFDYXJQLWpUaVg3MHFCR2hGUHI3MUlPLmpwZyZ3aWR0aD01ODA=",
+  "shampooing volumateur keratine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1I1cXFkTFBlQld1Wkwzd0RQbG1sUU5YM2VzOWcxV3lNLmpwZWcmd2lkdGg9NTgw",
+  "bougie soja mousse": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3BBTldUc0lFUXZWUkRuazlWaUFBZFZSR3NEVUNrQWlNLnBuZyZ3aWR0aD01ODA=",
+  "apres-shampooing volumateur keratine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVieDAzZEtPNHBoRnZoblhuem1BbjA5ekRHY3NLaVdDLmpwZyZ3aWR0aD01ODA=",
+  "mousse lavante pour bebe": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1dMd1Q5SURDZWxxU3g4VTRWY2tEZlgtWVpzNlc0bnhiLnBuZyZ3aWR0aD01ODA=",
+  "serum alternatif au retinol": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL28wU3plU1p5a2YwUF9XRFNmaW1FdjRXNzJkdFhNYUF2LmpwZyZ3aWR0aD01ODA=",
+  "serum contour des yeux alt retinol": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2xGWERhU2FpMVpPdEU1TFJ1UEdpOUhidGpGc3Y4dzBjLmpwZyZ3aWR0aD01ODA=",
+  "soin cible taches brunes 1% acide kojique": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2lmdmxZbzd1a1ZSd1RlM3laVFFuNFpKdTFiLThyRGgtLmpwZyZ3aWR0aD01ODA=",
+  "creme visage anti-taches acide kojique": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0xxS3pSUjVEVVpKWC1lREdfeHhrU3UwME4xd3BOWVlSLmpwZyZ3aWR0aD01ODA=",
+  "bougie soja fleur sauvage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FaQnZ1SVZyc2xjMWpqSm8zNEZJTG1kdWxMeUFnSnlRLnBuZyZ3aWR0aD01ODA=",
+  "bougie soja lavande": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3FCOTlVTEkyUGhwWndSeHpKaWRCNk9jUG11MUpRMUVzLnBuZyZ3aWR0aD01ODA=",
+  "bougie soja bruyere": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzNmZ0lGa1h5X0Fwc0hraE9VZkE1c1VuRDN4NXJJVXJiLnBuZyZ3aWR0aD01ODA=",
+};
+
+function getCdnFallbackImage(productName: string): string | null {
+  const key = normalizeStr(productName);
+  for (const [mapKey, url] of Object.entries(CDN_IMAGE_MAP)) {
+    if (key === normalizeStr(mapKey) || key.includes(normalizeStr(mapKey)) || normalizeStr(mapKey).includes(key)) {
+      return url;
+    }
+  }
+  return null;
+}
+
+
 function parseTag(tagName: string): { displayName: string; group: string | null } {
   const match = tagName.match(/^(.+?)\s*\((.+?)\)\s*$/);
   if (match) return { displayName: match[1].trim(), group: match[2].trim().toLowerCase() };
