@@ -100,6 +100,7 @@ const COLOR_MAP: Record<string, string> = {
 // ─── Hidden products (excluded from catalog) ─────────────
 const HIDDEN_PRODUCTS = new Set([
   "serumgeleeprebiotiquebioactif",
+  "geldoublehydratationboostha",
 ]);
 
 
