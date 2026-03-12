@@ -12,6 +12,7 @@ const publicNavItems = [
   { path: "/ai", label: "Offre IA" },
   { path: "/pourquoi-biolystes", label: "Pourquoi Biolystes ?" },
   { path: "/tarifs", label: "Tarifs" },
+  { path: "/blog", label: "Ressources" },
 ];
 
 const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
