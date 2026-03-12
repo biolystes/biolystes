@@ -210,7 +210,18 @@ const CDN_IMAGE_MAP: Record<string, string> = {
 
 function getCdnFallbackImage(name: string): string | null {
   const key = normalizeStr(name);
-  return CDN_IMAGE_MAP[key] || null;
+  // Direct match
+  if (CDN_IMAGE_MAP[key]) return CDN_IMAGE_MAP[key];
+  // Case-insensitive fallback for keys with mixed case
+  const lowerKey = key.toLowerCase();
+  for (const [k, v] of Object.entries(CDN_IMAGE_MAP)) {
+    if (k.toLowerCase() === lowerKey) return v;
+  }
+  // Substring match fallback
+  for (const [k, v] of Object.entries(CDN_IMAGE_MAP)) {
+    if (lowerKey.includes(k.toLowerCase()) || k.toLowerCase().includes(lowerKey)) return v;
+  }
+  return null;
 }
 
 const TAG_GROUP_LABELS: Record<string, string> = {
