@@ -158,7 +158,7 @@ export default function BlogPage() {
               className="cursor-pointer group rounded-2xl overflow-hidden border border-border/40 hover:shadow-lg transition-shadow duration-300"
               style={{ background: "hsl(var(--card))" }}
             >
-              <div className="aspect-[16/10] overflow-hidden">
+              <div className="aspect-square overflow-hidden">
                 <img
                   src={typeof article.image === "string" ? article.image : article.image}
                   alt={article.title}
