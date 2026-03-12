@@ -59,6 +59,18 @@ export function parseStarFeatures(str: string): string[] {
   return str.split(",").map(s => s.trim()).filter(Boolean);
 }
 
+// ─── Parse primary image from JSON images field ───────────
+export function parseJsonPrimaryImage(imagesStr: string): string | null {
+  if (!imagesStr) return null;
+  const entries = imagesStr.split("|").map(s => s.trim()).filter(Boolean);
+  if (entries.length === 0) return null;
+
+  // In produits.json, first entry is often a certification icon; second is usually the main product image
+  const candidate = entries[1] || entries[0];
+  if (candidate.startsWith("http")) return candidate;
+  return `https://static.selfnamed.com${candidate.startsWith("/") ? "" : "/"}${candidate}`;
+}
+
 // ─── Category label mapping ───────────────────────────────
 const CATEGORY_LABELS: Record<string, string> = {
   "soins-du-corps": "Soins du corps",
