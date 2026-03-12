@@ -1,0 +1,112 @@
+
+-- Delete all existing data and re-insert with ALL variants
+DELETE FROM public.product_clean_images;
+
+INSERT INTO public.product_clean_images (product_name, product_name_normalized, clean_image_url) VALUES
+-- SOINS DU CORPS
+('Huile corporelle Omega 6-9 pour une peau éclatante', 'huilecorporelleomega69pourunepeaueclatante', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1F4QjVzNm5aNWE1QVlDNnVnckxweWwzbFBuNGZZVGxKLmpwZyZ3aWR0aD0xMDI0'),
+('Volcan islandais Exfoliant pour le visage et le corps', 'volcanislandaisexfoliantpourlevisageetlecorps', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzZsTk9NTXNaYWY5Q1VLemxIY2VkUXZqN19mRXhjNmxyLmpwZyZ3aWR0aD0xMDI0'),
+('Exfoliant éclaircissant pour le visage et le corps à l''acide kojique', 'exfolianteclaircissantpourlevisageetlecorpsalacidekojique', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2JVN0h6UjJEUVFDYXJQLWpUaVg3MHFCR2hGUHI3MUlPLmpwZyZ3aWR0aD0xMDI0'),
+('Bougie en cire de soja, Mousse', 'bougieenciredesojamousse', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3BBTldUc0lFUXZWUkRuazlWaUFBZFZSR3NEVUNrQWlNLnBuZyZ3aWR0aD0xMDI0'),
+('Bougie en cire de soja, Fleur sauvage', 'bougieenciredesojafleursauvage', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FaQnZ1SVZyc2xjMWpqSm8zNEZJTG1kdWxMeUFnSnlRLnBuZyZ3aWR0aD0xMDI0'),
+('Bougie en cire de soja, Lavande', 'bougieenciredesojalavande', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3FCOTlVTEkyUGhwWndSeHpKaWRCNk9jUG11MUpRMUVzLnBuZyZ3aWR0aD0xMDI0'),
+('Bougie en cire de soja, Bruyère', 'bougieenciredesojabruyere', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzNmZ0lGa1h5X0Fwc0hraE9VZkE1c1VuRDN4NXJJVXJiLnBuZyZ3aWR0aD0xMDI0'),
+('Lotion pour le corps bébé', 'lotionpourlecorpsbebe', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLy16bUZWZEdYWUo4ZjZSMG41U0hUQXJhckVxa0F3VWpQLnBuZyZ3aWR0aD0xMDI0'),
+('Crème pour le corps pour peaux sensibles', 'cremepourlecorpspourpeauxsensibles', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FWUnVjMnQzQzkwUGF1Tmx1cmxNMDVyWEN2LXZlby02LnBuZyZ3aWR0aD0xMDI0'),
+('Crème pour le corps 5% urée + 2% panthénol', 'cremepourlecorps5uree2panthenol', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1NxRmItYl82OGtrZDFGeEpkX0hSSmZIQ3Z0TmdGSnlILnBuZyZ3aWR0aD0xMDI0'),
+-- Variante x2
+('Crème pour le corps 5% urée + 2% panthénol (×2 variantes)', 'cremepourlecorps5uree2panthenol2variantes', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1NxRmItYl82OGtrZDFGeEpkX0hSSmZIQ3Z0TmdGSnlILnBuZyZ3aWR0aD0xMDI0'),
+
+-- SOINS DU CHEVEU
+('Masque capillaire réparateur intensif à la kératine', 'masquecapillairereparateurintensifalakeratine', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL243NDcwV3NDTzM5LXJhdHJrcDJoaHhDc2dNM2NDSXluLmpwZyZ3aWR0aD0xMDI0'),
+('Exfoliant pour cuir chevelu Deep Cleanse, romarin et menthe', 'exfoliantpourcuircheveludeepcleanseromarineetmenthe', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzczRjhPM2pmUklTc2JYcVhYMGFYckJmRHlXYkEyM1ZRLmpwZWcmd2lkdGg9MTAyNA'),
+('Shampooing volumateur à la kératine', 'shampooingvolumateuralakeratine', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1I1cXFkTFBlQld1Wkwzd0RQbG1sUU5YM2VzOWcxV3lNLmpwZWcmd2lkdGg9MTAyNA'),
+('Après-shampooing volumateur à la kératine', 'apresshampooingvolumateuralakeratine', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVieDAzZEtPNHBoRnZoblhuem1BbjA5ekRHY3NLaVdDLmpwZyZ3aWR0aD0xMDI0'),
+('Après-shampooing, Smoky Green Vetiver', 'apresshampooingsmokygreenvetiver', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2E5WjlXSFplekRxeTBhLWJJcEVTSGd4WTZSWC1fNDZ5LnBuZyZ3aWR0aD0xMDI0'),
+('Shampooing, Smoky Green Vetiver', 'shampooingsmokygreenvetiver', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL19fWTlQUTJNQWg3cVlUa2hGV0xzMkVMZWFqNHowd25rLnBuZyZ3aWR0aD0xMDI0'),
+('Après-shampooing, Citrus Cocktail', 'apresshampooingcitruscocktail', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1l6UUFGSFFRZzh1MWhFWUhBNEVjYnhKb3ZTb0NoQVlqLnBuZyZ3aWR0aD0xMDI0'),
+('Moisturising Conditioner', 'moisturisingconditioner', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2hWWXowcmFKUW4wVlZoUHhtaXd2cmRhbWJ5WW5nMi1SLmpwZyZ3aWR0aD0xMDI0'),
+('Shampooing hydratant', 'shampooinghydratant', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1dqZlpETEJBOGFUQjAzbFA0LUt6d1dhSkc5LV9yOU9TLmpwZyZ3aWR0aD0xMDI0'),
+
+-- SOINS DU VISAGE
+('Crème de nuit pour peaux sensibles, sans parfum', 'cremedenuitpourpeauxsensiblessansparfum', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3pBVzBrZms2dnF0Z3A4bFFxQ2RSZmxYTmJSeVRpT2NqLmpwZyZ3aWR0aD0xMDI0'),
+('Masque à l''argile pour les pores et les points noirs', 'masquealargilepourlesporesetlespointsnoirs', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzFTajlFMVVSM2x6X1d0ZWtnZlUwUlRkOUdLTHgzYVY1LmpwZyZ3aWR0aD0xMDI0'),
+('Brume Visage Prébiotique Microbiome', 'brumevisageprebiotiquemicrobiome', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzBSWjdaR2thR3puZFBGSWRTMUdMYU50ajljN3hZQWlELmpwZyZ3aWR0aD0xMDI0'),
+('Sérum contour des yeux alternatif au rétinol', 'serumcontourdesyeuxalternatifauretinol', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2xGWERhU2FpMVpPdEU1TFJ1UEdpOUhidGpGc3Y4dzBjLmpwZyZ3aWR0aD0xMDI0'),
+('Soin ciblé contre les taches brunes, 1 % d''acide kojique', 'soinciblecontrelestachesbrunesdacidekojique', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2lmdmxZbzd1a1ZSd1RlM3laVFFuNFpKdTFiLThyRGgtLmpwZyZ3aWR0aD0xMDI0'),
+-- Variant without space in 1%
+('Soin ciblé contre les taches brunes, 1% d''acide kojique', 'soinciblecontrelestachesbrunes1dacidekojique', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2lmdmxZbzd1a1ZSd1RlM3laVFFuNFpKdTFiLThyRGgtLmpwZyZ3aWR0aD0xMDI0'),
+('Crème pour le visage anti-taches brunes à l''acide kojique', 'cremepourlevisageantitachesbrunesalacidekojique', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0xxS3pSUjVEVVpKWC1lREdfeHhrU3UwME4xd3BOWVlSLmpwZyZ3aWR0aD0xMDI0'),
+('Sérum Gelée Prébiotique Bioactif', 'serumgeleeprebiotiquebioactif', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzJ4X0p4b1BfaW1ZQ3FMRDJUY0dCQzFwVjNHN3dsa0NJLmpwZyZ3aWR0aD0xMDI0'),
+('Démaquillant BiPhasic, sans parfum', 'demaquillantbiphasicsansparfum', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL24xUU9lYy1WTUpMcVhSMjc1WU9kVU1TNjI1STMyZ3FULmpwZyZ3aWR0aD0xMDI0'),
+('Crème hydratante pour peaux sensibles, sans parfum', 'cremehydratantepourpeauxsensiblessansparfum', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0VNejR6ZnJ0Q0gtamlmdzJIbXJxaVdTbTNaT1hsV1BpLmpwZWcmd2lkdGg9MTAyNA'),
+('Tonique exfoliant à l''acide glycolique', 'toniqueexfoliantalacideglycolique', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1U0emVOTDY5UGtQdk4ta1A0VXhaTkVZaC1SekYwU2ZaLmpwZyZ3aWR0aD0xMDI0'),
+('Gel visage au zinc sans huile pour hommes', 'gelvisageauzincsanshuilepourhommes', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzhNcTVIdlJtdTZhOHo0cDRUWGVCWXNTQXloOEx6NlRHLnBuZyZ3aWR0aD0xMDI0'),
+('Sérum éclat jeunesse', 'serumeclatjeunesse', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1J0b0NSVEVoUXFyMllGVmtBU3RfMlg0U1d3blpjMDltLmpwZWcmd2lkdGg9MTAyNA'),
+('Crème de nuit anti-âge', 'cremedenuitantiage', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2Y5bktrRmFiQkJhN3Q1cExMd04zUmZmUWFhNG1EeFRsLmpwZWcmd2lkdGg9MTAyNA'),
+('Crème de nuit Ceramide Barrier', 'cremedenuitceramidebarrier', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0hHeWdyQlZBNjNBaWFFbXVxdnhyb0QxU3VFSEl2cGFJLmpwZyZ3aWR0aD0xMDI0'),
+('Acne Spot Care (édition limitée)', 'acnespotcareeditionlimitee', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL281RXBlcG5XdVpYb3RCXzBiY0hoU0FSZXA1aWdRdHF1LnBuZyZ3aWR0aD0xMDI0'),
+('Sérum anti-âge aux peptides', 'serumantiageauxpeptides', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1VIMUlkOWVFcHZqdFFrNzdpbkhzRmVjdzR4am9WWkpsLmpwZWcmd2lkdGg9MTAyNA'),
+('Gel Double Hydratation Boost + HA', 'geldoublehydratationboostha', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3FSQ29EaVgwSEVKMUJ6RDlxS0dmdWZBNEVtTnQwY2w1LmpwZyZ3aWR0aD0xMDI0'),
+('Crème riche nourrissante, sans parfum', 'cremerichenourrissantesansparfum', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0MzeXAzYWs3MkR5cndlRmJfMTB2U0VIeVpnSm1JOWNMLmpwZyZ3aWR0aD0xMDI0'),
+
+-- COLLECTION BOX - exact names from HTML
+('Duo-Cheveux-Éclatants', 'duocheveuxeclatants', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0dMOV8xZ3FFY1dyVEk3NnMtQllaeUxialVWeGlwTE5oLmpwZyZ3aWR0aD0xMDI0'),
+('Boîte collection Eclat intemporel', 'boitecollectioneclatintemporel', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL294UTlfeWhxTEJwWDJoR0N5WXdfY0p4T09rc0RGaHdQLmpwZWcmd2lkdGg9MTAyNA=='),
+('Boîte collection Éclat rajeunissant', 'boitecollectioneclatrajeunissant', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3R1Skg2WF9xVlhxTUtlSXExWnB5VFowcU13cWNWUGgwLmpwZyZ3aWR0aD0xMDI0'),
+('Boîte collection trio anti-âge', 'boitecollectiontrioantiage', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzBHazNvZWpiSV9JajBCMk1kR3EzWVlFYzFDemJnVm83LmpwZyZ3aWR0aD0xMDI0'),
+('Boîte collection Luminous Skin', 'boitecollectionluminousskin', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVmLVFvOEMtazJRZlRMU3pFOG1oa3lwdVdtaURVOThkLnBuZyZ3aWR0aD0xMDI0'),
+('Boîte collection Trio Glowy Skin', 'boitecollectiontrioglowyskin', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0JOeS1rQ0JaX2twRER3amtpcDhPZGlxcU5XOUFrc3B0LnBuZyZ3aWR0aD0xMDI0'),
+('Boîte collection Hydratation profonde', 'boitecollectionhydratationprofonde', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3h5aUpRdmlDbDR0RlBBaVRVVHROMURjcEFLZW9SU01mLmpwZyZ3aWR0aD0xMDI0'),
+('La Boîte Collection Ultime Renouveau', 'laboitecollectionultimerenouveau', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzlTSnVjX3pzdERKelN0eTdlOGJ4ZGFGRG5WczVHVmF5LmpwZyZ3aWR0aD0xMDI0'),
+('Boîte Collection Routine Nuit Collagène', 'boitecollectionroutinenuitcollagene', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1EyakI1MGJleVJHMWttOEp2dS1CdGx6RTRmVnpZaFMwLmpwZyZ3aWR0aD0xMDI0'),
+('Boîte collection Éclat quotidien', 'boitecollectioneclatquotidien', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2JSaXZpQkE4ZmtmZy1nTEdGVkthSVFBTU5PWHdlbWh0LmpwZWcmd2lkdGg9MTAyNA=='),
+('Boîte collection Rituel d''hydratation', 'boitecollectionritueldhydratation', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3BIR1hJanpGdFRlYmlMY0g3ZHUyOEZ6S3pqaEVWNG1HLmpwZWcmd2lkdGg9MTAyNA=='),
+('Boîtier collection Boost Serum', 'boitiercollectionboostserum', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzhSVFQ3S2tGNy03dkNEN0s2N2ZPQ0VrRmhlNEt3blhkLmpwZyZ3aWR0aD0xMDI0'),
+('Boîte collection anti-âge', 'boitecollectionantiage', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0ZIRm8wdWpPQzBqSWUxZE5ONWJmNHFEMTJSRDIweVhBLmpwZyZ3aWR0aD0xMDI0'),
+('Boîte collection Acné Care', 'boitecollectionacnecare', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0NEMmdyNTFIOHllZ21Mc21zblhPQlR6QlM3V3R4dUhRLnBuZyZ3aWR0aD0xMDI0'),
+
+-- ═══ WooCommerce "Boîte DE collection" aliases (WC uses "de" in the name) ═══
+('Boîte de collection Eclat intemporel', 'boitedecollectioneclatintemporel', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL294UTlfeWhxTEJwWDJoR0N5WXdfY0p4T09rc0RGaHdQLmpwZWcmd2lkdGg9MTAyNA=='),
+('Boîte de collection Éclat rajeunissant', 'boitedecollectioneclatrajeunissant', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3R1Skg2WF9xVlhxTUtlSXExWnB5VFowcU13cWNWUGgwLmpwZyZ3aWR0aD0xMDI0'),
+('Boîte de collection trio anti-âge', 'boitedecollectiontrioantiage', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzBHazNvZWpiSV9JajBCMk1kR3EzWVlFYzFDemJnVm83LmpwZyZ3aWR0aD0xMDI0'),
+('Boîte de collection Luminous Skin', 'boitedecollectionluminousskin', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVmLVFvOEMtazJRZlRMU3pFOG1oa3lwdVdtaURVOThkLnBuZyZ3aWR0aD0xMDI0'),
+('Boîte de collection Trio Glowy Skin', 'boitedecollectiontrioglowyskin', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0JOeS1rQ0JaX2twRER3amtpcDhPZGlxcU5XOUFrc3B0LnBuZyZ3aWR0aD0xMDI0'),
+('Boîte de collection Hydratation profonde', 'boitedecollectionhydratationprofonde', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3h5aUpRdmlDbDR0RlBBaVRVVHROMURjcEFLZW9SU01mLmpwZyZ3aWR0aD0xMDI0'),
+('Boîte de Collection Routine de Nuit au Collagène', 'boitedecollectionroutinedenuitaucollagene', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1EyakI1MGJleVJHMWttOEp2dS1CdGx6RTRmVnpZaFMwLmpwZyZ3aWR0aD0xMDI0'),
+('Boîte de collection Éclat quotidien', 'boitedecollectioneclatquotidien', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2JSaXZpQkE4ZmtmZy1nTEdGVkthSVFBTU5PWHdlbWh0LmpwZWcmd2lkdGg9MTAyNA=='),
+('Boîte de collection Rituel d''hydratation', 'boitedecollectionritueldhydratation', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3BIR1hJanpGdFRlYmlMY0g3ZHUyOEZ6S3pqaEVWNG1HLmpwZWcmd2lkdGg9MTAyNA=='),
+('Boîtier de collection Boost Serum', 'boitierdecollectionboostserum', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzhSVFQ3S2tGNy03dkNEN0s2N2ZPQ0VrRmhlNEt3blhkLmpwZyZ3aWR0aD0xMDI0'),
+('Boîte de collection anti-âge', 'boitedecollectionantiage', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0ZIRm8wdWpPQzBqSWUxZE5ONWJmNHFEMTJSRDIweVhBLmpwZyZ3aWR0aD0xMDI0'),
+('Boîte de collection Acné Care', 'boitedecollectionacnecare', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0NEMmdyNTFIOHllZ21Mc21zblhPQlR6QlM3V3R4dUhRLnBuZyZ3aWR0aD0xMDI0'),
+
+-- ═══ WC variant: "Boîte de collection DU trio anti-âge" ═══
+('Boîte de collection du trio anti-âge', 'boitedecollectiondutrioantiage', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzBHazNvZWpiSV9JajBCMk1kR3EzWVlFYzFDemJnVm83LmpwZyZ3aWR0aD0xMDI0'),
+-- WC variant: "Boîte de LA collection Luminous Skin"
+('Boîte de la collection Luminous Skin', 'boitedelacollectionluminousskin', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVmLVFvOEMtazJRZlRMU3pFOG1oa3lwdVdtaURVOThkLnBuZyZ3aWR0aD0xMDI0'),
+-- WC variant: "Boîte de collection DE routine de nuit au collagène"
+('Boîte de collection de routine de nuit au collagène', 'boitedecollectionderoutinedenuitaucollagene', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1EyakI1MGJleVJHMWttOEp2dS1CdGx6RTRmVnpZaFMwLmpwZyZ3aWR0aD0xMDI0'),
+-- WC variant: "Boîte de collection pour le teint clair"
+('Boîte de collection pour le teint clair', 'boitedecollectionpourleteintclair', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0NEMmdyNTFIOHllZ21Mc21zblhPQlR6QlM3V3R4dUhRLnBuZyZ3aWR0aD0xMDI0'),
+
+-- ═══ DUOS (WC names) ═══
+('Le duo d''hydratation ultime', 'leduodhydratationultime', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3h5aUpRdmlDbDR0RlBBaVRVVHROMURjcEFLZW9SU01mLmpwZyZ3aWR0aD0xMDI0'),
+('Coffret Renaissance Capillaire', 'coffretrenainssancecapillaire', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0dMOV8xZ3FFY1dyVEk3NnMtQllaeUxialVWeGlwTE5oLmpwZyZ3aWR0aD0xMDI0'),
+-- fix typo variant
+('Coffret Renaissance Capillaire', 'coffretrenaissancecapillaire', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0dMOV8xZ3FFY1dyVEk3NnMtQllaeUxialVWeGlwTE5oLmpwZyZ3aWR0aD0xMDI0'),
+('Duo corps peaux sensibles', 'duocorpspeauxsensibles', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FWUnVjMnQzQzkwUGF1Tmx1cmxNMDVyWEN2LXZlby02LnBuZyZ3aWR0aD0xMDI0'),
+('Duo performance anti-âge', 'duoperformanceantiage', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzBHazNvZWpiSV9JajBCMk1kR3EzWVlFYzFDemJnVm83LmpwZyZ3aWR0aD0xMDI0'),
+('Duo de routine contre les taches brunes', 'duoderoutinecontrelestachesbrunes', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2lmdmxZbzd1a1ZSd1RlM3laVFFuNFpKdTFiLThyRGgtLmpwZyZ3aWR0aD0xMDI0'),
+('Le duo réparation & brillance', 'leduoreparationbrillance', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0dMOV8xZ3FFY1dyVEk3NnMtQllaeUxialVWeGlwTE5oLmpwZyZ3aWR0aD0xMDI0'),
+
+-- ═══ RETINOL products ═══
+('Sérum alternatif au rétinol', 'serumalternatifauretinol', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2xGWERhU2FpMVpPdEU1TFJ1UEdpOUhidGpGc3Y4dzBjLmpwZyZ3aWR0aD0xMDI0'),
+('Crème hydratante alternative au rétinol', 'cremehydratantealternativeauretinol', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0VNejR6ZnJ0Q0gtamlmdzJIbXJxaVdTbTNaT1hsV1BpLmpwZWcmd2lkdGg9MTAyNA'),
+
+-- ═══ BEBE products ═══
+('Gel lavant pour bébé', 'gellavantpourbebe', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLy16bUZWZEdYWUo4ZjZSMG41U0hUQXJhckVxa0F3VWpQLnBuZyZ3aWR0aD0xMDI0'),
+('Nettoyant visage en mousse', 'nettoyantvisageenmousse', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzBSWjdaR2thR3puZFBGSWRTMUdMYU50ajljN3hZQWlELmpwZyZ3aWR0aD0xMDI0'),
+
+-- ═══ La Boîte Collection Ultime Renouveau variant ═══
+('La Boîte de Collection Ultime Renouveau', 'laboitedecollectionultimerenouveau', 'https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzlTSnVjX3pzdERKelN0eTdlOGJ4ZGFGRG5WczVHVmF5LmpwZyZ3aWR0aD0xMDI0')
+ON CONFLICT (product_name_normalized) DO UPDATE SET clean_image_url = EXCLUDED.clean_image_url, product_name = EXCLUDED.product_name;
