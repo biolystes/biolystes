@@ -408,15 +408,6 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
           </div>
         )}
 
-        {enriched?.ingredients_fr && enriched.ingredients_fr.length > 0 && (
-          <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
-            {enriched.ingredients_fr.slice(0, 3).map((ing, i) => (
-              <span key={i} style={{ fontSize: 9, fontWeight: 500, color: C.muted, background: C.badgeBg, padding: "2px 6px", borderRadius: 4 }}>
-                {ing}
-              </span>
-            ))}
-          </div>
-        )}
 
         {price && (
           <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
