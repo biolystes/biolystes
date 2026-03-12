@@ -244,7 +244,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
 
           {/* AI Pricing */}
           {price && (
-            <div style={{ background: "#f5f5f7", borderRadius: 12, padding: "16px" }}>
+            <div style={{ background: "#f5f4df", borderRadius: 12, padding: "16px" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
                 <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#86868b" }}>
                   Prix de vente conseillé
