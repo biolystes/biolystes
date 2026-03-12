@@ -233,7 +233,7 @@ function ThinkingIndicator() {
         <span style={{ fontSize: 14 }}>✦</span>
       </div>
       <div style={{
-        flex: 1, background: "#f5f5f7", borderRadius: 12, padding: "12px 16px",
+        flex: 1, background: "#f5f4df", borderRadius: 12, padding: "12px 16px",
         maxWidth: 320,
       }}>
         {/* Progress bar */}
