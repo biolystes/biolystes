@@ -731,7 +731,7 @@ export default function CatalogPage() {
   const shareSelection = async () => {
     const selectedProducts = products
       .filter(p => selectedIds.has(p.id))
-      .map(p => ({ id: p.id, name: p.name, price: p.price, image: p.images?.[0]?.src || "", permalink: p.permalink, categories: p.categories.map(c => c.name) }));
+      .map(p => ({ id: p.id, name: p.name, price: p.price, image: getProductImage(p) || "", permalink: p.permalink, categories: p.categories.map(c => c.name) }));
     if (selectedProducts.length === 0) return;
     setSharing(true);
     try {

@@ -122,12 +122,13 @@ export function buildEnrichmentMap(jsonProducts: JSONProduct[]): Map<string, Enr
 export function jsonToWCProduct(jp: JSONProduct, index: number): any {
   const price = parseJsonPrice(jp.prix);
   const catLabel = getCategoryLabel(jp.categorie);
+  const jsonImage = parseJsonPrimaryImage(jp.images);
 
   return {
     id: -(index + 1), // negative IDs to avoid collision with WC
     name: jp.nom,
     price: price ? price.toString() : "",
-    images: [], // No images from JSON - will show placeholder
+    images: jsonImage ? [{ src: jsonImage }] : [],
     tags: parseCertifications(jp.certifications).map((cert, i) => ({
       id: -(index * 100 + i),
       name: cert,
@@ -149,6 +150,7 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
       description_full: jp.description,
       inci: jp.inci,
       arome: jp.arôme,
+      image_src: jsonImage || undefined,
       slug: jp.slug,
       categorie_json: jp.categorie,
     } as EnrichedFields,
