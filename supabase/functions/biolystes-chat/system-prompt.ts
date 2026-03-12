@@ -48,7 +48,7 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
   - Mode standard : commande → fabrication → expédition sous le nom du client (6-7 jours, aucun stock)
   - Mode express : stock tampon chez le logisticien, livraison en 24-48h, réapprovisionnement automatique chaque semaine, sans minimum
 
-### Lystes.ai — La technologie intégrée
+### Biolystes AI — La technologie intégrée
 
 **5 piliers IA, une seule plateforme, connectée à la boutique dès le premier jour :**
 
