@@ -478,12 +478,35 @@ export default function CatalogPage() {
   const [selectionMode, setSelectionMode] = useState(false);
   const [sharing, setSharing] = useState(false);
   const [jsonProducts, setJsonProducts] = useState<JSONProduct[]>([]);
+  const [imageMap, setImageMap] = useState<Map<string, string>>(new Map());
   const { user } = useAuth();
 
   useEffect(() => {
     fetch("/data/produits.json")
       .then(r => r.json())
       .then((data: JSONProduct[]) => setJsonProducts(data))
+      .catch(() => {});
+
+    // Load selfnamed images CSV
+    fetch("/data/selfnamed_images.csv")
+      .then(r => r.text())
+      .then(csv => {
+        const map = new Map<string, string>();
+        const lines = csv.split("\n").slice(1); // skip header
+        for (const line of lines) {
+          if (!line.trim()) continue;
+          // CSV may have quoted fields with commas inside
+          const match = line.match(/^"?([^"]*?)"?,([^,]+),([^,]+)/);
+          if (match) {
+            const nom = match[1].trim();
+            const imageUrl = match[3].trim();
+            if (nom && imageUrl) {
+              map.set(normalizeStr(nom), imageUrl);
+            }
+          }
+        }
+        setImageMap(map);
+      })
       .catch(() => {});
   }, []);
 
