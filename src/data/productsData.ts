@@ -124,7 +124,7 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
     id: -(index + 1), // negative IDs to avoid collision with WC
     name: jp.nom,
     price: price ? price.toString() : "",
-    images: [], // No images from JSON - will show placeholder
+    images: parseJsonImages(jp.images),
     tags: parseCertifications(jp.certifications).map((cert, i) => ({
       id: -(index * 100 + i),
       name: cert,
