@@ -28,6 +28,17 @@ const articles = [
     category: "Nouveauté",
   },
   {
+    id: 7,
+    slug: "reseau-presse-marie-claire",
+    title: "Accédez à notre réseau presse Marie Claire",
+    description: "Nos clients peuvent désormais bénéficier d'articles sponsorisés dans Marie Claire pour faire connaître leur marque auprès d'une audience qualifiée de plusieurs millions de lectrices.",
+    image: marieClaireLogo,
+    date: "12 mars 2026",
+    featured: false,
+    url: "/blog",
+    category: "Presse",
+  },
+  {
     id: 2,
     slug: "pack-decouverte",
     title: "Pack Découverte : testez avant de vous engager",
