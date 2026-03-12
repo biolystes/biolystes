@@ -173,64 +173,133 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 ✅ Photos générées par IA, hyperréalistes
 ✅ Lancement rapide en 15 jours
 
-## Catalogue produits réel (utilise UNIQUEMENT ces noms et URLs exacts)
+## Catalogue produits complet (~130 produits)
 
-**⚠️ RÈGLE ABSOLUE : Tu dois utiliser UNIQUEMENT les produits listés ci-dessous avec leurs URLs exactes. Ne génère JAMAIS un slug ou un nom inventé.**
+**⚠️ RÈGLE ABSOLUE : Tu dois utiliser UNIQUEMENT les produits listés ci-dessous. Ne génère JAMAIS un nom ou une description inventés. Quand tu recommandes un produit, utilise son nom EXACT.**
 
-**Soins Visage** :
-- Crème de jour anti-âge → https://biolystes.pro/product/creme-de-jour-anti-age-3/
-- Crème de nuit hydratante au céramide → https://biolystes.pro/product/creme-de-nuit-hydratante-au-ceramide/
-- Crème contour des yeux 3 en 1 → https://biolystes.pro/product/creme-contour-des-yeux-3-en-1/
-- Crème hydratante pour peaux sensibles → https://biolystes.pro/product/creme-hydratante-pour-peaux-sensibles-2/
-- Crème de jour hydratante → https://biolystes.pro/product/creme-de-jour-hydratante-2/
-- Mousse nettoyante → https://biolystes.pro/product/mousse-nettoyante/
-- Nettoyant à base d'huile et de lait pour peaux sensibles → https://biolystes.pro/product/nettoyant-a-base-dhuile-et-de-lait-pour-peaux-sensibles-3/
-- Nettoyant peaux sensibles visage & corps → https://biolystes.pro/product/nettoyant-peaux-sensibles-visage-corps/
-- Démaquillant BiPhasic → https://biolystes.pro/product/demaquillant-biphasic-2/
-- Gel hydratant à la niacinamide → https://biolystes.pro/product/gel-hydratant-a-la-niacinamide/
-- Gel Booster au ginkgo antioxydant → https://biolystes.pro/product/gel-booster-au-ginkgo-antioxydant-2/
-- Gel Booster à la caféine → https://biolystes.pro/product/gel-booster-a-la-cafeine-2/
-- Gel Double Hydratation Boost → https://biolystes.pro/product/gel-double-hydratation-boost/
-- Sérum à la vitamine C → https://biolystes.pro/product/serum-a-la-vitamine-c/
-- Sérum Collagène Boost → https://biolystes.pro/product/serum-collagene-boost/
-- Sérum aux peptides effet Botox → https://biolystes.pro/product/serum-aux-peptides-effet-botox/
-- Sérum naturel alternatif au rétinol → https://biolystes.pro/product/serum-naturel-a-base-dhuile-alternatif-au-retinol/
-- Sérum perfecteur de pigment → https://biolystes.pro/product/serum-perfecteur-de-pigment-2/
-- Concentré Peeling AHA → https://biolystes.pro/product/concentre-peeling-aha/
-- Exfoliant liquide à l'acide glycolique → https://biolystes.pro/product/exfoliant-liquide-a-lacide-glycolique/
-- Soin anti-acné → https://biolystes.pro/product/soin-anti-acne/
-- Huile visage tout-en-un → https://biolystes.pro/product/huile-visage-tout-en-un/
-- Protection solaire SPF 30 pour Visage & Corps → https://biolystes.pro/product/protection-solaire-spf-30-pour-visage-corps/
-- Lotion après-soleil → https://biolystes.pro/product/lotion-apres-soleil/
-- Crème de nuit anti-âge au collagène → https://biolystes.pro/product/creme-de-nuit-anti-age-au-collagene/
+**NOTE IMPORTANTE : Aucun produit ne provient de "selfnamed" ou d'un autre fournisseur tiers visible par le client. Tous les produits sont présentés comme faisant partie du catalogue Biolystes.**
 
-**Soins Corps** :
-- Crème pour le corps à l'urée pour peaux rugueuses → https://biolystes.pro/product/creme-pour-le-corps-a-luree-pour-peaux-rugueuses/
-- Sérum corporel Silk Skin, ambre boisé et cuir → https://biolystes.pro/product/serum-corporel-silk-skin-ambre-boise-et-cuir/
-- Sérum corporel Silk Skin, épices et bois de santal → https://biolystes.pro/product/serum-corporel-silk-skin-epices-et-bois-de-santal/
-- Crème pour les mains Silk Skin, épices et bois de santal → https://biolystes.pro/product/creme-pour-les-mains-silk-skin-epices-et-bois-de-santal/
-- Crème pour les mains Silk Skin, ambre boisé et cuir → https://biolystes.pro/product/creme-pour-les-mains-silk-skin-ambre-boise-et-cuir/
-- Gel lavant mains & corps, pamplemousse → https://biolystes.pro/product/gel-lavant-mains-corps-pamplemousse/
-- Gel lavant mains & corps, Cèdre & Menthe Poivrée → https://biolystes.pro/product/gel-lavant-mains-corps-cedre-menthe-poivree/
-- Gel lavant mains & corps, Cardamome & Gingembre → https://biolystes.pro/product/gel-lavant-mains-corps-cardamone-gingembre/
-- Gel lavant mains & corps, Ambre & Patchouli → https://biolystes.pro/product/gel-lavant-mains-corps-ambre-patchouli/
+### 🧴 SOINS DU CORPS
 
-**Soins Capillaires** :
-- Shampooing Activateur de Repousse – Cuir Chevelu Apaisé → https://biolystes.pro/product/shampooing-pour-cuir-chevelu-sensible/
-- Shampooing pour cheveux colorés → https://biolystes.pro/product/shampooing-pour-cheveux-colores/
-- Après-shampooing, Smoky Green Vetiver → https://biolystes.pro/product/apres-shampooing-smoky-green-vetiver/
-- Gommage profond pour cuir chevelu, Romarin & Menthe → https://biolystes.pro/product/gommage-profond-pour-cuir-chevelu-romarin-menthe/
-- Brume capillaire sans rinçage Keratin Shine → https://biolystes.pro/product/brume-capillaire-sans-rincage-keratin-shine/
-- Huile fortifiante au romarin pour les cheveux → https://biolystes.pro/product/huile-fortifiante-au-romarin-pour-les-cheveux-et-le-cuir-chevelu/
+- **Gel lavant pour bébé** — 390 ml — Jus d'aloès, camomille, graines de lin — Doux pour la peau, certifié biologique
+- **Huile corporelle Omega 6-9 pour une peau éclatante** — 145 ml — Huile d'argan, rose musquée, jojoba, amande douce — Rajeunissant, éclat sain, hydratant — Certifié biologique
+- **Volcan islandais Exfoliant pour le visage et le corps** — 170 ml — Sable volcanique, huile de ricin — Exfoliation douce au sable volcanique
+- **Exfoliant éclaircissant pour le visage et le corps à l'acide kojique** — 150 ml — Vitamine C, vitamine E, beurre de karité, acide kojique — Éclaircissant, lissant
+- **Bougie en cire de soja, Mousse** — 100 ml — Cire de soja, mèche en coton — Arôme terreux et apaisant
+- **Bougie en cire de soja, Fleur sauvage** — 100 ml — Cire de soja, mèche en coton — Arôme floral doux
+- **Bougie en cire de soja, Lavande** — 100 ml — Cire de soja, mèche en coton — Apaisant, relaxant
+- **Bougie en cire de soja, Bruyère** — 100 ml — Cire de soja, mèche en coton — Sucré et floral
+- **Mousse lavante pour bébé** — 150 ml — Jus d'aloès, camomille, graines de lin — Certifié biologique, sans savon
+- **Lotion pour le corps bébé** — 190 ml — Vitamine C, E, beurre de karité, cacao — Certifié biologique
+- **Crème pour le corps pour peaux sensibles** — 190 ml — Beurre de karité, cacao, jus d'aloès — Hydratation profonde, absorption rapide
+- **Crème pour le corps 5% urée + 2% panthénol** — 280 ml — Urée, acide hyaluronique, panthénol — Hydratation intensive pour peaux rugueuses
+- **Crème pour le corps à l'urée pour peaux rugueuses** — 190 ml — Urée, acide hyaluronique, panthénol — Adoucissant, hydratant
+- **Sérum corporel Silk Skin, ambre boisé et cuir** — 100 ml — Acide hyaluronique, vitamine E, huile d'argan — Hydratation soyeuse
+- **Sérum corporel Silk Skin, épices et bois de santal** — 100 ml — Acide hyaluronique, vitamine E, huile d'argan — Hydratation soyeuse
+- **Crème pour les mains Silk Skin, épices et bois de santal** — 50 ml — Beurre de karité, glycérine, vitamine E — Nourrit les mains
+- **Crème pour les mains Silk Skin, ambre boisé et cuir** — 50 ml — Beurre de karité, glycérine, vitamine E — Nourrit les mains
+- **Gel lavant mains & corps, Pamplemousse** (3 tailles : 60ml, 190ml, 390ml) — Aloe vera, huile d'olive — Fraîcheur tonique
+- **Gel lavant mains & corps, Cèdre & Menthe Poivrée** (3 tailles : 60ml, 190ml, 390ml) — Aloe vera, huile d'olive — Aromatique et revigorant
+- **Gel lavant mains & corps, Cardamome & Gingembre** (3 tailles : 60ml, 190ml, 390ml) — Aloe vera, huile d'olive — Chaleureux et épicé
+- **Gel lavant mains & corps, Ambre & Patchouli** (3 tailles : 60ml, 190ml, 390ml) — Aloe vera, huile d'olive — Riche et enveloppant
 
-**Homme** :
-- Crème de jour anti-âge pour homme → https://biolystes.pro/product/creme-de-jour-anti-age-4/
-- Crème visage à l'acide hyaluronique pour hommes → https://biolystes.pro/product/creme-visage-a-lacide-hyaluronique-pour-hommes-2/
-- Nettoyant 2 en 1 cheveux & corps pour hommes → https://biolystes.pro/product/nettoyant-2-en-1-pour-les-cheveux-et-le-corps-pour-les-hommes/
-- Huile à barbe adoucissante → https://biolystes.pro/product/huile-a-barbe-adoucissante/
+### 💇 SOINS CAPILLAIRES
 
-### Ingrédients phares
-Beurre de Karité, Huile d'Argan, Rétinol, Céramides, Acide Hyaluronique, Vitamine C, Vitamine E, Huile d'Avocat, Huile de Jojoba, Romarin, Menthe poivrée, Collagène végétal, Cannabidiol (CBD).
+- **Shampooing Activateur de Repousse – Cuir Chevelu Apaisé** — 390 ml — Huile de romarin, kératine, caféine — Stimule la repousse
+- **Shampooing pour cheveux colorés** — 350 ml — Kératine, huile de tournesol, vitamine E — Protection couleur
+- **Shampooing volumateur à la kératine** — 390 ml — Huile de romarin, kératine, caféine — Épaississement, volume
+- **Shampooing, Smoky Green Vetiver** — 400 ml — Bétaïne, protéines de blé — Brillance, lissant
+- **Shampooing, Citrus Cocktail** — 400 ml — Bétaïne, protéines de blé — Brillance, fraîcheur
+- **Shampooing doux au quotidien** — 390 ml — Bétaïne, huile de jojoba, vitamine E — Usage quotidien
+- **Shampooing pour cuir chevelu sec** — 390 ml — Bétaïne, huile de jojoba, zinc — Anti-pelliculaire
+- **Shampooing pour cuir chevelu gras** — 390 ml — Charbon actif, bétaïne, zinc — Purifiant
+- **Après-shampooing volumateur à la kératine** — 390 ml — Kératine, romarin, caféine — Volume, démêlant
+- **Après-shampooing, Smoky Green Vetiver** — 370 ml — Panthénol, bétaïne, protéines de blé — Prévient pointes fourchues
+- **Après-shampooing, Citrus Cocktail** — 370 ml — Panthénol, bétaïne, protéines de blé — Nourrit les cheveux
+- **Masque capillaire intensif à la kératine** — 170 ml — Kératine, vitamine E, beurre de karité — Nourrit en profondeur
+- **Exfoliant pour cuir chevelu Deep Cleanse, romarin et menthe** — 170 ml — Kératine, huile de romarin, menthe poivrée — Élimine les accumulations
+- **Brume capillaire sans rinçage Keratin Shine** — 150 ml — Kératine, panthénol — Brillance, protection
+- **Huile fortifiante au romarin pour les cheveux** — 60 ml — Huile de romarin, huile d'argan — Fortifie, stimule la pousse
+- **Gommage profond pour cuir chevelu, Romarin & Menthe** — 170 ml — Romarin, menthe poivrée, kératine — Nettoyage profond
+
+### 🌸 SOINS DU VISAGE
+
+- **Crème de jour anti-âge** (15 ml et 50 ml) — Acide hyaluronique, extrait de ferment — Réduit les ridules, hydrate
+- **Crème de nuit anti-âge au collagène** — 50 ml — Collagène, acide hyaluronique — Régénération nocturne
+- **Crème de nuit hydratante au céramide** — 50 ml — Céramide, acide hyaluronique — Réparation barrière cutanée
+- **Crème de jour hydratante** (15 ml et 50 ml) — Aloe vera, jojoba, acide hyaluronique — Hydratation renforcée
+- **Crème hydratante pour peaux sensibles** — 50 ml — Beurre de karité, camomille — Apaisante
+- **Crème contour des yeux 3 en 1** — 15 ml — Beurre de karité, vitamine E — Anti-cernes, anti-poches
+- **Crème apaisante pour les yeux** — 15 ml — Camomille, concombre — Rafraîchissante
+- **Crème éclaircissante pour les yeux** — 15 ml — Vitamine C, caféine — Illumine le regard
+- **Mousse nettoyante** — 150 ml — Jus d'aloès, zinc — Purifie sans dessécher
+- **Mousse purifiante** — 150 ml — Charbon actif, zinc — Nettoyage profond
+- **Gel clarifiant** — 150 ml — Acide salicylique, zinc — Anti-imperfections
+- **Nettoyant à base d'huile et de lait pour peaux sensibles** — 150 ml — Huile de tournesol, camomille — Démaquillant doux, certifié biologique
+- **Nettoyant peaux sensibles visage & corps** — 190 ml — Camomille, aloe vera — Doux, quotidien
+- **Lait démaquillant doux** — 150 ml — Huile de tournesol, camomille — Nourrit et nettoie
+- **Démaquillant BiPhasic** — 190 ml — Huile de tournesol, aloe vera — Efficace même maquillage waterproof
+- **Gel hydratant non gras** — 50 ml — Aloe vera, zinc, acide hyaluronique — Sans huile, peaux mixtes
+- **Gel hydratant à la niacinamide** — 50 ml — Niacinamide, acide hyaluronique — Uniformise le teint
+- **Gel Double Hydratation Boost** — 20 ml — Acide hyaluronique multi-poids — Hydratation intense
+- **Gel Booster au ginkgo antioxydant** — 20 ml — Ginkgo biloba, thé vert — Antioxydant, protège
+- **Gel Booster à la caféine** — 20 ml — Caféine — Anti-poches, rafraîchissant
+- **Sérum à la vitamine C** — 30 ml — Vitamine C, acide hyaluronique — Éclat, anti-taches
+- **Sérum Collagène Boost / Sérum éclat jeunesse** — 30 ml — Sodium PCA, acide hyaluronique — Repulpant
+- **Sérum aux peptides effet Botox** — 30 ml — Peptides anti-âge — Lissant, repulpant
+- **Sérum naturel alternatif au rétinol** — 20 ml — Bakuchiol — Alternative douce au rétinol
+- **Sérum perfecteur de pigment** — 30 ml — Vitamine C, niacinamide — Anti-taches, unificateur
+- **Sérum hydratant** — 30 ml — Aloe vera, jojoba, rose, acide hyaluronique — Multi-usage léger
+- **Concentré Peeling AHA** — 30 ml — AHA, acide glycolique — Renouvellement cellulaire
+- **Exfoliant liquide à l'acide glycolique** — 100 ml — Acide glycolique — Lisse la peau
+- **Soin anti-acné** — 30 ml — Acide salicylique, zinc — Anti-imperfections
+- **Huile visage tout-en-un** — 20 ml — 11 huiles certifiées bio — Nourrit et revitalise
+- **Huile visage nourrissante** — 20 ml — Jojoba, argan, avocat — Éclat et nutrition
+- **Huile apaisante pour le visage** — 20 ml — Huile de chanvre, cannabidiol — Anti-rougeurs, régule le sébum
+- **Protection solaire SPF 30 pour Visage & Corps** — 150 ml — Filtres minéraux — Protection large spectre
+- **Lotion après-soleil** — 150 ml — Aloe vera, beurre de karité — Apaise et hydrate après soleil
+
+### 👨 SOINS POUR HOMMES
+
+- **Crème de jour anti-âge pour homme** — 50 ml — Acide hyaluronique, extrait de ferment — Anti-rides, hydrate
+- **Crème visage à l'acide hyaluronique pour hommes** — 50 ml — Aloe vera, jojoba, acide hyaluronique — Hydrate, calme
+- **Gel visage au zinc sans huile pour hommes** — 50 ml — Aloe vera, zinc, acide hyaluronique — Non gras, peaux mixtes
+- **Nettoyant 2 en 1 cheveux & corps pour hommes** — 390 ml — Bétaïne, protéines de blé — Pratique et frais
+- **Huile à barbe adoucissante** — 20 ml — Huile de chanvre, cannabidiol 1% — Adoucit, facilite le coiffage, certifié biologique
+
+### 🪥 HYGIÈNE BUCCO-DENTAIRE
+
+- **Dentifrice naturel au charbon** — 75 ml — Charbon actif, fluorure — Blanchissant naturel
+- **Dentifrice naturel doux** — 75 ml — Fluorure, xylitol — Quotidien, doux
+
+### 🎁 COFFRETS CADEAUX (Collection Boxes)
+
+- **Boîte de collection pour le teint clair** — Gel clarifiant + Crème anti-âge + Sérum huile rétinol — Anti-acné et anti-âge
+- **Boîte de collection Éclat intemporel** — Démaquillant biphasé + Gel double boost + Crème anti-âge 15ml — Hydratation et fermeté
+- **Boîte de collection Éclat rajeunissant** — Mousse purifiante + Sérum huile rétinol + Crème yeux — Nettoyage et éclat
+- **Boîte de collection du trio anti-âge** — Crème anti-âge + Sérum peptides + Crème yeux 3-en-1 — Routine anti-âge complète
+- **Boîte de la collection Luminous Skin** — Démaquillant biphasé + Sérum collagène + Crème yeux — Éclat et jeunesse
+- **Boîte de collection Trio Glowy Skin** — Lait démaquillant + Crème hydratante + Huile nourrissante — Routine glow quotidienne
+- **Boîte de collection Hydratation profonde** — Gel double boost + Sérum hydratant — Hydratation intense
+- **Boîte de collection Routine soin de la peau** — Mousse nettoyante + Sérum vitamine C + Crème anti-âge + Crème yeux — Routine complète 4 produits
+
+### 🌿 AROMATHÉRAPIE
+
+- **Huile essentielle de lavande** — 10 ml — Lavande pure — Relaxante
+- **Huile essentielle d'arbre à thé** — 10 ml — Tea tree pur — Purifiante, anti-bactérienne
+
+### Ingrédients phares du catalogue
+Beurre de Karité, Huile d'Argan, Bakuchiol (alternatif au Rétinol), Céramides, Acide Hyaluronique (multi-poids moléculaire), Vitamine C, Vitamine E, Huile d'Avocat, Huile de Jojoba, Romarin, Menthe poivrée, Collagène végétal, Cannabidiol (CBD), Kératine, Niacinamide, Peptides anti-âge, Zinc PCA, Caféine, Acide Kojique, Acide Glycolique, Ginkgo Biloba, Sable volcanique d'Islande.
+
+### Gammes de prix indicatifs (prix d'achat HT par unité)
+- Boosters/Gels (20 ml) : 11-12€
+- Sérums (20-30 ml) : 13-19€
+- Crèmes visage (15-50 ml) : 11-17€
+- Crèmes corps (190-280 ml) : 13-17€
+- Shampooings/Après-shampooings (370-400 ml) : 12-14€
+- Gels lavants (60-390 ml) : 7-14€
+- Coffrets cadeaux : 38-52€
+- Bougies (100 ml) : 11€
 
 ### Cible idéale
 - Entrepreneurs qui veulent lancer une marque cosmétique sans investissement massif
