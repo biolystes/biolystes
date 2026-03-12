@@ -12,6 +12,8 @@ import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
 import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
 import kaniwaUgc5 from "@/assets/kaniwa-ugc-5.png";
 import kaniwaUgc6 from "@/assets/kaniwa-ugc-6.jpg";
+import kaniwaNew1 from "@/assets/kaniwa-new-1.png";
+import kaniwaNew2 from "@/assets/kaniwa-new-2.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -304,8 +306,8 @@ function TeamPhotographe({ titleOverride }: { titleOverride?: string }) {
         <img className="w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-6.jpg" alt="" />
         <img className="w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-5.jpg" alt="" />
         <img className="w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-3.jpg" alt="" />
-        <img className="w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/fralene-2.jpg" alt="" />
-        <img className="col-span-2 w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/fralene-3.jpg" alt="" />
+        <img className="w-full h-full object-cover rounded-xl" src={kaniwaNew1} alt="" />
+        <img className="col-span-2 w-full h-full object-cover rounded-xl" src={kaniwaNew2} alt="" />
       </div>
     </TeamRow>
   );
