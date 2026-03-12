@@ -12,6 +12,8 @@ import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
 import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
 import kaniwaUgc5 from "@/assets/kaniwa-ugc-5.png";
 import kaniwaUgc6 from "@/assets/kaniwa-ugc-6.jpg";
+import kaniwaNew1 from "@/assets/kaniwa-new-1.png";
+import kaniwaNew2 from "@/assets/kaniwa-new-2.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
