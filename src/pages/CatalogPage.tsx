@@ -682,8 +682,25 @@ export default function CatalogPage() {
   const [sharing, setSharing] = useState(false);
   const [jsonProducts, setJsonProducts] = useState<JSONProduct[]>([]);
   const [cleanImages, setCleanImages] = useState<Record<number, string>>({});
+  const [cleanImagesByName, setCleanImagesByName] = useState<Record<string, string>>({});
   const [genLoadingId, setGenLoadingId] = useState<number | null>(null);
   const { user } = useAuth();
+
+  // Load persisted clean images on mount
+  useEffect(() => {
+    (async () => {
+      const { data } = await supabase
+        .from("product_clean_images")
+        .select("product_name_normalized, clean_image_url");
+      if (data && data.length > 0) {
+        const map: Record<string, string> = {};
+        for (const row of data) {
+          map[row.product_name_normalized] = row.clean_image_url;
+        }
+        setCleanImagesByName(map);
+      }
+    })();
+  }, []);
 
   const handleGenerateClean = async (product: WCProduct, imgSrc: string) => {
     setGenLoadingId(product.id);
@@ -695,8 +712,20 @@ export default function CatalogPage() {
       if (error) throw error;
       if (data?.error) throw new Error(data.error);
       if (!data?.imageUrl) throw new Error("Pas d'image générée");
+      
+      // Save to state
       setCleanImages(prev => ({ ...prev, [product.id]: data.imageUrl }));
-      toast.success("Image remplacée !");
+      
+      // Persist to database
+      const normalized = normalizeStr(product.name);
+      await supabase.from("product_clean_images").upsert({
+        product_name: product.name,
+        product_name_normalized: normalized,
+        clean_image_url: data.imageUrl,
+      }, { onConflict: "product_name_normalized" });
+      
+      setCleanImagesByName(prev => ({ ...prev, [normalized]: data.imageUrl }));
+      toast.success("Image remplacée et sauvegardée !");
     } catch (err: any) {
       toast.error(err?.message || "Erreur lors de la génération");
     } finally {
