@@ -729,7 +729,7 @@ export default function AIChat({
             value={input}
             onChange={e => { setInput(e.target.value); onInputChange?.(e.target.value); }}
             onKeyDown={e => e.key === "Enter" && !e.shiftKey && sendMessage(input)}
-            placeholder="Posez vos questions..."
+            placeholder="Trouver des produits..."
             disabled={typing}
             style={{ flex: 1, border: "none", background: "transparent", fontSize: 14, color: "#1d1d1f", outline: "none" }}
           />
