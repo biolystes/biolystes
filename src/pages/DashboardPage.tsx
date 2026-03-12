@@ -219,7 +219,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
           {/* Tags */}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
             {isVegan && (
-              <span style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700, letterSpacing: ".5px", textTransform: "uppercase", background: "#f5f5f7", color: "#86868b" }}>
+              <span style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700, letterSpacing: ".5px", textTransform: "uppercase", background: "#f5f4df", color: "#86868b" }}>
                 Vegan
               </span>
             )}
