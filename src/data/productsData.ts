@@ -76,7 +76,7 @@ export function getCategoryLabel(slug: string): string {
 }
 
 // ─── Normalize name for matching ──────────────────────────
-function normalize(name: string): string {
+export function normalize(name: string): string {
   return name
     .toLowerCase()
     .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
