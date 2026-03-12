@@ -26,6 +26,7 @@ export interface EnrichedFields {
   description_full?: string;
   inci?: string;
   arome?: string;
+  image_src?: string;
   slug?: string;
   categorie_json?: string;
 }

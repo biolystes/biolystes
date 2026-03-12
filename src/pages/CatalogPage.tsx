@@ -229,6 +229,10 @@ function getCdnFallbackImage(name: string): string | null {
   return null;
 }
 
+function getProductImage(product: WCProduct): string | null {
+  return product.images?.[0]?.src || product._enriched?.image_src || getCdnFallbackImage(product.name);
+}
+
 const TAG_GROUP_LABELS: Record<string, string> = {
   "réclamations": "Réclamations", "reclamations": "Réclamations", "claims": "Réclamations",
   "inquiétude": "Besoin", "inquietude": "Besoin", "concern": "Besoin",
