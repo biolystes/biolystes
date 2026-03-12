@@ -94,7 +94,7 @@ function CosmetiqueTab() {
     <>
       {/* Pack Découverte */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0} className="mb-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
           <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border-2 border-foreground">
             <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-foreground text-background">
               Pack découverte
@@ -111,10 +111,10 @@ function CosmetiqueTab() {
               Commander mes échantillons
             </a>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:flex h-full">
             <SafeVideo
               src="/videos/hero-kaniwa.mp4"
-              className="rounded-2xl object-cover w-full h-auto"
+              className="rounded-2xl object-cover w-full h-full"
               lazy
             />
           </div>
