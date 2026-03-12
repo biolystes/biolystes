@@ -563,18 +563,12 @@ export default function CatalogPage() {
       if (data?.error) throw new Error(data.error);
       if (!data?.imageUrl) throw new Error("Pas d'image générée");
       
-      // Save to state
-      setCleanImages(prev => ({ ...prev, [product.id]: data.imageUrl }));
-      
-      // Persist to database
       const normalized = normalizeStr(product.name);
-      await supabase.from("product_clean_images").upsert({
-        product_name: product.name,
-        product_name_normalized: normalized,
-        clean_image_url: data.imageUrl,
-      }, { onConflict: "product_name_normalized" });
-      
-      setCleanImagesByName(prev => ({ ...prev, [normalized]: data.imageUrl }));
+
+      // Save to state (instant UI feedback)
+      setCleanImages((prev) => ({ ...prev, [product.id]: data.imageUrl }));
+      setCleanImagesByName((prev) => ({ ...prev, [normalized]: data.imageUrl }));
+
       toast.success("Image remplacée et sauvegardée !");
     } catch (err: any) {
       toast.error(err?.message || "Erreur lors de la génération");
