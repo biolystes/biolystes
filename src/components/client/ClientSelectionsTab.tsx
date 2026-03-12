@@ -172,7 +172,7 @@ export default function ClientSelectionsTab() {
               style={{ position: "fixed", bottom: 0, left: 0, right: 0, height: "80vh", background: "#fff", borderRadius: "20px 20px 0 0", zIndex: 101, display: "flex", flexDirection: "column" }}>
               <div style={{ padding: "20px 24px", borderBottom: "1px solid #f0f0f0", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <h3 style={{ fontSize: 16, fontWeight: 700 }}>Catalogue produits</h3>
-                <button onClick={() => setShowCatalog(false)} style={{ width: 32, height: 32, borderRadius: 8, border: "none", background: "#f5f5f7", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <button onClick={() => setShowCatalog(false)} style={{ width: 32, height: 32, borderRadius: 8, border: "none", background: "#f5f4df", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <X size={16} />
                 </button>
               </div>
