@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import articleFeaturedImg from "@/assets/article-featured.jpg";
 import coffretsImg from "@/assets/coffrets-article.png";
 import marieClaireLogo from "@/assets/marie-claire-logo.jpg";
+import biaisActifImg from "@/assets/biais-actif-article.jpg";
 
 const articles = [
   {
@@ -76,7 +77,7 @@ const articles = [
     slug: "biais-actif",
     title: "Le biais de l'actif : pourquoi l'ingrédient ne fait pas le produit",
     description: "Pour le client final, le plus important c'est que le produit fonctionne. Pas la liste des actifs sur l'étiquette. Une réflexion sur le marketing cosmétique.",
-    image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=800&h=500&fit=crop",
+    image: biaisActifImg,
     date: "15 février 2026",
     featured: false,
     url: "/blog/biais-actif",
