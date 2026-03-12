@@ -640,13 +640,12 @@ export default function CatalogPage() {
   const [selectionMode, setSelectionMode] = useState(false);
   const [sharing, setSharing] = useState(false);
   const [jsonProducts, setJsonProducts] = useState<JSONProduct[]>([]);
-  const [genCleanLoading, setGenCleanLoading] = useState(false);
-  const [genCleanResult, setGenCleanResult] = useState<{ name: string; original: string; generated: string } | null>(null);
+  const [cleanImages, setCleanImages] = useState<Record<number, string>>({});
+  const [genLoadingId, setGenLoadingId] = useState<number | null>(null);
   const { user } = useAuth();
 
   const handleGenerateClean = async (product: WCProduct, imgSrc: string) => {
-    setGenCleanLoading(true);
-    setGenCleanResult(null);
+    setGenLoadingId(product.id);
     toast.info("Génération IA en cours… (~30s)");
     try {
       const { data, error } = await supabase.functions.invoke("generate-clean-image", {
@@ -655,12 +654,12 @@ export default function CatalogPage() {
       if (error) throw error;
       if (data?.error) throw new Error(data.error);
       if (!data?.imageUrl) throw new Error("Pas d'image générée");
-      setGenCleanResult({ name: product.name, original: imgSrc, generated: data.imageUrl });
-      toast.success("Image générée !");
+      setCleanImages(prev => ({ ...prev, [product.id]: data.imageUrl }));
+      toast.success("Image remplacée !");
     } catch (err: any) {
       toast.error(err?.message || "Erreur lors de la génération");
     } finally {
-      setGenCleanLoading(false);
+      setGenLoadingId(null);
     }
   };
 
