@@ -207,7 +207,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
         </div>
 
         {/* Image */}
-        <div style={{ background: "#f5f5f7", aspectRatio: "1", overflow: "hidden", flexShrink: 0 }}>
+        <div style={{ background: "#f5f4df", aspectRatio: "1", overflow: "hidden", flexShrink: 0 }}>
           {img
             ? <img src={img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#d1d1d6" }}><Icons.box size={40} sw={1} /></div>
