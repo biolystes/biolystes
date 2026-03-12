@@ -6,7 +6,7 @@ const articles = [
     id: 1,
     title: "92% des porteurs de projets cosmétiques sur mesure n'ont toujours pas lancé leur marque 7 mois après",
     description: "Étude interne Biolystes — Échantillon de 30 porteurs de projets — Suivi sur 7 mois. Découvrez pourquoi la formulation sur mesure bloque la majorité des projets.",
-    image: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&h=400&fit=crop",
+    video: "/videos/article-featured.mp4",
     date: "12 mars 2026",
     featured: true,
     url: "/pourquoi-biolystes",
@@ -364,7 +364,11 @@ export default function BiolystesArticlesWidget() {
               >
                 {article.featured ? (
                   <>
-                    <img src={article.image} alt={article.title} className="biolystes-article-featured-img" loading="lazy" />
+                    {article.video ? (
+                      <video src={article.video} autoPlay muted loop playsInline className="biolystes-article-featured-img" />
+                    ) : (
+                      <img src={article.image} alt={article.title} className="biolystes-article-featured-img" loading="lazy" />
+                    )}
                     <div className="biolystes-article-featured-title">{article.title}</div>
                     <div className="biolystes-article-featured-desc">{article.description}</div>
                     <div className="biolystes-article-featured-date">{article.date}</div>
