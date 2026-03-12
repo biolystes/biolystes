@@ -231,7 +231,7 @@ function LystesAiTab() {
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0} className="max-w-md mx-auto">
         <PackCard
           badge="Offre IA"
-          title="Lystes AI"
+          title="Biolystes AI"
           subtitle="Écosystème IA complet pour votre e-commerce"
           price="999€"
           priceLabel="HT — frais de setup"
