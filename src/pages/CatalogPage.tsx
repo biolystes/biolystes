@@ -130,7 +130,7 @@ const CDN_IMAGE_MAP: Record<string, string> = {
   "exfoliantpourcuircheveludeepcleanseromarinetmenthe": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzczRjhPM2pmUklTc2JYcVhYMGFYckJmRHlXYkEyM1ZRLmpwZWcmd2lkdGg9MTAyNA",
   "shampooingvolumateuralakerarine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1I1cXFkTFBlQld1Wkwzd0RQbG1sUU5YM2VzOWcxV3lNLmpwZWcmd2lkdGg9MTAyNA",
   "shampooingvolumateurkeratine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1I1cXFkTFBlQld1Wkwzd0RQbG1sUU5YM2VzOWcxV3lNLmpwZWcmd2lkdGg9MTAyNA",
-  "shampooingvolumateuralakerarine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1I1cXFkTFBlQld1Wkwzd0RQbG1sUU5YM2VzOWcxV3lNLmpwZWcmd2lkdGg9MTAyNA",
+  "shampooingvolumateuralakeratine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1I1cXFkTFBlQld1Wkwzd0RQbG1sUU5YM2VzOWcxV3lNLmpwZWcmd2lkdGg9MTAyNA",
   "apresshampoingvolumateuralakerarine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVieDAzZEtPNHBoRnZoblhuem1BbjA5ekRHY3NLaVdDLmpwZyZ3aWR0aD0xMDI0",
   "apresshampoingvolumateurkeratine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVieDAzZEtPNHBoRnZoblhuem1BbjA5ekRHY3NLaVdDLmpwZyZ3aWR0aD0xMDI0",
   "apresshampooingsmokygreenverivet": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2E5WjlXSFplekRxeTBhLWJJcEVTSGd4WTZSWC1fNDZ5LnBuZyZ3aWR0aD0xMDI0",
