@@ -58,7 +58,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=320&h=240&fit=crop",
     date: "15 février 2026",
     featured: false,
-    url: "/pourquoi-biolystes",
+    url: "/blog/biais-actif",
   },
 ];
 
