@@ -64,6 +64,10 @@ function AppRoutes() {
       <Route path="/tarifs" element={<Layout><TarifsPage /></Layout>} />
       <Route path="/pourquoi-biolystes" element={<Layout><PourquoiBiolystesPage /></Layout>} />
       <Route path="/blog" element={<Layout><BlogPage /></Layout>} />
+      <Route path="/blog/coffrets" element={<Layout><ArticleCoffretsPage /></Layout>} />
+      <Route path="/blog/reseau-presse" element={<Layout><ArticleMarieClairePage /></Layout>} />
+      <Route path="/blog/lancer-marque" element={<Layout><ArticleLancerMarquePage /></Layout>} />
+      <Route path="/blog/biais-actif" element={<Layout><ArticleBiaisActifPage /></Layout>} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
       <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
       <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
