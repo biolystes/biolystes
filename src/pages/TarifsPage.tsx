@@ -111,10 +111,10 @@ function CosmetiqueTab() {
               Commander mes échantillons
             </a>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:flex h-full">
             <SafeVideo
               src="/videos/hero-kaniwa.mp4"
-              className="rounded-2xl object-cover w-full h-auto"
+              className="rounded-2xl object-cover w-full h-full"
               lazy
             />
           </div>
