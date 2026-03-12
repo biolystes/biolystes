@@ -97,6 +97,59 @@ const COLOR_MAP: Record<string, string> = {
   "beige": "#d4b896", "crème": "#f5e6d3", "argent": "#a8a8a8", "or": "#d4af37",
 };
 
+// ─── CDN fallback images for products without WC photos ──
+const CDN_IMAGE_MAP: Record<string, string> = {
+  "duocheveuxeclatants": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0dMOV8xZ3FFY1dyVEk3NnMtQllaeUxialVWeGlwTE5oLmpwZyZ3aWR0aD0xMDI0",
+  "leduoreparationbrillance": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLy1yaE5sSjlYYjdNMWthVmJaQlhkb3BjcTg1Vk1zcGRYLmpwZyZ3aWR0aD0xMDI0",
+  "coffretrenaissancecapillaire": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzV6TDhGMHlzREM5cTRKMWJCWDJaN2gtSmlyWjVrX28xLmpwZyZ3aWR0aD0xMDI0",
+  "duocorpspeauxsensibles": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2lFemJWM0F4ZnJvZVpKblcyTXFEajUzZF9DaWVSRkpyLmpwZyZ3aWR0aD0xMDI0",
+  "duoperformanceantiage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3BqNWM4V0JRM0JFRmU0bDMwc2M4UkpRQUVnLVpLUWVoLmpwZyZ3aWR0aD0xMDI0",
+  "duoroutinecontrelestachesbrunes": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL05hbWRDT1NMVWlNNXlGUk13aWxIR1JRTENFZmRKdkM5LmpwZyZ3aWR0aD0xMDI0",
+  "duoroutinetachesbrunes": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL05hbWRDT1NMVWlNNXlGUk13aWxIR1JRTENFZmRKdkM5LmpwZyZ3aWR0aD0xMDI0",
+  "leduodhydratationultime": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1BCanp5d2doOXVfbWZscUd4dXFvdzdpQlZ2ZlI2S213LmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectionteintclair": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3R6akJQYW1mYlU5WG5tLWp6Z3NkRkt0XzY3elVWZzlQLmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectioneclatintemporel": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL294UTlfeWhxTEJwWDJoR0N5WXdfY0p4T09rc0RGaHdQLmpwZWcmd2lkdGg9MTAyNA==",
+  "boitecollectioneclatrajeunissant": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3R1Skg2WF9xVlhxTUtlSXExWnB5VFowcU13cWNWUGgwLmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectiontrioantiage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzBHazNvZWpiSV9JajBCMk1kR3EzWVlFYzFDemJnVm83LmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectionluminousskin": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVmLVFvOEMtazJRZlRMU3pFOG1oa3lwdVdtaURVOThkLnBuZyZ3aWR0aD0xMDI0",
+  "boitecollectiontrioglowyskin": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0JOeS1rQ0JaX2twRER3amtpcDhPZGlxcU5XOUFrc3B0LnBuZyZ3aWR0aD0xMDI0",
+  "boitecollectionhydratationprofonde": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3h5aUpRdmlDbDR0RlBBaVRVVHROMURjcEFLZW9SU01mLmpwZyZ3aWR0aD0xMDI0",
+  "laboitecollectionultimerenouveau": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzlTSnVjX3pzdERKelN0eTdlOGJ4ZGFGRG5WczVHVmF5LmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectionroutinenuitcollagene": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1EyakI1MGJleVJHMWttOEp2dS1CdGx6RTRmVnpZaFMwLmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectioneclatquotidien": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2JSaXZpQkE4ZmtmZy1nTEdGVkthSVFBTU5PWHdlbWh0LmpwZWcmd2lkdGg9MTAyNA==",
+  "boitecollectionritueldhydratation": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3BIR1hJanpGdFRlYmlMY0g3ZHUyOEZ6S3pqaEVWNG1HLmpwZWcmd2lkdGg9MTAyNA==",
+  "boitiercollectionboostserum": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzhSVFQ3S2tGNy03dkNEN0s2N2ZPQ0VrRmhlNEt3blhkLmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectionantiage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0ZIRm8wdWpPQzBqSWUxZE5ONWJmNHFEMTJSRDIweVhBLmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectionacnecare": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0NEMmdyNTFIOHllZ21Mc21zblhPQlR6QlM3V3R4dUhRLnBuZyZ3aWR0aD0xMDI0",
+  "gellavantpourbebe": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0tqTmdreHE1VERIUlkxYVc5a05Xb0NLOHNRUERxakdxLnBuZyZ3aWR0aD01ODA=",
+  "shampooingdouxpourbebe": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3JpWklIdGxwUy1RT0pyQUdKdkd0QWEyLVBWdUhvWDhuLnBuZyZ3aWR0aD01ODA=",
+  "cremehydratantealternativeauretinol": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3dGdXlYR29Zd3Q2WjE5RERSSXRIWmlBWlhLWkdUcXV4LmpwZyZ3aWR0aD01ODA=",
+  "huilecorporelleomega69": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1F4QjVzNm5aNWE1QVlDNnVnckxweWwzbFBuNGZZVGxKLmpwZyZ3aWR0aD01ODA=",
+  "nettoyantvisageeclatradieux": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2xzajQtRDhyeFh5TVVENmJ5QXNGZWowLWY0bHExUTJhLmpwZyZ3aWR0aD01ODA=",
+  "cremedenuitpeauxsensiblessansparfum": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3pBVzBrZms2dnF0Z3A4bFFxQ2RSZmxYTmJSeVRpT2NqLmpwZyZ3aWR0aD01ODA=",
+  "masquecapillairekeratine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL243NDcwV3NDTzM5LXJhdHJrcDJoaHhDc2dNM2NDSXluLmpwZyZ3aWR0aD01ODA=",
+  "exfolianteclaircissantacidekojique": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2JVN0h6UjJEUVFDYXJQLWpUaVg3MHFCR2hGUHI3MUlPLmpwZyZ3aWR0aD01ODA=",
+  "shampooingvolumateurkeratine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1I1cXFkTFBlQld1Wkwzd0RQbG1sUU5YM2VzOWcxV3lNLmpwZWcmd2lkdGg9NTgw",
+  "bougiesojamousse": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3BBTldUc0lFUXZWUkRuazlWaUFBZFZSR3NEVUNrQWlNLnBuZyZ3aWR0aD01ODA=",
+  "apresshampoingvolumateurkeratine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVieDAzZEtPNHBoRnZoblhuem1BbjA5ekRHY3NLaVdDLmpwZyZ3aWR0aD01ODA=",
+  "mousselavantepourbebe": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1dMd1Q5SURDZWxxU3g4VTRWY2tEZlgtWVpzNlc0bnhiLnBuZyZ3aWR0aD01ODA=",
+  "serumalternatifauretinol": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL28wU3plU1p5a2YwUF9XRFNmaW1FdjRXNzJkdFhNYUF2LmpwZyZ3aWR0aD01ODA=",
+  "serumcontourdesyeuxaltretinol": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2xGWERhU2FpMVpPdEU1TFJ1UEdpOUhidGpGc3Y4dzBjLmpwZyZ3aWR0aD01ODA=",
+  "soincibletachesbrunes1acidekojique": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2lmdmxZbzd1a1ZSd1RlM3laVFFuNFpKdTFiLThyRGgtLmpwZyZ3aWR0aD01ODA=",
+  "cremevisageantitachesacidekojique": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0xxS3pSUjVEVVpKWC1lREdfeHhrU3UwME4xd3BOWVlSLmpwZyZ3aWR0aD01ODA=",
+  "bougiesojafleurssauvages": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FaQnZ1SVZyc2xjMWpqSm8zNEZJTG1kdWxMeUFnSnlRLnBuZyZ3aWR0aD01ODA=",
+  "bougiesojafleur sauvage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FaQnZ1SVZyc2xjMWpqSm8zNEZJTG1kdWxMeUFnSnlRLnBuZyZ3aWR0aD01ODA=",
+  "bougiesojafleurssauvage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FaQnZ1SVZyc2xjMWpqSm8zNEZJTG1kdWxMeUFnSnlRLnBuZyZ3aWR0aD01ODA=",
+  "bougiesojafleuvsauvage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FaQnZ1SVZyc2xjMWpqSm8zNEZJTG1kdWxMeUFnSnlRLnBuZyZ3aWR0aD01ODA=",
+  "bougiesojalavande": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3FCOTlVTEkyUGhwWndSeHpKaWRCNk9jUG11MUpRMUVzLnBuZyZ3aWR0aD01ODA=",
+  "bougiesojabruyere": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzNmZ0lGa1h5X0Fwc0hraE9VZkE1c1VuRDN4NXJJVXJiLnBuZyZ3aWR0aD01ODA=",
+};
+
+function getCdnFallbackImage(name: string): string | null {
+  const key = normalizeStr(name);
+  return CDN_IMAGE_MAP[key] || null;
+}
+
 const TAG_GROUP_LABELS: Record<string, string> = {
   "réclamations": "Réclamations", "reclamations": "Réclamations", "claims": "Réclamations",
   "inquiétude": "Besoin", "inquietude": "Besoin", "concern": "Besoin",
