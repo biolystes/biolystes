@@ -110,6 +110,7 @@ export function buildEnrichmentMap(jsonProducts: JSONProduct[]): Map<string, Enr
       arome: jp.arôme || undefined,
       slug: jp.slug,
       categorie_json: jp.categorie,
+      images_cdn: parseJsonImages(jp.images),
       jsonProduct: jp,
     });
   }
