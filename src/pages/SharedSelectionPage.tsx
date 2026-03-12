@@ -139,7 +139,7 @@ export default function SharedSelectionPage() {
                 transition={{ duration: 0.35, delay: idx * 0.05 }}
                 style={{ background: "#fff", borderRadius: 16, overflow: "hidden", display: "flex", flexDirection: "column" }}
               >
-                <div style={{ aspectRatio: "3/4", background: "#f5f5f7", overflow: "hidden", position: "relative" }}>
+                <div style={{ aspectRatio: "3/4", background: "#f5f4df", overflow: "hidden", position: "relative" }}>
                   {product.image
                     ? <img src={product.image} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
                     : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#d1d1d6", fontSize: 32 }}>📦</div>
