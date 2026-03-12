@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, Info } from "lucide-react";
+import SafeVideo from "@/components/SafeVideo";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
@@ -319,13 +320,24 @@ export default function TarifsPage() {
     <>
       {/* Hero */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-        className="mb-8 md:mb-12 text-center mt-4 md:mt-[90px]">
-        <h1 className="text-2xl md:text-[42px] font-extrabold uppercase leading-tight tracking-tight mb-3 text-foreground">
-          Tous nos tarifs<br className="hidden md:block" /><span className="md:hidden"> </span>au même endroit
-        </h1>
-        <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed max-w-xl mx-auto">
-          Cosmétique, communication ou intelligence artificielle — trouvez l'offre qui correspond à votre ambition.
-        </p>
+        className="mb-8 md:mb-12 mt-4 md:mt-[90px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+          <div className="text-center md:text-left">
+            <h1 className="text-2xl md:text-[42px] font-extrabold uppercase leading-tight tracking-tight mb-3 text-foreground">
+              Tous nos tarifs<br className="hidden md:block" /><span className="md:hidden"> </span>au même endroit
+            </h1>
+            <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed max-w-xl mx-auto md:mx-0">
+              Cosmétique, communication ou intelligence artificielle — trouvez l'offre qui correspond à votre ambition.
+            </p>
+          </div>
+          <div className="hidden md:block">
+            <SafeVideo
+              src="/videos/hero-kaniwa.mp4"
+              className="rounded-2xl object-cover w-full h-auto"
+              lazy
+            />
+          </div>
+        </div>
       </motion.div>
 
       {/* Tabs */}
