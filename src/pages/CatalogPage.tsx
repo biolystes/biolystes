@@ -543,19 +543,32 @@ export default function CatalogPage() {
   }, []);
 
   const mergedProducts = (() => {
-    if (jsonProducts.length === 0) return allProducts;
-    const enrichmentMap = buildEnrichmentMap(jsonProducts);
+    if (jsonProducts.length === 0 && imageMap.size === 0) return allProducts;
+    const enrichmentMap = jsonProducts.length > 0 ? buildEnrichmentMap(jsonProducts) : new Map();
     const wcNormalizedNames = new Set(allProducts.map(p => normalizeStr(p.name)));
+
+    // Helper: inject selfnamed image if product has no images
+    const injectImage = (p: WCProduct): WCProduct => {
+      if (p.images?.length > 0 && p.images[0]?.src) return p;
+      const key = normalizeStr(p.name);
+      const selfnamedImg = imageMap.get(key);
+      if (selfnamedImg) return { ...p, images: [{ src: selfnamedImg }] };
+      return p;
+    };
+
     const enrichedWC = allProducts.map(p => {
       const key = normalizeStr(p.name);
       const enrichment = enrichmentMap.get(key);
-      if (enrichment) return { ...p, _enriched: enrichment };
-      return p;
+      const enriched = enrichment ? { ...p, _enriched: enrichment } : p;
+      return injectImage(enriched);
     });
     const jsonOnlyProducts: WCProduct[] = [];
     jsonProducts.forEach((jp, idx) => {
       const key = normalizeStr(jp.nom);
-      if (!wcNormalizedNames.has(key)) jsonOnlyProducts.push(jsonToWCProduct(jp, idx) as WCProduct);
+      if (!wcNormalizedNames.has(key)) {
+        const product = jsonToWCProduct(jp, idx) as WCProduct;
+        jsonOnlyProducts.push(injectImage(product));
+      }
     });
     return [...enrichedWC, ...jsonOnlyProducts];
   })();
