@@ -537,7 +537,7 @@ export default function ConceptPage() {
               <h3 className="text-xl font-semibold tracking-tight">Gestion au quotidien</h3>
             </div>
             <div className="space-y-4 text-muted-foreground leading-relaxed text-[15px]">
-              <p>Côté ventes, Lystes.ai travaille pour vous jour et nuit. Un expert produit IA répond aux questions 24h/24. Le diagnostic intelligent scanne le visage de votre client et recommande les produits adaptés.</p>
+              <p>Côté ventes, Biolystes AI travaille pour vous jour et nuit. Un expert produit IA répond aux questions 24h/24. Le diagnostic intelligent scanne le visage de votre client et recommande les produits adaptés.</p>
               <p><strong className="text-foreground">Mode standard</strong> — Votre client commande, le laboratoire fabrique et expédie directement sous votre nom. Aucun stock, livraison en 6-7 jours.</p>
               <p><strong className="text-foreground">Mode express</strong> — Placez un stock libre chez notre logisticien, sans minimum de quantité. Livraison en 24-48h, réapprovisionné chaque semaine au rythme de vos ventes.</p>
             </div>
