@@ -326,9 +326,6 @@ export default function TarifsPage() {
         <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed max-w-xl mx-auto">
           Cosmétique, communication ou intelligence artificielle — trouvez l'offre qui correspond à votre ambition.
         </p>
-        <div className="inline-block mt-5 px-6 py-3 rounded-xl bg-red-600 text-white text-sm font-extrabold uppercase tracking-wide">
-          🔥 Cette semaine : -20% sur toutes nos offres
-        </div>
       </motion.div>
 
       {/* Tabs */}
