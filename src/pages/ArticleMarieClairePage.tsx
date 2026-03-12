@@ -83,7 +83,7 @@ export default function ArticleMarieClairePage() {
 
         {/* Ce que ça change */}
         <SectionBlock>
-          <motion.h2 variants={fadeUp} custom={0} className="text-2xl font-semibold text-foreground mb-6">Ce que ça change pour votre marque</motion.h2>
+          <motion.h2 variants={fadeUp} custom={0} className="text-2xl font-semibold text-foreground mb-6">Plan de notoriété : ce que ça change pour votre marque</motion.h2>
 
           <motion.div variants={fadeUp} custom={1} className="space-y-6">
             <div className="bg-secondary rounded-2xl p-6 md:p-8">
