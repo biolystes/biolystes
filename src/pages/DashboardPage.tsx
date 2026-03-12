@@ -517,7 +517,7 @@ function FilterDropdown({ label, options, selected, onChange, grid = false }: {
               })}
             </div>
             {selected.length > 0 && (
-              <div style={{ borderTop: "1px solid #f5f5f7", padding: "6px 10px" }}>
+              <div style={{ borderTop: "1px solid #f5f4df", padding: "6px 10px" }}>
                 <button
                   onClick={() => { onChange([]); }}
                   style={{

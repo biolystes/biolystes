@@ -193,7 +193,7 @@ export default function ClientSelectionsTab() {
                         borderRadius: 14, overflow: "hidden", cursor: alreadySelected ? "default" : "pointer",
                         opacity: alreadySelected ? 0.5 : 1, border: "1px solid #f0f0f0",
                       }}>
-                      <div style={{ aspectRatio: "1", background: "#f5f5f7", overflow: "hidden" }}>
+                      <div style={{ aspectRatio: "1", background: "#f5f4df", overflow: "hidden" }}>
                         {product.images?.[0]?.src ? (
                           <img src={product.images[0].src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                         ) : (

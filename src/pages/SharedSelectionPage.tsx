@@ -174,7 +174,7 @@ export default function SharedSelectionPage() {
                     )}
                   </div>
                   {price > 0 && (
-                    <div style={{ background: "#f5f5f7", borderRadius: 10, padding: "10px 12px" }}>
+                    <div style={{ background: "#f5f4df", borderRadius: 10, padding: "10px 12px" }}>
                       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
                         <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".8px", textTransform: "uppercase", color: "#86868b" }}>Prix conseillé</span>
                         <span style={{ fontSize: 8, fontWeight: 800, padding: "1px 5px", borderRadius: 4, background: "#1d1d1f", color: "#fff" }}>IA</span>
