@@ -43,7 +43,7 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 - Livrables en quelques jours : logo, identité visuelle, design packagings recyclables, photos IA hyperréalistes, contenu du site rédigé et optimisé, boutique en ligne prête à vendre avec SEO
 
 **Étape 2 : Gestion au quotidien (tout devient automatique)**
-- **Lystes.ai** : technologie IA qui travaille jour et nuit
+- **Biolystes AI** : technologie IA qui travaille jour et nuit
 - **Logistique intégrée** avec deux modes :
   - Mode standard : commande → fabrication → expédition sous le nom du client (6-7 jours, aucun stock)
   - Mode express : stock tampon chez le logisticien, livraison en 24-48h, réapprovisionnement automatique chaque semaine, sans minimum
