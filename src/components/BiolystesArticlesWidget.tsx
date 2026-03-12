@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import articleFeaturedImg from "@/assets/article-featured.jpg";
 import coffretsImg from "@/assets/coffrets-article.png";
+import marieClaireLogo from "@/assets/marie-claire-logo.jpg";
 
 const articles = [
   {
@@ -20,6 +21,15 @@ const articles = [
     description: "Augmentez votre panier moyen avec des coffrets clés en main.",
     image: coffretsImg,
     date: "8 mars 2026",
+    featured: false,
+    url: "/blog",
+  },
+  {
+    id: 7,
+    title: "Accédez à notre réseau presse Marie Claire",
+    description: "Faites connaître votre marque grâce à des articles sponsorisés dans Marie Claire.",
+    image: marieClaireLogo,
+    date: "12 mars 2026",
     featured: false,
     url: "/blog",
   },

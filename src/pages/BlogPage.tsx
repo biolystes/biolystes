@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import articleFeaturedImg from "@/assets/article-featured.jpg";
 import coffretsImg from "@/assets/coffrets-article.png";
+import marieClaireLogo from "@/assets/marie-claire-logo.jpg";
 
 const articles = [
   {
@@ -25,6 +26,17 @@ const articles = [
     featured: false,
     url: "/blog",
     category: "Nouveauté",
+  },
+  {
+    id: 7,
+    slug: "reseau-presse-marie-claire",
+    title: "Accédez à notre réseau presse Marie Claire",
+    description: "Nos clients peuvent désormais bénéficier d'articles sponsorisés dans Marie Claire pour faire connaître leur marque auprès d'une audience qualifiée de plusieurs millions de lectrices.",
+    image: marieClaireLogo,
+    date: "12 mars 2026",
+    featured: false,
+    url: "/blog",
+    category: "Presse",
   },
   {
     id: 2,
