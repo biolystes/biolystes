@@ -408,7 +408,7 @@ function TeamContenu({ titleOverride }: { titleOverride?: string }) {
       desc="Nous mettons en place une équipe Créateur de contenu AI, qui produit des contenus pour vos réseaux sociaux, articles de blog et descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
       <div className="flex gap-3.5 flex-wrap">
         <div className="flex-1 min-w-[200px] rounded-2xl overflow-hidden relative">
-          <SafeVideo src="/videos/contenu-ugc-2.mov" className="w-full h-[400px] object-cover block" lazy />
+          <SafeVideo src="/videos/contenu-ugc.mp4" className="w-full h-[400px] object-cover block" lazy />
         </div>
         <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
           <img src={kaniwaUgc3} alt="Contenu UGC" className="w-full h-[400px] object-cover block" />
