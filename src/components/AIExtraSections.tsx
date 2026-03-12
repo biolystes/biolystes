@@ -33,7 +33,7 @@ function LeakyBucketSection() {
         className="flex justify-center">
         <img
           src={leakyBucketImg}
-          alt="Comparaison e-commerce sans et avec Lystes AI — CA perdu vs CA récupéré"
+          alt="Comparaison e-commerce sans et avec Biolystes AI — CA perdu vs CA récupéré"
           className="w-full max-w-[960px] h-auto"
         />
       </motion.div>
@@ -144,7 +144,7 @@ function SecteursSection() {
           Multi-secteurs <em className="font-['Instrument_Serif'] italic text-cream/50 not-italic">pour chaque besoin</em>
         </h2>
         <p className="text-[17px] text-cream/50 max-w-[560px] mx-auto leading-[1.7]">
-          Lystes AI s'adapte à votre vertical avec des agents spécialisés.
+          Biolystes AI s'adapte à votre vertical avec des agents spécialisés.
         </p>
       </motion.div>
       <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-5">

@@ -109,7 +109,7 @@ export default function ArticleLancerMarquePage() {
                 "Nos laboratoires fabriquent le produit à la demande",
                 "Le produit est expédié directement chez votre client, sous votre nom de marque",
                 "Vous n'avez aucun stock à gérer, aucune logistique",
-                "Lystes.ai travaille jour et nuit : diagnostic IA, recommandation produits, contenu automatisé",
+                "Biolystes AI travaille jour et nuit : diagnostic IA, recommandation produits, contenu automatisé",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="w-1.5 h-1.5 rounded-full bg-foreground mt-2 shrink-0" />

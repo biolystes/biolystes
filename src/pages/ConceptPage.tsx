@@ -537,7 +537,7 @@ export default function ConceptPage() {
               <h3 className="text-xl font-semibold tracking-tight">Gestion au quotidien</h3>
             </div>
             <div className="space-y-4 text-muted-foreground leading-relaxed text-[15px]">
-              <p>Côté ventes, Lystes.ai travaille pour vous jour et nuit. Un expert produit IA répond aux questions 24h/24. Le diagnostic intelligent scanne le visage de votre client et recommande les produits adaptés.</p>
+              <p>Côté ventes, Biolystes AI travaille pour vous jour et nuit. Un expert produit IA répond aux questions 24h/24. Le diagnostic intelligent scanne le visage de votre client et recommande les produits adaptés.</p>
               <p><strong className="text-foreground">Mode standard</strong> — Votre client commande, le laboratoire fabrique et expédie directement sous votre nom. Aucun stock, livraison en 6-7 jours.</p>
               <p><strong className="text-foreground">Mode express</strong> — Placez un stock libre chez notre logisticien, sans minimum de quantité. Livraison en 24-48h, réapprovisionné chaque semaine au rythme de vos ventes.</p>
             </div>
@@ -548,10 +548,10 @@ export default function ConceptPage() {
       {/* ═══ COMMENT ÇA MARCHE ═══ */}
       <CommentCaMarche />
 
-      {/* ═══ LYSTES.AI ═══ */}
+      {/* ═══ BIOLYSTES AI ═══ */}
       <section className="bg-foreground text-primary-foreground">
         <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
-          <SectionLabel dark label="Lystes.ai" title="Comment gérer sa marque bio et végane au quotidien sans engager trop de dépenses ?"
+          <SectionLabel dark label="Biolystes AI" title="Comment gérer sa marque bio et végane au quotidien sans engager trop de dépenses ?"
             subtitle="Une fois que nous nous sommes mis à votre place, nous vous mettons à disposition des agents IA qui vous permettent d'atteindre vos objectifs. Ces agents vous aideront à produire des photos, à améliorer votre SEO, à répondre à votre place au client, à proposer des diagnostics et des recommandations produits, à vous donner des plans d'action marketing, à créer des contenus photos et des contenus pour vos réseaux sociaux." />
           <div className="mt-16 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {lystesAiPillars.map((pillar, i) => (
@@ -798,7 +798,7 @@ export default function ConceptPage() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4} className="mt-16 text-center">
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="rounded-full px-8 h-12 text-sm tracking-wide">
-                Découvrir Lystes AI
+                Découvrir Biolystes AI
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </a>

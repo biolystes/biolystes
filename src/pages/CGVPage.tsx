@@ -32,7 +32,7 @@ export default function CGVPage() {
             – <strong>Pack Visibilité</strong> : 499€ HT/mois sans engagement — 12 publications/mois, calendrier éditorial, création de visuels, photos IA, community management, rapport mensuel, SEO fiches produits.<br />
             – <strong>Pack Accélération</strong> : 999€ HT/mois sans engagement — Tout le Pack Visibilité + 20 publications/mois, Meta Ads, campagne influence, UGC IA, retargeting, articles blog SEO. Le budget publicitaire n'est pas inclus.<br /><br />
 
-            <strong>C. Lystes AI Standalone</strong> (Shopify &amp; WooCommerce)<br />
+            <strong>C. Biolystes AI Standalone</strong> (Shopify &amp; WooCommerce)<br />
             – 999€ HT de frais de setup + 99€ HT/mois sans engagement — Agents conversationnels, diagnostic peau &amp; cheveux, photos produits IA, UGC, SEO, analytics, support multilingue.<br /><br />
 
             <strong>D. Abonnements additionnels</strong><br />
@@ -48,7 +48,7 @@ export default function CGVPage() {
           </Section>
 
           <Section title="Article 4 – Prix et paiement">
-            Les prix sont indiqués en euros. Les offres Biolystes Cosmétique sont en TTC, les offres Agence Communication et Lystes AI sont en HT sauf mention contraire.<br /><br />
+            Les prix sont indiqués en euros. Les offres Biolystes Cosmétique sont en TTC, les offres Agence Communication et Biolystes AI sont en HT sauf mention contraire.<br /><br />
             Les frais de mise en place sont exigibles à la signature du contrat. Le paiement en 2 fois est disponible pour les Packs Agence et IA.<br /><br />
             Tout retard de paiement entraîne de plein droit des pénalités de retard au taux légal en vigueur.
           </Section>

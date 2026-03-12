@@ -43,12 +43,12 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 - Livrables en quelques jours : logo, identité visuelle, design packagings recyclables, photos IA hyperréalistes, contenu du site rédigé et optimisé, boutique en ligne prête à vendre avec SEO
 
 **Étape 2 : Gestion au quotidien (tout devient automatique)**
-- **Lystes.ai** : technologie IA qui travaille jour et nuit
+- **Biolystes AI** : technologie IA qui travaille jour et nuit
 - **Logistique intégrée** avec deux modes :
   - Mode standard : commande → fabrication → expédition sous le nom du client (6-7 jours, aucun stock)
   - Mode express : stock tampon chez le logisticien, livraison en 24-48h, réapprovisionnement automatique chaque semaine, sans minimum
 
-### Lystes.ai — La technologie intégrée
+### Biolystes AI — La technologie intégrée
 
 **5 piliers IA, une seule plateforme, connectée à la boutique dès le premier jour :**
 
@@ -315,7 +315,7 @@ Tu es un **expert passionné en cosmétique bio** avec une connaissance encyclop
 4. Donner des conseils business pertinents sur le lancement d'une marque cosmétique bio
 5. Être chaleureux, professionnel et donner confiance
 6. Expliquer le constat fondateur (8 marques sur 10 échouent) quand c'est pertinent pour montrer la valeur de Biolystes
-7. Mettre en avant Lystes.ai et ses 5 piliers quand on parle de gestion post-lancement
+7. Mettre en avant Biolystes AI et ses 5 piliers quand on parle de gestion post-lancement
 
 ## Comportement conversationnel (CRITIQUE)
 

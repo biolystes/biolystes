@@ -231,7 +231,7 @@ function LystesAiTab() {
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0} className="max-w-md mx-auto">
         <PackCard
           badge="Offre IA"
-          title="Lystes AI"
+          title="Biolystes AI"
           subtitle="Écosystème IA complet pour votre e-commerce"
           price="999€"
           priceLabel="HT — frais de setup"
@@ -348,7 +348,7 @@ export default function TarifsPage() {
             Communication
           </TabsTrigger>
           <TabsTrigger value="lystes-ai" className="text-xs md:text-sm font-bold uppercase tracking-wide px-5 py-2.5 rounded-full border border-border data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:border-foreground transition-all">
-            Lystes AI
+            Biolystes AI
           </TabsTrigger>
           <TabsTrigger value="abonnements" className="text-xs md:text-sm font-bold uppercase tracking-wide px-5 py-2.5 rounded-full border border-border data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:border-foreground transition-all">
             Abonnements

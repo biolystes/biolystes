@@ -35,7 +35,7 @@ const articles = [
   },
   {
     id: 3,
-    title: "Lystes.ai : votre marketing piloté par l'intelligence artificielle",
+    title: "Biolystes AI : votre marketing piloté par l'intelligence artificielle",
     description: "Agents IA dédiés, diagnostic de peau, recommandation produits, création de contenu — tout ce dont votre marque a besoin pour vendre.",
     image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=320&h=240&fit=crop",
     date: "1 mars 2026",
