@@ -198,6 +198,25 @@ const CDN_IMAGE_MAP: Record<string, string> = {
   "boitiercollectionboostserum": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzhSVFQ3S2tGNy03dkNEN0s2N2ZPQ0VrRmhlNEt3blhkLmpwZyZ3aWR0aD0xMDI0",
   "boitecollectionantiage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0ZIRm8wdWpPQzBqSWUxZE5ONWJmNHFEMTJSRDIweVhBLmpwZyZ3aWR0aD0xMDI0",
   "boitecollectionacnecare": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0NEMmdyNTFIOHllZ21Mc21zblhPQlR6QlM3V3R4dUhRLnBuZyZ3aWR0aD0xMDI0",
+  // Variantes normalisées supplémentaires (21 images restantes)
+  "masquecapillairereparateurintensifalakeratine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL243NDcwV3NDTzM5LXJhdHJrcDJoaHhDc2dNM2NDSXluLmpwZyZ3aWR0aD0xMDI0",
+  "apresshampoingvolumateuralakeratine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVieDAzZEtPNHBoRnZoblhuem1BbjA5ekRHY3NLaVdDLmpwZyZ3aWR0aD0xMDI0",
+  "apresshampooingvolumateuralaKeratine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVieDAzZEtPNHBoRnZoblhuem1BbjA5ekRHY3NLaVdDLmpwZyZ3aWR0aD0xMDI0",
+  "apresshampooingsmokyGreenvetiver": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2E5WjlXSFplekRxeTBhLWJJcEVTSGd4WTZSWC1fNDZ5LnBuZyZ3aWR0aD0xMDI0",
+  "apresshampooingsmokygreenveTiver": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2E5WjlXSFplekRxeTBhLWJJcEVTSGd4WTZSWC1fNDZ5LnBuZyZ3aWR0aD0xMDI0",
+  "apresshampooingsmokygreenveTivar": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2E5WjlXSFplekRxeTBhLWJJcEVTSGd4WTZSWC1fNDZ5LnBuZyZ3aWR0aD0xMDI0",
+  "shampooingsmokyGreenvetiver": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL19fWTlQUTJNQWg3cVlUa2hGV0xzMkVMZWFqNHowd25rLnBuZyZ3aWR0aD0xMDI0",
+  "shampooingsmokygreenveTiver": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL19fWTlQUTJNQWg3cVlUa2hGV0xzMkVMZWFqNHowd25rLnBuZyZ3aWR0aD0xMDI0",
+  "masquealargilepourl esporesetlespointsnoirs": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzFTajlFMVVSM2x6X1d0ZWtnZlUwUlRkOUdLTHgzYVY1LmpwZyZ3aWR0aD0xMDI0",
+  "masquealargilepourlesporeset lespointsnoirs": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzFTajlFMVVSM2x6X1d0ZWtnZlUwUlRkOUdLTHgzYVY1LmpwZyZ3aWR0aD0xMDI0",
+  "masquealargilepourlesporesetlespointsnoirs": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzFTajlFMVVSM2x6X1d0ZWtnZlUwUlRkOUdLTHgzYVY1LmpwZyZ3aWR0aD0xMDI0",
+  "cremepourlevisageantitachesbruneslacidekojique": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0xxS3pSUjVEVVpKWC1lREdfeHhrU3UwME4xd3BOWVlSLmpwZyZ3aWR0aD0xMDI0",
+  "cremepourlevisageantitachesbrunesalacidekojique": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0xxS3pSUjVEVVpKWC1lREdfeHhrU3UwME4xd3BOWVlSLmpwZyZ3aWR0aD0xMDI0",
+  "duoroutinetachesbrunes": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL05hbWRDT1NMVWlNNXlGUk13aWxIR1JRTENFZmRKdkM5LmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectioneclatquotidien": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2JSaXZpQkE4ZmtmZy1nTEdGVkthSVFBTU5PWHdlbWh0LmpwZWcmd2lkdGg9MTAyNA==",
+  "boitecollectionritueldhydratation": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3BIR1hJanpGdFRlYmlMY0g3ZHUyOEZ6S3pqaEVWNG1HLmpwZWcmd2lkdGg9MTAyNA==",
+  "boitiercollectionboostserum": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzhSVFQ3S2tGNy03dkNEN0s2N2ZPQ0VrRmhlNEt3blhkLmpwZyZ3aWR0aD0xMDI0",
+  "boitecollectionantiage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0ZIRm8wdWpPQzBqSWUxZE5ONWJmNHFEMTJSRDIweVhBLmpwZyZ3aWR0aD0xMDI0",
 };
 
 function getCdnFallbackImage(name: string): string | null {
