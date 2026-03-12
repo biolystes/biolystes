@@ -475,7 +475,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
 
 // ─── Product Card ─────────────────────────────────────────
 function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void }) {
-  const img = product.images?.[0]?.src || getCdnFallbackImage(product.name);
+  const img = getProductImage(product);
   const cats = product.categories?.map(c => c.name) || [];
   const price = product.price ? parseFloat(product.price) : null;
   const midRange = price ? Math.round(price * 2.2) : null;
