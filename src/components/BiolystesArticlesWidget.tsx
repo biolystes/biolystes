@@ -387,11 +387,16 @@ export default function BiolystesArticlesWidget() {
       </div>
 
       {/* Floating Button */}
-      <button className="biolystes-fab" onClick={() => setIsOpen(!isOpen)}>
+      <button className="biolystes-fab" onClick={() => setIsOpen(!isOpen)} style={{ fontSize: 12 }}>
         {hasNew && <span className="biolystes-fab-dot" />}
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2" />
-        </svg>
+        <video
+          src="https://storage.googleapis.com/eleven-public-cdn/video/image-and-video-generation/try-lipsync-video.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{ width: 31, height: 31, borderRadius: 89, marginLeft: -12, objectFit: 'cover', flexShrink: 0, pointerEvents: 'none' }}
+        />
         Pourquoi Biolystes ?
       </button>
     </div>
