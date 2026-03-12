@@ -65,7 +65,7 @@ export default function PourquoiBiolystesPage() {
         <SectionBlock>
           <motion.h2 variants={fadeUp} custom={0} className="text-2xl font-semibold text-foreground mb-4">Contexte de l'étude</motion.h2>
           <motion.p variants={fadeUp} custom={1} className="text-foreground/80 leading-relaxed">
-            Chez Biolystes, nous recevons chaque mois des dizaines de demandes d'entrepreneurs souhaitant lancer leur propre marque cosmétique. Parmi eux, une proportion importante arrive avec un projet de formulation sur mesure : un actif précis, un dosage particulier, une vision produit très définie.
+            Chez Biolystes, nous recevons chaque mois plusieurs dizaines de demandes d'entrepreneurs souhaitant lancer leur propre marque cosmétique. Parmi eux, une proportion importante arrive avec un projet de formulation sur mesure : un actif précis, un dosage particulier, une vision produit très définie.
           </motion.p>
           <motion.p variants={fadeUp} custom={2} className="text-foreground/80 leading-relaxed mt-4">
             Nous avons voulu mesurer objectivement ce qu'il advient de ces projets.
