@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Check, Info } from "lucide-react";
+import SafeVideo from "@/components/SafeVideo";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 const RDV_URL = "https://app.iclosed.io/e/paylystes/r2";
