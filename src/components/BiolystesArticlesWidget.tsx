@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import articleFeaturedImg from "@/assets/article-featured.jpg";
+import coffretsImg from "@/assets/coffrets-article.png";
 
 const articles = [
   {
@@ -14,13 +15,13 @@ const articles = [
     url: "/pourquoi-biolystes",
   },
   {
-    id: 2,
-    title: "Pack Découverte : testez avant de vous engager",
-    description: "4 produits cosmétiques bio & végan personnalisés à votre marque dès 49€/mois en 3x. Le montant est déduit si vous passez à une offre supérieure.",
-    image: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=320&h=240&fit=crop",
+    id: 6,
+    title: "Désormais Biolystes propose des coffrets",
+    description: "Augmentez votre panier moyen avec des coffrets clés en main.",
+    image: coffretsImg,
     date: "8 mars 2026",
     featured: false,
-    url: "/tarifs",
+    url: "/blog",
   },
   {
     id: 3,
