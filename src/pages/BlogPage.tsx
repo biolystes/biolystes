@@ -35,7 +35,7 @@ const articles = [
     image: marieClaireLogo,
     date: "12 mars 2026",
     featured: false,
-    url: "/blog",
+    url: "/blog/reseau-presse",
     category: "Presse",
   },
   {
