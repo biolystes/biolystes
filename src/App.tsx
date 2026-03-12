@@ -29,6 +29,7 @@ import OnboardingPage from "./pages/OnboardingPage";
 import AIPage from "./pages/AIPage";
 import AgencePage from "./pages/AgencePage";
 import TarifsPage from "./pages/TarifsPage";
+import PourquoiBiolystesPage from "./pages/PourquoiBiolystesPage";
 
 const queryClient = new QueryClient();
 
