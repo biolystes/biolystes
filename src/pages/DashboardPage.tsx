@@ -321,7 +321,7 @@ function ProductCard({ product, onSelect, vatEnabled = false }: { product: WCPro
       }}
     >
       {/* Image area — rectangle taller */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "3/4", background: "#f5f5f7", overflow: "hidden" }}>
+      <div style={{ position: "relative", width: "100%", aspectRatio: "3/4", background: "#f5f4df", overflow: "hidden" }}>
         {/* # badge top-left */}
         <div style={{
           position: "absolute", top: 12, left: 12, zIndex: 2,
