@@ -172,7 +172,7 @@ export default function ClientSelectionsTab() {
               style={{ position: "fixed", bottom: 0, left: 0, right: 0, height: "80vh", background: "#fff", borderRadius: "20px 20px 0 0", zIndex: 101, display: "flex", flexDirection: "column" }}>
               <div style={{ padding: "20px 24px", borderBottom: "1px solid #f0f0f0", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <h3 style={{ fontSize: 16, fontWeight: 700 }}>Catalogue produits</h3>
-                <button onClick={() => setShowCatalog(false)} style={{ width: 32, height: 32, borderRadius: 8, border: "none", background: "#f5f5f7", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <button onClick={() => setShowCatalog(false)} style={{ width: 32, height: 32, borderRadius: 8, border: "none", background: "#f5f4df", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <X size={16} />
                 </button>
               </div>
@@ -193,7 +193,7 @@ export default function ClientSelectionsTab() {
                         borderRadius: 14, overflow: "hidden", cursor: alreadySelected ? "default" : "pointer",
                         opacity: alreadySelected ? 0.5 : 1, border: "1px solid #f0f0f0",
                       }}>
-                      <div style={{ aspectRatio: "1", background: "#f5f5f7", overflow: "hidden" }}>
+                      <div style={{ aspectRatio: "1", background: "#f5f4df", overflow: "hidden" }}>
                         {product.images?.[0]?.src ? (
                           <img src={product.images[0].src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                         ) : (

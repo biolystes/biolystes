@@ -58,7 +58,7 @@ export default function SharedSelectionPage() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#F5F5F7" }}>
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f5f4df" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
           <div style={{ width: 36, height: 36, borderRadius: "50%", border: "2.5px solid #1d1d1f", borderTopColor: "transparent", animation: "spin 0.9s linear infinite" }} />
           <p style={{ fontSize: 13, color: "#86868b" }}>Chargement de la sélection…</p>
@@ -70,7 +70,7 @@ export default function SharedSelectionPage() {
 
   if (error || !selection) {
     return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#F5F5F7" }}>
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f5f4df" }}>
         <div style={{ textAlign: "center" }}>
           <p style={{ fontSize: 15, color: "#1d1d1f", fontWeight: 600, marginBottom: 8 }}>{error || "Sélection introuvable"}</p>
           <Link to="/" style={{ fontSize: 13, color: "#86868b", textDecoration: "underline" }}>Retour à l'accueil</Link>
@@ -82,7 +82,7 @@ export default function SharedSelectionPage() {
   const total = selection.products.reduce((acc, p) => acc + (parseFloat(p.price) || 0), 0);
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F5F5F7" }}>
+    <div style={{ minHeight: "100vh", background: "#f5f4df" }}>
       {/* Header */}
       <div style={{ background: "#fff", borderBottom: "1px solid #e5e5e7", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
@@ -139,7 +139,7 @@ export default function SharedSelectionPage() {
                 transition={{ duration: 0.35, delay: idx * 0.05 }}
                 style={{ background: "#fff", borderRadius: 16, overflow: "hidden", display: "flex", flexDirection: "column" }}
               >
-                <div style={{ aspectRatio: "3/4", background: "#f5f5f7", overflow: "hidden", position: "relative" }}>
+                <div style={{ aspectRatio: "3/4", background: "#f5f4df", overflow: "hidden", position: "relative" }}>
                   {product.image
                     ? <img src={product.image} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
                     : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#d1d1d6", fontSize: 32 }}>📦</div>
@@ -174,7 +174,7 @@ export default function SharedSelectionPage() {
                     )}
                   </div>
                   {price > 0 && (
-                    <div style={{ background: "#f5f5f7", borderRadius: 10, padding: "10px 12px" }}>
+                    <div style={{ background: "#f5f4df", borderRadius: 10, padding: "10px 12px" }}>
                       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
                         <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".8px", textTransform: "uppercase", color: "#86868b" }}>Prix conseillé</span>
                         <span style={{ fontSize: 8, fontWeight: 800, padding: "1px 5px", borderRadius: 4, background: "#1d1d1f", color: "#fff" }}>IA</span>

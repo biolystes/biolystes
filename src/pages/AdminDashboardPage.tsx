@@ -119,7 +119,7 @@ export default function AdminDashboardPage() {
                 }}>
                 <div style={{
                   width: 32, height: 32, borderRadius: "50%", flexShrink: 0,
-                  background: selectedClient?.id === client.id ? "rgba(255,255,255,0.2)" : "#f5f5f7",
+                  background: selectedClient?.id === client.id ? "rgba(255,255,255,0.2)" : "#f5f4df",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   fontSize: 12, fontWeight: 700,
                 }}>
@@ -220,7 +220,7 @@ export default function AdminDashboardPage() {
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: 12 }}>
                       {clientData.selections.map((sel: any) => (
                         <div key={sel.id} style={{ borderRadius: 12, overflow: "hidden", border: "1px solid #f0f0f0" }}>
-                          <div style={{ aspectRatio: "1", background: "#f5f5f7", overflow: "hidden" }}>
+                          <div style={{ aspectRatio: "1", background: "#f5f4df", overflow: "hidden" }}>
                             {sel.wc_product_image ? (
                               <img src={sel.wc_product_image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                             ) : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#c7c7cc" }}>📦</div>}

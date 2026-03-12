@@ -189,7 +189,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
         {/* Header */}
         <div style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
-          padding: "20px 24px", borderBottom: "1px solid #f5f5f7",
+          padding: "20px 24px", borderBottom: "1px solid #f5f4df",
         }}>
           <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#86868b" }}>
             Fiche produit
@@ -198,7 +198,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
             onClick={onClose}
             style={{
               width: 30, height: 30, borderRadius: 8, border: "none",
-              background: "#f5f5f7", display: "flex", alignItems: "center",
+              background: "#f5f4df", display: "flex", alignItems: "center",
               justifyContent: "center", cursor: "pointer", color: "#86868b",
             }}
           >
@@ -207,7 +207,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
         </div>
 
         {/* Image */}
-        <div style={{ background: "#f5f5f7", aspectRatio: "1", overflow: "hidden", flexShrink: 0 }}>
+        <div style={{ background: "#f5f4df", aspectRatio: "1", overflow: "hidden", flexShrink: 0 }}>
           {img
             ? <img src={img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#d1d1d6" }}><Icons.box size={40} sw={1} /></div>
@@ -219,12 +219,12 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
           {/* Tags */}
           <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
             {isVegan && (
-              <span style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700, letterSpacing: ".5px", textTransform: "uppercase", background: "#f5f5f7", color: "#86868b" }}>
+              <span style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700, letterSpacing: ".5px", textTransform: "uppercase", background: "#f5f4df", color: "#86868b" }}>
                 Vegan
               </span>
             )}
             {isBio && (
-              <span style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700, letterSpacing: ".5px", textTransform: "uppercase", background: "#f5f5f7", color: "#86868b" }}>
+              <span style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700, letterSpacing: ".5px", textTransform: "uppercase", background: "#f5f4df", color: "#86868b" }}>
                 Bio
               </span>
             )}
@@ -244,7 +244,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
 
           {/* AI Pricing */}
           {price && (
-            <div style={{ background: "#f5f5f7", borderRadius: 12, padding: "16px" }}>
+            <div style={{ background: "#f5f4df", borderRadius: 12, padding: "16px" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
                 <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#86868b" }}>
                   Prix de vente conseillé
@@ -321,7 +321,7 @@ function ProductCard({ product, onSelect, vatEnabled = false }: { product: WCPro
       }}
     >
       {/* Image area — rectangle taller */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "3/4", background: "#f5f5f7", overflow: "hidden" }}>
+      <div style={{ position: "relative", width: "100%", aspectRatio: "3/4", background: "#f5f4df", overflow: "hidden" }}>
         {/* # badge top-left */}
         <div style={{
           position: "absolute", top: 12, left: 12, zIndex: 2,
@@ -423,10 +423,10 @@ function ProductCard({ product, onSelect, vatEnabled = false }: { product: WCPro
 function ProductSkeleton() {
   return (
     <div style={{ borderRadius: 16, overflow: "hidden", background: "#fff" }}>
-      <div style={{ width: "100%", aspectRatio: "1", background: "#f5f5f7", animation: "pulse 1.5s infinite" }} />
+      <div style={{ width: "100%", aspectRatio: "1", background: "#f5f4df", animation: "pulse 1.5s infinite" }} />
       <div style={{ padding: "14px" }}>
-        <div style={{ height: 10, width: "80%", background: "#f5f5f7", borderRadius: 4, marginBottom: 8 }} />
-        <div style={{ height: 8, width: "55%", background: "#f5f5f7", borderRadius: 4 }} />
+        <div style={{ height: 10, width: "80%", background: "#f5f4df", borderRadius: 4, marginBottom: 8 }} />
+        <div style={{ height: 8, width: "55%", background: "#f5f4df", borderRadius: 4 }} />
       </div>
     </div>
   );
@@ -492,7 +492,7 @@ function FilterDropdown({ label, options, selected, onChange, grid = false }: {
                     style={{
                       display: "flex", alignItems: "center", gap: 10,
                       width: "100%", padding: "9px 10px", borderRadius: 8, border: "none",
-                      background: active ? "#f5f5f7" : "transparent",
+                      background: active ? "#f5f4df" : "transparent",
                       cursor: "pointer", textAlign: "left", transition: "background .1s",
                     }}
                     onMouseEnter={e => { if (!active) (e.currentTarget as HTMLElement).style.background = "#f9f9f9"; }}
@@ -517,7 +517,7 @@ function FilterDropdown({ label, options, selected, onChange, grid = false }: {
               })}
             </div>
             {selected.length > 0 && (
-              <div style={{ borderTop: "1px solid #f5f5f7", padding: "6px 10px" }}>
+              <div style={{ borderTop: "1px solid #f5f4df", padding: "6px 10px" }}>
                 <button
                   onClick={() => { onChange([]); }}
                   style={{
