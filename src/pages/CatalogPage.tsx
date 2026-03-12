@@ -221,6 +221,26 @@ const CDN_IMAGE_MAP: Record<string, string> = {
   "boitecollectionboostserum": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzhSVFQ3S2tGNy03dkNEN0s2N2ZPQ0VrRmhlNEt3blhkLmpwZyZ3aWR0aD0xMDI0",
   "duoroutinetachebrune": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL05hbWRDT1NMVWlNNXlGUk13aWxIR1JRTENFZmRKdkM5LmpwZyZ3aWR0aD0xMDI0",
   "duoroutinecontretachesbrunes": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL05hbWRDT1NMVWlNNXlGUk13aWxIR1JRTENFZmRKdkM5LmpwZyZ3aWR0aD0xMDI0",
+  // Variantes "de" — noms depuis produits.json avec "Boîte de Collection"
+  "duoderoutinecontrelestachesbrunes": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL05hbWRDT1NMVWlNNXlGUk13aWxIR1JRTENFZmRKdkM5LmpwZyZ3aWR0aD0xMDI0",
+  "duoroutinetachesbrune": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL05hbWRDT1NMVWlNNXlGUk13aWxIR1JRTENFZmRKdkM5LmpwZyZ3aWR0aD0xMDI0",
+  "boitedecollectionpourleteintclair": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3R6akJQYW1mYlU5WG5tLWp6Z3NkRkt0XzY3elVWZzlQLmpwZyZ3aWR0aD0xMDI0",
+  "boitedecollectioneclatintemporel": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL294UTlfeWhxTEJwWDJoR0N5WXdfY0p4T09rc0RGaHdQLmpwZWcmd2lkdGg9MTAyNA==",
+  "boitedecollectioneclatrajeunissant": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3R1Skg2WF9xVlhxTUtlSXExWnB5VFowcU13cWNWUGgwLmpwZyZ3aWR0aD0xMDI0",
+  "boitedecollectiondutrioantiage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzBHazNvZWpiSV9JajBCMk1kR3EzWVlFYzFDemJnVm83LmpwZyZ3aWR0aD0xMDI0",
+  "boitedecollectiontrioantiage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzBHazNvZWpiSV9JajBCMk1kR3EzWVlFYzFDemJnVm83LmpwZyZ3aWR0aD0xMDI0",
+  "boitedecollectiontrioglowyskin": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0JOeS1rQ0JaX2twRER3amtpcDhPZGlxcU5XOUFrc3B0LnBuZyZ3aWR0aD0xMDI0",
+  "boitedecollectionhydratationprofonde": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3h5aUpRdmlDbDR0RlBBaVRVVHROMURjcEFLZW9SU01mLmpwZyZ3aWR0aD0xMDI0",
+  "laboitedecollectionultimepourlerenouveau": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzlTSnVjX3pzdERKelN0eTdlOGJ4ZGFGRG5WczVHVmF5LmpwZyZ3aWR0aD0xMDI0",
+  "boitedecollectionderoutinedenuitaucollagene": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1EyakI1MGJleVJHMWttOEp2dS1CdGx6RTRmVnpZaFMwLmpwZyZ3aWR0aD0xMDI0",
+  "boitedecollectionroutinedenuitaucollagene": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1EyakI1MGJleVJHMWttOEp2dS1CdGx6RTRmVnpZaFMwLmpwZyZ3aWR0aD0xMDI0",
+  "boitedecollectioneclatquotidien": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2JSaXZpQkE4ZmtmZy1nTEdGVkthSVFBTU5PWHdlbWh0LmpwZWcmd2lkdGg9MTAyNA==",
+  "boitedecollectionritueldhydratation": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3BIR1hJanpGdFRlYmlMY0g3ZHUyOEZ6S3pqaEVWNG1HLmpwZWcmd2lkdGg9MTAyNA==",
+  "boitierdecollectionboostserum": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzhSVFQ3S2tGNy03dkNEN0s2N2ZPQ0VrRmhlNEt3blhkLmpwZyZ3aWR0aD0xMDI0",
+  "boitedecollectionacnecare": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0NEMmdyNTFIOHllZ21Mc21zblhPQlR6QlM3V3R4dUhRLnBuZyZ3aWR0aD0xMDI0",
+  "boitedecollectionantiage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0ZIRm8wdWpPQzBqSWUxZE5ONWJmNHFEMTJSRDIweVhBLmpwZyZ3aWR0aD0xMDI0",
+  "boitedelacollectionluminousskin": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVmLVFvOEMtazJRZlRMU3pFOG1oa3lwdVdtaURVOThkLnBuZyZ3aWR0aD0xMDI0",
+  "boitedecollectionluminousskin": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVmLVFvOEMtazJRZlRMU3pFOG1oa3lwdVdtaURVOThkLnBuZyZ3aWR0aD0xMDI0",
 };
 
 const NORMALIZED_CDN_IMAGE_MAP: Record<string, string> = Object.entries(CDN_IMAGE_MAP).reduce((acc, [k, v]) => {
