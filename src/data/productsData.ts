@@ -110,9 +110,11 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
   const catLabel = getCategoryLabel(jp.categorie);
 
   // Parse images from JSON – paths are pipe-separated, relative to static.selfnamed.com
+  // Skip certification icons (small 60px images), keep only gallery photos (larger widths)
   const imgUrls = jp.images
     ? jp.images.split("|").map(s => s.trim()).filter(Boolean)
-        .filter(p => p.includes("gallery-photos") || p.includes("galxlery"))
+        .filter(p => !p.includes("d2lkdGg9NjA=")) // exclude width=60 certification icons (base64 of "width=60")
+        .slice(0, 1) // take first gallery photo only
         .map(p => ({ src: `https://static.selfnamed.com${p.startsWith("/") ? "" : "/"}${p}` }))
     : [];
 
