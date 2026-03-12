@@ -324,7 +324,7 @@ export default function PourquoiBiolystesPage() {
               </a>
               <a href="/chat"
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-primary-foreground/30 text-primary-foreground font-medium text-sm hover:bg-primary-foreground/10 transition-colors">
-                Poser vos questions <ArrowRight className="w-4 h-4" />
+                Trouver des produits <ArrowRight className="w-4 h-4" />
               </a>
             </div>
           </motion.div>

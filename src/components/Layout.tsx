@@ -75,7 +75,7 @@ function TopNavBar() {
         ))}
 
         <Link to="/chat" className="btn-outline">
-          <span>Poser vos questions</span>
+          <span>Trouver des produits</span>
           <span className="arrow-circle">
             <ArrowRight className="w-3.5 h-3.5" />
           </span>

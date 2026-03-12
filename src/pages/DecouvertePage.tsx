@@ -381,7 +381,7 @@ export default function DecouvertePage() {
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
             <button onClick={() => navigate("/chat")} className="btn-outline">
-              <span>Posez vos questions</span>
+              <span>Trouver des produits</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </button>
           </motion.div>
