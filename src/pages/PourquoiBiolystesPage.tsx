@@ -264,7 +264,7 @@ export default function PourquoiBiolystesPage() {
         {/* Tableau synthèse */}
         <SectionBlock>
           <motion.h2 variants={fadeUp} custom={0} className="text-2xl font-semibold text-foreground mb-6">Synthèse des facteurs d'échec</motion.h2>
-          <motion.div variants={fadeUp} custom={1} className="overflow-x-auto rounded-2xl border border-border">
+          <motion.div variants={fadeUp} custom={1} className="overflow-x-auto rounded-2xl">
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-foreground text-primary-foreground">
@@ -275,7 +275,7 @@ export default function PourquoiBiolystesPage() {
               </thead>
               <tbody>
                 {failureFactors.map((f, i) => (
-                  <tr key={i} className={i % 2 === 0 ? "bg-background" : "bg-secondary"}>
+                  <tr key={i} className={i % 2 === 0 ? "bg-[hsl(60_30%_89%_/_0.44)]" : "bg-secondary"}>
                     <td className="p-4">
                       <span className={`text-xs font-semibold px-2 py-1 rounded-full ${categoryColors[f.category]}`}>
                         {f.category}
