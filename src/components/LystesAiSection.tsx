@@ -393,7 +393,7 @@ function TeamMarketing({ titleOverride }: { titleOverride?: string }) {
         </div>
 
         {/* Footer */}
-        <div className="bg-[#ecfdf5] rounded-xl p-3 flex items-center justify-center text-[#065f46] font-semibold text-[11px] gap-1.5">
+        <div className="bg-[#ecfdf5] rounded-xl p-3 flex items-center justify-center text-[#000] font-semibold text-[11px] gap-1.5">
           <Sparkles className="w-3.5 h-3.5" />
           Plan d'action optimisé automatiquement par l'IA
         </div>
