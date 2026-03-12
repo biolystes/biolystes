@@ -97,7 +97,12 @@ const COLOR_MAP: Record<string, string> = {
   "beige": "#d4b896", "crème": "#f5e6d3", "argent": "#a8a8a8", "or": "#d4af37",
 };
 
-// ─── CDN fallback images for products without WC photos ──
+// ─── Hidden products (excluded from catalog) ─────────────
+const HIDDEN_PRODUCTS = new Set([
+  "serumgeleeprebiotiquebioactif",
+]);
+
+
 const CDN_IMAGE_MAP: Record<string, string> = {
   // SOINS DU CORPS
   "huilecorporelleomega69pourunepeaueclatante": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1F4QjVzNm5aNWE1QVlDNnVnckxweWwzbFBuNGZZVGxKLmpwZyZ3aWR0aD0xMDI0",
@@ -863,11 +868,13 @@ export default function CatalogPage() {
     finally { setSharing(false); }
   };
 
-  const products = [...filteredProducts].sort((a, b) => {
-    if (sortBy === "price-asc") return (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0);
-    if (sortBy === "price-desc") return (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0);
-    return 0;
-  });
+  const products = [...filteredProducts]
+    .filter(p => !HIDDEN_PRODUCTS.has(normalizeStr(p.name)))
+    .sort((a, b) => {
+      if (sortBy === "price-asc") return (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0);
+      if (sortBy === "price-desc") return (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0);
+      return 0;
+    });
 
   const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 ||
     Object.values(selectedAttrTerms).some(v => v.length > 0) ||
