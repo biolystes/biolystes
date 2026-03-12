@@ -28,6 +28,7 @@ export interface EnrichedFields {
   arome?: string;
   slug?: string;
   categorie_json?: string;
+  images_cdn?: { src: string }[];
 }
 
 // ─── Parse price from JSON format ─────────────────────────
