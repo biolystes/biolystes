@@ -798,7 +798,7 @@ export default function ConceptPage() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4} className="mt-16 text-center">
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
               <Button size="lg" className="rounded-full px-8 h-12 text-sm tracking-wide">
-                Découvrir Lystes AI
+                Découvrir Biolystes AI
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </a>

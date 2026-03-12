@@ -48,7 +48,7 @@ export default function CGVPage() {
           </Section>
 
           <Section title="Article 4 – Prix et paiement">
-            Les prix sont indiqués en euros. Les offres Biolystes Cosmétique sont en TTC, les offres Agence Communication et Lystes AI sont en HT sauf mention contraire.<br /><br />
+            Les prix sont indiqués en euros. Les offres Biolystes Cosmétique sont en TTC, les offres Agence Communication et Biolystes AI sont en HT sauf mention contraire.<br /><br />
             Les frais de mise en place sont exigibles à la signature du contrat. Le paiement en 2 fois est disponible pour les Packs Agence et IA.<br /><br />
             Tout retard de paiement entraîne de plein droit des pénalités de retard au taux légal en vigueur.
           </Section>
