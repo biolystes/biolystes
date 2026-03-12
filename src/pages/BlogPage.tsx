@@ -4,6 +4,7 @@ import articleFeaturedImg from "@/assets/article-featured.jpg";
 import coffretsImg from "@/assets/coffrets-article.png";
 import marieClaireLogo from "@/assets/marie-claire-logo.jpg";
 import biaisActifImg from "@/assets/biais-actif-article.jpg";
+import lancerMarqueImg from "@/assets/lancer-marque-article.png";
 
 const articles = [
   {
