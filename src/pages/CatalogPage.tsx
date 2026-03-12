@@ -522,7 +522,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
           <button onClick={handleGenerate}
             title="Générer une photo sans marque"
             style={{
-              position: "absolute", bottom: 10, right: 10, zIndex: 10,
+              position: "absolute", bottom: 10, left: 10, zIndex: 10,
               width: 32, height: 32, borderRadius: 10,
               border: "none",
               background: "rgba(29,29,31,0.85)", backdropFilter: "blur(8px)",
