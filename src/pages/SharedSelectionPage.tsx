@@ -58,7 +58,7 @@ export default function SharedSelectionPage() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#F5F5F7" }}>
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f5f4df" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
           <div style={{ width: 36, height: 36, borderRadius: "50%", border: "2.5px solid #1d1d1f", borderTopColor: "transparent", animation: "spin 0.9s linear infinite" }} />
           <p style={{ fontSize: 13, color: "#86868b" }}>Chargement de la sélection…</p>
