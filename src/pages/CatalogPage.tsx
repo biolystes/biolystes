@@ -868,11 +868,13 @@ export default function CatalogPage() {
     finally { setSharing(false); }
   };
 
-  const products = [...filteredProducts].sort((a, b) => {
-    if (sortBy === "price-asc") return (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0);
-    if (sortBy === "price-desc") return (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0);
-    return 0;
-  });
+  const products = [...filteredProducts]
+    .filter(p => !HIDDEN_PRODUCTS.has(normalizeStr(p.name)))
+    .sort((a, b) => {
+      if (sortBy === "price-asc") return (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0);
+      if (sortBy === "price-desc") return (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0);
+      return 0;
+    });
 
   const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 ||
     Object.values(selectedAttrTerms).some(v => v.length > 0) ||
