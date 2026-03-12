@@ -553,7 +553,7 @@ const COLOR_MAP: Record<string, string> = {
 };
 
 // ─── Tag group names → filter label mapping ───────────────
-// Tags have format "Name (Group)" — we parse groups exactly like selfnamed
+// Tags have format "Name (Group)" — we parse groups to build filter dropdowns
 const TAG_GROUP_LABELS: Record<string, string> = {
   "réclamations": "Réclamations",
   "reclamations": "Réclamations",
