@@ -22,7 +22,7 @@ const articles = [
     image: coffretsImg,
     date: "8 mars 2026",
     featured: false,
-    url: "/blog",
+    url: "/blog/coffrets",
   },
   {
     id: 7,
@@ -31,7 +31,7 @@ const articles = [
     image: marieClaireLogo,
     date: "12 mars 2026",
     featured: false,
-    url: "/blog",
+    url: "/blog/reseau-presse",
   },
   {
     id: 3,
@@ -49,7 +49,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=320&h=240&fit=crop",
     date: "22 février 2026",
     featured: false,
-    url: "/",
+    url: "/blog/lancer-marque",
   },
   {
     id: 5,
@@ -58,7 +58,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=320&h=240&fit=crop",
     date: "15 février 2026",
     featured: false,
-    url: "/pourquoi-biolystes",
+    url: "/blog/biais-actif",
   },
 ];
 
