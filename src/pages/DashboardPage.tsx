@@ -198,7 +198,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
             onClick={onClose}
             style={{
               width: 30, height: 30, borderRadius: 8, border: "none",
-              background: "#f5f5f7", display: "flex", alignItems: "center",
+              background: "#f5f4df", display: "flex", alignItems: "center",
               justifyContent: "center", cursor: "pointer", color: "#86868b",
             }}
           >
