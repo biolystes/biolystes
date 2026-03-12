@@ -492,7 +492,7 @@ function FilterDropdown({ label, options, selected, onChange, grid = false }: {
                     style={{
                       display: "flex", alignItems: "center", gap: 10,
                       width: "100%", padding: "9px 10px", borderRadius: 8, border: "none",
-                      background: active ? "#f5f5f7" : "transparent",
+                      background: active ? "#f5f4df" : "transparent",
                       cursor: "pointer", textAlign: "left", transition: "background .1s",
                     }}
                     onMouseEnter={e => { if (!active) (e.currentTarget as HTMLElement).style.background = "#f9f9f9"; }}
