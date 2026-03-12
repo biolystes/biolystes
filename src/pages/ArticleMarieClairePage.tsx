@@ -30,7 +30,7 @@ export default function ArticleMarieClairePage() {
             <motion.div variants={fadeUp} custom={0}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-foreground text-primary-foreground text-[11px] font-semibold mb-8">
               <Newspaper className="w-4 h-4" />
-              Réseau presse
+              Plan de notoriété
             </motion.div>
             <motion.h1 variants={fadeUp} custom={1}
               className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-foreground leading-[1.1] mb-6"
