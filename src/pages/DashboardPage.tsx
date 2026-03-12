@@ -189,7 +189,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
         {/* Header */}
         <div style={{
           display: "flex", alignItems: "center", justifyContent: "space-between",
-          padding: "20px 24px", borderBottom: "1px solid #f5f5f7",
+          padding: "20px 24px", borderBottom: "1px solid #f5f4df",
         }}>
           <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#86868b" }}>
             Fiche produit
