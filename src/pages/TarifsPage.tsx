@@ -369,6 +369,6 @@ export default function TarifsPage() {
           <a href="mailto:hello@biolystes.com" className="text-foreground font-semibold no-underline">hello@biolystes.com</a>
         </p>
       </motion.div>
-    </>
+    </div>
   );
 }
