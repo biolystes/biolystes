@@ -94,21 +94,30 @@ function CosmetiqueTab() {
     <>
       {/* Pack Découverte */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0} className="mb-8">
-        <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border-2 border-foreground">
-          <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-foreground text-background">
-            Pack découverte
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+          <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border-2 border-foreground">
+            <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-foreground text-background">
+              Pack découverte
+            </div>
+            <h3 className="text-lg md:text-xl font-extrabold uppercase tracking-tight mb-1 mt-2 text-foreground">
+              Testez nos produits — 147€
+            </h3>
+            <p className="text-sm mb-8 text-muted-foreground leading-relaxed">ou 3× 49€ — Validez la qualité avant de vous lancer</p>
+            <div className="flex flex-col mb-8">
+              {["4 produits échantillons", "Accompagnement personnalisé dans la sélection par nos experts", "Étiquetage standard conforme Biolystes", "Certifié Bio & Végan / COSMOS / ECOCERT / FDA", "Livraison incluse sous 7 à 8 jours"].map((t, i) => <CheckItem key={i} text={t} />)}
+            </div>
+            <a href={RDV_URL} target="_blank" rel="noopener noreferrer"
+              className="block w-full py-4 text-center no-underline text-[11px] font-extrabold tracking-[1.5px] uppercase rounded-xl bg-foreground text-background border-2 border-foreground hover:opacity-90 transition-opacity mt-auto">
+              Commander mes échantillons
+            </a>
           </div>
-          <h3 className="text-lg md:text-xl font-extrabold uppercase tracking-tight mb-1 mt-2 text-foreground">
-            Testez nos produits — 147€
-          </h3>
-          <p className="text-sm mb-8 text-muted-foreground leading-relaxed">ou 3× 49€ — Validez la qualité avant de vous lancer</p>
-          <div className="flex flex-col mb-8">
-            {["4 produits échantillons", "Accompagnement personnalisé dans la sélection par nos experts", "Étiquetage standard conforme Biolystes", "Certifié Bio & Végan / COSMOS / ECOCERT / FDA", "Livraison incluse sous 7 à 8 jours"].map((t, i) => <CheckItem key={i} text={t} />)}
+          <div className="hidden md:block">
+            <SafeVideo
+              src="/videos/hero-kaniwa.mp4"
+              className="rounded-2xl object-cover w-full h-auto"
+              lazy
+            />
           </div>
-          <a href={RDV_URL} target="_blank" rel="noopener noreferrer"
-            className="block w-full py-4 text-center no-underline text-[11px] font-extrabold tracking-[1.5px] uppercase rounded-xl bg-foreground text-background border-2 border-foreground hover:opacity-90 transition-opacity mt-auto">
-            Commander mes échantillons
-          </a>
         </div>
         <BonASavoir text="147€ déduits de toute Offre Avec Site souscrite dans les 30 jours. Votre test devient un acompte, pas une dépense." />
       </motion.div>
@@ -320,24 +329,13 @@ export default function TarifsPage() {
     <>
       {/* Hero */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
-        className="mb-8 md:mb-12 mt-4 md:mt-[90px]">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div className="text-center md:text-left">
-            <h1 className="text-2xl md:text-[42px] font-extrabold uppercase leading-tight tracking-tight mb-3 text-foreground">
-              Tous nos tarifs<br className="hidden md:block" /><span className="md:hidden"> </span>au même endroit
-            </h1>
-            <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed max-w-xl mx-auto md:mx-0">
-              Cosmétique, communication ou intelligence artificielle — trouvez l'offre qui correspond à votre ambition.
-            </p>
-          </div>
-          <div className="hidden md:block">
-            <SafeVideo
-              src="/videos/hero-kaniwa.mp4"
-              className="rounded-2xl object-cover w-full h-auto"
-              lazy
-            />
-          </div>
-        </div>
+        className="mb-8 md:mb-12 text-center mt-4 md:mt-[90px]">
+        <h1 className="text-2xl md:text-[42px] font-extrabold uppercase leading-tight tracking-tight mb-3 text-foreground">
+          Tous nos tarifs<br className="hidden md:block" /><span className="md:hidden"> </span>au même endroit
+        </h1>
+        <p className="text-sm md:text-[15px] text-muted-foreground leading-relaxed max-w-xl mx-auto">
+          Cosmétique, communication ou intelligence artificielle — trouvez l'offre qui correspond à votre ambition.
+        </p>
       </motion.div>
 
       {/* Tabs */}
