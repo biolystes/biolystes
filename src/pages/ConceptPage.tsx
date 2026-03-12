@@ -437,7 +437,7 @@ export default function ConceptPage() {
           ))}
         </div>
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-          className="mt-16 p-8 md:p-12 rounded-2xl bg-foreground text-primary-foreground">
+          className="mt-16 p-8 md:p-12 rounded-2xl bg-foreground" style={{ color: '#f5f4df' }}>
           <p className="text-xl md:text-2xl font-light leading-relaxed">
             Huit chances sur dix de tomber dans un de ces cas de figure. C'est ce constat qui a donné naissance à Biolystes. Nous avons éliminé chacun de ces obstacles, un par un, pour que vous puissiez vous concentrer sur l'essentiel : <span className="font-semibold">vendre et développer votre marque.</span>
           </p>
