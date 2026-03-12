@@ -31,6 +31,10 @@ import AgencePage from "./pages/AgencePage";
 import TarifsPage from "./pages/TarifsPage";
 import PourquoiBiolystesPage from "./pages/PourquoiBiolystesPage";
 import BlogPage from "./pages/BlogPage";
+import ArticleCoffretsPage from "./pages/ArticleCoffretsPage";
+import ArticleMarieClairePage from "./pages/ArticleMarieClairePage";
+import ArticleLancerMarquePage from "./pages/ArticleLancerMarquePage";
+import ArticleBiaisActifPage from "./pages/ArticleBiaisActifPage";
 
 const queryClient = new QueryClient();
 
