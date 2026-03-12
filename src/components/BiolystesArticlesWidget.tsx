@@ -49,7 +49,7 @@ const articles = [
     image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=320&h=240&fit=crop",
     date: "22 février 2026",
     featured: false,
-    url: "/",
+    url: "/blog/lancer-marque",
   },
   {
     id: 5,
