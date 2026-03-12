@@ -30,15 +30,18 @@ export default function ArticleMarieClairePage() {
             <motion.div variants={fadeUp} custom={0}
               className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-foreground text-primary-foreground text-[11px] font-semibold mb-8">
               <Newspaper className="w-4 h-4" />
-              Réseau presse
+              Plan de notoriété
             </motion.div>
             <motion.h1 variants={fadeUp} custom={1}
               className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-foreground leading-[1.1] mb-6"
               style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}>
               Accédez à notre réseau presse <span className="font-bold">Marie Claire.</span>
             </motion.h1>
-            <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground max-w-xl mx-auto">
+            <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground max-w-xl mx-auto mb-4">
               Faites connaître votre marque grâce à des articles sponsorisés dans l'un des plus grands magazines féminins au monde.
+            </motion.p>
+            <motion.p variants={fadeUp} custom={3} className="text-xs font-semibold text-foreground/60 uppercase tracking-widest">
+              Service sur devis
             </motion.p>
           </SectionBlock>
         </div>
@@ -80,7 +83,7 @@ export default function ArticleMarieClairePage() {
 
         {/* Ce que ça change */}
         <SectionBlock>
-          <motion.h2 variants={fadeUp} custom={0} className="text-2xl font-semibold text-foreground mb-6">Ce que ça change pour votre marque</motion.h2>
+          <motion.h2 variants={fadeUp} custom={0} className="text-2xl font-semibold text-foreground mb-6">Plan de notoriété : ce que ça change pour votre marque</motion.h2>
 
           <motion.div variants={fadeUp} custom={1} className="space-y-6">
             <div className="bg-secondary rounded-2xl p-6 md:p-8">
