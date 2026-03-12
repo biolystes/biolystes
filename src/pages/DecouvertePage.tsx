@@ -970,7 +970,7 @@ export default function DecouvertePage() {
           </div>
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-            className="mt-16 p-8 md:p-12 rounded-2xl bg-foreground text-primary-foreground text-center">
+            className="mt-16 p-8 md:p-12 rounded-2xl bg-foreground text-center" style={{ color: '#f5f4df' }}>
             <AlertTriangle className="h-6 w-6 mx-auto mb-4 opacity-70" strokeWidth={1.5} />
             <p className="text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto">
               Huit chances sur dix de tomber dans un de ces cas de figure. C'est ce constat qui a donné naissance à Biolystes. Nous avons éliminé chacun de ces obstacles, un par un, pour que vous puissiez vous concentrer sur l'essentiel : <span className="font-semibold">vendre et développer votre marque.</span>
