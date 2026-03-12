@@ -326,7 +326,7 @@ function AbonnementsTab() {
 
 export default function TarifsPage() {
   return (
-    <>
+    <div className="max-w-5xl mx-auto px-6">
       {/* Hero */}
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
         className="mb-8 md:mb-12 text-center mt-4 md:mt-[90px]">
