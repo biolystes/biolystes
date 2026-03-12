@@ -109,6 +109,7 @@ export function buildEnrichmentMap(jsonProducts: JSONProduct[]): Map<string, Enr
       description_full: jp.description || undefined,
       inci: jp.inci || undefined,
       arome: jp.arôme || undefined,
+      image_src: parseJsonPrimaryImage(jp.images) || undefined,
       slug: jp.slug,
       categorie_json: jp.categorie,
       jsonProduct: jp,
