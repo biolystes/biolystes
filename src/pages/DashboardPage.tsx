@@ -618,12 +618,6 @@ export default function DashboardPage() {
         <AIChat onConversationStart={() => setChatStarted(true)} />
       </motion.div>
 
-      {/* ── Cas clients (tabulations) ────────────────────────── */}
-      <AnimatePresence>
-        {!chatStarted && (
-          <ClientShowcase />
-        )}
-      </AnimatePresence>
 
 
       <AnimatePresence>
