@@ -146,7 +146,7 @@ const CDN_IMAGE_MAP: Record<string, string> = {
   "cremedenuitpourpeauxsensiblessansparfum": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3pBVzBrZms2dnF0Z3A4bFFxQ2RSZmxYTmJSeVRpT2NqLmpwZyZ3aWR0aD0xMDI0",
   "cremedenuitpeauxsensiblessansparfum": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3pBVzBrZms2dnF0Z3A4bFFxQ2RSZmxYTmJSeVRpT2NqLmpwZyZ3aWR0aD0xMDI0",
   "masquealargilepourl esporesetlespointsnoirs": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzFTajlFMVVSM2x6X1d0ZWtnZlUwUlRkOUdLTHgzYVY1LmpwZyZ3aWR0aD0xMDI0",
-  "masquealargilepourl esporesetlespointsnoirs": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzFTajlFMVVSM2x6X1d0ZWtnZlUwUlRkOUdLTHgzYVY1LmpwZyZ3aWR0aD0xMDI0",
+  "masquealargileporeset pointsnoirs": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzFTajlFMVVSM2x6X1d0ZWtnZlUwUlRkOUdLTHgzYVY1LmpwZyZ3aWR0aD0xMDI0",
   "brumevisageprebiotiquemicrobiome": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzBSWjdaR2thR3puZFBGSWRTMUdMYU50ajljN3hZQWlELmpwZyZ3aWR0aD0xMDI0",
   "serumcontourdesyeuxalternatifauretinol": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2xGWERhU2FpMVpPdEU1TFJ1UEdpOUhidGpGc3Y4dzBjLmpwZyZ3aWR0aD0xMDI0",
   "serumcontourdesyeuxaltretinol": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2xGWERhU2FpMVpPdEU1TFJ1UEdpOUhidGpGc3Y4dzBjLmpwZyZ3aWR0aD0xMDI0",
