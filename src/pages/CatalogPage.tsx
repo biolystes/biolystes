@@ -519,7 +519,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
         )}
 
         {/* AI Generate Clean Image button */}
-        {img && onGenerateClean && (
+        {originalImg && onGenerateClean && !overrideImage && (
           <button onClick={handleGenerate}
             title="Générer une photo sans marque"
             style={{
