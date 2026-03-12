@@ -82,7 +82,7 @@ export default function SharedSelectionPage() {
   const total = selection.products.reduce((acc, p) => acc + (parseFloat(p.price) || 0), 0);
 
   return (
-    <div style={{ minHeight: "100vh", background: "#F5F5F7" }}>
+    <div style={{ minHeight: "100vh", background: "#f5f4df" }}>
       {/* Header */}
       <div style={{ background: "#fff", borderBottom: "1px solid #e5e5e7", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
