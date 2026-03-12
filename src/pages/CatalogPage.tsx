@@ -470,7 +470,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
 }
 
 // ─── Product Card ─────────────────────────────────────────
-function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void }) {
+function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect, onGenerateClean }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void; onGenerateClean?: (product: WCProduct, imgSrc: string) => void }) {
   const img = product.images?.[0]?.src || getCdnFallbackImage(product.name);
   const cats = product.categories?.map(c => c.name) || [];
   const price = product.price ? parseFloat(product.price) : null;
@@ -479,6 +479,11 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
   const luxury = price ? Math.round(price * 4.5) : null;
   const displayCats = cats.filter(c => c.length < 24).slice(0, 2);
   const enriched = product._enriched;
+
+  const handleGenerate = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (img && onGenerateClean) onGenerateClean(product, img);
+  };
 
   return (
     <motion.div
@@ -509,6 +514,29 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
           <button onClick={onToggleSelect}
             style={{ position: "absolute", top: 10, right: 10, zIndex: 10, width: 26, height: 26, borderRadius: 8, border: isSelected ? "none" : "2px solid rgba(0,0,0,0.15)", background: isSelected ? "#1d1d1f" : "rgba(245,244,223,0.6)", backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "all .15s" }}>
             {isSelected && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
+          </button>
+        )}
+
+        {/* AI Generate Clean Image button */}
+        {img && onGenerateClean && (
+          <button onClick={handleGenerate}
+            title="Générer une photo sans marque"
+            style={{
+              position: "absolute", bottom: 10, right: 10, zIndex: 10,
+              width: 32, height: 32, borderRadius: 10,
+              border: "none",
+              background: "rgba(29,29,31,0.85)", backdropFilter: "blur(8px)",
+              color: "#fff", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              transition: "all .15s",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = "#1d1d1f"; e.currentTarget.style.transform = "scale(1.1)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "rgba(29,29,31,0.85)"; e.currentTarget.style.transform = "scale(1)"; }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+              <path d="M5 3v4" /><path d="M19 17v4" /><path d="M3 5h4" /><path d="M17 19h4" />
+            </svg>
           </button>
         )}
 
@@ -612,7 +640,29 @@ export default function CatalogPage() {
   const [selectionMode, setSelectionMode] = useState(false);
   const [sharing, setSharing] = useState(false);
   const [jsonProducts, setJsonProducts] = useState<JSONProduct[]>([]);
+  const [genCleanLoading, setGenCleanLoading] = useState(false);
+  const [genCleanResult, setGenCleanResult] = useState<{ name: string; original: string; generated: string } | null>(null);
   const { user } = useAuth();
+
+  const handleGenerateClean = async (product: WCProduct, imgSrc: string) => {
+    setGenCleanLoading(true);
+    setGenCleanResult(null);
+    toast.info("Génération IA en cours… (~30s)");
+    try {
+      const { data, error } = await supabase.functions.invoke("generate-clean-image", {
+        body: { imageUrl: imgSrc, productName: product.name },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      if (!data?.imageUrl) throw new Error("Pas d'image générée");
+      setGenCleanResult({ name: product.name, original: imgSrc, generated: data.imageUrl });
+      toast.success("Image générée !");
+    } catch (err: any) {
+      toast.error(err?.message || "Erreur lors de la génération");
+    } finally {
+      setGenCleanLoading(false);
+    }
+  };
 
   useEffect(() => {
     fetch("/data/produits.json")
@@ -853,7 +903,7 @@ export default function CatalogPage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
             style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
             {products.map(p => (
-              <ProductCard key={p.id} product={p} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} />
+              <ProductCard key={p.id} product={p} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} onGenerateClean={handleGenerateClean} />
             ))}
           </motion.div>
         )}
@@ -892,6 +942,75 @@ export default function CatalogPage() {
               {sharing ? "Création…" : "Partager la sélection"}
             </button>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* AI Generate Clean Image Modal */}
+      <AnimatePresence>
+        {(genCleanLoading || genCleanResult) && (
+          <>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              onClick={() => { if (!genCleanLoading) { setGenCleanResult(null); } }}
+              style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 200, backdropFilter: "blur(6px)" }} />
+            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
+              style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%,-50%)", zIndex: 201, background: C.bgLight, borderRadius: 24, padding: 28, maxWidth: 700, width: "90vw", maxHeight: "90vh", overflow: "auto" }}>
+              
+              {genCleanLoading && !genCleanResult && (
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, padding: 40 }}>
+                  <svg style={{ animation: "spin .8s linear infinite" }} width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={C.muted} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+                  </svg>
+                  <p style={{ fontSize: 14, color: C.muted, fontWeight: 600 }}>Génération IA en cours…</p>
+                  <p style={{ fontSize: 11, color: C.mutedLight }}>Cela peut prendre jusqu'à 30 secondes</p>
+                </div>
+              )}
+
+              {genCleanResult && (
+                <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                    <div>
+                      <h3 style={{ fontSize: 16, fontWeight: 700, color: "#1d1d1f", margin: 0 }}>Photo sans marque</h3>
+                      <p style={{ fontSize: 11, color: C.muted, marginTop: 4 }}>{genCleanResult.name}</p>
+                    </div>
+                    <button onClick={() => setGenCleanResult(null)}
+                      style={{ width: 32, height: 32, borderRadius: 10, border: "none", background: C.bg, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                      <Icons.close size={16} />
+                    </button>
+                  </div>
+                  
+                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                    <div>
+                      <p style={{ fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "1px", color: C.muted, marginBottom: 8 }}>Original</p>
+                      <div style={{ borderRadius: 16, overflow: "hidden", background: C.bg, aspectRatio: "1" }}>
+                        <img src={genCleanResult.original} alt="Original" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      </div>
+                    </div>
+                    <div>
+                      <p style={{ fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "1px", color: C.muted, marginBottom: 8 }}>Sans marque (IA)</p>
+                      <div style={{ borderRadius: 16, overflow: "hidden", background: C.bg, aspectRatio: "1" }}>
+                        <img src={genCleanResult.generated} alt="Généré" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
+                    <a href={genCleanResult.generated} download={`${genCleanResult.name.replace(/\s+/g, "-")}-sans-marque.png`} target="_blank" rel="noopener"
+                      style={{
+                        display: "inline-flex", alignItems: "center", gap: 6,
+                        padding: "10px 20px", borderRadius: 12, border: "none",
+                        background: "#1d1d1f", color: "#fff", fontSize: 13, fontWeight: 600,
+                        textDecoration: "none", cursor: "pointer",
+                      }}>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                      </svg>
+                      Télécharger
+                    </a>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>

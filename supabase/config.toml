@@ -2,3 +2,6 @@ project_id = "nftpssrtcbwputfwjdfi"
 
 [functions.biolystes-chat]
 verify_jwt = false
+
+[functions.generate-clean-image]
+verify_jwt = false
