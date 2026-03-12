@@ -470,8 +470,9 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
 }
 
 // ─── Product Card ─────────────────────────────────────────
-function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect, onGenerateClean }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void; onGenerateClean?: (product: WCProduct, imgSrc: string) => void }) {
-  const img = product.images?.[0]?.src || getCdnFallbackImage(product.name);
+function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect, onGenerateClean, overrideImage, isGenerating }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void; onGenerateClean?: (product: WCProduct, imgSrc: string) => void; overrideImage?: string; isGenerating?: boolean }) {
+  const originalImg = product.images?.[0]?.src || getCdnFallbackImage(product.name);
+  const img = overrideImage || originalImg;
   const cats = product.categories?.map(c => c.name) || [];
   const price = product.price ? parseFloat(product.price) : null;
   const midRange = price ? Math.round(price * 2.2) : null;
@@ -482,7 +483,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
 
   const handleGenerate = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (img && onGenerateClean) onGenerateClean(product, img);
+    if (originalImg && onGenerateClean && !isGenerating) onGenerateClean(product, originalImg);
   };
 
   return (
@@ -518,7 +519,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
         )}
 
         {/* AI Generate Clean Image button */}
-        {img && onGenerateClean && (
+        {originalImg && onGenerateClean && !overrideImage && (
           <button onClick={handleGenerate}
             title="Générer une photo sans marque"
             style={{
@@ -547,6 +548,16 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
               onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
           : <ProductPlaceholder name={product.name} />
         }
+
+        {/* Loading overlay during generation */}
+        {isGenerating && (
+          <div style={{ position: "absolute", inset: 0, zIndex: 15, background: "rgba(236,235,215,0.8)", backdropFilter: "blur(4px)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8 }}>
+            <svg style={{ animation: "spin .8s linear infinite" }} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={C.muted} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
+            </svg>
+            <p style={{ fontSize: 10, fontWeight: 600, color: C.muted }}>IA en cours…</p>
+          </div>
+        )}
       </div>
 
       {/* Content */}
@@ -640,13 +651,12 @@ export default function CatalogPage() {
   const [selectionMode, setSelectionMode] = useState(false);
   const [sharing, setSharing] = useState(false);
   const [jsonProducts, setJsonProducts] = useState<JSONProduct[]>([]);
-  const [genCleanLoading, setGenCleanLoading] = useState(false);
-  const [genCleanResult, setGenCleanResult] = useState<{ name: string; original: string; generated: string } | null>(null);
+  const [cleanImages, setCleanImages] = useState<Record<number, string>>({});
+  const [genLoadingId, setGenLoadingId] = useState<number | null>(null);
   const { user } = useAuth();
 
   const handleGenerateClean = async (product: WCProduct, imgSrc: string) => {
-    setGenCleanLoading(true);
-    setGenCleanResult(null);
+    setGenLoadingId(product.id);
     toast.info("Génération IA en cours… (~30s)");
     try {
       const { data, error } = await supabase.functions.invoke("generate-clean-image", {
@@ -655,12 +665,12 @@ export default function CatalogPage() {
       if (error) throw error;
       if (data?.error) throw new Error(data.error);
       if (!data?.imageUrl) throw new Error("Pas d'image générée");
-      setGenCleanResult({ name: product.name, original: imgSrc, generated: data.imageUrl });
-      toast.success("Image générée !");
+      setCleanImages(prev => ({ ...prev, [product.id]: data.imageUrl }));
+      toast.success("Image remplacée !");
     } catch (err: any) {
       toast.error(err?.message || "Erreur lors de la génération");
     } finally {
-      setGenCleanLoading(false);
+      setGenLoadingId(null);
     }
   };
 
@@ -903,7 +913,7 @@ export default function CatalogPage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
             style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
             {products.map(p => (
-              <ProductCard key={p.id} product={p} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} onGenerateClean={handleGenerateClean} />
+              <ProductCard key={p.id} product={p} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} onGenerateClean={handleGenerateClean} overrideImage={cleanImages[p.id]} isGenerating={genLoadingId === p.id} />
             ))}
           </motion.div>
         )}
@@ -945,74 +955,6 @@ export default function CatalogPage() {
         )}
       </AnimatePresence>
 
-      {/* AI Generate Clean Image Modal */}
-      <AnimatePresence>
-        {(genCleanLoading || genCleanResult) && (
-          <>
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              onClick={() => { if (!genCleanLoading) { setGenCleanResult(null); } }}
-              style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 200, backdropFilter: "blur(6px)" }} />
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
-              style={{ position: "fixed", top: "50%", left: "50%", transform: "translate(-50%,-50%)", zIndex: 201, background: C.bgLight, borderRadius: 24, padding: 28, maxWidth: 700, width: "90vw", maxHeight: "90vh", overflow: "auto" }}>
-              
-              {genCleanLoading && !genCleanResult && (
-                <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16, padding: 40 }}>
-                  <svg style={{ animation: "spin .8s linear infinite" }} width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={C.muted} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
-                  </svg>
-                  <p style={{ fontSize: 14, color: C.muted, fontWeight: 600 }}>Génération IA en cours…</p>
-                  <p style={{ fontSize: 11, color: C.mutedLight }}>Cela peut prendre jusqu'à 30 secondes</p>
-                </div>
-              )}
-
-              {genCleanResult && (
-                <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                    <div>
-                      <h3 style={{ fontSize: 16, fontWeight: 700, color: "#1d1d1f", margin: 0 }}>Photo sans marque</h3>
-                      <p style={{ fontSize: 11, color: C.muted, marginTop: 4 }}>{genCleanResult.name}</p>
-                    </div>
-                    <button onClick={() => setGenCleanResult(null)}
-                      style={{ width: 32, height: 32, borderRadius: 10, border: "none", background: C.bg, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      <Icons.close size={16} />
-                    </button>
-                  </div>
-                  
-                  <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                    <div>
-                      <p style={{ fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "1px", color: C.muted, marginBottom: 8 }}>Original</p>
-                      <div style={{ borderRadius: 16, overflow: "hidden", background: C.bg, aspectRatio: "1" }}>
-                        <img src={genCleanResult.original} alt="Original" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                      </div>
-                    </div>
-                    <div>
-                      <p style={{ fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "1px", color: C.muted, marginBottom: 8 }}>Sans marque (IA)</p>
-                      <div style={{ borderRadius: 16, overflow: "hidden", background: C.bg, aspectRatio: "1" }}>
-                        <img src={genCleanResult.generated} alt="Généré" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div style={{ display: "flex", gap: 8, justifyContent: "flex-end" }}>
-                    <a href={genCleanResult.generated} download={`${genCleanResult.name.replace(/\s+/g, "-")}-sans-marque.png`} target="_blank" rel="noopener"
-                      style={{
-                        display: "inline-flex", alignItems: "center", gap: 6,
-                        padding: "10px 20px", borderRadius: 12, border: "none",
-                        background: "#1d1d1f", color: "#fff", fontSize: 13, fontWeight: 600,
-                        textDecoration: "none", cursor: "pointer",
-                      }}>
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-                      </svg>
-                      Télécharger
-                    </a>
-                  </div>
-                </div>
-              )}
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
     </>
   );
 }
