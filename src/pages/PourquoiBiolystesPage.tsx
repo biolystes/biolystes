@@ -23,9 +23,9 @@ const failureFactors = [
 ];
 
 const categoryColors: Record<string, string> = {
-  Financier: "bg-red-100 text-red-800",
-  Opérationnel: "bg-amber-100 text-amber-800",
-  Comportemental: "bg-blue-100 text-blue-800",
+  Financier: "bg-background text-foreground/80 text-[11px]",
+  Opérationnel: "bg-background text-foreground/80 text-[11px]",
+  Comportemental: "bg-background text-foreground/80 text-[11px]",
 };
 
 function SectionBlock({ children, className = "" }: { children: React.ReactNode; className?: string }) {
