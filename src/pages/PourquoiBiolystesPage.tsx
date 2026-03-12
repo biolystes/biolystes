@@ -44,7 +44,7 @@ export default function PourquoiBiolystesPage() {
         <div className="max-w-4xl mx-auto text-center">
           <SectionBlock>
             <motion.div variants={fadeUp} custom={0}
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-destructive/10 text-destructive text-sm font-semibold mb-8">
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-foreground text-primary-foreground text-[11px] font-semibold mb-8">
               <AlertTriangle className="w-4 h-4" />
               Étude interne Biolystes
             </motion.div>
