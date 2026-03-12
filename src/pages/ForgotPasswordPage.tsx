@@ -49,7 +49,7 @@ export default function ForgotPasswordPage() {
         {sent ? (
           <div style={{ textAlign: "center" }}>
             <div style={{
-              width: 56, height: 56, background: "#F5F5F7", borderRadius: "50%",
+              width: 56, height: 56, background: "#f5f4df", borderRadius: "50%",
               display: "flex", alignItems: "center", justifyContent: "center",
               margin: "0 auto 24px", fontSize: 24,
             }}>
