@@ -111,7 +111,7 @@ const CDN_IMAGE_MAP: Record<string, string> = {
   "bougieenciredesojafleur sauvage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FaQnZ1SVZyc2xjMWpqSm8zNEZJTG1kdWxMeUFnSnlRLnBuZyZ3aWR0aD0xMDI0",
   "bougieenciredesojafleurs sauvage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FaQnZ1SVZyc2xjMWpqSm8zNEZJTG1kdWxMeUFnSnlRLnBuZyZ3aWR0aD0xMDI0",
   "bougieenciredesojafleuvsauvage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FaQnZ1SVZyc2xjMWpqSm8zNEZJTG1kdWxMeUFnSnlRLnBuZyZ3aWR0aD0xMDI0",
-  "bougieenciredesojafleuvsauvage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FaQnZ1SVZyc2xjMWpqSm8zNEZJTG1kdWxMeUFnSnlRLnBuZyZ3aWR0aD0xMDI0",
+  "bougieenciredesojafleursauvage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FaQnZ1SVZyc2xjMWpqSm8zNEZJTG1kdWxMeUFnSnlRLnBuZyZ3aWR0aD0xMDI0",
   "bougiesojafleurssauvages": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FaQnZ1SVZyc2xjMWpqSm8zNEZJTG1kdWxMeUFnSnlRLnBuZyZ3aWR0aD0xMDI0",
   "bougiesojafleuvsauvage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FaQnZ1SVZyc2xjMWpqSm8zNEZJTG1kdWxMeUFnSnlRLnBuZyZ3aWR0aD0xMDI0",
   "bougiesojafleurssauvage": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FaQnZ1SVZyc2xjMWpqSm8zNEZJTG1kdWxMeUFnSnlRLnBuZyZ3aWR0aD0xMDI0",
