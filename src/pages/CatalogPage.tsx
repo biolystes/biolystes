@@ -203,7 +203,6 @@ const CDN_IMAGE_MAP: Record<string, string> = {
   "apresshampoingvolumateuralakeratine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVieDAzZEtPNHBoRnZoblhuem1BbjA5ekRHY3NLaVdDLmpwZyZ3aWR0aD0xMDI0",
   "apresshampooingvolumateuralakeratine": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzVieDAzZEtPNHBoRnZoblhuem1BbjA5ekRHY3NLaVdDLmpwZyZ3aWR0aD0xMDI0",
   "apresshampooingsmokygreenveTiver": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2E5WjlXSFplekRxeTBhLWJJcEVTSGd4WTZSWC1fNDZ5LnBuZyZ3aWR0aD0xMDI0",
-  "apresshampooingsmokygreenveTiver2": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2E5WjlXSFplekRxeTBhLWJJcEVTSGd4WTZSWC1fNDZ5LnBuZyZ3aWR0aD0xMDI0",
   "shampooingsmokygreenveTiver": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL19fWTlQUTJNQWg3cVlUa2hGV0xzMkVMZWFqNHowd25rLnBuZyZ3aWR0aD0xMDI0",
   "masquealargilepourlesporesetlespointsnoirs": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzFTajlFMVVSM2x6X1d0ZWtnZlUwUlRkOUdLTHgzYVY1LmpwZyZ3aWR0aD0xMDI0",
   "cremepourlevisageantitachesbrunesalacidekojique": "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0xxS3pSUjVEVVpKWC1lREdfeHhrU3UwME4xd3BOWVlSLmpwZyZ3aWR0aD0xMDI0",
