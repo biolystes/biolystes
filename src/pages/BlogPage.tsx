@@ -4,6 +4,7 @@ import articleFeaturedImg from "@/assets/article-featured.jpg";
 import coffretsImg from "@/assets/coffrets-article.png";
 import marieClaireLogo from "@/assets/marie-claire-logo.jpg";
 import biaisActifImg from "@/assets/biais-actif-article.jpg";
+import lancerMarqueImg from "@/assets/lancer-marque-article.png";
 
 const articles = [
   {
@@ -44,7 +45,7 @@ const articles = [
     slug: "lancer-marque-15-jours",
     title: "Comment lancer sa marque cosmétique bio en 15 jours",
     description: "Zéro stock, zéro logistique, certifié COSMOS & ECOCERT. Le guide complet pour les entrepreneurs qui veulent créer leur marque sans les contraintes habituelles.",
-    image: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&h=500&fit=crop",
+    image: lancerMarqueImg,
     date: "22 février 2026",
     featured: false,
     url: "/blog/lancer-marque",
