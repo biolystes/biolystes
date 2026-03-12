@@ -37,8 +37,11 @@ export default function ArticleMarieClairePage() {
               style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}>
               Accédez à notre réseau presse <span className="font-bold">Marie Claire.</span>
             </motion.h1>
-            <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground max-w-xl mx-auto">
+            <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground max-w-xl mx-auto mb-4">
               Faites connaître votre marque grâce à des articles sponsorisés dans l'un des plus grands magazines féminins au monde.
+            </motion.p>
+            <motion.p variants={fadeUp} custom={3} className="text-xs font-semibold text-foreground/60 uppercase tracking-widest">
+              Service sur devis
             </motion.p>
           </SectionBlock>
         </div>
