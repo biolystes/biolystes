@@ -8,6 +8,7 @@ import {
   type EnrichedFields,
   buildEnrichmentMap,
   jsonToWCProduct,
+  parseJsonImages,
   parseCertifications,
   parseIngredients,
   parseStarFeatures,
