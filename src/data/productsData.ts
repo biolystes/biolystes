@@ -58,6 +58,17 @@ export function parseStarFeatures(str: string): string[] {
   return str.split(",").map(s => s.trim()).filter(Boolean);
 }
 
+// ─── Parse images from JSON field ─────────────────────────
+// Format: pipe-separated CDN paths. First is usually cert icon (60px), rest are product photos.
+const CDN_BASE = "https://static.selfnamed.com";
+export function parseJsonImages(imagesStr: string): { src: string }[] {
+  if (!imagesStr) return [];
+  const parts = imagesStr.split("|").map(s => s.trim()).filter(Boolean);
+  // Skip certification icons (width=60), keep product photos
+  const productImages = parts.filter(p => !p.includes("d2lkdGg9NjA=") && !p.includes("Y2VydGlmaWNhdGlvbnM"));
+  return productImages.map(p => ({ src: `${CDN_BASE}${p}` }));
+}
+
 // ─── Category label mapping ───────────────────────────────
 const CATEGORY_LABELS: Record<string, string> = {
   "soins-du-corps": "Soins du corps",
