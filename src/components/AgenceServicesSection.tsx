@@ -136,7 +136,7 @@ function BlocSEO() {
             </div>
           </div>
         ))}
-        <div className="mt-3.5 p-2.5 bg-[#ecfdf5] rounded-xl text-[11px] text-[#065f46] font-semibold text-center flex items-center justify-center gap-1.5">
+        <div className="mt-3.5 p-2.5 bg-[#ecfdf5] rounded-xl text-[11px] text-[#000] font-semibold text-center flex items-center justify-center gap-1.5">
           <Sparkles className="w-3 h-3" /> Fiche produit optimisée automatiquement
         </div>
       </div>
