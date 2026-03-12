@@ -563,18 +563,12 @@ export default function CatalogPage() {
       if (data?.error) throw new Error(data.error);
       if (!data?.imageUrl) throw new Error("Pas d'image générée");
       
-      // Save to state
-      setCleanImages(prev => ({ ...prev, [product.id]: data.imageUrl }));
-      
-      // Persist to database
       const normalized = normalizeStr(product.name);
-      await supabase.from("product_clean_images").upsert({
-        product_name: product.name,
-        product_name_normalized: normalized,
-        clean_image_url: data.imageUrl,
-      }, { onConflict: "product_name_normalized" });
-      
-      setCleanImagesByName(prev => ({ ...prev, [normalized]: data.imageUrl }));
+
+      // Save to state (instant UI feedback)
+      setCleanImages((prev) => ({ ...prev, [product.id]: data.imageUrl }));
+      setCleanImagesByName((prev) => ({ ...prev, [normalized]: data.imageUrl }));
+
       toast.success("Image remplacée et sauvegardée !");
     } catch (err: any) {
       toast.error(err?.message || "Erreur lors de la génération");
@@ -824,7 +818,7 @@ export default function CatalogPage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
             style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
             {products.map(p => (
-              <ProductCard key={p.id} product={p} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} overrideImage={cleanImages[p.id] || cleanImagesByName[normalizeStr(p.name)]} isGenerating={genLoadingId === p.id} />
+              <ProductCard key={p.id} product={p} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} onGenerateClean={handleGenerateClean} overrideImage={cleanImages[p.id] || cleanImagesByName[normalizeStr(p.name)]} isGenerating={genLoadingId === p.id} />
             ))}
           </motion.div>
         )}

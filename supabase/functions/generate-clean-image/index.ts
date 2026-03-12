@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -6,15 +7,34 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+const SUPABASE_URL = Deno.env.get("SUPABASE_URL");
+const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+
+const admin =
+  SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY
+    ? createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
+        auth: { persistSession: false, autoRefreshToken: false },
+      })
+    : null;
+
+const normalizeProductName = (name: string) =>
+  name
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/g, "");
+
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
     const { imageUrl, productName } = await req.json();
     if (!imageUrl) throw new Error("imageUrl is required");
+    if (!productName) throw new Error("productName is required");
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
+    if (!admin) throw new Error("Supabase service client is not configured");
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -74,7 +94,25 @@ serve(async (req) => {
       });
     }
 
-    return new Response(JSON.stringify({ imageUrl: generatedImage }), {
+    const product_name_normalized = normalizeProductName(productName);
+    const { error: persistError } = await admin.from("product_clean_images").upsert(
+      {
+        product_name: productName,
+        product_name_normalized,
+        clean_image_url: generatedImage,
+      },
+      { onConflict: "product_name_normalized" }
+    );
+
+    if (persistError) {
+      console.error("persist clean image error:", persistError);
+      return new Response(JSON.stringify({ error: "Image générée mais non sauvegardée" }), {
+        status: 500,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    return new Response(JSON.stringify({ imageUrl: generatedImage, saved: true }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
