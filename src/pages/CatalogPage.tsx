@@ -470,7 +470,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
 }
 
 // ─── Product Card ─────────────────────────────────────────
-function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void }) {
+function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect, onGenerateClean }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void; onGenerateClean?: (product: WCProduct, imgSrc: string) => void }) {
   const img = product.images?.[0]?.src || getCdnFallbackImage(product.name);
   const cats = product.categories?.map(c => c.name) || [];
   const price = product.price ? parseFloat(product.price) : null;
@@ -479,6 +479,11 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
   const luxury = price ? Math.round(price * 4.5) : null;
   const displayCats = cats.filter(c => c.length < 24).slice(0, 2);
   const enriched = product._enriched;
+
+  const handleGenerate = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (img && onGenerateClean) onGenerateClean(product, img);
+  };
 
   return (
     <motion.div
@@ -509,6 +514,29 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
           <button onClick={onToggleSelect}
             style={{ position: "absolute", top: 10, right: 10, zIndex: 10, width: 26, height: 26, borderRadius: 8, border: isSelected ? "none" : "2px solid rgba(0,0,0,0.15)", background: isSelected ? "#1d1d1f" : "rgba(245,244,223,0.6)", backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "all .15s" }}>
             {isSelected && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
+          </button>
+        )}
+
+        {/* AI Generate Clean Image button */}
+        {img && onGenerateClean && (
+          <button onClick={handleGenerate}
+            title="Générer une photo sans marque"
+            style={{
+              position: "absolute", bottom: 10, right: 10, zIndex: 10,
+              width: 32, height: 32, borderRadius: 10,
+              border: "none",
+              background: "rgba(29,29,31,0.85)", backdropFilter: "blur(8px)",
+              color: "#fff", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              transition: "all .15s",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = "#1d1d1f"; e.currentTarget.style.transform = "scale(1.1)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "rgba(29,29,31,0.85)"; e.currentTarget.style.transform = "scale(1)"; }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+              <path d="M5 3v4" /><path d="M19 17v4" /><path d="M3 5h4" /><path d="M17 19h4" />
+            </svg>
           </button>
         )}
 
