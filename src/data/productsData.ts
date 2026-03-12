@@ -28,7 +28,6 @@ export interface EnrichedFields {
   arome?: string;
   slug?: string;
   categorie_json?: string;
-  images_cdn?: { src: string }[];
 }
 
 // ─── Parse price from JSON format ─────────────────────────
@@ -57,17 +56,6 @@ export function parseIngredients(str: string): string[] {
 export function parseStarFeatures(str: string): string[] {
   if (!str) return [];
   return str.split(",").map(s => s.trim()).filter(Boolean);
-}
-
-// ─── Parse images from JSON field ─────────────────────────
-// Format: pipe-separated CDN paths. First is usually cert icon (60px), rest are product photos.
-const CDN_BASE = "https://static.selfnamed.com";
-export function parseJsonImages(imagesStr: string): { src: string }[] {
-  if (!imagesStr) return [];
-  const parts = imagesStr.split("|").map(s => s.trim()).filter(Boolean);
-  // Skip certification icons (width=60), keep product photos
-  const productImages = parts.filter(p => !p.includes("d2lkdGg9NjA=") && !p.includes("Y2VydGlmaWNhdGlvbnM"));
-  return productImages.map(p => ({ src: `${CDN_BASE}${p}` }));
 }
 
 // ─── Category label mapping ───────────────────────────────
@@ -110,7 +98,6 @@ export function buildEnrichmentMap(jsonProducts: JSONProduct[]): Map<string, Enr
       arome: jp.arôme || undefined,
       slug: jp.slug,
       categorie_json: jp.categorie,
-      images_cdn: parseJsonImages(jp.images),
       jsonProduct: jp,
     });
   }
@@ -126,7 +113,7 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
     id: -(index + 1), // negative IDs to avoid collision with WC
     name: jp.nom,
     price: price ? price.toString() : "",
-    images: parseJsonImages(jp.images),
+    images: [], // No images from JSON - will show placeholder
     tags: parseCertifications(jp.certifications).map((cert, i) => ({
       id: -(index * 100 + i),
       name: cert,
