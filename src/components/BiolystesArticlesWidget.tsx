@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+import articleFeaturedImg from "@/assets/article-featured.jpg";
+
 const articles = [
   {
     id: 1,
     title: "92% des porteurs de projets cosmétiques sur mesure n'ont toujours pas lancé leur marque 7 mois après",
     description: "Étude interne Biolystes — Échantillon de 30 porteurs de projets — Suivi sur 7 mois. Découvrez pourquoi la formulation sur mesure bloque la majorité des projets.",
-    video: "/videos/article-featured.mp4",
+    image: articleFeaturedImg,
     date: "12 mars 2026",
     featured: true,
     url: "/pourquoi-biolystes",
