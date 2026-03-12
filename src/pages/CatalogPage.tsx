@@ -481,7 +481,7 @@ export default function CatalogPage() {
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch("/data/produits-2.json")
+    fetch("/data/produits.json")
       .then(r => r.json())
       .then((data: JSONProduct[]) => setJsonProducts(data))
       .catch(() => {});
