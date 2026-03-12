@@ -119,7 +119,7 @@ export default function AdminDashboardPage() {
                 }}>
                 <div style={{
                   width: 32, height: 32, borderRadius: "50%", flexShrink: 0,
-                  background: selectedClient?.id === client.id ? "rgba(255,255,255,0.2)" : "#f5f5f7",
+                  background: selectedClient?.id === client.id ? "rgba(255,255,255,0.2)" : "#f5f4df",
                   display: "flex", alignItems: "center", justifyContent: "center",
                   fontSize: 12, fontWeight: 700,
                 }}>
