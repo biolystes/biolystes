@@ -348,7 +348,7 @@ export default function TarifsPage() {
             Communication
           </TabsTrigger>
           <TabsTrigger value="lystes-ai" className="text-xs md:text-sm font-bold uppercase tracking-wide px-5 py-2.5 rounded-full border border-border data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:border-foreground transition-all">
-            Lystes AI
+            Biolystes AI
           </TabsTrigger>
           <TabsTrigger value="abonnements" className="text-xs md:text-sm font-bold uppercase tracking-wide px-5 py-2.5 rounded-full border border-border data-[state=active]:bg-foreground data-[state=active]:text-background data-[state=active]:border-foreground transition-all">
             Abonnements
