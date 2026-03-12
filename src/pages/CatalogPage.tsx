@@ -8,6 +8,7 @@ import {
   type EnrichedFields,
   buildEnrichmentMap,
   jsonToWCProduct,
+  parseJsonImages,
   parseCertifications,
   parseIngredients,
   parseStarFeatures,
@@ -526,7 +527,13 @@ export default function CatalogPage() {
     const enrichedWC = allProducts.map(p => {
       const key = normalizeStr(p.name);
       const enrichment = enrichmentMap.get(key);
-      if (enrichment) return { ...p, _enriched: enrichment };
+      if (enrichment) {
+        // If WC product has no images, inject images from JSON
+        const images = (!p.images || p.images.length === 0) && enrichment.jsonProduct?.images
+          ? parseJsonImages(enrichment.jsonProduct.images)
+          : p.images;
+        return { ...p, images, _enriched: enrichment };
+      }
       return p;
     });
     const jsonOnlyProducts: WCProduct[] = [];

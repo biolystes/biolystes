@@ -83,6 +83,15 @@ export function normalize(name: string): string {
     .replace(/[^a-z0-9]/g, "");
 }
 
+// ─── Parse JSON image paths into URLs ─────────────────────
+export function parseJsonImages(imagesStr: string): { src: string }[] {
+  if (!imagesStr) return [];
+  return imagesStr.split("|").map(s => s.trim()).filter(Boolean)
+    .filter(p => !p.includes("d2lkdGg9NjA=") && !p.includes("d2lkdGg9MTI3")) // skip tiny icons (60px, 127px)
+    .slice(0, 1) // first gallery photo
+    .map(p => ({ src: `https://static.selfnamed.com${p.startsWith("/") ? "" : "/"}${p}` }));
+}
+
 // ─── Build enrichment map ─────────────────────────────────
 export function buildEnrichmentMap(jsonProducts: JSONProduct[]): Map<string, EnrichedFields & { jsonProduct: JSONProduct }> {
   const map = new Map<string, EnrichedFields & { jsonProduct: JSONProduct }>();
@@ -109,11 +118,13 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
   const price = parseJsonPrice(jp.prix);
   const catLabel = getCategoryLabel(jp.categorie);
 
+  const imgUrls = parseJsonImages(jp.images);
+
   return {
-    id: -(index + 1), // negative IDs to avoid collision with WC
+    id: -(index + 1),
     name: jp.nom,
     price: price ? price.toString() : "",
-    images: [], // No images from JSON - will show placeholder
+    images: imgUrls,
     tags: parseCertifications(jp.certifications).map((cert, i) => ({
       id: -(index * 100 + i),
       name: cert,
