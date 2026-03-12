@@ -25,7 +25,7 @@ export default function ForgotPasswordPage() {
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "14px 16px",
-    background: "#F5F5F7",
+    background: "#f5f4df",
     border: "none",
     borderRadius: 12,
     fontSize: 15,
