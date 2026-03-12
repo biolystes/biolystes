@@ -445,6 +445,30 @@ export type Database = {
           },
         ]
       }
+      product_clean_images: {
+        Row: {
+          clean_image_url: string
+          created_at: string
+          id: string
+          product_name: string
+          product_name_normalized: string
+        }
+        Insert: {
+          clean_image_url: string
+          created_at?: string
+          id?: string
+          product_name: string
+          product_name_normalized: string
+        }
+        Update: {
+          clean_image_url?: string
+          created_at?: string
+          id?: string
+          product_name?: string
+          product_name_normalized?: string
+        }
+        Relationships: []
+      }
       product_selections: {
         Row: {
           created_at: string
