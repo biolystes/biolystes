@@ -74,7 +74,7 @@ export default function GlowlySection() {
             </p>
             <a href="https://fr.trustpilot.com/review/glowlyparis.com" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary underline underline-offset-4 mt-3 hover:opacity-80 transition-opacity">
-              Voir un exemple de page Trustpilot →
+              Voir les avis clients de Glowly Paris sur Trustpilot →
             </a>
           </div>
           <div className="flex-[1.5] min-w-[300px] w-full">
