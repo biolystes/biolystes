@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
-import { Check, Play, Star, StarHalf, Menu, Search, User, ShoppingBag } from "lucide-react";
+import { Check, Play } from "lucide-react";
 import SafeVideo from "@/components/SafeVideo";
 import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
-import kaniwa6 from "@/assets/kaniwa-6.jpg";
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -98,57 +98,7 @@ export default function GlowlySection() {
             </p>
           </div>
           <div className="flex-[1.5] min-w-[300px] w-full">
-            {/* Product card mockup */}
-            <div className="flex justify-center">
-              <div className="w-[320px] bg-background rounded-[2rem] overflow-hidden border border-border">
-                <div className="flex items-center justify-between px-5 pt-10 pb-4 z-20">
-                  <div className="flex items-center gap-3">
-                    <Menu className="w-4 h-4 text-foreground" />
-                    <Search className="w-4 h-4 text-foreground" />
-                  </div>
-                  <div className="font-serif font-bold text-xl tracking-wide text-foreground">Kaniwa</div>
-                  <div className="flex items-center gap-3">
-                    <User className="w-4 h-4 text-foreground" />
-                    <div className="relative">
-                      <ShoppingBag className="w-4 h-4 text-foreground" />
-                      <span className="absolute -top-1 -right-1 bg-foreground text-primary-foreground text-[9px] font-bold w-3.5 h-3.5 flex items-center justify-center rounded-full">1</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="bg-foreground text-primary-foreground text-center text-[9px] font-semibold tracking-[2px] uppercase py-1.5">
-                  Livraison gratuite aujourd'hui
-                </div>
-                <img src={kaniwa6} alt="Crème de jour" className="w-full h-[200px] object-cover" />
-                <div className="px-4 pt-3.5 pb-2">
-                  <div className="flex items-center gap-1.5 mb-2">
-                    <div className="flex text-foreground text-xs">
-                      {[...Array(4)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
-                      <StarHalf className="w-3.5 h-3.5 fill-current" />
-                    </div>
-                    <span className="text-xs font-bold text-foreground">4.8/5</span>
-                    <span className="text-xs text-muted-foreground">(241 avis)</span>
-                  </div>
-                  <h3 className="text-lg font-bold leading-tight text-foreground mb-1">Crème de jour anti-âge</h3>
-                  <p className="text-[10px] font-bold text-muted-foreground">Vitiligo · Pores dilatés · Rougeurs</p>
-                </div>
-                <div className="mx-3.5 bg-muted/50 rounded-2xl p-3 flex flex-col gap-2">
-                  <div className="bg-background border border-border rounded-2xl rounded-tl-sm px-3 py-2.5 text-xs text-foreground leading-snug max-w-[90%]">
-                    Parfait ! J'ai analysé votre diagnostic. Peau de type <strong>Mixte</strong>. Comment puis-je vous aider ?
-                  </div>
-                  <div className="self-end bg-foreground text-primary-foreground rounded-2xl rounded-tr-sm px-3 py-2.5 text-xs leading-snug max-w-[80%]">
-                    Cette crème est adaptée aux peaux mixtes et métisses ?
-                  </div>
-                  <div className="bg-background border border-border rounded-2xl rounded-tl-sm px-3 py-2.5 text-xs text-foreground leading-snug max-w-[90%]">
-                    Absolument ! Notre formule contient des extraits marins et de l'acide hyaluronique, parfaitement adaptés.
-                  </div>
-                </div>
-                <div className="mx-3.5 mt-3.5 mb-4">
-                  <button className="w-full bg-foreground text-primary-foreground py-3.5 rounded-xl font-bold text-xs tracking-wider uppercase">
-                    Ajouter au panier — 49,90 €
-                  </button>
-                </div>
-              </div>
-            </div>
+            <SafeVideo src="/videos/contenu-ugc-2.mov" className="w-full rounded-2xl" />
           </div>
         </div>
       </motion.div>
