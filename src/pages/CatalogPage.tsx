@@ -526,6 +526,7 @@ export default function CatalogPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<WCProduct | null>(null);
   const [vatEnabled, setVatEnabled] = useState(false);
+  const [enrichedOnly, setEnrichedOnly] = useState(false);
   const [sortBy, setSortBy] = useState<"date" | "price-asc" | "price-desc">("date");
   const [sortOpen, setSortOpen] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
