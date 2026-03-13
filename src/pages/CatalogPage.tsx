@@ -759,6 +759,13 @@ export default function CatalogPage() {
         <p style={{ fontSize: 14, color: C.muted, marginTop: 10, maxWidth: 460, lineHeight: 1.65 }}>
           Sélectionnez les produits que vous souhaitez commercialiser sous votre propre marque.
         </p>
+        {enrichedCount > 0 && (
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 14, padding: "8px 14px", borderRadius: 12, background: "rgba(107,106,85,0.08)", border: `1px solid ${C.borderLight}` }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></svg>
+            <span style={{ fontSize: 12, fontWeight: 600, color: C.accent }}>{enrichedCount} produits enrichis</span>
+            <span style={{ fontSize: 11, color: C.muted }}>— INCI complet, descriptions, arômes, certifications</span>
+          </div>
+        )}
       </motion.div>
 
       <div>
