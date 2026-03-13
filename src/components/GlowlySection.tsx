@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Check, Play, Sparkles, Star, StarHalf, Menu, Search, User, ShoppingBag } from "lucide-react";
+import { Check, Play, Star, StarHalf, Menu, Search, User, ShoppingBag } from "lucide-react";
 import SafeVideo from "@/components/SafeVideo";
 import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
 import kaniwa6 from "@/assets/kaniwa-6.jpg";
@@ -169,68 +169,7 @@ export default function GlowlySection() {
             </p>
           </div>
           <div className="flex-[1.5] min-w-[300px] w-full">
-            <div className="w-full max-w-2xl mx-auto space-y-3">
-              <div className="flex items-center justify-between px-1 mb-4">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-3 h-3 rounded-full bg-[#6EE7B7]" />
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Plan d'action</span>
-                </div>
-                <div className="flex items-baseline gap-1">
-                  <span className="text-[26px] font-extrabold tracking-tighter text-foreground">40</span>
-                  <span className="text-[13px] font-bold text-[#10b981]">/100</span>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                {/* Completed */}
-                {[
-                  { day: "Lundi", task: "Campagne email de bienvenue", detail: "Envoyée à 100 % des nouveaux inscrits" },
-                  { day: "Mardi", task: "Post Instagram — Avant/Après", detail: "Publié avec 12 hashtags optimisés" },
-                ].map((item) => (
-                  <div key={item.day} className="p-4 rounded-2xl flex items-start gap-3 border border-foreground">
-                    <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 bg-white">
-                      <Check className="w-3.5 h-3.5 text-black" strokeWidth={3} />
-                    </div>
-                    <div className="space-y-0.5">
-                      <p className="text-[12px] font-bold text-foreground">{item.day} — {item.task}</p>
-                      <p className="text-[13px] font-medium text-foreground leading-relaxed">{item.detail}</p>
-                    </div>
-                  </div>
-                ))}
-
-                {/* In progress */}
-                <div className="p-4 rounded-2xl flex items-start gap-3 border border-foreground">
-                  <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 bg-[#ebf5ff]">
-                    <Play className="w-3.5 h-3.5 text-[#3b82f6] fill-[#3b82f6]" />
-                  </div>
-                  <div className="space-y-0.5">
-                    <p className="text-[12px] font-bold text-foreground">Mercredi — Story UGC — Témoignage cliente</p>
-                    <p className="text-[13px] font-medium text-foreground leading-relaxed">En cours de montage / Validation nécessaire</p>
-                  </div>
-                </div>
-
-                {/* Pending */}
-                {[
-                  { day: "Jeudi", task: "Relance panier abandonné", detail: "Prévu pour demain 10 h 00" },
-                  { day: "Vendredi", task: "Newsletter promo weekend", detail: "En attente de rédaction" },
-                ].map((item) => (
-                  <div key={item.day} className="p-4 rounded-2xl flex items-start gap-3 border border-foreground">
-                    <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 bg-muted border border-border">
-                      <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />
-                    </div>
-                    <div className="space-y-0.5">
-                      <p className="text-[12px] font-bold text-foreground">{item.day} — {item.task}</p>
-                      <p className="text-[13px] font-medium text-foreground leading-relaxed">{item.detail}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="bg-[#ecfdf5] rounded-xl p-3 flex items-center justify-center text-black font-semibold text-[11px] gap-1.5">
-                <Sparkles className="w-3.5 h-3.5" />
-                Plan d'action optimisé automatiquement par l'IA
-              </div>
-            </div>
+            <SafeVideo src="/videos/publicite-social.mov" className="w-full h-[400px] object-cover rounded-2xl" />
           </div>
         </div>
       </motion.div>
