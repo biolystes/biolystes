@@ -537,17 +537,32 @@ export default function CatalogPage() {
   const [genLoadingId, setGenLoadingId] = useState<number | null>(null);
   const { user } = useAuth();
 
-  // Load persisted clean images on mount
+  // Load persisted clean images on mount — paginate to handle large base64 payloads
   useEffect(() => {
     (async () => {
-      const { data } = await supabase
-        .from("product_clean_images")
-        .select("product_name_normalized, clean_image_url");
-      if (data && data.length > 0) {
-        const map: Record<string, string> = {};
-        for (const row of data) {
-          map[row.product_name_normalized] = row.clean_image_url;
+      const map: Record<string, string> = {};
+      let from = 0;
+      const PAGE = 50;
+      let hasMore = true;
+      while (hasMore) {
+        const { data, error } = await supabase
+          .from("product_clean_images")
+          .select("product_name_normalized, clean_image_url")
+          .range(from, from + PAGE - 1);
+        if (error) {
+          console.error("Error loading clean images:", error);
+          break;
         }
+        if (data && data.length > 0) {
+          for (const row of data) {
+            map[row.product_name_normalized] = row.clean_image_url;
+          }
+        }
+        hasMore = (data?.length ?? 0) === PAGE;
+        from += PAGE;
+      }
+      console.log(`Loaded ${Object.keys(map).length} clean images from DB`);
+      if (Object.keys(map).length > 0) {
         setCleanImagesByName(map);
       }
     })();
