@@ -539,7 +539,7 @@ export default function DecouvertePage() {
           className="max-w-5xl mx-auto px-6 mt-20 grid md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-border">
           {[
             { num: "1", title: "Profitez de 18 ans d'expérience e-commerce", desc: "Nous vous accompagnons avec un savoir-faire éprouvé dans le e-commerce et la cosmétique naturelle." },
-            { num: "2", title: "Offrez vous des services 360° premium", desc: "Identité visuelle, packagings et boutique en ligne conçus pour valoriser votre marque dès le départ." },
+            { num: "2", title: "Offrez-vous des services 360° premium", desc: "Identité visuelle, packagings et boutique en ligne conçus pour valoriser votre marque dès le départ." },
             { num: "3", title: "Profitez de notre réseau pour vous développer", desc: "Accédez à nos partenaires experts pour accélérer votre croissance sans multiplier les prestataires." },
           ].map((item) => (
             <div key={item.num} className="px-8 py-10 md:py-8">
@@ -800,7 +800,7 @@ export default function DecouvertePage() {
                 <div className="rounded-xl p-4 mb-7 bg-muted/50 border border-border">
                   <p className="text-xs font-extrabold uppercase tracking-wide mb-0.5 text-foreground">+ Abonnement Pro inclus obligatoire</p>
                    <p className="text-2xl font-extrabold my-0.5 text-foreground">99€<span className="text-[13px] font-medium text-foreground">/mois</span></p>
-                   <p className="text-[11px] mt-0.5 text-foreground">Hébergement, livraisons, SEO, support & IA inclus</p>
+                   <p className="text-[11px] mt-0.5 text-foreground">Hébergement, livraisons, SEO & support inclus</p>
                 </div>
                 <div className="flex flex-col mb-8 flex-1">
                   {["Création de logo", "Design Packaging", "Contenu textuel clé en main", "Photographie IA hyperréaliste", "Site e-commerce", "Indexation Google", "Automatisation livraison", "Support premium", "Expert produit dédié en votre nom", "Achat de stock pas nécessaire", "Aucune quantité min en cas d'achat de stock", "Optimisation SEO avancée", "CRO standard"].map((f, i) => (
@@ -1072,7 +1072,7 @@ export default function DecouvertePage() {
 
           {/* Bottom bar */}
           <div className="border-t border-cream/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs opacity-40">©2025 Biolystes</p>
+            <p className="text-xs opacity-40">©2026 Biolystes</p>
             <div className="flex items-center gap-6 text-xs opacity-40">
               <Link to="/mentions-legales" className="hover:opacity-100 transition-opacity">Mentions légales</Link>
               <Link to="/politique-confidentialite" className="hover:opacity-100 transition-opacity">Politique de Confidentialité</Link>

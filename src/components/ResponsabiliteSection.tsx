@@ -30,7 +30,7 @@ export default function ResponsabiliteSection() {
         </motion.h2>
         <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
           className="text-[17px] text-cream/50 leading-[1.7] max-w-[600px] mx-auto">
-          Vous êtes protégé pour restez focus, sur ce qui compte le plus développer votre marque et vos ventes.
+          Vous êtes protégé pour rester focus sur ce qui compte le plus : développer votre marque et vos ventes.
         </motion.p>
       </div>
 
@@ -91,7 +91,7 @@ export default function ResponsabiliteSection() {
               Produit endommagé ou défectueux ?
             </h3>
             <p className="text-[15px] text-muted-foreground leading-[1.7]">
-              Votre client vous contacte, vous nous transmettez la réclamation avec photo. Remplacement pris en charge sous 30 jours après livraison. Bien entendu dans le cas ou c'est notre laboratoire qui gère la livraison.
+              Votre client vous contacte, vous nous transmettez la réclamation avec photo. Remplacement pris en charge sous 30 jours après livraison. Bien entendu, dans le cas où c'est notre laboratoire qui gère la livraison.
             </p>
           </div>
           <div className="flex-[1.5] min-w-[300px] w-full">

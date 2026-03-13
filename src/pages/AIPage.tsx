@@ -226,7 +226,7 @@ export default function AIPage() {
           teams={[]}
           heroOverrides={{
             kicker: "Création de contenu",
-            title: <>Automatiser la création de contenus niveau <em className="italic">studio professionnel</em></>,
+            title: <>Automatisez la création de contenus niveau <em className="italic">studio professionnel</em></>,
             description: "Nous mettons en place une équipe Photographe AI qui génère des photos produits niveau studio professionnel, des visuels UGC avec de vrais visages pour vos réseaux sociaux et des contenus marketing. En quelques secondes, sans shooting.",
             stats: [
               { num: "∞", label: "Photos générées" },
@@ -268,7 +268,7 @@ export default function AIPage() {
           teams={[]}
           heroOverrides={{
             kicker: "Création de contenu UGC",
-            title: <>Automatiser la création de <em className="italic">contenus UGC</em> pour vos réseaux sociaux</>,
+            title: <>Automatisez la création de <em className="italic">contenus UGC</em> pour vos réseaux sociaux</>,
             description: "Nous mettons en place une équipe Créateur UGC AI qui génère des visuels UGC avec de vrais visages, des stories, des posts Instagram et des témoignages clients authentiques. Du contenu engageant produit en quelques secondes, sans créateurs externes.",
             stats: [
               { num: "∞", label: "Contenus générés" },
@@ -419,7 +419,7 @@ export default function AIPage() {
             </div>
           </div>
           <div className="border-t border-cream/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
-            <p className="text-xs opacity-40">©2025 Biolystes</p>
+            <p className="text-xs opacity-40">©2026 Biolystes</p>
             <div className="flex items-center gap-6 text-xs opacity-40">
               <a href="/mentions-legales" className="hover:opacity-100 transition-opacity">Mentions légales</a>
               <a href="/politique-confidentialite" className="hover:opacity-100 transition-opacity">Politique de Confidentialité</a>

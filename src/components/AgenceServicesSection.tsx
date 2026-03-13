@@ -171,7 +171,7 @@ function BlocInfluence() {
 function BlocEvents() {
   return (
     <TeamRow bg="bg-secondary" reversed title="Gestion de vos events" kicker="Events Beauty"
-      desc="Nous mettons en place une organisation pour sublimer vos events beauty. Afin de vous faire connaître.">
+      desc="Nous mettons en place une organisation pour sublimer vos events beauty afin de vous faire connaître.">
       <div className="rounded-2xl overflow-hidden">
         <SafeVideo src="/videos/event-beauty.mp4" className="w-full h-[400px] object-cover" lazy />
       </div>

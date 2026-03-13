@@ -273,7 +273,7 @@ function AnimatedChat() {
     (async () => {
       try {
         await d(800); if (cancelled) return;
-        await typeAndSend("Bonjour, j'aimerais savoir si cette crème est adaptée au peau mixte et métisse ?", "msg-2");
+        await typeAndSend("Bonjour, j'aimerais savoir si cette crème est adaptée aux peaux mixtes et métisses ?", "msg-2");
         await d(500); if (cancelled) return;
         setShowTyping(true); scrollToBottom(); await d(2000); if (cancelled) return;
         setShowTyping(false); showMsg("msg-3"); await d(2500); if (cancelled) return;
@@ -375,7 +375,7 @@ export default function ConceptPage() {
           </motion.div>
           <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.2 }}
             className="text-3xl md:text-5xl lg:text-[3.8rem] xl:text-[4.5rem] font-black text-foreground leading-[1.05] tracking-[-0.02em] uppercase max-w-5xl mx-auto">
-            Sans vous ruiner lancez votre propre marque cosmétique bio et végane
+            Sans vous ruiner, lancez votre propre marque cosmétique bio et végane
           </motion.h1>
           <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }}
             className="mt-8 text-base md:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
