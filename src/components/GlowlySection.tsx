@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Check, Play, Star } from "lucide-react";
 import SafeVideo from "@/components/SafeVideo";
-import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
+
 
 
 const fadeUp = {
