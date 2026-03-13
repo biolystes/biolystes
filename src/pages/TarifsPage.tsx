@@ -151,7 +151,7 @@ function CosmetiqueTab() {
             title="Pack IA"
             subtitle="Gestion 360° + Intelligence artificielle avancée"
             price="2 999€"
-            priceLabel="frais uniques ou 999€ en 2 fois"
+            priceLabel="frais uniques ou 2× 1 500€"
             monthlyBlock={{ price: "149€", label: "/mois", note: "1er mois offert · Tout le Pro + UGC IA, diagnostic IA & réseaux sociaux" }}
             features={[
               "Création de logo", "Design Packaging", "Contenu textuel clé en main",
