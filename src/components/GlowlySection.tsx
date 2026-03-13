@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Check, Play, Star } from "lucide-react";
 import SafeVideo from "@/components/SafeVideo";
-import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
+
 
 
 const fadeUp = {
@@ -74,10 +74,8 @@ export default function GlowlySection() {
           </div>
           <div className="flex-[1.5] min-w-[300px] w-full">
             <div className="relative">
-              <div className="flex gap-3.5 flex-wrap">
-                <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
-                  <img src={kaniwaUgc2} alt="Avis client UGC" className="w-full h-[480px] object-cover block" />
-                </div>
+              <div className="rounded-2xl overflow-hidden">
+                <SafeVideo src="/videos/trustpilot-ugc.mp4" className="w-full h-[480px] object-cover" />
               </div>
               {/* Trustpilot badge */}
               <div className="absolute bottom-4 left-4 bg-white rounded-xl px-4 py-3 shadow-lg flex items-center gap-4 max-w-[280px]">
