@@ -15,7 +15,7 @@ const articles = [
     image: articleFeaturedImg,
     date: "12 mars 2026",
     featured: true,
-    url: "/pourquoi-biolystes",
+    url: "/etudes",
   },
   {
     id: 6,
