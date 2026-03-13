@@ -275,8 +275,8 @@ function TeamExpertProduit({ titleOverride }: { titleOverride?: string }) {
             <ProductInfo small />
             <p className="text-[10px] font-bold text-muted-foreground">Vitiligo · Pores dilatés · Rougeurs</p>
           </div>
-          <div className="mx-3.5 bg-muted/50 rounded-2xl p-3 flex flex-col gap-2">
-            <div className="bg-background border border-border rounded-2xl rounded-tl-sm px-3 py-2.5 text-xs text-foreground leading-snug max-w-[90%]">
+          <div className="mx-3.5 rounded-2xl p-3 flex flex-col gap-2" style={{ background: '#f5f5f5' }}>
+            <div className="bg-background border border-border rounded-2xl rounded-tl-sm px-3 py-2.5 text-xs text-foreground leading-snug max-w-[90%]" style={{ background: '#fff' }}>
               Parfait ! J'ai analysé votre diagnostic. Peau de type <strong>Mixte</strong>. Comment puis-je vous aider ?
             </div>
             <div className="self-end bg-foreground text-primary-foreground rounded-2xl rounded-tr-sm px-3 py-2.5 text-xs leading-snug max-w-[80%]">
