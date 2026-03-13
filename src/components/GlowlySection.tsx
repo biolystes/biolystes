@@ -73,9 +73,35 @@ export default function GlowlySection() {
             </a>
           </div>
           <div className="flex-[1.5] min-w-[300px] w-full">
-            <div className="flex gap-3.5 flex-wrap">
-              <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
-                <img src={kaniwaUgc2} alt="Avis client UGC" className="w-full h-[480px] object-cover block" />
+            <div className="relative">
+              <div className="flex gap-3.5 flex-wrap">
+                <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
+                  <img src={kaniwaUgc2} alt="Avis client UGC" className="w-full h-[480px] object-cover block" />
+                </div>
+              </div>
+              {/* Trustpilot badge */}
+              <div className="absolute bottom-4 left-4 bg-white rounded-xl px-4 py-3 shadow-lg flex items-center gap-4 max-w-[280px]">
+                <div className="flex flex-col items-center">
+                  <span className="text-2xl font-black text-foreground leading-none">4,3</span>
+                  <span className="text-[10px] font-bold text-foreground mt-0.5">Excellent</span>
+                  <div className="flex mt-1">
+                    {[...Array(4)].map((_, i) => (
+                      <Star key={i} className="w-3 h-3 fill-[#00b67a] text-[#00b67a]" />
+                    ))}
+                    <Star className="w-3 h-3 fill-[#00b67a]/40 text-[#00b67a]" />
+                  </div>
+                  <span className="text-[9px] text-muted-foreground mt-0.5">12 avis</span>
+                </div>
+                <div className="flex flex-col gap-[3px] flex-1">
+                  {[{ label: "5", pct: 75 }, { label: "4", pct: 18 }, { label: "3", pct: 0 }, { label: "2", pct: 0 }, { label: "1", pct: 0 }].map((r) => (
+                    <div key={r.label} className="flex items-center gap-1.5">
+                      <span className="text-[9px] text-muted-foreground w-[14px] text-right">{r.label}★</span>
+                      <div className="flex-1 h-[6px] bg-gray-200 rounded-full overflow-hidden">
+                        <div className="h-full bg-[#00b67a] rounded-full" style={{ width: `${r.pct}%` }} />
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
