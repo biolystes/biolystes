@@ -226,7 +226,7 @@ export default function AIPage() {
           teams={[]}
           heroOverrides={{
             kicker: "Création de contenu",
-            title: <>Automatiser la création de contenus niveau <em className="italic">studio professionnel</em></>,
+            title: <>Automatisez la création de contenus niveau <em className="italic">studio professionnel</em></>,
             description: "Nous mettons en place une équipe Photographe AI qui génère des photos produits niveau studio professionnel, des visuels UGC avec de vrais visages pour vos réseaux sociaux et des contenus marketing. En quelques secondes, sans shooting.",
             stats: [
               { num: "∞", label: "Photos générées" },
