@@ -610,7 +610,7 @@ export default function ConceptPage() {
                     </div>
                   </div>
                   {/* Product image area */}
-                  <div className="w-full h-64 bg-muted relative pt-4 overflow-hidden">
+                  <div className="w-full h-64 relative pt-4 overflow-hidden" style={{ background: '#f5f5f5' }}>
                     <div className="flex justify-center items-start h-full">
                       <img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl shadow-sm border border-border relative z-10" />
                     </div>
