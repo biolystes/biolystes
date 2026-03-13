@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Check, Play } from "lucide-react";
 import SafeVideo from "@/components/SafeVideo";
 import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
-import kaniwa6 from "@/assets/kaniwa-6.jpg";
+
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
