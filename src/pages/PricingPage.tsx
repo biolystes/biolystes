@@ -85,7 +85,7 @@ function PackAgence() {
       <div className="rounded-xl p-4 mb-7 bg-muted/50 border border-border">
         <p className="text-xs font-extrabold uppercase tracking-wide mb-0.5 text-foreground">+ Abonnement Pro inclus obligatoire</p>
         <p className="text-2xl font-extrabold my-0.5 text-foreground">99€<span className="text-[13px] font-medium text-muted-foreground">/mois</span></p>
-        <p className="text-[11px] mt-0.5 text-muted-foreground">Hébergement, livraisons, SEO, support & IA inclus</p>
+        <p className="text-[11px] mt-0.5 text-muted-foreground">Hébergement, livraisons, SEO & support inclus</p>
       </div>
 
       <div className="flex flex-col mb-8">

@@ -268,7 +268,7 @@ export default function AIPage() {
           teams={[]}
           heroOverrides={{
             kicker: "Création de contenu UGC",
-            title: <>Automatiser la création de <em className="italic">contenus UGC</em> pour vos réseaux sociaux</>,
+            title: <>Automatisez la création de <em className="italic">contenus UGC</em> pour vos réseaux sociaux</>,
             description: "Nous mettons en place une équipe Créateur UGC AI qui génère des visuels UGC avec de vrais visages, des stories, des posts Instagram et des témoignages clients authentiques. Du contenu engageant produit en quelques secondes, sans créateurs externes.",
             stats: [
               { num: "∞", label: "Contenus générés" },
