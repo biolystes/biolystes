@@ -659,7 +659,10 @@ export default function CatalogPage() {
     return groups;
   })();
 
+  const enrichedCount = mergedProducts.filter(p => !!p._enriched).length;
+
   const filteredProducts = mergedProducts.filter(p => {
+    if (enrichedOnly && !p._enriched) return false;
     const pCatIds = new Set(p.categories.map(c => c.id));
     const pTagIds = new Set(p.tags.map(t => t.id));
     const pAttrMap: Record<string, string[]> = {};
