@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import LystesAiSection from "@/components/LystesAiSection";
 import ResponsabiliteSection from "@/components/ResponsabiliteSection";
+import GlowlySection from "@/components/GlowlySection";
 import InstaFeedSection from "@/components/InstaFeedSection";
 import WirtzkinSection from "@/components/WirtzkinSection";
 import AvantApresSection from "@/components/AvantApresSection";
