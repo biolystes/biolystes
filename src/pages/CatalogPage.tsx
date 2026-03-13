@@ -782,6 +782,13 @@ export default function CatalogPage() {
             {catOptions.length > 0 && <FilterDropdown label="Catégorie" options={catOptions} selected={selectedCatIds} onChange={ids => setSelectedCatIds(ids as number[])} grid={catOptions.length > 4} />}
             {unGroupedTags.length > 0 && <FilterDropdown label="Étiquette" options={unGroupedTags} selected={selectedTagIds} onChange={ids => setSelectedTagIds(ids as number[])} grid={unGroupedTags.length > 6} />}
             {groupFilters.map(f => <FilterDropdown key={f.label} label={f.label} options={f.options} selected={selectedGroupTags[f.label] || []} onChange={ids => setSelectedGroupTags(prev => ({ ...prev, [f.label]: ids as number[] }))} grid={f.options.length > 6 && !f.isColor} />)}
+            {enrichedCount > 0 && (
+              <button onClick={() => setEnrichedOnly(o => !o)}
+                style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 20, border: enrichedOnly ? "1.5px solid #1d1d1f" : `0px solid ${C.border}`, background: enrichedOnly ? "#1d1d1f" : C.badgeBg, color: enrichedOnly ? C.bgLight : "#1d1d1f", fontSize: 12, fontWeight: 500, cursor: "pointer", transition: "all .15s", whiteSpace: "nowrap" }}>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></svg>
+                Fiches enrichies
+              </button>
+            )}
             {hasFilters && <button onClick={clearFilters} style={{ padding: "7px 14px", borderRadius: 20, border: `1px solid ${C.border}`, background: "transparent", color: C.muted, fontSize: 12, fontWeight: 400, cursor: "pointer" }}>Effacer</button>}
           </div>
 
