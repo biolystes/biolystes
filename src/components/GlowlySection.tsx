@@ -169,7 +169,7 @@ export default function GlowlySection() {
             </p>
           </div>
           <div className="flex-[1.5] min-w-[300px] w-full">
-            <SafeVideo src="/videos/publicite-social.mov" className="w-full h-[400px] object-cover rounded-2xl" />
+            <SafeVideo src="/videos/publicite-social.mov" className="w-full rounded-2xl" />
           </div>
         </div>
       </motion.div>
