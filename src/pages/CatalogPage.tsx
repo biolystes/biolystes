@@ -720,11 +720,11 @@ export default function CatalogPage() {
       return 0;
     });
 
-  const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 ||
+  const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 || enrichedOnly ||
     Object.values(selectedAttrTerms).some(v => v.length > 0) ||
     Object.values(selectedGroupTags).some(v => v.length > 0);
 
-  const clearFilters = () => { setSelectedCatIds([]); setSelectedTagIds([]); setSelectedAttrTerms({}); setSelectedGroupTags({}); };
+  const clearFilters = () => { setSelectedCatIds([]); setSelectedTagIds([]); setSelectedAttrTerms({}); setSelectedGroupTags({}); setEnrichedOnly(false); };
 
   const catOptions: FilterOption[] = topLevel.map(c => ({ id: c.id, name: c.name }));
   const unGroupedTags = allTags.filter(t => { const { group } = parseTag(t.name); if (!group) return true; return !TAG_GROUP_LABELS[group]; }).slice(0, 30).map(t => ({ id: t.id, name: t.name }));
