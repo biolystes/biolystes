@@ -25,8 +25,8 @@ export default function CGVPage() {
 
             <strong>A. Biolystes Cosmétique</strong><br />
             – <strong>Pack Découverte</strong> : 147€ (ou 3× 49€) — 4 produits échantillons, accompagnement personnalisé, étiquetage conforme, certifié Bio &amp; Végan / COSMOS / ECOCERT / FDA, livraison incluse. Les 147€ sont déduits de toute Offre Avec Site souscrite dans les 30 jours.<br />
-            – <strong>Pack Agence</strong> : 1 499€ de frais de mise en place (ou 999€ en 2 fois) + abonnement PRO à 99€/mois sans engagement — Logo, packaging, site e-commerce, SEO, automatisation livraison, support premium, expert dédié.<br />
-            – <strong>Pack IA</strong> : 2 999€ de frais de mise en place (ou 999€ en 2 fois) + abonnement PRO IA à 149€/mois sans engagement (1er mois offert) — Tout le Pack Agence + UGC IA, diagnostic intelligent, recommandations produits par IA, gestion réseaux sociaux 1 mois.<br /><br />
+            – <strong>Pack Agence</strong> : 1 499€ de frais de mise en place (ou 750€ en 2 fois) + abonnement PRO à 99€/mois sans engagement — Logo, packaging, site e-commerce, SEO, automatisation livraison, support premium, expert dédié.<br />
+            – <strong>Pack IA</strong> : 2 999€ de frais de mise en place (ou 1 500€ en 2 fois) + abonnement PRO IA à 149€/mois sans engagement (1er mois offert) — Tout le Pack Agence + UGC IA, diagnostic intelligent, recommandations produits par IA, gestion réseaux sociaux 1 mois.<br /><br />
 
             <strong>B. Agence Communication</strong> (pour les marques ayant déjà un laboratoire)<br />
             – <strong>Pack Visibilité</strong> : 499€ HT/mois sans engagement — 12 publications/mois, calendrier éditorial, création de visuels, photos IA, community management, rapport mensuel, SEO fiches produits.<br />
