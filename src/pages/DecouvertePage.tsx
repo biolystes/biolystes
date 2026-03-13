@@ -642,6 +642,9 @@ export default function DecouvertePage() {
         <ResponsabiliteSection />
       </section>
 
+      {/* ═══ GLOWLY — MAXIMISER VOS RÉSULTATS ═══ */}
+      <GlowlySection />
+
       {/* ═══ 7. PORTFOLIO — NOS CLIENTS ═══ */}
       <section id="section-portfolio" ref={setRef("portfolio")} className="py-6 md:py-8">
         <div className="max-w-5xl mx-auto px-6">
