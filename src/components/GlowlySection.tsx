@@ -67,6 +67,10 @@ export default function GlowlySection() {
             <p className="text-[15px] text-muted-foreground leading-[1.7]">
               Les avis clients sont la pierre angulaire de votre crédibilité en ligne. Créez votre profil Trustpilot, encouragez vos premiers clients à laisser un avis et construisez une réputation solide qui rassure et convertit les visiteurs en acheteurs.
             </p>
+            <a href="https://fr.trustpilot.com/review/glowlyparis.com" target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-primary underline underline-offset-4 mt-3 hover:opacity-80 transition-opacity">
+              Voir un exemple de page Trustpilot →
+            </a>
           </div>
           <div className="flex-[1.5] min-w-[300px] w-full">
             <div className="flex gap-3.5 flex-wrap">
