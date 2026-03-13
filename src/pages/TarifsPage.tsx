@@ -130,7 +130,7 @@ function CosmetiqueTab() {
             title="Pack Agence"
             subtitle="Gestion 360°"
             price="1 499€"
-            priceLabel="frais uniques ou 999€ en 2 fois"
+            priceLabel="frais uniques ou 2× 750€"
             highlighted
             monthlyBlock={{ price: "99€", label: "/mois", note: "Hébergement, livraisons, SEO, support & IA inclus" }}
             features={[
