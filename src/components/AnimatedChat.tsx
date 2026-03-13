@@ -74,8 +74,8 @@ export function AnimatedChat() {
       style={chatWhiteBg}
       onViewportEnter={() => setIsVisible(true)} viewport={{ once: false, margin: "-50px" }}>
       <div ref={containerRef} className="h-[291px] overflow-y-auto p-4 pt-5 flex flex-col gap-4 bg-muted/30" style={{ scrollBehavior: "smooth", scrollbarWidth: "none", background: '#fff' }}>
-        <div className="flex flex-col gap-1 w-full shrink-0">
-          <div className="bg-background border border-border shadow-sm text-foreground text-[12px] p-3 rounded-2xl rounded-tl-sm leading-relaxed w-[92%]">
+        <div className="flex flex-col gap-1 w-full shrink-0" style={chatWhiteBg}>
+          <div className="bg-background border border-border shadow-sm text-foreground text-[12px] p-3 rounded-2xl rounded-tl-sm leading-relaxed w-[92%]" style={chatWhiteBg}>
             Parfait ! J'ai analysé votre diagnostic. Peau de type Mixte. Préoccupations : Vitiligo, Pores dilatés, Légères rougeurs. Comment puis-je vous aider avec la Crème de jour anti-âge ?
           </div>
           <span className="text-[9px] text-muted-foreground ml-1 font-medium">Maintenant</span>
