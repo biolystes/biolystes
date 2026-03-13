@@ -211,7 +211,13 @@ export default function AIPage() {
 
       {/* ═══ 3. ÉQUIPE DIAGNOSTICS AI (section sombre 1) ═══ */}
       <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8 text-primary-foreground">
-        <LystesAiSection teams={["diagnostics"]} />
+        <LystesAiSection
+          teams={["diagnostics"]}
+          heroOverrides={{
+            kicker: "Diagnostic intelligent",
+            title: <>Automatisez la recommandation de produits grâce au <em className="italic">diagnostic</em></>,
+          }}
+        />
       </section>
 
       {/* ═══ 4. CRÉATION DE CONTENU AI (section sombre 2) ═══ */}
