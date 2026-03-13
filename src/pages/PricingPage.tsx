@@ -115,7 +115,7 @@ function PackIA() {
 
       <div className="mb-2">
         <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">2 999€</span>
-        <span className="text-[13px] ml-2 text-muted-foreground">frais uniques ou 999€ en 2 fois</span>
+        <span className="text-[13px] ml-2 text-muted-foreground">frais uniques ou 1 500€ en 2 fois</span>
       </div>
 
       <div className="rounded-xl p-4 mb-7 bg-muted/50 border border-border">
