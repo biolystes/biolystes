@@ -654,7 +654,7 @@ export default function ConceptPage() {
                   </div>
                 </div>
                 {/* Conversion rate card */}
-                <div className="w-[320px] bg-background px-5 py-4 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] relative z-20">
+                <div className="w-[320px] bg-background px-5 py-4 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] relative z-20" style={{ background: '#fff' }}>
                   <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block mb-2">TAUX DE CONVERSION</span>
                   <div className="flex items-center gap-3">
                     <span className="text-[22px] font-bold text-foreground">3,8 %</span>
