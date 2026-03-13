@@ -399,13 +399,6 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
           </button>
         )}
 
-        {enriched && (
-          <div style={{ position: "absolute", bottom: 10, right: 10, zIndex: 2, display: "flex", alignItems: "center", gap: 4, padding: "3px 8px", borderRadius: 8, background: "rgba(29,29,31,0.75)", backdropFilter: "blur(8px)" }}>
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(245,244,223,0.9)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></svg>
-            <span style={{ fontSize: 8, fontWeight: 700, color: "rgba(245,244,223,0.9)", letterSpacing: ".3px", textTransform: "uppercase" }}>Enrichi</span>
-          </div>
-        )}
-
         {/* AI Generate Clean Image button — hidden for now */}
         {false && onGenerateClean && (originalImg || overrideImage) && (
           <button onClick={handleGenerate}
@@ -533,7 +526,6 @@ export default function CatalogPage() {
   const [error, setError] = useState<string | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<WCProduct | null>(null);
   const [vatEnabled, setVatEnabled] = useState(false);
-  const [enrichedOnly, setEnrichedOnly] = useState(false);
   const [sortBy, setSortBy] = useState<"date" | "price-asc" | "price-desc">("date");
   const [sortOpen, setSortOpen] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
@@ -666,10 +658,7 @@ export default function CatalogPage() {
     return groups;
   })();
 
-  const enrichedCount = mergedProducts.filter(p => !!p._enriched).length;
-
   const filteredProducts = mergedProducts.filter(p => {
-    if (enrichedOnly && !p._enriched) return false;
     const pCatIds = new Set(p.categories.map(c => c.id));
     const pTagIds = new Set(p.tags.map(t => t.id));
     const pAttrMap: Record<string, string[]> = {};
@@ -727,11 +716,11 @@ export default function CatalogPage() {
       return 0;
     });
 
-  const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 || enrichedOnly ||
+  const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 ||
     Object.values(selectedAttrTerms).some(v => v.length > 0) ||
     Object.values(selectedGroupTags).some(v => v.length > 0);
 
-  const clearFilters = () => { setSelectedCatIds([]); setSelectedTagIds([]); setSelectedAttrTerms({}); setSelectedGroupTags({}); setEnrichedOnly(false); };
+  const clearFilters = () => { setSelectedCatIds([]); setSelectedTagIds([]); setSelectedAttrTerms({}); setSelectedGroupTags({}); };
 
   const catOptions: FilterOption[] = topLevel.map(c => ({ id: c.id, name: c.name }));
   const unGroupedTags = allTags.filter(t => { const { group } = parseTag(t.name); if (!group) return true; return !TAG_GROUP_LABELS[group]; }).slice(0, 30).map(t => ({ id: t.id, name: t.name }));
@@ -766,13 +755,6 @@ export default function CatalogPage() {
         <p style={{ fontSize: 14, color: C.muted, marginTop: 10, maxWidth: 460, lineHeight: 1.65 }}>
           Sélectionnez les produits que vous souhaitez commercialiser sous votre propre marque.
         </p>
-        {enrichedCount > 0 && (
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, marginTop: 14, padding: "8px 14px", borderRadius: 12, background: "rgba(107,106,85,0.08)", border: `1px solid ${C.borderLight}` }}>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={C.accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></svg>
-            <span style={{ fontSize: 12, fontWeight: 600, color: C.accent }}>{enrichedCount} produits enrichis</span>
-            <span style={{ fontSize: 11, color: C.muted }}>— INCI complet, descriptions, arômes, certifications</span>
-          </div>
-        )}
       </motion.div>
 
       <div>
@@ -789,13 +771,6 @@ export default function CatalogPage() {
             {catOptions.length > 0 && <FilterDropdown label="Catégorie" options={catOptions} selected={selectedCatIds} onChange={ids => setSelectedCatIds(ids as number[])} grid={catOptions.length > 4} />}
             {unGroupedTags.length > 0 && <FilterDropdown label="Étiquette" options={unGroupedTags} selected={selectedTagIds} onChange={ids => setSelectedTagIds(ids as number[])} grid={unGroupedTags.length > 6} />}
             {groupFilters.map(f => <FilterDropdown key={f.label} label={f.label} options={f.options} selected={selectedGroupTags[f.label] || []} onChange={ids => setSelectedGroupTags(prev => ({ ...prev, [f.label]: ids as number[] }))} grid={f.options.length > 6 && !f.isColor} />)}
-            {enrichedCount > 0 && (
-              <button onClick={() => setEnrichedOnly(o => !o)}
-                style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 20, border: enrichedOnly ? "1.5px solid #1d1d1f" : `0px solid ${C.border}`, background: enrichedOnly ? "#1d1d1f" : C.badgeBg, color: enrichedOnly ? C.bgLight : "#1d1d1f", fontSize: 12, fontWeight: 500, cursor: "pointer", transition: "all .15s", whiteSpace: "nowrap" }}>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></svg>
-                Fiches enrichies
-              </button>
-            )}
             {hasFilters && <button onClick={clearFilters} style={{ padding: "7px 14px", borderRadius: 20, border: `1px solid ${C.border}`, background: "transparent", color: C.muted, fontSize: 12, fontWeight: 400, cursor: "pointer" }}>Effacer</button>}
           </div>
 

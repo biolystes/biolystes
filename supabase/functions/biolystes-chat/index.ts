@@ -55,6 +55,8 @@ function buildEnrichedCatalog(products: ProduitJSON[]): string {
     output += `### ${categoryLabels[cat] || cat.toUpperCase()}\n\n`;
     for (const p of prods) {
       const price = extractPrice(p.prix);
+      // Truncate INCI to first 200 chars for context window efficiency
+      const inciShort = p.inci ? p.inci.substring(0, 250).replace(/\n/g, " ") : "";
       
       output += `**${p.nom}** — ${p.volume} — Prix unitaire HT : ${price}\n`;
       output += `- Slug URL : ${p.slug}\n`;
@@ -62,12 +64,12 @@ function buildEnrichedCatalog(products: ProduitJSON[]): string {
       output += `- Ingrédients clés : ${p.ingredients_fr}\n`;
       output += `- Points forts : ${p.star_features}\n`;
       if (p.arôme) output += `- Arôme/Parfum : ${p.arôme}\n`;
+      // Include a condensed description (first 300 chars)
       if (p.description) {
-        output += `- Description complète : ${p.description.replace(/\n/g, " ")}\n`;
+        const desc = p.description.substring(0, 350).replace(/\n/g, " ");
+        output += `- Description : ${desc}…\n`;
       }
-      if (p.inci) {
-        output += `- INCI complet : ${p.inci.replace(/\n/g, " ")}\n`;
-      }
+      if (inciShort) output += `- INCI (extrait) : ${inciShort}…\n`;
       output += `\n`;
     }
   }
