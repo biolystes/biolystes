@@ -399,6 +399,28 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
           </button>
         )}
 
+        {/* AI Generate Clean Image button — always show so user can regenerate */}
+        {onGenerateClean && (originalImg || overrideImage) && (
+          <button onClick={handleGenerate}
+            title="Générer une photo sans marque"
+            style={{
+              position: "absolute", bottom: 10, left: 10, zIndex: 10,
+              width: 32, height: 32, borderRadius: 10,
+              border: "none",
+              background: "rgba(29,29,31,0.85)", backdropFilter: "blur(8px)",
+              color: "#fff", cursor: "pointer",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              transition: "all .15s",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = "#1d1d1f"; e.currentTarget.style.transform = "scale(1.1)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "rgba(29,29,31,0.85)"; e.currentTarget.style.transform = "scale(1)"; }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
+              <path d="M5 3v4" /><path d="M19 17v4" /><path d="M3 5h4" /><path d="M17 19h4" />
+            </svg>
+          </button>
+        )}
 
         {img
           ? <img src={img} alt={product.name} loading="lazy"
