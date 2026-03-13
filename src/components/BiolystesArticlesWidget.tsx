@@ -95,7 +95,7 @@ export default function BiolystesArticlesWidget() {
           gap: 8px;
           background: #000;
           color: #f5f4df;
-          border: none;
+          border: 2px solid #f5f4df;
           border-radius: 50px;
           padding: 14px 24px;
           font-size: 14px;
@@ -121,6 +121,10 @@ export default function BiolystesArticlesWidget() {
           width: 18px;
           height: 18px;
           flex-shrink: 0;
+        }
+
+        .biolystes-fab video {
+          border: 2px solid #f5f4df;
         }
 
         .biolystes-fab-dot {
