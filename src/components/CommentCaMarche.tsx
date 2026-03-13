@@ -58,6 +58,14 @@ const steps = [
 export default function CommentCaMarche() {
   const [current, setCurrent] = useState(0);
 
+  // Preload all step images on mount
+  useEffect(() => {
+    steps.forEach((step) => {
+      const img = new Image();
+      img.src = step.image;
+    });
+  }, []);
+
   const prev = () => setCurrent((c) => Math.max(0, c - 1));
   const next = () => setCurrent((c) => Math.min(steps.length - 1, c + 1));
 
