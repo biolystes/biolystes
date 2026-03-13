@@ -273,7 +273,7 @@ function AnimatedChat() {
     (async () => {
       try {
         await d(800); if (cancelled) return;
-        await typeAndSend("Bonjour, j'aimerais savoir si cette crème est adaptée au peau mixte et métisse ?", "msg-2");
+        await typeAndSend("Bonjour, j'aimerais savoir si cette crème est adaptée aux peaux mixtes et métisses ?", "msg-2");
         await d(500); if (cancelled) return;
         setShowTyping(true); scrollToBottom(); await d(2000); if (cancelled) return;
         setShowTyping(false); showMsg("msg-3"); await d(2500); if (cancelled) return;
