@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import LystesAiSection from "@/components/LystesAiSection";
 import ResponsabiliteSection from "@/components/ResponsabiliteSection";
+import GlowlySection from "@/components/GlowlySection";
 import InstaFeedSection from "@/components/InstaFeedSection";
 import WirtzkinSection from "@/components/WirtzkinSection";
 import AvantApresSection from "@/components/AvantApresSection";
@@ -640,6 +641,9 @@ export default function DecouvertePage() {
         <AvantApresSection />
         <ResponsabiliteSection />
       </section>
+
+      {/* ═══ GLOWLY — MAXIMISER VOS RÉSULTATS ═══ */}
+      <GlowlySection />
 
       {/* ═══ 7. PORTFOLIO — NOS CLIENTS ═══ */}
       <section id="section-portfolio" ref={setRef("portfolio")} className="py-6 md:py-8">
