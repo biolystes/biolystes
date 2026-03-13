@@ -30,6 +30,11 @@ export default function GlowlySection() {
           className="text-[17px] text-cream/50 leading-[1.7] max-w-[600px] mx-auto">
           En tant que nouvelle marque, le plus important est de gérer votre e-réputation et votre exposition.
         </motion.p>
+        <motion.a href="https://glowlyparis.com/" target="_blank" rel="noopener noreferrer"
+          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
+          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-cream/70 underline underline-offset-4 mt-3 hover:text-cream transition-colors">
+          Voir l'exemple de Glowly Paris →
+        </motion.a>
       </div>
 
       {/* ─── Block 1 — Créatrices de contenu ─── */}
