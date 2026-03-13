@@ -30,7 +30,7 @@ export default function ResponsabiliteSection() {
         </motion.h2>
         <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
           className="text-[17px] text-cream/50 leading-[1.7] max-w-[600px] mx-auto">
-          Vous êtes protégé pour restez focus, sur ce qui compte le plus développer votre marque et vos ventes.
+          Vous êtes protégé pour rester focus sur ce qui compte le plus : développer votre marque et vos ventes.
         </motion.p>
       </div>
 
