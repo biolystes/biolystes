@@ -123,6 +123,10 @@ export default function BiolystesArticlesWidget() {
           flex-shrink: 0;
         }
 
+        .biolystes-fab video {
+          border: 2px solid #f5f4df;
+        }
+
         .biolystes-fab-dot {
           position: absolute;
           top: -3px;
