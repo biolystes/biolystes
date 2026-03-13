@@ -139,7 +139,7 @@ export default function DiagnosticComparisonSection() {
                     <PaymentIcons />
                   </div>
                 </div>
-                <div className="w-[320px] bg-background px-5 py-4 rounded-2xl border border-border relative z-20">
+                <div className="w-[320px] bg-background px-5 py-4 rounded-2xl border border-border relative z-20" style={{ background: '#fff' }}>
                   <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block mb-2">TAUX DE CONVERSION</span>
                   <div className="flex items-center gap-3">
                     <span className="text-[22px] font-bold text-foreground">0,6 %</span>
