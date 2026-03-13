@@ -132,7 +132,7 @@ function CosmetiqueTab() {
             price="1 499€"
             priceLabel="frais uniques ou 2× 750€"
             highlighted
-            monthlyBlock={{ price: "99€", label: "/mois", note: "Hébergement, livraisons, SEO, support & IA inclus" }}
+            monthlyBlock={{ price: "99€", label: "/mois", note: "Hébergement, livraisons, SEO & support inclus" }}
             features={[
               "Création de logo", "Design Packaging", "Contenu textuel clé en main",
               "Photographie IA hyperréaliste", "Site e-commerce", "Indexation Google",
