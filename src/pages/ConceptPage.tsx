@@ -593,7 +593,7 @@ export default function ConceptPage() {
               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
                 className="flex flex-col items-center gap-8 relative z-10 w-[320px] shrink-0">
                 <div className="bg-foreground text-primary-foreground px-5 py-2 rounded-lg font-bold text-sm tracking-widest uppercase">Vos concurrents</div>
-                <div className="w-[320px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden relative flex flex-col">
+                <div className="w-[320px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden relative flex flex-col" style={{ background: '#fff' }}>
                   {/* Nav bar */}
                   <div className="flex items-center justify-between px-5 pt-10 pb-4 z-20">
                     <div className="flex items-center gap-4">
