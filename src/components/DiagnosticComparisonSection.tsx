@@ -112,9 +112,9 @@ export default function DiagnosticComparisonSection() {
               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
                 className="flex flex-col items-center gap-8 relative z-10 w-[320px] shrink-0">
                 <div className="bg-[#f5f4df] text-[#111] px-5 py-2 rounded-lg font-bold text-[9px] tracking-widest uppercase">Vos concurrents</div>
-                <div className="w-[320px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col border border-border">
+                <div className="w-[320px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col border border-border" style={{ background: '#fff' }}>
                   <PhoneHeader />
-                  <div className="w-full h-64 bg-muted relative pt-4 overflow-hidden">
+                  <div className="w-full h-64 relative pt-4 overflow-hidden" style={{ background: '#f5f5f5' }}>
                     <div className="flex justify-center items-start h-full">
                       <img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl border border-border relative z-10" />
                     </div>
@@ -139,7 +139,7 @@ export default function DiagnosticComparisonSection() {
                     <PaymentIcons />
                   </div>
                 </div>
-                <div className="w-[320px] bg-background px-5 py-4 rounded-2xl border border-border relative z-20">
+                <div className="w-[320px] bg-background px-5 py-4 rounded-2xl border border-border relative z-20" style={{ background: '#fff' }}>
                   <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block mb-2">TAUX DE CONVERSION</span>
                   <div className="flex items-center gap-3">
                     <span className="text-[22px] font-bold text-foreground">0,6 %</span>
@@ -159,7 +159,7 @@ export default function DiagnosticComparisonSection() {
                   Vous avec Biolystes AI
                 </div>
                 <div className="relative">
-                  <div className="w-[360px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col z-10 border border-border">
+                  <div className="w-[360px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col z-10 border border-border" style={{ background: '#fff' }}>
                     <PhoneHeader />
                     <div className="w-full bg-foreground text-primary-foreground text-center text-[10px] font-medium tracking-widest uppercase py-1.5 shrink-0">
                       Livraison gratuite aujourd'hui

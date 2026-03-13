@@ -593,7 +593,7 @@ export default function ConceptPage() {
               <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
                 className="flex flex-col items-center gap-8 relative z-10 w-[320px] shrink-0">
                 <div className="bg-foreground text-primary-foreground px-5 py-2 rounded-lg font-bold text-sm tracking-widest uppercase">Vos concurrents</div>
-                <div className="w-[320px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden relative flex flex-col">
+                <div className="w-[320px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.1)] overflow-hidden relative flex flex-col" style={{ background: '#fff' }}>
                   {/* Nav bar */}
                   <div className="flex items-center justify-between px-5 pt-10 pb-4 z-20">
                     <div className="flex items-center gap-4">
@@ -610,7 +610,7 @@ export default function ConceptPage() {
                     </div>
                   </div>
                   {/* Product image area */}
-                  <div className="w-full h-64 bg-muted relative pt-4 overflow-hidden">
+                  <div className="w-full h-64 relative pt-4 overflow-hidden" style={{ background: '#f5f5f5' }}>
                     <div className="flex justify-center items-start h-full">
                       <img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl shadow-sm border border-border relative z-10" />
                     </div>
@@ -654,7 +654,7 @@ export default function ConceptPage() {
                   </div>
                 </div>
                 {/* Conversion rate card */}
-                <div className="w-[320px] bg-background px-5 py-4 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] relative z-20">
+                <div className="w-[320px] bg-background px-5 py-4 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.08)] relative z-20" style={{ background: '#fff' }}>
                   <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block mb-2">TAUX DE CONVERSION</span>
                   <div className="flex items-center gap-3">
                     <span className="text-[22px] font-bold text-foreground">3,8 %</span>
@@ -674,7 +674,7 @@ export default function ConceptPage() {
                   Vous avec Biolystes AI
                 </div>
                 <div className="relative">
-                  <div className="w-[360px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden relative flex flex-col z-10">
+                  <div className="w-[360px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden relative flex flex-col z-10" style={{ background: '#fff' }}>
                     {/* Nav bar */}
                     <div className="flex items-center justify-between px-5 pt-10 pb-4 z-20 shrink-0 border-b border-border">
                       <div className="flex items-center gap-4">

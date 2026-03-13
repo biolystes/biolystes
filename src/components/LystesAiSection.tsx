@@ -99,9 +99,9 @@ function BeforeAfterPhones() {
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
           className="flex flex-col items-center gap-4 relative z-10 w-[320px] shrink-0">
           <div className="bg-[#f5f4df] text-[#111] px-5 py-2 rounded-lg font-bold text-[9px] tracking-widest uppercase">Vos concurrents</div>
-          <div className="w-[320px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col border border-border">
+          <div className="w-[320px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col border border-border" style={{ background: '#fff' }}>
             <PhoneHeader />
-            <div className="w-full h-64 bg-muted relative pt-4 overflow-hidden">
+            <div className="w-full h-64 relative pt-4 overflow-hidden" style={{ background: '#f5f5f5' }}>
               <div className="flex justify-center items-start h-full">
                 <img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl shadow-sm border border-border relative z-10" />
               </div>
@@ -125,7 +125,7 @@ function BeforeAfterPhones() {
               <PaymentIcons />
             </div>
           </div>
-          <div className="w-[320px] bg-background px-5 py-4 rounded-2xl border border-border relative z-20">
+          <div className="w-[320px] bg-background px-5 py-4 rounded-2xl border border-border relative z-20" style={{ background: '#fff' }}>
             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest block mb-2">TAUX DE CONVERSION</span>
             <div className="flex items-center gap-3">
               <span className="text-[22px] font-bold text-foreground">0,6 %</span>
@@ -145,7 +145,7 @@ function BeforeAfterPhones() {
             Vous avec Biolystes AI
           </div>
           <div className="relative">
-            <div className="w-[360px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col z-10 border border-border">
+            <div className="w-[360px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col z-10 border border-border" style={{ background: '#fff' }}>
               <PhoneHeader />
               <div className="w-full bg-foreground text-primary-foreground text-center text-[10px] font-medium tracking-widest uppercase py-1.5 shrink-0">
                 Livraison gratuite aujourd'hui
@@ -265,7 +265,7 @@ function TeamExpertProduit({ titleOverride }: { titleOverride?: string }) {
     <TeamRow bg="bg-secondary" reversed title={titleOverride || "Agent conversationnel AI sur chaque fiche produit"} kicker="Équipe Expert Produit AI"
       desc="Nous déployons une équipe d'agents conversationnels IA dédiée à chaque produit, capable de répondre instantanément aux questions de vos clients concernant la composition, la compatibilité ou les délais. Fonctionnant comme votre meilleur vendeur, parfaitement formé sur chaque détail de vos produits, cette solution vise à maximiser vos ventes et à réduire les abandons de panier. De plus, elle identifie et remonte les préoccupations récurrentes de vos clients, vous permettant ainsi d'optimiser vos stratégies marketing.">
       <div className="flex justify-center">
-        <div className="w-[320px] bg-background rounded-[2rem] overflow-hidden border border-border">
+        <div className="w-[320px] bg-background rounded-[2rem] overflow-hidden border border-border" style={{ background: '#fff' }}>
           <PhoneHeader small />
           <div className="bg-foreground text-primary-foreground text-center text-[9px] font-semibold tracking-[2px] uppercase py-1.5">
             Livraison gratuite aujourd'hui
@@ -275,14 +275,14 @@ function TeamExpertProduit({ titleOverride }: { titleOverride?: string }) {
             <ProductInfo small />
             <p className="text-[10px] font-bold text-muted-foreground">Vitiligo · Pores dilatés · Rougeurs</p>
           </div>
-          <div className="mx-3.5 bg-muted/50 rounded-2xl p-3 flex flex-col gap-2">
-            <div className="bg-background border border-border rounded-2xl rounded-tl-sm px-3 py-2.5 text-xs text-foreground leading-snug max-w-[90%]">
+          <div className="mx-3.5 rounded-2xl p-3 flex flex-col gap-2" style={{ background: '#f5f5f5' }}>
+            <div className="bg-background border border-border rounded-2xl rounded-tl-sm px-3 py-2.5 text-xs text-foreground leading-snug max-w-[90%]" style={{ background: '#fff' }}>
               Parfait ! J'ai analysé votre diagnostic. Peau de type <strong>Mixte</strong>. Comment puis-je vous aider ?
             </div>
             <div className="self-end bg-foreground text-primary-foreground rounded-2xl rounded-tr-sm px-3 py-2.5 text-xs leading-snug max-w-[80%]">
               Cette crème est adaptée aux peaux mixtes et métisses ?
             </div>
-            <div className="bg-background border border-border rounded-2xl rounded-tl-sm px-3 py-2.5 text-xs text-foreground leading-snug max-w-[90%]">
+            <div className="bg-background border border-border rounded-2xl rounded-tl-sm px-3 py-2.5 text-xs text-foreground leading-snug max-w-[90%]" style={{ background: '#fff' }}>
               Absolument ! Notre formule contient des extraits marins et de l'acide hyaluronique, parfaitement adaptés.
             </div>
           </div>
