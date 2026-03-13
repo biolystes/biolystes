@@ -418,4 +418,87 @@ Pour les commandes perdues, la réclamation doit également être soumise dans l
 
 En résumé : les clients finaux sont protégés en cas de problème réel (casse, défaut), mais il n'y a pas de retour pour simple changement d'avis sur un produit personnalisé.
 
+## Connaissances commerciales approfondies (Script de vente V3)
+
+### Logistique — Détails à connaître
+
+**Mode Standard — Livraison en 7-8 jours :**
+- Le client commande en ligne → fabrication en 3-4 jours → livraison en 2-3 jours → total 7-8 jours en moyenne (peut varier de 6 à 8 jours selon week-ends/jours fériés)
+- La livraison est au nom du client Biolystes (comme s'il l'avait envoyé lui-même)
+- Coût livraison mode standard : environ 10€
+
+**Mode Express — Livraison en 24-48h :**
+- Logisticien partenaire, environ 15€/mois de stockage
+- Constituer un petit stock tampon (ex : 10 de chaque produit, soit 40 pour une gamme de 4)
+- Quand commande → livraison en 24-48h pour environ 4-5€ au lieu de 10€
+- Réapprovisionnement en une semaine
+- Pas besoin d'acheter beaucoup de stock, on achète au rythme des ventes
+
+**Pas de minimum de commande :**
+- 1, 5, 10, 100, 10 000 — le client définit le rythme
+- C'est un avantage majeur vs les labos classiques (300-500 unités minimum)
+
+**Stratégie de précommande (conseil à donner) :**
+- Commencer par 10 de chaque produit
+- Communiquer en disant "précommande" ou "livraison à partir de telle date"
+- Tester le marché, voir le rythme, puis ajuster
+
+**Prix d'achat des produits :**
+- En général entre 10 et 20€ selon la référence (prix d'achat HT)
+- Les clients font x2 ou x3 pour le prix de vente
+- Positionnement premium grâce aux certifications
+
+### Les 6 objections clients et comment y répondre
+
+**OBJECTION 1 — LA MATURITÉ : "Je vais réfléchir" / "Ce n'est pas encore le moment"**
+→ Proposer le Pack Découverte : 4 produits, 49€/mois en 3x, livrés en 7-8 jours. Permet de toucher les produits et se projeter. 147€ déduits si passage à une offre avec site dans les 30 jours. "Votre test devient un acompte, pas une dépense."
+
+**OBJECTION 2 — LE SUR-MESURE : "Je veux une formulation personnalisée"**
+→ Les labos imposent 500 à 1 000 unités minimum par produit. Pour 4 produits = 15 000 à 20 000€ rien que pour le stock. 90% du budget part dans le stock. Sur 30 entrepreneurs suivis qui voulaient du sur-mesure, 92% n'avaient toujours pas lancé 7 mois après. Conseil : commencer en marque blanche, constituer sa clientèle, puis passer au sur-mesure.
+
+**OBJECTION 3 — LA CONFIANCE : "Vous êtes basés où ?" / "Vous avez des exemples ?"**
+→ Paris 7ème, 15 collaborateurs, 18 ans d'existence comme agence (L'Occitane, La Neige). Exemples : kaniwabotanique.com, fraleneparis.com. +100 marques accompagnées. Le centre médical esthétique Reskin utilise exclusivement nos produits (20 références). Vidéos des locaux sur le site.
+
+**OBJECTION 4 — LA QUALITÉ : "Comment je sais que vos produits sont bons ?"**
+→ Labos européens qui travaillent avec des marques connues. Sans parabènes, silicones, PEG, filtres UV chimiques, microplastiques, colorants artificiels. 100% naturels, parfums 100% véganes. Certifiés Bio & Végan, COSMOS, ECOCERT, CPNP, FDA, ISO 22716. Le centre médical Reskin utilise exclusivement nos produits. Le Pack Découverte est fait pour tester.
+
+**OBJECTION 5 — LE CHOIX DES PRODUITS : "Je ne sais pas quels produits choisir"**
+→ L'IA de recommandation sur biolystes.com analyse le projet et recommande les produits adaptés en quelques secondes. Les experts accompagnent aussi personnellement. Proposer de faire la sélection ensemble.
+
+**OBJECTION 6 — LA RESPONSABILITÉ : "Qui est responsable si un client a un problème ?"**
+→ Le laboratoire est la Personne Responsable (Règlement CE 1223/2009). Il garantit la conformité, conserve le DIP, gère la cosmétovigilance. Le client Biolystes est distributeur. En cas de produit défectueux : réclamation + photo → remplacement dans le mois. "Vous vendez, vous n'assumez pas le risque produit."
+
+### Stratégie multi-sortie (ne jamais repartir sans rien proposer)
+
+- **SORTIE 1 — Il a déjà une marque cosmétique ?** → Proposer les offres Communication (site, réseaux, ou les deux) : biolystes.com/agence
+- **SORTIE 2 — Il a déjà un site et gère ses réseaux ?** → Proposer Biolystes AI (diagnostic, agents, photos IA, marketing IA) : biolystes.com/ia
+- **SORTIE 3 — Refus total ?** → Envoyer l'étude : biolystes.com/etudes — "Sur 30 entrepreneurs suivis, 92% n'avaient pas lancé 7 mois après"
+
+### Parcours client idéal
+
+1. **Étape 1 — Il hésite** : Pack Découverte (147€ ou 3x 49€). 147€ déduits si offre avec site dans les 30 jours.
+2. **Étape 2 — Il est convaincu** : Pack Agence (1 499€ + 99€/mois) ou Pack IA (2 999€ + 199€/mois, 1er mois offert).
+3. **Étape 3 — Il veut déléguer** : Abonnements mensuels (Marketing + CRO 699€/mois, Community Manager 699€/mois).
+
+### Facilités de paiement
+- Packs avec site : payables en 2x (999€ en 2x)
+- Pack Découverte : payable en 3x 49€
+- Paiement Klarna en 3x disponible (sous réserve d'acceptation)
+
+### Avantages clés Biolystes (photos IA, UGC IA, etc.)
+- **Photos IA** : générées en 4 minutes, hyperréalistes (photos produit, avec modèle, en boutique)
+- **UGC IA** : créatrices de contenu générées par IA, ultra-réalistes
+- **Diagnostic IA** : le client scanne son visage → analyse de peau → recommandation de produits adaptés. Plus facile de dire "faites votre diagnostic gratuit" que "achetez ma crème"
+- **Agents conversationnels IA** : sur chaque fiche produit, répondent 24h/24. Sur 10 personnes qui regardent un produit, 8 ont une question qui peut bloquer la vente.
+- **Marketing IA** : objectifs de CA → plan d'action hebdomadaire (budget pub, actions, influenceurs)
+- **SEO amélioré par l'IA** : les conversations clients avec les agents IA remontent les préoccupations et améliorent les descriptions produit
+- **Liens de collaboration influenceurs** : traquer combien de diagnostics chaque influenceuse ramène
+
+### Informations sur l'entreprise
+- **Lystes SAS** — Paris 7ème
+- 15 collaborateurs
+- 18 ans d'existence comme agence (clients : L'Occitane, La Neige)
+- +100 marques accompagnées
+- Vendable en France, Europe, UK, USA et dans le monde entier
+
 Contact : hello@biolystes.com | Paris, France`;
