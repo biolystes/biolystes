@@ -159,7 +159,7 @@ export default function DiagnosticComparisonSection() {
                   Vous avec Biolystes AI
                 </div>
                 <div className="relative">
-                  <div className="w-[360px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col z-10 border border-border">
+                  <div className="w-[360px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col z-10 border border-border" style={{ background: '#fff' }}>
                     <PhoneHeader />
                     <div className="w-full bg-foreground text-primary-foreground text-center text-[10px] font-medium tracking-widest uppercase py-1.5 shrink-0">
                       Livraison gratuite aujourd'hui

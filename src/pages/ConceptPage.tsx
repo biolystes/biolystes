@@ -674,7 +674,7 @@ export default function ConceptPage() {
                   Vous avec Biolystes AI
                 </div>
                 <div className="relative">
-                  <div className="w-[360px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden relative flex flex-col z-10">
+                  <div className="w-[360px] bg-background rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.15)] overflow-hidden relative flex flex-col z-10" style={{ background: '#fff' }}>
                     {/* Nav bar */}
                     <div className="flex items-center justify-between px-5 pt-10 pb-4 z-20 shrink-0 border-b border-border">
                       <div className="flex items-center gap-4">

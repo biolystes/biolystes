@@ -282,7 +282,7 @@ function TeamExpertProduit({ titleOverride }: { titleOverride?: string }) {
             <div className="self-end bg-foreground text-primary-foreground rounded-2xl rounded-tr-sm px-3 py-2.5 text-xs leading-snug max-w-[80%]">
               Cette crème est adaptée aux peaux mixtes et métisses ?
             </div>
-            <div className="bg-background border border-border rounded-2xl rounded-tl-sm px-3 py-2.5 text-xs text-foreground leading-snug max-w-[90%]">
+            <div className="bg-background border border-border rounded-2xl rounded-tl-sm px-3 py-2.5 text-xs text-foreground leading-snug max-w-[90%]" style={{ background: '#fff' }}>
               Absolument ! Notre formule contient des extraits marins et de l'acide hyaluronique, parfaitement adaptés.
             </div>
           </div>
