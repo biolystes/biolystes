@@ -37,7 +37,7 @@ const steps = [
     title: "Création du Site E-commerce",
     text: "Nous créons et configurons votre boutique en ligne prête à vendre, sans nécessiter d'investissement technique de votre part.",
     image: "https://biolystes.pro/wp-content/uploads/2025/04/FireShot-Capture-044-Nairoba-Cosmetics-Sublimez-votre-beaute-relevez-votre-excellence_-lystes.pro_-1.png",
-    alt: "Création du Site Ecommerce",
+    alt: "Création du Site E-commerce",
   },
   {
     label: "ÉTAPE 6",
