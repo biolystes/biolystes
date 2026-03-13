@@ -24,12 +24,17 @@ export default function GlowlySection() {
         </motion.p>
         <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
           className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-cream">
-          Comment maximiser vos résultats comme <a href="https://glowlyparis.com/" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:opacity-80 transition-opacity">Glowly Paris</a> dès les premiers mois, indépendamment de nos services ?
+          Comment maximiser vos résultats comme Glowly Paris dès les premiers mois, indépendamment de nos services ?
         </motion.h2>
         <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
           className="text-[17px] text-cream/50 leading-[1.7] max-w-[600px] mx-auto">
           En tant que nouvelle marque, le plus important est de gérer votre e-réputation et votre exposition.
         </motion.p>
+        <motion.a href="https://glowlyparis.com/" target="_blank" rel="noopener noreferrer"
+          initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
+          className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-cream/70 underline underline-offset-4 mt-3 hover:text-cream transition-colors">
+          Voir l'exemple de Glowly Paris →
+        </motion.a>
       </div>
 
       {/* ─── Block 1 — Créatrices de contenu ─── */}
