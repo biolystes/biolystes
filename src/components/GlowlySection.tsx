@@ -95,16 +95,6 @@ export default function GlowlySection() {
                   </div>
                   <span className="text-[9px] text-muted-foreground mt-0.5">12 avis</span>
                 </div>
-                <div className="flex flex-col gap-[3px] flex-1">
-                  {[{ label: "5", pct: 75 }, { label: "4", pct: 18 }, { label: "3", pct: 0 }, { label: "2", pct: 0 }, { label: "1", pct: 0 }].map((r) => (
-                    <div key={r.label} className="flex items-center gap-1.5">
-                      <span className="text-[9px] text-muted-foreground w-[14px] text-right">{r.label}★</span>
-                      <div className="flex-1 h-[6px] bg-gray-200 rounded-full overflow-hidden">
-                        <div className="h-full bg-[#00b67a] rounded-full" style={{ width: `${r.pct}%` }} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
               </div>
             </div>
           </div>
