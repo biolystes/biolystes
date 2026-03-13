@@ -67,9 +67,11 @@ export function AnimatedChat() {
   const isShown = (id: string) => visibleMsgs.includes(id);
   const pop = { initial: { opacity: 0, y: 10, scale: 0.95 }, animate: { opacity: 1, y: 0, scale: 1 }, transition: { duration: 0.4, ease: [0.175, 0.885, 0.32, 1.275] } };
 
+  const chatWhiteBg = { background: '#fff' } as const;
+
   return (
     <motion.div className="mb-6 bg-background border border-border rounded-[20px] overflow-hidden shadow-sm flex flex-col"
-      style={{ background: '#fff' }}
+      style={chatWhiteBg}
       onViewportEnter={() => setIsVisible(true)} viewport={{ once: false, margin: "-50px" }}>
       <div ref={containerRef} className="h-[291px] overflow-y-auto p-4 pt-5 flex flex-col gap-4 bg-muted/30" style={{ scrollBehavior: "smooth", scrollbarWidth: "none", background: '#fff' }}>
         <div className="flex flex-col gap-1 w-full shrink-0">
