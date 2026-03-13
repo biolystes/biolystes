@@ -399,6 +399,13 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
           </button>
         )}
 
+        {enriched && (
+          <div style={{ position: "absolute", bottom: 10, right: 10, zIndex: 2, display: "flex", alignItems: "center", gap: 4, padding: "3px 8px", borderRadius: 8, background: "rgba(29,29,31,0.75)", backdropFilter: "blur(8px)" }}>
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(245,244,223,0.9)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" /></svg>
+            <span style={{ fontSize: 8, fontWeight: 700, color: "rgba(245,244,223,0.9)", letterSpacing: ".3px", textTransform: "uppercase" }}>Enrichi</span>
+          </div>
+        )}
+
         {/* AI Generate Clean Image button — hidden for now */}
         {false && onGenerateClean && (originalImg || overrideImage) && (
           <button onClick={handleGenerate}
