@@ -363,8 +363,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
 
   const handleGenerate = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const imgSrc = originalImg || overrideImage;
-    if (imgSrc && onGenerateClean && !isGenerating) onGenerateClean(product, imgSrc);
+    if (originalImg && onGenerateClean && !isGenerating) onGenerateClean(product, originalImg);
   };
 
   return (
@@ -399,8 +398,8 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
           </button>
         )}
 
-        {/* AI Generate Clean Image button — always show so user can regenerate */}
-        {onGenerateClean && (originalImg || overrideImage) && (
+        {/* AI Generate Clean Image button */}
+        {originalImg && onGenerateClean && !overrideImage && (
           <button onClick={handleGenerate}
             title="Générer une photo sans marque"
             style={{
