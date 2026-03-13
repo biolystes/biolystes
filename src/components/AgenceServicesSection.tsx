@@ -87,7 +87,7 @@ function BlocReseauxSociaux() {
 /* ═══ 2. PUBLICITÉ DIGITALE ═══ */
 function BlocPublicite() {
   return (
-    <TeamRow bg="bg-secondary" reversed title="Création de site ecommerce" kicker="Site web & E-commerce"
+    <TeamRow bg="bg-secondary" reversed title="Création de site e-commerce" kicker="Site web & E-commerce"
       desc="On conçoit votre boutique en ligne de A à Z : design sur-mesure, fiches produits optimisées, tunnel de vente performant et intégration des moyens de paiement. Un site qui convertit, pensé pour la cosmétique.">
       <div className="rounded-2xl overflow-hidden">
         <SafeVideo src="/videos/ecommerce-demo.mov" className="w-full object-cover" lazy />

@@ -871,7 +871,7 @@ export default function DecouvertePage() {
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed"
               style={{ fontFamily: "'Inter', -apple-system, sans-serif" }}>
               Réassort Sans Minimum<br />
-              Vous êtes un institut ? un centre médical ? un salon de coiffure
+              Vous êtes un institut ? un centre médical ? un salon de coiffure ?
             </h2>
             <p className="text-foreground mt-4 max-w-xl mx-auto leading-relaxed text-sm">
               Pas besoin de minimum de stock pour vos points de vente physiques. Commandez 1, 10 ou 1000 produits selon vos besoins réels. Livré dans votre établissement en moins de 15 jours.
