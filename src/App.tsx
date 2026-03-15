@@ -30,6 +30,7 @@ import AIPage from "./pages/AIPage";
 import AgencePage from "./pages/AgencePage";
 import TarifsPage from "./pages/TarifsPage";
 import PourquoiBiolystesPage from "./pages/PourquoiBiolystesPage";
+import PourquoiCetteOffrePage from "./pages/PourquoiCetteOffrePage";
 import BlogPage from "./pages/BlogPage";
 import ArticleCoffretsPage from "./pages/ArticleCoffretsPage";
 import ArticleMarieClairePage from "./pages/ArticleMarieClairePage";

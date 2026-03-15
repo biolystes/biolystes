@@ -10,6 +10,7 @@ const publicNavItems = [
   { path: "/", label: "Offre cosmétique" },
   { path: "/agence", label: "Offre agence" },
   { path: "/ai", label: "Offre IA" },
+  { path: "/pourquoi-cette-offre", label: "Pourquoi cette offre ?" },
   { path: "/etudes", label: "Pourquoi Biolystes ?" },
   { path: "/tarifs", label: "Tarifs" },
   { path: "/blog", label: "Ressources" },
