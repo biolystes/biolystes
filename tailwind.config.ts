@@ -13,6 +13,9 @@ export default {
       },
     },
     extend: {
+      fontSize: {
+        sm: ["0.775rem", { lineHeight: "1.25rem" }],
+      },
       colors: {
         cream: "hsl(57 52% 92%)",
         border: "hsl(var(--border))",
