@@ -51,7 +51,7 @@ export default function PourquoiBiolystesPage() {
             <motion.h1 variants={fadeUp} custom={1}
               className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-foreground leading-[1.1] mb-6"
               style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}>
-              <span className="font-bold">92%</span> des porteurs de projets cosmétiques sur mesure n'ont toujours pas lancé leur marque <span className="font-bold">7 mois après.</span>
+              <span className="font-bold">92%</span> des porteurs de projets cosmétiques avec formulation sur mesure n'ont toujours pas lancé leur marque <span className="font-bold">8 mois après.</span>
             </motion.h1>
             <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground max-w-xl mx-auto">
               Étude interne Biolystes — Échantillon de 30 porteurs de projets — Suivi sur 7 mois
