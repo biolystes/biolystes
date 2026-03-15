@@ -67,7 +67,7 @@ function PaymentIcons() {
   );
 }
 
-export default function DiagnosticComparisonSection() {
+export default function DiagnosticComparisonSection({ hideStats = false }: { hideStats?: boolean } = {}) {
   return (
     <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8" style={{ overflow: "visible" }}>
       {/* ── Header ── */}
