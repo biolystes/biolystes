@@ -287,13 +287,22 @@ export default function PourquoiCetteOffrePage() {
             </p>
           </motion.div>
 
-          {/* UGC video showcase */}
-          <motion.div variants={fadeUp} custom={2} className="grid grid-cols-3 gap-3 mt-6 mb-8">
-            {["/videos/contenu-ugc-2.mov", "/videos/trustpilot-ugc.mp4", "/videos/event-beauty.mp4"].map((src, i) => (
-              <div key={i} className="aspect-[3/4] rounded-xl overflow-hidden bg-secondary">
-                <SafeVideo src={src} className="w-full h-full object-cover" />
-              </div>
-            ))}
+          {/* Video carousel */}
+          <motion.div variants={fadeUp} custom={2} className="mt-6 mb-8 overflow-hidden">
+            <div className="flex gap-3 overflow-x-auto pb-2" style={{ scrollbarWidth: "none" }}>
+              {[
+                "/videos/exp-42.mov",
+                "/videos/exp-44.mp4",
+                "/videos/exp-47.mov",
+                "/videos/exp-5.mov",
+                "/videos/exp-50.mov",
+                "/videos/event-beauty.mp4",
+              ].map((src, i) => (
+                <div key={i} className="aspect-[3/4] w-[220px] shrink-0 rounded-xl overflow-hidden bg-secondary">
+                  <SafeVideo src={src} className="w-full h-full object-cover" />
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div variants={fadeUp} custom={3} className="grid gap-4">
