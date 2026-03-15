@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Camera, Clock, Brain, Megaphone, MessageCircle, Sparkles, Shield, Target, Headphones } from "lucide-react";
 import SafeVideo from "@/components/SafeVideo";
 import AITeamOrgChart from "@/components/AITeamOrgChart";
+import DiagnosticComparisonSection from "@/components/DiagnosticComparisonSection";
 
 import kaniwa1 from "@/assets/kaniwa-1.jpg";
 import fralene1 from "@/assets/fralene-1.jpg";
