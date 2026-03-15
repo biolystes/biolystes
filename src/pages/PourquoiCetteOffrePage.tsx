@@ -84,7 +84,6 @@ const problematics = [
       { type: "image" as const, src: agenceReseaux },
     ],
     mediaFull: true,
-    showOrgChart: true,
   },
   {
     icon: Brain,
@@ -92,9 +91,8 @@ const problematics = [
     desc: "Savoir formuler un produit ne signifie pas savoir le vendre. La majorité des créateurs ne maîtrisent ni le marketing digital, ni le SEO, ni la publicité en ligne, ni la création de contenu engageant. Et apprendre tout cela prend des années.",
     solution: "Nous prenons en charge l'intégralité de la partie technique et marketing : du site e-commerce optimisé à la stratégie SEO, en passant par la gestion des campagnes publicitaires.",
     solutionPack: "Pack Agence, Pack IA & Abonnements",
-    media: [
-      { type: "video" as const, src: "/videos/publicite-social.mov" },
-    ],
+    media: [],
+    showOrgChart: true,
   },
   {
     icon: MessageCircle,
@@ -233,7 +231,7 @@ export default function PourquoiCetteOffrePage() {
             </motion.div>
             {item.media && <MediaGrid items={item.media} full={item.mediaFull} />}
             {item.showOrgChart && (
-              <div className="mt-8 -mx-6 md:-mx-0">
+              <div className="mt-8 bg-foreground rounded-[2rem] p-4 md:p-6 text-primary-foreground">
                 <AITeamOrgChart />
               </div>
             )}
