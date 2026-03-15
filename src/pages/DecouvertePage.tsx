@@ -64,7 +64,7 @@ const homeExpVideos = [
   "/videos/exp-9.mp4", "/videos/exp-11.mp4", "/videos/exp-12.mp4",
   "/videos/exp-4.mov", "/videos/exp-5.mov",
   "/videos/exp-42.mov", "/videos/exp-43.mov",
-  "/videos/exp-44.mp4", "/videos/exp-45.mov", "/videos/exp-46.mov", "/videos/exp-47.mov",
+  "/videos/exp-44.mp4", "/videos/exp-45.mov", "/videos/exp-46.mov",
   "/videos/exp-48.mp4",
   "/videos/exp-49.mov", "/videos/exp-50.mov", "/videos/exp-51.mov", "/videos/exp-52.mov",
 ];

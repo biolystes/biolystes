@@ -293,7 +293,6 @@ export default function PourquoiCetteOffrePage() {
               {[
                 "/videos/exp-42.mov",
                 "/videos/exp-44.mp4",
-                "/videos/exp-47.mov",
                 "/videos/exp-5.mov",
                 "/videos/exp-50.mov",
                 "/videos/event-beauty.mp4",
