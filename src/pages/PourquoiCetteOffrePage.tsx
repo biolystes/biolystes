@@ -12,6 +12,7 @@ import insta2 from "@/assets/insta-2.jpg";
 import insta3 from "@/assets/insta-3.jpg";
 import insta4 from "@/assets/insta-4.jpg";
 import aiHeroMockup from "@/assets/ai-hero-mockup.png";
+import agenceReseaux from "@/assets/agence-reseaux.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
