@@ -62,7 +62,7 @@ const directors = [
 ];
 
 export default function AITeamOrgChart() {
-  const [productCount, setProductCount] = useState(134);
+  const [productCount, setProductCount] = useState(12);
   const [activeDir, setActiveDir] = useState(1);
 
   const totalAgents = useMemo(() => {
