@@ -84,6 +84,7 @@ const problematics = [
       { type: "image" as const, src: agenceReseaux },
     ],
     mediaFull: true,
+    showOrgChart: true,
   },
   {
     icon: Brain,
