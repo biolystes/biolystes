@@ -67,8 +67,9 @@ const problematics = [
     solution: "L'offre Agence prend en charge la gestion complète de votre communication, et l'offre IA automatise les tâches chronophages comme le diagnostic client et les recommandations produits.",
     solutionPack: "Pack Agence & Offre Communication",
     media: [
-      { type: "video" as const, src: "/videos/ecommerce-demo.mov" },
+      { type: "image" as const, src: agenceReseaux },
     ],
+    mediaFull: true,
   },
   {
     icon: Brain,
