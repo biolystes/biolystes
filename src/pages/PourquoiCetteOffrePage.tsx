@@ -101,10 +101,8 @@ const problematics = [
     desc: "Les clients posent des questions techniques sur les produits : quel soin pour ma peau, quelle routine adopter, quels ingrédients éviter. Sans expertise dermocosmétique ou sans temps pour répondre, les créateurs perdent des ventes et de la crédibilité.",
     solution: "Notre technologie IA déploie des agents conversationnels sur chaque fiche produit, capables de conseiller les clients 24h/24 dans plus de 100 langues, avec une connaissance approfondie de vos produits.",
     solutionPack: "Pack IA & Biolystes AI",
-    media: [
-      { type: "video" as const, src: "/videos/diagnostic-peau.mov" },
-      { type: "image" as const, src: aiHeroMockup },
-    ],
+    media: [],
+    showComparison: true,
   },
   {
     icon: Megaphone,
