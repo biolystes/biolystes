@@ -236,7 +236,7 @@ export default function PourquoiCetteOffrePage() {
               </div>
             )}
             {item.showComparison && (
-              <div className="mt-8 w-[calc(100vw-3rem)] max-w-5xl -ml-[calc((100vw-3rem-768px)/2)] relative left-0" style={{ marginLeft: 'calc(-1 * (min(100vw - 3rem, 64rem) - 100%) / 2)' }}>
+              <div className="mt-8 scale-[0.85] origin-top -mb-16">
                 <DiagnosticComparisonSection />
               </div>
             )}
