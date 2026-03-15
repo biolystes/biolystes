@@ -30,6 +30,7 @@ import AIPage from "./pages/AIPage";
 import AgencePage from "./pages/AgencePage";
 import TarifsPage from "./pages/TarifsPage";
 import PourquoiBiolystesPage from "./pages/PourquoiBiolystesPage";
+import PourquoiCetteOffrePage from "./pages/PourquoiCetteOffrePage";
 import BlogPage from "./pages/BlogPage";
 import ArticleCoffretsPage from "./pages/ArticleCoffretsPage";
 import ArticleMarieClairePage from "./pages/ArticleMarieClairePage";
@@ -63,6 +64,7 @@ function AppRoutes() {
       <Route path="/pricing" element={<Layout><PricingPage /></Layout>} />
       <Route path="/tarifs" element={<Layout><TarifsPage /></Layout>} />
       <Route path="/etudes" element={<Layout><PourquoiBiolystesPage /></Layout>} />
+      <Route path="/pourquoi-cette-offre" element={<Layout><PourquoiCetteOffrePage /></Layout>} />
       <Route path="/blog" element={<Layout><BlogPage /></Layout>} />
       <Route path="/blog/coffrets" element={<Layout><ArticleCoffretsPage /></Layout>} />
       <Route path="/blog/reseau-presse" element={<Layout><ArticleMarieClairePage /></Layout>} />

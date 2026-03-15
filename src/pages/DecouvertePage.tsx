@@ -858,8 +858,39 @@ export default function DecouvertePage() {
                 </div>
                 <p className="text-[13px] leading-relaxed text-foreground">Vous avez commandé un Pack Échantillon ? Vos 147€ sont déduits de la mise en place.</p>
               </div>
-            </motion.div>
+             </motion.div>
           </div>
+
+          {/* ═══ PERSONNALISATION AVANCÉE ═══ */}
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2} className="mt-10">
+            <div className="rounded-2xl p-7 md:p-9 bg-foreground text-background">
+              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+                <div className="flex-1">
+                  <span className="inline-block px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-background text-foreground mb-4">
+                    Sur devis
+                  </span>
+                  <h3 className="text-lg md:text-xl font-extrabold uppercase tracking-tight mb-2">Personnalisation avancée</h3>
+                  <p className="text-sm leading-relaxed opacity-80 mb-4">
+                    Vous souhaitez un site unique, un design sur mesure ou des fonctionnalités spécifiques ? Notre offre personnalisation avancée est faite pour vous.
+                  </p>
+                  <ul className="space-y-2 mb-2">
+                    {["Design e-commerce 100% sur mesure", "Charte graphique personnalisée", "Fonctionnalités avancées à la carte", "Tunnel de vente optimisé", "Intégrations spécifiques (CRM, ERP…)"].map((f, i) => (
+                      <li key={i} className="flex items-start gap-2 text-[13px] opacity-80">
+                        <Check size={14} strokeWidth={2} className="flex-shrink-0 mt-0.5" />
+                        <span>{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="flex-shrink-0">
+                  <a href={CTA_URL} target="_blank" rel="noopener noreferrer"
+                    className="inline-block px-8 py-4 text-center no-underline text-[11px] font-extrabold tracking-[1.5px] uppercase rounded-xl bg-background text-foreground hover:opacity-90 transition-opacity">
+                    Demander un devis
+                  </a>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </section>
 
