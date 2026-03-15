@@ -238,7 +238,7 @@ export default function PourquoiCetteOffrePage() {
             {item.showComparison && (
               <div className="mt-8" style={{ width: '100vw', marginLeft: 'calc(-50vw + 50%)', maxWidth: '100vw' }}>
                 <div className="max-w-5xl mx-auto px-6">
-                  <DiagnosticComparisonSection />
+                  <DiagnosticComparisonSection hideStats />
                 </div>
               </div>
             )}

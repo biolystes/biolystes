@@ -67,7 +67,7 @@ function PaymentIcons() {
   );
 }
 
-export default function DiagnosticComparisonSection() {
+export default function DiagnosticComparisonSection({ hideStats = false }: { hideStats?: boolean } = {}) {
   return (
     <section className="max-w-5xl mx-auto bg-foreground mt-8 rounded-[2.75rem] p-6 md:p-8" style={{ overflow: "visible" }}>
       {/* ── Header ── */}
@@ -87,19 +87,21 @@ export default function DiagnosticComparisonSection() {
         </motion.p>
 
         {/* Stats */}
-        <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
-          className="grid grid-cols-3 max-w-xl mx-auto pt-14 pb-6 divide-x divide-cream/20">
-          {[
-            { num: "7", label: "Équipes AI dédiées" },
-            { num: "24h/24", label: "Disponibilité" },
-            { num: "80%", label: "Économie vs agence" },
-          ].map((s) => (
-            <div key={s.label} className="text-center px-4 md:px-8">
-              <div className="text-2xl md:text-3xl font-light leading-none text-cream tracking-tight italic">{s.num}</div>
-              <div className="text-[10px] text-cream/50 font-semibold mt-3 uppercase tracking-[0.15em] whitespace-nowrap">{s.label}</div>
-            </div>
-          ))}
-        </motion.div>
+        {!hideStats && (
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
+            className="grid grid-cols-3 max-w-xl mx-auto pt-14 pb-6 divide-x divide-cream/20">
+            {[
+              { num: "7", label: "Équipes AI dédiées" },
+              { num: "24h/24", label: "Disponibilité" },
+              { num: "80%", label: "Économie vs agence" },
+            ].map((s) => (
+              <div key={s.label} className="text-center px-4 md:px-8">
+                <div className="text-2xl md:text-3xl font-light leading-none text-cream tracking-tight italic">{s.num}</div>
+                <div className="text-[10px] text-cream/50 font-semibold mt-3 uppercase tracking-[0.15em] whitespace-nowrap">{s.label}</div>
+              </div>
+            ))}
+          </motion.div>
+        )}
       </div>
 
       {/* ── Before / After Phones ── */}
