@@ -84,7 +84,6 @@ const problematics = [
       { type: "image" as const, src: agenceReseaux },
     ],
     mediaFull: true,
-    showOrgChart: true,
   },
   {
     icon: Brain,
@@ -92,9 +91,8 @@ const problematics = [
     desc: "Savoir formuler un produit ne signifie pas savoir le vendre. La majorité des créateurs ne maîtrisent ni le marketing digital, ni le SEO, ni la publicité en ligne, ni la création de contenu engageant. Et apprendre tout cela prend des années.",
     solution: "Nous prenons en charge l'intégralité de la partie technique et marketing : du site e-commerce optimisé à la stratégie SEO, en passant par la gestion des campagnes publicitaires.",
     solutionPack: "Pack Agence, Pack IA & Abonnements",
-    media: [
-      { type: "video" as const, src: "/videos/publicite-social.mov" },
-    ],
+    media: [],
+    showOrgChart: true,
   },
   {
     icon: MessageCircle,
