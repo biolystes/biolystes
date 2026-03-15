@@ -234,6 +234,11 @@ export default function PourquoiCetteOffrePage() {
                 <AITeamOrgChart />
               </div>
             )}
+            {item.showComparison && (
+              <div className="mt-8">
+                <DiagnosticComparisonSection />
+              </div>
+            )}
           </SectionBlock>
         ))}
 
