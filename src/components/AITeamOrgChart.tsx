@@ -144,7 +144,7 @@ export default function AITeamOrgChart() {
           </div>
 
           {/* Directors carousel - Desktop */}
-          <div className="hidden md:flex gap-3 justify-center flex-wrap items-center">
+          <div className="hidden md:flex gap-2 justify-center items-center">
             <button onClick={() => navDir(-1)} className="w-9 h-9 rounded-full border border-cream/20 flex items-center justify-center text-base text-cream/50 transition-all hover:bg-cream hover:text-foreground shrink-0">←</button>
             {directors.map((d, i) => (
               <button key={d.name} onClick={() => setActiveDir(i)}
