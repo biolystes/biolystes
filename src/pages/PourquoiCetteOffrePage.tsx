@@ -1,6 +1,17 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Camera, Clock, Users, Brain, Megaphone, MessageCircle, Sparkles, Shield, Target, TrendingUp, Headphones } from "lucide-react";
+import { ArrowRight, Camera, Clock, Brain, Megaphone, MessageCircle, Sparkles, Shield, Target, Headphones } from "lucide-react";
+import SafeVideo from "@/components/SafeVideo";
+
+import kaniwa1 from "@/assets/kaniwa-1.jpg";
+import fralene1 from "@/assets/fralene-1.jpg";
+import pmyrris1 from "@/assets/pmyrris-1.jpg";
+import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
+import insta1 from "@/assets/insta-1.jpg";
+import insta2 from "@/assets/insta-2.jpg";
+import insta3 from "@/assets/insta-3.jpg";
+import insta4 from "@/assets/insta-4.jpg";
+import aiHeroMockup from "@/assets/ai-hero-mockup.png";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -20,6 +31,22 @@ function SectionBlock({ children, className = "" }: { children: React.ReactNode;
   );
 }
 
+function MediaGrid({ items }: { items: { type: "image" | "video"; src: string }[] }) {
+  return (
+    <motion.div variants={fadeUp} custom={2} className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-5">
+      {items.map((item, i) => (
+        <div key={i} className="aspect-square rounded-xl overflow-hidden bg-secondary">
+          {item.type === "image" ? (
+            <img src={item.src} alt="" className="w-full h-full object-cover" loading="lazy" />
+          ) : (
+            <SafeVideo src={item.src} className="w-full h-full object-cover" />
+          )}
+        </div>
+      ))}
+    </motion.div>
+  );
+}
+
 const problematics = [
   {
     icon: Camera,
@@ -27,6 +54,11 @@ const problematics = [
     desc: "Faire appel à un photographe professionnel pour chaque produit représente un budget considérable. Beaucoup de créateurs se retrouvent avec des visuels médiocres faits au smartphone, ce qui tue la crédibilité de leur marque face à des concurrents qui investissent massivement dans leur image.",
     solution: "Nos offres intègrent la photographie IA hyperréaliste et le contenu UGC IA, vous offrant des visuels de qualité studio sans le coût d'un photographe.",
     solutionPack: "Pack Agence & Pack IA",
+    media: [
+      { type: "image" as const, src: kaniwa1 },
+      { type: "image" as const, src: fralene1 },
+      { type: "image" as const, src: pmyrris1 },
+    ],
   },
   {
     icon: Clock,
@@ -34,6 +66,9 @@ const problematics = [
     desc: "Gérer une marque cosmétique demande un investissement temps considérable : création de contenu, gestion des réseaux sociaux, réponse aux clients, suivi des commandes, optimisation du site. La plupart des créateurs ont un emploi à côté et ne peuvent tout simplement pas tout faire.",
     solution: "L'offre Agence prend en charge la gestion complète de votre communication, et l'offre IA automatise les tâches chronophages comme le diagnostic client et les recommandations produits.",
     solutionPack: "Pack Agence & Offre Communication",
+    media: [
+      { type: "video" as const, src: "/videos/ecommerce-demo.mov" },
+    ],
   },
   {
     icon: Brain,
@@ -41,6 +76,9 @@ const problematics = [
     desc: "Savoir formuler un produit ne signifie pas savoir le vendre. La majorité des créateurs ne maîtrisent ni le marketing digital, ni le SEO, ni la publicité en ligne, ni la création de contenu engageant. Et apprendre tout cela prend des années.",
     solution: "Nous prenons en charge l'intégralité de la partie technique et marketing : du site e-commerce optimisé à la stratégie SEO, en passant par la gestion des campagnes publicitaires.",
     solutionPack: "Pack Agence, Pack IA & Abonnements",
+    media: [
+      { type: "video" as const, src: "/videos/publicite-social.mov" },
+    ],
   },
   {
     icon: MessageCircle,
@@ -48,6 +86,10 @@ const problematics = [
     desc: "Les clients posent des questions techniques sur les produits : quel soin pour ma peau, quelle routine adopter, quels ingrédients éviter. Sans expertise dermocosmétique ou sans temps pour répondre, les créateurs perdent des ventes et de la crédibilité.",
     solution: "Notre technologie IA déploie des agents conversationnels sur chaque fiche produit, capables de conseiller les clients 24h/24 dans plus de 100 langues, avec une connaissance approfondie de vos produits.",
     solutionPack: "Pack IA & Biolystes AI",
+    media: [
+      { type: "video" as const, src: "/videos/diagnostic-peau.mov" },
+      { type: "image" as const, src: aiHeroMockup },
+    ],
   },
   {
     icon: Megaphone,
@@ -55,6 +97,11 @@ const problematics = [
     desc: "Publier régulièrement du contenu de qualité sur Instagram, TikTok, Facebook et Pinterest demande une constance et une créativité que peu de créateurs isolés peuvent maintenir. Résultat : des comptes fantômes qui nuisent à l'image de la marque.",
     solution: "Nos offres communication et nos abonnements Community Manager prennent en charge la création de contenu, le calendrier éditorial et la gestion quotidienne de vos réseaux sociaux.",
     solutionPack: "Offre Communication & Abonnements",
+    media: [
+      { type: "image" as const, src: insta1 },
+      { type: "image" as const, src: insta2 },
+      { type: "image" as const, src: insta3 },
+    ],
   },
   {
     icon: Target,
@@ -62,45 +109,20 @@ const problematics = [
     desc: "Proposer un diagnostic de peau ou de cheveux personnalisé est un levier de conversion puissant, mais techniquement complexe à mettre en place. La plupart des marques ne proposent rien de tel, perdant ainsi une opportunité majeure de différenciation.",
     solution: "Notre diagnostic intelligent par IA analyse le profil du client et recommande les produits adaptés, augmentant considérablement le taux de conversion.",
     solutionPack: "Pack IA & Biolystes AI",
+    media: [
+      { type: "video" as const, src: "/videos/lystesai-demo.mov" },
+    ],
   },
 ];
 
 const offerResponses = [
-  {
-    problem: "Pas de photographe → Pas de beaux visuels",
-    offer: "Pack Agence",
-    response: "Photographie IA hyperréaliste incluse",
-  },
-  {
-    problem: "Pas de temps → Site inactif",
-    offer: "Pack Agence + Abonnement",
-    response: "Gestion 360° déléguée",
-  },
-  {
-    problem: "Pas de compétences marketing → 0 vente",
-    offer: "Offre Communication",
-    response: "Stratégie marketing complète",
-  },
-  {
-    problem: "Pas de conseil client → Perte de crédibilité",
-    offer: "Pack IA / Biolystes AI",
-    response: "Agents IA sur chaque fiche produit",
-  },
-  {
-    problem: "Pas de réseaux sociaux → Marque invisible",
-    offer: "Abonnement Community Manager",
-    response: "Gestion quotidienne des réseaux",
-  },
-  {
-    problem: "Pas de diagnostic → Faible conversion",
-    offer: "Pack IA / Biolystes AI",
-    response: "Diagnostic intelligent par IA",
-  },
-  {
-    problem: "Tout déléguer → Besoin d'un partenaire",
-    offer: "Pack IA complet",
-    response: "Solution clés en main de A à Z",
-  },
+  { problem: "Pas de photographe → Pas de beaux visuels", offer: "Pack Agence", response: "Photographie IA hyperréaliste incluse" },
+  { problem: "Pas de temps → Site inactif", offer: "Pack Agence + Abonnement", response: "Gestion 360° déléguée" },
+  { problem: "Pas de compétences marketing → 0 vente", offer: "Offre Communication", response: "Stratégie marketing complète" },
+  { problem: "Pas de conseil client → Perte de crédibilité", offer: "Pack IA / Biolystes AI", response: "Agents IA sur chaque fiche produit" },
+  { problem: "Pas de réseaux sociaux → Marque invisible", offer: "Abonnement Community Manager", response: "Gestion quotidienne des réseaux" },
+  { problem: "Pas de diagnostic → Faible conversion", offer: "Pack IA / Biolystes AI", response: "Diagnostic intelligent par IA" },
+  { problem: "Tout déléguer → Besoin d'un partenaire", offer: "Pack IA complet", response: "Solution clés en main de A à Z" },
 ];
 
 export default function PourquoiCetteOffrePage() {
@@ -120,11 +142,31 @@ export default function PourquoiCetteOffrePage() {
               style={{ fontFamily: "'Instrument Serif', Georgia, serif" }}>
               Pourquoi une offre <span className="font-bold">aussi complète ?</span>
             </motion.h1>
-            <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed">
+            <motion.p variants={fadeUp} custom={2} className="text-sm text-muted-foreground max-w-xl mx-auto leading-relaxed mb-10">
               Parce que créer un site ne suffit pas. Nous avons constaté que trop de marques restent inactives après leur lancement. Voici pourquoi nous avons fait évoluer notre offre.
             </motion.p>
           </SectionBlock>
         </div>
+
+        {/* Hero visual strip */}
+        <SectionBlock className="max-w-5xl mx-auto">
+          <motion.div variants={fadeUp} custom={3} className="grid grid-cols-4 gap-2 md:gap-3">
+            {[
+              { type: "video" as const, src: "/videos/contenu-ugc.mp4" },
+              { type: "image" as const, src: kaniwaUgc2 },
+              { type: "video" as const, src: "/videos/fralene-ugc.mp4" },
+              { type: "image" as const, src: insta4 },
+            ].map((item, i) => (
+              <div key={i} className="aspect-[3/4] rounded-xl overflow-hidden bg-secondary">
+                {item.type === "image" ? (
+                  <img src={item.src} alt="" className="w-full h-full object-cover" loading="lazy" />
+                ) : (
+                  <SafeVideo src={item.src} className="w-full h-full object-cover" />
+                )}
+              </div>
+            ))}
+          </motion.div>
+        </SectionBlock>
       </section>
 
       <div className="max-w-3xl mx-auto px-6 space-y-16">
@@ -154,7 +196,7 @@ export default function PourquoiCetteOffrePage() {
         </SectionBlock>
 
         {/* Les 6 problématiques */}
-        {problematics.map((item, idx) => (
+        {problematics.map((item) => (
           <SectionBlock key={item.title}>
             <motion.div variants={fadeUp} custom={0} className="flex items-center gap-3 mb-4">
               <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
@@ -173,6 +215,7 @@ export default function PourquoiCetteOffrePage() {
                 <p className="text-foreground/80 leading-relaxed text-[15px]">{item.solution}</p>
               </div>
             </motion.div>
+            {item.media && <MediaGrid items={item.media} />}
           </SectionBlock>
         ))}
 
@@ -218,7 +261,16 @@ export default function PourquoiCetteOffrePage() {
             </p>
           </motion.div>
 
-          <motion.div variants={fadeUp} custom={2} className="grid gap-4 mt-8">
+          {/* UGC video showcase */}
+          <motion.div variants={fadeUp} custom={2} className="grid grid-cols-3 gap-3 mt-6 mb-8">
+            {["/videos/contenu-ugc-2.mov", "/videos/trustpilot-ugc.mp4", "/videos/event-beauty.mp4"].map((src, i) => (
+              <div key={i} className="aspect-[3/4] rounded-xl overflow-hidden bg-secondary">
+                <SafeVideo src={src} className="w-full h-full object-cover" />
+              </div>
+            ))}
+          </motion.div>
+
+          <motion.div variants={fadeUp} custom={3} className="grid gap-4">
             {[
               {
                 icon: Shield,
