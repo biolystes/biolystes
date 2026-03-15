@@ -239,7 +239,7 @@ export default function PricingPage() {
           Le premier mois de l'abonnement est toujours offert !
         </p>
         <div className="inline-block mt-5 px-6 py-3 rounded-xl bg-red-600 text-white text-sm font-extrabold uppercase tracking-wide animate-none opacity-100">
-          🔥 Cette semaine : -20% sur toutes nos offres
+          🔥 -20% cette semaine
         </div>
       </motion.div>
 
