@@ -32,7 +32,19 @@ function SectionBlock({ children, className = "" }: { children: React.ReactNode;
   );
 }
 
-function MediaGrid({ items }: { items: { type: "image" | "video"; src: string }[] }) {
+function MediaGrid({ items, full }: { items: { type: "image" | "video"; src: string }[]; full?: boolean }) {
+  if (full && items.length === 1) {
+    const item = items[0];
+    return (
+      <motion.div variants={fadeUp} custom={2} className="mt-5 rounded-xl overflow-hidden bg-secondary">
+        {item.type === "image" ? (
+          <img src={item.src} alt="" className="w-full object-cover rounded-xl" loading="lazy" />
+        ) : (
+          <SafeVideo src={item.src} className="w-full object-cover rounded-xl" />
+        )}
+      </motion.div>
+    );
+  }
   return (
     <motion.div variants={fadeUp} custom={2} className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-5">
       {items.map((item, i) => (
