@@ -125,6 +125,7 @@ const problematics = [
     media: [
       { type: "video" as const, src: "/videos/lystesai-demo.mov" },
     ],
+    mediaFull: true,
   },
 ];
 
