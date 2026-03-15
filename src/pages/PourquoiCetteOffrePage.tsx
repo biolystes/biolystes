@@ -154,7 +154,7 @@ export default function PourquoiCetteOffrePage() {
             {[
               { type: "video" as const, src: "/videos/contenu-ugc.mp4" },
               { type: "image" as const, src: kaniwaUgc2 },
-              { type: "video" as const, src: "/videos/fralene-ugc.mp4" },
+              { type: "video" as const, src: "/videos/diagnostic-peau.mov" },
               { type: "image" as const, src: insta4 },
             ].map((item, i) => (
               <div key={i} className="aspect-[3/4] rounded-xl overflow-hidden bg-secondary">
