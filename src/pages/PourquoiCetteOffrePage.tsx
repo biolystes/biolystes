@@ -229,7 +229,7 @@ export default function PourquoiCetteOffrePage() {
                 <p className="text-foreground/80 leading-relaxed text-[15px]">{item.solution}</p>
               </div>
             </motion.div>
-            {item.media && <MediaGrid items={item.media} />}
+            {item.media && <MediaGrid items={item.media} full={item.mediaFull} />}
           </SectionBlock>
         ))}
 
