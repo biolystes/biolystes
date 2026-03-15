@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Camera, Clock, Brain, Megaphone, MessageCircle, Sparkles, Shield, Target, Headphones } from "lucide-react";
 import SafeVideo from "@/components/SafeVideo";
 import AITeamOrgChart from "@/components/AITeamOrgChart";
+import DiagnosticComparisonSection from "@/components/DiagnosticComparisonSection";
 
 import kaniwa1 from "@/assets/kaniwa-1.jpg";
 import fralene1 from "@/assets/fralene-1.jpg";
@@ -100,10 +101,8 @@ const problematics = [
     desc: "Les clients posent des questions techniques sur les produits : quel soin pour ma peau, quelle routine adopter, quels ingrédients éviter. Sans expertise dermocosmétique ou sans temps pour répondre, les créateurs perdent des ventes et de la crédibilité.",
     solution: "Notre technologie IA déploie des agents conversationnels sur chaque fiche produit, capables de conseiller les clients 24h/24 dans plus de 100 langues, avec une connaissance approfondie de vos produits.",
     solutionPack: "Pack IA & Biolystes AI",
-    media: [
-      { type: "video" as const, src: "/videos/diagnostic-peau.mov" },
-      { type: "image" as const, src: aiHeroMockup },
-    ],
+    media: [],
+    showComparison: true,
   },
   {
     icon: Megaphone,
@@ -233,6 +232,11 @@ export default function PourquoiCetteOffrePage() {
             {item.showOrgChart && (
               <div className="mt-8 bg-foreground rounded-[2rem] p-4 md:p-6 text-primary-foreground">
                 <AITeamOrgChart />
+              </div>
+            )}
+            {item.showComparison && (
+              <div className="mt-8">
+                <DiagnosticComparisonSection />
               </div>
             )}
           </SectionBlock>
