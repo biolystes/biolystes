@@ -148,7 +148,7 @@ export default function AITeamOrgChart() {
             <button onClick={() => navDir(-1)} className="w-9 h-9 rounded-full border border-cream/20 flex items-center justify-center text-base text-cream/50 transition-all hover:bg-cream hover:text-foreground shrink-0">←</button>
             {directors.map((d, i) => (
               <button key={d.name} onClick={() => setActiveDir(i)}
-                className={`px-5 py-4 rounded-xl text-center w-[160px] relative transition-all duration-[350ms] ${
+                className={`px-3 py-3 rounded-xl text-center w-[130px] shrink-0 relative transition-all duration-[350ms] ${
                   i === activeDir
                     ? "bg-cream text-foreground border border-cream -translate-y-1 scale-[1.03] shadow-[0_8px_24px_rgba(0,0,0,0.12)]"
                     : "bg-cream/5 text-cream border border-cream/20 hover:border-cream/40 hover:-translate-y-0.5"
