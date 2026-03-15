@@ -232,6 +232,11 @@ export default function PourquoiCetteOffrePage() {
               </div>
             </motion.div>
             {item.media && <MediaGrid items={item.media} full={item.mediaFull} />}
+            {item.showOrgChart && (
+              <div className="mt-8 -mx-6 md:-mx-0">
+                <AITeamOrgChart />
+              </div>
+            )}
           </SectionBlock>
         ))}
 
