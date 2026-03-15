@@ -62,7 +62,7 @@ const directors = [
 ];
 
 export default function AITeamOrgChart() {
-  const [productCount, setProductCount] = useState(134);
+  const [productCount, setProductCount] = useState(12);
   const [activeDir, setActiveDir] = useState(1);
 
   const totalAgents = useMemo(() => {
@@ -111,11 +111,11 @@ export default function AITeamOrgChart() {
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
         className="max-w-md mx-auto mb-12">
         <div className="flex items-center justify-between text-[12px] text-cream/50 mb-2">
-          <span>10 produits</span>
+          <span>4 produits</span>
           <span className="font-medium text-cream">{productCount} produits</span>
-          <span>1000 produits</span>
+          <span>50 produits</span>
         </div>
-        <Slider min={10} max={1000} step={1} value={[productCount]}
+        <Slider min={4} max={50} step={1} value={[productCount]}
           onValueChange={([v]) => setProductCount(v)} />
       </motion.div>
 
