@@ -12,6 +12,7 @@ import insta2 from "@/assets/insta-2.jpg";
 import insta3 from "@/assets/insta-3.jpg";
 import insta4 from "@/assets/insta-4.jpg";
 import aiHeroMockup from "@/assets/ai-hero-mockup.png";
+import agenceReseaux from "@/assets/agence-reseaux.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -31,7 +32,19 @@ function SectionBlock({ children, className = "" }: { children: React.ReactNode;
   );
 }
 
-function MediaGrid({ items }: { items: { type: "image" | "video"; src: string }[] }) {
+function MediaGrid({ items, full }: { items: { type: "image" | "video"; src: string }[]; full?: boolean }) {
+  if (full && items.length === 1) {
+    const item = items[0];
+    return (
+      <motion.div variants={fadeUp} custom={2} className="mt-5 rounded-xl overflow-hidden bg-secondary">
+        {item.type === "image" ? (
+          <img src={item.src} alt="" className="w-full object-cover rounded-xl" loading="lazy" />
+        ) : (
+          <SafeVideo src={item.src} className="w-full object-cover rounded-xl" />
+        )}
+      </motion.div>
+    );
+  }
   return (
     <motion.div variants={fadeUp} custom={2} className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-5">
       {items.map((item, i) => (
@@ -67,8 +80,9 @@ const problematics = [
     solution: "L'offre Agence prend en charge la gestion complète de votre communication, et l'offre IA automatise les tâches chronophages comme le diagnostic client et les recommandations produits.",
     solutionPack: "Pack Agence & Offre Communication",
     media: [
-      { type: "video" as const, src: "/videos/ecommerce-demo.mov" },
+      { type: "image" as const, src: agenceReseaux },
     ],
+    mediaFull: true,
   },
   {
     icon: Brain,
@@ -215,7 +229,7 @@ export default function PourquoiCetteOffrePage() {
                 <p className="text-foreground/80 leading-relaxed text-[15px]">{item.solution}</p>
               </div>
             </motion.div>
-            {item.media && <MediaGrid items={item.media} />}
+            {item.media && <MediaGrid items={item.media} full={item.mediaFull} />}
           </SectionBlock>
         ))}
 
