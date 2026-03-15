@@ -236,7 +236,7 @@ export default function PourquoiCetteOffrePage() {
               </div>
             )}
             {item.showComparison && (
-              <div className="mt-8">
+              <div className="mt-8 scale-[0.85] origin-top -mb-16">
                 <DiagnosticComparisonSection />
               </div>
             )}
