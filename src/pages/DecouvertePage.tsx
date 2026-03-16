@@ -785,13 +785,13 @@ export default function DecouvertePage() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-            {/* Pack Agence */}
+            {/* Pack cosmétique standard */}
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
               <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border-2 border-foreground">
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-foreground text-background">
                   Populaire
                 </div>
-                <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 mt-2 text-foreground">Pack Agence</h3>
+                <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 mt-2 text-foreground">Pack cosmétique standard</h3>
                 <p className="text-xs mb-5 text-foreground">Gestion 360°</p>
                 <div className="mb-2">
                   <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">1 499€</span>
@@ -824,10 +824,10 @@ export default function DecouvertePage() {
               </div>
             </motion.div>
 
-            {/* Pack IA */}
+            {/* Pack cosmétique IA */}
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}>
               <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border border-border">
-                <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 text-foreground">Pack IA</h3>
+                <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 text-foreground">Pack cosmétique IA</h3>
                 <p className="text-xs mb-5 text-foreground">Gestion 360° + Intelligence artificielle avancée</p>
                 <div className="mb-2">
                   <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">2 999€</span>
