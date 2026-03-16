@@ -127,7 +127,7 @@ function CosmetiqueTab() {
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
           <PackCard
             badge="Populaire"
-            title="Pack Agence"
+            title="Pack cosmétique standard"
             subtitle="Gestion 360°"
             price="1 499€"
             priceLabel="frais uniques ou 2× 750€"
@@ -148,7 +148,7 @@ function CosmetiqueTab() {
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}>
           <PackCard
-            title="Pack IA"
+            title="Pack cosmétique IA"
             subtitle="Gestion 360° + Intelligence artificielle avancée"
             price="2 999€"
             priceLabel="frais uniques ou 2× 1 500€"
