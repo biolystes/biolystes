@@ -639,7 +639,17 @@ export default function CatalogPage() {
     const enrichedWC = allProducts.map(p => {
       const key = normalizeStr(p.name);
       const enrichment = enrichmentMap.get(key);
-      if (enrichment) return { ...p, _enriched: enrichment };
+      if (enrichment) {
+        // Add JSON category to WC product so it matches JSON category filters
+        const jsonCatSlug = enrichment.jsonProduct?.categorie;
+        const jsonCatId = jsonCatSlug ? -(jsonCatSlug.length * 1000 + jsonCatSlug.charCodeAt(0)) : null;
+        const catLabel = jsonCatSlug ? getCategoryLabel(jsonCatSlug) : null;
+        const existingCatIds = new Set(p.categories.map(c => c.id));
+        const extraCats = (jsonCatId && !existingCatIds.has(jsonCatId) && catLabel)
+          ? [{ id: jsonCatId, name: catLabel }]
+          : [];
+        return { ...p, _enriched: enrichment, categories: [...p.categories, ...extraCats] };
+      }
       return p;
     });
     const jsonOnlyProducts: WCProduct[] = [];
