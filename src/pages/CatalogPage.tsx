@@ -669,9 +669,6 @@ export default function CatalogPage() {
     return Array.from(cats.entries()).map(([slug, label]) => ({ id: -(slug.length * 1000 + slug.charCodeAt(0)), name: label, slug }));
   })();
 
-  // Build a slug→id map so jsonToWCProduct can use the same IDs
-  const jsonCatIdMap = new Map<string, number>();
-  jsonCategories.forEach(jc => jsonCatIdMap.set(jc.slug, jc.id));
 
   const tagGroups = (() => {
     const groups: Record<string, { label: string; tags: WCTag[]; displayNames: string[] }> = {};
