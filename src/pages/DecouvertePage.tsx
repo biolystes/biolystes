@@ -785,7 +785,7 @@ export default function DecouvertePage() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
-            {/* Pack Agence */}
+            {/* Pack cosmétique standard */}
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}>
               <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border-2 border-foreground">
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-foreground text-background">
