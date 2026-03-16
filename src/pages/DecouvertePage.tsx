@@ -791,7 +791,7 @@ export default function DecouvertePage() {
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-foreground text-background">
                   Populaire
                 </div>
-                <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 mt-2 text-foreground">Pack Agence</h3>
+                <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 mt-2 text-foreground">Pack cosmétique standard</h3>
                 <p className="text-xs mb-5 text-foreground">Gestion 360°</p>
                 <div className="mb-2">
                   <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">1 499€</span>
