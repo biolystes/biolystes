@@ -639,7 +639,17 @@ export default function CatalogPage() {
     const enrichedWC = allProducts.map(p => {
       const key = normalizeStr(p.name);
       const enrichment = enrichmentMap.get(key);
-      if (enrichment) return { ...p, _enriched: enrichment };
+      if (enrichment) {
+        // Add JSON category to WC product so it matches JSON category filters
+        const jsonCatSlug = enrichment.jsonProduct?.categorie;
+        const jsonCatId = jsonCatSlug ? -(jsonCatSlug.length * 1000 + jsonCatSlug.charCodeAt(0)) : null;
+        const catLabel = jsonCatSlug ? getCategoryLabel(jsonCatSlug) : null;
+        const existingCatIds = new Set(p.categories.map(c => c.id));
+        const extraCats = (jsonCatId && !existingCatIds.has(jsonCatId) && catLabel)
+          ? [{ id: jsonCatId, name: catLabel }]
+          : [];
+        return { ...p, _enriched: enrichment, categories: [...p.categories, ...extraCats] };
+      }
       return p;
     });
     const jsonOnlyProducts: WCProduct[] = [];
@@ -654,10 +664,11 @@ export default function CatalogPage() {
 
   const jsonCategories = (() => {
     if (jsonProducts.length === 0) return [];
-    const cats = new Set<string>();
-    jsonProducts.forEach(jp => { if (jp.categorie) cats.add(jp.categorie); });
-    return Array.from(cats).map(slug => ({ id: -(slug.length * 1000 + slug.charCodeAt(0)), name: getCategoryLabel(slug) }));
+    const cats = new Map<string, string>();
+    jsonProducts.forEach(jp => { if (jp.categorie) cats.set(jp.categorie, getCategoryLabel(jp.categorie)); });
+    return Array.from(cats.entries()).map(([slug, label]) => ({ id: -(slug.length * 1000 + slug.charCodeAt(0)), name: label, slug }));
   })();
+
 
   const tagGroups = (() => {
     const groups: Record<string, { label: string; tags: WCTag[]; displayNames: string[] }> = {};
@@ -737,7 +748,12 @@ export default function CatalogPage() {
 
   const clearFilters = () => { setSelectedCatIds([]); setSelectedTagIds([]); setSelectedAttrTerms({}); setSelectedGroupTags({}); };
 
-  const catOptions: FilterOption[] = topLevel.map(c => ({ id: c.id, name: c.name }));
+  const catOptions: FilterOption[] = (() => {
+    const wcOpts = topLevel.map(c => ({ id: c.id, name: c.name }));
+    const existingNames = new Set(wcOpts.map(o => o.name.toLowerCase()));
+    const jsonOpts = jsonCategories.filter(jc => !existingNames.has(jc.name.toLowerCase()));
+    return [...wcOpts, ...jsonOpts];
+  })();
   const unGroupedTags = allTags.filter(t => { const { group } = parseTag(t.name); if (!group) return true; return !TAG_GROUP_LABELS[group]; }).slice(0, 30).map(t => ({ id: t.id, name: t.name }));
 
   const groupFilters = FILTER_ORDER.map(label => {

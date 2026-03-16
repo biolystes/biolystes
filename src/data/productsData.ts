@@ -63,12 +63,17 @@ const CATEGORY_LABELS: Record<string, string> = {
   "soins-du-corps": "Soins du corps",
   "soins-du-visage": "Soins du visage",
   "soins-capillaires": "Soins capillaires",
+  "soins-du-cheveu": "Soins capillaires",
   "soins-pour-hommes": "Soins pour hommes",
   "coffrets-cadeaux": "Coffrets cadeaux",
+  "coffrets": "Coffrets",
+  "kits-echantillons": "Kits d'échantillons",
   "aromatherapie": "Aromathérapie",
   "soins-solaires": "Soins solaires",
   "hygiene-bucco-dentaire": "Hygiène bucco-dentaire",
   "maquillage": "Maquillage",
+  "soins-pour-animaux": "Soins pour animaux",
+  "soins-pour-bebes": "Soins pour bébés",
 };
 
 export function getCategoryLabel(slug: string): string {
@@ -119,7 +124,7 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
       name: cert,
     })),
     categories: [{
-      id: -(index + 1),
+      id: -(jp.categorie.length * 1000 + jp.categorie.charCodeAt(0)),
       name: catLabel,
     }],
     attributes: [],
