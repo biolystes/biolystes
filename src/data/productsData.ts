@@ -119,7 +119,7 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
       name: cert,
     })),
     categories: [{
-      id: -(index + 1),
+      id: -(jp.categorie.length * 1000 + jp.categorie.charCodeAt(0)),
       name: catLabel,
     }],
     attributes: [],
