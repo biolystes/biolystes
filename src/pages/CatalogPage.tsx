@@ -737,7 +737,12 @@ export default function CatalogPage() {
 
   const clearFilters = () => { setSelectedCatIds([]); setSelectedTagIds([]); setSelectedAttrTerms({}); setSelectedGroupTags({}); };
 
-  const catOptions: FilterOption[] = topLevel.map(c => ({ id: c.id, name: c.name }));
+  const catOptions: FilterOption[] = (() => {
+    const wcOpts = topLevel.map(c => ({ id: c.id, name: c.name }));
+    const existingNames = new Set(wcOpts.map(o => o.name.toLowerCase()));
+    const jsonOpts = jsonCategories.filter(jc => !existingNames.has(jc.name.toLowerCase()));
+    return [...wcOpts, ...jsonOpts];
+  })();
   const unGroupedTags = allTags.filter(t => { const { group } = parseTag(t.name); if (!group) return true; return !TAG_GROUP_LABELS[group]; }).slice(0, 30).map(t => ({ id: t.id, name: t.name }));
 
   const groupFilters = FILTER_ORDER.map(label => {
