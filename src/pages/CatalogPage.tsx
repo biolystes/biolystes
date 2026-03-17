@@ -691,12 +691,40 @@ export default function CatalogPage() {
     return groups;
   })();
 
+  // Build a map of synonym category IDs: if user selects WC "Soins du cheveu", also match JSON "Soins capillaires" ID and vice versa
+  const catSynonymMap = (() => {
+    const WC_SLUG_MAP: Record<string, string> = {};
+    allCategories.forEach(c => { WC_SLUG_MAP[c.id] = c.slug; });
+    const map = new Map<number | string, Set<number | string>>();
+    // For each WC category, find its canonical JSON category ID
+    allCategories.forEach(c => {
+      const canonical = getCanonicalSlug(c.slug);
+      const jsonId = getCategoryId(canonical);
+      if (jsonId !== c.id) {
+        if (!map.has(c.id)) map.set(c.id, new Set());
+        map.get(c.id)!.add(jsonId);
+        if (!map.has(jsonId)) map.set(jsonId, new Set());
+        map.get(jsonId)!.add(c.id);
+      }
+    });
+    return map;
+  })();
+
+  const expandedSelectedCatIds = (() => {
+    const expanded = new Set<number | string>(selectedCatIds);
+    selectedCatIds.forEach(id => {
+      const synonyms = catSynonymMap.get(id);
+      if (synonyms) synonyms.forEach(s => expanded.add(s));
+    });
+    return expanded;
+  })();
+
   const filteredProducts = mergedProducts.filter(p => {
     const pCatIds = new Set(p.categories.map(c => c.id));
     const pTagIds = new Set(p.tags.map(t => t.id));
     const pAttrMap: Record<string, string[]> = {};
     p.attributes.forEach(a => { pAttrMap[a.id] = a.options.map(o => o.toLowerCase()); });
-    if (selectedCatIds.length > 0 && !selectedCatIds.some(id => pCatIds.has(id))) return false;
+    if (expandedSelectedCatIds.size > 0 && ![...expandedSelectedCatIds].some(id => pCatIds.has(id as number))) return false;
     if (selectedTagIds.length > 0 && !selectedTagIds.some(id => pTagIds.has(id))) return false;
     for (const [, tagIds] of Object.entries(selectedGroupTags)) {
       if (tagIds.length === 0) continue;
