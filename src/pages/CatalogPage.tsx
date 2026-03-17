@@ -13,6 +13,8 @@ import {
   parseStarFeatures,
   normalize,
   getCategoryLabel,
+  getCategoryId,
+  getCanonicalSlug,
 } from "@/data/productsData";
 
 // ─── Crème palette (no grays) ─────────────────────────────
