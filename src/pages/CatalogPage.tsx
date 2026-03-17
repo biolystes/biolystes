@@ -667,8 +667,13 @@ export default function CatalogPage() {
   const jsonCategories = (() => {
     if (jsonProducts.length === 0) return [];
     const cats = new Map<string, string>();
-    jsonProducts.forEach(jp => { if (jp.categorie) cats.set(jp.categorie, getCategoryLabel(jp.categorie)); });
-    return Array.from(cats.entries()).map(([slug, label]) => ({ id: -(slug.length * 1000 + slug.charCodeAt(0)), name: label, slug }));
+    jsonProducts.forEach(jp => {
+      if (jp.categorie) {
+        const canonical = getCanonicalSlug(jp.categorie);
+        cats.set(canonical, getCategoryLabel(jp.categorie));
+      }
+    });
+    return Array.from(cats.entries()).map(([slug, label]) => ({ id: getCategoryId(slug), name: label, slug }));
   })();
 
 
