@@ -755,11 +755,30 @@ export default function CatalogPage() {
 
   const clearFilters = () => { setSelectedCatIds([]); setSelectedTagIds([]); setSelectedAttrTerms({}); setSelectedGroupTags({}); };
 
+  // Map of WC category names that should be treated as synonyms
+  const WC_CAT_NAME_SYNONYMS: Record<string, string> = {
+    "soins du cheveu": "soins capillaires",
+    "coffrets cadeaux": "coffrets",
+  };
+
   const catOptions: FilterOption[] = (() => {
-    const wcOpts = topLevel.map(c => ({ id: c.id, name: c.name }));
-    const existingNames = new Set(wcOpts.map(o => o.name.toLowerCase()));
-    const jsonOpts = jsonCategories.filter(jc => !existingNames.has(jc.name.toLowerCase()));
-    return [...wcOpts, ...jsonOpts];
+    const seen = new Map<string, FilterOption>(); // lowercase canonical name → option
+    // Add WC categories first
+    topLevel.forEach(c => {
+      const lowerName = c.name.toLowerCase();
+      const canonicalName = WC_CAT_NAME_SYNONYMS[lowerName] || lowerName;
+      if (!seen.has(canonicalName)) {
+        seen.set(canonicalName, { id: c.id, name: c.name });
+      }
+    });
+    // Add JSON categories, skip if canonical name already exists
+    jsonCategories.forEach(jc => {
+      const canonicalName = jc.name.toLowerCase();
+      if (!seen.has(canonicalName)) {
+        seen.set(canonicalName, { id: jc.id, name: jc.name });
+      }
+    });
+    return Array.from(seen.values());
   })();
   const unGroupedTags = allTags.filter(t => { const { group } = parseTag(t.name); if (!group) return true; return !TAG_GROUP_LABELS[group]; }).slice(0, 30).map(t => ({ id: t.id, name: t.name }));
 
