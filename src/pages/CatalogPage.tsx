@@ -644,7 +644,7 @@ export default function CatalogPage() {
       if (enrichment) {
         // Add JSON category to WC product so it matches JSON category filters
         const jsonCatSlug = enrichment.jsonProduct?.categorie;
-        const jsonCatId = jsonCatSlug ? -(jsonCatSlug.length * 1000 + jsonCatSlug.charCodeAt(0)) : null;
+        const jsonCatId = jsonCatSlug ? getCategoryId(jsonCatSlug) : null;
         const catLabel = jsonCatSlug ? getCategoryLabel(jsonCatSlug) : null;
         const existingCatIds = new Set(p.categories.map(c => c.id));
         const extraCats = (jsonCatId && !existingCatIds.has(jsonCatId) && catLabel)
