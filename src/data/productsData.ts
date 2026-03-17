@@ -58,6 +58,17 @@ export function parseStarFeatures(str: string): string[] {
   return str.split(",").map(s => s.trim()).filter(Boolean);
 }
 
+// ─── Canonical slug mapping (synonyms → single slug) ──────
+const CANONICAL_SLUGS: Record<string, string> = {
+  "soins-du-cheveu": "soins-capillaires",
+  "coffrets-cadeaux": "coffrets",
+  "soins-pour-bebes": "soins-du-corps", // bébés grouped under corps
+};
+
+export function getCanonicalSlug(slug: string): string {
+  return CANONICAL_SLUGS[slug] || slug;
+}
+
 // ─── Category label mapping ───────────────────────────────
 const CATEGORY_LABELS: Record<string, string> = {
   "soins-du-corps": "Soins du corps",
@@ -78,6 +89,12 @@ const CATEGORY_LABELS: Record<string, string> = {
 
 export function getCategoryLabel(slug: string): string {
   return CATEGORY_LABELS[slug] || slug.replace(/-/g, " ").replace(/\b\w/g, c => c.toUpperCase());
+}
+
+// ─── Generate stable category ID from canonical slug ──────
+export function getCategoryId(slug: string): number {
+  const canonical = getCanonicalSlug(slug);
+  return -(canonical.length * 1000 + canonical.charCodeAt(0));
 }
 
 // ─── Normalize name for matching ──────────────────────────
