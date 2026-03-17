@@ -13,6 +13,8 @@ import {
   parseStarFeatures,
   normalize,
   getCategoryLabel,
+  getCategoryId,
+  getCanonicalSlug,
 } from "@/data/productsData";
 
 // ─── Crème palette (no grays) ─────────────────────────────
@@ -642,7 +644,7 @@ export default function CatalogPage() {
       if (enrichment) {
         // Add JSON category to WC product so it matches JSON category filters
         const jsonCatSlug = enrichment.jsonProduct?.categorie;
-        const jsonCatId = jsonCatSlug ? -(jsonCatSlug.length * 1000 + jsonCatSlug.charCodeAt(0)) : null;
+        const jsonCatId = jsonCatSlug ? getCategoryId(jsonCatSlug) : null;
         const catLabel = jsonCatSlug ? getCategoryLabel(jsonCatSlug) : null;
         const existingCatIds = new Set(p.categories.map(c => c.id));
         const extraCats = (jsonCatId && !existingCatIds.has(jsonCatId) && catLabel)
@@ -665,8 +667,13 @@ export default function CatalogPage() {
   const jsonCategories = (() => {
     if (jsonProducts.length === 0) return [];
     const cats = new Map<string, string>();
-    jsonProducts.forEach(jp => { if (jp.categorie) cats.set(jp.categorie, getCategoryLabel(jp.categorie)); });
-    return Array.from(cats.entries()).map(([slug, label]) => ({ id: -(slug.length * 1000 + slug.charCodeAt(0)), name: label, slug }));
+    jsonProducts.forEach(jp => {
+      if (jp.categorie) {
+        const canonical = getCanonicalSlug(jp.categorie);
+        cats.set(canonical, getCategoryLabel(jp.categorie));
+      }
+    });
+    return Array.from(cats.entries()).map(([slug, label]) => ({ id: getCategoryId(slug), name: label, slug }));
   })();
 
 
@@ -684,12 +691,40 @@ export default function CatalogPage() {
     return groups;
   })();
 
+  // Build a map of synonym category IDs: if user selects WC "Soins du cheveu", also match JSON "Soins capillaires" ID and vice versa
+  const catSynonymMap = (() => {
+    const WC_SLUG_MAP: Record<string, string> = {};
+    allCategories.forEach(c => { WC_SLUG_MAP[c.id] = c.slug; });
+    const map = new Map<number | string, Set<number | string>>();
+    // For each WC category, find its canonical JSON category ID
+    allCategories.forEach(c => {
+      const canonical = getCanonicalSlug(c.slug);
+      const jsonId = getCategoryId(canonical);
+      if (jsonId !== c.id) {
+        if (!map.has(c.id)) map.set(c.id, new Set());
+        map.get(c.id)!.add(jsonId);
+        if (!map.has(jsonId)) map.set(jsonId, new Set());
+        map.get(jsonId)!.add(c.id);
+      }
+    });
+    return map;
+  })();
+
+  const expandedSelectedCatIds = (() => {
+    const expanded = new Set<number | string>(selectedCatIds);
+    selectedCatIds.forEach(id => {
+      const synonyms = catSynonymMap.get(id);
+      if (synonyms) synonyms.forEach(s => expanded.add(s));
+    });
+    return expanded;
+  })();
+
   const filteredProducts = mergedProducts.filter(p => {
     const pCatIds = new Set(p.categories.map(c => c.id));
     const pTagIds = new Set(p.tags.map(t => t.id));
     const pAttrMap: Record<string, string[]> = {};
     p.attributes.forEach(a => { pAttrMap[a.id] = a.options.map(o => o.toLowerCase()); });
-    if (selectedCatIds.length > 0 && !selectedCatIds.some(id => pCatIds.has(id))) return false;
+    if (expandedSelectedCatIds.size > 0 && ![...expandedSelectedCatIds].some(id => pCatIds.has(id as number))) return false;
     if (selectedTagIds.length > 0 && !selectedTagIds.some(id => pTagIds.has(id))) return false;
     for (const [, tagIds] of Object.entries(selectedGroupTags)) {
       if (tagIds.length === 0) continue;
@@ -748,11 +783,30 @@ export default function CatalogPage() {
 
   const clearFilters = () => { setSelectedCatIds([]); setSelectedTagIds([]); setSelectedAttrTerms({}); setSelectedGroupTags({}); };
 
+  // Map of WC category names that should be treated as synonyms
+  const WC_CAT_NAME_SYNONYMS: Record<string, string> = {
+    "soins du cheveu": "soins capillaires",
+    "coffrets cadeaux": "coffrets",
+  };
+
   const catOptions: FilterOption[] = (() => {
-    const wcOpts = topLevel.map(c => ({ id: c.id, name: c.name }));
-    const existingNames = new Set(wcOpts.map(o => o.name.toLowerCase()));
-    const jsonOpts = jsonCategories.filter(jc => !existingNames.has(jc.name.toLowerCase()));
-    return [...wcOpts, ...jsonOpts];
+    const seen = new Map<string, FilterOption>(); // lowercase canonical name → option
+    // Add WC categories first
+    topLevel.forEach(c => {
+      const lowerName = c.name.toLowerCase();
+      const canonicalName = WC_CAT_NAME_SYNONYMS[lowerName] || lowerName;
+      if (!seen.has(canonicalName)) {
+        seen.set(canonicalName, { id: c.id, name: c.name });
+      }
+    });
+    // Add JSON categories, skip if canonical name already exists
+    jsonCategories.forEach(jc => {
+      const canonicalName = jc.name.toLowerCase();
+      if (!seen.has(canonicalName)) {
+        seen.set(canonicalName, { id: jc.id, name: jc.name });
+      }
+    });
+    return Array.from(seen.values());
   })();
   const unGroupedTags = allTags.filter(t => { const { group } = parseTag(t.name); if (!group) return true; return !TAG_GROUP_LABELS[group]; }).slice(0, 30).map(t => ({ id: t.id, name: t.name }));
 
