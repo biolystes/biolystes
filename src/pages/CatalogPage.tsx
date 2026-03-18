@@ -526,6 +526,7 @@ export default function CatalogPage() {
   const [selectedAttrTerms, setSelectedAttrTerms] = useState<Record<number, string[]>>({});
   const [selectedGroupTags, setSelectedGroupTags] = useState<Record<string, number[]>>({});
   const [loading, setLoading] = useState(true);
+  const [csvReady, setCsvReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<WCProduct | null>(null);
   const [vatEnabled, setVatEnabled] = useState(false);
