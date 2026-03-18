@@ -598,8 +598,9 @@ export default function CatalogPage() {
   };
 
   useEffect(() => {
-    // Load CSV image map first, then produits.json
+    // Load CSV image map first (critical for HD images), then produits.json
     import("@/data/productImageMap").then(({ loadProductImages }) => loadProductImages()).then(() => {
+      setCsvReady(true);
       fetch("/data/produits.json")
         .then(r => r.json())
         .then((data: JSONProduct[]) => setJsonProducts(data))
