@@ -706,7 +706,7 @@ export default function DecouvertePage() {
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="mt-12 text-center flex flex-wrap justify-center gap-4">
-            <a href="https://app.iclosed.io/e/paylystes/r2" target="_blank" rel="noopener noreferrer" className="btn-startup">
+            <a href="https://app.iclosed.io/e/biolystes/r2" target="_blank" rel="noopener noreferrer" className="btn-startup">
               <span>Prendre rendez-vous</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
