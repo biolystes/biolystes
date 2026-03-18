@@ -935,7 +935,7 @@ export default function CatalogPage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
             style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
             {products.map((p, i) => (
-              <ProductCard key={p.id} product={p} index={i} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} onGenerateClean={handleGenerateClean} overrideImage={cleanImages[p.id] || cleanImagesByName[normalizeStr(p.name)]} isGenerating={genLoadingId === p.id} />
+              <ProductCard key={p.id} product={p} index={i} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} onGenerateClean={handleGenerateClean} overrideImage={cleanImages[p.id] || cleanImagesByName[normalizeStr(p.name)]} isGenerating={genLoadingId === p.id} hasCleanPending={cleanNamesKnown.has(normalizeStr(p.name)) && !cleanImagesByName[normalizeStr(p.name)] && !cleanImages[p.id]} />
             ))}
           </motion.div>
         )}
