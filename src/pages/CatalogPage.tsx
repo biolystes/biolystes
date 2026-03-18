@@ -635,15 +635,17 @@ export default function CatalogPage() {
       .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
       .then((prods: WCProduct[]) => { setAllProducts(prods); setLoading(false); })
       .catch(() => {
-        // Fallback: use local produits.json when WooCommerce API is unreachable
-        fetch("/data/produits.json")
-          .then(r => r.json())
-          .then((data: JSONProduct[]) => {
-            const fallback: WCProduct[] = data.map((jp, i) => jsonToWCProduct(jp, i));
-            setAllProducts(fallback);
-            setLoading(false);
-          })
-          .catch((err2: Error) => { setError(err2.message); setLoading(false); });
+        // Fallback: ensure CSV images are loaded, then use local produits.json
+        import("@/data/productImageMap").then(({ loadProductImages }) => loadProductImages()).then(() => {
+          fetch("/data/produits.json")
+            .then(r => r.json())
+            .then((data: JSONProduct[]) => {
+              const fallback: WCProduct[] = data.map((jp, i) => jsonToWCProduct(jp, i));
+              setAllProducts(fallback);
+              setLoading(false);
+            })
+            .catch((err2: Error) => { setError(err2.message); setLoading(false); });
+        });
       });
   }, []);
 
