@@ -632,25 +632,24 @@ export default function CatalogPage() {
   }, []);
 
   useEffect(() => {
+    if (!csvReady) return; // Wait for CSV images to be loaded first
     setLoading(true);
     setError(null);
     fetch(buildUrl("/products", { page: "1", per_page: "100", status: "publish", orderby: "date", order: "desc" }))
       .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
       .then((prods: WCProduct[]) => { setAllProducts(prods); setLoading(false); })
       .catch(() => {
-        // Fallback: ensure CSV images are loaded, then use local produits.json
-        import("@/data/productImageMap").then(({ loadProductImages }) => loadProductImages()).then(() => {
-          fetch("/data/produits.json")
-            .then(r => r.json())
-            .then((data: JSONProduct[]) => {
-              const fallback: WCProduct[] = data.map((jp, i) => jsonToWCProduct(jp, i));
-              setAllProducts(fallback);
-              setLoading(false);
-            })
-            .catch((err2: Error) => { setError(err2.message); setLoading(false); });
-        });
+        // Fallback: use local produits.json (CSV already loaded)
+        fetch("/data/produits.json")
+          .then(r => r.json())
+          .then((data: JSONProduct[]) => {
+            const fallback: WCProduct[] = data.map((jp, i) => jsonToWCProduct(jp, i));
+            setAllProducts(fallback);
+            setLoading(false);
+          })
+          .catch((err2: Error) => { setError(err2.message); setLoading(false); });
       });
-  }, []);
+  }, [csvReady]);
 
   const mergedProducts = (() => {
     if (jsonProducts.length === 0) return allProducts;
