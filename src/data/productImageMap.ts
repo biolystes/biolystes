@@ -17,6 +17,30 @@ export interface ProductImageEntry {
   allImages: string[];
 }
 
+const MANUAL_IMAGE_OVERRIDES: Array<{ nom: string; images: string[] }> = [
+  {
+    nom: "Shampooing pour cuir chevelu sensible",
+    images: [
+      "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1dqZlpETEJBOGFUQjAzbFA0LUt6d1dhSkc5LV9yOU9TLmpwZyZ3aWR0aD0xMDI0",
+      "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2NHb1lNOGNPUzFYcERXek1hRGk3RjFqM0ZtS1FRb1o2LmpwZyZ3aWR0aD0xMDI0",
+    ],
+  },
+  {
+    nom: "Brume capillaire sans rinçage Keratin Shine",
+    images: [
+      "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL243NDcwV3NDTzM5LXJhdHJrcDJoaHhDc2dNM2NDSXluLmpwZyZ3aWR0aD0xMDI0",
+      "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL21UNzBia2JzN04wdnpMYWRDM3k5em1iaHlJVHRqUUttLmpwZyZ3aWR0aD0xMDI0",
+    ],
+  },
+  {
+    nom: "Huile fortifiante pour cheveux et cuir chevelu au romarin",
+    images: [
+      "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zLzczRjhPM2pmUklTc2JYcVhYMGFYckJmRHlXYkEyM1ZRLmpwZWcmd2lkdGg9MTAyNA==",
+      "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL3FlVjAxTTVqM2gwbjlVcFktcWdtN00zUTZDU3FOTXhuLmpwZWcmd2lkdGg9MTAyNA==",
+    ],
+  },
+];
+
 let _cache: Map<string, ProductImageEntry> | null = null;
 let _loading: Promise<Map<string, ProductImageEntry>> | null = null;
 
@@ -66,6 +90,19 @@ export async function loadProductImages(): Promise<Map<string, ProductImageEntry
           allImages,
         });
       }
+      for (const override of MANUAL_IMAGE_OVERRIDES) {
+        const allImages = override.images.filter(Boolean);
+        if (allImages.length === 0) continue;
+
+        map.set(normalize(override.nom), {
+          nom: override.nom,
+          image_principale: allImages[0] || "",
+          image_2: allImages[1] || "",
+          image_3: allImages[2] || "",
+          allImages,
+        });
+      }
+
       _cache = map;
       return map;
     })
