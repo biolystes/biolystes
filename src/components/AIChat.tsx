@@ -679,9 +679,7 @@ export default function AIChat({
                           </div>
                           {isLastAssistant && (
                             <a
-                              href="https://app.iclosed.io/e/biolystes/start"
-                              target="_blank"
-                              rel="noopener noreferrer"
+                              href="/rdv"
                               style={{
                                 alignSelf: "flex-start",
                                 fontSize: 10, fontWeight: 700, letterSpacing: "1.1px",
