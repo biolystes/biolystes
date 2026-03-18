@@ -426,7 +426,8 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
         )}
 
         {img
-          ? <img src={img} alt={product.name} loading="lazy"
+          ? <img src={img} alt={product.name} loading={index < 9 ? "eager" : "lazy"}
+              fetchPriority={index < 3 ? "high" : "auto"}
               style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1)", transition: "transform .4s" }}
               onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
               onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
