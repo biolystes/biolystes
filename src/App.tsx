@@ -36,6 +36,7 @@ import ArticleCoffretsPage from "./pages/ArticleCoffretsPage";
 import ArticleMarieClairePage from "./pages/ArticleMarieClairePage";
 import ArticleLancerMarquePage from "./pages/ArticleLancerMarquePage";
 import ArticleBiaisActifPage from "./pages/ArticleBiaisActifPage";
+import RdvPage from "./pages/RdvPage";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +71,7 @@ function AppRoutes() {
       <Route path="/blog/reseau-presse" element={<Layout><ArticleMarieClairePage /></Layout>} />
       <Route path="/blog/lancer-marque" element={<Layout><ArticleLancerMarquePage /></Layout>} />
       <Route path="/blog/biais-actif" element={<Layout><ArticleBiaisActifPage /></Layout>} />
+      <Route path="/rdv" element={<RdvPage />} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
       <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
       <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
