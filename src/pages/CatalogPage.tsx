@@ -16,6 +16,7 @@ import {
   getCategoryId,
   getCanonicalSlug,
 } from "@/data/productsData";
+import { getProductImagesSync } from "@/data/productImageMap";
 
 // ─── Crème palette (no grays) ─────────────────────────────
 const C = {
