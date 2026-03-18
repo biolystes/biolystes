@@ -176,9 +176,9 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
         .filter(isCatalogImage)
     : [];
 
-  // Fallback: use known-good images from verified HTML source
+  // Fallback: use known-good images from CSV source
   if (imageUrls.length === 0) {
-    imageUrls = getKnownProductImages(jp.nom);
+    imageUrls = getProductImagesSync(normalize(jp.nom));
   }
 
   return {
