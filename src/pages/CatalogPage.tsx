@@ -631,7 +631,17 @@ export default function CatalogPage() {
     fetch(buildUrl("/products", { page: "1", per_page: "100", status: "publish", orderby: "date", order: "desc" }))
       .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
       .then((prods: WCProduct[]) => { setAllProducts(prods); setLoading(false); })
-      .catch((err: Error) => { setError(err.message); setLoading(false); });
+      .catch(() => {
+        // Fallback: use local produits.json when WooCommerce API is unreachable
+        fetch("/data/produits.json")
+          .then(r => r.json())
+          .then((data: JSONProduct[]) => {
+            const fallback: WCProduct[] = data.map((jp, i) => jsonToWCProduct(jp, i));
+            setAllProducts(fallback);
+            setLoading(false);
+          })
+          .catch((err2: Error) => { setError(err2.message); setLoading(false); });
+      });
   }, []);
 
   const mergedProducts = (() => {
