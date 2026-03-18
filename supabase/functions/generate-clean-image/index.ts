@@ -24,6 +24,63 @@ const normalizeProductName = (name: string) =>
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]/g, "");
 
+// Convert base64 data URI to Uint8Array
+function base64ToBytes(dataUri: string): { bytes: Uint8Array; mimeType: string } {
+  const match = dataUri.match(/^data:(image\/\w+);base64,(.+)$/);
+  if (!match) throw new Error("Invalid data URI");
+  const mimeType = match[1];
+  const raw = atob(match[2]);
+  const bytes = new Uint8Array(raw.length);
+  for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+  return { bytes, mimeType };
+}
+
+// Upload image to storage bucket and return public URL
+async function uploadToStorage(imageData: string, productNameNormalized: string): Promise<string> {
+  if (!admin) throw new Error("Supabase client not configured");
+
+  let bytes: Uint8Array;
+  let ext = "png";
+  let contentType = "image/png";
+
+  if (imageData.startsWith("data:")) {
+    const result = base64ToBytes(imageData);
+    bytes = result.bytes;
+    contentType = result.mimeType;
+    ext = result.mimeType.split("/")[1] || "png";
+  } else if (imageData.startsWith("http")) {
+    // It's already a URL, download it first
+    const resp = await fetch(imageData);
+    if (!resp.ok) throw new Error(`Failed to fetch image: ${resp.status}`);
+    const ct = resp.headers.get("content-type") || "image/png";
+    contentType = ct;
+    ext = ct.split("/")[1]?.split(";")[0] || "png";
+    bytes = new Uint8Array(await resp.arrayBuffer());
+  } else {
+    throw new Error("Unknown image format");
+  }
+
+  const filePath = `clean/${productNameNormalized}.${ext}`;
+
+  const { error: uploadError } = await admin.storage
+    .from("product-images")
+    .upload(filePath, bytes, {
+      contentType,
+      upsert: true,
+    });
+
+  if (uploadError) {
+    console.error("Storage upload error:", uploadError);
+    throw new Error(`Upload failed: ${uploadError.message}`);
+  }
+
+  const { data: urlData } = admin.storage
+    .from("product-images")
+    .getPublicUrl(filePath);
+
+  return urlData.publicUrl;
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
@@ -95,11 +152,15 @@ serve(async (req) => {
     }
 
     const product_name_normalized = normalizeProductName(productName);
+
+    // Upload to storage instead of storing base64 in DB
+    const publicUrl = await uploadToStorage(generatedImage, product_name_normalized);
+
     const { error: persistError } = await admin.from("product_clean_images").upsert(
       {
         product_name: productName,
         product_name_normalized,
-        clean_image_url: generatedImage,
+        clean_image_url: publicUrl,
       },
       { onConflict: "product_name_normalized" }
     );
@@ -112,7 +173,7 @@ serve(async (req) => {
       });
     }
 
-    return new Response(JSON.stringify({ imageUrl: generatedImage, saved: true }), {
+    return new Response(JSON.stringify({ imageUrl: publicUrl, saved: true }), {
       status: 200,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
