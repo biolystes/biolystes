@@ -528,10 +528,12 @@ export default function CatalogPage() {
   const [allTags, setAllTags] = useState<WCTag[]>([]);
   const [attributes, setAttributes] = useState<WCAttribute[]>([]);
   const [attrTerms, setAttrTerms] = useState<Record<number, WCAttributeTerm[]>>({});
-  const [selectedCatIds, setSelectedCatIds] = useState<number[]>([]);
+  const [selectedCatIds, setSelectedCatIds] = useState<(number | string)[]>([]);
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
   const [selectedAttrTerms, setSelectedAttrTerms] = useState<Record<number, string[]>>({});
   const [selectedGroupTags, setSelectedGroupTags] = useState<Record<string, number[]>>({});
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCerts, setSelectedCerts] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [csvReady, setCsvReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -700,6 +702,7 @@ export default function CatalogPage() {
 
   const topLevel = allCategories.filter(c => c.parent === 0).sort((a, b) => b.count - a.count);
 
+  // Build category options from JSON data (works without WC API)
   const jsonCategories = (() => {
     if (jsonProducts.length === 0) return [];
     const cats = new Map<string, string>();
@@ -712,6 +715,17 @@ export default function CatalogPage() {
     return Array.from(cats.entries()).map(([slug, label]) => ({ id: getCategoryId(slug), name: label, slug }));
   })();
 
+  // Build certification options from JSON data
+  const allCertOptions = (() => {
+    const certs = new Map<string, number>();
+    mergedProducts.forEach(p => {
+      const enrichedCerts = p._enriched?.certifications || [];
+      enrichedCerts.forEach(c => certs.set(c, (certs.get(c) || 0) + 1));
+    });
+    return Array.from(certs.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([name]) => ({ id: name, name }));
+  })();
 
   const tagGroups = (() => {
     const groups: Record<string, { label: string; tags: WCTag[]; displayNames: string[] }> = {};
@@ -727,12 +741,9 @@ export default function CatalogPage() {
     return groups;
   })();
 
-  // Build a map of synonym category IDs: if user selects WC "Soins du cheveu", also match JSON "Soins capillaires" ID and vice versa
+  // Build a map of synonym category IDs
   const catSynonymMap = (() => {
-    const WC_SLUG_MAP: Record<string, string> = {};
-    allCategories.forEach(c => { WC_SLUG_MAP[c.id] = c.slug; });
     const map = new Map<number | string, Set<number | string>>();
-    // For each WC category, find its canonical JSON category ID
     allCategories.forEach(c => {
       const canonical = getCanonicalSlug(c.slug);
       const jsonId = getCategoryId(canonical);
@@ -756,12 +767,30 @@ export default function CatalogPage() {
   })();
 
   const filteredProducts = mergedProducts.filter(p => {
+    // Text search
+    if (searchQuery.trim()) {
+      const q = normalizeStr(searchQuery);
+      const nameMatch = normalizeStr(p.name).includes(q);
+      const descMatch = normalizeStr(p._enriched?.description_full || "").includes(q);
+      const featMatch = (p._enriched?.star_features || []).some(f => normalizeStr(f).includes(q));
+      const certMatch = (p._enriched?.certifications || []).some(c => normalizeStr(c).includes(q));
+      const catMatch = p.categories.some(c => normalizeStr(c.name).includes(q));
+      if (!nameMatch && !descMatch && !featMatch && !certMatch && !catMatch) return false;
+    }
+
     const pCatIds = new Set(p.categories.map(c => c.id));
     const pTagIds = new Set(p.tags.map(t => t.id));
     const pAttrMap: Record<string, string[]> = {};
     p.attributes.forEach(a => { pAttrMap[a.id] = a.options.map(o => o.toLowerCase()); });
     if (expandedSelectedCatIds.size > 0 && ![...expandedSelectedCatIds].some(id => pCatIds.has(id as number))) return false;
     if (selectedTagIds.length > 0 && !selectedTagIds.some(id => pTagIds.has(id))) return false;
+
+    // Certification filter
+    if (selectedCerts.length > 0) {
+      const pCerts = p._enriched?.certifications || [];
+      if (!selectedCerts.some(c => pCerts.includes(c))) return false;
+    }
+
     for (const [, tagIds] of Object.entries(selectedGroupTags)) {
       if (tagIds.length === 0) continue;
       if (!tagIds.some(id => pTagIds.has(id))) return false;
@@ -813,11 +842,11 @@ export default function CatalogPage() {
       return 0;
     });
 
-  const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 ||
+  const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 || selectedCerts.length > 0 || searchQuery.trim() !== "" ||
     Object.values(selectedAttrTerms).some(v => v.length > 0) ||
     Object.values(selectedGroupTags).some(v => v.length > 0);
 
-  const clearFilters = () => { setSelectedCatIds([]); setSelectedTagIds([]); setSelectedAttrTerms({}); setSelectedGroupTags({}); };
+  const clearFilters = () => { setSelectedCatIds([]); setSelectedTagIds([]); setSelectedAttrTerms({}); setSelectedGroupTags({}); setSelectedCerts([]); setSearchQuery(""); };
 
   // Map of WC category names that should be treated as synonyms
   const WC_CAT_NAME_SYNONYMS: Record<string, string> = {
@@ -887,12 +916,38 @@ export default function CatalogPage() {
           </div>
         </div>
 
+        {/* Search bar */}
+        <div style={{ position: "relative", marginBottom: 14 }}>
+          <div style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: C.muted, pointerEvents: "none" }}>
+            <Icons.search size={15} />
+          </div>
+          <input
+            type="text"
+            placeholder="Rechercher un produit, ingrédient, catégorie…"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            style={{
+              width: "100%", padding: "11px 14px 11px 40px", borderRadius: 14, border: `1px solid ${C.border}`,
+              background: C.bgLight, fontSize: 13, color: "#1d1d1f", outline: "none",
+              transition: "border-color .15s",
+            }}
+            onFocus={e => e.currentTarget.style.borderColor = "#1d1d1f"}
+            onBlur={e => e.currentTarget.style.borderColor = C.border}
+          />
+          {searchQuery && (
+            <button onClick={() => setSearchQuery("")} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.muted, padding: 4 }}>
+              <Icons.close size={12} />
+            </button>
+          )}
+        </div>
+
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
             {catOptions.length > 0 && <FilterDropdown label="Catégorie" options={catOptions} selected={selectedCatIds} onChange={ids => setSelectedCatIds(ids as number[])} grid={catOptions.length > 4} />}
+            {allCertOptions.length > 0 && <FilterDropdown label="Certification" options={allCertOptions} selected={selectedCerts} onChange={ids => setSelectedCerts(ids as string[])} grid={allCertOptions.length > 4} />}
             {unGroupedTags.length > 0 && <FilterDropdown label="Étiquette" options={unGroupedTags} selected={selectedTagIds} onChange={ids => setSelectedTagIds(ids as number[])} grid={unGroupedTags.length > 6} />}
             {groupFilters.map(f => <FilterDropdown key={f.label} label={f.label} options={f.options} selected={selectedGroupTags[f.label] || []} onChange={ids => setSelectedGroupTags(prev => ({ ...prev, [f.label]: ids as number[] }))} grid={f.options.length > 6 && !f.isColor} />)}
-            {hasFilters && <button onClick={clearFilters} style={{ padding: "7px 14px", borderRadius: 20, border: `1px solid ${C.border}`, background: "transparent", color: C.muted, fontSize: 12, fontWeight: 400, cursor: "pointer" }}>Effacer</button>}
+            {hasFilters && <button onClick={clearFilters} style={{ padding: "7px 14px", borderRadius: 20, border: `1px solid ${C.border}`, background: "transparent", color: C.muted, fontSize: 12, fontWeight: 400, cursor: "pointer" }}>Effacer tout</button>}
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
