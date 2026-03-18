@@ -377,7 +377,7 @@ export default function DecouvertePage() {
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }}
             className="mt-8 flex flex-wrap justify-center gap-4">
-            <a href="https://app.iclosed.io/e/biolystes/start" target="_blank" rel="noopener noreferrer" className="btn-startup">
+            <a href="/rdv" className="btn-startup">
               <span>Prendre rendez-vous</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
