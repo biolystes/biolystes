@@ -126,16 +126,52 @@ export function buildEnrichmentMap(jsonProducts: JSONProduct[]): Map<string, Enr
   return map;
 }
 
+// ─── Image URL helpers ───────────────────────────────────
+function toAbsoluteSelfnamedUrl(pathOrUrl: string): string {
+  if (!pathOrUrl) return "";
+  if (/^https?:\/\//i.test(pathOrUrl)) return pathOrUrl;
+  const normalized = pathOrUrl.startsWith("/") ? pathOrUrl : `/${pathOrUrl}`;
+  return `https://static.selfnamed.com${normalized}`;
+}
+
+function decodeSelfnamedProxyPath(url: string): string {
+  const match = url.match(/\/r\/([^?#&]+)/i);
+  if (!match?.[1]) return "";
+
+  try {
+    const base64 = match[1].replace(/-/g, "+").replace(/_/g, "/");
+    const padded = base64 + "=".repeat((4 - (base64.length % 4)) % 4);
+    return atob(padded).toLowerCase();
+  } catch {
+    return "";
+  }
+}
+
+function isCatalogImage(url: string): boolean {
+  const lower = url.toLowerCase();
+
+  if (lower.includes("/certifications/")) return false;
+  if (lower.includes("gallery-photos") || lower.includes("galleryphotos")) return true;
+
+  const decoded = decodeSelfnamedProxyPath(url);
+  if (!decoded) return false;
+  if (decoded.includes("certifications")) return false;
+  return decoded.includes("gallery-photos") || decoded.includes("galleryphotos");
+}
+
 // ─── Convert JSON product to WCProduct-compatible format ──
 export function jsonToWCProduct(jp: JSONProduct, index: number): any {
   const price = parseJsonPrice(jp.prix);
   const catLabel = getCategoryLabel(jp.categorie);
 
-  // Parse images: pipe-separated relative paths → full URLs
+  // Parse images from local JSON (relative paths OR full URLs), keep only product gallery images.
   const imageUrls = jp.images
-    ? jp.images.split("|").map(s => s.trim()).filter(Boolean)
-        .map(path => `https://static.selfnamed.com${path}`)
-        .filter(url => url.includes("gallery-photos") || url.includes("galleryPhotos"))
+    ? jp.images
+        .split("|")
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .map(toAbsoluteSelfnamedUrl)
+        .filter(isCatalogImage)
     : [];
 
   return {
