@@ -432,7 +432,12 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
               style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1)", transition: "transform .4s" }}
               onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
               onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
-          : <ProductPlaceholder name={product.name} />
+          : hasCleanPending
+            ? <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10, background: "#ecebd7" }}>
+                <svg style={{ animation: "spin .8s linear infinite" }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.muted} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                <span style={{ fontSize: 9, fontWeight: 600, color: C.muted, textTransform: "uppercase", letterSpacing: ".5px" }}>Chargement…</span>
+              </div>
+            : <ProductPlaceholder name={product.name} />
         }
 
         {/* Loading overlay during generation */}
