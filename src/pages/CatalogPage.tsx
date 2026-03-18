@@ -596,10 +596,13 @@ export default function CatalogPage() {
   };
 
   useEffect(() => {
-    fetch("/data/produits.json")
-      .then(r => r.json())
-      .then((data: JSONProduct[]) => setJsonProducts(data))
-      .catch(() => {});
+    // Load CSV image map first, then produits.json
+    import("@/data/productImageMap").then(({ loadProductImages }) => loadProductImages()).then(() => {
+      fetch("/data/produits.json")
+        .then(r => r.json())
+        .then((data: JSONProduct[]) => setJsonProducts(data))
+        .catch(() => {});
+    });
   }, []);
 
   useEffect(() => {
