@@ -166,19 +166,17 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
   const price = parseJsonPrice(jp.prix);
   const catLabel = getCategoryLabel(jp.categorie);
 
-  // Parse images from local JSON (relative paths OR full URLs), keep only product gallery images.
-  let imageUrls = jp.images
-    ? jp.images
-        .split("|")
-        .map((s) => s.trim())
-        .filter(Boolean)
-        .map(toAbsoluteSelfnamedUrl)
-        .filter(isCatalogImage)
-    : [];
+  // Priority: use high-quality CSV images first (1024px, sharp)
+  let imageUrls = getProductImagesSync(normalize(jp.nom));
 
-  // Fallback: use known-good images from CSV source
-  if (imageUrls.length === 0) {
-    imageUrls = getProductImagesSync(normalize(jp.nom));
+  // Fallback: parse from JSON only if CSV has no match
+  if (imageUrls.length === 0 && jp.images) {
+    imageUrls = jp.images
+      .split("|")
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .map(toAbsoluteSelfnamedUrl)
+      .filter(isCatalogImage);
   }
 
   return {
