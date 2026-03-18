@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import { Check, Info, ArrowRight } from "lucide-react";
 
-const RDV_URL = "https://app.iclosed.io/e/biolystes/r2";
+const RDV_URL = "https://app.iclosed.io/e/biolystes/start";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
