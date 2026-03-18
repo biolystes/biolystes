@@ -865,7 +865,7 @@ export default function CatalogPage() {
 
   return (
     <>
-      <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }`}</style>
+      <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} } @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }`}</style>
 
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: 32 }}>
         <p style={{ fontSize: 14, fontWeight: 500, color: C.muted, marginBottom: 4 }}>Catalogue</p>
