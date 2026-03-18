@@ -702,6 +702,7 @@ export default function CatalogPage() {
 
   const topLevel = allCategories.filter(c => c.parent === 0).sort((a, b) => b.count - a.count);
 
+  // Build category options from JSON data (works without WC API)
   const jsonCategories = (() => {
     if (jsonProducts.length === 0) return [];
     const cats = new Map<string, string>();
@@ -714,6 +715,17 @@ export default function CatalogPage() {
     return Array.from(cats.entries()).map(([slug, label]) => ({ id: getCategoryId(slug), name: label, slug }));
   })();
 
+  // Build certification options from JSON data
+  const allCertOptions = (() => {
+    const certs = new Map<string, number>();
+    mergedProducts.forEach(p => {
+      const enrichedCerts = p._enriched?.certifications || [];
+      enrichedCerts.forEach(c => certs.set(c, (certs.get(c) || 0) + 1));
+    });
+    return Array.from(certs.entries())
+      .sort((a, b) => b[1] - a[1])
+      .map(([name]) => ({ id: name, name }));
+  })();
 
   const tagGroups = (() => {
     const groups: Record<string, { label: string; tags: WCTag[]; displayNames: string[] }> = {};
@@ -729,12 +741,9 @@ export default function CatalogPage() {
     return groups;
   })();
 
-  // Build a map of synonym category IDs: if user selects WC "Soins du cheveu", also match JSON "Soins capillaires" ID and vice versa
+  // Build a map of synonym category IDs
   const catSynonymMap = (() => {
-    const WC_SLUG_MAP: Record<string, string> = {};
-    allCategories.forEach(c => { WC_SLUG_MAP[c.id] = c.slug; });
     const map = new Map<number | string, Set<number | string>>();
-    // For each WC category, find its canonical JSON category ID
     allCategories.forEach(c => {
       const canonical = getCanonicalSlug(c.slug);
       const jsonId = getCategoryId(canonical);
@@ -758,12 +767,30 @@ export default function CatalogPage() {
   })();
 
   const filteredProducts = mergedProducts.filter(p => {
+    // Text search
+    if (searchQuery.trim()) {
+      const q = normalizeStr(searchQuery);
+      const nameMatch = normalizeStr(p.name).includes(q);
+      const descMatch = normalizeStr(p._enriched?.description_full || "").includes(q);
+      const featMatch = (p._enriched?.star_features || []).some(f => normalizeStr(f).includes(q));
+      const certMatch = (p._enriched?.certifications || []).some(c => normalizeStr(c).includes(q));
+      const catMatch = p.categories.some(c => normalizeStr(c.name).includes(q));
+      if (!nameMatch && !descMatch && !featMatch && !certMatch && !catMatch) return false;
+    }
+
     const pCatIds = new Set(p.categories.map(c => c.id));
     const pTagIds = new Set(p.tags.map(t => t.id));
     const pAttrMap: Record<string, string[]> = {};
     p.attributes.forEach(a => { pAttrMap[a.id] = a.options.map(o => o.toLowerCase()); });
     if (expandedSelectedCatIds.size > 0 && ![...expandedSelectedCatIds].some(id => pCatIds.has(id as number))) return false;
     if (selectedTagIds.length > 0 && !selectedTagIds.some(id => pTagIds.has(id))) return false;
+
+    // Certification filter
+    if (selectedCerts.length > 0) {
+      const pCerts = p._enriched?.certifications || [];
+      if (!selectedCerts.some(c => pCerts.includes(c))) return false;
+    }
+
     for (const [, tagIds] of Object.entries(selectedGroupTags)) {
       if (tagIds.length === 0) continue;
       if (!tagIds.some(id => pTagIds.has(id))) return false;
