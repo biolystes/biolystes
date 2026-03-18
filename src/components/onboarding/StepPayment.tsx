@@ -44,7 +44,7 @@ export default function StepPayment() {
           size="lg"
           onClick={() => {
             // Stripe integration will be added here
-            window.open("https://app.iclosed.io/e/biolystes/start", "_blank");
+            window.location.href = "/rdv";
           }}
         >
           <CreditCard className="w-4 h-4 mr-2" /> Payer {packInfo.setup_price.toLocaleString("fr-FR")} €

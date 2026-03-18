@@ -22,7 +22,7 @@ import sevmylook3 from "@/assets/sevmylook-3.jpg";
 import sevmylook7 from "@/assets/sevmylook-7.jpg";
 import sevmylook20 from "@/assets/sevmylook-20.jpg";
 
-const CTA_URL = "https://app.iclosed.io/e/biolystes/start";
+const CTA_URL = "/rdv";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },

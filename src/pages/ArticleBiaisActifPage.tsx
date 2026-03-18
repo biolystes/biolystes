@@ -9,7 +9,7 @@ const fadeUp = {
   }),
 };
 
-const CTA_URL = "https://app.iclosed.io/e/biolystes/start";
+const CTA_URL = "/rdv";
 
 function SectionBlock({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (

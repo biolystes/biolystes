@@ -49,9 +49,9 @@ const fadeUp = {
   }),
 };
 
-const CTA_URL = "https://app.iclosed.io/e/biolystes/start";
+const CTA_URL = "/rdv";
 const CATALOG_URL = "/catalog";
-const CONTACT_URL = "https://app.iclosed.io/e/biolystes/start";
+const CONTACT_URL = "/rdv";
 
 // WooCommerce config for catalog preview
 const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
