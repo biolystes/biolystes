@@ -922,27 +922,19 @@ export default function CatalogPage() {
       </motion.div>
 
       <div>
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-          <span style={{ fontSize: 10, fontWeight: 700, color: C.muted, letterSpacing: "1.5px", textTransform: "uppercase" }}>Catalogue</span>
-          <div style={{ display: "flex", alignItems: "center", gap: 4, color: C.border }}>
-            <Icons.search size={13} />
-            <span style={{ fontSize: 11 }}>{products.length} produits</span>
-          </div>
-        </div>
-
         {/* Search bar */}
-        <div style={{ position: "relative", marginBottom: 14 }}>
-          <div style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: C.muted, pointerEvents: "none" }}>
-            <Icons.search size={15} />
+        <div style={{ position: "relative", marginBottom: 16 }}>
+          <div style={{ position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)", color: C.muted, pointerEvents: "none" }}>
+            <Icons.search size={16} />
           </div>
           <input
             type="text"
-            placeholder="Rechercher un produit, ingrédient, catégorie…"
+            placeholder="Rechercher un produit..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             style={{
-              width: "100%", padding: "11px 14px 11px 40px", borderRadius: 14, border: `1px solid ${C.border}`,
-              background: C.bgLight, fontSize: 13, color: "#1d1d1f", outline: "none",
+              width: "100%", maxWidth: 520, padding: "12px 14px 12px 44px", borderRadius: 28, border: `1px solid ${C.border}`,
+              background: C.bgLight, fontSize: 14, color: "#1d1d1f", outline: "none",
               transition: "border-color .15s",
             }}
             onFocus={e => e.currentTarget.style.borderColor = "#1d1d1f"}
@@ -950,21 +942,68 @@ export default function CatalogPage() {
           />
           {searchQuery && (
             <button onClick={() => setSearchQuery("")} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.muted, padding: 4 }}>
-              <Icons.close size={12} />
+              <Icons.close size={14} />
             </button>
           )}
         </div>
 
+        {/* Category pills */}
+        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16, alignItems: "center" }}>
+          {/* "Tous les produits" pill */}
+          <button
+            onClick={() => { setSelectedCatIds([]); setSelectedCerts([]); }}
+            style={{
+              padding: "8px 18px", borderRadius: 24, border: "none",
+              background: selectedCatIds.length === 0 && selectedCerts.length === 0 ? "#1d1d1f" : C.badgeBg,
+              color: selectedCatIds.length === 0 && selectedCerts.length === 0 ? C.bgLight : "#1d1d1f",
+              fontSize: 14, fontWeight: 600, cursor: "pointer",
+              transition: "all .15s", whiteSpace: "nowrap",
+            }}
+          >
+            Tous les produits <span style={{ fontWeight: 400, opacity: 0.7, marginLeft: 4 }}>({mergedProducts.filter(p => !HIDDEN_PRODUCTS.has(normalizeStr(p.name))).length})</span>
+          </button>
+
+          {catOptions.map(cat => {
+            const isActive = selectedCatIds.includes(cat.id as number);
+            const count = catCounts.get(cat.id) || 0;
+            if (count === 0) return null;
+            return (
+              <button
+                key={cat.id}
+                onClick={() => {
+                  if (isActive) {
+                    setSelectedCatIds(selectedCatIds.filter(id => id !== cat.id));
+                  } else {
+                    setSelectedCatIds([cat.id as number]);
+                  }
+                }}
+                style={{
+                  padding: "8px 18px", borderRadius: 24, border: "none",
+                  background: isActive ? "#1d1d1f" : C.badgeBg,
+                  color: isActive ? C.bgLight : "#1d1d1f",
+                  fontSize: 14, fontWeight: 600, cursor: "pointer",
+                  transition: "all .15s", whiteSpace: "nowrap",
+                }}
+              >
+                {cat.name} <span style={{ fontWeight: 400, opacity: 0.7, marginLeft: 4 }}>({count})</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Secondary filters row */}
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
-            {catOptions.length > 0 && <FilterDropdown label="Catégorie" options={catOptions} selected={selectedCatIds} onChange={ids => setSelectedCatIds(ids as number[])} grid={catOptions.length > 4} />}
             {allCertOptions.length > 0 && <FilterDropdown label="Certification" options={allCertOptions} selected={selectedCerts} onChange={ids => setSelectedCerts(ids as string[])} grid={allCertOptions.length > 4} />}
             {unGroupedTags.length > 0 && <FilterDropdown label="Étiquette" options={unGroupedTags} selected={selectedTagIds} onChange={ids => setSelectedTagIds(ids as number[])} grid={unGroupedTags.length > 6} />}
             {groupFilters.map(f => <FilterDropdown key={f.label} label={f.label} options={f.options} selected={selectedGroupTags[f.label] || []} onChange={ids => setSelectedGroupTags(prev => ({ ...prev, [f.label]: ids as number[] }))} grid={f.options.length > 6 && !f.isColor} />)}
-            {hasFilters && <button onClick={clearFilters} style={{ padding: "7px 14px", borderRadius: 20, border: `1px solid ${C.border}`, background: "transparent", color: C.muted, fontSize: 12, fontWeight: 400, cursor: "pointer" }}>Effacer tout</button>}
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
+            {/* Product count */}
+            <span style={{ fontSize: 13, color: C.muted, fontWeight: 500 }}>{products.length} produits</span>
+
+            {/* Sort */}
             <div style={{ position: "relative" }}>
               <button onClick={() => setSortOpen(o => !o)}
                 style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 20, border: `1px solid ${C.border}`, background: C.bgLight, color: "#1d1d1f", fontSize: 12, fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap" }}>
