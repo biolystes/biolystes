@@ -131,11 +131,18 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
   const price = parseJsonPrice(jp.prix);
   const catLabel = getCategoryLabel(jp.categorie);
 
+  // Parse images: pipe-separated relative paths → full URLs
+  const imageUrls = jp.images
+    ? jp.images.split("|").map(s => s.trim()).filter(Boolean)
+        .map(path => `https://static.selfnamed.com${path}`)
+        .filter(url => url.includes("gallery-photos") || url.includes("galleryPhotos"))
+    : [];
+
   return {
-    id: -(index + 1), // negative IDs to avoid collision with WC
+    id: -(index + 1),
     name: jp.nom,
     price: price ? price.toString() : "",
-    images: [], // No images from JSON - will show placeholder
+    images: imageUrls.length > 0 ? imageUrls.map(src => ({ src })) : [],
     tags: parseCertifications(jp.certifications).map((cert, i) => ({
       id: -(index * 100 + i),
       name: cert,
