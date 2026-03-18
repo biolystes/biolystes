@@ -855,8 +855,7 @@ export default function CatalogPage() {
   };
 
   const catOptions: FilterOption[] = (() => {
-    const seen = new Map<string, FilterOption>(); // lowercase canonical name → option
-    // Add WC categories first
+    const seen = new Map<string, FilterOption>();
     topLevel.forEach(c => {
       const lowerName = c.name.toLowerCase();
       const canonicalName = WC_CAT_NAME_SYNONYMS[lowerName] || lowerName;
@@ -864,7 +863,6 @@ export default function CatalogPage() {
         seen.set(canonicalName, { id: c.id, name: c.name });
       }
     });
-    // Add JSON categories, skip if canonical name already exists
     jsonCategories.forEach(jc => {
       const canonicalName = jc.name.toLowerCase();
       if (!seen.has(canonicalName)) {
@@ -873,6 +871,22 @@ export default function CatalogPage() {
     });
     return Array.from(seen.values());
   })();
+
+  // Count products per category from mergedProducts (for pill badges)
+  const catCounts = (() => {
+    const counts = new Map<number | string, number>();
+    const visibleProducts = mergedProducts.filter(p => !HIDDEN_PRODUCTS.has(normalizeStr(p.name)));
+    visibleProducts.forEach(p => {
+      p.categories.forEach(c => {
+        counts.set(c.id, (counts.get(c.id) || 0) + 1);
+        // Also count for synonym IDs
+        const synonyms = catSynonymMap.get(c.id);
+        if (synonyms) synonyms.forEach(s => counts.set(s, (counts.get(s) || 0) + 1));
+      });
+    });
+    return counts;
+  })();
+
   const unGroupedTags = allTags.filter(t => { const { group } = parseTag(t.name); if (!group) return true; return !TAG_GROUP_LABELS[group]; }).slice(0, 30).map(t => ({ id: t.id, name: t.name }));
 
   const groupFilters = FILTER_ORDER.map(label => {
