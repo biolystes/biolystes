@@ -842,11 +842,11 @@ export default function CatalogPage() {
       return 0;
     });
 
-  const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 ||
+  const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 || selectedCerts.length > 0 || searchQuery.trim() !== "" ||
     Object.values(selectedAttrTerms).some(v => v.length > 0) ||
     Object.values(selectedGroupTags).some(v => v.length > 0);
 
-  const clearFilters = () => { setSelectedCatIds([]); setSelectedTagIds([]); setSelectedAttrTerms({}); setSelectedGroupTags({}); };
+  const clearFilters = () => { setSelectedCatIds([]); setSelectedTagIds([]); setSelectedAttrTerms({}); setSelectedGroupTags({}); setSelectedCerts([]); setSearchQuery(""); };
 
   // Map of WC category names that should be treated as synonyms
   const WC_CAT_NAME_SYNONYMS: Record<string, string> = {
