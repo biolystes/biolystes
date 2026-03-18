@@ -653,11 +653,16 @@ export default function CatalogPage() {
     if (jsonProducts.length === 0) return allProducts;
     const enrichmentMap = buildEnrichmentMap(jsonProducts);
     const wcNormalizedNames = new Set(allProducts.map(p => normalizeStr(p.name)));
+    const { getProductImagesSync } = require("@/data/productImageMap") as { getProductImagesSync: (n: string) => string[] };
     const enrichedWC = allProducts.map(p => {
       const key = normalizeStr(p.name);
       const enrichment = enrichmentMap.get(key);
+      // Replace WC images with high-res CSV images when available
+      const csvImages = getProductImagesSync(key);
+      const images = csvImages.length > 0
+        ? csvImages.map(src => ({ src }))
+        : p.images;
       if (enrichment) {
-        // Add JSON category to WC product so it matches JSON category filters
         const jsonCatSlug = enrichment.jsonProduct?.categorie;
         const jsonCatId = jsonCatSlug ? getCategoryId(jsonCatSlug) : null;
         const catLabel = jsonCatSlug ? getCategoryLabel(jsonCatSlug) : null;
@@ -665,9 +670,9 @@ export default function CatalogPage() {
         const extraCats = (jsonCatId && !existingCatIds.has(jsonCatId) && catLabel)
           ? [{ id: jsonCatId, name: catLabel }]
           : [];
-        return { ...p, _enriched: enrichment, categories: [...p.categories, ...extraCats] };
+        return { ...p, images, _enriched: enrichment, categories: [...p.categories, ...extraCats] };
       }
-      return p;
+      return { ...p, images };
     });
     const jsonOnlyProducts: WCProduct[] = [];
     jsonProducts.forEach((jp, idx) => {
