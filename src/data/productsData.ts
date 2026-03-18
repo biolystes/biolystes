@@ -1,4 +1,4 @@
-import { getKnownProductImages } from "./productImageMap";
+import { getProductImagesSync } from "./productImageMap";
 
 // ─── JSON product type from produits.json ─────────────────
 export interface JSONProduct {
