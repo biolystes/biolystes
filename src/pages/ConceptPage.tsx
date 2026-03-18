@@ -49,9 +49,9 @@ const fadeUp = {
   }),
 };
 
-const CTA_URL = "https://app.iclosed.io/e/paylystes/r2";
+const CTA_URL = "https://app.iclosed.io/e/biolystes/r2";
 const CATALOG_URL = "/catalog";
-const CONTACT_URL = "https://app.iclosed.io/e/paylystes/r2";
+const CONTACT_URL = "https://app.iclosed.io/e/biolystes/r2";
 
 // WooCommerce config for catalog preview
 const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
