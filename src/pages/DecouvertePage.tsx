@@ -526,7 +526,7 @@ export default function DecouvertePage() {
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </a>
-            <a href="https://app.iclosed.io/e/biolystes/r2" target="_blank" rel="noopener noreferrer" className="btn-outline">
+            <a href="https://app.iclosed.io/e/biolystes/start" target="_blank" rel="noopener noreferrer" className="btn-outline">
               <span>Demander l'accès à nos produits</span>
               <span className="arrow-circle">
                 <ArrowRight className="w-3.5 h-3.5" />
