@@ -353,7 +353,7 @@ function ProductPanel({ product, onClose, overrideImage }: { product: WCProduct;
 }
 
 // ─── Product Card ─────────────────────────────────────────
-function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect, onGenerateClean, overrideImage, isGenerating }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void; onGenerateClean?: (product: WCProduct, imgSrc: string) => void; overrideImage?: string; isGenerating?: boolean }) {
+function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect, onGenerateClean, overrideImage, isGenerating, index = 0 }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void; onGenerateClean?: (product: WCProduct, imgSrc: string) => void; overrideImage?: string; isGenerating?: boolean; index?: number }) {
   const originalImg = product.images?.[0]?.src || getCdnFallbackImage(product.name);
   const img = overrideImage || originalImg;
   const cats = product.categories?.map(c => c.name) || [];
@@ -426,7 +426,8 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
         )}
 
         {img
-          ? <img src={img} alt={product.name} loading="lazy"
+          ? <img src={img} alt={product.name} loading={index < 9 ? "eager" : "lazy"}
+              fetchPriority={index < 3 ? "high" : "auto"}
               style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1)", transition: "transform .4s" }}
               onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
               onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
@@ -526,6 +527,7 @@ export default function CatalogPage() {
   const [selectedAttrTerms, setSelectedAttrTerms] = useState<Record<number, string[]>>({});
   const [selectedGroupTags, setSelectedGroupTags] = useState<Record<string, number[]>>({});
   const [loading, setLoading] = useState(true);
+  const [csvReady, setCsvReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<WCProduct | null>(null);
   const [vatEnabled, setVatEnabled] = useState(false);
@@ -597,8 +599,9 @@ export default function CatalogPage() {
   };
 
   useEffect(() => {
-    // Load CSV image map first, then produits.json
+    // Load CSV image map first (critical for HD images), then produits.json
     import("@/data/productImageMap").then(({ loadProductImages }) => loadProductImages()).then(() => {
+      setCsvReady(true);
       fetch("/data/produits.json")
         .then(r => r.json())
         .then((data: JSONProduct[]) => setJsonProducts(data))
@@ -630,25 +633,24 @@ export default function CatalogPage() {
   }, []);
 
   useEffect(() => {
+    if (!csvReady) return; // Wait for CSV images to be loaded first
     setLoading(true);
     setError(null);
     fetch(buildUrl("/products", { page: "1", per_page: "100", status: "publish", orderby: "date", order: "desc" }))
       .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
       .then((prods: WCProduct[]) => { setAllProducts(prods); setLoading(false); })
       .catch(() => {
-        // Fallback: ensure CSV images are loaded, then use local produits.json
-        import("@/data/productImageMap").then(({ loadProductImages }) => loadProductImages()).then(() => {
-          fetch("/data/produits.json")
-            .then(r => r.json())
-            .then((data: JSONProduct[]) => {
-              const fallback: WCProduct[] = data.map((jp, i) => jsonToWCProduct(jp, i));
-              setAllProducts(fallback);
-              setLoading(false);
-            })
-            .catch((err2: Error) => { setError(err2.message); setLoading(false); });
-        });
+        // Fallback: use local produits.json (CSV already loaded)
+        fetch("/data/produits.json")
+          .then(r => r.json())
+          .then((data: JSONProduct[]) => {
+            const fallback: WCProduct[] = data.map((jp, i) => jsonToWCProduct(jp, i));
+            setAllProducts(fallback);
+            setLoading(false);
+          })
+          .catch((err2: Error) => { setError(err2.message); setLoading(false); });
       });
-  }, []);
+  }, [csvReady]);
 
   const mergedProducts = (() => {
     if (jsonProducts.length === 0) return allProducts;
@@ -923,8 +925,8 @@ export default function CatalogPage() {
         {!loading && !error && products.length > 0 && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
             style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
-            {products.map(p => (
-              <ProductCard key={p.id} product={p} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} onGenerateClean={handleGenerateClean} overrideImage={cleanImages[p.id] || cleanImagesByName[normalizeStr(p.name)]} isGenerating={genLoadingId === p.id} />
+            {products.map((p, i) => (
+              <ProductCard key={p.id} product={p} index={i} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} onGenerateClean={handleGenerateClean} overrideImage={cleanImages[p.id] || cleanImagesByName[normalizeStr(p.name)]} isGenerating={genLoadingId === p.id} />
             ))}
           </motion.div>
         )}
