@@ -90,6 +90,19 @@ export async function loadProductImages(): Promise<Map<string, ProductImageEntry
           allImages,
         });
       }
+      for (const override of MANUAL_IMAGE_OVERRIDES) {
+        const allImages = override.images.filter(Boolean);
+        if (allImages.length === 0) continue;
+
+        map.set(normalize(override.nom), {
+          nom: override.nom,
+          image_principale: allImages[0] || "",
+          image_2: allImages[1] || "",
+          image_3: allImages[2] || "",
+          allImages,
+        });
+      }
+
       _cache = map;
       return map;
     })
