@@ -36,6 +36,7 @@ import ArticleCoffretsPage from "./pages/ArticleCoffretsPage";
 import ArticleMarieClairePage from "./pages/ArticleMarieClairePage";
 import ArticleLancerMarquePage from "./pages/ArticleLancerMarquePage";
 import ArticleBiaisActifPage from "./pages/ArticleBiaisActifPage";
+import RdvPage from "./pages/RdvPage";
 
 const queryClient = new QueryClient();
 
