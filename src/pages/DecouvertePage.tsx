@@ -491,7 +491,7 @@ export default function DecouvertePage() {
             <div>
               <p className="text-xs tracking-[0.3em] uppercase text-foreground mb-6">Ce que nous garantissons</p>
               <div className="space-y-3">
-                {["Ingrédients 100% naturels", "Parfums véganes", "Production à la demande", "Traçabilité complète", "Laboratoires certifiés", "Échantillons disponibles", "Aucun minimum de commande", "Expédition sous votre marque"].map(item => (
+                {["Ingrédients d'origine naturelle", "Parfums véganes", "Production à la demande", "Traçabilité complète", "Laboratoires certifiés", "Échantillons disponibles", "Aucun minimum de commande", "Expédition sous votre marque"].map(item => (
                   <div key={item} className="flex items-center gap-3">
                     <Check className="h-4 w-4 text-foreground shrink-0" />
                     <span className="text-sm text-foreground">{item}</span>
