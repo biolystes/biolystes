@@ -654,7 +654,6 @@ export default function CatalogPage() {
     if (jsonProducts.length === 0) return allProducts;
     const enrichmentMap = buildEnrichmentMap(jsonProducts);
     const wcNormalizedNames = new Set(allProducts.map(p => normalizeStr(p.name)));
-    const { getProductImagesSync } = require("@/data/productImageMap") as { getProductImagesSync: (n: string) => string[] };
     const enrichedWC = allProducts.map(p => {
       const key = normalizeStr(p.name);
       const enrichment = enrichmentMap.get(key);
