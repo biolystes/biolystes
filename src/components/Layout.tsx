@@ -16,7 +16,7 @@ const publicNavItems = [
   { path: "/blog", label: "Ressources" },
 ];
 
-const RDV_URL = "https://app.iclosed.io/e/biolystes/r2";
+const RDV_URL = "https://app.iclosed.io/e/biolystes/start";
 
 function TopNavBar() {
   const location = useLocation();

@@ -679,7 +679,7 @@ export default function AIChat({
                           </div>
                           {isLastAssistant && (
                             <a
-                              href="https://app.iclosed.io/e/biolystes/r2"
+                              href="https://app.iclosed.io/e/biolystes/start"
                               target="_blank"
                               rel="noopener noreferrer"
                               style={{

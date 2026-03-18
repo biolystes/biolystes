@@ -99,7 +99,7 @@ function HomeExperienceCarousel() {
   );
 }
 
-const CTA_URL = "https://app.iclosed.io/e/biolystes/r2";
+const CTA_URL = "https://app.iclosed.io/e/biolystes/start";
 const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
 const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
 const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
@@ -377,7 +377,7 @@ export default function DecouvertePage() {
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }}
             className="mt-8 flex flex-wrap justify-center gap-4">
-            <a href="https://app.iclosed.io/e/biolystes/r2" target="_blank" rel="noopener noreferrer" className="btn-startup">
+            <a href="https://app.iclosed.io/e/biolystes/start" target="_blank" rel="noopener noreferrer" className="btn-startup">
               <span>Prendre rendez-vous</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
@@ -526,7 +526,7 @@ export default function DecouvertePage() {
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </a>
-            <a href="https://app.iclosed.io/e/biolystes/r2" target="_blank" rel="noopener noreferrer" className="btn-outline">
+            <a href="https://app.iclosed.io/e/biolystes/start" target="_blank" rel="noopener noreferrer" className="btn-outline">
               <span>Demander l'accès à nos produits</span>
               <span className="arrow-circle">
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -706,7 +706,7 @@ export default function DecouvertePage() {
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="mt-12 text-center flex flex-wrap justify-center gap-4">
-            <a href="https://app.iclosed.io/e/biolystes/r2" target="_blank" rel="noopener noreferrer" className="btn-startup">
+            <a href="https://app.iclosed.io/e/biolystes/start" target="_blank" rel="noopener noreferrer" className="btn-startup">
               <span>Prendre rendez-vous</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
