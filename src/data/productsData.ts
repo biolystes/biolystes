@@ -1,3 +1,5 @@
+import { getKnownProductImages } from "./productImageMap";
+
 // ─── JSON product type from produits.json ─────────────────
 export interface JSONProduct {
   url: string;
