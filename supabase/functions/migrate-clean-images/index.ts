@@ -15,7 +15,7 @@ const admin = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
 });
 
 function base64ToBytes(dataUri: string): { bytes: Uint8Array; mimeType: string } {
-  const match = dataUri.match(/^data:(image\/\w+);base64,(.+)$/);
+  const match = dataUri.match(/^data:(image\/[^;]+);base64,(.+)$/s);
   if (!match) throw new Error("Invalid data URI");
   const mimeType = match[1];
   const raw = atob(match[2]);
@@ -28,15 +28,16 @@ serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    // Get all base64 images
+    // Get ONLY IDs and names of base64 images (no heavy data)
     const { data: rows, error } = await admin
       .from("product_clean_images")
-      .select("id, product_name, product_name_normalized, clean_image_url")
-      .like("clean_image_url", "data:%");
+      .select("id, product_name_normalized")
+      .like("clean_image_url", "data:%")
+      .limit(3); // Process 3 at a time to stay within memory
 
     if (error) throw error;
     if (!rows || rows.length === 0) {
-      return new Response(JSON.stringify({ message: "No base64 images to migrate", migrated: 0 }), {
+      return new Response(JSON.stringify({ message: "No more base64 images to migrate", migrated: 0, remaining: 0 }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
@@ -46,8 +47,20 @@ serve(async (req) => {
 
     for (const row of rows) {
       try {
-        const { bytes, mimeType } = base64ToBytes(row.clean_image_url);
-        const ext = mimeType.split("/")[1] || "png";
+        // Fetch only this one row's image data
+        const { data: fullRow, error: fetchErr } = await admin
+          .from("product_clean_images")
+          .select("clean_image_url")
+          .eq("id", row.id)
+          .single();
+
+        if (fetchErr || !fullRow) {
+          errors.push(`Fetch ${row.product_name_normalized}: ${fetchErr?.message}`);
+          continue;
+        }
+
+        const { bytes, mimeType } = base64ToBytes(fullRow.clean_image_url);
+        const ext = mimeType === "image/jpeg" ? "jpg" : "png";
         const filePath = `clean/${row.product_name_normalized}.${ext}`;
 
         // Upload to storage
@@ -56,7 +69,7 @@ serve(async (req) => {
           .upload(filePath, bytes, { contentType: mimeType, upsert: true });
 
         if (uploadError) {
-          errors.push(`Upload ${row.product_name}: ${uploadError.message}`);
+          errors.push(`Upload ${row.product_name_normalized}: ${uploadError.message}`);
           continue;
         }
 
@@ -65,26 +78,32 @@ serve(async (req) => {
           .from("product-images")
           .getPublicUrl(filePath);
 
-        // Update DB record with URL instead of base64
+        // Update DB with URL
         const { error: updateError } = await admin
           .from("product_clean_images")
           .update({ clean_image_url: urlData.publicUrl })
           .eq("id", row.id);
 
         if (updateError) {
-          errors.push(`Update ${row.product_name}: ${updateError.message}`);
+          errors.push(`Update ${row.product_name_normalized}: ${updateError.message}`);
           continue;
         }
 
         migrated++;
-        console.log(`Migrated: ${row.product_name} (${migrated}/${rows.length})`);
+        console.log(`Migrated: ${row.product_name_normalized} (${migrated}/${rows.length})`);
       } catch (e) {
-        errors.push(`${row.product_name}: ${e instanceof Error ? e.message : "unknown"}`);
+        errors.push(`${row.product_name_normalized}: ${e instanceof Error ? e.message : "unknown"}`);
       }
     }
 
+    // Check remaining
+    const { count } = await admin
+      .from("product_clean_images")
+      .select("id", { count: "exact", head: true })
+      .like("clean_image_url", "data:%");
+
     return new Response(
-      JSON.stringify({ migrated, total: rows.length, errors: errors.slice(0, 10) }),
+      JSON.stringify({ migrated, total: rows.length, remaining: count || 0, errors }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (e) {
