@@ -916,12 +916,38 @@ export default function CatalogPage() {
           </div>
         </div>
 
+        {/* Search bar */}
+        <div style={{ position: "relative", marginBottom: 14 }}>
+          <div style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: C.muted, pointerEvents: "none" }}>
+            <Icons.search size={15} />
+          </div>
+          <input
+            type="text"
+            placeholder="Rechercher un produit, ingrédient, catégorie…"
+            value={searchQuery}
+            onChange={e => setSearchQuery(e.target.value)}
+            style={{
+              width: "100%", padding: "11px 14px 11px 40px", borderRadius: 14, border: `1px solid ${C.border}`,
+              background: C.bgLight, fontSize: 13, color: "#1d1d1f", outline: "none",
+              transition: "border-color .15s",
+            }}
+            onFocus={e => e.currentTarget.style.borderColor = "#1d1d1f"}
+            onBlur={e => e.currentTarget.style.borderColor = C.border}
+          />
+          {searchQuery && (
+            <button onClick={() => setSearchQuery("")} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.muted, padding: 4 }}>
+              <Icons.close size={12} />
+            </button>
+          )}
+        </div>
+
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
           <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
             {catOptions.length > 0 && <FilterDropdown label="Catégorie" options={catOptions} selected={selectedCatIds} onChange={ids => setSelectedCatIds(ids as number[])} grid={catOptions.length > 4} />}
+            {allCertOptions.length > 0 && <FilterDropdown label="Certification" options={allCertOptions} selected={selectedCerts} onChange={ids => setSelectedCerts(ids as string[])} grid={allCertOptions.length > 4} />}
             {unGroupedTags.length > 0 && <FilterDropdown label="Étiquette" options={unGroupedTags} selected={selectedTagIds} onChange={ids => setSelectedTagIds(ids as number[])} grid={unGroupedTags.length > 6} />}
             {groupFilters.map(f => <FilterDropdown key={f.label} label={f.label} options={f.options} selected={selectedGroupTags[f.label] || []} onChange={ids => setSelectedGroupTags(prev => ({ ...prev, [f.label]: ids as number[] }))} grid={f.options.length > 6 && !f.isColor} />)}
-            {hasFilters && <button onClick={clearFilters} style={{ padding: "7px 14px", borderRadius: 20, border: `1px solid ${C.border}`, background: "transparent", color: C.muted, fontSize: 12, fontWeight: 400, cursor: "pointer" }}>Effacer</button>}
+            {hasFilters && <button onClick={clearFilters} style={{ padding: "7px 14px", borderRadius: 20, border: `1px solid ${C.border}`, background: "transparent", color: C.muted, fontSize: 12, fontWeight: 400, cursor: "pointer" }}>Effacer tout</button>}
           </div>
 
           <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
