@@ -539,37 +539,45 @@ export default function CatalogPage() {
   const [jsonProducts, setJsonProducts] = useState<JSONProduct[]>([]);
   const [cleanImages, setCleanImages] = useState<Record<number, string>>({});
   const [cleanImagesByName, setCleanImagesByName] = useState<Record<string, string>>({});
+  const [cleanNamesKnown, setCleanNamesKnown] = useState<Set<string>>(new Set());
+  const [cleanImagesReady, setCleanImagesReady] = useState(false);
   const [genLoadingId, setGenLoadingId] = useState<number | null>(null);
   const { user } = useAuth();
 
-  // Load persisted clean images on mount — paginate to handle large base64 payloads
+  // Step 1: Quickly load just the list of product names that have clean images (lightweight)
+  // Step 2: Then load the actual image URLs in batches
   useEffect(() => {
     (async () => {
+      // Step 1: Get just the names (very fast, tiny payload)
+      const { data: names, error: namesErr } = await supabase
+        .from("product_clean_images")
+        .select("product_name_normalized");
+      if (!namesErr && names) {
+        setCleanNamesKnown(new Set(names.map(r => r.product_name_normalized)));
+      }
+
+      // Step 2: Load actual image URLs in batches
       const map: Record<string, string> = {};
       let from = 0;
-      const PAGE = 50;
+      const PAGE = 20;
       let hasMore = true;
       while (hasMore) {
         const { data, error } = await supabase
           .from("product_clean_images")
           .select("product_name_normalized, clean_image_url")
           .range(from, from + PAGE - 1);
-        if (error) {
-          console.error("Error loading clean images:", error);
-          break;
-        }
+        if (error) { console.error("Error loading clean images:", error); break; }
         if (data && data.length > 0) {
           for (const row of data) {
             map[row.product_name_normalized] = row.clean_image_url;
           }
+          // Update state progressively so images appear as they load
+          setCleanImagesByName(prev => ({ ...prev, ...Object.fromEntries(data.map(r => [r.product_name_normalized, r.clean_image_url])) }));
         }
         hasMore = (data?.length ?? 0) === PAGE;
         from += PAGE;
       }
-      console.log(`Loaded ${Object.keys(map).length} clean images from DB`);
-      if (Object.keys(map).length > 0) {
-        setCleanImagesByName(map);
-      }
+      setCleanImagesReady(true);
     })();
   }, []);
 
