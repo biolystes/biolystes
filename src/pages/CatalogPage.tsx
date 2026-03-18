@@ -528,10 +528,12 @@ export default function CatalogPage() {
   const [allTags, setAllTags] = useState<WCTag[]>([]);
   const [attributes, setAttributes] = useState<WCAttribute[]>([]);
   const [attrTerms, setAttrTerms] = useState<Record<number, WCAttributeTerm[]>>({});
-  const [selectedCatIds, setSelectedCatIds] = useState<number[]>([]);
+  const [selectedCatIds, setSelectedCatIds] = useState<(number | string)[]>([]);
   const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
   const [selectedAttrTerms, setSelectedAttrTerms] = useState<Record<number, string[]>>({});
   const [selectedGroupTags, setSelectedGroupTags] = useState<Record<string, number[]>>({});
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCerts, setSelectedCerts] = useState<string[]>([]);
   const [loading, setLoading] = useState(true);
   const [csvReady, setCsvReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
