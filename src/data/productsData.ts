@@ -1,3 +1,5 @@
+import { getKnownProductImages } from "./productImageMap";
+
 // ─── JSON product type from produits.json ─────────────────
 export interface JSONProduct {
   url: string;
@@ -165,7 +167,7 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
   const catLabel = getCategoryLabel(jp.categorie);
 
   // Parse images from local JSON (relative paths OR full URLs), keep only product gallery images.
-  const imageUrls = jp.images
+  let imageUrls = jp.images
     ? jp.images
         .split("|")
         .map((s) => s.trim())
@@ -173,6 +175,11 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
         .map(toAbsoluteSelfnamedUrl)
         .filter(isCatalogImage)
     : [];
+
+  // Fallback: use known-good images from verified HTML source
+  if (imageUrls.length === 0) {
+    imageUrls = getKnownProductImages(jp.nom);
+  }
 
   return {
     id: -(index + 1),
