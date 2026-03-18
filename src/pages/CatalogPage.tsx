@@ -636,7 +636,7 @@ export default function CatalogPage() {
         fetch("/data/produits.json")
           .then(r => r.json())
           .then((data: JSONProduct[]) => {
-            const fallback: WCProduct[] = data.map(jp => jsonToWCProduct(jp));
+            const fallback: WCProduct[] = data.map((jp, i) => jsonToWCProduct(jp, i));
             setAllProducts(fallback);
             setLoading(false);
           })
