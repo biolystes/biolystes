@@ -353,7 +353,7 @@ function ProductPanel({ product, onClose, overrideImage }: { product: WCProduct;
 }
 
 // ─── Product Card ─────────────────────────────────────────
-function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect, onGenerateClean, overrideImage, isGenerating }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void; onGenerateClean?: (product: WCProduct, imgSrc: string) => void; overrideImage?: string; isGenerating?: boolean }) {
+function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect, onGenerateClean, overrideImage, isGenerating, index = 0 }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void; onGenerateClean?: (product: WCProduct, imgSrc: string) => void; overrideImage?: string; isGenerating?: boolean; index?: number }) {
   const originalImg = product.images?.[0]?.src || getCdnFallbackImage(product.name);
   const img = overrideImage || originalImg;
   const cats = product.categories?.map(c => c.name) || [];
