@@ -353,9 +353,10 @@ function ProductPanel({ product, onClose, overrideImage }: { product: WCProduct;
 }
 
 // ─── Product Card ─────────────────────────────────────────
-function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect, onGenerateClean, overrideImage, isGenerating, index = 0 }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void; onGenerateClean?: (product: WCProduct, imgSrc: string) => void; overrideImage?: string; isGenerating?: boolean; index?: number }) {
+function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect, onGenerateClean, overrideImage, isGenerating, index = 0, hasCleanPending = false }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void; onGenerateClean?: (product: WCProduct, imgSrc: string) => void; overrideImage?: string; isGenerating?: boolean; index?: number; hasCleanPending?: boolean }) {
   const originalImg = product.images?.[0]?.src || getCdnFallbackImage(product.name);
-  const img = overrideImage || originalImg;
+  // If a clean image is known to exist but not yet loaded, show placeholder instead of branded image
+  const img = overrideImage || (hasCleanPending ? null : originalImg);
   const cats = product.categories?.map(c => c.name) || [];
   const price = product.price ? parseFloat(product.price) : null;
   const midRange = price ? Math.round(price * 2.2) : null;
@@ -431,7 +432,12 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
               style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1)", transition: "transform .4s" }}
               onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
               onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
-          : <ProductPlaceholder name={product.name} />
+          : hasCleanPending
+            ? <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10, background: "#ecebd7" }}>
+                <svg style={{ animation: "spin .8s linear infinite" }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.muted} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
+                <span style={{ fontSize: 9, fontWeight: 600, color: C.muted, textTransform: "uppercase", letterSpacing: ".5px" }}>Chargement…</span>
+              </div>
+            : <ProductPlaceholder name={product.name} />
         }
 
         {/* Loading overlay during generation */}
@@ -539,37 +545,45 @@ export default function CatalogPage() {
   const [jsonProducts, setJsonProducts] = useState<JSONProduct[]>([]);
   const [cleanImages, setCleanImages] = useState<Record<number, string>>({});
   const [cleanImagesByName, setCleanImagesByName] = useState<Record<string, string>>({});
+  const [cleanNamesKnown, setCleanNamesKnown] = useState<Set<string>>(new Set());
+  const [cleanImagesReady, setCleanImagesReady] = useState(false);
   const [genLoadingId, setGenLoadingId] = useState<number | null>(null);
   const { user } = useAuth();
 
-  // Load persisted clean images on mount — paginate to handle large base64 payloads
+  // Step 1: Quickly load just the list of product names that have clean images (lightweight)
+  // Step 2: Then load the actual image URLs in batches
   useEffect(() => {
     (async () => {
+      // Step 1: Get just the names (very fast, tiny payload)
+      const { data: names, error: namesErr } = await supabase
+        .from("product_clean_images")
+        .select("product_name_normalized");
+      if (!namesErr && names) {
+        setCleanNamesKnown(new Set(names.map(r => r.product_name_normalized)));
+      }
+
+      // Step 2: Load actual image URLs in batches
       const map: Record<string, string> = {};
       let from = 0;
-      const PAGE = 50;
+      const PAGE = 20;
       let hasMore = true;
       while (hasMore) {
         const { data, error } = await supabase
           .from("product_clean_images")
           .select("product_name_normalized, clean_image_url")
           .range(from, from + PAGE - 1);
-        if (error) {
-          console.error("Error loading clean images:", error);
-          break;
-        }
+        if (error) { console.error("Error loading clean images:", error); break; }
         if (data && data.length > 0) {
           for (const row of data) {
             map[row.product_name_normalized] = row.clean_image_url;
           }
+          // Update state progressively so images appear as they load
+          setCleanImagesByName(prev => ({ ...prev, ...Object.fromEntries(data.map(r => [r.product_name_normalized, r.clean_image_url])) }));
         }
         hasMore = (data?.length ?? 0) === PAGE;
         from += PAGE;
       }
-      console.log(`Loaded ${Object.keys(map).length} clean images from DB`);
-      if (Object.keys(map).length > 0) {
-        setCleanImagesByName(map);
-      }
+      setCleanImagesReady(true);
     })();
   }, []);
 
@@ -851,7 +865,7 @@ export default function CatalogPage() {
 
   return (
     <>
-      <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }`}</style>
+      <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} } @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }`}</style>
 
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: 32 }}>
         <p style={{ fontSize: 14, fontWeight: 500, color: C.muted, marginBottom: 4 }}>Catalogue</p>
@@ -926,7 +940,7 @@ export default function CatalogPage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
             style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
             {products.map((p, i) => (
-              <ProductCard key={p.id} product={p} index={i} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} onGenerateClean={handleGenerateClean} overrideImage={cleanImages[p.id] || cleanImagesByName[normalizeStr(p.name)]} isGenerating={genLoadingId === p.id} />
+              <ProductCard key={p.id} product={p} index={i} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} onGenerateClean={handleGenerateClean} overrideImage={cleanImages[p.id] || cleanImagesByName[normalizeStr(p.name)]} isGenerating={genLoadingId === p.id} hasCleanPending={cleanNamesKnown.has(normalizeStr(p.name)) && !cleanImagesByName[normalizeStr(p.name)] && !cleanImages[p.id]} />
             ))}
           </motion.div>
         )}
