@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { decode as decodeBase64 } from "https://deno.land/std@0.168.0/encoding/base64.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -18,90 +19,77 @@ serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    // Get ONE base64 image at a time
-    const { data: row, error } = await admin
+    // Get ONE base64 image - only id + normalized name first (lightweight)
+    const { data: meta, error: metaErr } = await admin
       .from("product_clean_images")
-      .select("id, product_name, product_name_normalized, clean_image_url")
+      .select("id, product_name_normalized")
       .like("clean_image_url", "data:%")
       .limit(1)
-      .single();
+      .maybeSingle();
 
-    if (error || !row) {
-      // Check remaining count
-      const { count } = await admin
-        .from("product_clean_images")
-        .select("id", { count: "exact", head: true })
-        .like("clean_image_url", "data:%");
-
-      return new Response(JSON.stringify({ 
-        message: count === 0 ? "All images migrated!" : "No row found", 
-        remaining: count || 0 
-      }), {
+    if (metaErr) throw metaErr;
+    if (!meta) {
+      return new Response(JSON.stringify({ done: true, remaining: 0 }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
-    // Parse base64
-    const match = row.clean_image_url.match(/^data:(image\/[^;]+);base64,(.+)$/s);
-    if (!match) {
-      // Not valid base64, skip by marking with a placeholder
-      return new Response(JSON.stringify({ error: "Invalid base64 for " + row.product_name_normalized }), {
-        status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
+    // Now fetch only this row's image via raw SQL to avoid ORM overhead
+    const { data: imgRow, error: imgErr } = await admin.rpc("get_clean_image_base64", { row_id: meta.id });
 
-    const mimeType = match[1];
-    const raw = atob(match[2]);
-    const bytes = new Uint8Array(raw.length);
-    for (let i = 0; i < raw.length; i++) bytes[i] = raw.charCodeAt(i);
+    if (imgErr || !imgRow) {
+      // Fallback: fetch via normal query
+      const { data: fallback } = await admin
+        .from("product_clean_images")
+        .select("clean_image_url")
+        .eq("id", meta.id)
+        .single();
 
-    const ext = mimeType === "image/jpeg" ? "jpg" : "png";
-    const filePath = `clean/${row.product_name_normalized}.${ext}`;
+      if (!fallback) throw new Error("Cannot fetch image data");
 
-    // Upload
-    const { error: uploadError } = await admin.storage
-      .from("product-images")
-      .upload(filePath, bytes, { contentType: mimeType, upsert: true });
+      const b64 = fallback.clean_image_url;
+      const commaIdx = b64.indexOf(",");
+      if (commaIdx === -1) throw new Error("Invalid base64");
 
-    if (uploadError) {
-      return new Response(JSON.stringify({ error: `Upload failed: ${uploadError.message}` }), {
-        status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
+      const header = b64.substring(0, commaIdx);
+      const mimeMatch = header.match(/data:(image\/[^;]+)/);
+      const mimeType = mimeMatch ? mimeMatch[1] : "image/png";
+      const ext = mimeType === "image/jpeg" ? "jpg" : "png";
 
-    const { data: urlData } = admin.storage.from("product-images").getPublicUrl(filePath);
+      const rawB64 = b64.substring(commaIdx + 1);
+      const bytes = decodeBase64(rawB64);
+      const filePath = `clean/${meta.product_name_normalized}.${ext}`;
 
-    // Update row
-    const { error: updateError } = await admin
-      .from("product_clean_images")
-      .update({ clean_image_url: urlData.publicUrl })
-      .eq("id", row.id);
+      const { error: upErr } = await admin.storage
+        .from("product-images")
+        .upload(filePath, bytes, { contentType: mimeType, upsert: true });
 
-    if (updateError) {
-      return new Response(JSON.stringify({ error: `DB update failed: ${updateError.message}` }), {
-        status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
+      if (upErr) throw new Error(`Upload: ${upErr.message}`);
 
-    // Count remaining
-    const { count } = await admin
-      .from("product_clean_images")
-      .select("id", { count: "exact", head: true })
-      .like("clean_image_url", "data:%");
+      const { data: urlData } = admin.storage.from("product-images").getPublicUrl(filePath);
 
-    return new Response(
-      JSON.stringify({ 
-        migrated: row.product_name_normalized, 
+      await admin.from("product_clean_images")
+        .update({ clean_image_url: urlData.publicUrl })
+        .eq("id", meta.id);
+
+      const { count } = await admin.from("product_clean_images")
+        .select("id", { count: "exact", head: true })
+        .like("clean_image_url", "data:%");
+
+      return new Response(JSON.stringify({
+        migrated: meta.product_name_normalized,
         url: urlData.publicUrl,
         remaining: count || 0,
-        size_bytes: bytes.length,
-      }),
-      { headers: { ...corsHeaders, "Content-Type": "application/json" } }
-    );
+      }), { headers: { ...corsHeaders, "Content-Type": "application/json" } });
+    }
+
+    return new Response(JSON.stringify({ error: "RPC not found, used fallback" }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   } catch (e) {
     console.error("Migration error:", e);
     return new Response(
-      JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }),
+      JSON.stringify({ error: e instanceof Error ? e.message : String(e) }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
