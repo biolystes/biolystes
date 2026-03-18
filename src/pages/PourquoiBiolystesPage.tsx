@@ -9,7 +9,7 @@ const fadeUp = {
   }),
 };
 
-const CTA_URL = "https://app.iclosed.io/e/paylystes/r2";
+const CTA_URL = "https://app.iclosed.io/e/biolystes/r2";
 
 const failureFactors = [
   { category: "Financier", factor: "Coût d'entrée des laboratoires", impact: "15 000 à 20 000€ minimum pour 4 produits" },

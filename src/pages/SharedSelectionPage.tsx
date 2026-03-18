@@ -94,7 +94,7 @@ export default function SharedSelectionPage() {
           <span style={{ fontSize: 13, fontWeight: 700, color: "#1d1d1f" }}>Biolystes</span>
         </div>
         <a
-          href="https://app.iclosed.io/e/paylystes/r2"
+          href="https://app.iclosed.io/e/biolystes/r2"
           target="_blank"
           rel="noopener noreferrer"
           style={{
