@@ -178,7 +178,6 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
 
   // Fallback: use known-good images from verified HTML source
   if (imageUrls.length === 0) {
-    const { getKnownProductImages } = require("./productImageMap");
     imageUrls = getKnownProductImages(jp.nom);
   }
 
