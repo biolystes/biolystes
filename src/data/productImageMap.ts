@@ -177,14 +177,6 @@ const MANUAL_IMAGE_OVERRIDES: Array<{ nom: string; images: string[] }> = [
     ],
   },
   {
-    nom: "Boîtier de collection Boost Serum",
-    images: [
-      "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1VIMUlkOWVFcHZqdFFrNzdpbkhzRmVjdzR4am9WWkpsLmpwZWcmd2lkdGg9MTAyNA==",
-      "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2pLQTVYdGlUa3JWRUdURklJZml5VTVqUWVUSmloaGxNLnBuZyZ3aWR0aD0xMDI0",
-      "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL1J0b0NSVEVoUXFyMllGVmtBU3RfMlg0U1d3blpjMDltLmpwZWcmd2lkdGg9MTAyNA==",
-    ],
-  },
-  {
     nom: "Boîte de collection Acné Care",
     images: [
       "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0NEMmdyNTFIOHllZ21Mc21zblhPQlR6QlM3V3R4dUhRLnBuZyZ3aWR0aD0xMDI0",
