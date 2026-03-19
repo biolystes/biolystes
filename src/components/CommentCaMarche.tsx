@@ -33,7 +33,7 @@ const steps = [
     label: "ÉTAPE 4",
     title: "Photos Packshots et Ambiance",
     text: "Nous réalisons un set complet de photos haute qualité (packshots produits, images d'ambiance) pour sublimer votre site et vos campagnes marketing.",
-    image: "https://biolystes.com/assets/fralene-ext-1-CicZvEp9.jpg",
+    image: photosPackshotsStep,
     alt: "Photos Packshots et Ambiance",
   },
   {
