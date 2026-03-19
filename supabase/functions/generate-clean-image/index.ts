@@ -264,28 +264,44 @@ serve(async (req) => {
     if (!productName) throw new HttpError(400, "productName is required");
     if (!admin) throw new HttpError(500, "Supabase service client is not configured");
 
-    const MAX_ATTEMPTS = 1;
+    const MAX_ATTEMPTS = 2;
     let generatedImage: string | null = null;
     let lastRejectReason = "";
 
-    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-      const candidate = await generateCleanCandidate(imageUrl);
-      const validation = await validateCompositionIntegrity(imageUrl, candidate);
+    // Count items in original image once
+    const originalCount = await countItems(imageUrl);
+    console.log("Original item count:", originalCount);
 
-      if (validation.ok) {
-        generatedImage = candidate;
-        break;
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+      let candidate: string;
+      try {
+        candidate = await generateCleanCandidate(imageUrl);
+      } catch (e: any) {
+        console.warn(`generate attempt ${attempt} failed:`, e?.message);
+        continue;
       }
 
-      lastRejectReason = validation.reason;
-      console.warn(`generate-clean-image attempt ${attempt} rejected:`, validation.reason);
+      // If we could count original items, validate the candidate
+      if (originalCount !== null && originalCount > 1) {
+        const candidateCount = await countItems(candidate);
+        console.log(`Attempt ${attempt} candidate item count:`, candidateCount);
+
+        if (candidateCount !== null && candidateCount < originalCount) {
+          lastRejectReason = `Nombre d'éléments réduit de ${originalCount} à ${candidateCount}`;
+          console.warn(`generate-clean-image attempt ${attempt} rejected:`, lastRejectReason);
+          continue;
+        }
+      }
+
+      generatedImage = candidate;
+      break;
     }
 
     if (!generatedImage) {
       return new Response(
         JSON.stringify({
           error:
-            "Image rejetée automatiquement: la composition du boîtier a été modifiée au lieu d'enlever uniquement le texte. " +
+            "Image rejetée: la composition du produit a été modifiée. " +
             (lastRejectReason ? `Détail: ${lastRejectReason}` : "Réessayez."),
         }),
         {
