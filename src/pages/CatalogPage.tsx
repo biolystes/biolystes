@@ -367,7 +367,9 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
 
   const handleGenerate = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const imgSrc = overrideImage || originalImg;
+    // Always regenerate from the original product image to avoid reprocessing
+    // an already "clean" override that may still contain residual text.
+    const imgSrc = originalImg || overrideImage;
     if (imgSrc && onGenerateClean && !isGenerating) onGenerateClean(product, imgSrc);
   };
 
