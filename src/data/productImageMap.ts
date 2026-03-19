@@ -59,9 +59,9 @@ const MANUAL_IMAGE_OVERRIDES: Array<{ nom: string; images: string[] }> = [
   {
     nom: "Duo Corps Peaux Sensibles",
     images: [
+      "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2lFemJWM0F4ZnJvZVpKblcyTXFEajUzZF9DaWVSRkpyLmpwZyZ3aWR0aD0xMDI0",
       "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0kzSWdBanFjSnVCcm00cFZVUlhGcFU2Y0xUYUZULW9xLmpwZyZ3aWR0aD0xMDI0",
       "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL0FWUnVjMnQzQzkwUGF1Tmx1cmxNMDVyWEN2LXZlby02LnBuZyZ3aWR0aD0xMDI0",
-      "https://static.selfnamed.com/r/aW1hZ2U9L2dhbGxlcnktcGhvdG9zL2lFemJWM0F4ZnJvZVpKblcyTXFEajUzZF9DaWVSRkpyLmpwZyZ3aWR0aD0xMDI0",
     ],
   },
   {
