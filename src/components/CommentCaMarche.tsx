@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import selectionProduitsStep from "@/assets/selection-produits-step.png";
 import designPackagingStep from "@/assets/design-packaging-step.jpg";
 import envoiEchantillonsStep from "@/assets/envoi-echantillons-step.png";
+import photosPackshotsStep from "@/assets/sevmylook-20.jpg";
 
 const steps = [
   {
@@ -32,7 +33,7 @@ const steps = [
     label: "ÉTAPE 4",
     title: "Photos Packshots et Ambiance",
     text: "Nous réalisons un set complet de photos haute qualité (packshots produits, images d'ambiance) pour sublimer votre site et vos campagnes marketing.",
-    image: "https://biolystes.com/assets/fralene-ext-1-CicZvEp9.jpg",
+    image: photosPackshotsStep,
     alt: "Photos Packshots et Ambiance",
   },
   {
