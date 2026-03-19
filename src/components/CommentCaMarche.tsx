@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import selectionProduitsStep from "@/assets/selection-produits-step.png";
+import designPackagingStep from "@/assets/design-packaging-step.jpg";
 
 const steps = [
   {
