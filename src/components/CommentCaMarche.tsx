@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import selectionProduitsStep from "@/assets/selection-produits-step.png";
@@ -114,30 +114,33 @@ export default function CommentCaMarche() {
 
         {/* Step content */}
         <div className="max-w-2xl mx-auto bg-background rounded-2xl p-6 md:p-10">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={current}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-            >
-              <div className="grid md:grid-cols-2 gap-6 items-center">
-                <div className="order-2 md:order-1">
-                  <span className="text-xs font-semibold text-muted-foreground block mb-2 uppercase tracking-wider">
-                    {step.label}
-                  </span>
-                  <h3 className="text-lg font-semibold text-foreground mb-3">{step.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{step.text}</p>
+          <div className="relative">
+            {steps.map((s, i) => (
+              <motion.div
+                key={i}
+                initial={false}
+                animate={{ opacity: i === current ? 1 : 0 }}
+                transition={{ duration: 0.25 }}
+                className={i === current ? "relative" : "absolute inset-0 pointer-events-none"}
+                aria-hidden={i !== current}
+              >
+                <div className="grid md:grid-cols-2 gap-6 items-center">
+                  <div className="order-2 md:order-1">
+                    <span className="text-xs font-semibold text-muted-foreground block mb-2 uppercase tracking-wider">
+                      {s.label}
+                    </span>
+                    <h3 className="text-lg font-semibold text-foreground mb-3">{s.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{s.text}</p>
+                  </div>
+                  <img
+                    src={s.image}
+                    alt={s.alt}
+                    className="rounded-lg w-full object-cover order-1 md:order-2"
+                  />
                 </div>
-                <img
-                  src={step.image}
-                  alt={step.alt}
-                  className="rounded-lg w-full object-cover order-1 md:order-2"
-                />
-              </div>
-            </motion.div>
-          </AnimatePresence>
+              </motion.div>
+            ))}
+          </div>
 
           {/* Navigation */}
           <div className="mt-8 flex justify-between">
