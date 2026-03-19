@@ -179,8 +179,48 @@ This is text removal only, not product generation.`,
     modalities: ["image", "text"],
   });
 
-  const generatedImage = data?.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+  // Log full response structure for debugging
+  const choice = data?.choices?.[0]?.message;
+  console.log("AI response keys:", JSON.stringify({
+    hasImages: !!choice?.images,
+    imagesLength: choice?.images?.length,
+    contentType: typeof choice?.content,
+    contentIsArray: Array.isArray(choice?.content),
+    contentLength: Array.isArray(choice?.content) ? choice.content.length : 0,
+  }));
+
+  // Try multiple extraction paths
+  let generatedImage: string | null = null;
+
+  // Path 1: images array (standard)
+  generatedImage = choice?.images?.[0]?.image_url?.url ?? null;
+
+  // Path 2: content array with image_url parts
+  if (!generatedImage && Array.isArray(choice?.content)) {
+    for (const part of choice.content) {
+      if (part?.type === "image_url" && part?.image_url?.url) {
+        generatedImage = part.image_url.url;
+        break;
+      }
+      if (part?.image_url?.url) {
+        generatedImage = part.image_url.url;
+        break;
+      }
+    }
+  }
+
+  // Path 3: inline_data in content parts
+  if (!generatedImage && Array.isArray(choice?.content)) {
+    for (const part of choice.content) {
+      if (part?.inline_data?.data && part?.inline_data?.mime_type) {
+        generatedImage = `data:${part.inline_data.mime_type};base64,${part.inline_data.data}`;
+        break;
+      }
+    }
+  }
+
   if (!generatedImage) {
+    console.error("No image found in AI response. Full choice:", JSON.stringify(choice).slice(0, 500));
     throw new HttpError(500, "Aucune image générée");
   }
 
