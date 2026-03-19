@@ -129,36 +129,19 @@ export function buildEnrichmentMap(jsonProducts: JSONProduct[]): Map<string, Enr
 }
 
 // ─── Image URL helpers ───────────────────────────────────
-function toAbsoluteSelfnamedUrl(pathOrUrl: string): string {
+function toAbsoluteUrl(pathOrUrl: string): string {
   if (!pathOrUrl) return "";
   if (/^https?:\/\//i.test(pathOrUrl)) return pathOrUrl;
-  const normalized = pathOrUrl.startsWith("/") ? pathOrUrl : `/${pathOrUrl}`;
-  return `https://static.selfnamed.com${normalized}`;
-}
-
-function decodeSelfnamedProxyPath(url: string): string {
-  const match = url.match(/\/r\/([^?#&]+)/i);
-  if (!match?.[1]) return "";
-
-  try {
-    const base64 = match[1].replace(/-/g, "+").replace(/_/g, "/");
-    const padded = base64 + "=".repeat((4 - (base64.length % 4)) % 4);
-    return atob(padded).toLowerCase();
-  } catch {
-    return "";
-  }
+  return pathOrUrl;
 }
 
 function isCatalogImage(url: string): boolean {
+  if (!url) return false;
   const lower = url.toLowerCase();
-
   if (lower.includes("/certifications/")) return false;
   if (lower.includes("gallery-photos") || lower.includes("galleryphotos")) return true;
-
-  const decoded = decodeSelfnamedProxyPath(url);
-  if (!decoded) return false;
-  if (decoded.includes("certifications")) return false;
-  return decoded.includes("gallery-photos") || decoded.includes("galleryphotos");
+  // Accept any URL that looks like a product image
+  return lower.includes("/r/") || lower.includes("supabase") || lower.includes(".png") || lower.includes(".jpg") || lower.includes(".jpeg") || lower.includes(".webp");
 }
 
 // ─── Convert JSON product to WCProduct-compatible format ──
@@ -166,16 +149,16 @@ export function jsonToWCProduct(jp: JSONProduct, index: number): any {
   const price = parseJsonPrice(jp.prix);
   const catLabel = getCategoryLabel(jp.categorie);
 
-  // Priority: use high-quality CSV images first (1024px, sharp)
+  // Priority: use high-quality images from database (handled by catalog page)
   let imageUrls = getProductImagesSync(normalize(jp.nom));
 
-  // Fallback: parse from JSON only if CSV has no match
+  // Fallback: parse from JSON
   if (imageUrls.length === 0 && jp.images) {
     imageUrls = jp.images
       .split("|")
       .map((s) => s.trim())
       .filter(Boolean)
-      .map(toAbsoluteSelfnamedUrl)
+      .map(toAbsoluteUrl)
       .filter(isCatalogImage);
   }
 
