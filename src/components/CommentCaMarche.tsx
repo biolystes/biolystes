@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import selectionProduitsStep from "@/assets/selection-produits-step.png";
 import designPackagingStep from "@/assets/design-packaging-step.jpg";
+import envoiEchantillonsStep from "@/assets/envoi-echantillons-step.png";
 
 const steps = [
   {
@@ -24,7 +25,7 @@ const steps = [
     label: "ÉTAPE 3",
     title: "Envoi des échantillons",
     text: "Commandez vos échantillons pour découvrir et valider nos produits. C'est le moyen idéal de tester sans risque avant de lancer votre marque en toute confiance.",
-    image: "https://biolystes.pro/wp-content/uploads/2025/05/IMG_1846-2.png",
+    image: envoiEchantillonsStep,
     alt: "Envoi des échantillons",
   },
   {
