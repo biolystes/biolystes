@@ -8,6 +8,7 @@ import envoiEchantillonsStep from "@/assets/envoi-echantillons-step.png";
 import photosPackshotsStep from "@/assets/sevmylook-20.jpg";
 import ecommerceStep from "@/assets/ecommerce-step.png";
 import logistiqueStep from "@/assets/logistique-step.jpg";
+import coachingStep from "@/assets/coaching-step.png";
 
 const steps = [
   {
