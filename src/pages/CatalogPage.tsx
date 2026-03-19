@@ -367,7 +367,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
 
   const handleGenerate = (e: React.MouseEvent) => {
     e.stopPropagation();
-    const imgSrc = originalImg || overrideImage;
+    const imgSrc = overrideImage || originalImg;
     if (imgSrc && onGenerateClean && !isGenerating) onGenerateClean(product, imgSrc);
   };
 

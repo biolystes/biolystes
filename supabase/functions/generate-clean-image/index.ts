@@ -33,7 +33,6 @@ const normalizeProductName = (name: string) =>
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]/g, "");
 
-// Convert base64 data URI to Uint8Array
 function base64ToBytes(dataUri: string): { bytes: Uint8Array; mimeType: string } {
   const match = dataUri.match(/^data:(image\/\w+);base64,(.+)$/);
   if (!match) throw new Error("Invalid data URI");
@@ -44,7 +43,6 @@ function base64ToBytes(dataUri: string): { bytes: Uint8Array; mimeType: string }
   return { bytes, mimeType };
 }
 
-// Upload image to storage bucket and return public URL
 async function uploadToStorage(imageData: string, productNameNormalized: string): Promise<string> {
   if (!admin) throw new Error("Supabase client not configured");
 
@@ -58,7 +56,6 @@ async function uploadToStorage(imageData: string, productNameNormalized: string)
     contentType = result.mimeType;
     ext = result.mimeType.split("/")[1] || "png";
   } else if (imageData.startsWith("http")) {
-    // It's already a URL, download it first
     const resp = await fetch(imageData);
     if (!resp.ok) throw new Error(`Failed to fetch image: ${resp.status}`);
     const ct = resp.headers.get("content-type") || "image/png";
@@ -83,10 +80,7 @@ async function uploadToStorage(imageData: string, productNameNormalized: string)
     throw new Error(`Upload failed: ${uploadError.message}`);
   }
 
-  const { data: urlData } = admin.storage
-    .from("product-images")
-    .getPublicUrl(filePath);
-
+  const { data: urlData } = admin.storage.from("product-images").getPublicUrl(filePath);
   return urlData.publicUrl;
 }
 
@@ -204,26 +198,26 @@ async function validateCompositionIntegrity(originalUrl: string, candidateUrl: s
             type: "text",
             text: `Compare IMAGE A (original) and IMAGE B (edited).
 
-Validation objective: IMAGE B is acceptable only if it keeps the exact product composition/layout and only removes text.
+Accept IMAGE B ONLY if the visual composition is unchanged and only text was removed.
 
 Return ONLY valid JSON with this exact schema:
 {
-  "same_product_count": boolean,
-  "same_layout": boolean,
-  "same_packaging": boolean,
+  "original_item_count": number,
+  "candidate_item_count": number,
+  "original_box_count": number,
+  "candidate_box_count": number,
+  "layout_unchanged": boolean,
+  "packaging_unchanged": boolean,
   "only_text_removed": boolean,
   "verdict": "pass" | "fail",
   "reason": string
 }
 
-Rules for pass:
-- same_product_count = true
-- same_layout = true
-- same_packaging = true
-- only_text_removed = true
-- verdict = "pass"
-
-If anything changed beyond text, verdict must be "fail".`,
+Rules:
+- If any item is missing/merged/added/repositioned/rescaled -> fail.
+- If box/carton count changed -> fail.
+- If shape/material/background/lighting changed -> fail.
+- Pass only when everything is identical except removed text.`,
           },
           { type: "image_url", image_url: { url: originalUrl } },
           { type: "image_url", image_url: { url: candidateUrl } },
@@ -232,27 +226,42 @@ If anything changed beyond text, verdict must be "fail".`,
     ],
   });
 
-  const rawText = extractAssistantText(data?.choices?.[0]?.message?.content);
-  const parsed = safeParseJson(rawText);
+  const raw = extractAssistantText(data?.choices?.[0]?.message?.content);
+  const parsed = safeParseJson(raw);
 
   if (!parsed) {
-    return { ok: false, reason: "Validation IA impossible (format invalide)." };
+    return { ok: false, reason: "Validation IA impossible (JSON invalide)." };
   }
 
-  const ok =
+  const originalItemCount = Number(parsed.original_item_count);
+  const candidateItemCount = Number(parsed.candidate_item_count);
+  const originalBoxCount = Number(parsed.original_box_count);
+  const candidateBoxCount = Number(parsed.candidate_box_count);
+
+  const countsOk =
+    Number.isFinite(originalItemCount) &&
+    Number.isFinite(candidateItemCount) &&
+    Number.isFinite(originalBoxCount) &&
+    Number.isFinite(candidateBoxCount) &&
+    originalItemCount === candidateItemCount &&
+    originalBoxCount === candidateBoxCount;
+
+  const semanticOk =
     parsed.verdict === "pass" &&
-    parsed.same_product_count === true &&
-    parsed.same_layout === true &&
-    parsed.same_packaging === true &&
+    parsed.layout_unchanged === true &&
+    parsed.packaging_unchanged === true &&
     parsed.only_text_removed === true;
+
+  const ok = countsOk && semanticOk;
 
   return {
     ok,
-    reason: typeof parsed.reason === "string" && parsed.reason.trim().length > 0
-      ? parsed.reason
-      : ok
-        ? "OK"
-        : "La composition a été modifiée.",
+    reason:
+      typeof parsed.reason === "string" && parsed.reason.trim().length > 0
+        ? parsed.reason
+        : ok
+          ? "OK"
+          : "La composition visuelle a été modifiée.",
   };
 }
 
@@ -265,7 +274,7 @@ serve(async (req) => {
     if (!productName) throw new HttpError(400, "productName is required");
     if (!admin) throw new HttpError(500, "Supabase service client is not configured");
 
-    const MAX_ATTEMPTS = 3;
+    const MAX_ATTEMPTS = 1;
     let generatedImage: string | null = null;
     let lastRejectReason = "";
 
@@ -297,8 +306,6 @@ serve(async (req) => {
     }
 
     const product_name_normalized = normalizeProductName(productName);
-
-    // Upload to storage instead of storing base64 in DB
     const publicUrl = await uploadToStorage(generatedImage, product_name_normalized);
 
     const { error: persistError } = await admin.from("product_clean_images").upsert(
