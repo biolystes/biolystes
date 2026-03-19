@@ -6,6 +6,7 @@ import selectionProduitsStep from "@/assets/selection-produits-step.png";
 import designPackagingStep from "@/assets/design-packaging-step.jpg";
 import envoiEchantillonsStep from "@/assets/envoi-echantillons-step.png";
 import photosPackshotsStep from "@/assets/sevmylook-20.jpg";
+import ecommerceStep from "@/assets/ecommerce-step.png";
 
 const steps = [
   {
@@ -40,7 +41,7 @@ const steps = [
     label: "ÉTAPE 5",
     title: "Création du Site E-commerce",
     text: "Nous créons et configurons votre boutique en ligne prête à vendre, sans nécessiter d'investissement technique de votre part.",
-    image: "https://biolystes.pro/wp-content/uploads/2025/04/FireShot-Capture-044-Nairoba-Cosmetics-Sublimez-votre-beaute-relevez-votre-excellence_-lystes.pro_-1.png",
+    image: ecommerceStep,
     alt: "Création du Site E-commerce",
   },
   {
