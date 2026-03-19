@@ -26,6 +26,13 @@ class HttpError extends Error {
   }
 }
 
+type CompositionMetrics = {
+  itemCount: number;
+  boxLikeCount: number;
+  likelyCollection: boolean;
+  reason: string;
+};
+
 const normalizeProductName = (name: string) =>
   name
     .toLowerCase()
@@ -33,7 +40,6 @@ const normalizeProductName = (name: string) =>
     .replace(/[\u0300-\u036f]/g, "")
     .replace(/[^a-z0-9]/g, "");
 
-// Convert base64 data URI to Uint8Array
 function base64ToBytes(dataUri: string): { bytes: Uint8Array; mimeType: string } {
   const match = dataUri.match(/^data:(image\/\w+);base64,(.+)$/);
   if (!match) throw new Error("Invalid data URI");
@@ -44,7 +50,6 @@ function base64ToBytes(dataUri: string): { bytes: Uint8Array; mimeType: string }
   return { bytes, mimeType };
 }
 
-// Upload image to storage bucket and return public URL
 async function uploadToStorage(imageData: string, productNameNormalized: string): Promise<string> {
   if (!admin) throw new Error("Supabase client not configured");
 
@@ -58,7 +63,6 @@ async function uploadToStorage(imageData: string, productNameNormalized: string)
     contentType = result.mimeType;
     ext = result.mimeType.split("/")[1] || "png";
   } else if (imageData.startsWith("http")) {
-    // It's already a URL, download it first
     const resp = await fetch(imageData);
     if (!resp.ok) throw new Error(`Failed to fetch image: ${resp.status}`);
     const ct = resp.headers.get("content-type") || "image/png";
@@ -83,10 +87,7 @@ async function uploadToStorage(imageData: string, productNameNormalized: string)
     throw new Error(`Upload failed: ${uploadError.message}`);
   }
 
-  const { data: urlData } = admin.storage
-    .from("product-images")
-    .getPublicUrl(filePath);
-
+  const { data: urlData } = admin.storage.from("product-images").getPublicUrl(filePath);
   return urlData.publicUrl;
 }
 
@@ -154,6 +155,117 @@ function safeParseJson(raw: string): any | null {
   }
 }
 
+function toMetrics(parsed: any): CompositionMetrics | null {
+  if (!parsed || typeof parsed !== "object") return null;
+
+  const itemCount = Number(parsed.item_count);
+  const boxLikeCount = Number(parsed.box_like_count);
+  const likelyCollection = Boolean(parsed.likely_collection);
+  const reason = typeof parsed.reason === "string" ? parsed.reason : "";
+
+  if (!Number.isFinite(itemCount) || !Number.isFinite(boxLikeCount)) return null;
+
+  return {
+    itemCount: Math.max(0, Math.round(itemCount)),
+    boxLikeCount: Math.max(0, Math.round(boxLikeCount)),
+    likelyCollection,
+    reason,
+  };
+}
+
+async function analyzeImageComposition(imageUrl: string, label: "original" | "candidate"): Promise<CompositionMetrics | null> {
+  const data: any = await callLovableAI({
+    model: "google/gemini-2.5-pro",
+    messages: [
+      {
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: `Analyze this cosmetic product image (${label}).
+
+Count visual items strictly:
+- item_count = number of distinct product units visible (boxes, bottles, tubes, jars, pump bottles, etc.)
+- box_like_count = number of box/carton-like packages visible
+- likely_collection = true if image clearly shows a multi-item collection/set
+
+Return ONLY valid JSON with this exact schema:
+{
+  "item_count": number,
+  "box_like_count": number,
+  "likely_collection": boolean,
+  "reason": string
+}`,
+          },
+          {
+            type: "image_url",
+            image_url: { url: imageUrl },
+          },
+        ],
+      },
+    ],
+  });
+
+  const raw = extractAssistantText(data?.choices?.[0]?.message?.content);
+  const parsed = safeParseJson(raw);
+  return toMetrics(parsed);
+}
+
+async function semanticComparison(originalUrl: string, candidateUrl: string): Promise<{ ok: boolean; reason: string }> {
+  const data: any = await callLovableAI({
+    model: "google/gemini-2.5-pro",
+    messages: [
+      {
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: `Compare IMAGE A (original) and IMAGE B (edited).
+
+Accept IMAGE B only if the composition is unchanged and only text is removed.
+
+Return ONLY valid JSON with this exact schema:
+{
+  "only_text_removed": boolean,
+  "layout_unchanged": boolean,
+  "packaging_unchanged": boolean,
+  "verdict": "pass" | "fail",
+  "reason": string
+}
+
+If any visual element changed beyond text removal (missing products, merged products, shape changes, repositioning), verdict must be "fail".`,
+          },
+          { type: "image_url", image_url: { url: originalUrl } },
+          { type: "image_url", image_url: { url: candidateUrl } },
+        ],
+      },
+    ],
+  });
+
+  const raw = extractAssistantText(data?.choices?.[0]?.message?.content);
+  const parsed = safeParseJson(raw);
+
+  if (!parsed) {
+    return { ok: false, reason: "Validation sémantique invalide." };
+  }
+
+  const ok =
+    parsed.verdict === "pass" &&
+    parsed.only_text_removed === true &&
+    parsed.layout_unchanged === true &&
+    parsed.packaging_unchanged === true;
+
+  return {
+    ok,
+    reason:
+      typeof parsed.reason === "string" && parsed.reason.trim().length > 0
+        ? parsed.reason
+        : ok
+          ? "OK"
+          : "La composition visuelle a été modifiée.",
+  };
+}
+
 async function generateCleanCandidate(imageUrl: string): Promise<string> {
   const data: any = await callLovableAI({
     model: "google/gemini-3.1-flash-image-preview",
@@ -194,66 +306,41 @@ This is text removal only, not product generation.`,
 }
 
 async function validateCompositionIntegrity(originalUrl: string, candidateUrl: string): Promise<{ ok: boolean; reason: string }> {
-  const data: any = await callLovableAI({
-    model: "google/gemini-3-flash-preview",
-    messages: [
-      {
-        role: "user",
-        content: [
-          {
-            type: "text",
-            text: `Compare IMAGE A (original) and IMAGE B (edited).
+  const [orig, cand] = await Promise.all([
+    analyzeImageComposition(originalUrl, "original"),
+    analyzeImageComposition(candidateUrl, "candidate"),
+  ]);
 
-Validation objective: IMAGE B is acceptable only if it keeps the exact product composition/layout and only removes text.
-
-Return ONLY valid JSON with this exact schema:
-{
-  "same_product_count": boolean,
-  "same_layout": boolean,
-  "same_packaging": boolean,
-  "only_text_removed": boolean,
-  "verdict": "pass" | "fail",
-  "reason": string
-}
-
-Rules for pass:
-- same_product_count = true
-- same_layout = true
-- same_packaging = true
-- only_text_removed = true
-- verdict = "pass"
-
-If anything changed beyond text, verdict must be "fail".`,
-          },
-          { type: "image_url", image_url: { url: originalUrl } },
-          { type: "image_url", image_url: { url: candidateUrl } },
-        ],
-      },
-    ],
-  });
-
-  const rawText = extractAssistantText(data?.choices?.[0]?.message?.content);
-  const parsed = safeParseJson(rawText);
-
-  if (!parsed) {
-    return { ok: false, reason: "Validation IA impossible (format invalide)." };
+  if (!orig || !cand) {
+    return { ok: false, reason: "Validation quantitative impossible." };
   }
 
-  const ok =
-    parsed.verdict === "pass" &&
-    parsed.same_product_count === true &&
-    parsed.same_layout === true &&
-    parsed.same_packaging === true &&
-    parsed.only_text_removed === true;
+  const hardFailures: string[] = [];
 
-  return {
-    ok,
-    reason: typeof parsed.reason === "string" && parsed.reason.trim().length > 0
-      ? parsed.reason
-      : ok
-        ? "OK"
-        : "La composition a été modifiée.",
-  };
+  if (orig.itemCount !== cand.itemCount) {
+    hardFailures.push(`nombre d'éléments différent (${orig.itemCount} vs ${cand.itemCount})`);
+  }
+
+  if (orig.boxLikeCount !== cand.boxLikeCount) {
+    hardFailures.push(`nombre de boîtes différent (${orig.boxLikeCount} vs ${cand.boxLikeCount})`);
+  }
+
+  if (orig.likelyCollection && !cand.likelyCollection) {
+    hardFailures.push("la version générée n'est plus reconnue comme collection multi-produits");
+  }
+
+  if (orig.itemCount >= 3 && cand.itemCount < 3) {
+    hardFailures.push("collection dégradée en visuel simplifié");
+  }
+
+  if (hardFailures.length > 0) {
+    return { ok: false, reason: hardFailures.join("; ") };
+  }
+
+  const semantic = await semanticComparison(originalUrl, candidateUrl);
+  if (!semantic.ok) return semantic;
+
+  return { ok: true, reason: "OK" };
 }
 
 serve(async (req) => {
@@ -265,7 +352,7 @@ serve(async (req) => {
     if (!productName) throw new HttpError(400, "productName is required");
     if (!admin) throw new HttpError(500, "Supabase service client is not configured");
 
-    const MAX_ATTEMPTS = 3;
+    const MAX_ATTEMPTS = 2;
     let generatedImage: string | null = null;
     let lastRejectReason = "";
 
@@ -298,7 +385,6 @@ serve(async (req) => {
 
     const product_name_normalized = normalizeProductName(productName);
 
-    // Upload to storage instead of storing base64 in DB
     const publicUrl = await uploadToStorage(generatedImage, product_name_normalized);
 
     const { error: persistError } = await admin.from("product_clean_images").upsert(
