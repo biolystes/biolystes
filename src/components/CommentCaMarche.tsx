@@ -6,6 +6,7 @@ import selectionProduitsStep from "@/assets/selection-produits-step.png";
 import designPackagingStep from "@/assets/design-packaging-step.jpg";
 import envoiEchantillonsStep from "@/assets/envoi-echantillons-step.png";
 import photosPackshotsStep from "@/assets/sevmylook-20.jpg";
+import ecommerceStep from "@/assets/ecommerce-step.png";
 
 const steps = [
   {
