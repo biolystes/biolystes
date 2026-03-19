@@ -107,7 +107,15 @@ serve(async (req) => {
             content: [
               {
                 type: "text",
-                text: `This is a cosmetic product photo. Please regenerate this EXACT same product image but remove ALL text overlays from the packaging/label. Specifically remove any "Your Brand Here" text, any brand name text, and any product name text. Keep the product shape, color, texture, background and all visual elements exactly the same — only remove the text/branding. The result should look like a clean, unbranded version of this exact product.`,
+                text: `Look at this cosmetic product photo carefully. I need you to produce an IDENTICAL copy of this exact image with ONE change only: erase/remove ALL visible text, letters, words, and written characters from the product packaging, labels, and surfaces. This includes brand names, product names, ingredient lists, "Your Brand Here", and any other typography.
+
+CRITICAL RULES:
+- The product packaging (box, bottle, tube, jar) must remain EXACTLY as it is — same shape, same colors, same materials, same angles, same lighting, same shadows, same reflections.
+- If the product is a SET or COLLECTION of multiple items in a box, keep ALL items visible in their exact positions. Do NOT merge them into a single product.
+- Where text was removed, fill the area naturally with the surrounding packaging color/texture/pattern — as if the text was never there.
+- Do NOT change the background, composition, camera angle, lighting, or any visual element other than the text.
+- Do NOT reimagine, redesign, or reinterpret the product. This is a text-removal task, NOT a product redesign.
+- The output image should be virtually indistinguishable from the input except that all text is gone.`,
               },
               {
                 type: "image_url",
