@@ -26,13 +26,6 @@ class HttpError extends Error {
   }
 }
 
-type CompositionMetrics = {
-  itemCount: number;
-  boxLikeCount: number;
-  likelyCollection: boolean;
-  reason: string;
-};
-
 const normalizeProductName = (name: string) =>
   name
     .toLowerCase()
@@ -155,117 +148,6 @@ function safeParseJson(raw: string): any | null {
   }
 }
 
-function toMetrics(parsed: any): CompositionMetrics | null {
-  if (!parsed || typeof parsed !== "object") return null;
-
-  const itemCount = Number(parsed.item_count);
-  const boxLikeCount = Number(parsed.box_like_count);
-  const likelyCollection = Boolean(parsed.likely_collection);
-  const reason = typeof parsed.reason === "string" ? parsed.reason : "";
-
-  if (!Number.isFinite(itemCount) || !Number.isFinite(boxLikeCount)) return null;
-
-  return {
-    itemCount: Math.max(0, Math.round(itemCount)),
-    boxLikeCount: Math.max(0, Math.round(boxLikeCount)),
-    likelyCollection,
-    reason,
-  };
-}
-
-async function analyzeImageComposition(imageUrl: string, label: "original" | "candidate"): Promise<CompositionMetrics | null> {
-  const data: any = await callLovableAI({
-    model: "google/gemini-2.5-pro",
-    messages: [
-      {
-        role: "user",
-        content: [
-          {
-            type: "text",
-            text: `Analyze this cosmetic product image (${label}).
-
-Count visual items strictly:
-- item_count = number of distinct product units visible (boxes, bottles, tubes, jars, pump bottles, etc.)
-- box_like_count = number of box/carton-like packages visible
-- likely_collection = true if image clearly shows a multi-item collection/set
-
-Return ONLY valid JSON with this exact schema:
-{
-  "item_count": number,
-  "box_like_count": number,
-  "likely_collection": boolean,
-  "reason": string
-}`,
-          },
-          {
-            type: "image_url",
-            image_url: { url: imageUrl },
-          },
-        ],
-      },
-    ],
-  });
-
-  const raw = extractAssistantText(data?.choices?.[0]?.message?.content);
-  const parsed = safeParseJson(raw);
-  return toMetrics(parsed);
-}
-
-async function semanticComparison(originalUrl: string, candidateUrl: string): Promise<{ ok: boolean; reason: string }> {
-  const data: any = await callLovableAI({
-    model: "google/gemini-2.5-pro",
-    messages: [
-      {
-        role: "user",
-        content: [
-          {
-            type: "text",
-            text: `Compare IMAGE A (original) and IMAGE B (edited).
-
-Accept IMAGE B only if the composition is unchanged and only text is removed.
-
-Return ONLY valid JSON with this exact schema:
-{
-  "only_text_removed": boolean,
-  "layout_unchanged": boolean,
-  "packaging_unchanged": boolean,
-  "verdict": "pass" | "fail",
-  "reason": string
-}
-
-If any visual element changed beyond text removal (missing products, merged products, shape changes, repositioning), verdict must be "fail".`,
-          },
-          { type: "image_url", image_url: { url: originalUrl } },
-          { type: "image_url", image_url: { url: candidateUrl } },
-        ],
-      },
-    ],
-  });
-
-  const raw = extractAssistantText(data?.choices?.[0]?.message?.content);
-  const parsed = safeParseJson(raw);
-
-  if (!parsed) {
-    return { ok: false, reason: "Validation sémantique invalide." };
-  }
-
-  const ok =
-    parsed.verdict === "pass" &&
-    parsed.only_text_removed === true &&
-    parsed.layout_unchanged === true &&
-    parsed.packaging_unchanged === true;
-
-  return {
-    ok,
-    reason:
-      typeof parsed.reason === "string" && parsed.reason.trim().length > 0
-        ? parsed.reason
-        : ok
-          ? "OK"
-          : "La composition visuelle a été modifiée.",
-  };
-}
-
 async function generateCleanCandidate(imageUrl: string): Promise<string> {
   const data: any = await callLovableAI({
     model: "google/gemini-3.1-flash-image-preview",
@@ -306,41 +188,81 @@ This is text removal only, not product generation.`,
 }
 
 async function validateCompositionIntegrity(originalUrl: string, candidateUrl: string): Promise<{ ok: boolean; reason: string }> {
-  const [orig, cand] = await Promise.all([
-    analyzeImageComposition(originalUrl, "original"),
-    analyzeImageComposition(candidateUrl, "candidate"),
-  ]);
+  const data: any = await callLovableAI({
+    model: "google/gemini-3-flash-preview",
+    messages: [
+      {
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: `Compare IMAGE A (original) and IMAGE B (edited).
 
-  if (!orig || !cand) {
-    return { ok: false, reason: "Validation quantitative impossible." };
+Accept IMAGE B ONLY if the visual composition is unchanged and only text was removed.
+
+Return ONLY valid JSON with this exact schema:
+{
+  "original_item_count": number,
+  "candidate_item_count": number,
+  "original_box_count": number,
+  "candidate_box_count": number,
+  "layout_unchanged": boolean,
+  "packaging_unchanged": boolean,
+  "only_text_removed": boolean,
+  "verdict": "pass" | "fail",
+  "reason": string
+}
+
+Rules:
+- If any item is missing/merged/added/repositioned/rescaled -> fail.
+- If box/carton count changed -> fail.
+- If shape/material/background/lighting changed -> fail.
+- Pass only when everything is identical except removed text.`,
+          },
+          { type: "image_url", image_url: { url: originalUrl } },
+          { type: "image_url", image_url: { url: candidateUrl } },
+        ],
+      },
+    ],
+  });
+
+  const raw = extractAssistantText(data?.choices?.[0]?.message?.content);
+  const parsed = safeParseJson(raw);
+
+  if (!parsed) {
+    return { ok: false, reason: "Validation IA impossible (JSON invalide)." };
   }
 
-  const hardFailures: string[] = [];
+  const originalItemCount = Number(parsed.original_item_count);
+  const candidateItemCount = Number(parsed.candidate_item_count);
+  const originalBoxCount = Number(parsed.original_box_count);
+  const candidateBoxCount = Number(parsed.candidate_box_count);
 
-  if (orig.itemCount !== cand.itemCount) {
-    hardFailures.push(`nombre d'éléments différent (${orig.itemCount} vs ${cand.itemCount})`);
-  }
+  const countsOk =
+    Number.isFinite(originalItemCount) &&
+    Number.isFinite(candidateItemCount) &&
+    Number.isFinite(originalBoxCount) &&
+    Number.isFinite(candidateBoxCount) &&
+    originalItemCount === candidateItemCount &&
+    originalBoxCount === candidateBoxCount;
 
-  if (orig.boxLikeCount !== cand.boxLikeCount) {
-    hardFailures.push(`nombre de boîtes différent (${orig.boxLikeCount} vs ${cand.boxLikeCount})`);
-  }
+  const semanticOk =
+    parsed.verdict === "pass" &&
+    parsed.layout_unchanged === true &&
+    parsed.packaging_unchanged === true &&
+    parsed.only_text_removed === true;
 
-  if (orig.likelyCollection && !cand.likelyCollection) {
-    hardFailures.push("la version générée n'est plus reconnue comme collection multi-produits");
-  }
+  const ok = countsOk && semanticOk;
 
-  if (orig.itemCount >= 3 && cand.itemCount < 3) {
-    hardFailures.push("collection dégradée en visuel simplifié");
-  }
-
-  if (hardFailures.length > 0) {
-    return { ok: false, reason: hardFailures.join("; ") };
-  }
-
-  const semantic = await semanticComparison(originalUrl, candidateUrl);
-  if (!semantic.ok) return semantic;
-
-  return { ok: true, reason: "OK" };
+  return {
+    ok,
+    reason:
+      typeof parsed.reason === "string" && parsed.reason.trim().length > 0
+        ? parsed.reason
+        : ok
+          ? "OK"
+          : "La composition visuelle a été modifiée.",
+  };
 }
 
 serve(async (req) => {
@@ -352,7 +274,7 @@ serve(async (req) => {
     if (!productName) throw new HttpError(400, "productName is required");
     if (!admin) throw new HttpError(500, "Supabase service client is not configured");
 
-    const MAX_ATTEMPTS = 2;
+    const MAX_ATTEMPTS = 1;
     let generatedImage: string | null = null;
     let lastRejectReason = "";
 
@@ -384,7 +306,6 @@ serve(async (req) => {
     }
 
     const product_name_normalized = normalizeProductName(productName);
-
     const publicUrl = await uploadToStorage(generatedImage, product_name_normalized);
 
     const { error: persistError } = await admin.from("product_clean_images").upsert(
