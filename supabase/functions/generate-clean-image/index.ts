@@ -17,6 +17,15 @@ const admin =
       })
     : null;
 
+class HttpError extends Error {
+  status: number;
+
+  constructor(status: number, message: string) {
+    super(message);
+    this.status = status;
+  }
+}
+
 const normalizeProductName = (name: string) =>
   name
     .toLowerCase()
@@ -81,82 +90,210 @@ async function uploadToStorage(imageData: string, productNameNormalized: string)
   return urlData.publicUrl;
 }
 
+async function callLovableAI(payload: Record<string, unknown>) {
+  const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+  if (!LOVABLE_API_KEY) throw new HttpError(500, "LOVABLE_API_KEY is not configured");
+
+  const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${LOVABLE_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.ok) {
+    if (response.status === 429) {
+      throw new HttpError(429, "Trop de requêtes, réessayez dans quelques instants.");
+    }
+    if (response.status === 402) {
+      throw new HttpError(402, "Crédits AI insuffisants.");
+    }
+    const t = await response.text();
+    console.error("AI gateway error:", response.status, t);
+    throw new HttpError(500, "Erreur lors de la génération");
+  }
+
+  return response.json();
+}
+
+function extractAssistantText(content: unknown): string {
+  if (typeof content === "string") return content;
+
+  if (Array.isArray(content)) {
+    return content
+      .map((part: any) => {
+        if (typeof part === "string") return part;
+        if (part && typeof part.text === "string") return part.text;
+        return "";
+      })
+      .join("\n");
+  }
+
+  return "";
+}
+
+function safeParseJson(raw: string): any | null {
+  const cleaned = raw
+    .replace(/```json/gi, "")
+    .replace(/```/g, "")
+    .trim();
+
+  try {
+    return JSON.parse(cleaned);
+  } catch {
+    const start = cleaned.indexOf("{");
+    const end = cleaned.lastIndexOf("}");
+    if (start === -1 || end === -1 || end <= start) return null;
+    try {
+      return JSON.parse(cleaned.slice(start, end + 1));
+    } catch {
+      return null;
+    }
+  }
+}
+
+async function generateCleanCandidate(imageUrl: string): Promise<string> {
+  const data: any = await callLovableAI({
+    model: "google/gemini-3.1-flash-image-preview",
+    messages: [
+      {
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: `Edit this exact cosmetic product image with one single operation: remove all visible written text (letters/words/brand names/product names) from packaging labels.
+
+Hard constraints (must follow strictly):
+- Preserve the exact composition and geometry.
+- Keep the same number of items/products as in the original image.
+- Keep every item in the exact same position, size, orientation, perspective, and spacing.
+- Keep the exact same box shape, bottle/tube/jar shapes, materials, lighting, shadows, reflections, and background.
+- Do NOT redesign, simplify, replace, merge, or remove any product item.
+- Only erase typography and naturally inpaint the removed text regions with matching surrounding texture/color.
+
+This is text removal only, not product generation.`,
+          },
+          {
+            type: "image_url",
+            image_url: { url: imageUrl },
+          },
+        ],
+      },
+    ],
+    modalities: ["image", "text"],
+  });
+
+  const generatedImage = data?.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+  if (!generatedImage) {
+    throw new HttpError(500, "Aucune image générée");
+  }
+
+  return generatedImage;
+}
+
+async function validateCompositionIntegrity(originalUrl: string, candidateUrl: string): Promise<{ ok: boolean; reason: string }> {
+  const data: any = await callLovableAI({
+    model: "google/gemini-3-flash-preview",
+    messages: [
+      {
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: `Compare IMAGE A (original) and IMAGE B (edited).
+
+Validation objective: IMAGE B is acceptable only if it keeps the exact product composition/layout and only removes text.
+
+Return ONLY valid JSON with this exact schema:
+{
+  "same_product_count": boolean,
+  "same_layout": boolean,
+  "same_packaging": boolean,
+  "only_text_removed": boolean,
+  "verdict": "pass" | "fail",
+  "reason": string
+}
+
+Rules for pass:
+- same_product_count = true
+- same_layout = true
+- same_packaging = true
+- only_text_removed = true
+- verdict = "pass"
+
+If anything changed beyond text, verdict must be "fail".`,
+          },
+          { type: "image_url", image_url: { url: originalUrl } },
+          { type: "image_url", image_url: { url: candidateUrl } },
+        ],
+      },
+    ],
+  });
+
+  const rawText = extractAssistantText(data?.choices?.[0]?.message?.content);
+  const parsed = safeParseJson(rawText);
+
+  if (!parsed) {
+    return { ok: false, reason: "Validation IA impossible (format invalide)." };
+  }
+
+  const ok =
+    parsed.verdict === "pass" &&
+    parsed.same_product_count === true &&
+    parsed.same_layout === true &&
+    parsed.same_packaging === true &&
+    parsed.only_text_removed === true;
+
+  return {
+    ok,
+    reason: typeof parsed.reason === "string" && parsed.reason.trim().length > 0
+      ? parsed.reason
+      : ok
+        ? "OK"
+        : "La composition a été modifiée.",
+  };
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
     const { imageUrl, productName } = await req.json();
-    if (!imageUrl) throw new Error("imageUrl is required");
-    if (!productName) throw new Error("productName is required");
+    if (!imageUrl) throw new HttpError(400, "imageUrl is required");
+    if (!productName) throw new HttpError(400, "productName is required");
+    if (!admin) throw new HttpError(500, "Supabase service client is not configured");
 
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
-    if (!admin) throw new Error("Supabase service client is not configured");
+    const MAX_ATTEMPTS = 3;
+    let generatedImage: string | null = null;
+    let lastRejectReason = "";
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-3-pro-image-preview",
-        messages: [
-          {
-            role: "user",
-            content: [
-              {
-                type: "text",
-                text: `Look at this cosmetic product photo carefully. I need you to produce an IDENTICAL copy of this exact image with ONE change only: erase/remove ALL visible text, letters, words, and written characters from the product packaging, labels, and surfaces. This includes brand names, product names, ingredient lists, "Your Brand Here", and any other typography.
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+      const candidate = await generateCleanCandidate(imageUrl);
+      const validation = await validateCompositionIntegrity(imageUrl, candidate);
 
-CRITICAL RULES:
-- The product packaging (box, bottle, tube, jar) must remain EXACTLY as it is — same shape, same colors, same materials, same angles, same lighting, same shadows, same reflections.
-- If the product is a SET or COLLECTION of multiple items in a box, keep ALL items visible in their exact positions. Do NOT merge them into a single product.
-- Where text was removed, fill the area naturally with the surrounding packaging color/texture/pattern — as if the text was never there.
-- Do NOT change the background, composition, camera angle, lighting, or any visual element other than the text.
-- Do NOT reimagine, redesign, or reinterpret the product. This is a text-removal task, NOT a product redesign.
-- The output image should be virtually indistinguishable from the input except that all text is gone.`,
-              },
-              {
-                type: "image_url",
-                image_url: { url: imageUrl },
-              },
-            ],
-          },
-        ],
-        modalities: ["image", "text"],
-      }),
-    });
-
-    if (!response.ok) {
-      if (response.status === 429) {
-        return new Response(JSON.stringify({ error: "Trop de requêtes, réessayez dans quelques instants." }), {
-          status: 429,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
+      if (validation.ok) {
+        generatedImage = candidate;
+        break;
       }
-      if (response.status === 402) {
-        return new Response(JSON.stringify({ error: "Crédits AI insuffisants." }), {
-          status: 402,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
-      }
-      const t = await response.text();
-      console.error("AI gateway error:", response.status, t);
-      return new Response(JSON.stringify({ error: "Erreur lors de la génération" }), {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+
+      lastRejectReason = validation.reason;
+      console.warn(`generate-clean-image attempt ${attempt} rejected:`, validation.reason);
     }
 
-    const data = await response.json();
-    const generatedImage = data.choices?.[0]?.message?.images?.[0]?.image_url?.url;
-
     if (!generatedImage) {
-      return new Response(JSON.stringify({ error: "Aucune image générée" }), {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
+      return new Response(
+        JSON.stringify({
+          error:
+            "Image rejetée automatiquement: la composition du boîtier a été modifiée au lieu d'enlever uniquement le texte. " +
+            (lastRejectReason ? `Détail: ${lastRejectReason}` : "Réessayez."),
+        }),
+        {
+          status: 422,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
     }
 
     const product_name_normalized = normalizeProductName(productName);
@@ -187,6 +324,14 @@ CRITICAL RULES:
     });
   } catch (e) {
     console.error("generate-clean-image error:", e);
+
+    if (e instanceof HttpError) {
+      return new Response(JSON.stringify({ error: e.message }), {
+        status: e.status,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
     return new Response(
       JSON.stringify({ error: e instanceof Error ? e.message : "Unknown error" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
