@@ -227,82 +227,32 @@ This is text removal only, not product generation.`,
   return generatedImage;
 }
 
-async function validateCompositionIntegrity(originalUrl: string, candidateUrl: string): Promise<{ ok: boolean; reason: string }> {
-  const data: any = await callLovableAI({
-    model: "google/gemini-3-flash-preview",
-    messages: [
-      {
-        role: "user",
-        content: [
-          {
-            type: "text",
-            text: `Compare IMAGE A (original) and IMAGE B (edited).
+async function countItems(imageUrl: string): Promise<number | null> {
+  try {
+    const data: any = await callLovableAI({
+      model: "google/gemini-3-flash-preview",
+      messages: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: `Count the total number of distinct physical product items visible in this cosmetic product photo. Include boxes, bottles, tubes, jars, pumps — every separate object. Return ONLY a JSON object: {"count": <number>}`,
+            },
+            { type: "image_url", image_url: { url: imageUrl } },
+          ],
+        },
+      ],
+    });
 
-Accept IMAGE B ONLY if the visual composition is unchanged and only text was removed.
-
-Return ONLY valid JSON with this exact schema:
-{
-  "original_item_count": number,
-  "candidate_item_count": number,
-  "original_box_count": number,
-  "candidate_box_count": number,
-  "layout_unchanged": boolean,
-  "packaging_unchanged": boolean,
-  "only_text_removed": boolean,
-  "verdict": "pass" | "fail",
-  "reason": string
-}
-
-Rules:
-- If any item is missing/merged/added/repositioned/rescaled -> fail.
-- If box/carton count changed -> fail.
-- If shape/material/background/lighting changed -> fail.
-- Pass only when everything is identical except removed text.`,
-          },
-          { type: "image_url", image_url: { url: originalUrl } },
-          { type: "image_url", image_url: { url: candidateUrl } },
-        ],
-      },
-    ],
-  });
-
-  const raw = extractAssistantText(data?.choices?.[0]?.message?.content);
-  const parsed = safeParseJson(raw);
-
-  if (!parsed) {
-    return { ok: false, reason: "Validation IA impossible (JSON invalide)." };
+    const raw = extractAssistantText(data?.choices?.[0]?.message?.content);
+    const parsed = safeParseJson(raw);
+    const count = Number(parsed?.count);
+    return Number.isFinite(count) ? Math.round(count) : null;
+  } catch (e) {
+    console.warn("countItems failed:", e);
+    return null;
   }
-
-  const originalItemCount = Number(parsed.original_item_count);
-  const candidateItemCount = Number(parsed.candidate_item_count);
-  const originalBoxCount = Number(parsed.original_box_count);
-  const candidateBoxCount = Number(parsed.candidate_box_count);
-
-  const countsOk =
-    Number.isFinite(originalItemCount) &&
-    Number.isFinite(candidateItemCount) &&
-    Number.isFinite(originalBoxCount) &&
-    Number.isFinite(candidateBoxCount) &&
-    originalItemCount === candidateItemCount &&
-    originalBoxCount === candidateBoxCount;
-
-  const semanticOk =
-    parsed.verdict === "pass" &&
-    parsed.layout_unchanged === true &&
-    parsed.packaging_unchanged === true &&
-    parsed.only_text_removed === true;
-
-  const ok = countsOk && semanticOk;
-
-  return {
-    ok,
-    reason:
-      typeof parsed.reason === "string" && parsed.reason.trim().length > 0
-        ? parsed.reason
-        : ok
-          ? "OK"
-          : "La composition visuelle a été modifiée.",
-  };
 }
 
 serve(async (req) => {
