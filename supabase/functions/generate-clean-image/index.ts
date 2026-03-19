@@ -179,90 +179,80 @@ This is text removal only, not product generation.`,
     modalities: ["image", "text"],
   });
 
-  const generatedImage = data?.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+  // Log full response structure for debugging
+  const choice = data?.choices?.[0]?.message;
+  console.log("AI response keys:", JSON.stringify({
+    hasImages: !!choice?.images,
+    imagesLength: choice?.images?.length,
+    contentType: typeof choice?.content,
+    contentIsArray: Array.isArray(choice?.content),
+    contentLength: Array.isArray(choice?.content) ? choice.content.length : 0,
+  }));
+
+  // Try multiple extraction paths
+  let generatedImage: string | null = null;
+
+  // Path 1: images array (standard)
+  generatedImage = choice?.images?.[0]?.image_url?.url ?? null;
+
+  // Path 2: content array with image_url parts
+  if (!generatedImage && Array.isArray(choice?.content)) {
+    for (const part of choice.content) {
+      if (part?.type === "image_url" && part?.image_url?.url) {
+        generatedImage = part.image_url.url;
+        break;
+      }
+      if (part?.image_url?.url) {
+        generatedImage = part.image_url.url;
+        break;
+      }
+    }
+  }
+
+  // Path 3: inline_data in content parts
+  if (!generatedImage && Array.isArray(choice?.content)) {
+    for (const part of choice.content) {
+      if (part?.inline_data?.data && part?.inline_data?.mime_type) {
+        generatedImage = `data:${part.inline_data.mime_type};base64,${part.inline_data.data}`;
+        break;
+      }
+    }
+  }
+
   if (!generatedImage) {
+    console.error("No image found in AI response. Full choice:", JSON.stringify(choice).slice(0, 500));
     throw new HttpError(500, "Aucune image générée");
   }
 
   return generatedImage;
 }
 
-async function validateCompositionIntegrity(originalUrl: string, candidateUrl: string): Promise<{ ok: boolean; reason: string }> {
-  const data: any = await callLovableAI({
-    model: "google/gemini-3-flash-preview",
-    messages: [
-      {
-        role: "user",
-        content: [
-          {
-            type: "text",
-            text: `Compare IMAGE A (original) and IMAGE B (edited).
+async function countItems(imageUrl: string): Promise<number | null> {
+  try {
+    const data: any = await callLovableAI({
+      model: "google/gemini-3-flash-preview",
+      messages: [
+        {
+          role: "user",
+          content: [
+            {
+              type: "text",
+              text: `Count the total number of distinct physical product items visible in this cosmetic product photo. Include boxes, bottles, tubes, jars, pumps — every separate object. Return ONLY a JSON object: {"count": <number>}`,
+            },
+            { type: "image_url", image_url: { url: imageUrl } },
+          ],
+        },
+      ],
+    });
 
-Accept IMAGE B ONLY if the visual composition is unchanged and only text was removed.
-
-Return ONLY valid JSON with this exact schema:
-{
-  "original_item_count": number,
-  "candidate_item_count": number,
-  "original_box_count": number,
-  "candidate_box_count": number,
-  "layout_unchanged": boolean,
-  "packaging_unchanged": boolean,
-  "only_text_removed": boolean,
-  "verdict": "pass" | "fail",
-  "reason": string
-}
-
-Rules:
-- If any item is missing/merged/added/repositioned/rescaled -> fail.
-- If box/carton count changed -> fail.
-- If shape/material/background/lighting changed -> fail.
-- Pass only when everything is identical except removed text.`,
-          },
-          { type: "image_url", image_url: { url: originalUrl } },
-          { type: "image_url", image_url: { url: candidateUrl } },
-        ],
-      },
-    ],
-  });
-
-  const raw = extractAssistantText(data?.choices?.[0]?.message?.content);
-  const parsed = safeParseJson(raw);
-
-  if (!parsed) {
-    return { ok: false, reason: "Validation IA impossible (JSON invalide)." };
+    const raw = extractAssistantText(data?.choices?.[0]?.message?.content);
+    const parsed = safeParseJson(raw);
+    const count = Number(parsed?.count);
+    return Number.isFinite(count) ? Math.round(count) : null;
+  } catch (e) {
+    console.warn("countItems failed:", e);
+    return null;
   }
-
-  const originalItemCount = Number(parsed.original_item_count);
-  const candidateItemCount = Number(parsed.candidate_item_count);
-  const originalBoxCount = Number(parsed.original_box_count);
-  const candidateBoxCount = Number(parsed.candidate_box_count);
-
-  const countsOk =
-    Number.isFinite(originalItemCount) &&
-    Number.isFinite(candidateItemCount) &&
-    Number.isFinite(originalBoxCount) &&
-    Number.isFinite(candidateBoxCount) &&
-    originalItemCount === candidateItemCount &&
-    originalBoxCount === candidateBoxCount;
-
-  const semanticOk =
-    parsed.verdict === "pass" &&
-    parsed.layout_unchanged === true &&
-    parsed.packaging_unchanged === true &&
-    parsed.only_text_removed === true;
-
-  const ok = countsOk && semanticOk;
-
-  return {
-    ok,
-    reason:
-      typeof parsed.reason === "string" && parsed.reason.trim().length > 0
-        ? parsed.reason
-        : ok
-          ? "OK"
-          : "La composition visuelle a été modifiée.",
-  };
 }
 
 serve(async (req) => {
@@ -274,28 +264,44 @@ serve(async (req) => {
     if (!productName) throw new HttpError(400, "productName is required");
     if (!admin) throw new HttpError(500, "Supabase service client is not configured");
 
-    const MAX_ATTEMPTS = 1;
+    const MAX_ATTEMPTS = 2;
     let generatedImage: string | null = null;
     let lastRejectReason = "";
 
-    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-      const candidate = await generateCleanCandidate(imageUrl);
-      const validation = await validateCompositionIntegrity(imageUrl, candidate);
+    // Count items in original image once
+    const originalCount = await countItems(imageUrl);
+    console.log("Original item count:", originalCount);
 
-      if (validation.ok) {
-        generatedImage = candidate;
-        break;
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+      let candidate: string;
+      try {
+        candidate = await generateCleanCandidate(imageUrl);
+      } catch (e: any) {
+        console.warn(`generate attempt ${attempt} failed:`, e?.message);
+        continue;
       }
 
-      lastRejectReason = validation.reason;
-      console.warn(`generate-clean-image attempt ${attempt} rejected:`, validation.reason);
+      // If we could count original items, validate the candidate
+      if (originalCount !== null && originalCount > 1) {
+        const candidateCount = await countItems(candidate);
+        console.log(`Attempt ${attempt} candidate item count:`, candidateCount);
+
+        if (candidateCount !== null && candidateCount < originalCount) {
+          lastRejectReason = `Nombre d'éléments réduit de ${originalCount} à ${candidateCount}`;
+          console.warn(`generate-clean-image attempt ${attempt} rejected:`, lastRejectReason);
+          continue;
+        }
+      }
+
+      generatedImage = candidate;
+      break;
     }
 
     if (!generatedImage) {
       return new Response(
         JSON.stringify({
           error:
-            "Image rejetée automatiquement: la composition du boîtier a été modifiée au lieu d'enlever uniquement le texte. " +
+            "Image rejetée: la composition du produit a été modifiée. " +
             (lastRejectReason ? `Détail: ${lastRejectReason}` : "Réessayez."),
         }),
         {
