@@ -853,7 +853,14 @@ export default function CatalogPage() {
     .sort((a, b) => {
       if (sortBy === "price-asc") return (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0);
       if (sortBy === "price-desc") return (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0);
-      return 0;
+      // Default: priority products first
+      const aN = normalizeStr(a.name);
+      const bN = normalizeStr(b.name);
+      const aIdx = PRIORITY_PRODUCTS.indexOf(aN);
+      const bIdx = PRIORITY_PRODUCTS.indexOf(bN);
+      const aPri = aIdx >= 0 ? aIdx : PRIORITY_PRODUCTS.length;
+      const bPri = bIdx >= 0 ? bIdx : PRIORITY_PRODUCTS.length;
+      return aPri - bPri;
     });
 
   const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 || selectedCerts.length > 0 || searchQuery.trim() !== "" ||
