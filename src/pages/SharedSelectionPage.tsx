@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import lystesLogo from "@/assets/lystes-logo.png";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
@@ -87,7 +88,7 @@ export default function SharedSelectionPage() {
       <div style={{ background: "#fff", borderBottom: "1px solid #e5e5e7", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <img
-            src="https://biolystes.pro/wp-content/uploads/2024/06/cropped-IMG_0262-1024x1024-1-1.png"
+            src={lystesLogo}
             alt="Biolystes"
             style={{ width: 32, height: 32, objectFit: "contain" }}
           />
