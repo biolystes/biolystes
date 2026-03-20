@@ -106,6 +106,18 @@ const HIDDEN_PRODUCTS = new Set([
   "geldoublehydratationboostha",
 ]);
 
+// ─── Priority products (shown first in default order) ─────
+const PRIORITY_PRODUCTS = [
+  "cremedenuitpourpeauxsensiblessansparfum",
+  "serumcontourdesyeuxalternatifauretinol",
+  "toniqueexfoliantalacideglycolique",
+  "serumperfecteurdepigment",
+  "cremedejourhydratante",
+  "huilevisagenourrissante",
+  "serumnaturelabasedhuilealternatifauretinol",
+  "gelboosterauginkgoantioxydant",
+];
+
 
 // Images are now loaded from the product_clean_images database table
 function getCdnFallbackImage(_name: string): string | null {
