@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import lystesLogo from "@/assets/lystes-logo.png";
 import { useParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
