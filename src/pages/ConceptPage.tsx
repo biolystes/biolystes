@@ -177,7 +177,18 @@ function SectionLabel({ label, title, subtitle, dark }: { label: string; title: 
 
 /* ── Catalog Preview ── */
 function CatalogPreview({ navigate }: { navigate: (path: string) => void }) {
-  const [products, setProducts] = useState<{ id: number; name: string; price: string; image: string }[]>([]);
+  const fallbackProducts = [
+    { id: 1, name: "Crème de nuit peaux sensibles", price: "29.90", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/cremedenuitpourpeauxsensiblessansparfum.png" },
+    { id: 2, name: "Sérum contour des yeux", price: "35.00", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/serumcontourdesyeuxalternatifauretinol.png" },
+    { id: 3, name: "Tonique exfoliant acide glycolique", price: "24.00", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/toniqueexfoliantalacideglycolique.png" },
+    { id: 4, name: "Sérum perfecteur de pigment", price: "32.00", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/serumperfecteurdepigment.png" },
+    { id: 5, name: "Crème de jour hydratante", price: "22.00", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/cremedejourhydratante.jpeg" },
+    { id: 6, name: "Huile visage nourrissante", price: "28.00", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/huilevisagenourrissante.png" },
+    { id: 7, name: "Sérum naturel alternatif au rétinol", price: "38.00", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/serumnaturelabasedhuilealternatifauretinol.png" },
+    { id: 8, name: "Gel booster au ginkgo antioxydant", price: "19.90", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/gelboosterauginkgoantioxydant.jpeg" },
+  ];
+
+  const [products, setProducts] = useState<{ id: number; name: string; price: string; image: string }[]>(fallbackProducts);
 
   useEffect(() => {
     const url = new URL(`${WC_BASE}/products`);
@@ -190,17 +201,17 @@ function CatalogPreview({ navigate }: { navigate: (path: string) => void }) {
     fetch(url.toString())
       .then(r => r.json())
       .then((data: any[]) => {
-        setProducts(data.map(p => ({
-          id: p.id,
-          name: p.name,
-          price: p.price,
-          image: p.images?.[0]?.src || "",
-        })));
+        if (Array.isArray(data) && data.length > 0) {
+          setProducts(data.map(p => ({
+            id: p.id,
+            name: p.name,
+            price: p.price,
+            image: p.images?.[0]?.src || "",
+          })));
+        }
       })
       .catch(() => {});
   }, []);
-
-  if (products.length === 0) return null;
 
   return (
     <section className="max-w-6xl mx-auto px-6 py-24 md:py-32">
