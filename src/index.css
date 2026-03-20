@@ -164,8 +164,8 @@
 }
 .animate-tourne {
   animation: tourne 5s linear infinite;
-  -webkit-filter: invert(1) hue-rotate(180deg) contrast(2);
-  filter: invert(1) hue-rotate(180deg) contrast(2);
+  -webkit-filter: invert(0) hue-rotate(180deg) contrast(2);
+  filter: invert(0) hue-rotate(180deg) contrast(2);
   background: transparent;
   margin: 0 auto;
 }
