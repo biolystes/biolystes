@@ -286,14 +286,14 @@ export default function DecouvertePage() {
 
   // Fallback catalog products (used when WooCommerce API is blocked by CORS)
   const fallbackProducts = [
-    { id: 1, name: "Crème de jour anti-âge", price: "49.90", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" },
-    { id: 2, name: "Sérum vitamine C", price: "35.00", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/O236SDw9GkuAtxkcoHnMrhJ_9lJP7tPq-scaled.jpg?w=1930&ssl=1" },
-    { id: 3, name: "Sérum anti-âge", price: "34.00", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2026/01/FRONT_high_res-12-scaled.jpg?w=1930&ssl=1" },
-    { id: 4, name: "Huile visage éclat", price: "32.00", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/SX5B5L8XNjufU23ZsLiSgqSIQEFI26rq-scaled.jpg?w=1930&ssl=1" },
-    { id: 5, name: "Gel nettoyant doux", price: "22.00", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/uclEPNm3K7Rce46UEiSGnAtnPjL5ofMO-scaled.jpg?w=1930&ssl=1" },
-    { id: 6, name: "Masque hydratant", price: "28.00", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/JE5Gw85J9r45fVxJ1EVoSJk2E5PiK4TT-scaled.jpg?w=1930&ssl=1" },
-    { id: 7, name: "Crème contour des yeux", price: "38.00", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/vj2Kf3NtViFKnDwjqeKL7H9SXr3P0sXz-scaled.jpg?w=1930&ssl=1" },
-    { id: 8, name: "Baume à lèvres nourrissant", price: "12.00", image: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/pzV7CQHTrOhqFDVw1F5fRfz93xhADUAo-scaled.jpg?w=1930&ssl=1" },
+    { id: 1, name: "Crème de nuit peaux sensibles", price: "29.90", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/cremedenuitpourpeauxsensiblessansparfum.png" },
+    { id: 2, name: "Sérum contour des yeux", price: "35.00", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/serumcontourdesyeuxalternatifauretinol.png" },
+    { id: 3, name: "Tonique exfoliant acide glycolique", price: "24.00", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/toniqueexfoliantalacideglycolique.png" },
+    { id: 4, name: "Sérum perfecteur de pigment", price: "32.00", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/serumperfecteurdepigment.png" },
+    { id: 5, name: "Crème de jour hydratante", price: "22.00", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/cremedejourhydratante.jpeg" },
+    { id: 6, name: "Huile visage nourrissante", price: "28.00", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/huilevisagenourrissante.png" },
+    { id: 7, name: "Sérum naturel alternatif au rétinol", price: "38.00", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/serumnaturelabasedhuilealternatifauretinol.png" },
+    { id: 8, name: "Gel booster au ginkgo antioxydant", price: "19.90", image: "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/gelboosterauginkgoantioxydant.jpeg" },
   ];
 
   // Fetch catalog products
