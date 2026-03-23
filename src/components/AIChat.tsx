@@ -115,10 +115,29 @@ async function loadWcCatalog(): Promise<void> {
 }
 
 function findProductImage(name: string, slug?: string | null): string | undefined {
+  const normKey = normalizeKey(name);
+  const norm = normalizeName(name);
+
+  // 0. Clean images from Supabase (priority)
+  if (cleanImageCache[normKey]) return cleanImageCache[normKey];
+  // Fuzzy match on clean images: find best match by word overlap
+  const nameWords = norm.split(" ").filter(w => w.length >= 3);
+  if (nameWords.length > 0) {
+    let bestCleanKey: string | undefined;
+    let bestCleanScore = 0;
+    for (const key of Object.keys(cleanImageCache)) {
+      const hits = nameWords.filter(w => key.includes(w)).length;
+      const score = hits / nameWords.length;
+      if (score > bestCleanScore && hits >= Math.min(2, nameWords.length)) {
+        bestCleanScore = score;
+        bestCleanKey = key;
+      }
+    }
+    if (bestCleanKey && bestCleanScore >= 0.5) return cleanImageCache[bestCleanKey];
+  }
+
   // 1. Slug exact (hardcodé ou WC)
   if (slug && wcImageCache[slug]) return wcImageCache[slug];
-
-  const norm = normalizeName(name);
 
   // 2. Nom normalisé exact
   if (wcImageCache[norm]) return wcImageCache[norm];
