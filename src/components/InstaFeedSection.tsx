@@ -47,7 +47,7 @@ export default function InstaFeedSection() {
           <b>Avis d'une de nos clientes</b> sur sa sélection de produits
         </motion.h2>
         <motion.p variants={fadeUp} custom={2} className="text-foreground max-w-xl mx-auto leading-relaxed">
-          Sev Formal, beauty expert internationale basée entre Miami et Paris, nous fait un retour sur les atouts des produits sélectionnés.
+          Sev Formal, beauty expert internationale basée entre Miami et Paris, nous fait un retour sur les atouts des produits qu'elle a sélectionnés pour sa marque.
         </motion.p>
       </motion.div>
 
