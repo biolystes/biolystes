@@ -44,6 +44,11 @@ const wcImageCache: Record<string, string> = { ...SLUG_TO_IMAGE };
 let wcCatalogLoaded = false;
 let wcCatalogLoading: Promise<void> | null = null;
 
+// Cache images propres depuis Supabase
+const cleanImageCache: Record<string, string> = {};
+let cleanImagesLoaded = false;
+let cleanImagesLoading: Promise<void> | null = null;
+
 function normalizeName(s: string): string {
   return s
     .toLowerCase()
@@ -52,6 +57,35 @@ function normalizeName(s: string): string {
     .replace(/[^a-z0-9\s]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function normalizeKey(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/g, "");
+}
+
+async function loadCleanImages(): Promise<void> {
+  if (cleanImagesLoaded) return;
+  if (cleanImagesLoading) return cleanImagesLoading;
+  cleanImagesLoading = (async () => {
+    try {
+      const { data } = await supabase
+        .from("product_clean_images")
+        .select("product_name, product_name_normalized, clean_image_url");
+      if (data) {
+        data.forEach((row: any) => {
+          cleanImageCache[row.product_name_normalized] = row.clean_image_url;
+          // Also index by normalized name for fuzzy matching
+          cleanImageCache[normalizeKey(row.product_name)] = row.clean_image_url;
+        });
+      }
+      cleanImagesLoaded = true;
+    } catch { /* silencieux */ }
+  })();
+  return cleanImagesLoading;
 }
 
 async function loadWcCatalog(): Promise<void> {
