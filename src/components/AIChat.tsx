@@ -5,6 +5,7 @@ import {
   Bot, User, AlertCircle
 } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 // ─── WooCommerce config ──────────────────────────────────
 const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
@@ -43,6 +44,11 @@ const wcImageCache: Record<string, string> = { ...SLUG_TO_IMAGE };
 let wcCatalogLoaded = false;
 let wcCatalogLoading: Promise<void> | null = null;
 
+// Cache images propres depuis Supabase
+const cleanImageCache: Record<string, string> = {};
+let cleanImagesLoaded = false;
+let cleanImagesLoading: Promise<void> | null = null;
+
 function normalizeName(s: string): string {
   return s
     .toLowerCase()
@@ -51,6 +57,35 @@ function normalizeName(s: string): string {
     .replace(/[^a-z0-9\s]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function normalizeKey(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/g, "");
+}
+
+async function loadCleanImages(): Promise<void> {
+  if (cleanImagesLoaded) return;
+  if (cleanImagesLoading) return cleanImagesLoading;
+  cleanImagesLoading = (async () => {
+    try {
+      const { data } = await supabase
+        .from("product_clean_images")
+        .select("product_name, product_name_normalized, clean_image_url");
+      if (data) {
+        data.forEach((row: any) => {
+          cleanImageCache[row.product_name_normalized] = row.clean_image_url;
+          // Also index by normalized name for fuzzy matching
+          cleanImageCache[normalizeKey(row.product_name)] = row.clean_image_url;
+        });
+      }
+      cleanImagesLoaded = true;
+    } catch { /* silencieux */ }
+  })();
+  return cleanImagesLoading;
 }
 
 async function loadWcCatalog(): Promise<void> {
@@ -80,10 +115,29 @@ async function loadWcCatalog(): Promise<void> {
 }
 
 function findProductImage(name: string, slug?: string | null): string | undefined {
+  const normKey = normalizeKey(name);
+  const norm = normalizeName(name);
+
+  // 0. Clean images from Supabase (priority)
+  if (cleanImageCache[normKey]) return cleanImageCache[normKey];
+  // Fuzzy match on clean images: find best match by word overlap
+  const nameWords = norm.split(" ").filter(w => w.length >= 3);
+  if (nameWords.length > 0) {
+    let bestCleanKey: string | undefined;
+    let bestCleanScore = 0;
+    for (const key of Object.keys(cleanImageCache)) {
+      const hits = nameWords.filter(w => key.includes(w)).length;
+      const score = hits / nameWords.length;
+      if (score > bestCleanScore && hits >= Math.min(2, nameWords.length)) {
+        bestCleanScore = score;
+        bestCleanKey = key;
+      }
+    }
+    if (bestCleanKey && bestCleanScore >= 0.5) return cleanImageCache[bestCleanKey];
+  }
+
   // 1. Slug exact (hardcodé ou WC)
   if (slug && wcImageCache[slug]) return wcImageCache[slug];
-
-  const norm = normalizeName(name);
 
   // 2. Nom normalisé exact
   if (wcImageCache[norm]) return wcImageCache[norm];
@@ -345,12 +399,12 @@ function ProductItem({ block, resolvedImage }: { block: ProductBlock; resolvedIm
   );
 }
 
-// Groupe les produits consécutifs — résout les images WC via catalogue préchargé
+// Groupe les produits consécutifs — résout les images via clean images + WC
 function ProductGroupCard({ blocks }: { blocks: ProductBlock[] }) {
   const [wcImages, setWcImages] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    loadWcCatalog().then(() => {
+    Promise.all([loadCleanImages(), loadWcCatalog()]).then(() => {
       const resolved: Record<string, string> = {};
       blocks.forEach(b => {
         const slug = slugFromUrl(b.url);
