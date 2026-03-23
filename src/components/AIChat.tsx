@@ -399,12 +399,12 @@ function ProductItem({ block, resolvedImage }: { block: ProductBlock; resolvedIm
   );
 }
 
-// Groupe les produits consécutifs — résout les images WC via catalogue préchargé
+// Groupe les produits consécutifs — résout les images via clean images + WC
 function ProductGroupCard({ blocks }: { blocks: ProductBlock[] }) {
   const [wcImages, setWcImages] = useState<Record<string, string>>({});
 
   useEffect(() => {
-    loadWcCatalog().then(() => {
+    Promise.all([loadCleanImages(), loadWcCatalog()]).then(() => {
       const resolved: Record<string, string> = {};
       blocks.forEach(b => {
         const slug = slugFromUrl(b.url);
