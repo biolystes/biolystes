@@ -5,6 +5,7 @@ import {
   Bot, User, AlertCircle
 } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 // ─── WooCommerce config ──────────────────────────────────
 const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
