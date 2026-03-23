@@ -39,9 +39,15 @@ export default function InstaFeedSection() {
 
   return (
     <div className="w-full">
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-12 text-center">
+      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16 text-center">
         <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-foreground">
-          Avis d'une de nos clientes sur sa sélection de produits
+          Retour client
+        </motion.p>
+        <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed">
+          <b>Avis d'une de nos clientes</b> sur sa sélection de produits
+        </motion.h2>
+        <motion.p variants={fadeUp} custom={2} className="text-foreground max-w-xl mx-auto leading-relaxed">
+          Sev Formal, beauty expert internationale basée entre Miami et Paris, nous fait un retour sur les atouts des produits sélectionnés.
         </motion.p>
       </motion.div>
 
