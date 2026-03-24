@@ -117,7 +117,7 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 **Pack cosmétique IA — 2 999€ (ou 2× 1 500€)**
 - **+ Abonnement Pro obligatoire : 149€/mois (1er mois offert)**
 - **Formulation exacte : "2 999€ de frais de lancement (ou 2× 1 500€) + 149€/mois d'abonnement Pro (1er mois offert, inclut : UGC IA, diagnostic IA, gestion réseaux sociaux, hébergement, support, SEO, etc.)"**
-- Inclus : Tout du Pack Agence + UGC IA Ultraréaliste, expert produit dédié, diagnostic intelligent par IA, recommandations produits par IA, gestion réseaux sociaux 1 mois.
+- Inclus : Tout du Pack cosmétique standard + UGC IA Ultraréaliste, expert produit dédié, diagnostic intelligent par IA, recommandations produits par IA, gestion réseaux sociaux 1 mois.
 
 ### 📅 ABONNEMENTS MENSUELS
 
