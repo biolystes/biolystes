@@ -132,14 +132,14 @@ async function loadWcCatalog(): Promise<void> {
       try {
         const fallbackRes = await fetch("/data/produits.json");
         if (fallbackRes.ok) {
-          const localProducts: LocalCatalogProduct[] = await fallbackRes.json();
+          const localProducts = (await fallbackRes.json()) as LocalCatalogProduct[];
           localProducts.forEach((p) => {
             const firstImage = (p.images || "")
               .split("|")
               .map((s) => s.trim())
               .filter(Boolean)
               .map(toAbsoluteUrl)
-              .find(isCatalogImage);
+              .find((img): img is string => isCatalogImage(img));
 
             if (firstImage) {
               if (p.slug) wcImageCache[p.slug] = firstImage;
