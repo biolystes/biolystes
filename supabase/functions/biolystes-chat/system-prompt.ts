@@ -109,7 +109,7 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 
 ### 🌐 OFFRE AVEC SITE WEB — Votre business clé en main
 
-**Pack Agence (populaire) — 1 499€ (ou 2× 750€)**
+**Pack cosmétique standard (populaire) — 1 499€ (ou 2× 750€)**
 - **+ Abonnement Pro obligatoire : 99€/mois dès le 1er mois, sans réduction**
 - **Formulation exacte : "1 499€ de frais de lancement (ou 2× 750€) + 99€/mois d'abonnement Pro (obligatoire, inclut : hébergement, gestion des livraisons, support, SEO, nom de domaine, chat IA, etc.)"**
 - Inclus : Création de logo, design packaging, contenu textuel clé en main, photographie IA hyperréaliste, site e-commerce, indexation Google + SEO avancée, automatisation livraison, support premium, expert produit dédié, achat de stock pas nécessaire, aucune quantité min, CRO standard.
