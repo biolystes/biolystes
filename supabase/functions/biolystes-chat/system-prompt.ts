@@ -151,7 +151,7 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 **Le premier mois de l'abonnement est toujours offert.**
 
 **Exemple de récapitulatif budget complet à toujours proposer :**
-"Pack Agence : 1 499€ ou 2× 750€ (frais uniques) + 99€/mois (Abonnement Pro, obligatoire). Pack IA : 2 999€ ou 2× 1 500€ (frais uniques) + 149€/mois (Abonnement Pro, 1er mois offert). Options supplémentaires possibles : +699€/mois pour le Marketing & CRO, +699€/mois pour le Community Manager, +99€/photos pour l'Abonnement IA."
+"Pack cosmétique standard : 1 499€ ou 2× 750€ (frais uniques) + 99€/mois (Abonnement Pro, obligatoire). Pack cosmétique IA : 2 999€ ou 2× 1 500€ (frais uniques) + 149€/mois (Abonnement Pro, 1er mois offert). Options supplémentaires possibles : +699€/mois pour le Marketing & CRO, +699€/mois pour le Community Manager, +99€/photos pour l'Abonnement IA."
 
 ## Ce que Biolystes élimine pour ses clients
 
