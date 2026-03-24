@@ -49,6 +49,12 @@ const cleanImageCache: Record<string, string> = {};
 let cleanImagesLoaded = false;
 let cleanImagesLoading: Promise<void> | null = null;
 
+interface LocalCatalogProduct {
+  nom: string;
+  slug: string;
+  images: string;
+}
+
 function normalizeName(s: string): string {
   return s
     .toLowerCase()
@@ -82,8 +88,11 @@ async function loadCleanImages(): Promise<void> {
           cleanImageCache[normalizeKey(row.product_name)] = row.clean_image_url;
         });
       }
+    } catch {
+      // silencieux
+    } finally {
       cleanImagesLoaded = true;
-    } catch { /* silencieux */ }
+    }
   })();
   return cleanImagesLoading;
 }
@@ -91,7 +100,10 @@ async function loadCleanImages(): Promise<void> {
 async function loadWcCatalog(): Promise<void> {
   if (wcCatalogLoaded) return;
   if (wcCatalogLoading) return wcCatalogLoading;
+
   wcCatalogLoading = (async () => {
+    let apiLoaded = false;
+
     try {
       const url = new URL(`${WC_BASE}/products`);
       url.searchParams.set("consumer_key", CK);
@@ -99,18 +111,50 @@ async function loadWcCatalog(): Promise<void> {
       url.searchParams.set("per_page", "100");
       url.searchParams.set("status", "publish");
       url.searchParams.set("_fields", "slug,name,images");
+
       const res = await fetch(url.toString());
-      if (!res.ok) return;
-      const products: { slug: string; name: string; images: { src: string }[] }[] = await res.json();
-      products.forEach(p => {
-        if (p.images?.[0]?.src) {
-          wcImageCache[p.slug] = p.images[0].src;
-          wcImageCache[normalizeName(p.name)] = p.images[0].src;
+      if (res.ok) {
+        const products: { slug: string; name: string; images: { src: string }[] }[] = await res.json();
+        products.forEach((p) => {
+          if (p.images?.[0]?.src) {
+            wcImageCache[p.slug] = p.images[0].src;
+            wcImageCache[normalizeName(p.name)] = p.images[0].src;
+          }
+        });
+        apiLoaded = true;
+      }
+    } catch {
+      // silencieux
+    }
+
+    // Fallback fiable : produits locaux (/data/produits.json)
+    if (!apiLoaded) {
+      try {
+        const fallbackRes = await fetch("/data/produits.json");
+        if (fallbackRes.ok) {
+          const localProducts: LocalCatalogProduct[] = await fallbackRes.json();
+          localProducts.forEach((p) => {
+            const firstImage = (p.images || "")
+              .split("|")
+              .map((s) => s.trim())
+              .filter(Boolean)
+              .map(toAbsoluteUrl)
+              .find(isCatalogImage);
+
+            if (firstImage) {
+              if (p.slug) wcImageCache[p.slug] = firstImage;
+              if (p.nom) wcImageCache[normalizeName(p.nom)] = firstImage;
+            }
+          });
         }
-      });
-      wcCatalogLoaded = true;
-    } catch { /* silencieux */ }
+      } catch {
+        // silencieux
+      }
+    }
+
+    wcCatalogLoaded = true;
   })();
+
   return wcCatalogLoading;
 }
 
