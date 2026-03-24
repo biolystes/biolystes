@@ -109,15 +109,15 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 
 ### 🌐 OFFRE AVEC SITE WEB — Votre business clé en main
 
-**Pack Agence (populaire) — 1 499€ (ou 2× 750€)**
+**Pack cosmétique standard (populaire) — 1 499€ (ou 2× 750€)**
 - **+ Abonnement Pro obligatoire : 99€/mois dès le 1er mois, sans réduction**
 - **Formulation exacte : "1 499€ de frais de lancement (ou 2× 750€) + 99€/mois d'abonnement Pro (obligatoire, inclut : hébergement, gestion des livraisons, support, SEO, nom de domaine, chat IA, etc.)"**
 - Inclus : Création de logo, design packaging, contenu textuel clé en main, photographie IA hyperréaliste, site e-commerce, indexation Google + SEO avancée, automatisation livraison, support premium, expert produit dédié, achat de stock pas nécessaire, aucune quantité min, CRO standard.
 
-**Pack IA — 2 999€ (ou 2× 1 500€)**
+**Pack cosmétique IA — 2 999€ (ou 2× 1 500€)**
 - **+ Abonnement Pro obligatoire : 149€/mois (1er mois offert)**
 - **Formulation exacte : "2 999€ de frais de lancement (ou 2× 1 500€) + 149€/mois d'abonnement Pro (1er mois offert, inclut : UGC IA, diagnostic IA, gestion réseaux sociaux, hébergement, support, SEO, etc.)"**
-- Inclus : Tout du Pack Agence + UGC IA Ultraréaliste, expert produit dédié, diagnostic intelligent par IA, recommandations produits par IA, gestion réseaux sociaux 1 mois.
+- Inclus : Tout du Pack cosmétique standard + UGC IA Ultraréaliste, expert produit dédié, diagnostic intelligent par IA, recommandations produits par IA, gestion réseaux sociaux 1 mois.
 
 ### 📅 ABONNEMENTS MENSUELS
 
@@ -151,7 +151,7 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 **Le premier mois de l'abonnement est toujours offert.**
 
 **Exemple de récapitulatif budget complet à toujours proposer :**
-"Pack Agence : 1 499€ ou 2× 750€ (frais uniques) + 99€/mois (Abonnement Pro, obligatoire). Pack IA : 2 999€ ou 2× 1 500€ (frais uniques) + 149€/mois (Abonnement Pro, 1er mois offert). Options supplémentaires possibles : +699€/mois pour le Marketing & CRO, +699€/mois pour le Community Manager, +99€/photos pour l'Abonnement IA."
+"Pack cosmétique standard : 1 499€ ou 2× 750€ (frais uniques) + 99€/mois (Abonnement Pro, obligatoire). Pack cosmétique IA : 2 999€ ou 2× 1 500€ (frais uniques) + 149€/mois (Abonnement Pro, 1er mois offert). Options supplémentaires possibles : +699€/mois pour le Marketing & CRO, +699€/mois pour le Community Manager, +99€/photos pour l'Abonnement IA."
 
 ## Ce que Biolystes élimine pour ses clients
 
@@ -477,12 +477,12 @@ En résumé : les clients finaux sont protégés en cas de problème réel (cass
 ### Parcours client idéal
 
 1. **Étape 1 — Il hésite** : Pack Découverte (147€ ou 3x 49€). 147€ déduits si offre avec site dans les 30 jours.
-2. **Étape 2 — Il est convaincu** : Pack Agence (1 499€ ou 2× 750€ + 99€/mois) ou Pack IA (2 999€ ou 2× 1 500€ + 149€/mois, 1er mois offert).
+2. **Étape 2 — Il est convaincu** : Pack cosmétique standard (1 499€ ou 2× 750€ + 99€/mois) ou Pack cosmétique IA (2 999€ ou 2× 1 500€ + 149€/mois, 1er mois offert).
 3. **Étape 3 — Il veut déléguer** : Abonnements mensuels (Marketing + CRO 699€/mois, Community Manager 699€/mois).
 
 ### Facilités de paiement
-- Pack Agence : payable en 2× 750€
-- Pack IA : payable en 2× 1 500€
+- Pack cosmétique standard : payable en 2× 750€
+- Pack cosmétique IA : payable en 2× 1 500€
 - Pack Découverte : payable en 3x 49€
 - Paiement Klarna en 3x disponible (sous réserve d'acceptation)
 
