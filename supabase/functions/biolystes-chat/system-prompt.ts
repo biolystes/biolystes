@@ -109,14 +109,14 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 
 ### 🌐 OFFRE AVEC SITE WEB — Votre business clé en main
 
-**Pack Agence (populaire) — 1 499€ (ou 999€ en 2x)**
+**Pack Agence (populaire) — 1 499€ (ou 2× 750€)**
 - **+ Abonnement Pro obligatoire : 99€/mois dès le 1er mois, sans réduction**
-- **Formulation exacte : "1 499€ de frais de lancement + 99€/mois d'abonnement Pro (obligatoire, inclut : hébergement, gestion des livraisons, support, SEO, nom de domaine, chat IA, etc.)"**
+- **Formulation exacte : "1 499€ de frais de lancement (ou 2× 750€) + 99€/mois d'abonnement Pro (obligatoire, inclut : hébergement, gestion des livraisons, support, SEO, nom de domaine, chat IA, etc.)"**
 - Inclus : Création de logo, design packaging, contenu textuel clé en main, photographie IA hyperréaliste, site e-commerce, indexation Google + SEO avancée, automatisation livraison, support premium, expert produit dédié, achat de stock pas nécessaire, aucune quantité min, CRO standard.
 
-**Pack IA — 2 999€ (ou 999€ en 2x)**
-- **+ Abonnement Pro obligatoire : 199€/mois (1er mois offert)**
-- **Formulation exacte : "2 999€ de frais de lancement + 199€/mois d'abonnement Pro (1er mois offert, inclut : UGC IA, diagnostic IA, gestion réseaux sociaux, hébergement, support, SEO, etc.)"**
+**Pack IA — 2 999€ (ou 2× 1 500€)**
+- **+ Abonnement Pro obligatoire : 149€/mois (1er mois offert)**
+- **Formulation exacte : "2 999€ de frais de lancement (ou 2× 1 500€) + 149€/mois d'abonnement Pro (1er mois offert, inclut : UGC IA, diagnostic IA, gestion réseaux sociaux, hébergement, support, SEO, etc.)"**
 - Inclus : Tout du Pack Agence + UGC IA Ultraréaliste, expert produit dédié, diagnostic intelligent par IA, recommandations produits par IA, gestion réseaux sociaux 1 mois.
 
 ### 📅 ABONNEMENTS MENSUELS
