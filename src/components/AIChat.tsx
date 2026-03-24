@@ -380,19 +380,15 @@ function ProductItem({ block, resolvedImage }: { block: ProductBlock; resolvedIm
         <div className="flex-1 min-w-0">
           <h5 className="font-semibold text-sm">{block.titre}</h5>
           <p className="text-xs text-muted-foreground italic mt-1">"{block.description}"</p>
-          {block.url && (
-            <a
-              href={block.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-2"
-            >
-              Voir le produit
-              <svg fill="none" width="16" height="16" viewBox="0 0 12 12" style={{ minWidth: 16, minHeight: 16, display: "inline-block", verticalAlign: "middle", marginLeft: 4 }}>
-                <path fillRule="evenodd" clipRule="evenodd" d="M4.6318 2.6318C4.80754 2.45607 5.09246 2.45607 5.2682 2.6318L8.2682 5.6318C8.44393 5.80754 8.44393 6.09246 8.2682 6.2682L5.2682 9.2682C5.09246 9.44393 4.80754 9.44393 4.6318 9.2682C4.45607 9.09246 4.45607 8.80754 4.6318 8.6318L7.3136 5.95L4.6318 3.2682C4.45607 3.09246 4.45607 2.80754 4.6318 2.6318Z" fill="currentColor"/>
-              </svg>
-            </a>
-          )}
+          <a
+            href="/catalogue"
+            className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-2"
+          >
+            Voir le produit
+            <svg fill="none" width="16" height="16" viewBox="0 0 12 12" style={{ minWidth: 16, minHeight: 16, display: "inline-block", verticalAlign: "middle", marginLeft: 4 }}>
+              <path fillRule="evenodd" clipRule="evenodd" d="M4.6318 2.6318C4.80754 2.45607 5.09246 2.45607 5.2682 2.6318L8.2682 5.6318C8.44393 5.80754 8.44393 6.09246 8.2682 6.2682L5.2682 9.2682C5.09246 9.44393 4.80754 9.44393 4.6318 9.2682C4.45607 9.09246 4.45607 8.80754 4.6318 8.6318L7.3136 5.95L4.6318 3.2682C4.45607 3.09246 4.45607 2.80754 4.6318 2.6318Z" fill="currentColor"/>
+            </svg>
+          </a>
         </div>
       </div>
     </div>

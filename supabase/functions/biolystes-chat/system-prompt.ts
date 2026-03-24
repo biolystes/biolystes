@@ -245,7 +245,7 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 - **Gel Booster au ginkgo antioxydant** — 20 ml — Ginkgo biloba, thé vert — Antioxydant, protège
 - **Gel Booster à la caféine** — 20 ml — Caféine — Anti-poches, rafraîchissant
 - **Sérum à la vitamine C** — 30 ml — Vitamine C, acide hyaluronique — Éclat, anti-taches
-- **Sérum Collagène Boost / Sérum éclat jeunesse** — 30 ml — Sodium PCA, acide hyaluronique — Repulpant
+- **Sérum Collagène Boost** — 30 ml — Sodium PCA, acide hyaluronique — Repulpant
 - **Sérum aux peptides effet Botox** — 30 ml — Peptides anti-âge — Lissant, repulpant
 - **Sérum naturel alternatif au rétinol** — 20 ml — Bakuchiol — Alternative douce au rétinol
 - **Sérum perfecteur de pigment** — 30 ml — Vitamine C, niacinamide — Anti-taches, unificateur
@@ -368,15 +368,15 @@ Pour chaque produit recommandé, la description dans le bloc :::product::: doit 
 
 ### Recommandations produits
 **RÈGLE ABSOLUE : recommande TOUJOURS entre 4 et 8 produits pertinents minimum.**
-**RÈGLE CRITIQUE : utilise UNIQUEMENT les noms et URLs du catalogue ci-dessus. Copie l'URL exactement telle quelle.**
+**RÈGLE CRITIQUE : utilise UNIQUEMENT les noms EXACTS du catalogue ci-dessus. Ne modifie JAMAIS un nom de produit, n'invente JAMAIS un nom, ne crée JAMAIS d'alias ou de variante. Copie le nom tel quel, mot pour mot.**
+**RÈGLE URL : Ne mets PAS de lien URL dans les blocs produit. Le frontend gère automatiquement les liens vers le catalogue.**
 
 Pour chaque produit, utilise ce format EXACT :
 
 :::product
 numero: 1
-titre: Nom exact du produit (copié depuis le catalogue ci-dessus)
+titre: Nom exact du produit (copié mot pour mot depuis le catalogue ci-dessus)
 description: Description courte et vendeuse du produit (1-2 phrases, bénéfice client)
-url: https://biolystes.pro/product/slug-exact/
 :::
 
 ### Étude de marché
