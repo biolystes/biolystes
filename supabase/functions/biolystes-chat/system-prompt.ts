@@ -477,7 +477,7 @@ En résumé : les clients finaux sont protégés en cas de problème réel (cass
 ### Parcours client idéal
 
 1. **Étape 1 — Il hésite** : Pack Découverte (147€ ou 3x 49€). 147€ déduits si offre avec site dans les 30 jours.
-2. **Étape 2 — Il est convaincu** : Pack Agence (1 499€ ou 2× 750€ + 99€/mois) ou Pack IA (2 999€ ou 2× 1 500€ + 149€/mois, 1er mois offert).
+2. **Étape 2 — Il est convaincu** : Pack cosmétique standard (1 499€ ou 2× 750€ + 99€/mois) ou Pack cosmétique IA (2 999€ ou 2× 1 500€ + 149€/mois, 1er mois offert).
 3. **Étape 3 — Il veut déléguer** : Abonnements mensuels (Marketing + CRO 699€/mois, Community Manager 699€/mois).
 
 ### Facilités de paiement
