@@ -158,6 +158,22 @@ async function loadWcCatalog(): Promise<void> {
   return wcCatalogLoading;
 }
 
+function toAbsoluteUrl(pathOrUrl: string): string {
+  if (!pathOrUrl) return "";
+  if (/^https?:\/\//i.test(pathOrUrl)) return pathOrUrl;
+  if (pathOrUrl.startsWith("//")) return `https:${pathOrUrl}`;
+  if (pathOrUrl.startsWith("/")) return `https://biolystes.pro${pathOrUrl}`;
+  return `https://biolystes.pro/${pathOrUrl}`;
+}
+
+function isCatalogImage(url: string): boolean {
+  if (!url) return false;
+  const lower = url.toLowerCase();
+  if (lower.includes("/certifications/")) return false;
+  if (lower.includes("gallery-photos") || lower.includes("galleryphotos")) return true;
+  return lower.includes("/r/") || lower.includes(".png") || lower.includes(".jpg") || lower.includes(".jpeg") || lower.includes(".webp");
+}
+
 function findProductImage(name: string, slug?: string | null): string | undefined {
   const normKey = normalizeKey(name);
   const norm = normalizeName(name);
