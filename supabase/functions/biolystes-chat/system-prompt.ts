@@ -481,8 +481,8 @@ En résumé : les clients finaux sont protégés en cas de problème réel (cass
 3. **Étape 3 — Il veut déléguer** : Abonnements mensuels (Marketing + CRO 699€/mois, Community Manager 699€/mois).
 
 ### Facilités de paiement
-- Pack Agence : payable en 2× 750€
-- Pack IA : payable en 2× 1 500€
+- Pack cosmétique standard : payable en 2× 750€
+- Pack cosmétique IA : payable en 2× 1 500€
 - Pack Découverte : payable en 3x 49€
 - Paiement Klarna en 3x disponible (sous réserve d'acceptation)
 
