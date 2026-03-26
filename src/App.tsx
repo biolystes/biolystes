@@ -45,6 +45,7 @@ import GlowlyPage from "./pages/GlowlyPage";
 import LinkPage from "./pages/LinkPage";
 import QualitePage from "./pages/QualitePage";
 import WirtzkinPage from "./pages/WirtzkinPage";
+import EchantillonsPage from "./pages/EchantillonsPage";
 
 const queryClient = new QueryClient();
 
