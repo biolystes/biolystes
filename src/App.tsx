@@ -89,6 +89,7 @@ function AppRoutes() {
       <Route path="/link" element={<Layout><LinkPage /></Layout>} />
       <Route path="/qualite" element={<Layout><QualitePage /></Layout>} />
       <Route path="/wirtzkin" element={<Layout><WirtzkinPage /></Layout>} />
+      <Route path="/echantillons" element={<Layout><EchantillonsPage /></Layout>} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
       <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
       <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
