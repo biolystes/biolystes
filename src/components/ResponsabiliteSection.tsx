@@ -36,7 +36,7 @@ export default function ResponsabiliteSection() {
 
       {/* Responsabilité */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
-        className="bg-background py-14 md:py-20">
+        className="bg-secondary rounded-[2.75rem] py-14 md:py-20">
         <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
           {/* Texte */}
           <div className="flex-1 min-w-[260px]">
@@ -81,7 +81,7 @@ export default function ResponsabiliteSection() {
 
       {/* Litige */}
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4}
-        className="bg-secondary py-14 md:py-20">
+        className="bg-secondary rounded-[2.75rem] py-14 md:py-20 mt-4">
         <div className="max-w-5xl mx-auto px-6 flex flex-col md:flex-row-reverse items-center gap-12">
           <div className="flex-1 min-w-[260px]">
             <span className="inline-block bg-foreground text-primary-foreground text-[10px] font-bold tracking-[2px] uppercase px-4 py-1.5 rounded-full mb-5">
