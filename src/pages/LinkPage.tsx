@@ -51,7 +51,7 @@ const groups: LinkGroup[] = [
       },
       {
         href: "/glowly",
-        title: "Comment maximiser vos résultats comme Glowly Paris dès les premiers mois ?",
+        title: "Comment bien débuter une fois mis en place ? Exemple avec Glowly Paris",
         description: "Contenu UGC, e-réputation Trustpilot et publicité sociale.",
       },
     ],
