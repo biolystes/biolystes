@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useRef } from "react";
 
 interface LinkItem {
   href: string;
@@ -158,6 +159,72 @@ const groups: LinkGroup[] = [
   },
 ];
 
+const aiImages = [
+  "/images/kaniwa-1.jpg",
+  "/images/kaniwa-2.jpg",
+  "/images/kaniwa-3.jpg",
+  "/images/kaniwa-4.jpg",
+  "/images/kaniwa-5.jpg",
+  "/images/kaniwa-6.jpg",
+  "/images/kaniwa-7.jpg",
+  "/images/kaniwa-8.jpg",
+  "/images/kaniwa-9.jpg",
+  "/images/kaniwa-10.jpg",
+];
+
+function AIImagesCarousel() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const scrollTo = (index: number) => {
+    const clamped = Math.max(0, Math.min(index, aiImages.length - 1));
+    setCurrentIndex(clamped);
+    if (scrollRef.current) {
+      const child = scrollRef.current.children[clamped] as HTMLElement;
+      if (child) {
+        scrollRef.current.scrollTo({ left: child.offsetLeft - scrollRef.current.offsetLeft, behavior: "smooth" });
+      }
+    }
+  };
+
+  return (
+    <div className="mt-10">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-3">
+        À quoi ressemblent nos images IA
+      </p>
+      <div className="relative">
+        <div
+          ref={scrollRef}
+          className="flex gap-3 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-6 px-6"
+        >
+          {aiImages.map((src, i) => (
+            <div
+              key={i}
+              className="flex-shrink-0 w-[220px] md:w-[280px] aspect-square rounded-xl overflow-hidden snap-start"
+            >
+              <img src={src} alt={`Image IA ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={() => scrollTo(currentIndex - 1)}
+          disabled={currentIndex === 0}
+          className="absolute left-0 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-lg disabled:opacity-30 transition-opacity z-10"
+        >
+          <ChevronLeft className="h-4 w-4 text-foreground" />
+        </button>
+        <button
+          onClick={() => scrollTo(currentIndex + 1)}
+          disabled={currentIndex === aiImages.length - 1}
+          className="absolute right-0 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-background/80 backdrop-blur-sm flex items-center justify-center shadow-lg disabled:opacity-30 transition-opacity z-10"
+        >
+          <ChevronRight className="h-4 w-4 text-foreground" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function LinkPage() {
   return (
     <div className="min-h-screen bg-secondary py-16 px-6">
@@ -217,6 +284,9 @@ export default function LinkPage() {
             </div>
           ))}
         </div>
+
+        {/* Images IA Carousel */}
+        <AIImagesCarousel />
       </div>
     </div>
   );
