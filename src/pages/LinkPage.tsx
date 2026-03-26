@@ -24,6 +24,11 @@ const groups: LinkGroup[] = [
         description: "Explorez l'ensemble de nos offres cosmétiques, agence et IA.",
       },
       {
+        href: "/catalogue",
+        title: "Découvrir notre catalogue produits",
+        description: "Plus de 100 cosmétiques certifiés bio prêts à personnaliser.",
+      },
+      {
         href: "/rdv",
         title: "Prendre rendez-vous",
         description: "Réservez un créneau pour échanger avec notre équipe.",
