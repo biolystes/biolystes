@@ -163,7 +163,7 @@ export default function LinkPage() {
     <div className="min-h-screen bg-secondary py-16 px-6">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-light tracking-tight text-foreground mb-2">
-          Liens rapides
+          Faisons connaissance
         </h1>
         <p className="text-muted-foreground mb-12">
           Accédez directement à chaque section clé de notre offre.
