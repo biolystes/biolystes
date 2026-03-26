@@ -13,9 +13,12 @@ const offresItems = [
   { path: "/ai", label: "Offre IA" },
 ];
 
-const publicNavItems = [
+const pourquoiItems = [
   { path: "/pourquoi-cette-offre", label: "Pourquoi cette offre ?" },
   { path: "/etudes", label: "Pourquoi Biolystes ?" },
+];
+
+const publicNavItems = [
   { path: "/tarifs", label: "Tarifs" },
   { path: "/blog", label: "Ressources" },
 ];
@@ -26,13 +29,14 @@ function TopNavBar() {
   const location = useLocation();
   const { user, profile, signOut, isAdmin } = useAuth();
   const [offresOpen, setOffresOpen] = useState(false);
+  const [pourquoiOpen, setPourquoiOpen] = useState(false);
   const offresRef = useRef<HTMLDivElement>(null);
+  const pourquoiRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      if (offresRef.current && !offresRef.current.contains(e.target as Node)) {
-        setOffresOpen(false);
-      }
+      if (offresRef.current && !offresRef.current.contains(e.target as Node)) setOffresOpen(false);
+      if (pourquoiRef.current && !pourquoiRef.current.contains(e.target as Node)) setPourquoiOpen(false);
     };
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
@@ -95,6 +99,39 @@ function TopNavBar() {
                   key={item.path}
                   to={item.path}
                   onClick={() => setOffresOpen(false)}
+                  className={`block px-4 py-2 text-sm transition-colors ${
+                    isActive(item.path)
+                      ? "text-foreground font-medium"
+                      : "text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Dropdown Pourquoi nous */}
+        <div ref={pourquoiRef} className="relative">
+          <button
+            onClick={() => setPourquoiOpen(!pourquoiOpen)}
+            className={`flex items-center gap-1 text-sm font-medium transition-colors ${
+              pourquoiItems.some((o) => isActive(o.path))
+                ? "text-foreground"
+                : "text-foreground/70 hover:text-foreground"
+            }`}
+          >
+            Pourquoi nous
+            <ChevronDown className={`h-3.5 w-3.5 transition-transform ${pourquoiOpen ? "rotate-180" : ""}`} />
+          </button>
+          {pourquoiOpen && (
+            <div className="absolute top-full left-0 mt-2 min-w-[220px] bg-secondary border border-foreground/20 shadow-lg py-1 z-50">
+              {pourquoiItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setPourquoiOpen(false)}
                   className={`block px-4 py-2 text-sm transition-colors ${
                     isActive(item.path)
                       ? "text-foreground font-medium"
@@ -194,6 +231,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <nav className="space-y-1 flex-1">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground px-3 pt-2 pb-1">Nos offres</p>
                 {offresItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setMobileOpen(false)}
+                    className={`nav-item ${isActive(item.path) ? "active" : ""}`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+                <div className="h-px bg-foreground/10 my-2" />
+                <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground px-3 pt-2 pb-1">Pourquoi nous</p>
+                {pourquoiItems.map((item) => (
                   <Link
                     key={item.path}
                     to={item.path}
