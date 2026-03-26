@@ -38,6 +38,16 @@ const links = [
     description: "Packs cosmétique, agence, IA et abonnements.",
   },
   {
+    href: "/etudes",
+    title: "Pourquoi Biolystes ?",
+    description: "Étude comparative sur les porteurs de projets cosmétiques.",
+  },
+  {
+    href: "/pourquoi-cette-offre",
+    title: "Pourquoi cette offre ?",
+    description: "L'évolution de nos offres pour répondre aux vrais blocages post-lancement.",
+  },
+  {
     href: "/rdv",
     title: "Prendre rendez-vous",
     description: "Réservez un créneau pour échanger avec notre équipe.",
