@@ -111,31 +111,52 @@ export default function LinkPage() {
           Accédez directement à chaque section clé de notre offre.
         </p>
 
-        <div className="space-y-3">
-          {links.map((link) => (
-            <Link
-              key={link.href}
-              to={link.href}
-              className={`group flex items-center justify-between p-5 border transition-all ${
-                link.highlight
-                  ? "bg-foreground text-primary-foreground border-foreground"
-                  : "bg-transparent border-foreground/20 hover:border-foreground"
-              }`}
-            >
-              <div>
-                <h2 className={`text-base font-semibold group-hover:underline ${
-                  link.highlight ? "text-primary-foreground" : "text-foreground"
-                }`}>
-                  {link.title}
-                </h2>
-                <p className={`text-sm mt-1 ${
-                  link.highlight ? "text-primary-foreground/70" : "text-muted-foreground"
-                }`}>{link.description}</p>
+        <div className="space-y-10">
+          {groups.map((group) => (
+            <div key={group.label || "top"}>
+              {group.label && (
+                <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-3">
+                  {group.label}
+                </p>
+              )}
+              <div className="space-y-3">
+                {group.items.map((link) => {
+                  const cls = `group flex items-center justify-between p-5 border transition-all ${
+                    link.highlight
+                      ? "bg-foreground text-primary-foreground border-foreground"
+                      : "bg-transparent border-foreground/20 hover:border-foreground"
+                  }`;
+
+                  const inner = (
+                    <>
+                      <div>
+                        <h2 className={`text-base font-semibold group-hover:underline ${
+                          link.highlight ? "text-primary-foreground" : "text-foreground"
+                        }`}>
+                          {link.title}
+                        </h2>
+                        <p className={`text-sm mt-1 ${
+                          link.highlight ? "text-primary-foreground/70" : "text-muted-foreground"
+                        }`}>{link.description}</p>
+                      </div>
+                      <ArrowRight className={`h-5 w-5 shrink-0 ml-4 transition-colors ${
+                        link.highlight ? "text-primary-foreground/70" : "text-muted-foreground group-hover:text-foreground"
+                      }`} />
+                    </>
+                  );
+
+                  return link.external ? (
+                    <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className={cls}>
+                      {inner}
+                    </a>
+                  ) : (
+                    <Link key={link.href} to={link.href} className={cls}>
+                      {inner}
+                    </Link>
+                  );
+                })}
               </div>
-              <ArrowRight className={`h-5 w-5 shrink-0 ml-4 transition-colors ${
-                link.highlight ? "text-primary-foreground/70" : "text-muted-foreground group-hover:text-foreground"
-              }`} />
-            </Link>
+            </div>
           ))}
         </div>
       </div>
