@@ -81,6 +81,7 @@ function AppRoutes() {
       <Route path="/livraison" element={<LivraisonPage />} />
       <Route path="/equipe-ia" element={<EquipeIAPage />} />
       <Route path="/responsabilite" element={<ResponsabilitePage />} />
+      <Route path="/glowly" element={<GlowlyPage />} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
       <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
       <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
