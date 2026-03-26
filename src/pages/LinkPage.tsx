@@ -201,7 +201,7 @@ function AIImagesCarousel() {
           {aiImages.map((src, i) => (
             <div
               key={i}
-              className="flex-shrink-0 w-[220px] md:w-[280px] aspect-square rounded-xl overflow-hidden snap-start"
+              className="flex-shrink-0 w-[180px] md:w-[182px] aspect-square rounded-xl overflow-hidden snap-start"
             >
               <img src={src} alt={`Image IA ${i + 1}`} className="w-full h-full object-cover" loading="lazy" />
             </div>
