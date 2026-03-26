@@ -77,13 +77,13 @@ function AppRoutes() {
       <Route path="/blog/reseau-presse" element={<Layout><ArticleMarieClairePage /></Layout>} />
       <Route path="/blog/lancer-marque" element={<Layout><ArticleLancerMarquePage /></Layout>} />
       <Route path="/blog/biais-actif" element={<Layout><ArticleBiaisActifPage /></Layout>} />
-      <Route path="/rdv" element={<RdvPage />} />
-      <Route path="/comment-ca-marche" element={<CommentCaMarchePage />} />
-      <Route path="/livraison" element={<LivraisonPage />} />
-      <Route path="/equipe-ia" element={<EquipeIAPage />} />
-      <Route path="/responsabilite" element={<ResponsabilitePage />} />
-      <Route path="/glowly" element={<GlowlyPage />} />
-      <Route path="/link" element={<LinkPage />} />
+      <Route path="/rdv" element={<Layout><RdvPage /></Layout>} />
+      <Route path="/comment-ca-marche" element={<Layout><CommentCaMarchePage /></Layout>} />
+      <Route path="/livraison" element={<Layout><LivraisonPage /></Layout>} />
+      <Route path="/equipe-ia" element={<Layout><EquipeIAPage /></Layout>} />
+      <Route path="/responsabilite" element={<Layout><ResponsabilitePage /></Layout>} />
+      <Route path="/glowly" element={<Layout><GlowlyPage /></Layout>} />
+      <Route path="/link" element={<Layout><LinkPage /></Layout>} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
       <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
       <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
