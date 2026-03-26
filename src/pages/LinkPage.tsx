@@ -19,6 +19,11 @@ const groups: LinkGroup[] = [
     label: "",
     items: [
       {
+        href: "/",
+        title: "Découvrir notre site",
+        description: "Explorez l'ensemble de nos offres cosmétiques, agence et IA.",
+      },
+      {
         href: "/rdv",
         title: "Prendre rendez-vous",
         description: "Réservez un créneau pour échanger avec notre équipe.",
