@@ -145,6 +145,7 @@ function TopNavBar() {
           )}
         </div>
 
+        {navItems.map((item) => (
           <Link key={item.path} to={item.path}>
             <span
               className={`text-sm font-medium transition-colors ${
