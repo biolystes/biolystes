@@ -40,6 +40,7 @@ import RdvPage from "./pages/RdvPage";
 import CommentCaMarchePage from "./pages/CommentCaMarchePage";
 import LivraisonPage from "./pages/LivraisonPage";
 import EquipeIAPage from "./pages/EquipeIAPage";
+import ResponsabilitePage from "./pages/ResponsabilitePage";
 
 const queryClient = new QueryClient();
 
@@ -78,6 +79,7 @@ function AppRoutes() {
       <Route path="/comment-ca-marche" element={<CommentCaMarchePage />} />
       <Route path="/livraison" element={<LivraisonPage />} />
       <Route path="/equipe-ia" element={<EquipeIAPage />} />
+      <Route path="/responsabilite" element={<ResponsabilitePage />} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
       <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
       <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
