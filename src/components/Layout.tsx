@@ -25,6 +25,18 @@ const RDV_URL = "/rdv";
 function TopNavBar() {
   const location = useLocation();
   const { user, profile, signOut, isAdmin } = useAuth();
+  const [offresOpen, setOffresOpen] = useState(false);
+  const offresRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (offresRef.current && !offresRef.current.contains(e.target as Node)) {
+        setOffresOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, []);
 
   const navItems = [
     ...publicNavItems,
