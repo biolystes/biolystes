@@ -160,6 +160,7 @@ const groups: LinkGroup[] = [
 ];
 
 const aiImages = [
+  "/images/kaniwa-10.jpg",
   "/images/kaniwa-1.jpg",
   "/images/kaniwa-2.jpg",
   "/images/kaniwa-3.jpg",
@@ -169,7 +170,6 @@ const aiImages = [
   "/images/kaniwa-7.jpg",
   "/images/kaniwa-8.jpg",
   "/images/kaniwa-9.jpg",
-  "/images/kaniwa-10.jpg",
 ];
 
 function AIImagesCarousel() {
