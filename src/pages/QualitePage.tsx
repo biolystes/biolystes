@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { BadgeCheck, Leaf, FileCheck2, Award, Rabbit, Package, Check } from "lucide-react";
 import InstaFeedSection from "@/components/InstaFeedSection";
+import WirtzkinSection from "@/components/WirtzkinSection";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -92,6 +93,11 @@ export default function QualitePage() {
             </div>
           </motion.div>
         </div>
+      </section>
+
+      {/* Wirtzkin */}
+      <section className="py-12 md:py-16">
+        <WirtzkinSection />
       </section>
     </div>
   );

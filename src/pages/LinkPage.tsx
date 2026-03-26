@@ -72,12 +72,7 @@ const groups: LinkGroup[] = [
       {
         href: "/qualite",
         title: "Cosmétiques certifiés bio, végans et responsables",
-        description: "Certifications, exclusions et garanties de nos formulations.",
-      },
-      {
-        href: "/wirtzkin",
-        title: "Le centre médical Wirtzkin nous a choisi",
-        description: "Wirtzkin fait confiance à Biolystes pour ses produits cosmétiques.",
+        description: "Certifications, garanties et témoignage Wirtzkin.",
       },
     ],
   },
