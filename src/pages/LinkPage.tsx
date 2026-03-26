@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState, useRef } from "react";
 
 interface LinkItem {
   href: string;
