@@ -80,7 +80,7 @@ export default function CommentCaMarche() {
 
   return (
     <section className="bg-secondary">
-      <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
+      <div className="max-w-5xl mx-auto px-6 py-24 md:py-32 pt-[120px]">
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-light tracking-tight text-foreground max-w-3xl mx-auto">
@@ -99,8 +99,8 @@ export default function CommentCaMarche() {
                 onClick={() => setCurrent(i)}
                 className={`w-8 h-8 rounded-full text-xs font-semibold border transition-colors ${
                   i === current
-                    ? "bg-white text-black border-white"
-                    : "bg-transparent text-white border-white hover:bg-white/20"
+                    ? "bg-foreground text-primary-foreground border-foreground"
+                    : "bg-transparent text-foreground/40 border-foreground/20 hover:border-foreground/40"
                 }`}
               >
                 {i + 1}
