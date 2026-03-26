@@ -258,13 +258,13 @@ function BrandAlbum({ brand, index }: { brand: Brand; index: number }) {
               Voir le site ↗
             </a>
           </div>
-          <p style={{ fontSize: 13, color: "#86868b", paddingLeft: 42, marginBottom: 8 }}>{brand.tagline}</p>
+          <p style={{ fontSize: 13, color: "#121212aa", paddingLeft: 42, marginBottom: 8 }}>{brand.tagline}</p>
           <div style={{ paddingLeft: 42, display: "flex", gap: 6, flexWrap: "wrap" }}>
             {brand.tags.map((tag, i) => (
               <span key={i} style={{
                 padding: "4px 11px", borderRadius: 20, fontSize: 11, fontWeight: 600,
-                background: i === 0 ? `${brand.accentColor}18` : "#f0f0f2",
-                color: i === 0 ? brand.accentColor : "#86868b",
+                background: i === 0 ? `${brand.accentColor}18` : "#e8e7d2",
+                color: i === 0 ? brand.accentColor : "#121212aa",
                 border: i === 0 ? `1px solid ${brand.accentColor}30` : "none",
               }}>{tag}</span>
             ))}
@@ -273,7 +273,7 @@ function BrandAlbum({ brand, index }: { brand: Brand; index: number }) {
 
         {/* Photo count pill */}
         <div style={{ paddingLeft: 42, marginBottom: 16 }}>
-          <span style={{ fontSize: 11, color: "#86868b", fontWeight: 500 }}>
+          <span style={{ fontSize: 11, color: "#121212aa", fontWeight: 500 }}>
             {brand.photos.length} photos · Cliquez pour agrandir
           </span>
         </div>
@@ -315,7 +315,7 @@ function BrandAlbum({ brand, index }: { brand: Brand; index: number }) {
         </div>
 
         {/* Divider */}
-        <div style={{ height: 1, background: "#f0f0f0", marginTop: 48, marginBottom: 48 }} />
+        <div style={{ height: 1, background: "#12121220", marginTop: 48, marginBottom: 48 }} />
       </motion.section>
 
       {/* Lightbox */}
@@ -345,13 +345,13 @@ export default function PortfolioPage() {
         transition={{ duration: 0.4 }}
         style={{ marginBottom: 48 }}
       >
-        <span style={{ fontSize: 10, fontWeight: 700, color: "#86868b", letterSpacing: "1.5px", textTransform: "uppercase" }}>
+        <span style={{ fontSize: 10, fontWeight: 700, color: "#121212aa", letterSpacing: "1.5px", textTransform: "uppercase" }}>
           Biolystes
         </span>
         <h1 style={{ fontSize: 36, fontWeight: 800, color: "#1d1d1f", marginTop: 6, letterSpacing: "-0.6px" }}>
           Portfolio
         </h1>
-        <p style={{ fontSize: 15, color: "#86868b", marginTop: 8, maxWidth: 520, lineHeight: 1.6 }}>
+        <p style={{ fontSize: 15, color: "#121212aa", marginTop: 8, maxWidth: 520, lineHeight: 1.6 }}>
           Des marques cosmétiques créées de A à Z avec Biolystes — packaging, formulation, identité visuelle.
         </p>
       </motion.div>
