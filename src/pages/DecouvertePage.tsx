@@ -478,7 +478,7 @@ export default function DecouvertePage() {
             <div>
               <p className="text-xs tracking-[0.3em] uppercase text-foreground mb-6">Nos formulations excluent</p>
               <div className="space-y-3">
-                {["Parabènes", "Silicones", "PEG", "Filtres UV chimiques", "Microplastiques", "Colorants artificiels", "Phosphates", "Conservateurs synthétiques"].map(item => (
+                {["Parabènes", "Silicones", "PEG", "Filtres UV chimiques", "Microplastiques", "Colorants artificiels", "Phosphates", "Conservateurs synthétiques", "Gluten", "Noix"].map(item => (
                   <div key={item} className="flex items-center gap-3">
                     <div className="w-5 h-5 rounded-full bg-destructive/10 flex items-center justify-center">
                       <span className="text-destructive text-xs font-bold">✕</span>
@@ -491,7 +491,7 @@ export default function DecouvertePage() {
             <div>
               <p className="text-xs tracking-[0.3em] uppercase text-foreground mb-6">Ce que nous garantissons</p>
               <div className="space-y-3">
-                {["Ingrédients d'origine naturelle", "Parfums véganes", "Production à la demande", "Traçabilité complète", "Laboratoires certifiés", "Échantillons disponibles", "Aucun minimum de commande", "Expédition sous votre marque"].map(item => (
+                {["Ingrédients d'origine naturelle", "Parfums véganes", "Production à la demande", "Traçabilité complète", "Laboratoires certifiés", "Échantillons disponibles", "Aucun minimum de commande", "Expédition sous votre marque", "Végétalien", "Certifié naturel"].map(item => (
                   <div key={item} className="flex items-center gap-3">
                     <Check className="h-4 w-4 text-foreground shrink-0" />
                     <span className="text-sm text-foreground">{item}</span>
