@@ -120,6 +120,7 @@ const groups: LinkGroup[] = [
         href: "/tarifs",
         title: "Découvrez nos tarifs",
         description: "Packs cosmétique, agence, IA et abonnements.",
+        highlight: true,
       },
       {
         href: "/pourquoi-cette-offre",
