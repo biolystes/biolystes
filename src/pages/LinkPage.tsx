@@ -127,6 +127,11 @@ const groups: LinkGroup[] = [
     label: "Nos offres",
     items: [
       {
+        href: "/",
+        title: "Offre Cosmétique — Créez votre marque",
+        description: "Cosmétiques certifiés bio personnalisables à votre image.",
+      },
+      {
         href: "/catalogue",
         title: "Découvrez notre catalogue produits",
         description: "Plus de 100 cosmétiques certifiés bio prêts à personnaliser.",
