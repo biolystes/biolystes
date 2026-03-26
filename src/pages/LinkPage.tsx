@@ -162,6 +162,7 @@ const groups: LinkGroup[] = [
 const aiImages = [
   "/images/kaniwa-10.jpg",
   "/images/kaniwa-1.jpg",
+  "/images/kaniwa-11.jpg",
   "/images/kaniwa-2.jpg",
   "/images/kaniwa-3.jpg",
   "/images/kaniwa-4.jpg",
