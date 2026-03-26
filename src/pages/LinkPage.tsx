@@ -116,6 +116,11 @@ const groups: LinkGroup[] = [
         title: "Pourquoi cette offre ?",
         description: "L'évolution de nos offres pour répondre aux vrais blocages post-lancement.",
       },
+      {
+        href: "/echantillons",
+        title: "À quoi ressemblent nos échantillons pour tester ?",
+        description: "4 produits certifiés bio chez vous en 7 jours pour 147€.",
+      },
     ],
   },
 ];
