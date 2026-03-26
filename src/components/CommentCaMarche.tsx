@@ -83,7 +83,7 @@ export default function CommentCaMarche() {
       <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-light tracking-tight text-foreground max-w-3xl mx-auto" style={{ color: 'hsl(var(--foreground))' }}>
+          <h2 className="text-3xl md:text-4xl font-light tracking-tight text-foreground max-w-3xl mx-auto">
             Comment fonctionne la mise en place de votre marque en 10-15 jours ?
           </h2>
           <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
