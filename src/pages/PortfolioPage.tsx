@@ -258,13 +258,13 @@ function BrandAlbum({ brand, index }: { brand: Brand; index: number }) {
               Voir le site ↗
             </a>
           </div>
-          <p style={{ fontSize: 13, color: "#86868b", paddingLeft: 42, marginBottom: 8 }}>{brand.tagline}</p>
+          <p style={{ fontSize: 13, color: "#121212aa", paddingLeft: 42, marginBottom: 8 }}>{brand.tagline}</p>
           <div style={{ paddingLeft: 42, display: "flex", gap: 6, flexWrap: "wrap" }}>
             {brand.tags.map((tag, i) => (
               <span key={i} style={{
                 padding: "4px 11px", borderRadius: 20, fontSize: 11, fontWeight: 600,
-                background: i === 0 ? `${brand.accentColor}18` : "#f0f0f2",
-                color: i === 0 ? brand.accentColor : "#86868b",
+                background: i === 0 ? `${brand.accentColor}18` : "#e8e7d2",
+                color: i === 0 ? brand.accentColor : "#121212aa",
                 border: i === 0 ? `1px solid ${brand.accentColor}30` : "none",
               }}>{tag}</span>
             ))}
