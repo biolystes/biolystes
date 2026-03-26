@@ -192,6 +192,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <span className="font-bold text-sm" style={{ color: "#1d1d1f" }}>Biolystes</span>
               </div>
               <nav className="space-y-1 flex-1">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground px-3 pt-2 pb-1">Nos offres</p>
+                {offresItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setMobileOpen(false)}
+                    className={`nav-item ${isActive(item.path) ? "active" : ""}`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+                <div className="h-px bg-foreground/10 my-2" />
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
