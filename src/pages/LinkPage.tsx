@@ -57,6 +57,17 @@ const groups: LinkGroup[] = [
     ],
   },
   {
+  {
+    label: "À lire",
+    items: [
+      {
+        href: "/etudes",
+        title: "Pourquoi 92 % d'entre vous vont échouer ?",
+        description: "Étude comparative sur les porteurs de projets cosmétiques.",
+      },
+    ],
+  },
+  {
     label: "Nos clients",
     items: [
       {
@@ -85,11 +96,6 @@ const groups: LinkGroup[] = [
         href: "/tarifs",
         title: "Découvrez nos tarifs",
         description: "Packs cosmétique, agence, IA et abonnements.",
-      },
-      {
-        href: "/etudes",
-        title: "Pourquoi 92 % d'entre vous vont échouer ?",
-        description: "Étude comparative sur les porteurs de projets cosmétiques.",
       },
       {
         href: "/pourquoi-cette-offre",
