@@ -26,6 +26,7 @@ const garanties = [
   "Ingrédients d'origine naturelle", "Parfums véganes", "Production à la demande",
   "Traçabilité complète", "Laboratoires certifiés", "Échantillons disponibles",
   "Aucun minimum de commande", "Expédition sous votre marque",
+  "Sans gluten", "Sans noix", "Végétalien", "Certifié naturel",
 ];
 
 export default function QualitePage() {
