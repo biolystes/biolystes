@@ -3,6 +3,12 @@ import { ArrowRight } from "lucide-react";
 
 const links = [
   {
+    href: "/rdv",
+    title: "Prendre rendez-vous",
+    description: "Réservez un créneau pour échanger avec notre équipe.",
+    highlight: true,
+  },
+  {
     href: "/comment-ca-marche",
     title: "Comment fonctionne la mise en place de votre marque en 10-15 jours ?",
     description: "Les 7 étapes de la sélection produits à l'automatisation.",
@@ -47,11 +53,6 @@ const links = [
     title: "Pourquoi cette offre ?",
     description: "L'évolution de nos offres pour répondre aux vrais blocages post-lancement.",
   },
-  {
-    href: "/rdv",
-    title: "Prendre rendez-vous",
-    description: "Réservez un créneau pour échanger avec notre équipe.",
-  },
 ];
 
 export default function LinkPage() {
@@ -65,20 +66,30 @@ export default function LinkPage() {
           Accédez directement à chaque section clé de notre offre.
         </p>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {links.map((link) => (
             <Link
               key={link.href}
               to={link.href}
-              className="group flex items-center justify-between p-6 rounded-2xl border border-border bg-background hover:border-foreground/30 transition-all"
+              className={`group flex items-center justify-between p-5 border transition-all ${
+                link.highlight
+                  ? "bg-foreground text-primary-foreground border-foreground"
+                  : "bg-transparent border-foreground/20 hover:border-foreground"
+              }`}
             >
               <div>
-                <h2 className="text-base font-semibold text-foreground group-hover:underline">
+                <h2 className={`text-base font-semibold group-hover:underline ${
+                  link.highlight ? "text-primary-foreground" : "text-foreground"
+                }`}>
                   {link.title}
                 </h2>
-                <p className="text-sm text-muted-foreground mt-1">{link.description}</p>
+                <p className={`text-sm mt-1 ${
+                  link.highlight ? "text-primary-foreground/70" : "text-muted-foreground"
+                }`}>{link.description}</p>
               </div>
-              <ArrowRight className="h-5 w-5 text-muted-foreground group-hover:text-foreground transition-colors shrink-0 ml-4" />
+              <ArrowRight className={`h-5 w-5 shrink-0 ml-4 transition-colors ${
+                link.highlight ? "text-primary-foreground/70" : "text-muted-foreground group-hover:text-foreground"
+              }`} />
             </Link>
           ))}
         </div>
