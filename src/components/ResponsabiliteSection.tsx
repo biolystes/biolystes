@@ -48,7 +48,7 @@ export default function ResponsabiliteSection() {
             </h3>
             <p className="text-[15px] text-muted-foreground leading-[1.7]">
               En marque blanche, c'est le laboratoire fabricant qui est la Personne Responsable au sens du Règlement européen CE n°1223/2009. Vous distribuez, vous ne fabriquez pas. Le risque produit ne repose jamais sur vous.
-              <strong className="text-foreground">Contrairement aux produits fait sur mesure avec votre formulation.</strong>
+              <strong className="text-foreground">Contrairement aux produits faits sur mesure avec votre formulation.</strong>
             </p>
           </div>
 
