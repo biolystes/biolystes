@@ -79,7 +79,7 @@ export default function LivraisonPage() {
         </motion.div>
 
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
-          className="mt-12 p-6 rounded-xl bg-background border border-border text-center">
+          className="mt-12 p-6 rounded-xl bg-secondary border border-border text-center">
           <Shield className="h-5 w-5 text-foreground mx-auto mb-3" strokeWidth={1.5} />
           <p className="text-sm text-muted-foreground leading-relaxed max-w-lg mx-auto">
             Chaque commande est expédiée <strong className="text-foreground">sous votre nom de marque</strong>. Votre client ne voit que votre marque, de l'emballage au bon de livraison.
