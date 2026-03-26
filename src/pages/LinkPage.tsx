@@ -29,6 +29,11 @@ const groups: LinkGroup[] = [
         description: "Plus de 100 cosmétiques certifiés bio prêts à personnaliser.",
       },
       {
+        href: "/chat",
+        title: "Découvrir quels sont les produits les plus adaptés à votre projet grâce à notre IA",
+        description: "Notre assistant IA vous guide vers les cosmétiques idéaux pour votre marque.",
+      },
+      {
         href: "/rdv",
         title: "Prendre rendez-vous",
         description: "Réservez un créneau pour échanger avec notre équipe.",
