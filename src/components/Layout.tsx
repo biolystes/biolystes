@@ -122,7 +122,7 @@ function TopNavBar() {
                 : "text-foreground/70 hover:text-foreground"
             }`}
           >
-            Pourquoi nous
+            Pourquoi nous ?
             <ChevronDown className={`h-3.5 w-3.5 transition-transform ${pourquoiOpen ? "rotate-180" : ""}`} />
           </button>
           {pourquoiOpen && (
