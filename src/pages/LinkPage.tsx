@@ -30,7 +30,7 @@ const groups: LinkGroup[] = [
       },
       {
         href: "/chat",
-        title: "Trouver vos produits avec notre IA",
+        title: "Trouvez le produit le plus adapté à votre projet",
         description: "Notre assistant IA vous guide vers les cosmétiques idéaux pour votre marque.",
       },
       {
