@@ -1,57 +1,102 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
-const links = [
+interface LinkItem {
+  href: string;
+  title: string;
+  description: string;
+  highlight?: boolean;
+  external?: boolean;
+}
+
+interface LinkGroup {
+  label: string;
+  items: LinkItem[];
+}
+
+const groups: LinkGroup[] = [
   {
-    href: "/rdv",
-    title: "Prendre rendez-vous",
-    description: "Réservez un créneau pour échanger avec notre équipe.",
-    highlight: true,
+    label: "",
+    items: [
+      {
+        href: "/rdv",
+        title: "Prendre rendez-vous",
+        description: "Réservez un créneau pour échanger avec notre équipe.",
+        highlight: true,
+      },
+    ],
   },
   {
-    href: "/comment-ca-marche",
-    title: "Comment fonctionne la mise en place de votre marque en 10-15 jours ?",
-    description: "Les 7 étapes de la sélection produits à l'automatisation.",
+    label: "Comment ça marche",
+    items: [
+      {
+        href: "/comment-ca-marche",
+        title: "Comment fonctionne la mise en place de votre marque en 10-15 jours ?",
+        description: "Les 7 étapes de la sélection produits à l'automatisation.",
+      },
+      {
+        href: "/livraison",
+        title: "Comment fonctionne l'expédition de vos commandes ?",
+        description: "Mode Standard (6-7 jours) et Mode Express (24-48h).",
+      },
+      {
+        href: "/equipe-ia",
+        title: "Comment se passe la suite une fois votre e-commerce mis en place ?",
+        description: "7 équipes IA dédiées, disponibles 24h/24.",
+      },
+      {
+        href: "/responsabilite",
+        title: "Comment se passe le partage des responsabilités en cas de litige ?",
+        description: "Conformité, DIP, CPNP — le laboratoire assume le risque produit.",
+      },
+      {
+        href: "/glowly",
+        title: "Comment maximiser vos résultats comme Glowly Paris dès les premiers mois ?",
+        description: "Contenu UGC, e-réputation Trustpilot et publicité sociale.",
+      },
+    ],
   },
   {
-    href: "/livraison",
-    title: "Comment fonctionne l'expédition de vos commandes ?",
-    description: "Mode Standard (6-7 jours) et Mode Express (24-48h).",
+    label: "Nos clients",
+    items: [
+      {
+        href: "/portfolio",
+        title: "Plus de 100 marques accompagnées",
+        description: "Kaniwa Botanique, Fralène, Sevmylook…",
+      },
+      {
+        href: "https://kaniwabotanique.com",
+        title: "Kaniwa Botanique",
+        description: "Marque bio & vegan · Soins visage, corps & rasage.",
+        external: true,
+      },
+      {
+        href: "https://fraleneparis.com",
+        title: "Fralène Paris",
+        description: "Gamme soins visage premium · Huile nettoyante & démaquillant.",
+        external: true,
+      },
+    ],
   },
   {
-    href: "/equipe-ia",
-    title: "Comment se passe la suite une fois votre e-commerce mis en place ?",
-    description: "7 équipes IA dédiées, disponibles 24h/24.",
-  },
-  {
-    href: "/responsabilite",
-    title: "Comment se passe le partage des responsabilités en cas de litige ?",
-    description: "Conformité, DIP, CPNP — le laboratoire assume le risque produit.",
-  },
-  {
-    href: "/glowly",
-    title: "Comment maximiser vos résultats comme Glowly Paris dès les premiers mois ?",
-    description: "Contenu UGC, e-réputation Trustpilot et publicité sociale.",
-  },
-  {
-    href: "/portfolio",
-    title: "Plus de 100 marques accompagnées",
-    description: "Kaniwa Botanique, Fralène, Sevmylook…",
-  },
-  {
-    href: "/tarifs",
-    title: "Découvrez nos tarifs",
-    description: "Packs cosmétique, agence, IA et abonnements.",
-  },
-  {
-    href: "/etudes",
-    title: "Pourquoi Biolystes ?",
-    description: "Étude comparative sur les porteurs de projets cosmétiques.",
-  },
-  {
-    href: "/pourquoi-cette-offre",
-    title: "Pourquoi cette offre ?",
-    description: "L'évolution de nos offres pour répondre aux vrais blocages post-lancement.",
+    label: "Tarifs & offre",
+    items: [
+      {
+        href: "/tarifs",
+        title: "Découvrez nos tarifs",
+        description: "Packs cosmétique, agence, IA et abonnements.",
+      },
+      {
+        href: "/etudes",
+        title: "Pourquoi Biolystes ?",
+        description: "Étude comparative sur les porteurs de projets cosmétiques.",
+      },
+      {
+        href: "/pourquoi-cette-offre",
+        title: "Pourquoi cette offre ?",
+        description: "L'évolution de nos offres pour répondre aux vrais blocages post-lancement.",
+      },
+    ],
   },
 ];
 
