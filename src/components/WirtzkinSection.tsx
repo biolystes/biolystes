@@ -50,13 +50,13 @@ export default function WirtzkinSection() {
   return (
     <div className="max-w-5xl mx-auto px-6">
       <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-12 text-center">
-        <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-muted-foreground">
+        <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-foreground">
           Ils nous font confiance
         </motion.p>
         <motion.h2 variants={fadeUp} custom={1} className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground">
           Le centre médical esthétique <br />Wirtzkin nous a choisi
         </motion.h2>
-        <motion.p variants={fadeUp} custom={2} className="text-base text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+        <motion.p variants={fadeUp} custom={2} className="text-base text-foreground/70 max-w-2xl mx-auto leading-relaxed">
           Wirtzkin, centre médical esthétique spécialisé dans les soins de la peau, a décidé de faire confiance à Biolystes pour la production de ses produits cosmétiques bio et végane.
         </motion.p>
       </motion.div>
