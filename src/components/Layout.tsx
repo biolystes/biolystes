@@ -15,7 +15,7 @@ const offresItems = [
 
 const pourquoiItems = [
   { path: "/pourquoi-cette-offre", label: "Pourquoi cette offre ?" },
-  { path: "/etudes", label: "Pourquoi Biolystes ?" },
+  { path: "/etudes", label: "Pourquoi 92 % échouent ?" },
 ];
 
 const publicNavItems = [
