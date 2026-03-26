@@ -39,6 +39,7 @@ import ArticleBiaisActifPage from "./pages/ArticleBiaisActifPage";
 import RdvPage from "./pages/RdvPage";
 import CommentCaMarchePage from "./pages/CommentCaMarchePage";
 import LivraisonPage from "./pages/LivraisonPage";
+import EquipeIAPage from "./pages/EquipeIAPage";
 
 const queryClient = new QueryClient();
 
@@ -76,6 +77,7 @@ function AppRoutes() {
       <Route path="/rdv" element={<RdvPage />} />
       <Route path="/comment-ca-marche" element={<CommentCaMarchePage />} />
       <Route path="/livraison" element={<LivraisonPage />} />
+      <Route path="/equipe-ia" element={<EquipeIAPage />} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
       <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
       <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
