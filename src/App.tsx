@@ -73,6 +73,7 @@ function AppRoutes() {
       <Route path="/blog/lancer-marque" element={<Layout><ArticleLancerMarquePage /></Layout>} />
       <Route path="/blog/biais-actif" element={<Layout><ArticleBiaisActifPage /></Layout>} />
       <Route path="/rdv" element={<RdvPage />} />
+      <Route path="/comment-ca-marche" element={<CommentCaMarchePage />} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
       <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
       <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
