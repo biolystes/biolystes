@@ -38,6 +38,7 @@ import ArticleLancerMarquePage from "./pages/ArticleLancerMarquePage";
 import ArticleBiaisActifPage from "./pages/ArticleBiaisActifPage";
 import RdvPage from "./pages/RdvPage";
 import CommentCaMarchePage from "./pages/CommentCaMarchePage";
+import LivraisonPage from "./pages/LivraisonPage";
 
 const queryClient = new QueryClient();
 
@@ -74,6 +75,7 @@ function AppRoutes() {
       <Route path="/blog/biais-actif" element={<Layout><ArticleBiaisActifPage /></Layout>} />
       <Route path="/rdv" element={<RdvPage />} />
       <Route path="/comment-ca-marche" element={<CommentCaMarchePage />} />
+      <Route path="/livraison" element={<LivraisonPage />} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
       <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
       <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
