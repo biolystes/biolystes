@@ -77,6 +77,7 @@ function AppRoutes() {
       <Route path="/rdv" element={<RdvPage />} />
       <Route path="/comment-ca-marche" element={<CommentCaMarchePage />} />
       <Route path="/livraison" element={<LivraisonPage />} />
+      <Route path="/equipe-ia" element={<EquipeIAPage />} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
       <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
       <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
