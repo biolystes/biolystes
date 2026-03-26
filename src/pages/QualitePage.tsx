@@ -20,6 +20,7 @@ const certifications = [
 const exclusions = [
   "Parabènes", "Silicones", "PEG", "Filtres UV chimiques",
   "Microplastiques", "Colorants artificiels", "Phosphates", "Conservateurs synthétiques",
+  "Sans gluten", "Sans noix", "Végétalien", "Certifié naturel",
 ];
 
 const garanties = [
