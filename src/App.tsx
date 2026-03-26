@@ -39,6 +39,7 @@ import ArticleBiaisActifPage from "./pages/ArticleBiaisActifPage";
 import RdvPage from "./pages/RdvPage";
 import CommentCaMarchePage from "./pages/CommentCaMarchePage";
 import LivraisonPage from "./pages/LivraisonPage";
+import EquipeIAPage from "./pages/EquipeIAPage";
 
 const queryClient = new QueryClient();
 
