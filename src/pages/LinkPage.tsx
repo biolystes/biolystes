@@ -34,7 +34,8 @@ const groups: LinkGroup[] = [
         description: "Notre assistant IA vous guide vers les cosmétiques idéaux pour votre marque.",
       },
       {
-        href: "/rdv",
+        href: "https://biolystes.pro/rdv",
+        external: true,
         title: "Prendre rendez-vous",
         description: "Réservez un créneau pour échanger avec notre équipe.",
         highlight: true,
