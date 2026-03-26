@@ -7,10 +7,13 @@ import { Settings, Menu, X, LogOut, Compass, LayoutDashboard, Shield, ArrowRight
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
-const publicNavItems = [
+const offresItems = [
   { path: "/", label: "Offre cosmétique" },
   { path: "/agence", label: "Offre agence" },
   { path: "/ai", label: "Offre IA" },
+];
+
+const publicNavItems = [
   { path: "/pourquoi-cette-offre", label: "Pourquoi cette offre ?" },
   { path: "/etudes", label: "Pourquoi Biolystes ?" },
   { path: "/tarifs", label: "Tarifs" },
