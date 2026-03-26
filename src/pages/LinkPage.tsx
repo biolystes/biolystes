@@ -288,6 +288,45 @@ export default function LinkPage() {
 
         {/* Images IA Carousel */}
         <AIImagesCarousel />
+
+        {/* Avis clients Trustpilot */}
+        <div className="mt-10">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-3">
+            Ce que disent les clients de nos clients
+          </p>
+          <div className="flex gap-3 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide -mx-6 px-6">
+            {[
+              { stars: 5, text: "Les produits sont excellents, je recommande à fond !", date: "24 août 2025" },
+              { stars: 5, text: "Super marque de produits pour la peau, je suis satisfaite de mon achat. Je n'hésiterai pas à repasser commande !", date: "24 août 2025" },
+              { stars: 5, text: "Excellents produits avec une bonne composition, je vous recommande vivement !", date: "24 août 2025" },
+              { stars: 5, text: "Des produits exceptionnels pour la peau, excellent rapport qualité-prix.", date: "9 août 2025" },
+              { stars: 5, text: "Franchement, produit au top ! Ma peau revit.", date: "8 août 2025" },
+              { stars: 5, text: "Produits sains et agréables. La différence s'est vite fait ressentir sur ma peau.", date: "8 août 2025" },
+              { stars: 4, text: "Ma sœur a pris les produits pour elle et moi, franchement 10/10, j'aime beaucoup.", date: "25 août 2025" },
+              { stars: 4, text: "Produit de qualité, un service au top.", date: "8 août 2025" },
+            ].map((review, i) => (
+              <div key={i} className="flex-shrink-0 w-[260px] snap-start border border-foreground/20 p-5 space-y-3">
+                <div className="flex gap-0.5">
+                  {Array.from({ length: review.stars }).map((_, s) => (
+                    <svg key={s} className="w-4 h-4 text-foreground fill-current" viewBox="0 0 20 20">
+                      <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-sm text-foreground leading-relaxed">« {review.text} »</p>
+                <p className="text-xs text-muted-foreground">{review.date}</p>
+              </div>
+            ))}
+          </div>
+          <a
+            href="https://fr.trustpilot.com/review/glowlyparis.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground underline mt-2"
+          >
+            Voir tous les avis sur Trustpilot — Glowly Paris · 4,3/5 →
+          </a>
+        </div>
       </div>
     </div>
   );
