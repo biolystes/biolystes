@@ -298,24 +298,9 @@ section#section-comprend section.bg-secondary {
   background: #000 !important;
 }
 
-section#section-comprend h2 {
+section#section-comprend h2,
+section#section-comprend p {
   color: #f5f4df !important;
-}
-
-button.w-8.h-8.rounded-full.text-xs.font-semibold.border.transition-colors.bg-background.text-foreground.border-border.hover\:border-foreground\/40 {
-  background: #ffffff59 !important;
-  color: #fff !important;
-  border: 1px solid #ffffff59 !important;
-}
-
-.w-4.md\:w-6.h-px.bg-border {
-  background: #ffffff59 !important;
-}
-
-button.w-8.h-8.rounded-full.text-xs.font-semibold.border.transition-colors.bg-foreground.text-background.border-foreground {
-  background: #fff !important;
-  color: #000 !important;
-  border-color: #fff !important;
 }
 
 /* Sticky nav & header */
@@ -505,9 +490,6 @@ button.w-2.h-2.rounded-full.transition-all.bg-foreground.w-6 {
   background-color: #fff;
 }
 
-section#section-comprend p {
-  color: #f5f4df !important;
-}
 
 button.w-8.h-8.rounded-full.text-xs.font-semibold.border.transition-colors.bg-white.text-black.border-white {
   background: #f5f4df !important;
