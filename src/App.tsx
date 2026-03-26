@@ -42,6 +42,7 @@ import LivraisonPage from "./pages/LivraisonPage";
 import EquipeIAPage from "./pages/EquipeIAPage";
 import ResponsabilitePage from "./pages/ResponsabilitePage";
 import GlowlyPage from "./pages/GlowlyPage";
+import LinkPage from "./pages/LinkPage";
 
 const queryClient = new QueryClient();
 
