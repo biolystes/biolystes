@@ -34,7 +34,7 @@ const links = [
   },
   {
     href: "/tarifs",
-    title: "Tarifs",
+    title: "Découvrez nos tarifs",
     description: "Packs cosmétique, agence, IA et abonnements.",
   },
   {
