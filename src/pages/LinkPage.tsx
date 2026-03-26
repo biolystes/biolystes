@@ -4,33 +4,33 @@ import { ArrowRight } from "lucide-react";
 const links = [
   {
     href: "/comment-ca-marche",
-    title: "Comment ça marche",
-    description: "Les 7 étapes de mise en place de votre marque en 10-15 jours.",
+    title: "Comment fonctionne la mise en place de votre marque en 10-15 jours ?",
+    description: "Les 7 étapes de la sélection produits à l'automatisation.",
   },
   {
     href: "/livraison",
-    title: "La livraison",
-    description: "Mode Standard (6-7 jours) et Mode Express (24-48h) — comment fonctionne l'expédition.",
+    title: "Comment fonctionne l'expédition de vos commandes ?",
+    description: "Mode Standard (6-7 jours) et Mode Express (24-48h).",
   },
   {
     href: "/equipe-ia",
-    title: "Votre équipe IA intégrée",
-    description: "7 équipes IA dédiées pour booster vos performances après le lancement.",
+    title: "Comment se passe la suite une fois votre e-commerce mis en place ?",
+    description: "7 équipes IA dédiées, disponibles 24h/24.",
   },
   {
     href: "/responsabilite",
-    title: "Conformité & Responsabilité",
-    description: "Le laboratoire assume le risque produit — vous distribuez en toute sérénité.",
+    title: "Comment se passe le partage des responsabilités en cas de litige ?",
+    description: "Conformité, DIP, CPNP — le laboratoire assume le risque produit.",
   },
   {
     href: "/glowly",
-    title: "Maximiser vos résultats",
+    title: "Comment maximiser vos résultats comme Glowly Paris dès les premiers mois ?",
     description: "Contenu UGC, e-réputation Trustpilot et publicité sociale.",
   },
   {
     href: "/portfolio",
-    title: "Portfolio",
-    description: "Plus de 100 marques accompagnées — Kaniwa, Fralène, Sevmylook…",
+    title: "Plus de 100 marques accompagnées",
+    description: "Kaniwa Botanique, Fralène, Sevmylook…",
   },
 ];
 
