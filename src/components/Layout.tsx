@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import BiolystesArticlesWidget from "./BiolystesArticlesWidget";
 import lystesLogo from "@/assets/lystes-logo.png";
 import { Link, useLocation } from "react-router-dom";
