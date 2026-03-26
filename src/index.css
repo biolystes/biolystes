@@ -112,8 +112,13 @@
     font-family: 'Inter', -apple-system, 'SF Pro Display', sans-serif;
     background: #f5f4df;
   }
-  h1, h2, h3 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: 'Inter', -apple-system, sans-serif;
+    color: hsl(var(--foreground));
+  }
+
+  p:not([class*="text-"]) {
+    color: hsl(var(--foreground));
   }
 }
 
