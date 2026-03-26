@@ -244,7 +244,7 @@ function BeforeAfterPhones() {
 function TeamDiagnostics({ titleOverride }: { titleOverride?: string }) {
   return (
     <>
-      <TeamRow bg="bg-background" title="Diagnostic peau intelligent" kicker="Skin AI"
+      <TeamRow bg="bg-secondary" title="Diagnostic peau intelligent" kicker="Skin AI"
         desc="Un diagnostic personnalisé via selfie qui analyse le type de peau, les imperfections et les besoins spécifiques de chaque client. L'IA recommande ensuite les produits les plus adaptés de votre catalogue, augmentant la conversion et la satisfaction.">
         <SafeVideo src="/videos/diagnostic-peau.mov" className="w-full h-[400px] object-cover rounded-2xl" lazy />
       </TeamRow>
@@ -299,7 +299,7 @@ function TeamExpertProduit({ titleOverride }: { titleOverride?: string }) {
 
 function TeamPhotographe({ titleOverride }: { titleOverride?: string }) {
   return (
-    <TeamRow bg="bg-background" title={titleOverride || "Photos studio en quelques secondes"} kicker="Équipe Photographe AI"
+    <TeamRow bg="bg-secondary" title={titleOverride || "Photos studio en quelques secondes"} kicker="Équipe Photographe AI"
       desc="Nous mettons en place une équipe Photographe AI, qui génère des photos produits niveau studio professionnel, des visuels UGC avec de vrais visages pour vos réseaux sociaux et des contenus marketing. En quelques secondes, sans shooting.">
       <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-1.5" style={{ gridAutoRows: "180px" }}>
         <img className="col-span-2 w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-1.jpg" alt="" />
@@ -358,7 +358,7 @@ function TeamMarketing({ titleOverride }: { titleOverride?: string }) {
   ];
 
   return (
-    <TeamRow bg="bg-background" title={titleOverride || "Votre directeur marketing 24h/24"} kicker="Équipe Marketing AI"
+    <TeamRow bg="bg-secondary" title={titleOverride || "Votre directeur marketing 24h/24"} kicker="Équipe Marketing AI"
       desc="Nous mettons en place une équipe Marketing AI, qui crée des plans d'action personnalisés, des campagnes email et des stratégies de conversion. Un directeur marketing qui travaille pour vous 24h/24.">
       <div className="w-full max-w-2xl mx-auto space-y-3">
         {/* Header */}
@@ -423,7 +423,7 @@ function TeamAnalytics({ titleOverride }: { titleOverride?: string }) {
   const days = ["L", "M", "M", "J", "V", "S", "D"];
 
   return (
-    <TeamRow bg="bg-background" title={titleOverride || "Des décisions basées sur la réalité"} kicker="Équipe Analytics AI"
+    <TeamRow bg="bg-secondary" title={titleOverride || "Des décisions basées sur la réalité"} kicker="Équipe Analytics AI"
       desc="En analysant chaque conversation entre vos agents IA et vos clients, nous identifions les questions récurrentes, les objections, les points de blocage et les produits les plus demandés. Des insights concrets tirés de vrais échanges, pas de suppositions.">
       <div>
         {/* KPIs */}
