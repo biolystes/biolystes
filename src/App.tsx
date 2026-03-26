@@ -42,6 +42,7 @@ import LivraisonPage from "./pages/LivraisonPage";
 import EquipeIAPage from "./pages/EquipeIAPage";
 import ResponsabilitePage from "./pages/ResponsabilitePage";
 import GlowlyPage from "./pages/GlowlyPage";
+import LinkPage from "./pages/LinkPage";
 
 const queryClient = new QueryClient();
 
@@ -82,6 +83,7 @@ function AppRoutes() {
       <Route path="/equipe-ia" element={<EquipeIAPage />} />
       <Route path="/responsabilite" element={<ResponsabilitePage />} />
       <Route path="/glowly" element={<GlowlyPage />} />
+      <Route path="/link" element={<LinkPage />} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
       <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
       <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
