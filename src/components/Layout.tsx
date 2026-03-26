@@ -241,6 +241,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   </Link>
                 ))}
                 <div className="h-px bg-foreground/10 my-2" />
+                <p className="text-[10px] font-semibold uppercase tracking-[0.12em] text-muted-foreground px-3 pt-2 pb-1">Pourquoi nous</p>
+                {pourquoiItems.map((item) => (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    onClick={() => setMobileOpen(false)}
+                    className={`nav-item ${isActive(item.path) ? "active" : ""}`}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+                <div className="h-px bg-foreground/10 my-2" />
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
