@@ -218,6 +218,9 @@ export default function LinkPage() {
             </div>
           ))}
         </div>
+
+        {/* Images IA Carousel */}
+        <AIImagesCarousel />
       </div>
     </div>
   );
