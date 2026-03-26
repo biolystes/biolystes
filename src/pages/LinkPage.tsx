@@ -32,6 +32,16 @@ const links = [
     title: "Plus de 100 marques accompagnées",
     description: "Kaniwa Botanique, Fralène, Sevmylook…",
   },
+  {
+    href: "/tarifs",
+    title: "Tarifs",
+    description: "Packs cosmétique, agence, IA et abonnements.",
+  },
+  {
+    href: "/rdv",
+    title: "Prendre rendez-vous",
+    description: "Réservez un créneau pour échanger avec notre équipe.",
+  },
 ];
 
 export default function LinkPage() {
