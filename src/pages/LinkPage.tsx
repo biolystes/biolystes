@@ -78,6 +78,7 @@ const groups: LinkGroup[] = [
         href: "/etudes",
         title: "Pourquoi 92 % d'entre vous échouer ?",
         description: "Étude comparative sur les porteurs de projets cosmétiques.",
+        highlight: true,
       },
     ],
   },
