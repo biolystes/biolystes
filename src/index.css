@@ -298,7 +298,7 @@ section#section-comprend section.bg-secondary {
   background: #000 !important;
 }
 
-section#section-comprend h2.text-3xl.md\:text-4xl.font-light.tracking-tight.text-foreground.max-w-3xl.mx-auto {
+section#section-comprend h2 {
   color: #f5f4df !important;
 }
 
@@ -505,7 +505,7 @@ button.w-2.h-2.rounded-full.transition-all.bg-foreground.w-6 {
   background-color: #fff;
 }
 
-section#section-comprend p.text-muted-foreground.mt-4.max-w-xl.mx-auto {
+section#section-comprend p {
   color: #f5f4df !important;
 }
 
