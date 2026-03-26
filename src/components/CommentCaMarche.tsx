@@ -83,10 +83,10 @@ export default function CommentCaMarche() {
       <div className="max-w-5xl mx-auto px-6 py-24 md:py-32 pt-[120px]">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-[34px] md:text-[56px] leading-[1.08] font-medium tracking-[-0.02em] text-foreground max-w-[980px] mx-auto text-balance">
+          <h2 className="text-3xl md:text-4xl font-light tracking-tight text-foreground max-w-3xl mx-auto text-balance">
             Comment fonctionne la mise en place de votre marque en 10-15 jours ?
           </h2>
-          <p className="text-foreground/70 mt-4 max-w-xl mx-auto">
+          <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
             Suivez notre processus simplifié, de la conception à l'automatisation.
           </p>
         </div>
@@ -99,14 +99,14 @@ export default function CommentCaMarche() {
                 onClick={() => setCurrent(i)}
                 className={`w-8 h-8 rounded-full text-xs font-semibold border transition-colors ${
                   i === current
-                    ? "bg-foreground text-primary-foreground border-foreground"
-                    : "bg-transparent text-foreground/55 border-foreground/30 hover:border-foreground/50"
+                    ? "bg-white text-black border-white"
+                    : "bg-transparent text-white/55 border-white/30 hover:border-white/50"
                 }`}
               >
                 {i + 1}
               </button>
               {i < steps.length - 1 && (
-                <div className="w-4 md:w-6 h-px bg-foreground/20" />
+                <div className="w-4 md:w-6 h-px bg-white/20" />
               )}
             </div>
           ))}
