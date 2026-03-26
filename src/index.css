@@ -490,9 +490,6 @@ button.w-2.h-2.rounded-full.transition-all.bg-foreground.w-6 {
   background-color: #fff;
 }
 
-section#section-comprend p {
-  color: #f5f4df !important;
-}
 
 button.w-8.h-8.rounded-full.text-xs.font-semibold.border.transition-colors.bg-white.text-black.border-white {
   background: #f5f4df !important;
