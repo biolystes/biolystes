@@ -38,6 +38,7 @@ import ArticleLancerMarquePage from "./pages/ArticleLancerMarquePage";
 import ArticleBiaisActifPage from "./pages/ArticleBiaisActifPage";
 import RdvPage from "./pages/RdvPage";
 import CommentCaMarchePage from "./pages/CommentCaMarchePage";
+import LivraisonPage from "./pages/LivraisonPage";
 
 const queryClient = new QueryClient();
 
