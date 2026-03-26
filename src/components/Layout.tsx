@@ -112,7 +112,39 @@ function TopNavBar() {
           )}
         </div>
 
-        {navItems.map((item) => (
+        {/* Dropdown Pourquoi nous */}
+        <div ref={pourquoiRef} className="relative">
+          <button
+            onClick={() => setPourquoiOpen(!pourquoiOpen)}
+            className={`flex items-center gap-1 text-sm font-medium transition-colors ${
+              pourquoiItems.some((o) => isActive(o.path))
+                ? "text-foreground"
+                : "text-foreground/70 hover:text-foreground"
+            }`}
+          >
+            Pourquoi nous
+            <ChevronDown className={`h-3.5 w-3.5 transition-transform ${pourquoiOpen ? "rotate-180" : ""}`} />
+          </button>
+          {pourquoiOpen && (
+            <div className="absolute top-full left-0 mt-2 min-w-[220px] bg-secondary border border-foreground/20 shadow-lg py-1 z-50">
+              {pourquoiItems.map((item) => (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setPourquoiOpen(false)}
+                  className={`block px-4 py-2 text-sm transition-colors ${
+                    isActive(item.path)
+                      ? "text-foreground font-medium"
+                      : "text-foreground/70 hover:text-foreground hover:bg-foreground/5"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+            </div>
+          )}
+        </div>
+
           <Link key={item.path} to={item.path}>
             <span
               className={`text-sm font-medium transition-colors ${
