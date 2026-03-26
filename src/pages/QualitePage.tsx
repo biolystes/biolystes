@@ -20,13 +20,13 @@ const certifications = [
 const exclusions = [
   "Parabènes", "Silicones", "PEG", "Filtres UV chimiques",
   "Microplastiques", "Colorants artificiels", "Phosphates", "Conservateurs synthétiques",
-  "Sans gluten", "Sans noix", "Végétalien", "Certifié naturel",
 ];
 
 const garanties = [
   "Ingrédients d'origine naturelle", "Parfums véganes", "Production à la demande",
   "Traçabilité complète", "Laboratoires certifiés", "Échantillons disponibles",
   "Aucun minimum de commande", "Expédition sous votre marque",
+  "Sans gluten", "Sans noix", "Végétalien", "Certifié naturel",
 ];
 
 export default function QualitePage() {
