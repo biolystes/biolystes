@@ -88,7 +88,7 @@ const groups: LinkGroup[] = [
       },
       {
         href: "/etudes",
-        title: "Pourquoi Biolystes ?",
+        title: "Pourquoi 92 % d'entre vous vont échouer ?",
         description: "Étude comparative sur les porteurs de projets cosmétiques.",
       },
       {
