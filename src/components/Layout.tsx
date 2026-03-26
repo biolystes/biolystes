@@ -29,13 +29,14 @@ function TopNavBar() {
   const location = useLocation();
   const { user, profile, signOut, isAdmin } = useAuth();
   const [offresOpen, setOffresOpen] = useState(false);
+  const [pourquoiOpen, setPourquoiOpen] = useState(false);
   const offresRef = useRef<HTMLDivElement>(null);
+  const pourquoiRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      if (offresRef.current && !offresRef.current.contains(e.target as Node)) {
-        setOffresOpen(false);
-      }
+      if (offresRef.current && !offresRef.current.contains(e.target as Node)) setOffresOpen(false);
+      if (pourquoiRef.current && !pourquoiRef.current.contains(e.target as Node)) setPourquoiOpen(false);
     };
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
