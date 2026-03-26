@@ -13,9 +13,12 @@ const offresItems = [
   { path: "/ai", label: "Offre IA" },
 ];
 
-const publicNavItems = [
+const pourquoiItems = [
   { path: "/pourquoi-cette-offre", label: "Pourquoi cette offre ?" },
   { path: "/etudes", label: "Pourquoi Biolystes ?" },
+];
+
+const publicNavItems = [
   { path: "/tarifs", label: "Tarifs" },
   { path: "/blog", label: "Ressources" },
 ];
