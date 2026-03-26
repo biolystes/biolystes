@@ -57,7 +57,6 @@ const groups: LinkGroup[] = [
     ],
   },
   {
-  {
     label: "À lire",
     items: [
       {
