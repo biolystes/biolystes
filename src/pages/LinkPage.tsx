@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
 interface LinkItem {
   href: string;
@@ -227,8 +227,20 @@ function AIImagesCarousel() {
 }
 
 export default function LinkPage() {
+  useEffect(() => {
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport) {
+      viewport.setAttribute("content", "width=device-width, initial-scale=1");
+    }
+    return () => {
+      if (viewport) {
+        viewport.setAttribute("content", "width=1200");
+      }
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen bg-secondary py-16 px-6">
+    <div className="min-h-screen bg-secondary py-8 sm:py-16 px-4 sm:px-6">
       <div className="max-w-2xl mx-auto">
         <h1 className="text-3xl md:text-4xl font-light tracking-tight text-foreground mb-2">
           Faisons connaissance
