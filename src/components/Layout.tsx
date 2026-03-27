@@ -19,8 +19,11 @@ const pourquoiItems = [
 ];
 
 const publicNavItems = [
-  { path: "/tarifs", label: "Tarifs" },
   { path: "/blog", label: "Ressources" },
+];
+
+const externalNavItems = [
+  { href: "http://biolystes.pro/tarifs", label: "Tarifs" },
 ];
 
 const RDV_URL = "/rdv";
@@ -145,6 +148,18 @@ function TopNavBar() {
           )}
         </div>
 
+        {externalNavItems.map((item) => (
+          <a
+            key={item.href}
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
+          >
+            {item.label}
+          </a>
+        ))}
+
         {navItems.map((item) => (
           <Link key={item.path} to={item.path}>
             <span
@@ -253,6 +268,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                   </Link>
                 ))}
                 <div className="h-px bg-foreground/10 my-2" />
+                {externalNavItems.map((item) => (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => setMobileOpen(false)}
+                    className="nav-item"
+                  >
+                    {item.label}
+                  </a>
+                ))}
                 {navItems.map((item) => (
                   <Link
                     key={item.path}
