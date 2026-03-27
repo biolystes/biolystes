@@ -330,14 +330,24 @@ export default function LinkPage() {
               </div>
             ))}
           </div>
-          <a
-            href="https://fr.trustpilot.com/review/glowlyparis.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground underline mt-2"
-          >
-            Voir tous les avis sur Trustpilot — Glowly Paris · 4,3/5 →
-          </a>
+          <div className="flex flex-col gap-1.5 mt-2">
+            <a
+              href="https://fr.trustpilot.com/review/glowlyparis.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground underline"
+            >
+              Voir tous les avis sur Trustpilot — Glowly Paris · 4,3/5 →
+            </a>
+            <a
+              href="https://fr.trustpilot.com/review/anaveraparis.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground underline"
+            >
+              Voir tous les avis sur Trustpilot — Anavera Paris →
+            </a>
+          </div>
         </div>
       </div>
     </div>
