@@ -330,22 +330,34 @@ export default function LinkPage() {
               </div>
             ))}
           </div>
-          <div className="flex flex-col gap-1.5 mt-2">
+          <div className="space-y-3 mt-4">
             <a
               href="https://fr.trustpilot.com/review/glowlyparis.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground underline"
+              className="group flex items-center justify-between p-5 border bg-transparent border-foreground/20 hover:border-foreground transition-all"
             >
-              Voir tous les avis sur Trustpilot — Glowly Paris · 4,3/5 →
+              <div>
+                <h2 className="text-base font-semibold group-hover:underline text-foreground">
+                  Voir tous les avis sur Trustpilot — Glowly Paris · 4,3/5
+                </h2>
+                <p className="text-sm mt-1 text-muted-foreground">Avis vérifiés des clients Glowly Paris.</p>
+              </div>
+              <ArrowRight className="h-5 w-5 shrink-0 ml-4 transition-colors text-muted-foreground group-hover:text-foreground" />
             </a>
             <a
               href="https://fr.trustpilot.com/review/anaveraparis.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-foreground underline"
+              className="group flex items-center justify-between p-5 border bg-transparent border-foreground/20 hover:border-foreground transition-all"
             >
-              Voir tous les avis sur Trustpilot — Anavera Paris →
+              <div>
+                <h2 className="text-base font-semibold group-hover:underline text-foreground">
+                  Voir tous les avis sur Trustpilot — Anavera Paris
+                </h2>
+                <p className="text-sm mt-1 text-muted-foreground">Avis vérifiés des clients Anavera Paris.</p>
+              </div>
+              <ArrowRight className="h-5 w-5 shrink-0 ml-4 transition-colors text-muted-foreground group-hover:text-foreground" />
             </a>
           </div>
         </div>
