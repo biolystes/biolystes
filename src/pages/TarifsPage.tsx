@@ -4,7 +4,7 @@ import { Check, Info } from "lucide-react";
 import SafeVideo from "@/components/SafeVideo";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
-const RDV_URL = "/rdv";
+const RDV_URL = "https://biolystes.pro/rdv";
 const RDV_AI_URL = "https://www.cal.eu/lystes/30min?overlayCalendar=true";
 
 const fadeUp = {
