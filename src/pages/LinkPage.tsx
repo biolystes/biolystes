@@ -353,7 +353,7 @@ export default function LinkPage() {
             >
               <div>
                 <h2 className="text-base font-semibold group-hover:underline text-foreground">
-                  Voir tous les avis sur Trustpilot — Anavera Paris
+                  Voir tous les avis sur Trustpilot — Anavera Paris · 4,4/5
                 </h2>
                 <p className="text-sm mt-1 text-muted-foreground">Avis vérifiés des clients Anavera Paris.</p>
               </div>
