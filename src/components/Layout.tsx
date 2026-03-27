@@ -148,6 +148,18 @@ function TopNavBar() {
           )}
         </div>
 
+        {externalNavItems.map((item) => (
+          <a
+            key={item.href}
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
+          >
+            {item.label}
+          </a>
+        ))}
+
         {navItems.map((item) => (
           <Link key={item.path} to={item.path}>
             <span
