@@ -19,8 +19,11 @@ const pourquoiItems = [
 ];
 
 const publicNavItems = [
-  { path: "/tarifs", label: "Tarifs" },
   { path: "/blog", label: "Ressources" },
+];
+
+const externalNavItems = [
+  { href: "http://biolystes.pro/tarifs", label: "Tarifs" },
 ];
 
 const RDV_URL = "/rdv";
