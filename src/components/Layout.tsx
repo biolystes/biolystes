@@ -23,7 +23,7 @@ const publicNavItems = [
 ];
 
 const externalNavItems = [
-  { href: "http://biolystes.pro/tarifs", label: "Tarifs" },
+  { href: "https://biolystes.pro/rdv", label: "Tarifs" },
 ];
 
 const RDV_URL = "https://biolystes.pro/rdv";
