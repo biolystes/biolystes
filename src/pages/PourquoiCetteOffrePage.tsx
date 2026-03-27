@@ -24,7 +24,7 @@ const fadeUp = {
   }),
 };
 
-const CTA_URL = "/rdv";
+const CTA_URL = "https://biolystes.pro/rdv";
 
 function SectionBlock({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (

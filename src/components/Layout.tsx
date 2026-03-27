@@ -26,7 +26,7 @@ const externalNavItems = [
   { href: "http://biolystes.pro/tarifs", label: "Tarifs" },
 ];
 
-const RDV_URL = "/rdv";
+const RDV_URL = "https://biolystes.pro/rdv";
 
 function TopNavBar() {
   const location = useLocation();

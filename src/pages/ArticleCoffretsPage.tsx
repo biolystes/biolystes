@@ -10,7 +10,7 @@ const fadeUp = {
   }),
 };
 
-const CTA_URL = "/rdv";
+const CTA_URL = "https://biolystes.pro/rdv";
 
 const coffrets = [
   { name: "Boîte de collection pour le teint clair", products: "Gel clarifiant + Crème anti-âge + Sérum huile rétinol", benefit: "Anti-acné et anti-âge" },

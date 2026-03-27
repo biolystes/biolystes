@@ -9,7 +9,7 @@ const fadeUp = {
   }),
 };
 
-const CTA_URL = "/rdv";
+const CTA_URL = "https://biolystes.pro/rdv";
 
 const failureFactors = [
   { category: "Financier", factor: "Coût d'entrée des laboratoires", impact: "15 000 à 20 000€ minimum pour 4 produits" },

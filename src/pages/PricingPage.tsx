@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion } from "framer-motion";
 import { Check, Info, ArrowRight } from "lucide-react";
 
-const RDV_URL = "/rdv";
+const RDV_URL = "https://biolystes.pro/rdv";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
