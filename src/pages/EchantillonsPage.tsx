@@ -62,7 +62,7 @@ export default function EchantillonsPage() {
                 </div>
 
                 <a
-                  href="/rdv"
+                  href="https://biolystes.pro/rdv" target="_blank" rel="noopener noreferrer"
                   className="block w-full py-4 text-center no-underline text-[11px] font-extrabold tracking-[1.5px] uppercase rounded-xl bg-foreground text-background border-2 border-foreground hover:opacity-90 transition-opacity mt-auto"
                 >
                   Commander mes échantillons

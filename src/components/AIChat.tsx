@@ -789,7 +789,7 @@ export default function AIChat({
                           </div>
                           {isLastAssistant && (
                             <a
-                              href="/rdv"
+                              href="https://biolystes.pro/rdv" target="_blank" rel="noopener noreferrer"
                               style={{
                                 alignSelf: "flex-start",
                                 fontSize: 10, fontWeight: 700, letterSpacing: "1.1px",

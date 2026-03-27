@@ -44,7 +44,7 @@ export default function StepPayment() {
           size="lg"
           onClick={() => {
             // Stripe integration will be added here
-            window.location.href = "/rdv";
+            window.open("https://biolystes.pro/rdv", "_blank");
           }}
         >
           <CreditCard className="w-4 h-4 mr-2" /> Payer {packInfo.setup_price.toLocaleString("fr-FR")} €
