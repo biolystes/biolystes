@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import SafeVideo from "@/components/SafeVideo";
 
 interface LinkItem {
@@ -352,6 +352,7 @@ export default function LinkPage() {
                 })}
               </div>
             </div>
+            </React.Fragment>
           ))}
         </div>
 
