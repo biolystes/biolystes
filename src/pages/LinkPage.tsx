@@ -305,7 +305,9 @@ export default function LinkPage() {
         </p>
 
         <div className="space-y-10">
-          {groups.map((group) => (
+          {groups.map((group, groupIndex) => (
+            <React.Fragment key={group.label || "top"}>
+              {groupIndex === 1 && <ShowcaseCarousel />}
             <div key={group.label || "top"}>
               {group.label && (
                 <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-3">
