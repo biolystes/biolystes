@@ -45,6 +45,17 @@ const groups: LinkGroup[] = [
     ],
   },
   {
+    label: "À lire",
+    items: [
+      {
+        href: "/etudes",
+        title: "Pourquoi 92 % d'entre vous échouent ?",
+        description: "Étude comparative sur les porteurs de projets cosmétiques.",
+        highlight: true,
+      },
+    ],
+  },
+  {
     label: "Comment ça marche",
     items: [
       {
@@ -71,17 +82,6 @@ const groups: LinkGroup[] = [
         href: "/glowly",
         title: "Comment bien débuter une fois mis en place ? Exemple avec Glowly Paris",
         description: "Contenu UGC, e-réputation Trustpilot et publicité sociale.",
-      },
-    ],
-  },
-  {
-    label: "À lire",
-    items: [
-      {
-        href: "/etudes",
-        title: "Pourquoi 92 % d'entre vous échouent ?",
-        description: "Étude comparative sur les porteurs de projets cosmétiques.",
-        highlight: true,
       },
     ],
   },
@@ -306,7 +306,7 @@ export default function LinkPage() {
         <div className="space-y-10">
           {groups.map((group, groupIndex) => (
             <React.Fragment key={group.label || "top"}>
-              {groupIndex === 1 && <ShowcaseCarousel />}
+              {groupIndex === 2 && <ShowcaseCarousel />}
             <div key={group.label || "top"}>
               {group.label && (
                 <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-3">
