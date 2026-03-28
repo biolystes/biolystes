@@ -175,12 +175,11 @@ const aiImages = [
 ];
 
 const showcaseItems = [
-  { type: "video" as const, src: "/videos/exp-1.mp4", alt: "Expérience client 1" },
-  { type: "image" as const, src: "/images/kaniwa-1.jpg", alt: "Kaniwa Botanique" },
-  { type: "video" as const, src: "/videos/exp-9.mp4", alt: "Expérience client 2" },
-  { type: "image" as const, src: "/images/kaniwa-3.jpg", alt: "Soins visage" },
-  { type: "video" as const, src: "/videos/exp-11.mp4", alt: "Expérience client 3" },
-  { type: "image" as const, src: "/images/kaniwa-5.jpg", alt: "Soins homme" },
+  { type: "video" as const, src: "/videos/showcase-1.mp4", alt: "Amarsi — Cosmétiques capillaires" },
+  { type: "image" as const, src: "/images/showcase-amarsi.jpg", alt: "Amarsi — Cosmétiques capillaires" },
+  { type: "video" as const, src: "/videos/showcase-2.mp4", alt: "Kaniwa Botanique" },
+  { type: "image" as const, src: "/images/showcase-peau.jpg", alt: "Jolie Peau — Soins visage" },
+  { type: "image" as const, src: "/images/showcase-235.jpg", alt: "235 — Soins homme" },
 ];
 
 function ShowcaseCarousel() {
