@@ -43,6 +43,7 @@ import EquipeIAPage from "./pages/EquipeIAPage";
 import ResponsabilitePage from "./pages/ResponsabilitePage";
 import GlowlyPage from "./pages/GlowlyPage";
 import LinkPage from "./pages/LinkPage";
+import InfosPage from "./pages/InfosPage";
 import QualitePage from "./pages/QualitePage";
 import WirtzkinPage from "./pages/WirtzkinPage";
 import EchantillonsPage from "./pages/EchantillonsPage";
@@ -87,6 +88,7 @@ function AppRoutes() {
       <Route path="/responsabilite" element={<Layout><ResponsabilitePage /></Layout>} />
       <Route path="/glowly" element={<Layout><GlowlyPage /></Layout>} />
       <Route path="/link" element={<Layout><LinkPage /></Layout>} />
+      <Route path="/infos" element={<Layout><InfosPage /></Layout>} />
       <Route path="/qualite" element={<Layout><QualitePage /></Layout>} />
       <Route path="/wirtzkin" element={<Layout><WirtzkinPage /></Layout>} />
       <Route path="/echantillons" element={<Layout><EchantillonsPage /></Layout>} />
