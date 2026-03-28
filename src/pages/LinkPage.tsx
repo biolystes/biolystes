@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
+import SafeVideo from "@/components/SafeVideo";
 
 interface LinkItem {
   href: string;
@@ -173,6 +174,60 @@ const aiImages = [
   "/images/kaniwa-9.jpg",
 ];
 
+const showcaseItems = [
+  { type: "video" as const, src: "/videos/exp-1.mp4", alt: "Expérience client 1" },
+  { type: "image" as const, src: "/images/kaniwa-1.jpg", alt: "Kaniwa Botanique" },
+  { type: "video" as const, src: "/videos/exp-9.mp4", alt: "Expérience client 2" },
+  { type: "image" as const, src: "/images/kaniwa-3.jpg", alt: "Soins visage" },
+  { type: "video" as const, src: "/videos/exp-11.mp4", alt: "Expérience client 3" },
+  { type: "image" as const, src: "/images/kaniwa-5.jpg", alt: "Soins homme" },
+];
+
+function ShowcaseCarousel() {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (dir: number) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: dir * 220, behavior: "smooth" });
+    }
+  };
+
+  return (
+    <div className="space-y-3">
+      <p className="text-sm font-semibold text-foreground">Ils ont lancé leur marque avec nous</p>
+      <div className="relative">
+        <button
+          onClick={() => scroll(-1)}
+          className="absolute -left-3 top-1/2 -translate-y-1/2 z-10 bg-background border border-foreground/20 rounded-full p-1.5 shadow-md hover:bg-muted transition-colors"
+        >
+          <ChevronLeft className="h-4 w-4 text-foreground" />
+        </button>
+        <div
+          ref={scrollRef}
+          className="flex gap-3 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
+          style={{ scrollbarWidth: "none" }}
+        >
+          {showcaseItems.map((item, i) => (
+            <div key={i} className="snap-start flex-shrink-0 w-[200px] h-[260px] rounded-xl overflow-hidden bg-muted">
+              {item.type === "video" ? (
+                <SafeVideo src={item.src} className="w-full h-full object-cover" />
+              ) : (
+                <img src={item.src} alt={item.alt} className="w-full h-full object-cover" loading="lazy" />
+              )}
+            </div>
+          ))}
+        </div>
+        <button
+          onClick={() => scroll(1)}
+          className="absolute -right-3 top-1/2 -translate-y-1/2 z-10 bg-background border border-foreground/20 rounded-full p-1.5 shadow-md hover:bg-muted transition-colors"
+        >
+          <ChevronRight className="h-4 w-4 text-foreground" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 function AIImagesCarousel() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -250,7 +305,9 @@ export default function LinkPage() {
         </p>
 
         <div className="space-y-10">
-          {groups.map((group) => (
+          {groups.map((group, groupIndex) => (
+            <React.Fragment key={group.label || "top"}>
+              {groupIndex === 1 && <ShowcaseCarousel />}
             <div key={group.label || "top"}>
               {group.label && (
                 <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-muted-foreground mb-3">
@@ -295,6 +352,7 @@ export default function LinkPage() {
                 })}
               </div>
             </div>
+            </React.Fragment>
           ))}
         </div>
 
