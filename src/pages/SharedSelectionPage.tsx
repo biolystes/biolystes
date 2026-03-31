@@ -288,7 +288,7 @@ export default function SharedSelectionPage() {
   return (
     <div style={{ minHeight: "100vh", background: "#f5f4df" }}>
       {/* Header */}
-      <div style={{ background: "#fff", borderBottom: "1px solid #e5e5e7", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ background: "#f5f4df", borderBottom: "1px solid hsl(var(--foreground) / 0.08)", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <img src={lystesLogo} alt="Biolystes" style={{ width: 32, height: 32, objectFit: "contain" }} />
           <span style={{ fontSize: 13, fontWeight: 700, color: "#1d1d1f" }}>Biolystes</span>
