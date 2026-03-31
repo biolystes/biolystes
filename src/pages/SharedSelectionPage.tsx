@@ -110,7 +110,9 @@ export default function SharedSelectionPage() {
           <span style={{ fontSize: 13, fontWeight: 700, color: "#1d1d1f" }}>Biolystes</span>
         </div>
         <a
-          href="/rdv"
+          href="https://biolystes.com/rdv"
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             fontSize: 11, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase",
             textDecoration: "none", color: "#fff", background: "#1d1d1f",
