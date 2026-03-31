@@ -39,29 +39,37 @@ function Icon({ d, size = 16, sw = 1.5 }: { d: string | string[]; size?: number;
 export default function SharedSelectionPage() {
   const { selectionId } = useParams<{ selectionId: string }>();
   const [selection, setSelection] = useState<SelectionData | null>(null);
+  const [cleanImages, setCleanImages] = useState<Map<string, string>>(new Map());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (!selectionId) return;
-    supabase
-      .from("product_selections")
-      .select("*")
-      .eq("id", selectionId)
-      .single()
-      .then(({ data, error }) => {
-        if (error || !data) {
-          setError("Sélection introuvable ou lien expiré.");
-        } else {
-          setSelection({
-            id: data.id,
-            title: data.title,
-            products: (data.products as unknown as SelectedProduct[]) || [],
-            created_at: data.created_at || "",
-          });
+
+    // Load selection and clean images in parallel
+    Promise.all([
+      supabase.from("product_selections").select("*").eq("id", selectionId).single(),
+      supabase.from("product_clean_images").select("product_name_normalized, clean_image_url"),
+    ]).then(([selRes, imgRes]) => {
+      if (selRes.error || !selRes.data) {
+        setError("Sélection introuvable ou lien expiré.");
+      } else {
+        setSelection({
+          id: selRes.data.id,
+          title: selRes.data.title,
+          products: (selRes.data.products as unknown as SelectedProduct[]) || [],
+          created_at: selRes.data.created_at || "",
+        });
+      }
+      if (imgRes.data) {
+        const map = new Map<string, string>();
+        for (const row of imgRes.data) {
+          map.set(row.product_name_normalized, row.clean_image_url);
         }
-        setLoading(false);
-      });
+        setCleanImages(map);
+      }
+      setLoading(false);
+    });
   }, [selectionId]);
 
   if (loading) {
