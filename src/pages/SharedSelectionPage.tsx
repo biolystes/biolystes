@@ -163,7 +163,6 @@ export default function SharedSelectionPage() {
                       ? <img src={imgSrc} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
                       : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#d1d1d6", fontSize: 32 }}>📦</div>;
                   })()}
-                  }
                   <div style={{ position: "absolute", top: 10, left: 10, background: "rgba(29,29,31,0.85)", color: "#fff", borderRadius: 6, padding: "2px 8px", fontSize: 10, fontWeight: 700 }}>
                     #{idx + 1}
                   </div>
