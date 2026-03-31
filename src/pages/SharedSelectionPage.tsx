@@ -1,8 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import lystesLogo from "@/assets/lystes-logo.png";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
+
+function normalizeProductName(name: string): string {
+  return name
+    .toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]/g, "");
+}
 
 // ─── Types ────────────────────────────────────────────────
 interface SelectedProduct {
@@ -32,29 +39,37 @@ function Icon({ d, size = 16, sw = 1.5 }: { d: string | string[]; size?: number;
 export default function SharedSelectionPage() {
   const { selectionId } = useParams<{ selectionId: string }>();
   const [selection, setSelection] = useState<SelectionData | null>(null);
+  const [cleanImages, setCleanImages] = useState<Map<string, string>>(new Map());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (!selectionId) return;
-    supabase
-      .from("product_selections")
-      .select("*")
-      .eq("id", selectionId)
-      .single()
-      .then(({ data, error }) => {
-        if (error || !data) {
-          setError("Sélection introuvable ou lien expiré.");
-        } else {
-          setSelection({
-            id: data.id,
-            title: data.title,
-            products: (data.products as unknown as SelectedProduct[]) || [],
-            created_at: data.created_at || "",
-          });
+
+    // Load selection and clean images in parallel
+    Promise.all([
+      supabase.from("product_selections").select("*").eq("id", selectionId).single(),
+      supabase.from("product_clean_images").select("product_name_normalized, clean_image_url"),
+    ]).then(([selRes, imgRes]) => {
+      if (selRes.error || !selRes.data) {
+        setError("Sélection introuvable ou lien expiré.");
+      } else {
+        setSelection({
+          id: selRes.data.id,
+          title: selRes.data.title,
+          products: (selRes.data.products as unknown as SelectedProduct[]) || [],
+          created_at: selRes.data.created_at || "",
+        });
+      }
+      if (imgRes.data) {
+        const map = new Map<string, string>();
+        for (const row of imgRes.data) {
+          map.set(row.product_name_normalized, row.clean_image_url);
         }
-        setLoading(false);
-      });
+        setCleanImages(map);
+      }
+      setLoading(false);
+    });
   }, [selectionId]);
 
   if (loading) {
@@ -95,7 +110,9 @@ export default function SharedSelectionPage() {
           <span style={{ fontSize: 13, fontWeight: 700, color: "#1d1d1f" }}>Biolystes</span>
         </div>
         <a
-          href="/rdv"
+          href="https://biolystes.com/rdv"
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             fontSize: 11, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase",
             textDecoration: "none", color: "#fff", background: "#1d1d1f",
@@ -139,10 +156,13 @@ export default function SharedSelectionPage() {
                 style={{ background: "#fff", borderRadius: 16, overflow: "hidden", display: "flex", flexDirection: "column" }}
               >
                 <div style={{ aspectRatio: "3/4", background: "#f5f4df", overflow: "hidden", position: "relative" }}>
-                  {product.image
-                    ? <img src={product.image} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
-                    : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#d1d1d6", fontSize: 32 }}>📦</div>
-                  }
+                  {(() => {
+                    const cleanUrl = cleanImages.get(normalizeProductName(product.name));
+                    const imgSrc = cleanUrl || product.image;
+                    return imgSrc
+                      ? <img src={imgSrc} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
+                      : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#d1d1d6", fontSize: 32 }}>📦</div>;
+                  })()}
                   <div style={{ position: "absolute", top: 10, left: 10, background: "rgba(29,29,31,0.85)", color: "#fff", borderRadius: 6, padding: "2px 8px", fontSize: 10, fontWeight: 700 }}>
                     #{idx + 1}
                   </div>
