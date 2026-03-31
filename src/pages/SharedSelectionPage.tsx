@@ -339,9 +339,9 @@ export default function SharedSelectionPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: idx * 0.05 }}
                 onClick={() => setSelectedProduct(product)}
-                style={{ background: "#f5f4df", borderRadius: 16, overflow: "hidden", display: "flex", flexDirection: "column", cursor: "pointer" }}
+                style={{ background: "transparent", borderRadius: 16, overflow: "hidden", display: "flex", flexDirection: "column", cursor: "pointer" }}
               >
-                <div style={{ aspectRatio: "3/4", background: "#f5f4df", overflow: "hidden", position: "relative" }}>
+                <div style={{ aspectRatio: "3/4", background: "transparent", overflow: "hidden", position: "relative" }}>
                   {imgSrc
                     ? <img src={imgSrc} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} loading="lazy" />
                     : <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center", color: "#d1d1d6", fontSize: 32 }}>📦</div>
