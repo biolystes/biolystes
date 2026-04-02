@@ -952,8 +952,8 @@ export default function CatalogPage() {
   ];
 
   return (
-    <>
-      <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} } @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }`}</style>
+    <div style={{ padding: isMobile ? "16px 12px" : "0 24px" }}>
+      <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} } @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} } .catalog-pills::-webkit-scrollbar { display: none; }`}</style>
 
       <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: isMobile ? 20 : 32, padding: isMobile ? "0 4px" : undefined }}>
         <p style={{ fontSize: isMobile ? 12 : 14, fontWeight: 500, color: C.muted, marginBottom: 4 }}>Catalogue</p>
