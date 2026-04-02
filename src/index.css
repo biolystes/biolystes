@@ -473,8 +473,9 @@ section.py-24.md\:py-32.bg-background {
 section.py-12.md\:py-16.bg-background {
   background: #000;
 }
-h2.text-3xl.md\:text-4xl.font-light.tracking-tight.max-w-3xl.mx-auto.text-foreground {
-  color: #fff;
+/* Wirtzkin heading — only on dark backgrounds */
+.bg-foreground h2.text-3xl.md\:text-4xl.font-light.tracking-tight.max-w-3xl.mx-auto.text-foreground {
+  color: #f5f4df;
 }
 button.w-2.h-2.rounded-full.transition-all.bg-muted-foreground\/30 {
   background: #fff;
@@ -505,12 +506,13 @@ button.inline-flex.items-center.justify-center.gap-2.whitespace-nowrap.text-sm.f
   background: transparent;
 }
 
-h2.text-3xl.md\:text-4xl.font-light.tracking-tight.max-w-3xl.mx-auto.text-foreground {
+/* Wirtzkin text overrides — only on dark backgrounds */
+.bg-foreground h2.text-3xl.md\:text-4xl.font-light.tracking-tight.max-w-3xl.mx-auto.text-foreground {
   color: #f5f4df !important;
 }
 
-p.text-base.text-muted-foreground.max-w-2xl.mx-auto.leading-relaxed,
-p.text-xs.tracking-\[0\.3em\].uppercase.text-muted-foreground {
+.bg-foreground p.text-base.text-muted-foreground.max-w-2xl.mx-auto.leading-relaxed,
+.bg-foreground p.text-xs.tracking-\[0\.3em\].uppercase.text-muted-foreground {
   color: #f5f4df9e !important;
   font-weight: 100;
 }
