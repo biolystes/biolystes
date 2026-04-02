@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // ─── WooCommerce config ──────────────────────────────────
 const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
