@@ -433,9 +433,9 @@ function TeamAnalytics({ titleOverride }: { titleOverride?: string }) {
             { label: "Top Produit", val: "Crème Anti-Âge", trend: "34 ventes" },
             { label: "Taux Conversion", val: "4.2%", trend: "+0.8pt" },
           ].map(k => (
-            <div key={k.label} className="bg-background rounded-xl p-3.5 text-center">
-              <p className="text-[10px] text-muted-foreground font-semibold mb-1">{k.label}</p>
-              <p className="text-[17px] font-black text-foreground">{k.val}</p>
+            <div key={k.label} className="bg-cream/5 border border-cream/10 rounded-xl p-3.5 text-center">
+              <p className="text-[10px] text-cream/50 font-semibold mb-1">{k.label}</p>
+              <p className="text-[17px] font-black text-cream">{k.val}</p>
               <p className="text-[10px] text-[#10b981] font-semibold mt-0.5">{k.trend}</p>
             </div>
           ))}
@@ -445,8 +445,8 @@ function TeamAnalytics({ titleOverride }: { titleOverride?: string }) {
         <div className="flex items-end gap-2 h-[100px] px-1">
           {bars.map((h, i) => (
             <div key={i} className="flex-1 flex flex-col items-center gap-1">
-              <div className={`w-full rounded-md ${i === bars.length - 1 ? "bg-foreground" : "bg-muted"}`} style={{ height: `${h}px` }} />
-              <span className="text-[10px] text-muted-foreground font-semibold">{days[i]}</span>
+              <div className={`w-full rounded-md ${i === bars.length - 1 ? "bg-cream" : "bg-cream/20"}`} style={{ height: `${h}px` }} />
+              <span className="text-[10px] text-cream/50 font-semibold">{days[i]}</span>
             </div>
           ))}
         </div>
