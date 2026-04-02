@@ -358,7 +358,7 @@ function TeamMarketing({ titleOverride }: { titleOverride?: string }) {
   ];
 
   return (
-    <TeamRow bg="bg-secondary" title={titleOverride || "Votre directeur marketing 24h/24"} kicker="Équipe Marketing AI"
+    <TeamRow bg="" reversed title={titleOverride || "Votre directeur marketing 24h/24"} kicker="Équipe Marketing AI"
       desc="Nous mettons en place une équipe Marketing AI, qui crée des plans d'action personnalisés, des campagnes email et des stratégies de conversion. Un directeur marketing qui travaille pour vous 24h/24.">
       <div className="w-full max-w-2xl mx-auto space-y-3">
         {/* Header */}
