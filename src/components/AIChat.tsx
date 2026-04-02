@@ -730,7 +730,7 @@ export default function AIChat({
 
         {/* ── Empty state: prompt cards ─────────────────────── */}
         {isEmpty && (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, marginBottom: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: 10, marginBottom: 16 }}>
             {PROMPTS.map((card, i) => (
               <button
                 key={i}
