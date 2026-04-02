@@ -423,7 +423,7 @@ function TeamAnalytics({ titleOverride }: { titleOverride?: string }) {
   const days = ["L", "M", "M", "J", "V", "S", "D"];
 
   return (
-    <TeamRow bg="bg-secondary" title={titleOverride || "Des décisions basées sur la réalité"} kicker="Équipe Analytics AI"
+    <TeamRow bg="" reversed title={titleOverride || "Des décisions basées sur la réalité"} kicker="Équipe Analytics AI"
       desc="En analysant chaque conversation entre vos agents IA et vos clients, nous identifions les questions récurrentes, les objections, les points de blocage et les produits les plus demandés. Des insights concrets tirés de vrais échanges, pas de suppositions.">
       <div>
         {/* KPIs */}
