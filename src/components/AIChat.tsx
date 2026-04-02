@@ -643,6 +643,7 @@ export default function AIChat({
   onInputChange?: (v: string) => void;
   onConversationStart?: () => void;
 }) {
+  const isMobile = useIsMobile();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState(initialInput);
   const [typing, setTyping] = useState(false);
