@@ -546,6 +546,21 @@ function ProductSkeleton() {
 
 // ─── Main CatalogPage ─────────────────────────────────────
 export default function CatalogPage() {
+  const isMobile = useIsMobile();
+
+  // Set dynamic viewport for mobile
+  useEffect(() => {
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport) {
+      viewport.setAttribute("content", "width=device-width, initial-scale=1");
+    }
+    return () => {
+      if (viewport) {
+        viewport.setAttribute("content", "width=1200");
+      }
+    };
+  }, []);
+
   const [allProducts, setAllProducts] = useState<WCProduct[]>([]);
   const [allCategories, setAllCategories] = useState<WCCategory[]>([]);
   const [allTags, setAllTags] = useState<WCTag[]>([]);
