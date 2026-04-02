@@ -516,14 +516,14 @@ function TeamRow({ bg, reversed, title, kicker, desc, children }: {
 }) {
   return (
     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeUp} custom={0}
-      className="py-14 md:py-20">
+      className="bg-secondary rounded-[2.75rem] py-14 md:py-20 mt-4">
       <div className={`max-w-5xl mx-auto px-6 flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-12`}>
         <div className="flex-1 min-w-[260px]">
-          <span className="inline-block bg-cream text-foreground text-[10px] font-bold tracking-[2px] uppercase px-4 py-1.5 rounded-full mb-5">
+          <span className="inline-block bg-foreground text-primary-foreground text-[10px] font-bold tracking-[2px] uppercase px-4 py-1.5 rounded-full mb-5">
             {kicker}
           </span>
-          <h3 className="text-[30px] font-light leading-[1.25] text-cream mb-3.5">{title}</h3>
-          <p className="text-[15px] text-cream/60 leading-[1.7]">{desc}</p>
+          <h3 className="text-[30px] font-light leading-[1.25] text-foreground mb-3.5">{title}</h3>
+          <p className="text-[15px] text-muted-foreground leading-[1.7]">{desc}</p>
         </div>
         <div className="flex-[1.5] min-w-[300px] w-full">
           {children}
