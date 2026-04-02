@@ -79,41 +79,50 @@ export default function CommentCaMarche() {
   const step = steps[current];
 
   return (
-    <section className="bg-secondary">
-      <div className="max-w-5xl mx-auto px-6 py-24 md:py-32 pt-[120px]">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-light tracking-tight text-foreground max-w-3xl mx-auto text-balance">
-            Comment fonctionne la mise en place de votre marque en 10-15 jours ?
-          </h2>
-          <p className="text-muted-foreground mt-4 max-w-xl mx-auto">
-            Suivez notre processus simplifié, de la conception à l'automatisation.
-          </p>
-        </div>
+    <section>
+      {/* Dark header area */}
+      <div className="bg-foreground pt-[120px] pb-16 px-6">
+        <div className="max-w-5xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-balance" style={{ color: "#f5f4df" }}>
+              Comment fonctionne la mise en place de votre marque en 10-15 jours ?
+            </h2>
+            <p className="mt-4 max-w-xl mx-auto" style={{ color: "#f5f4dfaa" }}>
+              Suivez notre processus simplifié, de la conception à l'automatisation.
+            </p>
+          </div>
 
-        {/* Stepper indicators */}
-        <div className="flex justify-center items-center gap-2 md:gap-3 mb-10">
-          {steps.map((_, i) => (
-            <div key={i} className="flex items-center gap-2 md:gap-3">
-              <button
-                onClick={() => setCurrent(i)}
-                className={`w-8 h-8 rounded-full text-xs font-semibold border transition-colors ${
-                  i === current
-                    ? "bg-white text-black border-white"
-                    : "bg-transparent text-white/55 border-white/30 hover:border-white/50"
-                }`}
-              >
-                {i + 1}
-              </button>
-              {i < steps.length - 1 && (
-                <div className="w-4 md:w-6 h-px bg-white/20" />
-              )}
-            </div>
-          ))}
+          {/* Stepper indicators */}
+          <div className="flex justify-center items-center gap-2 md:gap-3">
+            {steps.map((_, i) => (
+              <div key={i} className="flex items-center gap-2 md:gap-3">
+                <button
+                  onClick={() => setCurrent(i)}
+                  className={`w-8 h-8 rounded-full text-xs font-semibold border transition-colors ${
+                    i === current
+                      ? "border-cream text-foreground"
+                      : "bg-transparent border-cream/30 hover:border-cream/50"
+                  }`}
+                  style={{
+                    backgroundColor: i === current ? "#f5f4df" : "transparent",
+                    color: i === current ? "#121212" : "#f5f4df88",
+                  }}
+                >
+                  {i + 1}
+                </button>
+                {i < steps.length - 1 && (
+                  <div className="w-4 md:w-6 h-px" style={{ backgroundColor: "#f5f4df33" }} />
+                )}
+              </div>
+            ))}
+          </div>
         </div>
+      </div>
 
-        {/* Step content */}
-        <div className="max-w-2xl mx-auto bg-background rounded-2xl p-6 md:p-10">
+      {/* Cream content area */}
+      <div className="bg-secondary px-6 pb-24 md:pb-32 pt-10">
+        <div className="max-w-2xl mx-auto rounded-2xl p-6 md:p-10" style={{ backgroundColor: "#f5f4df" }}>
           <div className="relative">
             {steps.map((s, i) => (
               <motion.div
