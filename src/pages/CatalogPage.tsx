@@ -1115,7 +1115,7 @@ export default function CatalogPage() {
           <motion.div
             initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 80, opacity: 0 }}
             transition={{ type: "spring", damping: 28, stiffness: 300 }}
-            style={{ position: "fixed", bottom: 28, left: "50%", transform: "translateX(-50%)", zIndex: 200, display: "flex", alignItems: "center", gap: 12, background: "#1d1d1f", borderRadius: 20, padding: "12px 16px 12px 20px", boxShadow: "0 8px 32px rgba(0,0,0,0.28)", whiteSpace: "nowrap" }}
+            style={{ position: "fixed", bottom: isMobile ? 16 : 28, left: "50%", transform: "translateX(-50%)", zIndex: 200, display: "flex", alignItems: "center", gap: isMobile ? 8 : 12, background: "#1d1d1f", borderRadius: 20, padding: isMobile ? "10px 12px" : "12px 16px 12px 20px", boxShadow: "0 8px 32px rgba(0,0,0,0.28)", whiteSpace: "nowrap", maxWidth: isMobile ? "calc(100vw - 32px)" : undefined, flexWrap: isMobile ? "wrap" : "nowrap", justifyContent: isMobile ? "center" : undefined }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <span style={{ width: 26, height: 26, borderRadius: "50%", background: C.bgLight, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: "#1d1d1f" }}>{selectedIds.size}</span>
