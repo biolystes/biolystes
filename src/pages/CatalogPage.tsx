@@ -409,7 +409,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
       }}
     >
       {/* Image area */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "1", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#ecebd7", minHeight: 354 }}>
+      <div style={{ position: "relative", width: "100%", aspectRatio: "1", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#ecebd7" }}>
         {enriched?.volume && (
           <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, padding: "3px 10px", borderRadius: 8, background: "rgba(245,244,223,0.7)", backdropFilter: "blur(8px)", fontSize: 9, fontWeight: 700, color: C.muted, letterSpacing: ".3px" }}>
             {enriched.volume}
