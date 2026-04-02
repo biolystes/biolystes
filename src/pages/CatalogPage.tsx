@@ -978,9 +978,9 @@ export default function CatalogPage() {
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             style={{
-              width: "100%", maxWidth: 520, padding: "12px 14px 12px 44px", borderRadius: 28, border: `1px solid ${C.border}`,
+              width: "100%", maxWidth: isMobile ? "100%" : 520, padding: "12px 14px 12px 44px", borderRadius: 28, border: `1px solid ${C.border}`,
               background: C.bgLight, fontSize: 14, color: "#1d1d1f", outline: "none",
-              transition: "border-color .15s",
+              transition: "border-color .15s", boxSizing: "border-box",
             }}
             onFocus={e => e.currentTarget.style.borderColor = "#1d1d1f"}
             onBlur={e => e.currentTarget.style.borderColor = C.border}
