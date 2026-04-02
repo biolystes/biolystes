@@ -955,13 +955,13 @@ export default function CatalogPage() {
     <>
       <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} } @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }`}</style>
 
-      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: 32 }}>
-        <p style={{ fontSize: 14, fontWeight: 500, color: C.muted, marginBottom: 4 }}>Catalogue</p>
-        <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.1, letterSpacing: "-.5px" }}>
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: isMobile ? 20 : 32, padding: isMobile ? "0 4px" : undefined }}>
+        <p style={{ fontSize: isMobile ? 12 : 14, fontWeight: 500, color: C.muted, marginBottom: 4 }}>Catalogue</p>
+        <h1 style={{ fontSize: isMobile ? 22 : 28, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.1, letterSpacing: "-.5px" }}>
           Vos produits<br />
           <span style={{ color: "#000" }}>en marque blanche.</span>
         </h1>
-        <p style={{ fontSize: 14, color: C.muted, marginTop: 10, maxWidth: 460, lineHeight: 1.65 }}>
+        <p style={{ fontSize: isMobile ? 12 : 14, color: C.muted, marginTop: 10, maxWidth: 460, lineHeight: 1.65 }}>
           Sélectionnez les produits que vous souhaitez commercialiser sous votre propre marque.
         </p>
       </motion.div>
