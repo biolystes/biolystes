@@ -21,15 +21,15 @@ export default function ResponsabiliteSection() {
       {/* Header */}
       <div className="text-center max-w-5xl mx-auto px-6 pt-24 pb-12">
         <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-          className="text-[10px] font-bold tracking-[2.5px] uppercase text-foreground/50 mb-5">
+          className="text-[10px] font-bold tracking-[2.5px] uppercase text-cream/50 mb-5">
           ASSURANCE
         </motion.p>
         <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-          className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-foreground">
+          className="text-3xl md:text-4xl font-light tracking-tight max-w-[780px] mx-auto mb-6 text-cream">
           Comment se passe le partage des responsabilités <em className="italic">en cas de litige ?</em>
         </motion.h2>
         <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
-          className="text-[17px] text-foreground/50 leading-[1.7] max-w-[600px] mx-auto">
+          className="text-[17px] text-cream/50 leading-[1.7] max-w-[600px] mx-auto">
           Vous êtes protégé pour rester focus sur ce qui compte le plus : développer votre marque et vos ventes.
         </motion.p>
       </div>
