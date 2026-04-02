@@ -1135,6 +1135,6 @@ export default function CatalogPage() {
         )}
       </AnimatePresence>
 
-    </>
+    </div>
   );
 }
