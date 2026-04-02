@@ -320,8 +320,8 @@ function TeamSEO({ titleOverride }: { titleOverride?: string }) {
       <div>
         <div className="flex items-center gap-2.5 mb-4">
           <div className="w-3 h-3 rounded-full bg-[#34d399]" />
-          <span className="text-[10px] font-bold tracking-[2.5px] uppercase text-cream/50">Score SEO</span>
-          <span className="ml-auto text-[26px] font-black text-cream">92<span className="text-[13px] text-[#10b981]">/100</span></span>
+          <span className="text-[10px] font-bold tracking-[2.5px] uppercase text-muted-foreground">Score SEO</span>
+          <span className="ml-auto text-[26px] font-black text-foreground">92<span className="text-[13px] text-[#10b981]">/100</span></span>
         </div>
         {[
           { label: "Meta Title", val: "Crème Anti-Âge Bio — Soin Visage Naturel | Kaniwa" },
@@ -330,13 +330,13 @@ function TeamSEO({ titleOverride }: { titleOverride?: string }) {
           { label: "Mots-clés", val: "crème anti-âge bio, soin visage naturel, cosmétique végane" },
           { label: "Alt images", val: "3/3 optimisées" },
         ].map(r => (
-          <div key={r.label} className="flex items-start gap-2.5 p-3 rounded-xl mb-1.5 border border-cream/20">
+          <div key={r.label} className="flex items-start gap-2.5 p-3 rounded-xl mb-1.5 border border-foreground">
             <div className="w-[18px] h-[18px] rounded-full bg-[#d1fae5] flex items-center justify-center shrink-0 mt-0.5">
               <Check className="w-[10px] h-[10px] text-[#065f46]" strokeWidth={3} />
             </div>
             <div>
-              <p className="text-[11px] font-bold text-cream mb-0.5">{r.label}</p>
-              <p className="text-xs text-cream/70 leading-snug">{r.val}</p>
+              <p className="text-[11px] font-bold text-foreground mb-0.5">{r.label}</p>
+              <p className="text-xs text-muted-foreground leading-snug">{r.val}</p>
             </div>
           </div>
         ))}
