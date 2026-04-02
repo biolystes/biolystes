@@ -361,38 +361,35 @@ function TeamMarketing({ titleOverride }: { titleOverride?: string }) {
     <TeamRow bg="" reversed title={titleOverride || "Votre directeur marketing 24h/24"} kicker="Équipe Marketing AI"
       desc="Nous mettons en place une équipe Marketing AI, qui crée des plans d'action personnalisés, des campagnes email et des stratégies de conversion. Un directeur marketing qui travaille pour vous 24h/24.">
       <div className="w-full max-w-2xl mx-auto space-y-3">
-        {/* Header */}
         <div className="flex items-center justify-between px-1 mb-4">
           <div className="flex items-center gap-2.5">
             <div className="w-3 h-3 rounded-full bg-[#6EE7B7]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-cream/50">Plan d'action</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Plan d'action</span>
           </div>
           <div className="flex items-baseline gap-1">
-            <span className="text-[26px] font-extrabold tracking-tighter text-cream">40</span>
+            <span className="text-[26px] font-extrabold tracking-tighter text-foreground">40</span>
             <span className="text-[13px] font-bold text-[#10b981]">/100</span>
           </div>
         </div>
 
-        {/* Task cards */}
         <div className="space-y-2">
           {tasks.map(t => (
-            <div key={t.label} className="p-4 rounded-2xl flex items-start gap-3 border border-cream/20">
+            <div key={t.label} className="p-4 rounded-2xl flex items-start gap-3 border border-foreground">
               <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                t.status === "done" ? "bg-cream" : t.status === "now" ? "bg-[#ebf5ff]" : "bg-cream/10 border border-cream/20"
+                t.status === "done" ? "bg-[#e6f6ef]" : t.status === "now" ? "bg-[#ebf5ff]" : "bg-muted/50 border border-border"
               }`}>
-                {t.status === "done" && <Check className="w-3.5 h-3.5 text-[#000]" strokeWidth={3} />}
+                {t.status === "done" && <Check className="w-3.5 h-3.5 text-[#22c55e]" strokeWidth={3} />}
                 {t.status === "now" && <Play className="w-3.5 h-3.5 text-[#3b82f6] fill-[#3b82f6]" />}
-                {t.status === "wait" && <div className="w-1.5 h-1.5 rounded-full bg-cream/30" />}
+                {t.status === "wait" && <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />}
               </div>
               <div className="space-y-0.5">
-                <p className="text-[12px] font-bold text-cream">{t.label} — {t.title}</p>
-                <p className="text-[13px] font-medium text-cream/60 leading-relaxed">{t.value}</p>
+                <p className="text-[12px] font-bold text-foreground">{t.label} — {t.title}</p>
+                <p className="text-[13px] font-medium text-muted-foreground leading-relaxed">{t.value}</p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Footer */}
         <div className="bg-[#ecfdf5] rounded-xl p-3 flex items-center justify-center text-[#000] font-semibold text-[11px] gap-1.5">
           <Sparkles className="w-3.5 h-3.5" />
           Plan d'action optimisé automatiquement par l'IA
