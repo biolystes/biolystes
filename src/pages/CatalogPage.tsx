@@ -998,11 +998,11 @@ export default function CatalogPage() {
           <button
             onClick={() => { setSelectedCatIds([]); setSelectedCerts([]); }}
             style={{
-              padding: "8px 18px", borderRadius: 24, border: "none",
+              padding: isMobile ? "6px 14px" : "8px 18px", borderRadius: 24, border: "none",
               background: selectedCatIds.length === 0 && selectedCerts.length === 0 ? "#1d1d1f" : C.badgeBg,
               color: selectedCatIds.length === 0 && selectedCerts.length === 0 ? C.bgLight : "#1d1d1f",
-              fontSize: 14, fontWeight: 600, cursor: "pointer",
-              transition: "all .15s", whiteSpace: "nowrap",
+              fontSize: isMobile ? 12 : 14, fontWeight: 600, cursor: "pointer",
+              transition: "all .15s", whiteSpace: "nowrap", flexShrink: 0,
             }}
           >
             Tous les produits <span style={{ fontWeight: 400, opacity: 0.7, marginLeft: 4 }}>({mergedProducts.filter(p => !HIDDEN_PRODUCTS.has(normalizeStr(p.name))).length})</span>
