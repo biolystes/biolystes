@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // ─── WooCommerce config ──────────────────────────────────
 const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
@@ -642,6 +643,7 @@ export default function AIChat({
   onInputChange?: (v: string) => void;
   onConversationStart?: () => void;
 }) {
+  const isMobile = useIsMobile();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState(initialInput);
   const [typing, setTyping] = useState(false);
@@ -728,7 +730,7 @@ export default function AIChat({
 
         {/* ── Empty state: prompt cards ─────────────────────── */}
         {isEmpty && (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, marginBottom: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: 10, marginBottom: 16 }}>
             {PROMPTS.map((card, i) => (
               <button
                 key={i}
