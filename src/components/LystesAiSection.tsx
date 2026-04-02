@@ -244,11 +244,11 @@ function BeforeAfterPhones() {
 function TeamDiagnostics({ titleOverride }: { titleOverride?: string }) {
   return (
     <>
-      <TeamRow bg="bg-secondary" title="Diagnostic peau intelligent" kicker="Skin AI"
+      <TeamRow bg="" title="Diagnostic peau intelligent" kicker="Skin AI"
         desc="Un diagnostic personnalisé via selfie qui analyse le type de peau, les imperfections et les besoins spécifiques de chaque client. L'IA recommande ensuite les produits les plus adaptés de votre catalogue, augmentant la conversion et la satisfaction.">
         <SafeVideo src="/videos/diagnostic-peau.mov" className="w-full h-[400px] object-cover rounded-2xl" lazy />
       </TeamRow>
-      <TeamRow bg="bg-secondary" reversed title="Diagnostic cheveux intelligent" kicker="Hair AI"
+      <TeamRow bg="" reversed title="Diagnostic cheveux intelligent" kicker="Hair AI"
         desc="Une analyse capillaire par photo qui identifie la nature du cheveu, la porosité et les problématiques (casse, sécheresse, cuir chevelu sensible). L'IA propose une routine sur-mesure avec vos produits, pour un conseil expert automatisé 24h/24.">
         <div className="flex gap-3.5 flex-wrap">
           <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
