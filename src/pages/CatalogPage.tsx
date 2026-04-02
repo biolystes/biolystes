@@ -1037,8 +1037,8 @@ export default function CatalogPage() {
         </div>
 
         {/* Secondary filters row */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 20, overflowX: isMobile ? "auto" : undefined }}>
+          <div style={{ display: "flex", gap: 8, flexWrap: isMobile ? "nowrap" : "wrap", alignItems: "center", flexShrink: 0 }}>
             {allCertOptions.length > 0 && <FilterDropdown label="Certification" options={allCertOptions} selected={selectedCerts} onChange={ids => setSelectedCerts(ids as string[])} grid={allCertOptions.length > 4} />}
             {unGroupedTags.length > 0 && <FilterDropdown label="Étiquette" options={unGroupedTags} selected={selectedTagIds} onChange={ids => setSelectedTagIds(ids as number[])} grid={unGroupedTags.length > 6} />}
             {groupFilters.map(f => <FilterDropdown key={f.label} label={f.label} options={f.options} selected={selectedGroupTags[f.label] || []} onChange={ids => setSelectedGroupTags(prev => ({ ...prev, [f.label]: ids as number[] }))} grid={f.options.length > 6 && !f.isColor} />)}
