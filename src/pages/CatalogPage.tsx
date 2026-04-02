@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useAuth } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import {
@@ -229,7 +230,7 @@ function CertBadge({ label }: { label: string }) {
 }
 
 // ─── Product Detail Panel ─────────────────────────────────
-function ProductPanel({ product, onClose, overrideImage }: { product: WCProduct; onClose: () => void; overrideImage?: string }) {
+function ProductPanel({ product, onClose, overrideImage, isMobile = false }: { product: WCProduct; onClose: () => void; overrideImage?: string; isMobile?: boolean }) {
   const img = overrideImage || product.images?.[0]?.src || getCdnFallbackImage(product.name);
   const price = product.price ? parseFloat(product.price) : null;
   const desc = product._enriched?.description_full || stripHtml(product.short_description || product.description);
@@ -249,9 +250,17 @@ function ProductPanel({ product, onClose, overrideImage }: { product: WCProduct;
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}
         style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.18)", zIndex: 100 }} />
       <motion.div
-        initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
+        initial={isMobile ? { y: "100%" } : { x: "100%" }}
+        animate={isMobile ? { y: 0 } : { x: 0 }}
+        exit={isMobile ? { y: "100%" } : { x: "100%" }}
         transition={{ type: "spring", damping: 30, stiffness: 300 }}
-        style={{ position: "fixed", top: 0, right: 0, bottom: 0, width: 420, background: C.bgLight, zIndex: 101, overflowY: "auto", display: "flex", flexDirection: "column" }}
+        style={{
+          position: "fixed",
+          ...(isMobile
+            ? { left: 0, right: 0, bottom: 0, top: "8vh", borderRadius: "20px 20px 0 0" }
+            : { top: 0, right: 0, bottom: 0, width: 420 }),
+          background: C.bgLight, zIndex: 101, overflowY: "auto", display: "flex", flexDirection: "column",
+        }}
       >
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px", borderBottom: `1px solid ${C.bg}` }}>
           <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: C.muted }}>Fiche produit</span>
@@ -400,7 +409,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
       }}
     >
       {/* Image area */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "1", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#ecebd7", minHeight: 354 }}>
+      <div style={{ position: "relative", width: "100%", aspectRatio: "1", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#ecebd7" }}>
         {enriched?.volume && (
           <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, padding: "3px 10px", borderRadius: 8, background: "rgba(245,244,223,0.7)", backdropFilter: "blur(8px)", fontSize: 9, fontWeight: 700, color: C.muted, letterSpacing: ".3px" }}>
             {enriched.volume}
@@ -537,6 +546,21 @@ function ProductSkeleton() {
 
 // ─── Main CatalogPage ─────────────────────────────────────
 export default function CatalogPage() {
+  const isMobile = useIsMobile();
+
+  // Set dynamic viewport for mobile
+  useEffect(() => {
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport) {
+      viewport.setAttribute("content", "width=device-width, initial-scale=1");
+    }
+    return () => {
+      if (viewport) {
+        viewport.setAttribute("content", "width=1200");
+      }
+    };
+  }, []);
+
   const [allProducts, setAllProducts] = useState<WCProduct[]>([]);
   const [allCategories, setAllCategories] = useState<WCCategory[]>([]);
   const [allTags, setAllTags] = useState<WCTag[]>([]);
@@ -928,16 +952,16 @@ export default function CatalogPage() {
   ];
 
   return (
-    <>
-      <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} } @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }`}</style>
+    <div style={{ padding: isMobile ? "16px 12px" : "0 24px" }}>
+      <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} } @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} } .catalog-pills::-webkit-scrollbar { display: none; }`}</style>
 
-      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: 32 }}>
-        <p style={{ fontSize: 14, fontWeight: 500, color: C.muted, marginBottom: 4 }}>Catalogue</p>
-        <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.1, letterSpacing: "-.5px" }}>
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: isMobile ? 20 : 32, padding: isMobile ? "0 4px" : undefined }}>
+        <p style={{ fontSize: isMobile ? 12 : 14, fontWeight: 500, color: C.muted, marginBottom: 4 }}>Catalogue</p>
+        <h1 style={{ fontSize: isMobile ? 22 : 28, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.1, letterSpacing: "-.5px" }}>
           Vos produits<br />
           <span style={{ color: "#000" }}>en marque blanche.</span>
         </h1>
-        <p style={{ fontSize: 14, color: C.muted, marginTop: 10, maxWidth: 460, lineHeight: 1.65 }}>
+        <p style={{ fontSize: isMobile ? 12 : 14, color: C.muted, marginTop: 10, maxWidth: 460, lineHeight: 1.65 }}>
           Sélectionnez les produits que vous souhaitez commercialiser sous votre propre marque.
         </p>
       </motion.div>
@@ -954,9 +978,9 @@ export default function CatalogPage() {
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
             style={{
-              width: "100%", maxWidth: 520, padding: "12px 14px 12px 44px", borderRadius: 28, border: `1px solid ${C.border}`,
+              width: "100%", maxWidth: isMobile ? "100%" : 520, padding: "12px 14px 12px 44px", borderRadius: 28, border: `1px solid ${C.border}`,
               background: C.bgLight, fontSize: 14, color: "#1d1d1f", outline: "none",
-              transition: "border-color .15s",
+              transition: "border-color .15s", boxSizing: "border-box",
             }}
             onFocus={e => e.currentTarget.style.borderColor = "#1d1d1f"}
             onBlur={e => e.currentTarget.style.borderColor = C.border}
@@ -969,16 +993,16 @@ export default function CatalogPage() {
         </div>
 
         {/* Category pills */}
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16, alignItems: "center" }}>
+        <div style={{ display: "flex", gap: 8, flexWrap: isMobile ? "nowrap" : "wrap", marginBottom: 16, alignItems: "center", overflowX: isMobile ? "auto" : undefined, WebkitOverflowScrolling: "touch", paddingBottom: isMobile ? 4 : undefined, msOverflowStyle: "none", scrollbarWidth: "none" }}>
           {/* "Tous les produits" pill */}
           <button
             onClick={() => { setSelectedCatIds([]); setSelectedCerts([]); }}
             style={{
-              padding: "8px 18px", borderRadius: 24, border: "none",
+              padding: isMobile ? "6px 14px" : "8px 18px", borderRadius: 24, border: "none",
               background: selectedCatIds.length === 0 && selectedCerts.length === 0 ? "#1d1d1f" : C.badgeBg,
               color: selectedCatIds.length === 0 && selectedCerts.length === 0 ? C.bgLight : "#1d1d1f",
-              fontSize: 14, fontWeight: 600, cursor: "pointer",
-              transition: "all .15s", whiteSpace: "nowrap",
+              fontSize: isMobile ? 12 : 14, fontWeight: 600, cursor: "pointer",
+              transition: "all .15s", whiteSpace: "nowrap", flexShrink: 0,
             }}
           >
             Tous les produits <span style={{ fontWeight: 400, opacity: 0.7, marginLeft: 4 }}>({mergedProducts.filter(p => !HIDDEN_PRODUCTS.has(normalizeStr(p.name))).length})</span>
@@ -999,11 +1023,11 @@ export default function CatalogPage() {
                   }
                 }}
                 style={{
-                  padding: "8px 18px", borderRadius: 24, border: "none",
+                  padding: isMobile ? "6px 14px" : "8px 18px", borderRadius: 24, border: "none",
                   background: isActive ? "#1d1d1f" : C.badgeBg,
                   color: isActive ? C.bgLight : "#1d1d1f",
-                  fontSize: 14, fontWeight: 600, cursor: "pointer",
-                  transition: "all .15s", whiteSpace: "nowrap",
+                  fontSize: isMobile ? 12 : 14, fontWeight: 600, cursor: "pointer",
+                  transition: "all .15s", whiteSpace: "nowrap", flexShrink: 0,
                 }}
               >
                 {cat.name} <span style={{ fontWeight: 400, opacity: 0.7, marginLeft: 4 }}>({count})</span>
@@ -1013,8 +1037,8 @@ export default function CatalogPage() {
         </div>
 
         {/* Secondary filters row */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 20 }}>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 20, overflowX: isMobile ? "auto" : undefined }}>
+          <div style={{ display: "flex", gap: 8, flexWrap: isMobile ? "nowrap" : "wrap", alignItems: "center", flexShrink: 0 }}>
             {allCertOptions.length > 0 && <FilterDropdown label="Certification" options={allCertOptions} selected={selectedCerts} onChange={ids => setSelectedCerts(ids as string[])} grid={allCertOptions.length > 4} />}
             {unGroupedTags.length > 0 && <FilterDropdown label="Étiquette" options={unGroupedTags} selected={selectedTagIds} onChange={ids => setSelectedTagIds(ids as number[])} grid={unGroupedTags.length > 6} />}
             {groupFilters.map(f => <FilterDropdown key={f.label} label={f.label} options={f.options} selected={selectedGroupTags[f.label] || []} onChange={ids => setSelectedGroupTags(prev => ({ ...prev, [f.label]: ids as number[] }))} grid={f.options.length > 6 && !f.isColor} />)}
@@ -1060,14 +1084,14 @@ export default function CatalogPage() {
         )}
 
         {loading && (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
+          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: isMobile ? 8 : 12 }}>
             {Array.from({ length: 8 }).map((_, i) => <ProductSkeleton key={i} />)}
           </div>
         )}
 
         {!loading && !error && products.length > 0 && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
-            style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
+            style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: isMobile ? 8 : 12 }}>
             {products.map((p, i) => (
               <ProductCard key={p.id} product={p} index={i} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} onGenerateClean={handleGenerateClean} overrideImage={cleanImages[p.id] || cleanImagesByName[normalizeStr(p.name)]} isGenerating={genLoadingId === p.id} hasCleanPending={cleanNamesKnown.has(normalizeStr(p.name)) && !cleanImagesByName[normalizeStr(p.name)] && !cleanImages[p.id]} />
             ))}
@@ -1083,7 +1107,7 @@ export default function CatalogPage() {
       </div>
 
       <AnimatePresence>
-        {selectedProduct && <ProductPanel product={selectedProduct} onClose={() => setSelectedProduct(null)} overrideImage={cleanImages[selectedProduct.id] || cleanImagesByName[normalizeStr(selectedProduct.name)]} />}
+        {selectedProduct && <ProductPanel product={selectedProduct} onClose={() => setSelectedProduct(null)} overrideImage={cleanImages[selectedProduct.id] || cleanImagesByName[normalizeStr(selectedProduct.name)]} isMobile={isMobile} />}
       </AnimatePresence>
 
       <AnimatePresence>
@@ -1091,7 +1115,7 @@ export default function CatalogPage() {
           <motion.div
             initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 80, opacity: 0 }}
             transition={{ type: "spring", damping: 28, stiffness: 300 }}
-            style={{ position: "fixed", bottom: 28, left: "50%", transform: "translateX(-50%)", zIndex: 200, display: "flex", alignItems: "center", gap: 12, background: "#1d1d1f", borderRadius: 20, padding: "12px 16px 12px 20px", boxShadow: "0 8px 32px rgba(0,0,0,0.28)", whiteSpace: "nowrap" }}
+            style={{ position: "fixed", bottom: isMobile ? 16 : 28, left: "50%", transform: "translateX(-50%)", zIndex: 200, display: "flex", alignItems: "center", gap: isMobile ? 8 : 12, background: "#1d1d1f", borderRadius: 20, padding: isMobile ? "10px 12px" : "12px 16px 12px 20px", boxShadow: "0 8px 32px rgba(0,0,0,0.28)", whiteSpace: "nowrap", maxWidth: isMobile ? "calc(100vw - 32px)" : undefined, flexWrap: isMobile ? "wrap" : "nowrap", justifyContent: isMobile ? "center" : undefined }}
           >
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
               <span style={{ width: 26, height: 26, borderRadius: "50%", background: C.bgLight, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: "#1d1d1f" }}>{selectedIds.size}</span>
@@ -1111,6 +1135,6 @@ export default function CatalogPage() {
         )}
       </AnimatePresence>
 
-    </>
+    </div>
   );
 }
