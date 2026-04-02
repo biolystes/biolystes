@@ -993,7 +993,7 @@ export default function CatalogPage() {
         </div>
 
         {/* Category pills */}
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap", marginBottom: 16, alignItems: "center" }}>
+        <div style={{ display: "flex", gap: 8, flexWrap: isMobile ? "nowrap" : "wrap", marginBottom: 16, alignItems: "center", overflowX: isMobile ? "auto" : undefined, WebkitOverflowScrolling: "touch", paddingBottom: isMobile ? 4 : undefined, msOverflowStyle: "none", scrollbarWidth: "none" }}>
           {/* "Tous les produits" pill */}
           <button
             onClick={() => { setSelectedCatIds([]); setSelectedCerts([]); }}
