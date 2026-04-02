@@ -79,7 +79,7 @@ export default function CommentCaMarche() {
   const step = steps[current];
 
   return (
-    <section>
+    <section className="bg-secondary">
       {/* Dark header area */}
       <div className="bg-foreground pt-[120px] pb-16 px-6">
         <div className="max-w-5xl mx-auto">
