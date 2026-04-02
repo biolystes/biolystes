@@ -423,31 +423,28 @@ function TeamAnalytics({ titleOverride }: { titleOverride?: string }) {
     <TeamRow bg="" reversed title={titleOverride || "Des décisions basées sur la réalité"} kicker="Équipe Analytics AI"
       desc="En analysant chaque conversation entre vos agents IA et vos clients, nous identifions les questions récurrentes, les objections, les points de blocage et les produits les plus demandés. Des insights concrets tirés de vrais échanges, pas de suppositions.">
       <div>
-        {/* KPIs */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 mb-5">
           {[
             { label: "CA Semaine", val: "2 847€", trend: "+18%" },
             { label: "Top Produit", val: "Crème Anti-Âge", trend: "34 ventes" },
             { label: "Taux Conversion", val: "4.2%", trend: "+0.8pt" },
           ].map(k => (
-            <div key={k.label} className="bg-cream/5 border border-cream/10 rounded-xl p-3.5 text-center">
-              <p className="text-[10px] text-cream/50 font-semibold mb-1">{k.label}</p>
-              <p className="text-[17px] font-black text-cream">{k.val}</p>
+            <div key={k.label} className="bg-foreground/5 border border-foreground/10 rounded-xl p-3.5 text-center">
+              <p className="text-[10px] text-muted-foreground font-semibold mb-1">{k.label}</p>
+              <p className="text-[17px] font-black text-foreground">{k.val}</p>
               <p className="text-[10px] text-[#10b981] font-semibold mt-0.5">{k.trend}</p>
             </div>
           ))}
         </div>
 
-        {/* Bars */}
         <div className="flex items-end gap-2 h-[100px] px-1">
           {bars.map((h, i) => (
             <div key={i} className="flex-1 flex flex-col items-center gap-1">
-              <div className={`w-full rounded-md ${i === bars.length - 1 ? "bg-cream" : "bg-cream/20"}`} style={{ height: `${h}px` }} />
-              <span className="text-[10px] text-cream/50 font-semibold">{days[i]}</span>
+              <div className={`w-full rounded-md ${i === bars.length - 1 ? "bg-foreground" : "bg-foreground/20"}`} style={{ height: `${h}px` }} />
+              <span className="text-[10px] text-muted-foreground font-semibold">{days[i]}</span>
             </div>
           ))}
         </div>
-
       </div>
     </TeamRow>
   );
