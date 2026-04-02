@@ -506,12 +506,13 @@ button.inline-flex.items-center.justify-center.gap-2.whitespace-nowrap.text-sm.f
   background: transparent;
 }
 
-h2.text-3xl.md\:text-4xl.font-light.tracking-tight.max-w-3xl.mx-auto.text-foreground {
+/* Wirtzkin text overrides — only on dark backgrounds */
+.bg-foreground h2.text-3xl.md\:text-4xl.font-light.tracking-tight.max-w-3xl.mx-auto.text-foreground {
   color: #f5f4df !important;
 }
 
-p.text-base.text-muted-foreground.max-w-2xl.mx-auto.leading-relaxed,
-p.text-xs.tracking-\[0\.3em\].uppercase.text-muted-foreground {
+.bg-foreground p.text-base.text-muted-foreground.max-w-2xl.mx-auto.leading-relaxed,
+.bg-foreground p.text-xs.tracking-\[0\.3em\].uppercase.text-muted-foreground {
   color: #f5f4df9e !important;
   font-weight: 100;
 }
