@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AIChat from "@/components/AIChat";
 import { useAuth } from "@/contexts/AuthContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { motion, AnimatePresence } from "framer-motion";
 import kaniwa1 from "@/assets/kaniwa-1.jpg";
 import kaniwa2 from "@/assets/kaniwa-2.jpg";
