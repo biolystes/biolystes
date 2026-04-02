@@ -1023,11 +1023,11 @@ export default function CatalogPage() {
                   }
                 }}
                 style={{
-                  padding: "8px 18px", borderRadius: 24, border: "none",
+                  padding: isMobile ? "6px 14px" : "8px 18px", borderRadius: 24, border: "none",
                   background: isActive ? "#1d1d1f" : C.badgeBg,
                   color: isActive ? C.bgLight : "#1d1d1f",
-                  fontSize: 14, fontWeight: 600, cursor: "pointer",
-                  transition: "all .15s", whiteSpace: "nowrap",
+                  fontSize: isMobile ? 12 : 14, fontWeight: 600, cursor: "pointer",
+                  transition: "all .15s", whiteSpace: "nowrap", flexShrink: 0,
                 }}
               >
                 {cat.name} <span style={{ fontWeight: 400, opacity: 0.7, marginLeft: 4 }}>({count})</span>
