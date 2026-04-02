@@ -591,25 +591,39 @@ function parseTag(tagName: string): { displayName: string; group: string | null 
 // ─── Main Dashboard (Configurateur IA) ──────────────────
 export default function DashboardPage() {
   const { profile } = useAuth();
+  const isMobile = useIsMobile();
   const [chatStarted, setChatStarted] = useState(false);
 
   const [selectedProduct, setSelectedProduct] = useState<WCProduct | null>(null);
 
+  // Set dynamic viewport for mobile
+  useEffect(() => {
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (viewport) {
+      viewport.setAttribute("content", "width=device-width, initial-scale=1");
+    }
+    return () => {
+      if (viewport) {
+        viewport.setAttribute("content", "width=1200");
+      }
+    };
+  }, []);
+
   return (
     <main className="md:pt-[56px]" style={{ background: "rgb(245 244 223)", minHeight: "100vh" }}>
-    <div className="max-w-5xl mx-auto px-6 py-6">
+    <div style={{ maxWidth: isMobile ? "100%" : "64rem", margin: "0 auto", padding: isMobile ? "16px 14px" : "24px 24px" }}>
       <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }`}</style>
 
       {/* Hero */}
-      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: 32 }}>
-        <h1 style={{ fontSize: 48, fontWeight: 800, color: "#1d1d1f", lineHeight: 1.05, letterSpacing: "-1px", marginBottom: 0 }}>
+      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: isMobile ? 20 : 32 }}>
+        <h1 style={{ fontSize: isMobile ? 28 : 48, fontWeight: 800, color: "#1d1d1f", lineHeight: 1.05, letterSpacing: "-1px", marginBottom: 0 }}>
           Lancez votre marque
         </h1>
-        <h1 style={{ fontSize: 48, fontWeight: 800, color: "rgb(77, 77, 77)", lineHeight: 1.05, letterSpacing: "-1px", marginBottom: 16 }}>
+        <h1 style={{ fontSize: isMobile ? 28 : 48, fontWeight: 800, color: "rgb(77, 77, 77)", lineHeight: 1.05, letterSpacing: "-1px", marginBottom: isMobile ? 10 : 16 }}>
           cosmétique bio.
         </h1>
-        <p style={{ fontSize: 14, color: "#86868b", marginTop: 0, maxWidth: 520, lineHeight: 1.65 }}>
-          Décrivez votre projet, discutez avec notre assistant IA, et obtenez<br />une sélection personnalisée de produits en marque blanche.
+        <p style={{ fontSize: isMobile ? 12 : 14, color: "#86868b", marginTop: 0, maxWidth: 520, lineHeight: 1.65 }}>
+          Décrivez votre projet, discutez avec notre assistant IA, et obtenez une sélection personnalisée de produits en marque blanche.
         </p>
 
       </motion.div>
