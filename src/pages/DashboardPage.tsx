@@ -182,7 +182,7 @@ function ProductPanel({ product, onClose }: { product: WCProduct; onClose: () =>
         exit={{ x: "100%" }}
         transition={{ type: "spring", damping: 30, stiffness: 300 }}
         style={{
-          position: "fixed", top: 0, right: 0, bottom: 0, width: 420,
+          position: "fixed", top: 0, right: 0, bottom: 0, width: 420, maxWidth: "100vw",
           background: "#fff", zIndex: 101, overflowY: "auto",
           display: "flex", flexDirection: "column",
         }}
