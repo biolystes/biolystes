@@ -244,11 +244,11 @@ function BeforeAfterPhones() {
 function TeamDiagnostics({ titleOverride }: { titleOverride?: string }) {
   return (
     <>
-      <TeamRow bg="bg-secondary" title="Diagnostic peau intelligent" kicker="Skin AI"
+      <TeamRow bg="" title="Diagnostic peau intelligent" kicker="Skin AI"
         desc="Un diagnostic personnalisé via selfie qui analyse le type de peau, les imperfections et les besoins spécifiques de chaque client. L'IA recommande ensuite les produits les plus adaptés de votre catalogue, augmentant la conversion et la satisfaction.">
         <SafeVideo src="/videos/diagnostic-peau.mov" className="w-full h-[400px] object-cover rounded-2xl" lazy />
       </TeamRow>
-      <TeamRow bg="bg-secondary" reversed title="Diagnostic cheveux intelligent" kicker="Hair AI"
+      <TeamRow bg="" reversed title="Diagnostic cheveux intelligent" kicker="Hair AI"
         desc="Une analyse capillaire par photo qui identifie la nature du cheveu, la porosité et les problématiques (casse, sécheresse, cuir chevelu sensible). L'IA propose une routine sur-mesure avec vos produits, pour un conseil expert automatisé 24h/24.">
         <div className="flex gap-3.5 flex-wrap">
           <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
@@ -262,7 +262,7 @@ function TeamDiagnostics({ titleOverride }: { titleOverride?: string }) {
 
 function TeamExpertProduit({ titleOverride }: { titleOverride?: string }) {
   return (
-    <TeamRow bg="bg-secondary" reversed title={titleOverride || "Agent conversationnel AI sur chaque fiche produit"} kicker="Équipe Expert Produit AI"
+    <TeamRow bg="" title={titleOverride || "Agent conversationnel AI sur chaque fiche produit"} kicker="Équipe Expert Produit AI"
       desc="Nous déployons une équipe d'agents conversationnels IA dédiée à chaque produit, capable de répondre instantanément aux questions de vos clients concernant la composition, la compatibilité ou les délais. Fonctionnant comme votre meilleur vendeur, parfaitement formé sur chaque détail de vos produits, cette solution vise à maximiser vos ventes et à réduire les abandons de panier. De plus, elle identifie et remonte les préoccupations récurrentes de vos clients, vous permettant ainsi d'optimiser vos stratégies marketing.">
       <div className="flex justify-center">
         <div className="w-[320px] bg-background rounded-[2rem] overflow-hidden border border-border" style={{ background: '#fff' }}>
@@ -299,7 +299,7 @@ function TeamExpertProduit({ titleOverride }: { titleOverride?: string }) {
 
 function TeamPhotographe({ titleOverride }: { titleOverride?: string }) {
   return (
-    <TeamRow bg="bg-secondary" title={titleOverride || "Photos studio en quelques secondes"} kicker="Équipe Photographe AI"
+    <TeamRow bg="" reversed title={titleOverride || "Photos studio en quelques secondes"} kicker="Équipe Photographe AI"
       desc="Nous mettons en place une équipe Photographe AI, qui génère des photos produits niveau studio professionnel, des visuels UGC avec de vrais visages pour vos réseaux sociaux et des contenus marketing. En quelques secondes, sans shooting.">
       <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-1.5" style={{ gridAutoRows: "180px" }}>
         <img className="col-span-2 w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-1.jpg" alt="" />
@@ -315,13 +315,13 @@ function TeamPhotographe({ titleOverride }: { titleOverride?: string }) {
 
 function TeamSEO({ titleOverride }: { titleOverride?: string }) {
   return (
-    <TeamRow bg="bg-secondary" reversed title={titleOverride || "Visible sur Google dès le lancement"} kicker="Équipe Expert SEO AI"
+    <TeamRow bg="" title={titleOverride || "Visible sur Google dès le lancement"} kicker="Équipe Expert SEO AI"
       desc="Nous mettons en place une équipe Expert SEO AI, qui optimise automatiquement vos fiches produits, méta-descriptions, mots-clés et contenus pour que votre boutique soit visible sur Google dès le lancement.">
       <div>
         <div className="flex items-center gap-2.5 mb-4">
           <div className="w-3 h-3 rounded-full bg-[#34d399]" />
-          <span className="text-[10px] font-bold tracking-[2.5px] uppercase text-muted-foreground">Score SEO</span>
-          <span className="ml-auto text-[26px] font-black text-foreground">92<span className="text-[13px] text-[#10b981]">/100</span></span>
+          <span className="text-[10px] font-bold tracking-[2.5px] uppercase text-cream/50">Score SEO</span>
+          <span className="ml-auto text-[26px] font-black text-cream">92<span className="text-[13px] text-[#10b981]">/100</span></span>
         </div>
         {[
           { label: "Meta Title", val: "Crème Anti-Âge Bio — Soin Visage Naturel | Kaniwa" },
@@ -330,13 +330,13 @@ function TeamSEO({ titleOverride }: { titleOverride?: string }) {
           { label: "Mots-clés", val: "crème anti-âge bio, soin visage naturel, cosmétique végane" },
           { label: "Alt images", val: "3/3 optimisées" },
         ].map(r => (
-          <div key={r.label} className="flex items-start gap-2.5 p-3 rounded-xl mb-1.5 border border-foreground">
+          <div key={r.label} className="flex items-start gap-2.5 p-3 rounded-xl mb-1.5 border border-cream/20">
             <div className="w-[18px] h-[18px] rounded-full bg-[#d1fae5] flex items-center justify-center shrink-0 mt-0.5">
               <Check className="w-[10px] h-[10px] text-[#065f46]" strokeWidth={3} />
             </div>
             <div>
-              <p className="text-[11px] font-bold text-foreground mb-0.5">{r.label}</p>
-              <p className="text-xs text-foreground leading-snug">{r.val}</p>
+              <p className="text-[11px] font-bold text-cream mb-0.5">{r.label}</p>
+              <p className="text-xs text-cream/70 leading-snug">{r.val}</p>
             </div>
           </div>
         ))}
@@ -358,17 +358,17 @@ function TeamMarketing({ titleOverride }: { titleOverride?: string }) {
   ];
 
   return (
-    <TeamRow bg="bg-secondary" title={titleOverride || "Votre directeur marketing 24h/24"} kicker="Équipe Marketing AI"
+    <TeamRow bg="" reversed title={titleOverride || "Votre directeur marketing 24h/24"} kicker="Équipe Marketing AI"
       desc="Nous mettons en place une équipe Marketing AI, qui crée des plans d'action personnalisés, des campagnes email et des stratégies de conversion. Un directeur marketing qui travaille pour vous 24h/24.">
       <div className="w-full max-w-2xl mx-auto space-y-3">
         {/* Header */}
         <div className="flex items-center justify-between px-1 mb-4">
           <div className="flex items-center gap-2.5">
             <div className="w-3 h-3 rounded-full bg-[#6EE7B7]" />
-            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground">Plan d'action</span>
+            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-cream/50">Plan d'action</span>
           </div>
           <div className="flex items-baseline gap-1">
-            <span className="text-[26px] font-extrabold tracking-tighter text-foreground">40</span>
+            <span className="text-[26px] font-extrabold tracking-tighter text-cream">40</span>
             <span className="text-[13px] font-bold text-[#10b981]">/100</span>
           </div>
         </div>
@@ -376,17 +376,17 @@ function TeamMarketing({ titleOverride }: { titleOverride?: string }) {
         {/* Task cards */}
         <div className="space-y-2">
           {tasks.map(t => (
-            <div key={t.label} className="p-4 rounded-2xl flex items-start gap-3 border border-foreground">
+            <div key={t.label} className="p-4 rounded-2xl flex items-start gap-3 border border-cream/20">
               <div className={`w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${
-                t.status === "done" ? "bg-white" : t.status === "now" ? "bg-[#ebf5ff]" : "bg-muted border border-border"
+                t.status === "done" ? "bg-cream" : t.status === "now" ? "bg-[#ebf5ff]" : "bg-cream/10 border border-cream/20"
               }`}>
                 {t.status === "done" && <Check className="w-3.5 h-3.5 text-[#000]" strokeWidth={3} />}
                 {t.status === "now" && <Play className="w-3.5 h-3.5 text-[#3b82f6] fill-[#3b82f6]" />}
-                {t.status === "wait" && <div className="w-1.5 h-1.5 rounded-full bg-muted-foreground/30" />}
+                {t.status === "wait" && <div className="w-1.5 h-1.5 rounded-full bg-cream/30" />}
               </div>
               <div className="space-y-0.5">
-                <p className="text-[12px] font-bold text-foreground">{t.label} — {t.title}</p>
-                <p className="text-[13px] font-medium text-foreground leading-relaxed">{t.value}</p>
+                <p className="text-[12px] font-bold text-cream">{t.label} — {t.title}</p>
+                <p className="text-[13px] font-medium text-cream/60 leading-relaxed">{t.value}</p>
               </div>
             </div>
           ))}
@@ -404,7 +404,7 @@ function TeamMarketing({ titleOverride }: { titleOverride?: string }) {
 
 function TeamContenu({ titleOverride }: { titleOverride?: string }) {
   return (
-    <TeamRow bg="bg-secondary" reversed title={titleOverride || "Du contenu pro en quelques secondes"} kicker="Équipe Créateur de contenu AI"
+    <TeamRow bg="" title={titleOverride || "Du contenu pro en quelques secondes"} kicker="Équipe Créateur de contenu AI"
       desc="Nous mettons en place une équipe Créateur de contenu AI, qui produit des contenus pour vos réseaux sociaux, articles de blog et descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
       <div className="flex gap-3.5 flex-wrap">
         <div className="flex-1 min-w-[200px] rounded-2xl overflow-hidden relative">
@@ -423,7 +423,7 @@ function TeamAnalytics({ titleOverride }: { titleOverride?: string }) {
   const days = ["L", "M", "M", "J", "V", "S", "D"];
 
   return (
-    <TeamRow bg="bg-secondary" title={titleOverride || "Des décisions basées sur la réalité"} kicker="Équipe Analytics AI"
+    <TeamRow bg="" reversed title={titleOverride || "Des décisions basées sur la réalité"} kicker="Équipe Analytics AI"
       desc="En analysant chaque conversation entre vos agents IA et vos clients, nous identifions les questions récurrentes, les objections, les points de blocage et les produits les plus demandés. Des insights concrets tirés de vrais échanges, pas de suppositions.">
       <div>
         {/* KPIs */}
@@ -433,9 +433,9 @@ function TeamAnalytics({ titleOverride }: { titleOverride?: string }) {
             { label: "Top Produit", val: "Crème Anti-Âge", trend: "34 ventes" },
             { label: "Taux Conversion", val: "4.2%", trend: "+0.8pt" },
           ].map(k => (
-            <div key={k.label} className="bg-background rounded-xl p-3.5 text-center">
-              <p className="text-[10px] text-muted-foreground font-semibold mb-1">{k.label}</p>
-              <p className="text-[17px] font-black text-foreground">{k.val}</p>
+            <div key={k.label} className="bg-cream/5 border border-cream/10 rounded-xl p-3.5 text-center">
+              <p className="text-[10px] text-cream/50 font-semibold mb-1">{k.label}</p>
+              <p className="text-[17px] font-black text-cream">{k.val}</p>
               <p className="text-[10px] text-[#10b981] font-semibold mt-0.5">{k.trend}</p>
             </div>
           ))}
@@ -445,8 +445,8 @@ function TeamAnalytics({ titleOverride }: { titleOverride?: string }) {
         <div className="flex items-end gap-2 h-[100px] px-1">
           {bars.map((h, i) => (
             <div key={i} className="flex-1 flex flex-col items-center gap-1">
-              <div className={`w-full rounded-md ${i === bars.length - 1 ? "bg-foreground" : "bg-muted"}`} style={{ height: `${h}px` }} />
-              <span className="text-[10px] text-muted-foreground font-semibold">{days[i]}</span>
+              <div className={`w-full rounded-md ${i === bars.length - 1 ? "bg-cream" : "bg-cream/20"}`} style={{ height: `${h}px` }} />
+              <span className="text-[10px] text-cream/50 font-semibold">{days[i]}</span>
             </div>
           ))}
         </div>
@@ -516,14 +516,14 @@ function TeamRow({ bg, reversed, title, kicker, desc, children }: {
 }) {
   return (
     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={fadeUp} custom={0}
-      className={`${bg} py-14 md:py-20`}>
+      className="py-14 md:py-20">
       <div className={`max-w-5xl mx-auto px-6 flex flex-col ${reversed ? "md:flex-row-reverse" : "md:flex-row"} items-center gap-12`}>
         <div className="flex-1 min-w-[260px]">
-          <span className="inline-block bg-foreground text-primary-foreground text-[10px] font-bold tracking-[2px] uppercase px-4 py-1.5 rounded-full mb-5">
+          <span className="inline-block bg-cream text-foreground text-[10px] font-bold tracking-[2px] uppercase px-4 py-1.5 rounded-full mb-5">
             {kicker}
           </span>
-          <h3 className="text-[30px] font-light leading-[1.25] text-foreground mb-3.5">{title}</h3>
-          <p className="text-[15px] text-muted-foreground leading-[1.7]">{desc}</p>
+          <h3 className="text-[30px] font-light leading-[1.25] text-cream mb-3.5">{title}</h3>
+          <p className="text-[15px] text-cream/60 leading-[1.7]">{desc}</p>
         </div>
         <div className="flex-[1.5] min-w-[300px] w-full">
           {children}
