@@ -230,7 +230,7 @@ function CertBadge({ label }: { label: string }) {
 }
 
 // ─── Product Detail Panel ─────────────────────────────────
-function ProductPanel({ product, onClose, overrideImage }: { product: WCProduct; onClose: () => void; overrideImage?: string }) {
+function ProductPanel({ product, onClose, overrideImage, isMobile = false }: { product: WCProduct; onClose: () => void; overrideImage?: string; isMobile?: boolean }) {
   const img = overrideImage || product.images?.[0]?.src || getCdnFallbackImage(product.name);
   const price = product.price ? parseFloat(product.price) : null;
   const desc = product._enriched?.description_full || stripHtml(product.short_description || product.description);
@@ -250,9 +250,17 @@ function ProductPanel({ product, onClose, overrideImage }: { product: WCProduct;
       <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}
         style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.18)", zIndex: 100 }} />
       <motion.div
-        initial={{ x: "100%" }} animate={{ x: 0 }} exit={{ x: "100%" }}
+        initial={isMobile ? { y: "100%" } : { x: "100%" }}
+        animate={isMobile ? { y: 0 } : { x: 0 }}
+        exit={isMobile ? { y: "100%" } : { x: "100%" }}
         transition={{ type: "spring", damping: 30, stiffness: 300 }}
-        style={{ position: "fixed", top: 0, right: 0, bottom: 0, width: 420, background: C.bgLight, zIndex: 101, overflowY: "auto", display: "flex", flexDirection: "column" }}
+        style={{
+          position: "fixed",
+          ...(isMobile
+            ? { left: 0, right: 0, bottom: 0, top: "8vh", borderRadius: "20px 20px 0 0" }
+            : { top: 0, right: 0, bottom: 0, width: 420 }),
+          background: C.bgLight, zIndex: 101, overflowY: "auto", display: "flex", flexDirection: "column",
+        }}
       >
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px", borderBottom: `1px solid ${C.bg}` }}>
           <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: C.muted }}>Fiche produit</span>
