@@ -24,6 +24,7 @@ const publicNavItems = [
 
 const externalNavItems = [
   { href: "https://biolystes.pro/rdv", label: "Tarifs" },
+  { href: "https://biolystes.pro/simulateur", label: "Simulateur de coûts" },
 ];
 
 const RDV_URL = "https://biolystes.pro/rdv";
