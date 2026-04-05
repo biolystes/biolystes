@@ -744,7 +744,7 @@ export default function AIChat({
                   padding: 16, borderRadius: 16, background: "rgb(237, 236, 216)",
                   textAlign: "left", cursor: "pointer", minHeight: 96, transition: "background .15s",
                   border: "none",
-                  ...(isMobile ? { minWidth: "55%", flexShrink: 0, scrollSnapAlign: "start" } : {}),
+                  ...(isMobile ? { minWidth: "55%", maxWidth: "55%", flexShrink: 0, scrollSnapAlign: "start" } : {}),
                 }}
                 onMouseEnter={e => (e.currentTarget.style.background = "rgb(227, 226, 206)")}
                 onMouseLeave={e => (e.currentTarget.style.background = "rgb(237, 236, 216)")}
