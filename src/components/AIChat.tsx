@@ -727,7 +727,7 @@ export default function AIChat({
         }
       `}</style>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 0, overflow: "hidden", width: "100%", maxWidth: 640, margin: "0 auto" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 0, overflow: "hidden", width: "100%" }}>
 
         {/* ── Empty state: prompt cards ─────────────────────── */}
         {isEmpty && (
