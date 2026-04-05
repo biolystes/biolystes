@@ -622,7 +622,7 @@ export default function DashboardPage() {
         <h1 style={{ fontSize: isMobile ? 28 : 48, fontWeight: 800, color: "rgb(77, 77, 77)", lineHeight: 1.05, letterSpacing: "-1px", marginBottom: isMobile ? 10 : 16 }}>
           cosmétique bio.
         </h1>
-        <p style={{ fontSize: isMobile ? 12 : 14, color: "#86868b", marginTop: 0, maxWidth: 520, lineHeight: 1.65 }}>
+        <p style={{ fontSize: isMobile ? 12 : 14, color: "#1d1d1f", marginTop: 0, maxWidth: 520, lineHeight: 1.65 }}>
           Décrivez votre projet, discutez avec notre assistant IA, et obtenez une sélection personnalisée de produits en marque blanche.
         </p>
 
