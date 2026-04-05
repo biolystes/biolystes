@@ -326,10 +326,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
           <button onClick={() => setMobileOpen(!mobileOpen)} style={{ background: "transparent", border: "none", padding: 4, cursor: "pointer" }}>
             {mobileOpen ? <X size={22} strokeWidth={2.5} color="#1d1d1f" /> : (
-              <svg width="22" height="18" viewBox="0 0 22 18" fill="none">
-                <line x1="1" y1="2" x2="21" y2="2" stroke="#1d1d1f" strokeWidth="2.5" strokeLinecap="round" />
-                <line x1="1" y1="9" x2="18" y2="9" stroke="#1d1d1f" strokeWidth="2.5" strokeLinecap="round" />
-                <line x1="1" y1="16" x2="15" y2="16" stroke="#1d1d1f" strokeWidth="2.5" strokeLinecap="round" />
+              <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
+                <line x1="1" y1="1.5" x2="21" y2="1.5" stroke="#1d1d1f" strokeWidth="1.5" strokeLinecap="round" />
+                <line x1="1" y1="8" x2="18" y2="8" stroke="#1d1d1f" strokeWidth="1.5" strokeLinecap="round" />
+                <line x1="1" y1="14.5" x2="15" y2="14.5" stroke="#1d1d1f" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
             )}
           </button>
