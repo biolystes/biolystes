@@ -610,7 +610,7 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <main className="md:pt-[56px]" style={{ background: "rgb(245 244 223)", minHeight: "100vh" }}>
+    <main style={{ background: "rgb(245 244 223)", minHeight: "100vh", paddingTop: isMobile ? 16 : 56 }}>
     <div style={{ maxWidth: isMobile ? "100%" : "64rem", margin: "0 auto", padding: isMobile ? "16px 14px" : "24px 24px" }}>
       <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }`}</style>
 
