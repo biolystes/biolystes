@@ -371,27 +371,31 @@ export default function PublicAgentPage() {
             </div>
 
             {/* Input */}
-            <div className="flex items-center gap-2 bg-muted/50 rounded-full px-2 py-1.5 border border-border">
-              <button
-                type="button"
-                className="w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:bg-background transition-colors flex-shrink-0"
-              >
-                <span className="text-xl leading-none">+</span>
-              </button>
-              <input
-                placeholder="Attribuez une tâche ou posez une question"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
-                className="flex-1 bg-transparent border-none outline-none text-sm text-foreground placeholder:text-muted-foreground"
-              />
-              <button
-                type="button"
-                onClick={handleSend}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:bg-background transition-colors flex-shrink-0 border border-border"
-              >
-                <ArrowUp className="h-4 w-4" />
-              </button>
+            <div className="space-y-1">
+              <div className="bg-muted/50 rounded-2xl border border-border px-4 py-3">
+                <input
+                  placeholder="Attribuez une tâche ou posez une question"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && handleSend()}
+                  className="w-full bg-transparent border-none outline-none text-sm text-foreground placeholder:text-muted-foreground"
+                />
+              </div>
+              <div className="flex items-center justify-between px-1">
+                <button
+                  type="button"
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:bg-muted/50 transition-colors"
+                >
+                  <span className="text-xl leading-none">+</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSend}
+                  className="w-8 h-8 rounded-full flex items-center justify-center text-muted-foreground hover:bg-muted/50 transition-colors border border-border"
+                >
+                  <ArrowUp className="h-4 w-4" />
+                </button>
+              </div>
             </div>
           </motion.div>
         )}
