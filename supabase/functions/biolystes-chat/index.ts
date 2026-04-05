@@ -147,7 +147,7 @@ serve(async (req) => {
       }
       if (response.status === 402) {
         return new Response(
-          JSON.stringify({ error: "Crédit IA épuisé, veuillez recharger votre compte." }),
+          JSON.stringify({ error: "Service temporairement en maintenance, veuillez réessayer plus tard." }),
           { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
