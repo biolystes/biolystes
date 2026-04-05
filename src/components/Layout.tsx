@@ -21,6 +21,7 @@ const pourquoiItems = [
 const publicNavItems: { path: string; label: string }[] = [];
 
 const externalNavItems = [
+  { href: "https://biolystes.pro/infos", label: "Ressources" },
   { href: "https://biolystes.pro/rdv", label: "Tarifs" },
   { href: "https://biolystes.pro/simulateur", label: "Simulateur de coûts" },
 ];
