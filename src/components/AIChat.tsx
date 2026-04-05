@@ -832,7 +832,7 @@ export default function AIChat({
         {/* ── Input bar ─────────────────────────────────────── */}
         <div style={{
           display: "flex", flexDirection: "column", gap: 12,
-          borderRadius: 22, background: "#f4f4f4",
+          borderRadius: 22, background: "#fff",
           padding: "16px 16px 12px",
         }}>
           <input
