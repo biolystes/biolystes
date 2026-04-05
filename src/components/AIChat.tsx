@@ -394,11 +394,11 @@ function TypingIndicator() {
 }
 
 // ─── Prompt suggestions ───────────────────────────────────
-const PROMPTS = [
-  { text: "Comment lancer sa propre marque bio sans acheter de stock ?", icon: "📦" },
-  { text: "La création d'un e-shop et les photos produits sont inclus ?", icon: "✨" },
-  { text: "Quels produits pour une gamme peau sèche et mature ?", icon: "🔬" },
-  { text: "Y a-t-il des frais supplémentaires ou un engagement minimum ?", icon: "→" },
+const PROMPTS: { text: string; icon: ReactNode }[] = [
+  { text: "Comment lancer sa propre marque bio sans acheter de stock ?", icon: <Package size={18} strokeWidth={1.5} /> },
+  { text: "La création d'un e-shop et les photos produits sont inclus ?", icon: <Sparkles size={18} strokeWidth={1.5} /> },
+  { text: "Quels produits pour une gamme peau sèche et mature ?", icon: <Microscope size={18} strokeWidth={1.5} /> },
+  { text: "Y a-t-il des frais supplémentaires ou un engagement minimum ?", icon: <ArrowRight size={18} strokeWidth={1.5} /> },
 ];
 
 // ─── Product card block ───────────────────────────────────
