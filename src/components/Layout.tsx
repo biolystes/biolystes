@@ -18,9 +18,7 @@ const pourquoiItems = [
   { path: "/etudes", label: "Pourquoi 92 % échouent ?" },
 ];
 
-const publicNavItems = [
-  { path: "/blog", label: "Actus" },
-];
+const publicNavItems: { path: string; label: string }[] = [];
 
 const externalNavItems = [
   { href: "https://biolystes.pro/rdv", label: "Tarifs" },
