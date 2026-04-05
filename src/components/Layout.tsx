@@ -317,13 +317,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="flex-1">
         {/* Header mobile */}
         <header className="md:hidden bg-card px-4 py-3 flex items-center justify-between sticky top-0 z-20">
-          <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <img
               src={lystesLogo}
               alt="Lystes"
               className="h-10 w-10 animate-tourne object-contain"
             />
-          </div>
+          </Link>
           <button onClick={() => setMobileOpen(!mobileOpen)} style={{ background: "transparent", border: "none", padding: 4, cursor: "pointer" }}>
             {mobileOpen ? <X size={22} strokeWidth={2.5} color="#1d1d1f" /> : (
               <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
