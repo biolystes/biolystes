@@ -324,9 +324,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               className="h-10 w-10 animate-tourne object-contain"
             />
           </div>
-          <Button variant="ghost" size="icon" onClick={() => setMobileOpen(!mobileOpen)}>
-            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-          </Button>
+          <button onClick={() => setMobileOpen(!mobileOpen)} style={{ background: "transparent", border: "none", padding: 4, cursor: "pointer" }}>
+            {mobileOpen ? <X size={22} strokeWidth={2.5} color="#1d1d1f" /> : (
+              <svg width="22" height="18" viewBox="0 0 22 18" fill="none">
+                <line x1="1" y1="2" x2="21" y2="2" stroke="#1d1d1f" strokeWidth="2.5" strokeLinecap="round" />
+                <line x1="1" y1="9" x2="18" y2="9" stroke="#1d1d1f" strokeWidth="2.5" strokeLinecap="round" />
+                <line x1="1" y1="16" x2="15" y2="16" stroke="#1d1d1f" strokeWidth="2.5" strokeLinecap="round" />
+              </svg>
+            )}
+          </button>
         </header>
 
         <main className="md:pt-[56px]" style={{ background: "#f5f4df", minHeight: "100vh", maxWidth: 1200, margin: "0 auto" }}>
