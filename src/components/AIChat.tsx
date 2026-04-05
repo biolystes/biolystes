@@ -727,7 +727,7 @@ export default function AIChat({
         }
       `}</style>
 
-      <div style={{ display: "flex", flexDirection: "column", gap: 0, overflow: "hidden", width: "100%" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: 0, overflow: "hidden", width: "100%", maxWidth: 640, margin: "0 auto" }}>
 
         {/* ── Empty state: prompt cards ─────────────────────── */}
         {isEmpty && (
@@ -750,7 +750,7 @@ export default function AIChat({
                 onMouseLeave={e => (e.currentTarget.style.background = "rgb(237, 236, 216)")}
               >
                 <p style={{ fontSize: 12, fontWeight: 500, color: "#424245", lineHeight: 1.45 }}>{card.text}</p>
-                <div style={{ alignSelf: "flex-end", marginTop: 8, color: "#c7c7cc" }}>{card.icon}</div>
+                <div style={{ alignSelf: "flex-end", marginTop: 8, color: "#1d1d1f" }}>{card.icon}</div>
               </button>
             ))}
           </div>
