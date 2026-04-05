@@ -2,7 +2,8 @@ import React, { useState, useRef, useEffect, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Send, Minimize2, Maximize2,
-  Bot, User, AlertCircle
+  Bot, User, AlertCircle,
+  Package, Sparkles, Microscope, ArrowRight
 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
