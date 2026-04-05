@@ -731,7 +731,10 @@ export default function AIChat({
 
         {/* ── Empty state: prompt cards ─────────────────────── */}
         {isEmpty && (
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: 10, marginBottom: 16 }}>
+          <div style={isMobile
+            ? { display: "flex", gap: 10, marginBottom: 16, overflowX: "auto", scrollSnapType: "x mandatory", paddingBottom: 4, scrollbarWidth: "none" }
+            : { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, marginBottom: 16 }
+          }>
             {PROMPTS.map((card, i) => (
               <button
                 key={i}
@@ -741,12 +744,13 @@ export default function AIChat({
                   padding: 16, borderRadius: 16, background: "rgb(237, 236, 216)",
                   textAlign: "left", cursor: "pointer", minHeight: 96, transition: "background .15s",
                   border: "none",
+                  ...(isMobile ? { minWidth: "70%", flexShrink: 0, scrollSnapAlign: "start" } : {}),
                 }}
                 onMouseEnter={e => (e.currentTarget.style.background = "rgb(227, 226, 206)")}
                 onMouseLeave={e => (e.currentTarget.style.background = "rgb(237, 236, 216)")}
               >
                 <p style={{ fontSize: 12, fontWeight: 500, color: "#424245", lineHeight: 1.45 }}>{card.text}</p>
-                <div style={{ alignSelf: "flex-end", marginTop: 8, color: "#c7c7cc", fontSize: 16 }}>{card.icon}</div>
+                <div style={{ alignSelf: "flex-end", marginTop: 8, color: "#c7c7cc" }}>{card.icon}</div>
               </button>
             ))}
           </div>
