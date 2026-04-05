@@ -831,9 +831,9 @@ export default function AIChat({
 
         {/* ── Input bar ─────────────────────────────────────── */}
         <div style={{
-          display: "flex", alignItems: "center", gap: 10,
-          borderRadius: 16, background: "#ffffff",
-          padding: "10px 16px",
+          display: "flex", flexDirection: "column", gap: 12,
+          borderRadius: 22, background: "#f4f4f4",
+          padding: "16px 16px 12px",
         }}>
           <input
             value={input}
@@ -843,29 +843,39 @@ export default function AIChat({
             disabled={typing}
             style={{ flex: 1, border: "none", background: "transparent", fontSize: 14, color: "#1d1d1f", outline: "none" }}
           />
-          <span style={{ fontSize: 10, color: "#d1d1d6" }}>{input.length}/1000</span>
-          {!isEmpty && (
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
             <button
-              onClick={() => setExpanded(e => !e)}
-              style={{ width: 28, height: 28, borderRadius: 8, border: "none", background: "#ebebed", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
-              title={expanded ? "Réduire" : "Agrandir"}
+              type="button"
+              style={{ width: 28, height: 28, borderRadius: 14, border: "none", background: "transparent", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "#86868b", fontSize: 18 }}
             >
-              {expanded ? <Minimize2 size={12} color="#86868b" /> : <Maximize2 size={12} color="#86868b" />}
+              +
             </button>
-          )}
-          <button
-            onClick={() => sendMessage(input)}
-            disabled={typing || !input.trim()}
-            style={{
-              width: 30, height: 30, borderRadius: 15, border: "none",
-              background: input.trim() && !typing ? "#1d1d1f" : "#e5e5e7",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              cursor: input.trim() && !typing ? "pointer" : "default", transition: "background .15s",
-              color: input.trim() && !typing ? "#fff" : "#86868b",
-            }}
-          >
-            <Send size={12} />
-          </button>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <span style={{ fontSize: 10, color: "#d1d1d6" }}>{input.length}/1000</span>
+              {!isEmpty && (
+                <button
+                  onClick={() => setExpanded(e => !e)}
+                  style={{ width: 28, height: 28, borderRadius: 8, border: "none", background: "#ebebed", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
+                  title={expanded ? "Réduire" : "Agrandir"}
+                >
+                  {expanded ? <Minimize2 size={12} color="#86868b" /> : <Maximize2 size={12} color="#86868b" />}
+                </button>
+              )}
+              <button
+                onClick={() => sendMessage(input)}
+                disabled={typing || !input.trim()}
+                style={{
+                  width: 30, height: 30, borderRadius: 15, border: "1px solid #d1d1d6",
+                  background: input.trim() && !typing ? "#1d1d1f" : "transparent",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  cursor: input.trim() && !typing ? "pointer" : "default", transition: "background .15s",
+                  color: input.trim() && !typing ? "#fff" : "#86868b",
+                }}
+              >
+                <Send size={12} />
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </>
