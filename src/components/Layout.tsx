@@ -321,9 +321,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <img
               src={lystesLogo}
               alt="Lystes"
-              className="h-7 w-7 object-contain"
+              className="h-10 w-10 animate-tourne object-contain"
             />
-            <span className="font-bold text-sm" style={{ color: "#1d1d1f" }}>Biolystes</span>
           </div>
           <Button variant="ghost" size="icon" onClick={() => setMobileOpen(!mobileOpen)}>
             {mobileOpen ? <X size={18} /> : <Menu size={18} />}
