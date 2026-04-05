@@ -19,7 +19,7 @@ const pourquoiItems = [
 ];
 
 const publicNavItems = [
-  { path: "/blog", label: "Ressources" },
+  { path: "/blog", label: "Actus" },
 ];
 
 const externalNavItems = [
