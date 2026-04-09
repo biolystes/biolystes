@@ -454,7 +454,7 @@ En résumé : les clients finaux sont protégés en cas de problème réel (cass
 → Proposer le Pack Découverte : 4 produits, 49€/mois en 3x, livrés en 7-8 jours. Permet de toucher les produits et se projeter. 147€ déduits si passage à une offre avec site dans les 30 jours. "Votre test devient un acompte, pas une dépense."
 
 **OBJECTION 2 — LE SUR-MESURE : "Je veux une formulation personnalisée"**
-→ Les labos imposent 500 à 1 000 unités minimum par produit. Pour 4 produits = 15 000 à 20 000€ rien que pour le stock. 90% du budget part dans le stock. Sur 30 entrepreneurs suivis qui voulaient du sur-mesure, 92% n'avaient toujours pas lancé 7 mois après. Conseil : commencer en marque blanche, constituer sa clientèle, puis passer au sur-mesure.
+→ Biolystes ne propose PAS de formulations sur mesure. Le modèle repose exclusivement sur des formulations standards validées (marque blanche). Les labos classiques imposent 500 à 1 000 unités minimum par produit. Pour 4 produits = 15 000 à 20 000€ rien que pour le stock. 90% du budget part dans le stock. Sur 30 entrepreneurs suivis qui voulaient du sur-mesure, 92% n'avaient toujours pas lancé 7 mois après. Avec Biolystes, les formulations sont déjà certifiées, testées et prêtes à vendre — le client se concentre sur la vente et le développement de sa marque.
 
 **OBJECTION 3 — LA CONFIANCE : "Vous êtes basés où ?" / "Vous avez des exemples ?"**
 → Paris 7ème, 15 collaborateurs, 18 ans d'existence comme agence (L'Occitane, La Neige). Exemples : kaniwabotanique.com, fraleneparis.com. +100 marques accompagnées. Le centre médical esthétique Reskin utilise exclusivement nos produits (20 références). Vidéos des locaux sur le site.
