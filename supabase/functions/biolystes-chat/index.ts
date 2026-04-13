@@ -206,6 +206,9 @@ serve(async (req) => {
     // Build enriched system prompt
     const catalog = await getEnrichedCatalog();
     const fullSystemPrompt = SYSTEM_PROMPT + catalog;
+    if (/\blevre\b|\blevres\b|\blip\b/.test(normalizeText(latestUserMessage))) {
+      return createSseResponse(buildCatalogFallback(latestUserMessage));
+    }
     const guardrailPrompt = /\blevre\b|\blevres\b|\blip\b/.test(normalizeText(latestUserMessage))
       ? "Alerte catalogue : le catalogue actuel ne contient pas de soin des lèvres dédié. Tu dois le dire clairement et ne citer aucun produit pour les lèvres."
       : "Alerte catalogue : si la demande ne correspond pas clairement à un produit listé dans le catalogue actuel, dis que tu ne vois pas de référence dédiée et n'invente rien. Dans ce cas, n'affiche aucun bloc produit.";
