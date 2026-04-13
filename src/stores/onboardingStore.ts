@@ -36,7 +36,7 @@ export interface ProductItem {
   price?: number;
 }
 
-export type PackType = "decouverte" | "agence" | "ia";
+export type PackType = "decouverte" | "solo" | "duo" | "standard" | "ia";
 
 interface PackInfo {
   type: PackType;
@@ -48,8 +48,10 @@ interface PackInfo {
 
 export const PACKS: Record<PackType, PackInfo> = {
   decouverte: { type: "decouverte", setup_price: 147, monthly_price: 0, monthly_name: "Aucun", label: "Découverte" },
-  agence: { type: "agence", setup_price: 1499, monthly_price: 99, monthly_name: "PRO", label: "Agence" },
-  ia: { type: "ia", setup_price: 2999, monthly_price: 149, monthly_name: "PRO IA", label: "IA" },
+  solo: { type: "solo", setup_price: 499, monthly_price: 49, monthly_name: "Solo", label: "Solo" },
+  duo: { type: "duo", setup_price: 999, monthly_price: 79, monthly_name: "Duo", label: "Duo" },
+  standard: { type: "standard", setup_price: 1499, monthly_price: 99, monthly_name: "Standard", label: "Standard" },
+  ia: { type: "ia", setup_price: 2999, monthly_price: 149, monthly_name: "IA", label: "IA" },
 };
 
 interface OnboardingState {
