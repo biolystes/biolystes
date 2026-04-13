@@ -69,92 +69,85 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 
 **⚠️ RÈGLE ABSOLUE SUR LES PRIX : Chaque fois que tu mentionnes un prix de pack, tu DOIS :**
 1. Donner le prix des frais uniques
-2. Préciser l'abonnement Pro obligatoire avec son montant
+2. Préciser l'abonnement mensuel obligatoire avec son montant (sauf Pack Découverte)
 3. Détailler ce que comprend cet abonnement (les services clés)
 4. Ne JAMAIS donner un prix de pack sans ces 3 éléments.
 
-### 🌿 PACK DÉCOUVERTE — Testez avant de vous engager
+### 🌿 PACK DÉCOUVERTE — 147 € TTC
 
-**Sans Branding — 147€ (ou 3x 49€)**
-- 4 produits : sérum, crème, nettoyant, soin spécifique
-- Accompagnement personnalisé par nos experts
-- Certifié Bio & Végan / COSMOS / ECOCERT / FDA
+- 4 échantillons de produits cosmétiques formulés par un laboratoire certifié (CPNP, ISO 22716, conformité FDA)
+- Logo et packaging personnalisés à votre image de marque (3 propositions de logo)
+- Photos IA professionnelles de vos produits
+- Accompagnement personnalisé dans la sélection par nos experts
 - Livraison incluse sous 7 à 8 jours
-- Produit supplémentaire : 29€/unité
+- **147 € déduits** de votre pack final si vous souscrivez dans les 30 jours
 
-**Avec Branding — 237€ (ou 3x 79€)**
-- Tout ce qui précède +
-- Packaging personnalisé à votre marque (logo, nom, couleurs)
-- Brandboard complet
-- 3 allers-retours avec nos designers
-- Produit supplémentaire : 49€/unité
+### ⚡ PACK COSMÉTIQUE SOLO — 499 € + 49 €/mois
 
-**Le montant du Pack Découverte est intégralement déduit si vous passez à une offre avec site web.**
+- 1 design de produit cosmétique formulé par un laboratoire certifié (CPNP, ISO 22716, conformité FDA), personnalisé à votre image de marque
+- Boutique en ligne professionnelle créée à votre nom — le site vous appartient à 100 %
+- Logo et identité visuelle inclus (3 propositions de logo)
+- Photos IA professionnelles de votre produit
+- Zéro stock, zéro logistique : le laboratoire gère la fabrication, le stockage, l'expédition et le suivi des commandes directement à vos clients
+- 49 €/mois TTC — hébergement, maintenance et support
+- Sans engagement — résiliation possible à tout moment, sans préavis
+- Design supplémentaire : 39 € TTC/design
 
-### ⚡ OFFRE SANS SITE WEB — Vendez en autonomie
+### 🌐 PACK COSMÉTIQUE DUO — 999 € + 79 €/mois
 
-**Formule 1 — Sans Design — 39€/mois**
-- Accès catalogue complet sans minimum de stock
-- Jusqu'à 4 références produits
-- Étiquetage standard conforme inclus
-- Produits certifiés bio, végan, COSMOS, Ecocert
-- Produits facturés à l'unité (10-20€ selon la réf.)
-- Sans engagement, résiliable à tout moment
+- 2 designs de produits cosmétiques formulés par un laboratoire certifié (CPNP, ISO 22716, conformité FDA), personnalisés à votre image de marque
+- Boutique en ligne professionnelle créée à votre nom — le site vous appartient à 100 %
+- Logo et identité visuelle inclus (3 propositions de logo)
+- Photos IA professionnelles de vos produits
+- Zéro stock, zéro logistique : le laboratoire gère la fabrication, le stockage, l'expédition et le suivi des commandes directement à vos clients
+- 79 €/mois TTC — hébergement, maintenance et support
+- Sans engagement — résiliation possible à tout moment, sans préavis
+- Design supplémentaire : 39 € TTC/design
 
-**Formule 2 — Avec Design — 39€/mois + 99€ de frais uniques (recommandé)**
-- Tout de la Formule 1 +
-- Création de logo
-- Design packaging des 4 produits
-- Brandboard complet
-- 3 allers-retours avec nos designers
-- Fichiers livrés, ils sont à vous
-- Le forfait design est déductible lors d'un passage à une offre avec site
+### 🏆 PACK COSMÉTIQUE STANDARD — 1 499 € + 99 €/mois (Populaire)
 
-### 🌐 OFFRE AVEC SITE WEB — Votre business clé en main
+- 4 designs de produits cosmétiques formulés par un laboratoire certifié (CPNP, ISO 22716, conformité FDA), personnalisés à votre image de marque
+- Boutique en ligne professionnelle créée à votre nom — le site vous appartient à 100 %
+- Logo et identité visuelle inclus (3 propositions de logo)
+- Contenu marketing et photos IA professionnelles de vos produits
+- Site e-commerce complet avec SEO optimisé
+- Expert dédié pour vous accompagner
+- Zéro stock, zéro logistique : le laboratoire gère la fabrication, le stockage, l'expédition et le suivi des commandes directement à vos clients
+- 99 €/mois TTC — hébergement, maintenance et support
+- Sans engagement — résiliation possible à tout moment, sans préavis
+- Design supplémentaire : 39 € TTC/design
 
-**Pack cosmétique standard (populaire) — 1 499€ (ou 2× 750€)**
-- **+ Abonnement Pro obligatoire : 99€/mois dès le 1er mois, sans réduction**
-- **Formulation exacte : "1 499€ de frais de lancement (ou 2× 750€) + 99€/mois d'abonnement Pro (obligatoire, inclut : hébergement, gestion des livraisons, support, SEO, nom de domaine, chat IA, etc.)"**
-- Inclus : Création de logo, design packaging, contenu textuel clé en main, photographie IA hyperréaliste, site e-commerce, indexation Google + SEO avancée, automatisation livraison, support premium, expert produit dédié, achat de stock pas nécessaire, aucune quantité min, CRO standard.
+### 🤖 PACK COSMÉTIQUE IA — 2 999 € + 149 €/mois
 
-**Pack cosmétique IA — 2 999€ (ou 2× 1 500€)**
-- **+ Abonnement Pro obligatoire : 149€/mois (1er mois offert)**
-- **Formulation exacte : "2 999€ de frais de lancement (ou 2× 1 500€) + 149€/mois d'abonnement Pro (1er mois offert, inclut : UGC IA, diagnostic IA, gestion réseaux sociaux, hébergement, support, SEO, etc.)"**
-- Inclus : Tout du Pack cosmétique standard + UGC IA Ultraréaliste, expert produit dédié, diagnostic intelligent par IA, recommandations produits par IA, gestion réseaux sociaux 1 mois.
+- 8 designs de produits cosmétiques formulés par un laboratoire certifié (CPNP, ISO 22716, conformité FDA), personnalisés à votre image de marque
+- Boutique en ligne professionnelle créée à votre nom — le site vous appartient à 100 %
+- Logo et identité visuelle inclus (3 propositions de logo)
+- Zéro stock, zéro logistique
+- **Écosystème IA intégré :**
+  - Diagnostic Skin & Hair IA — analyse personnalisée + recommandation produits
+  - Agent conseil produit IA — assistant intelligent 24h/24, +100 langues
+  - Photos produits IA niveau studio + contenus UGC (vrais visages)
+  - 1 mois de gestion réseaux sociaux offert (12 posts Instagram, rédaction bio, mise en place)
+- 149 €/mois TTC — hébergement, maintenance, support et outils IA
+- Sans engagement — résiliation possible à tout moment, sans préavis
+- Design supplémentaire : 39 € TTC/design
 
-### 📅 ABONNEMENTS MENSUELS
-
-**Abonnement Pro — 99€/mois (1er mois offert avec un pack)**
-- Gestion e-commerce complète, support dédié
-- Sécurité site web, serveur dédié & hébergement, certificat SSL, sauvegardes automatiques
-- SEO de base, nom de domaine inclus, configuration email pro
-- Gestion des livraisons
-- Chat IA intégré, diagnostic IA, recommandations produits IA
-- Achat de stock en plusieurs fois, configuration paiement en x fois pour le client final
-
-**Abonnement IA — 99€/mois (sans engagement)**
-- Photos UGC authentiques, photos lifestyle immersives, photos studio professionnelles
-- Minimum 6 photos
-- Retouches 2 allers-retours
+### 📅 ABONNEMENTS MENSUELS ADDITIONNELS
 
 **Marketing + CRO — 699€/mois (engagement flexible)**
 - Création & optimisation publicités Meta, TikTok Ads
-- Media buying stratégique
-- Optimisation des conversions (CRO), A/B testing pages & tunnels
-- Référencement naturel (SEO)
-- Suivi des performances, conseil stratégique mensuel
-- Rapports détaillés & ROI, support prioritaire dédié
+- Media buying stratégique, CRO, A/B testing
+- SEO, suivi des performances, rapports détaillés & ROI
 
 **Community Manager — 699€/mois (engagement flexible)**
 - Gestion Instagram, Facebook, TikTok, Pinterest
-- Calendrier éditorial mensuel, création de contenu (posts & stories)
-- Modération & engagement communauté
-- Rapports de performance mensuels, support dédié
+- Calendrier éditorial, création de contenu, modération
+- Rapports de performance mensuels
 
-**Le premier mois de l'abonnement est toujours offert.**
+**Tous les abonnements sont sans engagement.**
 
 **Exemple de récapitulatif budget complet à toujours proposer :**
-"Pack cosmétique standard : 1 499€ ou 2× 750€ (frais uniques) + 99€/mois (Abonnement Pro, obligatoire). Pack cosmétique IA : 2 999€ ou 2× 1 500€ (frais uniques) + 149€/mois (Abonnement Pro, 1er mois offert). Options supplémentaires possibles : +699€/mois pour le Marketing & CRO, +699€/mois pour le Community Manager, +99€/photos pour l'Abonnement IA."
+"Pack Cosmétique Solo : 499€ + 49€/mois. Pack Cosmétique Duo : 999€ + 79€/mois. Pack Cosmétique Standard : 1 499€ + 99€/mois. Pack Cosmétique IA : 2 999€ + 149€/mois. Tous sans engagement. Options : +699€/mois Marketing & CRO, +699€/mois Community Manager."
 
 ## Ce que Biolystes élimine pour ses clients
 
@@ -479,14 +472,15 @@ En résumé : les clients finaux sont protégés en cas de problème réel (cass
 
 ### Parcours client idéal
 
-1. **Étape 1 — Il hésite** : Pack Découverte (147€ ou 3x 49€). 147€ déduits si offre avec site dans les 30 jours.
-2. **Étape 2 — Il est convaincu** : Pack cosmétique standard (1 499€ ou 2× 750€ + 99€/mois) ou Pack cosmétique IA (2 999€ ou 2× 1 500€ + 149€/mois, 1er mois offert).
-3. **Étape 3 — Il veut déléguer** : Abonnements mensuels (Marketing + CRO 699€/mois, Community Manager 699€/mois).
+1. **Étape 1 — Il hésite** : Pack Découverte (147€). 147€ déduits si souscription dans les 30 jours.
+2. **Étape 2 — Il veut un seul produit** : Pack Cosmétique Solo (499€ + 49€/mois).
+3. **Étape 3 — Il veut deux produits** : Pack Cosmétique Duo (999€ + 79€/mois).
+4. **Étape 4 — Il veut une gamme complète** : Pack Cosmétique Standard (1 499€ + 99€/mois).
+5. **Étape 5 — Il veut l'IA** : Pack Cosmétique IA (2 999€ + 149€/mois).
+6. **Étape 6 — Il veut déléguer** : Abonnements mensuels (Marketing + CRO 699€/mois, Community Manager 699€/mois).
 
 ### Facilités de paiement
-- Pack cosmétique standard : payable en 2× 750€
-- Pack cosmétique IA : payable en 2× 1 500€
-- Pack Découverte : payable en 3x 49€
+- Tous les packs sont sans engagement
 - Paiement Klarna en 3x disponible (sous réserve d'acceptation)
 
 ### Avantages clés Biolystes (photos IA, UGC IA, etc.)
