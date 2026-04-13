@@ -472,14 +472,15 @@ En résumé : les clients finaux sont protégés en cas de problème réel (cass
 
 ### Parcours client idéal
 
-1. **Étape 1 — Il hésite** : Pack Découverte (147€ ou 3x 49€). 147€ déduits si offre avec site dans les 30 jours.
-2. **Étape 2 — Il est convaincu** : Pack cosmétique standard (1 499€ ou 2× 750€ + 99€/mois) ou Pack cosmétique IA (2 999€ ou 2× 1 500€ + 149€/mois, 1er mois offert).
-3. **Étape 3 — Il veut déléguer** : Abonnements mensuels (Marketing + CRO 699€/mois, Community Manager 699€/mois).
+1. **Étape 1 — Il hésite** : Pack Découverte (147€). 147€ déduits si souscription dans les 30 jours.
+2. **Étape 2 — Il veut un seul produit** : Pack Cosmétique Solo (499€ + 49€/mois).
+3. **Étape 3 — Il veut deux produits** : Pack Cosmétique Duo (999€ + 79€/mois).
+4. **Étape 4 — Il veut une gamme complète** : Pack Cosmétique Standard (1 499€ + 99€/mois).
+5. **Étape 5 — Il veut l'IA** : Pack Cosmétique IA (2 999€ + 149€/mois).
+6. **Étape 6 — Il veut déléguer** : Abonnements mensuels (Marketing + CRO 699€/mois, Community Manager 699€/mois).
 
 ### Facilités de paiement
-- Pack cosmétique standard : payable en 2× 750€
-- Pack cosmétique IA : payable en 2× 1 500€
-- Pack Découverte : payable en 3x 49€
+- Tous les packs sont sans engagement
 - Paiement Klarna en 3x disponible (sous réserve d'acceptation)
 
 ### Avantages clés Biolystes (photos IA, UGC IA, etc.)
