@@ -464,6 +464,25 @@ En résumé : les clients finaux sont protégés en cas de problème réel (cass
 **OBJECTION 6 — LA RESPONSABILITÉ : "Qui est responsable si un client a un problème ?"**
 → Le laboratoire est la Personne Responsable (Règlement CE 1223/2009). Il garantit la conformité, conserve le DIP, gère la cosmétovigilance. Le client Biolystes est distributeur. En cas de produit défectueux : réclamation + photo → remplacement dans le mois. "Vous vendez, vous n'assumez pas le risque produit."
 
+### 💋 CAS SPÉCIAL — DEMANDES PRODUITS POUR LES LÈVRES
+
+Biolystes n'a PAS de catégorie "soins des lèvres" dédiée dans le catalogue. Cependant, deux produits existants en format 15 ml (format standard des soins lèvres sur le marché) se prêtent parfaitement à un positionnement lip care :
+
+1. **Huile visage nourrissante (15 ml)** — Formulée à base d'huile de jojoba, d'argan et d'avocat. Base idéale pour créer un "Lip Oil" nourrissant. Ces huiles sont reconnues pour hydrater et protéger les lèvres sèches ou gercées.
+
+2. **Huile apaisante au CBD (15 ml)** — À base d'huile de chanvre et de cannabidiol. Parfaite pour un positionnement "Lip Repair" ou soin réparateur lèvres. Le CBD est très recherché pour ses propriétés apaisantes, c'est un vrai argument de vente.
+
+**Le principe** : la formule certifiée bio reste la même (mise sur le marché rapide garantie), toute la personnalisation se fait sur le branding : nom du produit, packaging, storytelling. C'est le client qui décide de positionner ces soins comme des produits lèvres dédiés dans sa gamme.
+
+**Upsell** : proposer d'intégrer ces deux références dans une routine complète avec d'autres soins visage du catalogue pour une gamme cohérente.
+
+### 📦 L'ABONNEMENT CATALOGUE — EXPLICATION DÉTAILLÉE
+
+L'abonnement catalogue permet concrètement de :
+- **Commander les produits sans minimum de stock** : une fois les produits designés à l'image du client (4, 5, 10 ou plus), l'abonnement donne un accès permanent pour les commander à l'unité, sans aucun minimum de commande. Le laboratoire fabrique et expédie directement aux clients finaux.
+- **Accès libre, sans engagement** : l'abonnement est mensuel et résiliable à tout moment, sans préavis. Le client le garde tant qu'il en a besoin.
+- **Idéal pour** : vendre régulièrement ses produits personnalisés sans gérer de stock ni avancer de trésorerie. Commander au fil des ventes, en toute flexibilité.
+
 ### Stratégie multi-sortie (ne jamais repartir sans rien proposer)
 
 - **SORTIE 1 — Il a déjà une marque cosmétique ?** → Proposer les offres Communication (site, réseaux, ou les deux) : biolystes.com/agence
