@@ -940,7 +940,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ WIRTZKIN ═══ */}
-      <section className="py-12 md:py-16 bg-background">
+      <section className="py-12 md:py-16" style={{ background: "#f5f4df" }}>
         <WirtzkinSection />
       </section>
 
