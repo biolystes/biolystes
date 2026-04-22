@@ -444,6 +444,100 @@ En résumé : les clients finaux sont protégés en cas de problème réel (cass
 - Les clients font x2 ou x3 pour le prix de vente
 - Positionnement premium grâce aux certifications
 
+### 🛒 PLATEFORME E-COMMERCE — WOOCOMMERCE (TRÈS IMPORTANT)
+
+**Tous les sites e-commerce livrés par Biolystes sont construits exclusivement sur WooCommerce (WordPress).** C'est notre standard technologique unique pour toutes les boutiques. Avantages : open-source, le client est 100 % propriétaire de son site, extensions illimitées (paiement, marketing, SEO), aucun verrouillage propriétaire, écosystème mature et international. Aucune autre plateforme (Shopify, Wix, Prestashop…) n'est proposée.
+
+### 💳 ENCAISSEMENT ET FACTURATION (mode standard)
+
+L'encaissement est entièrement automatisé via le site e-commerce WooCommerce du client :
+- Chaque commande génère automatiquement une facture aux données de la société du client (raison sociale, adresse, SIRET, n° TVA, coordonnées bancaires).
+- Le client final paie directement sur le site via le système de paiement choisi (Stripe, PayPal, etc.).
+- Les fonds arrivent directement sur le compte bancaire du client.
+- La facture PDF est envoyée automatiquement au client final.
+- Le client Biolystes garde la main complète sur sa comptabilité, ses encaissements et son reporting. Biolystes n'intervient ni dans les flux financiers, ni dans la facturation client final.
+
+### 📦 STOCKAGE, EXPÉDITIONS ET FRAIS DE LIVRAISON — MESSAGE TYPE GROUPE
+
+**Message type à utiliser quand un prospect demande les frais de livraison ou la différence entre les deux modes :**
+
+Bonjour 🌿
+Voici le détail clair des frais d'expédition et la vraie différence entre nos deux modes :
+
+📦 **Mode Standard — Fabrication à la commande (zéro stock)**
+Le produit est fabriqué après chaque commande client, puis expédié directement chez le client final au nom de la marque du client — aucune mention Biolystes sur le colis.
+- Aucun stock à acheter, aucune trésorerie immobilisée.
+- Délai total : 3-4 jours de fabrication + livraison au choix du client.
+
+Au moment de passer commande, le client final choisit lui-même entre deux options de livraison (tarifs TTC, TVA 20 %, France) :
+
+🚚 **Livraison Standard (~3/4 jours ouvrés)**
+- < 2 kg → 7,78 €
+- 2–3 kg → 7,80 €
+- 3–5 kg → 9,40 €
+- 5–10 kg → 10,08 €
+- 10–15 kg → 16,21 €
+
+⚡ **Livraison Express (1 jour ouvré)**
+- < 0,5 kg → 11,99 €
+- 0,5–1 kg → 13,56 €
+- 1–2 kg → 14,89 €
+- 2–3 kg → 16,22 €
+- 3–5 kg → 21,59 €
+- 5–10 kg → 36,36 €
+- 10–15 kg → 71,96 €
+
+👉 Dans tous les cas, les frais de port sont refacturés au client final : le client Biolystes n'avance rien.
+
+🏭 **Mode Express (option avancée — pour marques avec volume)**
+Mode totalement différent : le client achète son stock, hébergé chez un logisticien partenaire dédié. Plus de délai de fabrication, les commandes partent en 24-48h depuis l'entrepôt, toujours expédiées au nom du client.
+- Coût de stockage : 15 € à 25 €/mois selon le volume.
+- Livraison : à partir de 4,90 € en 24/48h (grille complète communiquée par le logisticien).
+- Avantage : pas de minimum de commande, possibilité d'acheter un petit stock, réapprovisionnement du logisticien en 6-7 jours. Offre plus attractive pour les clients finaux (livraison rapide et bon marché).
+
+Pour le stockage et la logistique, c'est directement avec notre logisticien partenaire que ça se gère. Nous pouvons faire la mise en relation : il explique son fonctionnement, ses conditions, ainsi que la gestion des retours et réclamations côté transport/expédition.
+
+Le client Biolystes reste totalement autonome sur ses ventes : Biolystes ne voit ni les commandes, ni les clients finaux, ni les expéditions. Le client garde la propriété de sa marque, de ses clients et de ses données.
+
+### 🛠️ SAV PRODUIT — RÉPARTITION DES RESPONSABILITÉS
+
+- **Stockage, expéditions, retours clients, suivi colis** → logisticien partenaire.
+- **Réclamations produit (qualité, formule, conformité, INCI, réglementaire)** → Biolystes, dans le cadre du contrat. Défaut, non-conformité, question technique sur la formule = Biolystes prend en charge.
+
+### 💰 PRIX DÉGRESSIFS PAR VOLUME (exemple Gel lavant bébé, base 10,50 €)
+
+Les tarifs baissent avec le volume. Indicatif :
+- À partir de 100 unités → -7 % → ~9,77 €/u
+- À partir de 200 unités → -12 % → ~9,24 €/u
+- À partir de 350 unités → -15 % → ~8,92 €/u
+- À partir de 500 unités → -17 % → ~8,72 €/u
+- À partir de 1 000 unités → ~-22 % → ~8,19 €/u
+- À partir de 2 000 unités → ~-27 % → ~7,67 €/u
+- Au-delà de 2 000 unités ou engagement annuel ferme → conditions encore plus intéressantes sur devis.
+
+Pour proposer une offre précise, demander :
+- Les produits prioritaires de la gamme
+- Le volume estimé sur la première commande
+- Le volume projeté sur 6 à 12 mois
+
+### 🌍 TVA POUR UNE SOCIÉTÉ HORS UE (ex. Dubai) VENDANT À DES CLIENTS FRANÇAIS
+
+Être transparent : avoir une société à Dubai (ou hors UE) et expédier depuis l'étranger ne permet PAS d'échapper à la TVA française dès lors que les clients finaux sont en France.
+
+Trois points clés :
+1. **Vente B2C à des clients français** → TVA française due dès 10 000 € de CA annuel UE (régime OSS/IOSS), peu importe où est la société.
+2. **Stocker à l'étranger** → ne change pas l'obligation TVA sur la vente finale. C'est le lieu de consommation qui compte.
+3. **Optimisation légale possible** : simplification via IOSS, ou cibler une clientèle hors UE. Mais « échapper à la fiscalité française » en vendant à des Français expose à un redressement.
+
+Concrètement pour une vente B2C à un particulier français depuis hors UE :
+- Colis < 150 € → TVA collectée via le régime IOSS au moment de la vente.
+- Colis > 150 € → TVA + droits de douane payés à l'importation.
+- Dans tous les cas, la TVA française (20 %) finit par être due.
+
+Le seul moyen d'éviter la TVA française = vendre à des clients hors UE (USA, Moyen-Orient, Asie, UK…).
+
+**Astuce logistique** : si l'enjeu est la rapidité de livraison en France (audience d'influenceuse par ex.), proposer la mise en relation avec le logisticien partenaire français (stockage + expédition 24/48h). La société peut rester à Dubai pour la facturation, tout en offrant une expérience de livraison premium aux clients français.
+
 ### Les 6 objections clients et comment y répondre
 
 **OBJECTION 1 — LA MATURITÉ : "Je vais réfléchir" / "Ce n'est pas encore le moment"**
