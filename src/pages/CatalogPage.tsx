@@ -102,10 +102,7 @@ const COLOR_MAP: Record<string, string> = {
 };
 
 // ─── Hidden products (excluded from catalog) ─────────────
-const HIDDEN_PRODUCTS = new Set([
-  "serumgeleeprebiotiquebioactif",
-  "geldoublehydratationboostha",
-]);
+const HIDDEN_PRODUCTS = new Set<string>();
 
 // ─── Priority products (shown first in default order) ─────
 const PRIORITY_PRODUCTS = [
