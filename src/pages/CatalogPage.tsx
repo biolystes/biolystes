@@ -418,6 +418,11 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
         {!enriched?.volume && (
           <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, width: 26, height: 26, borderRadius: 8, background: "rgba(245,244,223,0.7)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: C.muted }}>#</div>
         )}
+        {enriched?.certifications?.some(c => c.toLowerCase().includes("nouveauté") || c.toLowerCase().includes("nouveaute")) && (
+          <div style={{ position: "absolute", top: 12, right: 44, zIndex: 3, padding: "4px 10px", borderRadius: 999, background: "#1d1d1f", color: "#f5f4df", fontSize: 9, fontWeight: 800, letterSpacing: ".8px", textTransform: "uppercase", boxShadow: "0 2px 8px rgba(0,0,0,0.25)" }}>
+            ✨ Nouveauté
+          </div>
+        )}
 
         {onToggleSelect && (
           <button onClick={onToggleSelect}

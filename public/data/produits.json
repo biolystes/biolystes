@@ -1,5 +1,22 @@
 [
   {
+    "url": "/fr/private-label-products/soins-du-visage/serum-gelee-prebiotique-bioactif",
+    "categorie": "soins-du-visage",
+    "slug": "serum-gelee-prebiotique-bioactif",
+    "nom": "Sérum Gelée Prébiotique Bioactif",
+    "volume": "30 ml",
+    "prix": "PRIX / 1 PIÈCE 16.90 € TVA",
+    "moq": "MIN. ORDER QTY. No MOQ",
+    "certifications": "Nouveauté | Testé dermatologiquement | Sans gluten | Sans noix | Végétalien | COSMOS NATURAL ECOCERT",
+    "ingredients_fr": "Prébiotiques  Acide hyaluronique  Sodium PCA",
+    "star_features": "Renforce la barrière cutanée grâce aux prébiotiques",
+    "description": "Formule légère à base de gel, conçue pour équilibrer et nourrir la peau. Infusée de prébiotiques, elle soutient la barrière protectrice de la peau, procure un effet apaisant et favorise un teint radieux. Arôme vert, agrumes, menthe, boisé. 99% d'origine naturelle, 10% d'origine biologique. Produits durables : processus respectueux de l'environnement, formulation verte, ingrédients respectant la biodiversité, sans OGM, emballages recyclables. Certifié COSMOS NATURAL par ECOCERT Greenlife.",
+    "inci": "INGRÉDIENTS / INCI: Aqua/Water, Alcohol**, Glycerin**, Sodium PCA, Cellulose Gum, Algin, Lactobacillus Ferment Lysate, Parfum/Fragrance, Sodium Phytate, Potassium Sorbate, Sodium Benzoate, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Pogostemon Cablin Oil. **Fabriqué à base d'ingrédients biologiques.",
+    "arôme": "Vert, agrumes, menthe, boisé",
+    "images": "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/serumgeleeprebiotiquebioactif.jpg",
+    "erreur": ""
+  },
+  {
     "url": "/fr/private-label-products/soins-du-visage/gel-double-hydratation-boost-ha",
     "categorie": "soins-du-visage",
     "slug": "gel-double-hydratation-boost-ha",
@@ -7,7 +24,7 @@
     "volume": "30 ml",
     "prix": "PRIX / 1 PIÈCE 14.50 € TVA",
     "moq": "MIN. ORDER QTY. No MOQ",
-    "certifications": "Sans gluten | Sans noix | Végétalien | Certifié naturel | Sans allergène sur l'étiquette | COSMOS NATURAL ECOCERT",
+    "certifications": "Nouveauté | Sans gluten | Sans noix | Végétalien | Certifié naturel | Sans allergène sur l'étiquette | COSMOS NATURAL ECOCERT",
     "ingredients_fr": "Sodium PCA  Acide hyaluronique  Jus de feuilles d'Aloe  Extrait de sauge  Extrait de thé blanc",
     "star_features": "Double hydratation Sodium PCA + Acide hyaluronique",
     "description": "Gel régénérant à base d'acide hyaluronique léger de poids moléculaire multiple, qui contribue à former une barrière hydratante sur la peau, empêchant la perte d'hydratation et renforçant la fermeté et l'élasticité naturelles. Atténue la formation des petites rides et ridules et rafraîchit la peau. Appliquez le produit sur une peau préalablement nettoyée. Arôme aquatique frais avec des notes fruitées juteuses et sucrées. 99% d'ingrédients d'origine naturelle, 11% d'ingrédients d'origine biologique. Certifié COSMOS NATURAL par ECOCERT Greenlife.",
