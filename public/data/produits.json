@@ -1,5 +1,22 @@
 [
   {
+    "url": "/fr/private-label-products/soins-du-visage/gel-double-hydratation-boost-ha",
+    "categorie": "soins-du-visage",
+    "slug": "gel-double-hydratation-boost-ha",
+    "nom": "Gel Double Hydratation Boost + HA",
+    "volume": "30 ml",
+    "prix": "PRIX / 1 PIÈCE 14.50 € TVA",
+    "moq": "MIN. ORDER QTY. No MOQ",
+    "certifications": "Sans gluten | Sans noix | Végétalien | Certifié naturel | Sans allergène sur l'étiquette | COSMOS NATURAL ECOCERT",
+    "ingredients_fr": "Sodium PCA  Acide hyaluronique  Jus de feuilles d'Aloe  Extrait de sauge  Extrait de thé blanc",
+    "star_features": "Double hydratation Sodium PCA + Acide hyaluronique",
+    "description": "Gel régénérant à base d'acide hyaluronique léger de poids moléculaire multiple, qui contribue à former une barrière hydratante sur la peau, empêchant la perte d'hydratation et renforçant la fermeté et l'élasticité naturelles. Atténue la formation des petites rides et ridules et rafraîchit la peau. Appliquez le produit sur une peau préalablement nettoyée. Arôme aquatique frais avec des notes fruitées juteuses et sucrées. 99% d'ingrédients d'origine naturelle, 11% d'ingrédients d'origine biologique. Certifié COSMOS NATURAL par ECOCERT Greenlife.",
+    "inci": "INGRÉDIENTS / INCI: Aloe Barbadensis (Aloe) Leaf Juice*, Pentylene Glycol, Butylene Glycol, Glycerin**, Sodium PCA, Aqua/Water, Propanediol, Cellulose Gum, Parfum/Fragrance, Algin, Camellia Sinensis (White Tea) Leaf Extract*, Salvia Officinalis (Sage) Leaf Extract*, Hydrolyzed Hyaluronic Acid, Lactic Acid, Sodium Hyaluronate, Sodium Phytate, Rhamnose, Glucose, Glucuronic Acid. *Ingrédients issus de l'agriculture biologique. **Fabriqué à base d'ingrédients biologiques.",
+    "arôme": "Arôme aquatique frais avec des notes fruitées juteuses et sucrées",
+    "images": "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/geldoublehydratationboostha.jpg",
+    "erreur": ""
+  },
+  {
     "url": "/fr/private-label-products/soins-du-corps/gel-lavant-pour-bebe",
     "categorie": "soins-du-corps",
     "slug": "gel-lavant-pour-bebe",
