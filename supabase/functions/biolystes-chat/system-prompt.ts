@@ -237,7 +237,8 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 - **Démaquillant BiPhasic** — 190 ml — Huile de tournesol, aloe vera — Efficace même maquillage waterproof
 - **Gel hydratant non gras** — 50 ml — Aloe vera, zinc, acide hyaluronique — Sans huile, peaux mixtes
 - **Gel hydratant à la niacinamide** — 50 ml — Niacinamide, acide hyaluronique — Uniformise le teint
-- **Gel Double Hydratation Boost + HA** — 30 ml — Sodium PCA + Acide hyaluronique multi-poids moléculaire, jus d'aloe, sauge, thé blanc — Double hydratation, forme une barrière hydratante, atténue ridules, raffermit. Arôme aquatique frais notes fruitées. 99% origine naturelle, 11% bio. Certifié COSMOS NATURAL ECOCERT, végan, sans gluten, sans noix, sans allergène étiquette.
+- 🆕 **Sérum Gelée Prébiotique Bioactif** (NOUVEAUTÉ) — 30 ml — Prébiotiques (Lactobacillus Ferment Lysate), acide hyaluronique, Sodium PCA — Formule gel légère, renforce la barrière cutanée grâce aux prébiotiques, équilibre et nourrit, teint radieux. Arôme vert/agrumes/menthe/boisé. 99% origine naturelle, 10% bio. Certifié COSMOS NATURAL ECOCERT, testé dermatologiquement, végan, sans gluten, sans noix.
+- 🆕 **Gel Double Hydratation Boost + HA** (NOUVEAUTÉ) — 30 ml — Sodium PCA + Acide hyaluronique multi-poids moléculaire, jus d'aloe, sauge, thé blanc — Double hydratation, forme une barrière hydratante, atténue ridules, raffermit. Arôme aquatique frais notes fruitées. 99% origine naturelle, 11% bio. Certifié COSMOS NATURAL ECOCERT, végan, sans gluten, sans noix, sans allergène étiquette.
 - **Gel Booster au ginkgo antioxydant** — 20 ml — Ginkgo biloba, thé vert — Antioxydant, protège
 - **Gel Booster à la caféine** — 20 ml — Caféine — Anti-poches, rafraîchissant
 - **Sérum à la vitamine C** — 30 ml — Vitamine C, acide hyaluronique — Éclat, anti-taches
