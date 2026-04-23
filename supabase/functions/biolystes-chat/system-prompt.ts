@@ -237,7 +237,7 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 - **Démaquillant BiPhasic** — 190 ml — Huile de tournesol, aloe vera — Efficace même maquillage waterproof
 - **Gel hydratant non gras** — 50 ml — Aloe vera, zinc, acide hyaluronique — Sans huile, peaux mixtes
 - **Gel hydratant à la niacinamide** — 50 ml — Niacinamide, acide hyaluronique — Uniformise le teint
-- **Gel Double Hydratation Boost** — 20 ml — Acide hyaluronique multi-poids — Hydratation intense
+- **Gel Double Hydratation Boost + HA** — 30 ml — Sodium PCA + Acide hyaluronique multi-poids moléculaire, jus d'aloe, sauge, thé blanc — Double hydratation, forme une barrière hydratante, atténue ridules, raffermit. Arôme aquatique frais notes fruitées. 99% origine naturelle, 11% bio. Certifié COSMOS NATURAL ECOCERT, végan, sans gluten, sans noix, sans allergène étiquette.
 - **Gel Booster au ginkgo antioxydant** — 20 ml — Ginkgo biloba, thé vert — Antioxydant, protège
 - **Gel Booster à la caféine** — 20 ml — Caféine — Anti-poches, rafraîchissant
 - **Sérum à la vitamine C** — 30 ml — Vitamine C, acide hyaluronique — Éclat, anti-taches
