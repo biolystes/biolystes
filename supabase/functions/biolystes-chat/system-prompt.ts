@@ -612,4 +612,73 @@ L'abonnement catalogue permet concrètement de :
 - +100 marques accompagnées
 - Vendable en France, Europe, UK, USA et dans le monde entier
 
+## FAQ COMMERCIALE — RÉPONSES OFFICIELLES (Jean-Pierre, 22/04/2026)
+
+### 1) Délai moyen avant les premières ventes
+Entre **2 et 6 semaines** après la mise en ligne, à condition d'activer la communication (réseaux sociaux, bouche-à-oreille, pubs). Les marques qui investissent dès le départ dans l'agence communication vendent plus vite.
+
+### 2) Si un client arrête son abonnement
+- **Le site** : déplacé sur un serveur propre au client. Le site lui appartient. Il peut le récupérer, mettre d'autres produits et continuer sans nous.
+- **Le design (logo, charte, packaging)** : appartient au client, on lui transmet les fichiers sources.
+- **L'approvisionnement produits** : possible en direct via notre laboratoire en **B2B (prix de gros)**, sans abonnement, avec un minimum de commande. Conditions sur demande.
+
+### Prix dégressifs selon le volume (exemple : Gel lavant bébé, base 10,50 €)
+- À partir de **100 unités** → -7% → ~9,77 € l'unité
+- À partir de **200 unités** → -12% → ~9,24 € l'unité
+- À partir de **350 unités** → -15% → ~8,92 € l'unité
+- À partir de **500 unités** → -17% → ~8,72 € l'unité
+- À partir de **1 000 unités** → ~-22% → ~8,19 € l'unité
+- À partir de **2 000 unités** → ~-27% → ~7,67 € l'unité
+
+### Formulation sur mesure vs existante
+- **Formulation sur mesure** : 12 mois minimum, MOQ 10 000 unités. Rarement proposée (peu intéressant financièrement pour nous).
+- **Formulation existante + ajout d'un ingrédient** : 5 mois, MOQ 2 000 unités.
+- Rappel règle absolue : Biolystes privilégie EXCLUSIVEMENT les formulations standards validées en marque blanche.
+
+### 3) Pack Découverte — "design packaging + photo IA"
+Oui, les photos IA générées sont les **visuels produits définitifs** utilisés sur le site e-commerce et les supports marketing (réseaux, fiches produits, pubs). **Pas besoin de shooting.**
+
+### 4) Pack Duo — "support prioritaire"
+Concrètement : **réponses sous 24h ouvrées** via WhatsApp + accès à un expert produit dédié. À partir du Pack Standard, le support devient **premium** (réponses plus rapides + groupe WhatsApp dédié avec graphistes, marketeurs et techniciens). Ce n'est pas exclusif au Duo, ça monte en gamme avec le pack.
+
+### 5) "Site e-commerce complet" (Pack Standard) — inclut
+- Site optimisé SEO dès le lancement
+- Fiches produits rédigées par nos rédacteurs
+- CGV, mentions légales, politique de confidentialité
+- Paiement intégré (CB + paiement en plusieurs fois)
+- Tunnel de commande optimisé conversion
+- Connexion automatique au laboratoire pour la livraison
+- Indexation Google immédiate
+
+**Différence avec Solo/Duo** : ces packs ont un site fonctionnel mais plus simple (moins de pages). Le Standard ajoute le SEO avancé et l'optimisation conversion.
+
+### 6) "SEO avancé" (Pack Cosmétique IA) — en plus du SEO standard
+- **SEO AI** qui réécrit et optimise les fiches produits en continu
+- Suivi des positions Google avec rapports
+- Stratégie de mots-clés personnalisée par marque
+
+### 7) "Automatisation de la livraison"
+Dès qu'un client passe commande sur le site, **la commande part automatiquement au laboratoire**, qui crée le produit en 3-4 jours et expédie sous 48h-72h (Standard). **Aucun stock, aucune gestion d'expédition.**
+- **Mode Express** (+20€/mois) : livraison 24h/48h, le client achète du stock SANS contrainte de quantité minimum. Le logisticien partenaire peut être approvisionné en 1 semaine.
+- L'automatisation logistique est incluse dans **tous les packs avec abonnement** (Solo, Duo, Standard, IA). Le Pack Découverte n'a pas de site marchand actif, donc non concerné.
+
+### 8) "Photo IA avancée" (Pack Cosmétique IA)
+- **Photos IA classiques** = visuels packshot produit (fond neutre, mise en valeur du flacon)
+- **Photos IA avancées** = visuels lifestyle (mise en situation, mannequins IA réalistes, ambiances) + **UGC IA** photos contextuelles pour campagnes marketing.
+
+### 9) "1 mois de gestion réseaux sociaux offert" (Pack IA) — mise en place
+- Audit de la marque + stratégie éditoriale
+- **12 publications** (posts + stories) sur Instagram/Facebook
+- Création des visuels et copywriting
+
+C'est une mise en bouche pour tester notre agence communication avant de souscrire à un forfait mensuel.
+
+### 10) "Expert Marketing IA" — son rôle
+- **Analyser** les performances du site (trafic, conversion, panier moyen)
+- **Identifier** les blocages dans le tunnel de vente (via Analytics AI)
+- **Proposer** des plans d'action concrets : campagnes email, promos, optimisations
+- **Recommander** les bons leviers (SEO, ads, influence) selon le budget et les objectifs
+
+C'est le **co-pilote stratégique** disponible 24/7 sur le tableau de bord.
+
 Contact : hello@biolystes.com | Paris, France`;
