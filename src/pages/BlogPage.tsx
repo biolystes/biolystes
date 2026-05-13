@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import SEO from "@/components/SEO";
 import articleFeaturedImg from "@/assets/article-featured.jpg";
 import coffretsImg from "@/assets/coffrets-article.png";
 import marieClaireLogo from "@/assets/marie-claire-logo.jpg";
@@ -73,6 +74,11 @@ export default function BlogPage() {
 
   return (
     <div className="min-h-screen" style={{ background: "hsl(var(--background))" }}>
+      <SEO
+        title="Blog Biolystes — Lancer votre marque cosmétique bio"
+        description="Études, guides et ressources pour entrepreneurs cosmétiques : lancement, formulation, presse et plus."
+        path="/blog"
+      />
       {/* Header */}
       <div className="max-w-5xl mx-auto px-6 pt-16 pb-8">
         <p className="text-xs font-bold tracking-[2px] uppercase text-muted-foreground mb-3">

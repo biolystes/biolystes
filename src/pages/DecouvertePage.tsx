@@ -120,7 +120,7 @@ function ProductImageCycler() {
           transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           {productImages.map((src, i) => (
-            <img key={i} src={src} alt="Produit cosmétique" className="w-full flex-shrink-0 object-cover aspect-square" loading="lazy" />
+            <img key={i} src={src} alt="Cosmétique bio personnalisé Biolystes" className="w-full flex-shrink-0 object-cover aspect-square" loading="lazy" />
           ))}
         </motion.div>
       </div>
@@ -411,7 +411,7 @@ export default function DecouvertePage() {
             style={{ width: "max-content" }}
           >
             {[...certLogos, ...certLogos].map((logo, i) => (
-              <img key={i} src={logo} alt="Certification" className="w-auto object-contain" style={{ maxHeight: 80, filter: "brightness(0)" }} />
+              <img key={i} src={logo} alt="Logo de certification cosmétique bio et végane" className="w-auto object-contain" style={{ maxHeight: 80, filter: "brightness(0)" }} />
             ))}
           </motion.div>
         </div>
@@ -461,7 +461,7 @@ export default function DecouvertePage() {
                 <div className="w-10 h-10 mb-3 rounded-full bg-background flex items-center justify-center">
                   <item.icon className="h-5 w-5 text-foreground" strokeWidth={1.5} />
                 </div>
-                <h4 className="text-xs font-semibold text-foreground mb-1">{item.title}</h4>
+                <h3 className="text-xs font-semibold text-foreground mb-1">{item.title}</h3>
                 <p className="text-foreground text-xs leading-relaxed">{item.desc}</p>
               </motion.div>
             ))}
@@ -917,7 +917,7 @@ export default function DecouvertePage() {
                 <div className="inline-flex items-center justify-center w-10 h-10 bg-background rounded-full mb-3">
                   <item.icon className="w-4 h-4 text-foreground" strokeWidth={1} />
                 </div>
-                <h4 className="text-xs font-semibold text-foreground mb-1 uppercase tracking-wide">{item.title}</h4>
+                <h3 className="text-xs font-semibold text-foreground mb-1 uppercase tracking-wide">{item.title}</h3>
                 <p className="text-foreground text-xs leading-relaxed">{item.desc}</p>
               </div>
             ))}
@@ -925,7 +925,7 @@ export default function DecouvertePage() {
 
           <div className="relative max-w-[944px] mx-auto">
             <div className="bg-secondary rounded-xl p-6 md:p-10">
-              <img src={salonCoiffure} alt="Salon de coiffure" className="w-full rounded-lg" loading="lazy" />
+              <img src={salonCoiffure} alt="Salon de coiffure équipé de cosmétiques en marque blanche" className="w-full rounded-lg" loading="lazy" />
             </div>
             <div className="hidden md:block absolute -left-16 bottom-20 max-w-[220px] shadow-lg rounded-xl overflow-hidden rotate-[-3deg] p-3" style={{ backgroundColor: '#2f5955' }}>
               <SafeVideo

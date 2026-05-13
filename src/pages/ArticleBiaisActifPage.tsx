@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Brain, Lightbulb, Target, Users } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -22,6 +23,13 @@ function SectionBlock({ children, className = "" }: { children: React.ReactNode;
 export default function ArticleBiaisActifPage() {
   return (
     <div className="pb-24">
+      <SEO
+        title="Le biais de l'actif star en cosmétique | Biolystes"
+        description="Pourquoi se focaliser sur un seul actif freine le lancement de votre marque cosmétique — et comment l'éviter."
+        path="/blog/biais-actif"
+        type="article"
+        jsonLd={{ "@context": "https://schema.org", "@type": "Article", headline: "Le biais de l'actif star en cosmétique" }}
+      />
       {/* Hero */}
       <section className="py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto text-center">

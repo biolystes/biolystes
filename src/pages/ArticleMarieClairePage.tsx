@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Newspaper, Globe, Users, TrendingUp, Eye } from "lucide-react";
 import marieClaireLogo from "@/assets/marie-claire-logo.jpg";
+import SEO from "@/components/SEO";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -23,6 +24,13 @@ function SectionBlock({ children, className = "" }: { children: React.ReactNode;
 export default function ArticleMarieClairePage() {
   return (
     <div className="pb-24">
+      <SEO
+        title="Plan de notoriété presse — Marie Claire & cie | Biolystes"
+        description="Notre plan de notoriété pour positionner votre marque cosmétique dans la presse féminine et premium."
+        path="/blog/reseau-presse"
+        type="article"
+        jsonLd={{ "@context": "https://schema.org", "@type": "Article", headline: "Plan de notoriété presse pour marques cosmétiques" }}
+      />
       {/* Hero */}
       <section className="py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto text-center">

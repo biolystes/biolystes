@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Package, TrendingUp, ShoppingBag, Gift, Star } from "lucide-react";
 import coffretsImg from "@/assets/coffrets-article.png";
+import SEO from "@/components/SEO";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -34,6 +35,13 @@ function SectionBlock({ children, className = "" }: { children: React.ReactNode;
 export default function ArticleCoffretsPage() {
   return (
     <div className="pb-24">
+      <SEO
+        title="Coffrets cosmétiques : booster ventes & panier moyen | Biolystes"
+        description="8 coffrets cosmétiques bio prêts à vendre pour augmenter votre panier moyen et fidéliser vos clients."
+        path="/blog/coffrets"
+        type="article"
+        jsonLd={{ "@context": "https://schema.org", "@type": "Article", headline: "Coffrets cosmétiques pour booster vos ventes" }}
+      />
       {/* Hero */}
       <section className="py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto text-center">

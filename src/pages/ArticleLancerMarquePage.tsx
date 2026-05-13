@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Rocket, Clock, ShieldCheck, Zap, Globe } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -22,6 +23,13 @@ function SectionBlock({ children, className = "" }: { children: React.ReactNode;
 export default function ArticleLancerMarquePage() {
   return (
     <div className="pb-24">
+      <SEO
+        title="Lancer sa marque cosmétique en 10-15 jours | Biolystes"
+        description="Comment lancer votre marque de cosmétiques bio et véganes en 10 à 15 jours avec Biolystes, sans stock ni minimum de commande."
+        path="/blog/lancer-marque"
+        type="article"
+        jsonLd={{ "@context": "https://schema.org", "@type": "Article", headline: "Lancer sa marque cosmétique en 10-15 jours" }}
+      />
       {/* Hero */}
       <section className="py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto text-center">
