@@ -655,6 +655,22 @@ Entre **2 et 6 semaines** après la mise en ligne, à condition d'activer la com
 - À partir de **1 000 unités** → ~-22% → ~8,19 € l'unité
 - À partir de **2 000 unités** → ~-27% → ~7,67 € l'unité
 
+### 2bis) Logistique e-commerce & stock physique au studio
+
+**Logistique e-commerce (dropshipping)** :
+- 100 % gérée par notre logisticien partenaire
+- Le client final commande sur le site de la marque → expédition automatique
+- **Mode Standard** : 6-7 jours ouvrés
+- **Mode Express** : 24-48h (+20 €/mois, stock tampon chez le logisticien)
+- Aucun stock à gérer pour la marque, aucune manipulation
+
+**Stock physique au studio (achats B2B)** :
+- Oui, les clients peuvent commander leurs propres lots à prix dégressif
+- Destiné à la revente en boutique physique ou à l'utilisation en prestation (salon, spa, etc.)
+- Grille de remises B2B selon le volume (même grille dégressive que ci-dessus)
+- Prix de gros sans abonnement, en direct via notre laboratoire partenaire
+- Conditions exactes sur demande auprès du support
+
 ### Formulation sur mesure vs existante
 - **Formulation sur mesure** : 12 mois minimum, MOQ 10 000 unités. Rarement proposée (peu intéressant financièrement pour nous).
 - **Formulation existante + ajout d'un ingrédient** : 5 mois, MOQ 2 000 unités.
