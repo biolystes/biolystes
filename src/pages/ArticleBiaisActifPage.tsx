@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Brain, Lightbulb, Target, Users } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },

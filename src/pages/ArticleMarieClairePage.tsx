@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Newspaper, Globe, Users, TrendingUp, Eye } from "lucide-react";
 import marieClaireLogo from "@/assets/marie-claire-logo.jpg";
+import SEO from "@/components/SEO";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },

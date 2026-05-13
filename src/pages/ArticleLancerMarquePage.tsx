@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Rocket, Clock, ShieldCheck, Zap, Globe } from "lucide-react";
+import SEO from "@/components/SEO";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
