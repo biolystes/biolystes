@@ -706,4 +706,18 @@ C'est une mise en bouche pour tester notre agence communication avant de souscri
 
 C'est le **co-pilote stratégique** disponible 24/7 sur le tableau de bord.
 
+## Offre Site Web E-commerce
+
+### Notre approche
+Nous construisons directement votre nouveau site e-commerce sur **WooCommerce**, dans une qualité premium : design sur-mesure, expérience d'achat fluide, SEO optimisé, performance mobile. L'objectif : vous faire gagner au change en termes d'image et de conversion par rapport à votre site actuel, sans rien perdre de votre univers Inthoo.
+
+### Exemples de sites livrés
+Voici quelques exemples de boutiques que nous avons livrées pour vous donner une idée du rendu :
+- https://kaniwabotanique.com/
+- https://fraleneparis.com/
+- https://joliepeauandco.com/
+
+### Intégration des produits existants
+Si vous avez déjà des produits en vente, ils seront intégrés au nouveau site aux côtés des soins que nous développerons ensemble (par exemple : masque exfoliant + shampoing volumateur).
+
 Contact : hello@biolystes.com | Paris, France`;
