@@ -73,7 +73,7 @@ function TopNavBar() {
       <Link to="/" className="flex items-center shrink-0 mr-3">
         <img
           src={lystesLogo}
-          alt="Lystes"
+          alt="Logo Lystes - cosmétiques bio et véganes"
           className="h-10 w-10 animate-tourne object-contain"
         />
       </Link>
@@ -238,7 +238,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="flex items-center gap-2 mb-6">
                 <img
                    src={lystesLogo}
-                  alt="Lystes"
+                  alt="Logo Lystes"
                   className="h-7 w-7 object-contain"
                 />
                 <span className="font-bold text-sm" style={{ color: "#1d1d1f" }}>Biolystes</span>
@@ -320,11 +320,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <Link to="/" className="flex items-center gap-2">
             <img
               src={lystesLogo}
-              alt="Lystes"
+              alt="Logo Lystes"
               className="h-10 w-10 animate-tourne object-contain"
             />
           </Link>
-          <button onClick={() => setMobileOpen(!mobileOpen)} style={{ background: "transparent", border: "none", padding: 4, cursor: "pointer" }}>
+          <button aria-label={mobileOpen ? "Fermer le menu" : "Ouvrir le menu"} onClick={() => setMobileOpen(!mobileOpen)} style={{ background: "transparent", border: "none", padding: 4, cursor: "pointer" }}>
             {mobileOpen ? <X size={22} strokeWidth={2.5} color="#1d1d1f" /> : (
               <svg width="22" height="16" viewBox="0 0 22 16" fill="none">
                 <line x1="1" y1="1.5" x2="21" y2="1.5" stroke="#1d1d1f" strokeWidth="1.5" strokeLinecap="round" />
