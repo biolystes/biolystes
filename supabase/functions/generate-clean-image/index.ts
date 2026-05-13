@@ -174,7 +174,6 @@ function safeParseJson(raw: string): any | null {
 
 const IMAGE_MODELS = [
   "google/gemini-2.5-flash-image",
-  "google/gemini-3.1-flash-image-preview",
 ];
 
 function buildEditPrompt(attempt: number): string {
@@ -278,24 +277,15 @@ async function validateCandidateByCount(originalCount: number | null, candidateI
   }
 
   const firstCount = await countItems(candidateImageUrl);
-  console.log("Candidate count (first pass):", firstCount);
+  console.log("Candidate count:", firstCount);
 
   if (firstCount === null || firstCount >= originalCount) {
     return { ok: true, reason: "" };
   }
 
-  // Re-check once to avoid false rejections due to model counting noise.
-  const secondCount = await countItems(candidateImageUrl);
-  console.log("Candidate count (second pass):", secondCount);
-
-  if (secondCount === null || secondCount >= originalCount) {
-    return { ok: true, reason: "" };
-  }
-
-  const bestObserved = Math.max(firstCount, secondCount);
   return {
     ok: false,
-    reason: `Nombre d'éléments réduit de ${originalCount} à ${bestObserved}`,
+    reason: `Nombre d'éléments réduit de ${originalCount} à ${firstCount}`,
   };
 }
 
@@ -308,7 +298,7 @@ serve(async (req) => {
     if (!productName) throw new HttpError(400, "productName is required");
     if (!admin) throw new HttpError(500, "Supabase service client is not configured");
 
-    const MAX_ATTEMPTS = 4;
+    const MAX_ATTEMPTS = 2;
     let generatedImage: string | null = null;
     let lastRejectReason = "";
     let lastGenerationError = "";
