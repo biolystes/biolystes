@@ -298,7 +298,7 @@ serve(async (req) => {
     if (!productName) throw new HttpError(400, "productName is required");
     if (!admin) throw new HttpError(500, "Supabase service client is not configured");
 
-    const MAX_ATTEMPTS = 4;
+    const MAX_ATTEMPTS = 2;
     let generatedImage: string | null = null;
     let lastRejectReason = "";
     let lastGenerationError = "";
