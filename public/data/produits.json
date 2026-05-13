@@ -1,5 +1,22 @@
 [
   {
+    "url": "/fr/private-label-products/maquillage/mascara-allongeant-et-volumisant",
+    "categorie": "maquillage",
+    "slug": "mascara-allongeant-et-volumisant",
+    "nom": "Mascara allongeant et volumisant",
+    "volume": "6 ml / 0.20 fl oz",
+    "prix": "PRIX / 1 PIÈCE 13,08 € TVA",
+    "moq": "MIN. ORDER QTY. No MOQ",
+    "certifications": "Nouveauté | Sans gluten | Sans noix | Végétalien | Certifié naturel | COSMOS NATURAL ECOCERT",
+    "ingredients_fr": "Peptides  Pigments minéraux naturels  Cire de carnauba",
+    "star_features": "Infusé aux peptides, donne du volume et de la longueur",
+    "description": "Mascara allongeant et volumateur phare pour les yeux, conçu pour allier efficacité visible et bienfaits nourrissants pour les cils. Développé dans la lignée de la tendance « skinification », il offre à la fois propriétés cosmétiques et bienfaits de soin. Modulable, il apporte longueur et volume pour des cils séparés et bien définis. Composé de pigments naturels et exempt de colorants synthétiques, il offre une couleur noire intense tout en respectant des normes de formulation pures et vegan. Sa formule nourrissante (peptides de pois) aide à nourrir et renforcer les cils pendant le port, favorisant une apparence plus saine au fil du temps. La brosse de précision permet une application uniforme de la racine à la pointe pour des cils d'apparence plus fournie. Arôme neutre, cireux. 100% d'origine naturelle, 5% d'origine biologique. Certifié COSMOS NATURAL par ECOCERT Greenlife, végétalien, sans gluten, sans noix.",
+    "inci": "INGRÉDIENTS / INCI: Aqua/Water, Stearic Acid, Helianthus Annuus (Sunflower) Seed Cera, Glycerin**, Copernicia Cerifera (Carnauba) Wax, Olea Europaea (Olive) Oil Unsaponifiables, Glyceryl Rosinate, Cellulose, Pentylene Glycol, Pullulan, Octyldodecanol, Glyceryl Stearate, Pisum Sativum Peptide, Polyglyceryl-10 Laurate, Sorbitol, Rhus Verniciflua Peel Cera, Shorea Robusta Resin, Glyceryl Caprylate/Caprate, Palmitic Acid, Potassium Hydroxide, Acacia Senegal Gum, Magnesium Stearate, Xanthan Gum, Trehalose, Citric Acid, Leuconostoc/Radish Root Ferment Filtrate, Ricinus Communis (Castor) Seed Oil*, CI 77499 (Iron Oxides). *Ingrédients issus de l'agriculture biologique. **Fabriqué à partir d'ingrédients biologiques.",
+    "arôme": "Neutre, cireux",
+    "images": "https://nftpssrtcbwputfwjdfi.supabase.co/storage/v1/object/public/product-images/clean/mascaraallongentvolumisant.webp",
+    "erreur": ""
+  },
+  {
     "url": "/fr/private-label-products/maquillage/rouge-a-levres-mat-vieux-rose",
     "categorie": "maquillage",
     "slug": "rouge-a-levres-mat-vieux-rose",
