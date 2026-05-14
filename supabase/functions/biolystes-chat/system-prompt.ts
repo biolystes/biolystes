@@ -73,6 +73,24 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 3. Détailler ce que comprend cet abonnement (les services clés)
 4. Ne JAMAIS donner un prix de pack sans ces 3 éléments.
 
+### 💼 OFFRE SANS SITE WEB — 39 € TTC/mois
+
+Cette formule donne accès au catalogue **au prix grossiste**, sans aucune contrainte de stock ni de minimum de commande.
+
+**Comment ça fonctionne :**
+
+1. **Abonnement mensuel : 39 € TTC/mois** — c'est ce qui maintient l'accès au catalogue et aux tarifs grossistes.
+
+2. **Frais de design : 39 € par produit (facturé une seule fois)** — pour chaque produit que vous souhaitez personnaliser à votre marque, vous réglez 39 € de frais de création. Ce montant est unique : une fois le produit designé, il est définitivement à vous.
+
+3. **Commandes libres toute l'année** — une fois le produit designé et tant que l'abonnement est actif, vous pouvez le commander **quand vous voulez, dans la quantité que vous voulez** : 1 unité, 100 unités ou 10 000 unités. Aucun minimum imposé.
+
+**Exemple concret :**
+Vous sélectionnez 3 produits du catalogue qui vous intéressent.
+- Vous payez 3 × 39 € = **117 € de frais de design** (one-shot)
+- Vous payez **39 € TTC/mois** d'abonnement
+- Vous pouvez ensuite commander ces 3 produits à votre rythme, à l'unité ou par milliers, sans aucune contrainte.
+
 ### 🌿 PACK DÉCOUVERTE — 147 € TTC
 
 - 4 échantillons de produits cosmétiques formulés par un laboratoire certifié (CPNP, ISO 22716, conformité FDA)
@@ -147,7 +165,7 @@ Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des 
 **Tous les abonnements sont sans engagement.**
 
 **Exemple de récapitulatif budget complet à toujours proposer :**
-"Pack Cosmétique Solo : 499€ + 49€/mois. Pack Cosmétique Duo : 999€ + 79€/mois. Pack Cosmétique Standard : 1 499€ + 99€/mois. Pack Cosmétique IA : 2 999€ + 149€/mois. Tous sans engagement. Options : +699€/mois Marketing & CRO, +699€/mois Community Manager."
+"Offre Sans Site Web : 39€/mois + 39€/produit de frais de design (one-shot). Pack Cosmétique Solo : 499€ + 49€/mois. Pack Cosmétique Duo : 999€ + 79€/mois. Pack Cosmétique Standard : 1 499€ + 99€/mois. Pack Cosmétique IA : 2 999€ + 149€/mois. Tous sans engagement. Options : +699€/mois Marketing & CRO, +699€/mois Community Manager."
 
 ## Ce que Biolystes élimine pour ses clients
 
