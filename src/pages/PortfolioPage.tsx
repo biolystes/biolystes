@@ -113,8 +113,8 @@ export const BRANDS: Brand[] = [
   {
     slug: "sevmylook",
     name: "Sevmylook",
-    tagline: "Gamme solaire & soins visage · Protection SPF 50, crème hydratante Séverine & huile Jouvence",
-    tags: ["Soins visage", "SPF 50", "Gamme complète"],
+    tagline: "Gamme solaire & soins visage · Protection SPF 30, crème hydratante Séverine & huile Jouvence",
+    tags: ["Soins visage", "SPF 30", "Gamme complète"],
     accentColor: "#b5896b",
     url: "https://sevmylook.com/",
     photos: [
