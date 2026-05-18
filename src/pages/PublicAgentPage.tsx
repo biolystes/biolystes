@@ -48,7 +48,7 @@ const MOCK_DIAGNOSIS = `## Diagnostic personnalisé
 **Recommandations :**
 1. **Nettoyage** : Utilisez un gel nettoyant doux matin et soir
 2. **Hydratation** : Sérum léger à l'acide hyaluronique
-3. **Protection** : SPF 30 minimum chaque matin
+3. **Protection** : SPF 50 minimum chaque matin
 
 **Produits conseillés pour vous :**
 - Sérum Éclat Vitamine C — pour uniformiser le teint
