@@ -199,7 +199,7 @@ function ProductPanel({
           {/* Catalogue price */}
           {price > 0 && (
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <span style={{ fontSize: 22, fontWeight: 700, color: "#1d1d1f" }}>{Math.round(price)}€ <span style={{ fontSize: 12, fontWeight: 400, color: C.muted }}>HT</span></span>
+              <span style={{ fontSize: 22, fontWeight: 700, color: "#1d1d1f" }}>{Math.round(price)}€ <span style={{ fontSize: 12, fontWeight: 400, color: C.muted }}>TTC</span></span>
             </div>
           )}
         </div>
