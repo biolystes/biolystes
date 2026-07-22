@@ -1085,15 +1085,20 @@ export default function CatalogPage() {
           </div>
         )}
 
+        <style>{`
+          .catalog-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+          @media (max-width: 768px), (pointer: coarse) and (max-width: 1024px) {
+            .catalog-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
+          }
+        `}</style>
         {loading && (
-          <div style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: isMobile ? 8 : 12 }}>
+          <div className="catalog-grid">
             {Array.from({ length: 8 }).map((_, i) => <ProductSkeleton key={i} />)}
           </div>
         )}
 
         {!loading && !error && products.length > 0 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }}
-            style={{ display: "grid", gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(4, 1fr)", gap: isMobile ? 8 : 12 }}>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="catalog-grid">
             {products.map((p, i) => (
               <ProductCard key={p.id} product={p} index={i} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} onGenerateClean={handleGenerateClean} overrideImage={cleanImages[p.id] || cleanImagesByName[normalizeStr(p.name)]} isGenerating={genLoadingId === p.id} hasCleanPending={cleanNamesKnown.has(normalizeStr(p.name)) && !cleanImagesByName[normalizeStr(p.name)] && !cleanImages[p.id]} />
             ))}
