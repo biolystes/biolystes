@@ -692,7 +692,7 @@ export default function DecouvertePage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {catalogProducts.slice(0, 8).map((p, i) => (
                 <motion.div key={p.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-                  className="group cursor-pointer bg-foreground/[0.04] p-[13px] rounded-[13px] m-[1px]" onClick={() => navigate("/catalog")}>
+                  className="group bg-foreground/[0.04] p-[13px] rounded-[13px] m-[1px]">
                   <div className="aspect-square rounded-2xl overflow-hidden mb-3 bg-muted">
                     {p.image && <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />}
                   </div>
