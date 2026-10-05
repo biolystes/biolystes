@@ -1,3 +1,4 @@
+import CatalogPasswordGate from "@/components/CatalogPasswordGate";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -68,7 +69,7 @@ function AppRoutes() {
       <Route path="/decouverte" element={<Layout><DecouvertePage /></Layout>} />
       <Route path="/concept" element={<Layout><ConceptPage /></Layout>} />
       <Route path="/chat" element={<Layout><DashboardPage /></Layout>} />
-      <Route path="/catalogue" element={<Layout><CatalogPage /></Layout>} />
+      <Route path="/catalogue" element={<Layout><CatalogPasswordGate><CatalogPage /></CatalogPasswordGate></Layout>} />
       <Route path="/portfolio" element={<Layout><PortfolioPage /></Layout>} />
       <Route path="/ai" element={<Layout><AIPage /></Layout>} />
       <Route path="/agence" element={<Layout><AgencePage /></Layout>} />
