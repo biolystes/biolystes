@@ -393,11 +393,8 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
 
   return (
     <motion.div
-      whileHover={{ y: -3, scale: 1.01 }}
-      transition={{ duration: 0.18 }}
-      onClick={onSelect}
       style={{
-        display: "flex", flexDirection: "column", cursor: "pointer",
+        display: "flex", flexDirection: "column",
         borderRadius: 20, overflow: "hidden",
         outline: isSelected ? "2.5px solid #1d1d1f" : "none",
         border: "none", boxShadow: "none",
