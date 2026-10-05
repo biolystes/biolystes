@@ -644,7 +644,7 @@ export default function DecouvertePage() {
 
 
       {/* ═══ 7. PORTFOLIO — NOS CLIENTS ═══ */}
-      <section id="section-portfolio" ref={setRef("portfolio")} className="py-6 md:py-8">
+      <section id="section-portfolio" ref={setRef("portfolio")} className="hidden py-6 md:py-8" aria-hidden="true">
         <div className="max-w-5xl mx-auto px-6">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-8">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-foreground">Portfolio</motion.p>
