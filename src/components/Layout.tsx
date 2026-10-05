@@ -3,7 +3,7 @@ import BiolystesArticlesWidget from "./BiolystesArticlesWidget";
 import lystesLogo from "@/assets/lystes-logo.png";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Settings, Menu, X, LogOut, Compass, LayoutDashboard, Shield, ArrowRight, ChevronDown } from "lucide-react";
+import { Settings, Menu, X, LogOut, Compass, LayoutDashboard, Shield, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 
@@ -25,7 +25,6 @@ const externalNavItems = [
   { href: "https://biolystes.pro/infos", label: "Ressources" },
 ];
 
-const RDV_URL = "https://biolystes.pro/rdv";
 
 function TopNavBar() {
   const location = useLocation();
@@ -173,24 +172,6 @@ function TopNavBar() {
           </Link>
         ))}
 
-        <Link to="/chat" className="btn-outline">
-          <span>Trouver des produits</span>
-          <span className="arrow-circle">
-            <ArrowRight className="w-3.5 h-3.5" />
-          </span>
-        </Link>
-
-        <a
-          href={RDV_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-startup"
-        >
-          <span>Prendre RDV</span>
-          <span className="arrow-circle">
-            <ArrowRight className="w-3.5 h-3.5" />
-          </span>
-        </a>
       </nav>
     </header>
   );
