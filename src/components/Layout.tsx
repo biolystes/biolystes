@@ -173,24 +173,6 @@ function TopNavBar() {
           </Link>
         ))}
 
-        <Link to="/chat" className="btn-outline">
-          <span>Trouver des produits</span>
-          <span className="arrow-circle">
-            <ArrowRight className="w-3.5 h-3.5" />
-          </span>
-        </Link>
-
-        <a
-          href={RDV_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn-startup"
-        >
-          <span>Prendre RDV</span>
-          <span className="arrow-circle">
-            <ArrowRight className="w-3.5 h-3.5" />
-          </span>
-        </a>
       </nav>
     </header>
   );
