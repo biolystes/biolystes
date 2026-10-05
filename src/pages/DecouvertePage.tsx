@@ -868,7 +868,6 @@ export default function DecouvertePage() {
               <h5 className="text-sm font-bold mb-3">Biolystes.</h5>
               <p className="text-xs opacity-60 leading-relaxed mb-4">La Liberté de Créer Votre Marque de Beauté. Simplement.</p>
             </div>
-            </div>
 
             {/* Col 2 — Navigation */}
             <div>
