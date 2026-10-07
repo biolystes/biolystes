@@ -305,12 +305,10 @@ export default function AIPage() {
               <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 mt-2 text-foreground">Lystes AI</h3>
               <p className="text-xs mb-5 text-foreground">Écosystème IA complet pour votre e-commerce</p>
               <div className="mb-2">
-                <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">999€</span>
-                <span className="text-[13px] ml-2 text-foreground">HT — frais de setup</span>
+                <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">Sur devis</span>
               </div>
               <div className="mb-6">
-                <span className="text-xl font-extrabold text-foreground tracking-tight">+ 99€</span>
-                <span className="text-[13px] ml-2 text-foreground">HT/mois</span>
+                <span className="text-[13px] text-foreground">Tarif présenté lors d'un rendez-vous</span>
               </div>
               <div className="flex flex-col mb-8 flex-1">
                 {[
@@ -390,7 +388,7 @@ export default function AIPage() {
               <ul className="space-y-2 text-xs">
                 <li><a href="/" className="opacity-60 hover:opacity-100 transition-opacity">Accueil</a></li>
                 <li><a href="/agence" className="opacity-60 hover:opacity-100 transition-opacity">Agence</a></li>
-                <li><a href="/pricing" className="opacity-60 hover:opacity-100 transition-opacity">Nos Tarifs</a></li>
+                <li><a href="/rdv" className="opacity-60 hover:opacity-100 transition-opacity">Nos Tarifs</a></li>
               </ul>
             </div>
             <div>

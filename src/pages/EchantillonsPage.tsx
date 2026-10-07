@@ -30,7 +30,7 @@ export default function EchantillonsPage() {
             <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
               className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed">
               Votre meilleure réflexion, testez nos produits <br className="hidden md:block" />
-              avec votre branding pour 147€, montant déduit si vous passez à l'étape suivante
+              avec votre branding, montant déduit si vous passez à l'étape suivante
             </motion.h2>
             <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
               className="text-sm text-foreground leading-relaxed">
@@ -46,10 +46,10 @@ export default function EchantillonsPage() {
                   Pack découverte
                 </div>
                 <h3 className="text-lg md:text-xl font-extrabold uppercase tracking-tight mb-1 mt-2 text-foreground">
-                  Testez nos produits — 147€
+                  Testez nos produits
                 </h3>
                 <p className="text-sm mb-8 text-foreground leading-relaxed">
-                  ou 3× 49€ — Validez la qualité avant de vous lancer
+                  Validez la qualité avant de vous lancer — tarif communiqué en rendez-vous
                 </p>
 
                 <div className="flex flex-col mb-8">
@@ -75,7 +75,7 @@ export default function EchantillonsPage() {
                   <span className="text-[11px] font-bold uppercase tracking-widest text-foreground">Bon à savoir</span>
                 </div>
                 <p className="text-[13px] leading-relaxed text-foreground">
-                  147€ déduits de toute Offre Avec Site souscrite dans les 30 jours. Votre test devient un acompte, pas une dépense.
+                  Le montant est déduit de toute Offre Avec Site souscrite dans les 30 jours. Votre test devient un acompte, pas une dépense.
                 </p>
               </div>
             </motion.div>

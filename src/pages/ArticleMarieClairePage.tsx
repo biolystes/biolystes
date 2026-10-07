@@ -177,7 +177,7 @@ export default function ArticleMarieClairePage() {
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-primary-foreground text-foreground font-medium text-sm hover:opacity-90 transition-opacity">
                 Prendre rendez-vous <ArrowRight className="w-4 h-4" />
               </a>
-              <a href="/tarifs"
+              <a href="/rdv"
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-primary-foreground/30 text-primary-foreground font-medium text-sm hover:bg-primary-foreground/10 transition-colors">
                 Voir les offres <ArrowRight className="w-4 h-4" />
               </a>
