@@ -268,9 +268,7 @@ export default function AgencePage() {
                 <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 mt-2 text-foreground">Pack Visibilité</h3>
                 <p className="text-xs mb-5 text-foreground">Réseaux sociaux + contenu</p>
                 <div className="mb-6">
-                  <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">499€</span>
-                  <span className="text-[13px] ml-2 text-foreground">HT/mois</span>
-                  <span className="text-[13px] ml-2 line-through text-muted-foreground">699€ HT/mois</span>
+                  <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">Sur devis</span>
                 </div>
                 <div className="flex flex-col mb-8 flex-1">
                   {[
@@ -309,9 +307,7 @@ export default function AgencePage() {
                 <h3 className="text-base font-extrabold uppercase tracking-tight mb-0.5 text-foreground">Pack Accélération</h3>
                 <p className="text-xs mb-5 text-foreground">Visibilité + Publicité + Influence</p>
                 <div className="mb-6">
-                  <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">999€</span>
-                  <span className="text-[13px] ml-2 text-foreground">HT/mois</span>
-                  <span className="text-[13px] ml-2 line-through text-muted-foreground">1 499€ HT/mois</span>
+                  <span className="text-3xl md:text-[34px] font-extrabold text-foreground tracking-tight">Sur devis</span>
                 </div>
                 <div className="flex flex-col mb-8 flex-1">
                   {[

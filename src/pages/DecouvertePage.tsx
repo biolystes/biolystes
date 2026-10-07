@@ -876,7 +876,7 @@ export default function DecouvertePage() {
                 <li><a href="#section-comprend" className="opacity-60 hover:opacity-100 transition-opacity">Comment ça marche</a></li>
                 <li><a href="#section-livraison" className="opacity-60 hover:opacity-100 transition-opacity">Zéro Stock</a></li>
                 <li><a href="#section-qualite" className="opacity-60 hover:opacity-100 transition-opacity">Engagements</a></li>
-                <li><button onClick={() => navigate("/pricing")} className="opacity-60 hover:opacity-100 transition-opacity">Nos Tarifs</button></li>
+                <li><button onClick={() => navigate("/rdv")} className="opacity-60 hover:opacity-100 transition-opacity">Nos Tarifs</button></li>
               </ul>
             </div>
 

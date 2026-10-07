@@ -3,14 +3,13 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import Layout from "./components/Layout";
 import DashboardPage from "./pages/DashboardPage";
 import CatalogPage from "./pages/CatalogPage";
 import SettingsPage from "./pages/SettingsPage";
 import PortfolioPage from "./pages/PortfolioPage";
-import PricingPage from "./pages/PricingPage";
 import PublicAgentPage from "./pages/PublicAgentPage";
 import SharedSelectionPage from "./pages/SharedSelectionPage";
 import ConceptPage from "./pages/ConceptPage";
@@ -29,7 +28,6 @@ import CGVPage from "./pages/CGVPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import AIPage from "./pages/AIPage";
 import AgencePage from "./pages/AgencePage";
-import TarifsPage from "./pages/TarifsPage";
 import PourquoiBiolystesPage from "./pages/PourquoiBiolystesPage";
 import PourquoiCetteOffrePage from "./pages/PourquoiCetteOffrePage";
 import BlogPage from "./pages/BlogPage";
@@ -73,8 +71,8 @@ function AppRoutes() {
       <Route path="/portfolio" element={<Layout><PortfolioPage /></Layout>} />
       <Route path="/ai" element={<Layout><AIPage /></Layout>} />
       <Route path="/agence" element={<Layout><AgencePage /></Layout>} />
-      <Route path="/pricing" element={<Layout><PricingPage /></Layout>} />
-      <Route path="/tarifs" element={<Layout><TarifsPage /></Layout>} />
+      <Route path="/pricing" element={<Navigate to="/rdv" replace />} />
+      <Route path="/tarifs" element={<Navigate to="/rdv" replace />} />
       <Route path="/etudes" element={<Layout><PourquoiBiolystesPage /></Layout>} />
       <Route path="/pourquoi-cette-offre" element={<Layout><PourquoiCetteOffrePage /></Layout>} />
       <Route path="/blog" element={<Layout><BlogPage /></Layout>} />

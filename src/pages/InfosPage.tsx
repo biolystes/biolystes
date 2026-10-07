@@ -121,9 +121,9 @@ const groups: LinkGroup[] = [
     label: "Tarifs & offre",
     items: [
       {
-        href: "/tarifs",
-        title: "Découvrez nos tarifs",
-        description: "Packs cosmétique, agence, IA et abonnements.",
+        href: "/rdv",
+        title: "Obtenir nos tarifs",
+        description: "Tarifs communiqués lors d'un rendez-vous avec un expert.",
         highlight: true,
       },
       {
@@ -134,7 +134,7 @@ const groups: LinkGroup[] = [
       {
         href: "/echantillons",
         title: "À quoi ressemblent nos échantillons pour tester ?",
-        description: "4 produits certifiés bio chez vous en 7 jours pour 147€.",
+        description: "4 produits certifiés bio chez vous en 7 jours.",
       },
     ],
   },

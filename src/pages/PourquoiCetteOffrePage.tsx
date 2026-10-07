@@ -327,7 +327,7 @@ export default function PourquoiCetteOffrePage() {
                 icon: Headphones,
                 title: "Les abonnements",
                 desc: "Pour ceux qui veulent tout déléguer : marketing, CRO, community management. Un accompagnement continu pour faire grandir votre marque.",
-                link: "/tarifs",
+                link: "/rdv",
               },
             ].map((item) => (
               <Link key={item.title} to={item.link} className="no-underline">

@@ -146,10 +146,10 @@ export default function ArticleLancerMarquePage() {
           <motion.h2 variants={fadeUp} custom={0} className="text-2xl font-semibold text-foreground mb-4">Combien ça coûte</motion.h2>
           <motion.div variants={fadeUp} custom={1} className="space-y-4 text-foreground/80 leading-relaxed text-[15px]">
             <p>
-              Le Pack Agence démarre à <strong className="text-foreground">1 499€ de frais de lancement</strong> + <strong className="text-foreground">99€/mois d'abonnement Pro</strong> (obligatoire, inclut hébergement, gestion livraisons, support, SEO, nom de domaine, chat IA…).
+              Le Pack Agence comprend des <strong className="text-foreground">frais de lancement</strong> et un <strong className="text-foreground">abonnement Pro mensuel</strong> (inclut hébergement, gestion livraisons, support, SEO, nom de domaine, chat IA…). Les tarifs détaillés vous sont présentés lors d'un rendez-vous avec un expert.
             </p>
             <p>
-              Pour tester avant de s'engager, le <strong className="text-foreground">Pack Découverte</strong> permet de recevoir 4 produits personnalisés à votre marque dès 147€ (ou 3x 49€). Le montant est intégralement déduit si vous passez à une offre avec site web.
+              Pour tester avant de s'engager, le <strong className="text-foreground">Pack Découverte</strong> permet de recevoir 4 produits personnalisés à votre marque avant de vous engager. Le montant est intégralement déduit si vous passez à une offre avec site web.
             </p>
           </motion.div>
         </SectionBlock>
@@ -165,9 +165,9 @@ export default function ArticleLancerMarquePage() {
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-full bg-primary-foreground text-foreground font-medium text-sm hover:opacity-90 transition-opacity">
                 Prendre rendez-vous <ArrowRight className="w-4 h-4" />
               </a>
-              <a href="/tarifs"
+              <a href="/rdv"
                 className="inline-flex items-center gap-2 px-8 py-3 rounded-full border border-primary-foreground/30 text-primary-foreground font-medium text-sm hover:bg-primary-foreground/10 transition-colors">
-                Voir les tarifs <ArrowRight className="w-4 h-4" />
+                Prendre rendez-vous <ArrowRight className="w-4 h-4" />
               </a>
             </div>
           </motion.div>

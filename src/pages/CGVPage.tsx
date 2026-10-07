@@ -24,22 +24,22 @@ export default function CGVPage() {
             Le Prestataire propose les offres suivantes :<br /><br />
 
             <strong>A. Biolystes Cosmétique</strong><br />
-            – <strong>Pack Découverte</strong> : 147€ (ou 3× 49€) — 4 produits échantillons, accompagnement personnalisé, étiquetage conforme, certifié Bio &amp; Végan / COSMOS / ECOCERT / FDA, livraison incluse. Les 147€ sont déduits de toute Offre Avec Site souscrite dans les 30 jours.<br />
-            – <strong>Pack Agence</strong> : 1 499€ de frais de mise en place (ou 750€ en 2 fois) + abonnement PRO à 99€/mois sans engagement — Logo, packaging, site e-commerce, SEO, automatisation livraison, support premium, expert dédié.<br />
-            – <strong>Pack IA</strong> : 2 999€ de frais de mise en place (ou 1 500€ en 2 fois) + abonnement PRO IA à 149€/mois sans engagement (1er mois offert) — Tout le Pack Agence + UGC IA, diagnostic intelligent, recommandations produits par IA, gestion réseaux sociaux 1 mois.<br /><br />
+            – <strong>Pack Découverte</strong> : produits échantillons personnalisés, accompagnement personnalisé, étiquetage conforme, certifié Bio &amp; Végan / COSMOS / ECOCERT / FDA, livraison incluse. Le montant est déduit de toute Offre Avec Site souscrite dans les 30 jours.<br />
+            – <strong>Pack Agence</strong> : frais de mise en place + abonnement PRO mensuel sans engagement — Logo, packaging, site e-commerce, SEO, automatisation livraison, support premium, expert dédié.<br />
+            – <strong>Pack IA</strong> : frais de mise en place + abonnement PRO IA mensuel sans engagement — Tout le Pack Agence + UGC IA, diagnostic intelligent, recommandations produits par IA, gestion réseaux sociaux.<br /><br />
 
             <strong>B. Agence Communication</strong> (pour les marques ayant déjà un laboratoire)<br />
-            – <strong>Pack Visibilité</strong> : 499€ HT/mois sans engagement — 12 publications/mois, calendrier éditorial, création de visuels, photos IA, community management, rapport mensuel, SEO fiches produits.<br />
-            – <strong>Pack Accélération</strong> : 999€ HT/mois sans engagement — Tout le Pack Visibilité + 20 publications/mois, Meta Ads, campagne influence, UGC IA, retargeting, articles blog SEO. Le budget publicitaire n'est pas inclus.<br /><br />
+            – <strong>Pack Visibilité</strong> : abonnement mensuel sans engagement — publications mensuelles, calendrier éditorial, création de visuels, photos IA, community management, rapport mensuel, SEO fiches produits.<br />
+            – <strong>Pack Accélération</strong> : abonnement mensuel sans engagement — Tout le Pack Visibilité + Meta Ads, campagne influence, UGC IA, retargeting, articles blog SEO. Le budget publicitaire n'est pas inclus.<br /><br />
 
             <strong>C. Biolystes AI Standalone</strong> (Shopify &amp; WooCommerce)<br />
-            – 999€ HT de frais de setup + 99€ HT/mois sans engagement — Agents conversationnels, diagnostic peau &amp; cheveux, photos produits IA, UGC, SEO, analytics, support multilingue.<br /><br />
+            – Frais de setup + abonnement mensuel sans engagement — Agents conversationnels, diagnostic peau &amp; cheveux, photos produits IA, UGC, SEO, analytics, support multilingue.<br /><br />
 
             <strong>D. Abonnements additionnels</strong><br />
-            – <strong>Marketing + CRO</strong> : 699€/mois sans engagement — Publicités Meta &amp; TikTok, Media Buying, CRO, A/B testing, SEO, rapports détaillés.<br />
-            – <strong>Community Manager</strong> : 699€/mois sans engagement — Gestion Instagram, Facebook, TikTok, Pinterest, calendrier éditorial, création de contenu, modération.<br /><br />
+            – <strong>Marketing + CRO</strong> : abonnement mensuel sans engagement — Publicités Meta &amp; TikTok, Media Buying, CRO, A/B testing, SEO, rapports détaillés.<br />
+            – <strong>Community Manager</strong> : abonnement mensuel sans engagement — Gestion Instagram, Facebook, TikTok, Pinterest, calendrier éditorial, création de contenu, modération.<br /><br />
 
-            Des offres promotionnelles temporaires peuvent être proposées. Les conditions et durées de ces promotions sont précisées sur le site au moment de leur mise en place.
+            Des offres promotionnelles temporaires peuvent être proposées. Leurs conditions sont précisées au client au moment de leur mise en place.
           </Section>
 
           <Section title="Article 3 – Abonnements et engagement">
@@ -48,8 +48,8 @@ export default function CGVPage() {
           </Section>
 
           <Section title="Article 4 – Prix et paiement">
-            Les prix sont indiqués en euros. Les offres Biolystes Cosmétique sont en TTC, les offres Agence Communication et Biolystes AI sont en HT sauf mention contraire.<br /><br />
-            Les frais de mise en place sont exigibles à la signature du contrat. Le paiement en 2 fois est disponible pour les Packs Agence et IA.<br /><br />
+            Les tarifs sont communiqués au client lors d'un rendez-vous avec un expert et précisés dans le devis ou le contrat signé. Ils sont exprimés en euros.<br /><br />
+            Les frais de mise en place sont exigibles à la signature du contrat. Un paiement échelonné peut être proposé selon l'offre souscrite.<br /><br />
             Tout retard de paiement entraîne de plein droit des pénalités de retard au taux légal en vigueur.
           </Section>
 
