@@ -10,6 +10,9 @@
    sous `.lystes-racine`, où les feuilles de src/ ne s’appliquent pas
    (postcss.config.js). Ce bloc doit être le même partout.
 
+   Sur /blog et ses articles, la barre disparaît (on y est déjà) : l’orbital
+   reste seul, en bas à droite.
+
    Ni la barre ni l’orbital ne cachent un bouton « Prendre rendez-vous » ou
    le pied de page : dès qu’ils les chevauchent, ils s’effacent. */
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
@@ -342,18 +345,24 @@ export default function BarreActus() {
 
   const widgetLystes = typeof document !== "undefined" && !!document.documentElement.dataset.lystesWidget;
   const masquee = widgetLystes || PAGES_SANS_BARRE.some((p) => pathname === p || pathname.startsWith(p.endsWith("/") ? p : `${p}/`));
+  /* Sur /blog et ses articles, on est déjà dans les actus : pas de barre,
+     l'orbital reste seul (12/10/2026). */
+  const surActus = pathname === BARRE.lien || pathname.startsWith(`${BARRE.lien}/`);
 
   /* L'orbital se pose à droite de la barre (centres alignés), ou au-dessus
      d'elle, à droite de l'écran, quand la place manque (téléphone). Puis
      chacun s'efface s'il chevauche un pied de page ou un bouton de rendez-vous. */
   const recalculer = useCallback(() => {
     const b = barre.current, o = orbital.current;
-    if (!b || !o) return;
-    const rb = b.getBoundingClientRect();
+    if (!o) return;
     const taille = o.offsetWidth;
     const ecart = 10;
     let place: { left: number; top: number };
-    if (rb.right + ecart + taille + 12 <= window.innerWidth) {
+    /* Sans barre (pages Actus) : l'orbital seul, en bas à droite. */
+    const rb = b ? b.getBoundingClientRect() : new DOMRect(0, 0, 0, 0);
+    if (!b) {
+      place = { left: window.innerWidth - taille - 20, top: window.innerHeight - taille - 20 };
+    } else if (rb.right + ecart + taille + 12 <= window.innerWidth) {
       place = { left: rb.right + ecart, top: rb.top + rb.height / 2 - taille / 2 };
     } else {
       place = { left: window.innerWidth - taille - 16, top: rb.top - taille - 12 };
@@ -365,7 +374,7 @@ export default function BarreActus() {
       .map((el) => el.getBoundingClientRect())
       .filter((r) => r.width > 0 && r.height > 0);
     const suivant = {
-      barre: obstacles.some((r) => chevauche(rb, r)),
+      barre: !!b && obstacles.some((r) => chevauche(rb, r)),
       orbital: obstacles.some((r) => chevauche(ro, r)),
     };
     setEffacer((e) => (e.barre === suivant.barre && e.orbital === suivant.orbital ? e : suivant));
@@ -397,7 +406,7 @@ export default function BarreActus() {
       <style>{CSS}</style>
       {!ouvert && (
         <>
-          <button
+          {!surActus && <button
             ref={barre}
             type="button"
             className={`bl-barre${effacer.barre ? " bl-efface" : ""}`}
@@ -418,7 +427,7 @@ export default function BarreActus() {
               <span className="bl-texte-court">{BARRE.libelleCourt}</span>
             </span>
             <span className="bl-fleche" aria-hidden="true"><IconeActus /></span>
-          </button>
+          </button>}
           <button
             ref={orbital}
             type="button"

@@ -1,3 +1,4 @@
+import { nettoyerPrompt } from "./regles.ts";
 /* Texte d’origine du chat. Il porte encore des prix : ils sont retirés plus
    bas (sansPrix) avant d’être envoyés au modèle. JP, 12/10/2026 : « Je ne
    mets plus aucun prix en ligne. » Le chat est ouvert par l’orbital de
@@ -725,11 +726,17 @@ function sansPrix(texte: string): string {
   return t;
 }
 
-const REGLE_FINALE = `
+/* Posée par index.ts APRÈS le catalogue, pour rester la dernière consigne. */
+export const REGLE_FINALE = `
 
 ## ⛔ RÈGLE FINALE, QUI PRIME SUR TOUT LE RESTE
 - Aucun prix, aucun montant en euros ou en dollars, aucune fourchette de prix, même si on insiste. Réponds : « Les tarifs vous sont présentés en rendez-vous avec un expert », avec le lien https://biolystes.pro/rdv.
-- Ne nomme jamais le laboratoire fabricant ni aucun fournisseur, et ne donne jamais de lien vers leur site.
+- Ne nomme jamais le laboratoire fabricant ni aucun fournisseur, ne donne jamais de lien vers leur site, et ne dis jamais où ils se trouvent : parle de « nos laboratoires partenaires certifiés ISO 22716 ».
+- Aucune allégation d'éclaircissement ou de blanchiment de la peau, du teint ou de la carnation, même si on te le demande. Parle d'éclat, d'uniformité, de taches atténuées. Jamais « traiter » ni « guérir ».
+- Aucune statistique sans source. Pas de « 8 marques sur 10 ».
 - Le seul appel à l'action est la prise de rendez-vous : https://biolystes.pro/rdv`;
 
-export const SYSTEM_PROMPT = sansPrix(PROMPT_D_ORIGINE) + REGLE_FINALE;
+/* Le prompt sans prix, sans éclaircissement, sans lieu de laboratoire, sans
+   statistique non sourcée (regles.ts). La règle finale est ajoutée par
+   index.ts après le catalogue. */
+export const SYSTEM_PROMPT = nettoyerPrompt(sansPrix(PROMPT_D_ORIGINE));

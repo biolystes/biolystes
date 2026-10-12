@@ -1,5 +1,6 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
-import { SYSTEM_PROMPT } from "./system-prompt.ts";
+import { REGLE_FINALE, SYSTEM_PROMPT } from "./system-prompt.ts";
+import { nettoyerPrompt } from "./regles.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -113,7 +114,8 @@ serve(async (req) => {
 
     // Build enriched system prompt
     const catalog = await getEnrichedCatalog();
-    const fullSystemPrompt = SYSTEM_PROMPT + catalog;
+    /* Catalogue relu par les mêmes règles que le prompt (regles.ts), règle finale en dernier. */
+    const fullSystemPrompt = nettoyerPrompt(SYSTEM_PROMPT + catalog) + REGLE_FINALE;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",

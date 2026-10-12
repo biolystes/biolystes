@@ -85,7 +85,7 @@ export const articles: Article[] = [
     appel: "Parlons de votre future gamme, sans stock à financer.",
     corps: [
       { t: "h2", texte: "Le piège du stock" },
-      { t: "p", texte: "La majorité des créateurs investissent jusqu’à 90 % de leur budget dans l’achat de stock. Une fois la marque lancée, il ne reste plus rien pour se faire connaître. Sans visibilité, pas de ventes. Le stock dort, la trésorerie fond, et le projet s’arrête." },
+      { t: "p", texte: "La majorité des créateurs investissent jusqu’à 90 % de leur budget dans l’achat de stock (étude interne Biolystes, voir notre page Études). Une fois la marque lancée, il ne reste plus rien pour se faire connaître. Sans visibilité, pas de ventes. Le stock dort, la trésorerie fond, et le projet s’arrête." },
       { t: "p", texte: "Nous avons construit Biolystes pour retirer cet obstacle en premier : **pas de stock à acheter, pas de minimum de commande**." },
       { t: "h2", texte: "Fabriqué à la demande, sous votre nom" },
       { t: "liste", numerotee: true, items: [
