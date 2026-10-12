@@ -11,9 +11,9 @@ import { citeLeFournisseur } from "@/lib/fournisseur-masque";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 // ─── WooCommerce config ──────────────────────────────────
+// Ancienne boutique WooCommerce : l'adresse sert désormais l'appli biolystes.pro,
+// l'appel échoue comme avant. Clés d'API retirées du code public le 12/10/2026.
 const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
-const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
-const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
 
 // ─── Images produits (hardcodées + WC dynamique) ─────────
 // Map slug WC → image URL (hardcodée pour garantir l'affichage)
@@ -111,8 +111,6 @@ async function loadWcCatalog(): Promise<void> {
 
     try {
       const url = new URL(`${WC_BASE}/products`);
-      url.searchParams.set("consumer_key", CK);
-      url.searchParams.set("consumer_secret", CS);
       url.searchParams.set("per_page", "100");
       url.searchParams.set("status", "publish");
       url.searchParams.set("_fields", "slug,name,images");

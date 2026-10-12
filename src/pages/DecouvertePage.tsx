@@ -100,9 +100,9 @@ function HomeExperienceCarousel() {
 }
 
 const CTA_URL = "https://biolystes.pro/rdv";
+// Ancienne boutique WooCommerce : l'adresse sert désormais l'appli biolystes.pro,
+// l'appel échoue comme avant. Clés d'API retirées du code public le 12/10/2026.
 const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
-const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
-const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
 const productImages = [productBox, product235th1, product235th2, product235th3];
 
 function ProductImageCycler() {
@@ -299,8 +299,6 @@ export default function DecouvertePage() {
   // Fetch catalog products
   useEffect(() => {
     const url = new URL(`${WC_BASE}/products`);
-    url.searchParams.set("consumer_key", CK);
-    url.searchParams.set("consumer_secret", CS);
     url.searchParams.set("per_page", "8");
     url.searchParams.set("status", "publish");
     url.searchParams.set("orderby", "popularity");
