@@ -94,8 +94,8 @@ export default function BiolystesArticlesWidget() {
           align-items: center;
           gap: 8px;
           background: #000;
-          color: #f5f4df;
-          border: 2px solid #f5f4df;
+          color: #ffffff;
+          border: 2px solid #ffffff;
           border-radius: 50px;
           padding: 14px 24px;
           font-size: 14px;
@@ -124,7 +124,7 @@ export default function BiolystesArticlesWidget() {
         }
 
         .biolystes-fab video {
-          border: 2px solid #f5f4df;
+          border: 2px solid #ffffff;
         }
 
         .biolystes-fab-dot {
@@ -169,7 +169,7 @@ export default function BiolystesArticlesWidget() {
           width: 420px;
           max-width: calc(100vw - 32px);
           max-height: calc(100vh - 140px);
-          background: hsl(57 52% 92% / 0.97);
+          background: hsl(210 9% 96% / 0.97);
           backdrop-filter: blur(20px);
           border-radius: 20px;
           border: 1px solid #1d1d1f;

@@ -98,7 +98,7 @@ function BeforeAfterPhones() {
         {/* ── AVANT ── */}
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
           className="flex flex-col items-center gap-4 relative z-10 w-[320px] shrink-0">
-          <div className="bg-[#f5f4df] text-[#111] px-5 py-2 rounded-lg font-bold text-[9px] tracking-widest uppercase">Vos concurrents</div>
+          <div className="bg-[#f3f4f5] text-[#111] px-5 py-2 rounded-lg font-bold text-[9px] tracking-widest uppercase">Vos concurrents</div>
           <div className="w-[320px] bg-background rounded-[2.5rem] overflow-hidden relative flex flex-col border border-border" style={{ background: '#fff' }}>
             <PhoneHeader />
             <div className="w-full h-64 relative pt-4 overflow-hidden" style={{ background: '#f5f5f5' }}>
@@ -141,7 +141,7 @@ function BeforeAfterPhones() {
         {/* ── AVEC LYSTES ── */}
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
           className="flex flex-col items-center gap-4 relative w-[360px] shrink-0">
-          <div className="bg-[#f5f4df] text-[#111] px-5 py-2 rounded-lg font-bold text-[9px] tracking-widest uppercase z-10">
+          <div className="bg-[#f3f4f5] text-[#111] px-5 py-2 rounded-lg font-bold text-[9px] tracking-widest uppercase z-10">
             Vous avec Biolystes AI
           </div>
           <div className="relative">

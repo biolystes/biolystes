@@ -196,8 +196,8 @@ export default function PourquoiBiolystesPage() {
         {/* Catégorie 2 — Opérationnels */}
         <SectionBlock>
           <motion.div variants={fadeUp} custom={0} className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
-              <FlaskConical className="w-5 h-5 text-amber-700" />
+            <div className="w-10 h-10 rounded-full bg-[#f3f4f5] flex items-center justify-center">
+              <FlaskConical className="w-5 h-5 text-foreground" />
             </div>
             <h3 className="text-xl font-semibold text-foreground">Catégorie 2 — Les blocages opérationnels</h3>
           </motion.div>

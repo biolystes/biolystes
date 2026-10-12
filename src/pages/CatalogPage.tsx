@@ -22,7 +22,7 @@ import { getProductImagesSync } from "@/data/productImageMap";
 // ─── Crème palette (no grays) ─────────────────────────────
 const C = {
   bg: "#ebebd6",         // main crème background
-  bgLight: "#f5f4df",    // lighter crème (panels, dropdowns)
+  bgLight: "#f3f4f5",    // lighter crème (panels, dropdowns)
   border: "#dddcc8",     // crème border
   borderLight: "#e2e1cc",// lighter crème border
   muted: "#8a8970",      // warm olive muted text
@@ -413,7 +413,7 @@ function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false
           <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, width: 26, height: 26, borderRadius: 8, background: "rgba(245,244,223,0.7)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: C.muted }}>#</div>
         )}
         {enriched?.certifications?.some(c => c.toLowerCase().includes("nouveauté") || c.toLowerCase().includes("nouveaute")) && (
-          <div style={{ position: "absolute", top: 12, right: 44, zIndex: 3, padding: "4px 10px", borderRadius: 999, background: "#1d1d1f", color: "#f5f4df", fontSize: 9, fontWeight: 800, letterSpacing: ".8px", textTransform: "uppercase", boxShadow: "0 2px 8px rgba(0,0,0,0.25)" }}>
+          <div style={{ position: "absolute", top: 12, right: 44, zIndex: 3, padding: "4px 10px", borderRadius: 999, background: "#1d1d1f", color: "#ffffff", fontSize: 9, fontWeight: 800, letterSpacing: ".8px", textTransform: "uppercase", boxShadow: "0 2px 8px rgba(0,0,0,0.25)" }}>
             ✨ Nouveauté
           </div>
         )}

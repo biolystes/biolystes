@@ -349,7 +349,7 @@ function ThinkingIndicator() {
         <span style={{ fontSize: 14 }}>✦</span>
       </div>
       <div style={{
-        flex: 1, background: "#f5f4df", borderRadius: 12, padding: "12px 16px",
+        flex: 1, background: "#f3f4f5", borderRadius: 12, padding: "12px 16px",
         maxWidth: 320,
       }}>
         {/* Progress bar */}
@@ -498,7 +498,7 @@ function MarketCard({ block }: { block: MarketBlock }) {
   return (
     <div style={{
       borderRadius: 12,
-      background: "#f5f4df", padding: "14px 16px", marginTop: 4,
+      background: "#f3f4f5", padding: "14px 16px", marginTop: 4,
     }}>
       <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
         <span style={{ fontSize: 14 }}>📊</span>
