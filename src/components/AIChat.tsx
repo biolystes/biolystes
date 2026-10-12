@@ -7,12 +7,13 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { citeLeFournisseur } from "@/lib/fournisseur-masque";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 // ─── WooCommerce config ──────────────────────────────────
+// Ancienne boutique WooCommerce : l'adresse sert désormais l'appli biolystes.pro,
+// l'appel échoue comme avant. Clés d'API retirées du code public le 12/10/2026.
 const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
-const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
-const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
 
 // ─── Images produits (hardcodées + WC dynamique) ─────────
 // Map slug WC → image URL (hardcodée pour garantir l'affichage)
@@ -85,6 +86,8 @@ async function loadCleanImages(): Promise<void> {
         .select("product_name, product_name_normalized, clean_image_url");
       if (data) {
         data.forEach((row: any) => {
+          // Jamais une image hébergée chez le laboratoire : son adresse le nomme.
+          if (citeLeFournisseur(row.clean_image_url)) return;
           cleanImageCache[row.product_name_normalized] = row.clean_image_url;
           // Also index by normalized name for fuzzy matching
           cleanImageCache[normalizeKey(row.product_name)] = row.clean_image_url;
@@ -108,8 +111,6 @@ async function loadWcCatalog(): Promise<void> {
 
     try {
       const url = new URL(`${WC_BASE}/products`);
-      url.searchParams.set("consumer_key", CK);
-      url.searchParams.set("consumer_secret", CS);
       url.searchParams.set("per_page", "100");
       url.searchParams.set("status", "publish");
       url.searchParams.set("_fields", "slug,name,images");
@@ -118,7 +119,7 @@ async function loadWcCatalog(): Promise<void> {
       if (res.ok) {
         const products: { slug: string; name: string; images: { src: string }[] }[] = await res.json();
         products.forEach((p) => {
-          if (p.images?.[0]?.src) {
+          if (p.images?.[0]?.src && !citeLeFournisseur(p.images[0].src)) {
             wcImageCache[p.slug] = p.images[0].src;
             wcImageCache[normalizeName(p.name)] = p.images[0].src;
           }

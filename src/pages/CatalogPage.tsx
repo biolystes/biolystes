@@ -35,14 +35,12 @@ const C = {
 };
 
 // ─── WooCommerce config ───────────────────────────────────
+// Ancienne boutique WooCommerce : l'adresse sert désormais l'appli biolystes.pro,
+// l'appel échoue comme avant. Clés d'API retirées du code public le 12/10/2026.
 const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
-const CK = "ck_375b1fedd12fc4161c16f06a8358f4d362711239";
-const CS = "cs_56ece5ac68b7c2c8ffafecbddb449504bac26657";
 
 function buildUrl(endpoint: string, params: Record<string, string> = {}) {
   const url = new URL(`${WC_BASE}${endpoint}`);
-  url.searchParams.set("consumer_key", CK);
-  url.searchParams.set("consumer_secret", CS);
   Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
   return url.toString();
 }

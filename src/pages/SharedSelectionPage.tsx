@@ -3,6 +3,7 @@ import lystesLogo from "@/assets/lystes-logo.png";
 import { useParams, Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { supabase } from "@/integrations/supabase/client";
+import { citeLeFournisseur, imageSansFournisseur } from "@/lib/fournisseur-masque";
 import {
   type JSONProduct,
   type EnrichedFields,
@@ -239,6 +240,8 @@ export default function SharedSelectionPage() {
       if (imgRes.data) {
         const map = new Map<string, string>();
         for (const row of imgRes.data) {
+          // Une image hébergée chez le laboratoire nommerait le fournisseur.
+          if (citeLeFournisseur(row.clean_image_url)) continue;
           map.set(row.product_name_normalized, row.clean_image_url);
         }
         setCleanImages(map);
@@ -257,7 +260,7 @@ export default function SharedSelectionPage() {
   };
 
   const getImage = (product: SelectedProduct): string => {
-    return cleanImages.get(normalizeProductName(product.name)) || product.image || "";
+    return cleanImages.get(normalizeProductName(product.name)) || imageSansFournisseur(product.image);
   };
 
   if (loading) {
