@@ -675,7 +675,7 @@
       "subtitle": "Kies het abonnement dat bij uw behoeften past",
       "discovery": {
         "name": "Discovery",
-        "price": "€99",
+        "price": "",
         "period": "/maand",
         "features": [
           "1 agent",
@@ -685,7 +685,7 @@
       },
       "pro": {
         "name": "Pro",
-        "price": "€499",
+        "price": "",
         "period": "/maand",
         "features": [
           "3 agents",
@@ -696,7 +696,7 @@
       },
       "business": {
         "name": "Business",
-        "price": "€799",
+        "price": "",
         "period": "/maand",
         "features": [
           "5 agents",
@@ -707,13 +707,12 @@
       },
       "free": {
         "features": [
-          "Setup vanaf €290, daarna €49/maand",
           "1 AI-expertagent",
           "Gratis installatie voor de eerste 5 merken"
         ],
         "name": "Essentieel",
-        "price": "290 €",
-        "period": "+ 49 €/maand"
+        "price": "",
+        "period": ""
       }
     },
     "faq": {
@@ -7013,7 +7012,7 @@
         {
           "question": "Wat zijn de tarieven?",
           "essai": "{{jours}} dagen gratis proberen, kaart vereist, geen afschrijving vóór het einde van de proefperiode.",
-          "answer": "Eén aanbod met alles inbegrepen, vanaf € 49,99 excl. btw/maand, afhankelijk van het aantal producten in uw catalogus. Geen verplichtingen, op elk moment opzegbaar."
+          "answer": "Geen verplichtingen, op elk moment opzegbaar."
         },
         {
           "question": "Welke ondersteuning is beschikbaar?",
@@ -7565,12 +7564,12 @@
     "s130": "Lanceer uw cosmeticamerk in 2 weken",
     "s131": "in plaats van 7 tot 18 maanden.",
     "s132": "Biolystes is geen alternatief voor maatwerkformulering, het is uw overgangsfase. Met het",
-    "s133": "Duo Pack voor € 999",
+    "s133": "Pack Duo",
     "s134": "(2 biologisch gecertificeerde producten, klaar om te personaliseren), bent u in minder dan twee weken operationeel, terwijl een klassiek maatwerkproject 7 tot 18 maanden vraagt voor formulering, stabiliteitstesten, toxicologische evaluaties en CPNP. Deze maanden worden maanden voorsprong: u test uw markt, valideert uw positionering met echte klanten en bouwt uw publiek op. Gemiddelde besparing voor een lancering van 2 producten:",
-    "s135": "€ 11 001 (‑92 %)",
-    "s136": "en",
-    "s137": "€ 301/maand",
-    "s138": "aan vermeden terugkerende kosten.",
+    "s135": "‑92 %",
+    "s136": "",
+    "s137": "",
+    "s138": "",
     "s139": "Wij zetten volledige AI-teams in om uw bedrijf te revolutioneren.",
     "s140": "Creative director, SEO-managers, fotografen, home coaches en data-analisten: een heel team, autonoom en ontworpen voor prestaties.",
     "s141": "Om verder te gaan",

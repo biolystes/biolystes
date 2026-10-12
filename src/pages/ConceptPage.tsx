@@ -50,7 +50,6 @@ const fadeUp = {
 };
 
 const CTA_URL = "https://biolystes.pro/rdv";
-const CATALOG_URL = "/catalog";
 const CONTACT_URL = "https://biolystes.pro/rdv";
 
 // WooCommerce config for catalog preview
@@ -219,7 +218,7 @@ function CatalogPreview({ navigate }: { navigate: (path: string) => void }) {
       <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
         {products.slice(0, 8).map((p, i) => (
           <motion.div key={p.id} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-            className="group cursor-pointer" onClick={() => navigate("/catalog")}>
+            className="group">
             <div className="aspect-square rounded-2xl overflow-hidden mb-3" style={{ background: "linear-gradient(160deg, #e8eef5 0%, #dce6f0 100%)" }}>
               {p.image && <img src={p.image} alt={p.name} className="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-500" loading="lazy" />}
             </div>
@@ -370,7 +369,7 @@ function AnimatedChat() {
 export default function ConceptPage() {
   const navigate = useNavigate();
   return (
-    <div className="min-h-screen bg-background -mx-6 lg:-mx-10 -mt-6 lg:-mt-10">
+    <div className="min-h-screen bg-background lg:-mx-10 -mt-6 lg:-mt-10">
 
       {/* ═══ HERO ═══ */}
       <section className="relative overflow-hidden bg-gradient-to-b from-[hsl(270,40%,96%)] via-background to-background">
@@ -397,12 +396,6 @@ export default function ConceptPage() {
               <Button size="lg" className="bg-foreground text-primary-foreground hover:bg-foreground/90 rounded-full px-10 h-14 text-sm tracking-wide font-medium">
                 Prendre rendez-vous
                 <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            </a>
-            <a href={CATALOG_URL}>
-              <Button size="lg" variant="outline" className="rounded-full px-10 h-14 text-sm tracking-wide font-medium border-muted-foreground/40 text-foreground hover:bg-foreground hover:text-primary-foreground">
-                <ShoppingBag className="mr-2 h-4 w-4" />
-                Consulter le catalogue
               </Button>
             </a>
           </motion.div>
@@ -487,10 +480,10 @@ export default function ConceptPage() {
             ))}
           </motion.div>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2} className="mt-10 flex flex-wrap gap-4">
-            <a href={CATALOG_URL}>
+            <a href={CTA_URL} target="_blank" rel="noopener noreferrer">
               <Button className="rounded-full px-6 h-11 text-sm">
-                <ShoppingBag className="mr-2 h-4 w-4" />
-                Voir le catalogue produits
+                Prendre rendez-vous
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </a>
             <a href={CONTACT_URL} target="_blank" rel="noopener noreferrer">

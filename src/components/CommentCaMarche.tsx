@@ -92,12 +92,12 @@ export default function CommentCaMarche() {
         </div>
 
         {/* Stepper indicators */}
-        <div className="flex justify-center items-center gap-2 md:gap-3 mb-10">
+        <div className="flex justify-center items-center gap-1 md:gap-3 mb-10">
           {steps.map((_, i) => (
-            <div key={i} className="flex items-center gap-2 md:gap-3">
+            <div key={i} className="flex items-center gap-1 md:gap-3">
               <button
                 onClick={() => setCurrent(i)}
-                className="w-8 h-8 rounded-full text-xs font-semibold border transition-colors"
+                className="w-7 h-7 md:w-8 md:h-8 shrink-0 rounded-full text-xs font-semibold border transition-colors"
                 style={{
                   backgroundColor: i === current ? "#f3f4f5" : "transparent",
                   color: i === current ? "#121212" : "#ffffff88",
@@ -107,7 +107,7 @@ export default function CommentCaMarche() {
                 {i + 1}
               </button>
               {i < steps.length - 1 && (
-                <div className="w-4 md:w-6 h-px" style={{ backgroundColor: "#ffffff33" }} />
+                <div className="w-2 md:w-6 h-px" style={{ backgroundColor: "#ffffff33" }} />
               )}
             </div>
           ))}

@@ -13,14 +13,14 @@ const FEATURES: Record<PackType, string[]> = {
     "1 design de produit personnalisé",
     "Boutique en ligne à votre nom",
     "Logo et identité visuelle",
-    "Abonnement : 49€/mois",
+    "Abonnement mensuel",
     "Sans engagement",
   ],
   duo: [
     "2 designs de produits personnalisés",
     "Boutique en ligne à votre nom",
     "Logo et identité visuelle",
-    "Abonnement : 79€/mois",
+    "Abonnement mensuel",
     "Sans engagement",
   ],
   standard: [
@@ -29,7 +29,7 @@ const FEATURES: Record<PackType, string[]> = {
     "Contenu marketing clé en main",
     "Site e-commerce + SEO",
     "Expert dédié",
-    "Abonnement : 99€/mois",
+    "Abonnement mensuel",
     "Sans engagement",
   ],
   ia: [
@@ -39,7 +39,7 @@ const FEATURES: Record<PackType, string[]> = {
     "Agent conseil produit IA 24h/24",
     "UGC IA + photos studio",
     "Gestion réseaux sociaux 1 mois",
-    "Abonnement : 149€/mois",
+    "Abonnement mensuel",
     "Sans engagement",
   ],
 };
@@ -67,10 +67,7 @@ export default function StepPack() {
               }`}
             >
               <div className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-2">{p.label}</div>
-              <div className="text-xl font-bold text-foreground mb-1">{p.setup_price.toLocaleString("fr-FR")} €</div>
-              {p.monthly_price > 0 && (
-                <div className="text-sm text-muted-foreground mb-3">+ {p.monthly_price} €/mois</div>
-              )}
+              {/* Aucun prix affiché (décision du 12/10/2026) : le tarif se présente en rendez-vous. */}
               <div className="space-y-1.5 mt-3">
                 {FEATURES[key].map((f) => (
                   <div key={f} className="flex items-start gap-1.5 text-xs">

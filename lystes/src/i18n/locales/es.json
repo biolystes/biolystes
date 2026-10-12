@@ -675,7 +675,7 @@
       "subtitle": "Elija el plan adaptado a sus necesidades",
       "discovery": {
         "name": "Discovery",
-        "price": "99€",
+        "price": "",
         "period": "/mes",
         "features": [
           "1 agente",
@@ -685,7 +685,7 @@
       },
       "pro": {
         "name": "Pro",
-        "price": "499€",
+        "price": "",
         "period": "/mes",
         "features": [
           "3 agentes",
@@ -696,7 +696,7 @@
       },
       "business": {
         "name": "Business",
-        "price": "799€",
+        "price": "",
         "period": "/mes",
         "features": [
           "5 agentes",
@@ -707,13 +707,12 @@
       },
       "free": {
         "features": [
-          "Configuración desde 290 €, luego 49 €/mes",
           "1 agente experto en IA",
           "Instalación gratuita para las primeras 5 marcas"
         ],
         "name": "Esencial",
-        "price": "290 €",
-        "period": "+ 49 €/mes"
+        "price": "",
+        "period": ""
       }
     },
     "faq": {
@@ -7013,7 +7012,7 @@
         {
           "question": "¿Cuáles son las tarifas?",
           "essai": "{{jours}} días de prueba gratis, se pide tarjeta, ningún cargo antes del final de la prueba.",
-          "answer": "Una única oferta con todo incluido, desde 49,99 € sin IVA/mes según el número de productos de tu catálogo. Sin compromiso, cancelación en cualquier momento."
+          "answer": "Sin compromiso, cancelación en cualquier momento."
         },
         {
           "question": "¿Qué soporte está disponible?",
@@ -7565,12 +7564,12 @@
     "s130": "Lance su marca cosmética en 2 semanas",
     "s131": "en lugar de 7 a 18 meses.",
     "s132": "Biolystes no es una alternativa a la formulación a medida, es su fase de transición. Con el",
-    "s133": "Pack Duo a 999 €",
+    "s133": "Pack Duo",
     "s134": "(2 productos certificados bio, listos para personalizar), estará operativo en menos de dos semanas, mientras que un proyecto a medida clásico requiere de 7 a 18 meses entre formulación, pruebas de estabilidad, evaluaciones toxicológicas y CPNP. Estos meses se convierten en meses de ventaja: prueba su mercado, valida su posicionamiento con clientes reales y construye su audiencia. Ahorro medio para un lanzamiento de 2 productos:",
-    "s135": "11 001 € (‑92 %)",
-    "s136": "y",
-    "s137": "301 €/mes",
-    "s138": "de gastos recurrentes evitados.",
+    "s135": "‑92 %",
+    "s136": "",
+    "s137": "",
+    "s138": "",
     "s139": "Implementamos equipos de IA enteros para revolucionar su actividad.",
     "s140": "Director creativo, managers SEO, fotógrafos, coaches a domicilio y analistas de datos: un equipo entero, autónomo y diseñado para el rendimiento.",
     "s141": "Para ir más lejos",
