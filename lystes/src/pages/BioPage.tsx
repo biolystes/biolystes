@@ -594,14 +594,9 @@ export default function DecouvertePage() {
           </motion.p>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
             className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href="https://kaniwabotanique.com" target="_blank" rel="noopener noreferrer" className="btn-startup">
-              <span>Voir notre dernier projet</span>
-              <span className="arrow-circle">
-                <ArrowRight className="w-3.5 h-3.5" />
-              </span>
-            </a>
-            <a href="https://biolystes.pro/rdv" target="_blank" rel="noopener noreferrer" className="btn-outline">
-              <span>Demander l’accès à nos produits</span>
+            {/* biolystes.com : un seul appel à l'action, le rendez-vous. */}
+            <a href="https://biolystes.pro/rdv" target="_blank" rel="noopener noreferrer" className="btn-startup">
+              <span>Prendre rendez-vous</span>
               <span className="arrow-circle">
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
@@ -930,7 +925,7 @@ export default function DecouvertePage() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4}
             className="mt-16 flex flex-wrap justify-center gap-4">
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
-              <span>Prendre rendez-vous avec un expert</span>
+              <span>Prendre rendez-vous</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
           </motion.div>
