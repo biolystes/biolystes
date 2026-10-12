@@ -131,7 +131,7 @@ const BIO_HERO = (onRecherche: (q: string) => void): HeroVariante => ({
      12/10 : « garde cette vidéo pour la version mobile »). */
   fond: {
     ordi: { video: "/videos/bio/bio-hero-ordi.mp4", affiche: "/videos/bio/bio-hero-ordi.webp", position: "60% 30%" },
-    mobile: { video: "/videos/bio/bio-hero-ordi.mp4", affiche: "/videos/bio/bio-hero-ordi.webp", position: "40% 20%" },
+    mobile: { video: "/videos/bio/bio-hero-ordi.mp4", affiche: "/videos/bio/bio-hero-ordi.webp", position: "70% 20%" },
   },
   /* Fond gris clair : le voile de l’accueil ne suffit pas sous un titre
      blanc. Plus sombre à gauche, là où se trouve le texte. */
