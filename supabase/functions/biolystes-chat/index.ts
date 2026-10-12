@@ -12,7 +12,7 @@ interface ProduitJSON {
   slug: string;
   categorie: string;
   volume: string;
-  prix: string;
+  prix?: string; // retiré du JSON public le 12/10/2026 : aucun prix en ligne
   certifications: string;
   ingredients_fr: string;
   star_features: string;
@@ -23,11 +23,6 @@ interface ProduitJSON {
 }
 
 let enrichedCatalog: string | null = null;
-
-function extractPrice(raw: string): string {
-  const m = raw.match(/([\d,]+)\s*\$/);
-  return m ? m[1].replace(",", ".") + " $" : "sur demande";
-}
 
 function buildEnrichedCatalog(products: ProduitJSON[]): string {
   const byCategory: Record<string, ProduitJSON[]> = {};
@@ -54,9 +49,8 @@ function buildEnrichedCatalog(products: ProduitJSON[]): string {
   for (const [cat, prods] of Object.entries(byCategory)) {
     output += `### ${categoryLabels[cat] || cat.toUpperCase()}\n\n`;
     for (const p of prods) {
-      const price = extractPrice(p.prix);
-      
-      output += `**${p.nom}** — ${p.volume} — Prix unitaire HT : ${price}\n`;
+      // Plus de prix dans produits.json : le prix se donne en rendez-vous.
+      output += `**${p.nom}** — ${p.volume}\n`;
       output += `- Slug URL : ${p.slug}\n`;
       if (p.certifications) output += `- Certifications : ${p.certifications}\n`;
       output += `- Ingrédients clés : ${p.ingredients_fr}\n`;
