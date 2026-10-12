@@ -1,0 +1,3488 @@
+/* Feuille de style de lystes.ai (petal-diagnostics, src/index.css), recopiée
+   telle quelle pour la page d’accueil reprise de lystes.ai/bio. Les polices
+   venaient de l’index.html de lystes.ai. Tout est cantonné à .lystes-racine
+   (postcss.config.js). */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700&display=swap');
+/* PERFORMANCE: Load fonts asynchronously via index.html instead */
+/* @import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,600,700&display=swap'); */
+@import './styles/tiptap-styles.css';
+@import './styles/pack-marketing.css';
+@import './styles/pack-crea.css';
+@config "../tailwind.config.ts";
+
+/* Futura — police locale (licence à vérifier pour usage commercial) */
+@font-face {
+  font-family: 'Futura';
+  src: url('/fonts/Futura.ttc') format('truetype-collection');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* SF Pro Display */
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('https://lystes.ai/__l5e/assets-v1/a5f3b71d-ff19-4dd3-bd80-4e690586c710/SFPRODISPLAYULTRALIGHTITALIC.OTF') format('opentype');
+  font-weight: 100;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('https://lystes.ai/__l5e/assets-v1/6ba1e968-084e-4943-b7e4-c86824b83ad3/SFPRODISPLAYTHINITALIC.OTF') format('opentype');
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('https://lystes.ai/__l5e/assets-v1/06e5d86b-22c7-4e11-92ac-4315340c399a/SFPRODISPLAYLIGHTITALIC.OTF') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('https://lystes.ai/__l5e/assets-v1/8b7e55a9-7523-46c2-834d-aad484f34a12/SFPRODISPLAYREGULAR.OTF') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('https://lystes.ai/__l5e/assets-v1/d353cc22-80a9-4fb9-8a52-7b171bbde2fc/SFPRODISPLAYMEDIUM.OTF') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('https://lystes.ai/__l5e/assets-v1/13946177-7560-48e7-94af-1ef116f221d3/SFPRODISPLAYSEMIBOLDITALIC.OTF') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('https://lystes.ai/__l5e/assets-v1/7d2af59c-fb22-40c3-b58a-d31f89aafb33/SFPRODISPLAYBOLD.OTF') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('https://lystes.ai/__l5e/assets-v1/056a7f7e-4805-47e1-a138-8ddead92c0af/SFPRODISPLAYHEAVYITALIC.OTF') format('opentype');
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'SF Pro Display';
+  src: url('https://lystes.ai/__l5e/assets-v1/b49545aa-2a60-43af-8f24-1fb82c1e7ce6/SFPRODISPLAYBLACKITALIC.OTF') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Désactiver le dark mode complètement */
+:root {
+  color-scheme: light only;
+  --gestion-pistache: 83 70% 86%;
+  --gestion-chart: 98 43% 48%;
+}
+
+html {
+  color-scheme: light;
+  /* GPU acceleration for smoother scrolling */
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Compteurs de la latérale CoWork — même vert que « Nouvelle conversation ». */
+span.text-\[10px\].font-medium.tabular-nums.text-muted-foreground {
+  background: #e2f4c6;
+  border-radius: 38px;
+  color: #000000;
+  padding: 2px 9px;
+}
+
+/* Forcer le mode clair même si le système préfère le dark */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: light;
+  }
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Optimize images globally - avoid content-visibility:auto as it causes layout shifts on scrollable pages */
+img {
+  contain-intrinsic-size: auto;
+}
+
+/* Force GPU layers for animated elements */
+.animate-pulse, .animate-spin, .animate-spin-slow {
+  will-change: transform, opacity;
+}
+
+/* Widget logo constraint */
+img.animate-spin-slow {
+  max-width: 44px;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.max-w-5xl {
+  max-width: 55rem;
+}
+
+/* ============== ACCESSIBILITY ============== */
+
+/* Enhanced focus-visible ring for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Remove default focus for mouse clicks */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Skip-to-main link (used on Index page) */
+.sr-only.focus\:not-sr-only:focus {
+  clip: auto;
+  clip-path: none;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  white-space: nowrap;
+}
+
+/* GloowUp Landing Page Design System */
+
+@layer base {
+:root {
+    /* Apple Design System - STRICT palette */
+    --color-black: 0 0% 11%;           /* #1d1d1f */
+    --color-gray-dark: 0 0% 53%;       /* #86868b */
+    --color-gray-medium: 0 0% 93%;     /* #EDEDED - visible light */
+    --color-gray-light: 0 0% 96%;      /* #f5f5f7 */
+    --color-white: 0 0% 100%;          /* #ffffff */
+
+    /* Accent colors (Apple-style semantic) */
+    --accent-success: 142 76% 36%;     /* Green #22c55e */
+    --accent-warning: 38 92% 50%;      /* Amber #f59e0b */
+    --accent-info: 217 91% 60%;        /* Blue #3b82f6 */
+    --accent-danger: 0 84% 60%;        /* Red #ef4444 */
+
+    /* Chart colors */
+    --chart-1: var(--color-black);
+    --chart-2: var(--color-gray-dark);
+    --chart-3: 217 91% 60%;            /* Blue */
+    --chart-4: 142 76% 36%;            /* Green */
+    --chart-5: 38 92% 50%;             /* Amber */
+
+    /* Shadcn semantic variables mapped to Apple palette */
+    --background: var(--color-white);
+    --foreground: var(--color-black);
+    --card: var(--color-white);
+    --card-foreground: var(--color-black);
+    --popover: var(--color-white);
+    --popover-foreground: var(--color-black);
+    --primary: var(--color-black);
+    --primary-foreground: var(--color-white);
+    --secondary: var(--color-gray-light);
+    --secondary-foreground: var(--color-black);
+    --muted: var(--color-gray-light);
+    --muted-foreground: var(--color-gray-dark);
+    --accent: var(--color-gray-light);
+    --accent-foreground: var(--color-black);
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: var(--color-white);
+    --border: 0 0% 93%;  /* Visible light #EDEDED */
+    --input: var(--color-gray-medium);
+    --ring: var(--color-black);
+    --radius: 0.75rem;
+
+    /* --- Charte « zéro bordure, zéro ombre » -------------------------------
+       La séparation ne passe plus par un liseré ni par une ombre mais par un
+       contraste de fond. Deux familles de surfaces :
+
+       1. Les surfaces DANS le flux (cartes, champs, conteneurs d'icônes) :
+          un voile calculé depuis --foreground, donc automatiquement lisible
+          sur fond blanc comme sur scène grise, en clair comme en sombre.
+          Utiliser les classes .surface-card / .surface-field / .surface-sunken.
+
+       2. Les surfaces FLOTTANTES (menus, listes de select, popovers) :
+          elles se superposent au contenu, donc il leur faut un fond FRANC et
+          opaque, franchement distinct du blanc des panneaux. C'est --float.
+          --float-accent redéfinit --accent à l'intérieur du menu pour que le
+          survol d'une ligne reste plus foncé que le fond du menu. */
+    --surface-veil: 0.028;      /* voile des cartes */
+    --surface-veil-strong: 0.05; /* voile des champs et des survols */
+    --float: 0 0% 95.5%;         /* #F4F4F4 : franchement gris sur du blanc */
+    --float-accent: 0 0% 89%;    /* survol d'une ligne de menu */
+
+    /* Sidebar */
+    --sidebar-background: var(--color-white);
+    --sidebar-foreground: var(--color-black);
+    --sidebar-primary: var(--color-black);
+    --sidebar-primary-foreground: var(--color-white);
+    --sidebar-accent: var(--color-gray-light);
+    --sidebar-accent-foreground: var(--color-black);
+    --sidebar-border: var(--color-gray-medium);
+    --sidebar-ring: var(--color-black);
+
+    /* Custom tokens */
+    --font-display: 'Bricolage Grotesque', 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-body: 'Inter', 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
+    /* 27/08/2026 (JP) : « partout ou il y a cette police, enleve ».
+       La variable est la source de `h1 em`, `h2 em` et `.serif`. */
+    --font-serif: 'Bricolage Grotesque', 'Inter', 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
+    --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --radius-lg: 24px;
+  }
+
+  .dark {
+    /* Invert Apple colors for dark mode */
+    --color-black: 0 0% 100%;           /* Becomes white */
+    --color-white: 0 0% 11%;            /* Becomes black */
+    --color-gray-light: 0 0% 18%;       /* Becomes dark gray */
+    --color-gray-medium: 0 0% 25%;      /* Adjusted */
+    --color-gray-dark: 0 0% 60%;        /* Stays medium gray */
+
+    --background: 0 0% 11%;
+    --foreground: 0 0% 100%;
+    --card: 0 0% 14%;
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 14%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 0 0% 11%;
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 0 0% 18%;
+    --accent-foreground: 0 0% 100%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    /* En sombre, --foreground est blanc : le voile éclaircit au lieu d'assombrir,
+       et les surfaces flottantes sont plus claires que les cartes (14 %). */
+    --surface-veil: 0.05;
+    --surface-veil-strong: 0.09;
+    --float: 0 0% 21%;
+    --float-accent: 0 0% 30%;
+    --sidebar-background: 0 0% 10%;
+    --sidebar-foreground: 0 0% 90%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 0 0% 11%;
+    --sidebar-accent: 0 0% 18%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 0 0% 20%;
+    --sidebar-ring: 0 0% 100%;
+
+    /* Dark mode accent colors (brighter for visibility) */
+    --accent-success: 142 69% 58%;
+    --accent-warning: 45 93% 47%;
+    --accent-info: 217 91% 65%;
+    --accent-danger: 0 84% 65%;
+
+    /* Dark mode chart colors */
+    --chart-1: 0 0% 100%;
+    --chart-2: 0 0% 60%;
+    --chart-3: 217 91% 65%;
+    --chart-4: 142 69% 58%;
+    --chart-5: 45 93% 47%;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  /* --- Icônes line : épaisseur 1,5 imposée globalement --------------------
+     La charte demande des icônes « line », or lucide-react dessine à 2 par
+     défaut. Trois pistes existaient :
+       - retoucher les ~200 fichiers un par un : ingérable et vite reperdu ;
+       - un wrapper <Icon> maison : il faudrait quand même réécrire tous les
+         appels, et lucide s'utilise ici comme composant (<Bot />), pas via un
+         registre central ;
+       - un provider lucide : lucide-react 0.462 n'en expose aucun (pas
+         d'équivalent d'IconContext, seul le prop strokeWidth existe).
+     Reste le CSS, qui est le seul levier réellement global. stroke-width posé
+     en CSS l'emporte sur l'attribut de présentation du SVG, et les <path> de
+     lucide n'ont pas d'épaisseur propre : ils héritent de la racine.
+     Le sélecteur ne vise QUE les icônes restées à la valeur par défaut (2),
+     pour ne pas écraser un strokeWidth choisi exprès ailleurs (1, 2.5, 3…). */
+  svg.lucide[stroke-width="2"] {
+    stroke-width: 1.5;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: var(--font-body);
+    line-height: 1.5;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-style: normal !important;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    font-size: clamp(40px, 5vw, 56px);
+    font-weight: 600;
+    line-height: 1.08;
+  }
+
+  h1 em, h2 em, .serif {
+    font-family: var(--font-serif);
+    font-style: italic !important;
+    color: hsl(var(--color-gray-dark));
+  }
+
+  h2 {
+    font-size: clamp(28px, 3vw, 32px);
+    font-weight: 600;
+  }
+
+  h3 {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  h4 {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
+/* =============================================================================
+   BIOLYSTES AI - DESIGN SYSTEM
+   Agents: Coach Morpho & Coach Nutrition
+   ============================================================================= */
+
+/* --- BIOLYSTES ANIMATIONS --- */
+@keyframes biolystes-fadeInUp {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes biolystes-pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.3); opacity: 0; }
+}
+
+.biolystes-fade-in { 
+  animation: biolystes-fadeInUp 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; 
+}
+
+.biolystes-pulse-ring { 
+  animation: biolystes-pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite; 
+}
+
+/* --- VIDEO BACKGROUND --- */
+.biolystes-video-bg { 
+  position: fixed; 
+  inset: 0; 
+  z-index: -1; 
+  overflow: hidden; 
+}
+.biolystes-video-bg video { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+/* --- NO SCROLLBAR --- */
+.biolystes-no-scrollbar::-webkit-scrollbar { display: none; }
+.biolystes-no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* --- SIDEBAR SCROLLBAR (ultra-fin, noir, fond gris très clair) --- */
+.lystes-sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #000 #ededed;
+}
+.lystes-sidebar-scroll::-webkit-scrollbar {
+  width: 2px;
+}
+.lystes-sidebar-scroll::-webkit-scrollbar-track {
+  background: #ededed;
+}
+.lystes-sidebar-scroll::-webkit-scrollbar-thumb {
+  background: #000;
+  border-radius: 9999px;
+}
+.lystes-sidebar-scroll::-webkit-scrollbar-thumb:hover {
+  background: #000;
+}
+
+/* --- PREMIUM SHADOW (subtle) --- */
+.premium-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 
+              0 10px 15px -3px rgba(0, 0, 0, 0.04), 
+              0 0 0 1px rgba(0,0,0,0.01);
+}
+
+/* --- AVATAR STACK --- */
+.biolystes-avatar-stack { 
+  display: flex; 
+  align-items: center; 
+  position: relative; 
+}
+.biolystes-avatar-stack .avatar {
+  width: 72px; 
+  height: 72px; 
+  border-radius: 1rem; 
+  overflow: hidden;
+  border: 3px solid white; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: #f3f4f6; 
+  transition: transform 0.3s ease;
+}
+.biolystes-avatar-stack .avatar:not(:first-child) { margin-left: -12px; }
+.biolystes-avatar-stack .avatar:nth-child(1) { z-index: 30; transform: rotate(-6deg); }
+.biolystes-avatar-stack .avatar:nth-child(2) { z-index: 20; }
+.biolystes-avatar-stack .avatar:nth-child(3) { z-index: 10; transform: rotate(6deg); }
+.biolystes-avatar-stack:hover .avatar:nth-child(1) { transform: rotate(-8deg) translateY(-4px); }
+.biolystes-avatar-stack:hover .avatar:nth-child(2) { transform: translateY(-6px); }
+.biolystes-avatar-stack:hover .avatar:nth-child(3) { transform: rotate(8deg) translateY(-4px); }
+
+.biolystes-avatar-stack .ai-badge {
+  position: absolute; 
+  top: -8px; 
+  right: -16px; 
+  z-index: 50;
+  background: hsl(var(--color-black)); 
+  color: white; 
+  font-size: 11px; 
+  font-weight: 600;
+  padding: 6px 10px; 
+  border-radius: 10px; 
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  letter-spacing: 1px; 
+  text-transform: uppercase;
+}
+
+/* --- CENTRAL BOX MORPHING --- */
+.biolystes-central-box { 
+  max-width: 32rem !important; /* 512px */
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); 
+  overflow: hidden; 
+}
+.biolystes-central-box.expanded {
+  overflow: visible !important; 
+  height: auto !important; 
+  min-height: auto !important;
+  padding: 28px 24px !important; 
+  max-width: 100% !important; 
+  width: 100% !important;
+  border-radius: 2rem !important; 
+  margin-bottom: 40px !important;
+}
+.biolystes-central-box.analyzing {
+  max-width: 380px !important; 
+  padding: 40px !important; 
+  min-height: 200px !important;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  border-radius: 2rem;
+}
+
+/* --- BIOLYSTES FORM COMPONENTS --- */
+.biolystes-label { 
+  font-size: 13px; 
+  font-weight: 500; 
+  color: hsl(var(--color-gray-dark)); 
+  margin-left: 4px; 
+  margin-bottom: 6px; 
+  display: block; 
+}
+.biolystes-input {
+  background-color: hsl(var(--color-gray-light)); 
+  border: 1px solid transparent; 
+  border-radius: 12px;
+  padding: 12px 16px; 
+  font-size: 15px; 
+  color: hsl(var(--color-black)); 
+  width: 100%; 
+  transition: all 0.2s;
+}
+.biolystes-input:focus { 
+  background-color: white; 
+  border-color: #0071e3; 
+  outline: none; 
+  box-shadow: 0 0 0 4px rgba(0,113,227,0.1); 
+}
+
+.biolystes-input-green:focus { 
+  border-color: #22c55e; 
+  box-shadow: 0 0 0 4px rgba(34,197,94,0.1); 
+}
+
+.biolystes-select {
+  background-color: hsl(var(--color-gray-light)); 
+  border: 1px solid transparent; 
+  border-radius: 12px;
+  padding: 12px 16px; 
+  font-size: 15px; 
+  color: hsl(var(--color-black)); 
+  width: 100%; 
+  transition: all 0.2s;
+  appearance: none; 
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2386868b' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; 
+  background-position: right 16px center;
+}
+.biolystes-select:focus { 
+  background-color: white; 
+  border-color: #22c55e; 
+  outline: none; 
+  box-shadow: 0 0 0 4px rgba(34,197,94,0.1); 
+}
+
+/* Segmented Control */
+.biolystes-segmented-control { 
+  background-color: hsl(var(--color-gray-light)); 
+  border-radius: 10px; 
+  padding: 3px; 
+  display: flex; 
+  position: relative; 
+}
+.biolystes-segmented-control .segment-btn {
+  flex: 1; 
+  text-align: center; 
+  padding: 9px; 
+  font-size: 14px; 
+  font-weight: 500;
+  border-radius: 8px; 
+  color: hsl(var(--color-black)); 
+  position: relative; 
+  z-index: 10; 
+  cursor: pointer; 
+  transition: font-weight 0.2s;
+  background: transparent;
+  border: none;
+}
+.biolystes-segmented-control .segment-btn.active { font-weight: 600; }
+.biolystes-segmented-control .segment-bg {
+  position: absolute; 
+  top: 3px; 
+  bottom: 3px; 
+  left: 3px; 
+  width: calc(50% - 3px);
+  background-color: white; 
+  border-radius: 8px; 
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1); 
+  z-index: 1;
+}
+
+/* Photo Box */
+.biolystes-photo-box-wrapper { 
+  position: relative; 
+  width: 100%; 
+  aspect-ratio: 3/4; 
+}
+.biolystes-photo-box {
+  background-color: hsl(var(--color-gray-light)); 
+  border: 2px dashed #E5E5EA; 
+  border-radius: 14px;
+  width: 100%; 
+  height: 100%; 
+  display: flex; 
+  flex-direction: column;
+  align-items: center; 
+  justify-content: center; 
+  cursor: pointer;
+  transition: all 0.2s; 
+  position: relative; 
+  overflow: hidden;
+}
+.biolystes-photo-box:hover {
+  border-color: #0071e3;
+  background-color: rgba(245, 245, 247, 0.8);
+}
+.biolystes-photo-box.has-image { 
+  border-style: solid; 
+  border-color: #E5E5EA; 
+  background-color: white; 
+}
+.biolystes-photo-box .guide-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.biolystes-delete-btn {
+  position: absolute; 
+  top: -8px; 
+  right: -8px; 
+  width: 24px; 
+  height: 24px;
+  background-color: white; 
+  border-radius: 50%; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15); 
+  border: 1px solid #E5E5EA; 
+  z-index: 50; 
+  cursor: pointer;
+}
+.biolystes-delete-btn:active { transform: scale(0.9); }
+
+/* Option Cards (for Nutrition) */
+.biolystes-option-card {
+  background: hsl(var(--color-gray-light)); 
+  border: 2px solid transparent; 
+  border-radius: 12px;
+  padding: 12px 16px; 
+  cursor: pointer; 
+  transition: all 0.2s; 
+  text-align: center;
+}
+.biolystes-option-card:hover { background: white; }
+.biolystes-option-card.selected { 
+  background: white; 
+  border-color: #22c55e; 
+}
+.biolystes-option-card.selected .option-icon { color: #22c55e; }
+
+/* Timeline */
+.biolystes-timeline-container { 
+  position: relative; 
+  padding-left: 10px; 
+  padding-top: 20px; 
+}
+.biolystes-timeline-item { 
+  position: relative; 
+  padding-left: 19px; 
+  padding-bottom: 12px; 
+  color: #424245; 
+}
+.biolystes-timeline-item::before { 
+  content: ""; 
+  position: absolute; 
+  z-index: 1; 
+  left: 0; 
+  top: 0.4em; 
+  height: 100%; 
+  border-left: 1px hsl(var(--color-black)) solid; 
+}
+.biolystes-timeline-item:last-child::before { height: 0; }
+.biolystes-timeline-marker { 
+  position: absolute; 
+  z-index: 2; 
+  left: 0; 
+  top: 0.3em; 
+  transform: translateX(-50%); 
+  border-radius: 50%; 
+  background: hsl(var(--color-gray-light)); 
+  border: 1px solid hsl(var(--color-black)); 
+  width: 0.9em; 
+  height: 0.9em; 
+}
+
+@layer components {
+  /* --- Surfaces sans bordure ---------------------------------------------
+     Déclarées dans @layer components (et non utilities) pour qu'une classe
+     Tailwind posée sur le composant (bg-white, bg-transparent…) garde la
+     priorité : on ne casse pas les pages qui imposent déjà leur fond. */
+  .surface-card {
+    background-color: hsl(var(--foreground) / var(--surface-veil));
+  }
+  .surface-sunken {
+    background-color: hsl(var(--foreground) / var(--surface-veil));
+  }
+  .surface-field {
+    background-color: hsl(var(--foreground) / var(--surface-veil-strong));
+  }
+  /* Menus, popovers, listes de select : fond franc et opaque, jamais d'ombre.
+     La redéfinition de --accent fait que bg-accent (survol d'une ligne) reste
+     plus foncé que le fond du menu. */
+  .surface-float {
+    background-color: hsl(var(--float));
+    color: hsl(var(--popover-foreground));
+    --accent: var(--float-accent);
+    --muted: var(--float-accent);
+    /* Les séparateurs internes d'un menu (bg-border) disparaîtraient sur ce
+       gris : on les recale sur le même ton que le survol pour qu'ils restent
+       lisibles. Ce sont des séparateurs voulus, pas des bordures de boîte. */
+    --border: var(--float-accent);
+  }
+
+  /* Icon Containers - Apple Design System */
+  .icon-container {
+    @apply flex items-center justify-center surface-sunken;
+  }
+  .icon-container-sm {
+    @apply icon-container w-8 h-8 rounded-btn;
+  }
+  .icon-container-md {
+    @apply icon-container w-10 h-10 rounded-[12px];
+  }
+  .icon-container-lg {
+    @apply icon-container w-12 h-12 rounded-full;
+  }
+
+  /* Icon sizes standardized */
+  .icon-sm {
+    @apply w-4 h-4;
+  }
+  .icon-md {
+    @apply w-[18px] h-[18px];
+  }
+  .icon-lg {
+    @apply w-5 h-5;
+  }
+
+  /* Container */
+  .container {
+    @apply max-w-[1120px] mx-auto px-6;
+  }
+
+  /* Section styles */
+  .section {
+    @apply py-16 md:py-20;
+  }
+
+  .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: hsl(var(--color-gray-dark));
+    margin-bottom: 12px;
+  }
+
+  .section-header {
+    @apply text-center max-w-[680px] mx-auto mb-16;
+  }
+
+  .section-header h2 {
+    font-family: var(--font-display);
+    @apply text-3xl md:text-4xl font-semibold leading-[1.1] tracking-tight mb-4;
+  }
+
+  .section-header p {
+    font-size: 14px;
+    color: hsl(var(--color-gray-dark));
+    line-height: 1.5;
+  }
+
+  /* Apple-style Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 12px;
+    padding: 14px 24px;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    border: none;
+  }
+
+  .btn:hover {
+    opacity: 0.8;
+  }
+
+  /* Mobile touch optimization */
+  button {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-primary {
+    background: hsl(var(--color-black));
+    color: hsl(var(--color-white));
+  }
+
+  .btn-secondary {
+    background: hsl(var(--color-gray-light));
+    color: hsl(var(--color-black));
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: hsl(var(--color-black));
+    padding: 14px;
+  }
+
+  /* Bouton outline avec cercle flèche */
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: hsl(var(--color-white));
+    color: hsl(var(--color-black));
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 10px 8px 18px;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: opacity 0.2s var(--ease);
+    border: 1px solid hsl(var(--color-black));
+    text-decoration: none;
+  }
+
+  .btn-outline:hover {
+    opacity: 0.75;
+  }
+
+  .btn-outline .arrow-circle {
+    width: 28px;
+    height: 28px;
+    background: hsl(var(--color-black));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .btn-outline .arrow-circle svg {
+    color: hsl(var(--color-white));
+    width: 14px;
+    height: 14px;
+  }
+
+  .btn-icon {
+    width: 48px;
+    padding: 14px;
+  }
+
+  /* Startup-style CTA button - black with white arrow circle */
+  .btn-startup {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: hsl(var(--color-black));
+    color: hsl(var(--color-white));
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 10px 8px 18px;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: opacity 0.2s var(--ease);
+    border: none;
+    text-decoration: none;
+  }
+
+  .btn-startup:hover {
+    opacity: 0.85;
+  }
+
+  .btn-startup .arrow-circle {
+    width: 28px;
+    height: 28px;
+    background: hsl(var(--color-white));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .btn-startup .arrow-circle svg {
+    color: hsl(var(--color-black));
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Version inversée - blanc avec cercle noir */
+  .btn-startup-white {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    background: hsl(var(--color-white));
+    color: hsl(var(--color-black));
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px 10px 8px 18px;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: opacity 0.2s var(--ease);
+    border: 1px solid hsl(var(--border));
+    text-decoration: none;
+  }
+
+  .btn-startup-white:hover {
+    opacity: 0.85;
+  }
+
+  .btn-startup-white .arrow-circle {
+    width: 28px;
+    height: 28px;
+    background: hsl(var(--color-black));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .btn-startup-white .arrow-circle svg {
+    color: hsl(var(--color-white));
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Apple Cards - NO SHADOWS */
+  .apple-card {
+    background: hsl(var(--color-white));
+    border-radius: 20px;
+    padding: 24px;
+    overflow: hidden;
+  }
+
+  .apple-card-alt {
+    background: hsl(var(--color-gray-light));
+    border-radius: 20px;
+    padding: 24px;
+    overflow: hidden;
+  }
+
+  .apple-card-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: hsl(var(--color-gray-dark));
+    margin-bottom: 12px;
+  }
+
+  .apple-card-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: hsl(var(--color-black));
+    margin-bottom: 6px;
+  }
+
+  .apple-card-desc {
+    font-size: 14px;
+    color: hsl(var(--color-gray-dark));
+  }
+
+  /* Apple Progress Bar - ALWAYS BLACK */
+  .apple-progress-bar {
+    height: 4px;
+    background: hsl(var(--color-gray-medium));
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .apple-progress-fill {
+    height: 100%;
+    background: hsl(var(--color-black));
+    border-radius: 2px;
+  }
+
+  /* Apple Metrics */
+  .apple-metric {
+    padding: 12px;
+    background: hsl(var(--color-gray-light));
+    border-radius: 12px;
+  }
+
+  .apple-metric-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: hsl(var(--color-black));
+  }
+
+  .apple-metric-label {
+    font-size: 11px;
+    color: hsl(var(--color-gray-dark));
+    margin-top: 4px;
+  }
+
+  /* Apple Tags */
+  .apple-tag {
+    padding: 6px 12px;
+    background: hsl(var(--color-gray-light));
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+    color: hsl(var(--color-black));
+  }
+
+  /* Apple Badge */
+  .apple-badge {
+    padding: 4px 10px;
+    background: hsl(var(--color-black));
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    color: hsl(var(--color-white));
+  }
+
+  /* Apple Stats */
+  .apple-stat-value {
+    font-size: 28px;
+    font-weight: 600;
+    color: hsl(var(--color-black));
+    letter-spacing: -0.02em;
+  }
+
+  .apple-stat-label {
+    font-size: 12px;
+    color: hsl(var(--color-gray-dark));
+    margin-top: 4px;
+  }
+
+  /* Apple Inputs */
+  .apple-input {
+    padding: 12px 16px;
+    background: hsl(var(--color-gray-light));
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    color: hsl(var(--color-black));
+  }
+
+  .apple-input::placeholder {
+    color: hsl(var(--color-gray-dark));
+  }
+
+  /* Apple Window (Dashboard style) */
+  .apple-window {
+    background: hsl(var(--color-black));
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .apple-window-header {
+    padding: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .apple-window-content {
+    background: hsl(var(--color-white));
+    padding: 20px;
+  }
+
+  /* Apple Tabs */
+  .apple-tab {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .apple-tab:hover {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .apple-tab.active {
+    background: rgba(255, 255, 255, 0.1);
+    color: hsl(var(--color-white));
+  }
+
+  /* Apple Chat Bubbles */
+  .apple-bubble-user {
+    background: hsl(var(--color-black));
+    color: hsl(var(--color-white));
+    border-radius: 16px;
+    border-bottom-right-radius: 4px;
+    padding: 12px 16px;
+  }
+
+  .apple-bubble-assistant {
+    background: hsl(var(--color-gray-light));
+    color: hsl(var(--color-black));
+    border-radius: 16px;
+    border-bottom-left-radius: 4px;
+    padding: 12px 16px;
+  }
+
+  /* Apple Avatar */
+  .apple-avatar {
+    width: 72px;
+    height: 72px;
+    background: hsl(var(--color-gray-light));
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .apple-avatar-initial {
+    font-size: 28px;
+    font-weight: 600;
+    color: hsl(var(--color-black));
+  }
+
+  /* Divider */
+  .apple-divider {
+    border: none;
+    border-top: 1px solid hsl(var(--color-gray-medium));
+  }
+
+  /* Hero section */
+  .hero-gradient {
+    background: linear-gradient(180deg, hsl(var(--color-white)) 0%, hsl(var(--color-gray-light)) 100%);
+  }
+
+  .hero-gradient h1 {
+    font-size: 47px;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    background: hsl(var(--color-gray-light));
+    border-radius: 20px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    font-weight: 500;
+    color: hsl(var(--color-gray-dark));
+  }
+
+  .hero-eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    background: hsl(var(--color-black));
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  /* Hero floating cards - NO SHADOW */
+  .hero-float {
+    position: absolute;
+    background: hsl(var(--color-white));
+    border-radius: 16px;
+    padding: 16px 20px;
+    border: 1px solid hsl(var(--color-gray-medium));
+    animation: float 5s ease-in-out infinite;
+  }
+
+  .hero-float-label {
+    font-size: 11px;
+    color: hsl(var(--color-gray-dark));
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+  }
+
+  .hero-float-value {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 600;
+    color: hsl(var(--color-black));
+  }
+
+  /* Problem section */
+  .problem-section {
+    background: hsl(var(--color-black));
+    color: hsl(var(--color-white));
+  }
+
+  .problem-item {
+    display: flex;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .problem-item:last-child {
+    border-bottom: none;
+  }
+
+  .problem-icon {
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 20px;
+  }
+
+  /* Solution card */
+  .solution-card {
+    border-radius: 20px;
+    padding: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #2d2d2f;
+  }
+
+  .solution-feature {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .solution-feature-icon {
+    width: 40px;
+    height: 40px;
+    background: hsl(var(--color-white));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: hsl(var(--color-black));
+    font-size: 18px;
+  }
+
+  /* Integration card - NO SHADOW */
+  .integration-card {
+    background: hsl(var(--color-gray-light));
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+
+  .integration-card:hover {
+    background: hsl(var(--color-gray-medium));
+  }
+
+  .integration-card-icon {
+    width: 100%;
+    height: 192px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+    overflow: hidden;
+  }
+
+  .integration-card-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 6px 12px;
+    background: hsl(var(--color-black));
+    color: hsl(var(--color-white));
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .integration-card-features {
+    text-align: left;
+    background: hsl(var(--color-white));
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .integration-card-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    font-size: 13px;
+  }
+
+  /* Experience step - NO SHADOW */
+  .experience-step-visual {
+    background: hsl(var(--color-white));
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 24px;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid hsl(var(--color-gray-medium));
+  }
+
+  .experience-step-number {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 32px;
+    height: 32px;
+    background: hsl(var(--color-black));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: hsl(var(--color-white));
+  }
+
+  /* Journey card */
+  .journey-card {
+    background: hsl(var(--color-gray-light));
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .journey-card-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: hsl(var(--color-white));
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: hsl(var(--color-gray-dark));
+    margin-bottom: 14px;
+  }
+
+  /* Diagnostic mock */
+  .diag-mock {
+    background: hsl(var(--color-white));
+    border-radius: 16px;
+    padding: 20px;
+  }
+
+  .diag-metric {
+    background: hsl(var(--color-gray-light));
+    border-radius: 10px;
+    padding: 12px;
+  }
+
+  .diag-metric-bar {
+    height: 4px;
+    background: hsl(var(--color-gray-medium));
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .diag-tag {
+    padding: 6px 10px;
+    background: hsl(var(--color-gray-light));
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  /* ClientJourney design fixes */
+  .journey-card .text-\[10px\].text-muted-foreground.mb-2\.5 {
+    background: hsl(var(--color-white));
+    padding: 15px;
+    border: 0;
+    border-radius: 3px;
+    margin-top: 17px;
+    margin-bottom: 29px;
+    font-size: 13px;
+    color: hsl(var(--color-black));
+  }
+
+  .journey-card .text-\[11px\].text-muted-foreground.mb-2\.5.leading-relaxed {
+    padding-top: 12px !important;
+    font-size: 15px;
+  }
+
+  .journey-card .flex.items-center.gap-2\.5.px-4.py-2.bg-secondary.rounded-full {
+    background: hsl(var(--color-white));
+    border: 1px solid #F1F1F1;
+  }
+
+  .journey-card .mb-3\.5 {
+    margin-bottom: 25px;
+  }
+
+  .journey-card .bg-secondary.rounded-xl.p-3\.5 {
+    padding: 39px 25px;
+  }
+
+  /* Brand love card */
+  .brand-love-card {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 32px;
+  }
+
+  .brand-love-icon {
+    width: 48px;
+    height: 48px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: hsl(var(--color-white));
+  }
+
+  .brand-love-example {
+    padding: 16px;
+    border-radius: 12px;
+    border-left: 2px solid rgba(255, 255, 255, 0.2);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.5;
+  }
+
+  /* Engage section - NO SHADOW */
+  .engage-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px;
+    background: hsl(var(--color-gray-light));
+    border-radius: 12px;
+  }
+
+  .engage-feature-icon {
+    width: 40px;
+    height: 40px;
+    background: hsl(var(--color-white));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: hsl(var(--color-black));
+    flex-shrink: 0;
+  }
+
+  .engage-email {
+    background: hsl(var(--color-white));
+    border-radius: 16px;
+    padding: 20px;
+    position: relative;
+    border: 1px solid hsl(var(--color-gray-medium));
+  }
+
+  /* Backoffice */
+  .backoffice-window {
+    background: hsl(var(--color-black));
+    border-radius: 20px;
+    padding: 24px;
+  }
+
+  .backoffice-tab {
+    padding: 8px 16px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    border: none;
+    font-family: var(--font-body);
+    transition: background 0.2s, color 0.2s;
+  }
+
+  .backoffice-tab:hover {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .backoffice-tab.active {
+    background: hsl(var(--color-white));
+    color: hsl(var(--color-black));
+  }
+
+  .bo-card {
+    background: hsl(var(--color-gray-light));
+    border-radius: 12px;
+    padding: 16px;
+  }
+
+  .bo-insight-bar {
+    height: 4px;
+    background: hsl(var(--color-gray-medium));
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .bo-advice-item {
+    padding: 14px;
+    background: hsl(var(--color-white));
+    border-radius: 10px;
+  }
+
+  .backoffice-feature {
+    text-align: center;
+    padding: 28px;
+    background: hsl(var(--color-white));
+    border-radius: 16px;
+  }
+
+  .backoffice-feature-icon {
+    width: 48px;
+    height: 48px;
+    background: hsl(var(--color-gray-light));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+    font-size: 22px;
+    color: hsl(var(--color-black));
+  }
+
+  /* Result card */
+  .result-card {
+    background: hsl(var(--color-gray-light));
+    border-radius: 16px;
+    padding: 32px;
+    text-align: center;
+  }
+
+  .result-icon {
+    width: 56px;
+    height: 56px;
+    background: hsl(var(--color-white));
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 24px;
+    color: hsl(var(--color-black));
+  }
+
+  .result-value {
+    font-family: var(--font-display);
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 4px;
+    color: hsl(var(--color-black));
+  }
+
+  /* Testimonial card */
+  .testimonial-card {
+    flex-shrink: 0;
+    width: 380px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 28px;
+  }
+
+  /* Pricing card */
+  .pricing-card {
+    background: hsl(var(--color-gray-light));
+    border-radius: 16px;
+    padding: 28px;
+  }
+
+  .pricing-card.featured {
+    background: hsl(var(--color-black));
+    color: hsl(var(--color-white));
+  }
+
+  .pricing-name {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .pricing-amount {
+    font-size: 36px;
+    font-weight: 600;
+  }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid hsl(var(--color-gray-medium));
+  }
+
+  .faq-question {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    color: hsl(var(--color-black));
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--font-body);
+  }
+
+  .faq-icon {
+    width: 28px;
+    height: 28px;
+    background: hsl(var(--color-gray-light));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 300px;
+  }
+
+  /* CTA */
+  .cta-section {
+    background: hsl(var(--color-black));
+    color: hsl(var(--color-white));
+    text-align: center;
+  }
+
+  /* Logo items */
+  .logo-item {
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 600;
+    opacity: 0.4;
+    transition: opacity 0.2s;
+  }
+
+  .logo-item:hover {
+    opacity: 0.8;
+  }
+
+  /* Wellness card (for dashboard) — ni bordure ni ombre : voile de fond */
+  .wellness-card {
+    background-color: hsl(var(--foreground) / var(--surface-veil));
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  /* Card elevated — zéro ombre ET zéro bordure : la carte se détache par un
+     voile de fond, qui fonctionne sur panneau blanc comme sur scène grise. */
+  .card-elevated {
+    background-color: hsl(var(--foreground) / var(--surface-veil));
+    border-radius: 16px;
+    transition: background-color 0.2s;
+  }
+
+  .card-elevated:hover {
+    background-color: hsl(var(--foreground) / var(--surface-veil-strong));
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  /* Highlight temporaire sur la section ciblée par une ancre d'indicateur. */
+  .score-anchor-flash {
+    animation: score-anchor-flash 1.6s ease-out;
+    border-radius: 0.375rem;
+  }
+  @keyframes score-anchor-flash {
+    0% {
+      background-color: hsl(var(--foreground) / 0.18);
+      box-shadow: 0 0 0 6px hsl(var(--foreground) / 0.12);
+    }
+    100% {
+      background-color: transparent;
+      box-shadow: 0 0 0 0 transparent;
+    }
+  }
+  .score-anchor-target {
+    scroll-margin-top: 6rem;
+  }
+
+  .font-body {
+    font-family: var(--font-body);
+  }
+
+  /* Editorial serif (Lystes & Partners style) — Inter */
+  .font-editorial {
+    font-family: 'Inter', 'Times New Roman', serif;
+    font-weight: 400;
+    font-style: normal;
+    letter-spacing: -0.01em;
+  }
+
+  /* Gloovia color utilities - mapped to Apple palette */
+  .text-gloovia-dark {
+    color: hsl(var(--color-black));
+  }
+
+  .text-gloovia-muted {
+    color: hsl(var(--color-gray-dark));
+  }
+
+  .bg-gloovia-dark {
+    background-color: hsl(var(--color-black));
+  }
+
+  .bg-gloovia-dark-soft {
+    background-color: hsl(0 0% 18%);
+  }
+
+  .bg-gloovia-bg {
+    background-color: hsl(var(--color-white));
+  }
+
+  .bg-gloovia-bg-alt {
+    background-color: hsl(var(--color-gray-light));
+  }
+
+  .bg-gloovia-gray-100 {
+    background-color: hsl(var(--color-gray-light));
+  }
+
+  .bg-gloovia-gray-200 {
+    background-color: hsl(var(--color-gray-medium));
+  }
+
+  .border-gloovia-dark {
+    border-color: hsl(var(--color-black));
+  }
+
+  .border-gloovia-gray-200 {
+    border-color: hsl(var(--color-gray-medium));
+  }
+
+  .border-gloovia-gray-300 {
+    border-color: hsl(var(--color-gray-dark));
+  }
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes scan {
+  0% { top: 15%; }
+  100% { top: 80%; }
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 12px)); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeUp { animation: fadeUp 0.8s var(--ease) both; }
+.animate-fadeUp-delay-1 { animation: fadeUp 0.8s var(--ease) 0.1s both; }
+.animate-fadeUp-delay-2 { animation: fadeUp 0.8s var(--ease) 0.2s both; }
+.animate-fadeUp-delay-3 { animation: fadeUp 0.8s var(--ease) 0.3s both; }
+.animate-float { animation: float 5s ease-in-out infinite; }
+.animate-float-delay { animation: float 5s ease-in-out infinite; animation-delay: 1.5s; }
+.animate-scroll { animation: scroll 35s linear infinite; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message-appear {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@media (max-width: 1024px) {
+  .hero-gradient h1 {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-gradient h1 {
+    font-size: 32px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-gradient h1 {
+    font-size: 26px;
+  }
+}
+
+/* Scanner animation (for agent page) */
+.scanner-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.scanner-container .main-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.scanner-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: 20px;
+  z-index: 10;
+}
+
+.scanner-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0.85;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 15px rgba(29, 29, 31, 0.6)) drop-shadow(0 0 30px rgba(29, 29, 31, 0.4));
+  animation: scanVertical 10s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  will-change: transform;
+}
+
+@keyframes scanVertical {
+  0% { transform: translateY(-100%) scaleY(1); opacity: 0; }
+  10% { opacity: 0.85; }
+  45% { transform: translateY(100%) scaleY(1); opacity: 0.85; }
+  50% { transform: translateY(100%) scaleY(1); opacity: 0; }
+  55% { transform: translateY(100%) scaleY(-1); opacity: 0; }
+  60% { opacity: 0.85; }
+  95% { transform: translateY(-100%) scaleY(-1); opacity: 0.85; }
+  100% { transform: translateY(-100%) scaleY(-1); opacity: 0; }
+}
+
+.scanner-container .scanner-corners {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.scanner-corner {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-color: rgba(255, 255, 255, 0.7);
+  border-width: 2px;
+  border-style: solid;
+  animation: pulseCorner 2s ease-in-out infinite;
+}
+
+.scanner-corner.top-left {
+  top: 1rem;
+  left: 1rem;
+  border-bottom: none;
+  border-right: none;
+  border-top-left-radius: 12px;
+}
+
+.scanner-corner.top-right {
+  top: 1rem;
+  right: 1rem;
+  border-bottom: none;
+  border-left: none;
+  border-top-right-radius: 12px;
+}
+
+.scanner-corner.bottom-left {
+  bottom: 1rem;
+  left: 1rem;
+  border-top: none;
+  border-right: none;
+  border-bottom-left-radius: 12px;
+}
+
+.scanner-corner.bottom-right {
+  bottom: 1rem;
+  right: 1rem;
+  border-top: none;
+  border-left: none;
+  border-bottom-right-radius: 12px;
+}
+
+@keyframes pulseCorner {
+  0%, 100% { opacity: 0.5; transform: scale(1); border-color: rgba(255, 255, 255, 0.5); }
+  50% { opacity: 1; transform: scale(1.05); border-color: rgba(255, 255, 255, 0.9); }
+}
+
+.scanner-container::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(29, 29, 31, 0.2) 0%, transparent 50%, rgba(29, 29, 31, 0.2) 100%);
+  opacity: 0;
+  pointer-events: none;
+  animation: glowPulse 3s ease-in-out infinite;
+  z-index: 5;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 0.5; }
+}
+
+@media (max-width: 640px) {
+  .scanner-container { max-width: 100%; }
+  .scanner-corner { width: 32px; height: 32px; }
+  .scanner-corner.top-left, .scanner-corner.top-right { top: 0.75rem; }
+  .scanner-corner.bottom-left, .scanner-corner.bottom-right { bottom: 0.75rem; }
+  .scanner-corner.top-left, .scanner-corner.bottom-left { left: 0.75rem; }
+  .scanner-corner.top-right, .scanner-corner.bottom-right { right: 0.75rem; }
+}
+
+/* Face mesh scanner animation */
+@keyframes scanLine {
+  0% { top: 0%; }
+  50% { top: 100%; }
+  100% { top: 0%; }
+}
+
+.animate-scan-line {
+  animation: scanLine 3s ease-in-out infinite;
+}
+
+/* Media query 1150px pour responsivité */
+@media (max-width: 1150px) {
+  .text-sm {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  
+  .px-6 {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
+
+/* Enhanced muted backgrounds for better visibility */
+.bg-muted\/30,
+.flex.items-center.justify-between.p-5.bg-muted\/30.rounded-2xl {
+  background-color: hsl(0deg 0% 85.49% / 30%) !important;
+}
+
+.bg-muted\/20 {
+  background-color: hsl(0deg 0% 85.49% / 20%) !important;
+}
+
+/* Premium Shadow - Apple Style */
+.premium-shadow {
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.02),
+    0 10px 15px -3px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(0,0,0,0.01);
+}
+
+/* Morph Transition - Apple Style */
+.morph-transition {
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Timeline Styles */
+.timeline-container {
+  position: relative;
+  padding-left: 10px;
+  padding-top: 30px;
+}
+
+.timeline-item {
+  position: relative;
+  padding-left: 19px;
+  padding-bottom: 12px;
+  color: #424245;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  left: 0;
+  top: 0.4em;
+  height: 100%;
+  border-left: 1px hsl(0 0% 85%) solid;
+}
+
+.timeline-item:last-child::before {
+  height: 0;
+}
+
+.timeline-marker {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  top: 0.3em;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: #F5F5F7;
+  border: 1px solid hsl(0 0% 80%);
+  width: 0.9em;
+  height: 0.9em;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.timeline-text {
+  padding-top: 1px;
+  font-size: 13px;
+  line-height: 1.375;
+}
+
+.face {
+  margin-left: -11px;
+}
+
+.face svg {
+  fill: #1D1D1F;
+  min-width: 143px;
+  height: auto;
+}
+
+/* ===== RESPONSIVE MOBILE - 850px ===== */
+@media (max-width: 850px) {
+  /* Polices réduites */
+  .text-xl { font-size: 14px !important; line-height: 1.3; }
+  .text-2xl { font-size: 16px !important; line-height: 1.3; }
+  .text-lg { font-size: 13px !important; }
+  .text-\[22px\] { font-size: 13px !important; }
+  .text-\[17px\] { font-size: 14px !important; }
+  .text-\[15px\] { font-size: 12px !important; }
+  .text-\[13px\] { font-size: 11px !important; }
+  .text-\[14px\] { font-size: 12px !important; }
+  .text-sm { font-size: 12px !important; line-height: 1.5; }
+  
+  
+  /* Paddings réduits */
+  .px-6 { padding-left: 16px !important; padding-right: 16px !important; }
+  .py-5 { padding-top: 12px !important; padding-bottom: 12px !important; }
+  .p-5 { padding: 12px !important; }
+  .p-6 { padding: 16px !important; }
+  
+  /* Cards plus compactes */
+  .apple-card { padding: 16px; border-radius: 16px; }
+  .wellness-card { padding: 16px; border-radius: 12px; }
+  .rounded-card { border-radius: 14px; }
+  .rounded-\[20px\] { border-radius: 14px !important; }
+  
+  /* SVG / Icônes réduits */
+  svg.w-5.h-5 { width: 14px !important; height: 14px !important; }
+  svg.w-4.h-4 { width: 12px !important; height: 12px !important; }
+  svg.w-6.h-6 { width: 16px !important; height: 16px !important; }
+  .w-9.h-9 { width: 28px !important; height: 28px !important; }
+  .w-8.h-8 { width: 17px !important; height: 17px !important; }
+  .w-6.h-6 { width: 18px !important; height: 18px !important; }
+  
+  /* Texte muted plus foncé sur mobile */
+  .text-muted-foreground { color: hsl(0deg 0.31% 23.08%); }
+  
+  /* Paragraphes muted plus petits */
+  p.text-sm.text-muted-foreground { font-size: 10px !important; }
+  
+  /* Face SVG */
+  .face svg { min-width: 100px !important; }
+  
+  /* Tables */
+  th, td { padding: 10px 12px !important; font-size: 11px !important; }
+  
+  /* Timeline */
+  .timeline-text { font-size: 11px; }
+}
+
+/* ===== HEADER CUSTOM STYLES ===== */
+header .container {
+  max-width: 1338px;
+}
+
+/* ===== HERO SECTION CUSTOM STYLES ===== */
+
+/* Hero container - plus large */
+section.min-h-screen.flex.items-center.pt-20.hero-gradient .container {
+  max-width: 1299px;
+  margin: 59px auto;
+}
+
+/* Subtitle container - plus large */
+.hero-gradient .max-w-\[440px\] {
+  max-width: 824px;
+}
+
+/* Hero image/GIF - rotation et dimensions */
+.hero-gradient .rounded-2xl.overflow-hidden.border.border-border {
+  transform: rotate(2deg);
+  max-width: 455px;
+  float: none;
+  margin: 1px auto;
+}
+
+/* === CLIENT OVERRIDES - Landing Page === */
+
+/* Cacher l'élément placeholder/image */
+.h-40.bg-apple-gray-medium\/30.rounded-\[16px\].mb-5.flex.items-center.justify-center {
+  display: none;
+}
+
+/* Badge repositionné */
+span.absolute.top-4.right-4.px-3.py-1.bg-foreground.text-background.rounded-tag.text-\[10px\].font-semibold.uppercase.tracking-wide {
+  top: -10px;
+}
+
+/* Carte avec padding élargi */
+.bg-apple-gray-light.rounded-card.p-6.relative {
+  padding: 68px 44px;
+}
+
+/* Journey cards - padding et border-radius */
+.journey-card {
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 34px;
+}
+
+/* Journey cards - rotations alternées */
+.journey-card:nth-child(1) {
+  transform: rotate(-1deg);
+}
+
+.journey-card:nth-child(2) {
+  transform: rotate(1deg);
+}
+
+.journey-card:nth-child(3) {
+  transform: rotate(1deg);
+}
+
+.journey-card:nth-child(4) {
+  transform: rotate(-1deg);
+}
+
+/* SVG icons size */
+.flex-shrink-0 svg {
+  width: 17px;
+}
+
+/* Card border */
+.flex.gap-4.p-4.rounded-2xl.bg-background.border.border-border\/50.hover\:border-primary\/30.hover\:shadow-md.transition-all.duration-300 {
+  border: 1px;
+}
+
+/* H4 margins */
+h4.font-semibold.text-foreground.mb-1 {
+  margin-bottom: 0px;
+  margin-top: 4px;
+}
+
+/* Icon container background */
+.flex-shrink-0.w-12.h-12.bg-primary\/10.rounded-xl.flex.items-center.justify-center {
+  background: #f9f9f9;
+}
+
+/* Eyebrow badge - blanc sur fond noir */
+.hero-eyebrow {
+  color: #fff;
+  background: #000;
+}
+
+.hero-eyebrow-dot {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Hero float value - typography */
+.hero-float-value {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+}
+
+/* Floating card gauche - fond noir */
+.hero-float.top-\[15\%\].left-\[-40px\].hidden.lg\:block {
+  margin-left: 100px;
+  background: #000000;
+  border: 1px solid #000;
+}
+
+.hero-float.top-\[15\%\].left-\[-40px\].hidden.lg\:block .hero-float-label,
+.hero-float.top-\[15\%\].left-\[-40px\].hidden.lg\:block .hero-float-value {
+  color: #fff;
+}
+
+/* Floating card droite - fond noir */
+.hero-float.bottom-\[20\%\].right-\[-30px\].animate-float-delay.hidden.lg\:block {
+  border: 0;
+  background: #000;
+}
+
+.hero-float.bottom-\[20\%\].right-\[-30px\].animate-float-delay.hidden.lg\:block .hero-float-label,
+.hero-float.bottom-\[20\%\].right-\[-30px\].animate-float-delay.hidden.lg\:block .hero-float-value {
+  color: #fff;
+}
+
+/* ===== RESPONSIVE MIN 824px ===== */
+@media (min-width: 824px) {
+  .lg\:text-lg {
+    font-size: 15px;
+    line-height: 1.5;
+  }
+  
+  .hero-gradient h1 {
+    font-size: 42px;
+  }
+}
+
+/* ===== RESPONSIVE MIN 1024px ===== */
+@media (min-width: 1024px) {
+  .lg\:text-lg {
+    font-size: 15px;
+    line-height: 1.75rem;
+    color: #000;
+  }
+}
+
+/* ===== RESPONSIVE TABLET - 800px ===== */
+@media (max-width: 800px) {
+  /* Hero section - ajustements */
+  section.min-h-screen.flex.items-center.pt-20.hero-gradient {
+    padding-top: 185px;
+    padding-bottom: 57px;
+  }
+  
+  /* Card preview centrée - reset rotation on mobile */
+  .hero-gradient .rounded-2xl.overflow-hidden.border.border-border {
+    max-width: 400px;
+    margin: 0 auto;
+    transform: none;
+    float: none;
+  }
+  
+  /* Réduction des gaps */
+  .gap-20 {
+    gap: 41px;
+  }
+}
+
+/* DataIntelligence cards padding */
+.flex-1.p-8.rounded-3xl.border.border-white\/20.bg-white\/\[0\.08\] {
+  padding: 25px;
+}
+
+/* Dashboard My Team - italic descriptions styling */
+.flex-1.p-6.lg\:p-8.space-y-4 .space-y-6 span.text-muted-foreground.italic {
+    display: block;
+    line-height: 17px;
+    padding-bottom: 20px;
+}
+
+/* Onboarding - section labels spacing */
+p.text-xs.font-medium.text-muted-foreground.uppercase.tracking-wider.whitespace-nowrap {
+    margin-top: 30px;
+}
+
+/* ─── CIRCLE FLOW ─── */
+.circle-flow {
+  position: relative;
+  width: 420px;
+  height: 420px;
+  margin: 56px auto 0;
+}
+
+.cf-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgb(31, 41, 55);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: white;
+  line-height: 1.3;
+}
+
+.cf-orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 380px;
+  height: 380px;
+  margin-top: -190px;
+  margin-left: -190px;
+  border: 1px dashed rgba(255, 255, 255, 0.06);
+  border-radius: 50%;
+  animation: cf-spin 60s linear infinite;
+}
+
+@keyframes cf-spin {
+  to { transform: rotate(360deg); }
+}
+
+.cf-node {
+  position: absolute;
+  width: 100px;
+  padding: 10px 8px;
+  background: rgb(17, 24, 39);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgb(156, 163, 175);
+  transform: translate(-50%, -50%);
+  animation: cf-counter-spin 60s linear infinite;
+}
+
+@keyframes cf-counter-spin {
+  to { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+.cf-node:nth-child(1) { top: 0; left: 50%; }
+.cf-node:nth-child(2) { top: 25%; left: 97%; }
+.cf-node:nth-child(3) { top: 75%; left: 97%; }
+.cf-node:nth-child(4) { top: 100%; left: 50%; }
+.cf-node:nth-child(5) { top: 75%; left: 3%; }
+.cf-node:nth-child(6) { top: 25%; left: 3%; }
+
+@media (max-width: 480px) {
+  .circle-flow {
+    width: 320px;
+    height: 320px;
+  }
+  .cf-orbit {
+    width: 290px;
+    height: 290px;
+    margin-top: -145px;
+    margin-left: -145px;
+  }
+  .cf-node {
+    width: 80px;
+    font-size: 9px;
+    padding: 8px 6px;
+  }
+  .cf-center {
+    width: 100px;
+    height: 100px;
+    font-size: 10px;
+  }
+}
+
+/* Diagnostic AI page scoped heading styles */
+.diagnostic-ai-page h1,
+.diagnostic-ai-page h2,
+.diagnostic-ai-page h3,
+.diagnostic-ai-page h4,
+.diagnostic-ai-page h5,
+.diagnostic-ai-page h6,
+.diagnostic-ai-page .md\:text-\[56px\],
+.diagnostic-ai-page .tracking-\[-0\.02em\] {
+  font-family: 'Inter', 'Satoshi', sans-serif;
+  font-style: normal;
+  letter-spacing: -0.02em;
+  font-weight: 100;
+}
+
+/* Landing home page scoped heading styles */
+.landing-home-page h1,
+.landing-home-page h2,
+.landing-home-page h3,
+.landing-home-page h4,
+.landing-home-page h5,
+.landing-home-page h6,
+.landing-home-page .md\:text-\[56px\],
+.landing-home-page .tracking-\[-0\.02em\] {
+  font-family: 'Inter', 'Satoshi', sans-serif;
+  font-weight: 100;
+}
+
+.landing-home-page h1,
+.landing-home-page h2 {
+  font-family: "Inter", "Satoshi", sans-serif;
+  font-weight: 100;
+  font-size: 66px;
+  line-height: 67px;
+}
+
+.landing-home-page .grid.md\:grid-cols-3.divide-y.md\:divide-y-0.md\:divide-x.divide-gray-300 {
+  padding-top: 55px;
+  padding-bottom: 0;
+}
+
+/* Mobile overrides */
+@media (max-width: 767px) {
+  .landing-home-page .flex.items-center.gap-4.justify-center.mb-1 {
+    padding-top: 67px;
+  }
+
+  .landing-home-page h1,
+  .landing-home-page h2 {
+    font-size: 38px;
+    line-height: 44px;
+  }
+
+  .landing-home-page .grid.md\:grid-cols-3.divide-y.md\:divide-y-0.md\:divide-x.divide-gray-300 {
+    padding-bottom: 0;
+  }
+}
+
+button.group img {
+  object-fit: contain;
+  -o-object-fit: contain;
+  padding: 25px;
+  background: transparent !important;
+}
+
+main .grid button.relative > img {
+  object-fit: cover !important;
+  -o-object-fit: cover !important;
+  padding: 0 !important;
+}
+
+.bg-muted\/30,
+.flex.items-center.justify-between.p-5.bg-muted\/30.rounded-2xl {
+  background-color: #dadada00 !important;
+}
+
+p.text-xs.font-bold.uppercase.tracking-widest.text-foreground\/40.mb-2 {
+  font-size: 9px;
+}
+
+.flex.items-center.gap-4.px-4.py-3.bg-\[\#f3f4f5\]\/80.border-b.border-stone-200\/80 {
+  background: #fff;
+}
+
+.bg-background.rounded-\[20px\].p-3.flex.flex-col.gap-3 {
+  border-radius: 20px !important;
+}
+
+.border-border {
+  border-color: hsl(0deg 0% 93% / 44%);
+}
+
+* {
+  border-color: transparent;
+  background: transparent;
+}
+
+/* ============================================================
+   Section témoignages — passage du style "carte noire" au style
+   clair unifié (cf. brief `data-testimonials-light`).
+   Cible uniquement les <section data-testimonials-light="true">
+   marquées dans les HTML statiques des pages solutions.
+   ============================================================ */
+[data-testimonials-light] {
+  background-color: #fafafa !important;
+  color: #171717 !important;
+}
+[data-testimonials-light] .text-primary-foreground { color: #171717 !important; }
+/* Titre + texte principal : toutes les variantes text-neutral-200 (avec ou sans opacité) */
+[data-testimonials-light] [class*="text-neutral-200"] { color: #171717 !important; }
+/* Sous-texte, kicker, meta : les variantes en opacité réduite (secondaires) */
+[data-testimonials-light] [class*="text-neutral-200/50"],
+[data-testimonials-light] [class*="text-neutral-200/60"],
+[data-testimonials-light] [class*="text-neutral-200/40"],
+[data-testimonials-light] [class*="text-neutral-200/30"],
+[data-testimonials-light] [class*="text-neutral-200/70"] {
+  color: #737373 !important;
+}
+[data-testimonials-light] [class*="fill-neutral-200"] { fill: #171717 !important; }
+[data-testimonials-light] [class*="bg-neutral-200/5"],
+[data-testimonials-light] [class*="bg-neutral-200/10"] {
+  background-color: #ffffff !important;
+}
+[data-testimonials-light] [class*="border-white/10"],
+[data-testimonials-light] [class*="border-white/5"],
+[data-testimonials-light] [class*="border-white/20"] {
+  border-color: transparent !important;
+}
+/* Règle "fond OU bordure, jamais les deux" + zéro ombre */
+[data-testimonials-light] * {
+  box-shadow: none !important;
+}
+[data-testimonials-light] em { color: #a3a3a3 !important; }
+
+/* === Mobile-only pattern for solution blocks (label + hero paragraph) === */
+@media (max-width: 767px) {
+  /* Label "EQUIPE AUTONOME" style : noir + marge haute */
+  [data-solution-shell] p.text-\[10px\].font-bold.tracking-\[2\.5px\].text-neutral-500 {
+    color: #000 !important;
+    margin-top: 89px !important;
+  }
+  /* Retirer le halo/radial (gradient hero image) sur mobile */
+  [data-solution-shell] img[src*="hero-gradient"] {
+    display: none !important;
+  }
+  /* Corrige les retours à la ligne forcés dans les paragraphes hero */
+  [data-solution-shell] p.whitespace-pre-line {
+    white-space: normal !important;
+  }
+}
+
+/* Solutions dropdown — Apple-like refined surface */
+/* Le menu se détachait par un empilement d'ombres et un filet de 0,5 px.
+   La charte interdit les deux : il se détache maintenant par son fond franc,
+   comme toutes les autres surfaces flottantes (voir .surface-float). */
+.w-\[92vw\].max-w-\[880px\].md\:w-\[880px\].p-3.rounded-2xl.border.border-\[\#e5e5e7\].bg-white.shadow-lg {
+  border: 0;
+  box-shadow: none;
+  background-color: hsl(var(--float));
+  padding: 29px;
+}
+
+.flex.items-center.gap-2.px-2\.5.pt-2.pb-1 svg {
+  display: none;
+}
+
+.flex.items-center.gap-2.px-2\.5.pt-2.pb-1 {
+  padding-top: 29px;
+  padding-bottom: 24px;
+}
+
+.w-\[92vw\].max-w-\[880px\].md\:w-\[880px\].p-3.rounded-2xl.border.border-\[\#e5e5e7\].bg-white.shadow-lg li {
+  margin-bottom: 5px;
+}
+
+.w-\[92vw\].max-w-\[880px\].md\:w-\[880px\].p-3.rounded-2xl.border.border-\[\#e5e5e7\].bg-white.shadow-lg .flex-col li {
+  background: transparent;
+  border-radius: 12px;
+  padding: 0;
+}
+
+.w-\[92vw\].max-w-\[880px\].md\:w-\[880px\].p-3.rounded-2xl.border.border-\[\#e5e5e7\].bg-white.shadow-lg .flex-col li a {
+  background: rgba(245, 245, 244, 0.47);
+  border-radius: 12px;
+  padding: 19px 10px;
+}
+
+.w-\[92vw\].max-w-\[880px\].md\:w-\[880px\].p-3.rounded-2xl.border.border-\[\#e5e5e7\].bg-white.shadow-lg .flex-col li a:hover {
+  background: #f5f5f4;
+}
+
+span.flex.h-8.w-8.shrink-0.items-center.justify-center.rounded-lg.bg-\[\#f9f9f9\].text-\[\#1d1d1f\].group-hover\/entry\:bg-white.transition-colors {
+  background: #fff;
+}
+
+
+/* Dashboard list rows */
+.flex.items-center.gap-3.py-3.border-b.border-\[\#f9f9f9\].last\:border-b-0 {
+  background: #f9f9f9;
+  padding: 11px;
+  border-radius: 20px;
+}
+
+.text-sm {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+span.text-sm.font-medium.text-foreground.shrink-0.tabular-nums {
+  background: #000;
+  color: #fff;
+  font-size: 8px;
+  padding: 7px 10px;
+  border-radius: 22px;
+}
+
+p.text-sm.text-muted-foreground.truncate {
+  font-size: 11px;
+}
+
+.text-xs {
+  font-size: 10px;
+  line-height: 1.4;
+}
+
+.flex.flex-col.h-full.bg-background {
+  background: #f5f5f5;
+}
+
+p.text-\[14px\].md\:text-\[17px\].text-neutral-600.leading-\[1\.7\].max-w-\[640px\].mx-auto.whitespace-pre-line em {
+  font-style: normal !important;
+}
+
+.prod .rank {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #f6f6f6;
+  color: #000;
+  font-size: 9px;
+  font-weight: 600;
+  display: grid;
+  place-items: center;
+  flex: none;
+  font-variant-numeric: tabular-nums;
+  border: 0px solid;
+}
+
+.flex.items-center.gap-3.p-2.rounded-lg.hover\:bg-\[\#f9f9f9\].transition-colors {
+  background: #11111108;
+  padding: 16px;
+}
+
+span.w-\[22px\].h-\[22px\].rounded-full.border.border-current.grid.place-items-center.text-\[9px\].font-semibold.tabular-nums.flex-shrink-0.text-foreground {
+  background: #fff;
+  border: 0px;
+}
+
+.bg-\[\#F5F5F7\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 245 245);
+  border-radius: 28px;
+}
+
+img.rounded-full.object-cover.shrink-0.h-8.w-8 {
+  background: #f5f5f5;
+  padding: 2px;
+}
+
+.border-b.border-apple-gray-medium.flex.items-center.p-4.justify-between {
+  border: 0;
+}
+
+.hidden.lg\:flex.h-16.border-b.border-apple-gray-medium.items-center.justify-between.px-8.sticky.top-0.z-40.bg-background.rounded-t-2xl {
+  border-bottom: 1px solid #f9f9f9;
+  margin-bottom: 15px;
+}
+
+.flex.items-start.gap-4.p-4.bg-card.rounded-2xl.border.border-border\/40 {
+  display: none;
+}
+
+p.text-\[\#86868B\] {
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+span.text-\[11px\].font-semibold.uppercase.tracking-wider.text-\[\#86868B\] {
+  display: none;
+}
+
+h1.font-semibold.text-\[28px\].tracking-tight.text-\[\#1D1D1F\] {
+  padding-top: 10px;
+}
+
+.flex-1.min-h-0.p-6.lg\:p-8.space-y-4 {
+  padding: 53px;
+}
+
+.space-y-6.bg-\[\#F5F5F7\].min-h-screen.-m-6.p-6 {
+  padding: 46px;
+}
+
+p.text-\[7px\].text-\[\#86868B\].uppercase.tracking-wide {
+  font-size: 7px;
+}
+
+.space-y-0\.5 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 8px;
+}
+
+.hover\:bg-card:hover {
+  background-color: hsl(0deg 0% 100% / 39%);
+}
+
+.absolute.left-0.top-1\/2.-translate-y-1\/2.w-0\.5.h-5.bg-foreground.rounded-r-full {
+  display: none;
+}
+
+.border-border {
+  border-color: #ededed70;
+}
+
+/* MyTeam page — scoped orange theme */
+.my-team-page {
+  background: #ff5425 !important;
+}
+.my-team-page h1 {
+  color: #fff !important;
+}
+.my-team-page p {
+  color: #fff !important;
+}
+.my-team-page span.uppercase.tracking-wider,
+.my-team-page span.uppercase[class*="tracking-"] {
+  color: #fff !important;
+}
+.my-team-page [role="tabpanel"] {
+  background: transparent !important;
+}
+.my-team-page [role="tabpanel"] > div,
+.my-team-page [role="tabpanel"] .grid {
+  background: transparent !important;
+}
+
+section#equipe button {
+  background: #f9f9f9;
+}
+/* 27/09/2026 : sur la carte noire du directeur actif (Organigramme), la règle
+   ci-dessus posait un fond clair sous une étiquette écrite en blanc. Le nom du
+   département devenait illisible sur l'accueil et sur /business. */
+section#equipe .org-directeur-actif button {
+  background: transparent;
+}
+
+.bg-black.text-white.px-5.py-2\.5.rounded-full.font-bold.text-\[9px\].tracking-\[0\.15em\].uppercase.leading-none {
+  background: #f9f9f9;
+  color: #000;
+}
+
+.lys-acc details {
+  border-top: 0 !important;
+  border-bottom: 1px solid rgb(0 0 0 / 6%) !important;
+  padding: 0px 0 10px !important;
+}
+.lys-acc details:last-child {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+@keyframes ugc-scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-33.3333%); }
+}
+.animate-ugc-scroll { animation: ugc-scroll 18s linear infinite; }
+
+@keyframes ugc-slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Creator profile: highlight bubbles */
+button.group img {
+  object-fit: cover;
+  -o-object-fit: cover;
+  padding: 0px;
+  background: transparent !important;
+}
+
+/* Bordures adoucies : on garde le trait pour structurer, mais assez transparent
+   pour qu'il ne se lise pas comme une bordure. Valeur relevée par JP en devtools. */
+.border-neutral-200 {
+  border-color: rgb(229 229 229 / 41%);
+}
+
+/* Ascenseur minimaliste : un filet gris au repos, noir au survol, sans piste
+   ni flèches. Sert aux zones de texte tronquées par la hauteur. */
+/* Masque la barre de défilement native.
+   Le repère visuel est un rail dessiné, voir ScrollRail : sur macOS et iOS la
+   barre native n'occupe aucune largeur et s'efface après le défilement, donc
+   elle n'indique rien. La styler ne suffisait pas, il fallait la remplacer. */
+.lystes-hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.lystes-hide-scrollbar::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Équilibre des titres.
+
+   Un titre ne doit jamais laisser un mot seul sur sa dernière
+   ligne. `text-wrap: balance` répartit les lignes à égalité et
+   supprime ces orphelins, sans toucher aux tailles de police.
+   Le navigateur l'applique jusqu'à six lignes, ce qui couvre
+   tous les titres du site.
+
+   `pretty` fait le même travail sur les paragraphes : il évite
+   qu'un mot isolé termine un bloc de texte.
+   ───────────────────────────────────────────────────────────── */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  .text-balance {
+    text-wrap: auto;
+  }
+
+  p,
+  li {
+    text-wrap: pretty;
+  }
+}
+
+#hero-title-slot-2 > span > span:nth-child(1) {
+  display: block;
+}
+
+/* Pied de page en orange de marque, tout le contenu en blanc.
+   Une regle de portee plutot que 29 retouches : les classes de texte attenue
+   et les bordures grises deviendraient illisibles sur cet aplat. Le logo est
+   sombre a l'origine, on l'inverse au lieu d'en charger une seconde version. */
+.lystes-footer, .lystes-footer * { color: #0b1210 !important; }
+.lystes-footer [class*="text-muted-foreground"] { color: rgba(11,18,16,.66) !important; }
+.lystes-footer [class*="border-"] { border-color: rgba(11,18,16,.18) !important; }
+.lystes-footer input::placeholder { color: rgba(11,18,16,.45) !important; }
+.lystes-footer .bg-foreground { background: #0b1210 !important; }
+/* La flèche du bouton « S'inscrire à la newsletter » est tracée en
+   currentColor par ses <path>, qui prennent la couleur de LEUR élément, pas
+   celle du <svg>. La règle `.lystes-footer *` leur imposait le vert-noir du
+   fond du bouton : un rond noir sans flèche (mesuré le 26/09/2026). Les
+   tracés reçoivent donc la même couleur claire que le <svg>. */
+.lystes-footer .bg-foreground svg,
+.lystes-footer .bg-foreground svg *,
+.lystes-footer .text-background { color: rgb(225, 243, 197) !important; }
+
+/* ---------------------------------------------------------------------------
+   Accueil du pack Creative : cartes posées, pastilles d'icône en relief.
+
+   Réglé par JP dans l'inspecteur, le 10/08/2026. L'ombre est la seule tolérée
+   dans le back-office : les deux couches fines oklch, jamais une autre. Elle
+   est nommée ici pour que les deux règles ne puissent pas diverger.
+
+   Portée mesurée avant écriture :
+   - la première règle ne trouve qu'un fichier, CreativeHome (seul endroit où
+     cette grille contient des <Link className="block">) ;
+   - la seconde vise la pastille w-10/h-10 partout où elle existe, soit aussi
+     ActionAccordion (Marketing) et WeeklyPlanEmailSettings (Réglages).
+--------------------------------------------------------------------------- */
+:root {
+  --ombre-carte: oklch(0.2 0.02 250 / 0.06) 0 1px 2px 0,
+                 oklch(0.2 0.02 250 / 0.04) 0 1px 1px 0;
+}
+
+.grid.grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-3.gap-4 a.block .rounded-2xl {
+  background: #f5f5f5;
+  box-shadow: var(--ombre-carte);
+}
+
+/* 12px et non 13px : la pastille fait 40px, l'icône 16px. À 13px il ne reste
+   que 14px de largeur utile, et l'icône s'écrase à 14x16 — mesuré à l'écran,
+   ovale visible. 12px laisse exactement 16px, l'icône reste carrée et
+   l'anneau blanc ne perd qu'un pixel. */
+.w-10.h-10.rounded-xl.bg-muted {
+  background: #fff;
+  box-shadow: var(--ombre-carte);
+  padding: 12px;
+}
+
+/* ---------------------------------------------------------------------------
+   Habillage du shooting photographe — ajouté le 18/08/2026.
+   Purement visuel : aucune règle ici ne change un comportement, elles
+   n'habillent que les emplacements de photos en cours de génération et le
+   fil de réflexion posé à côté de la planche.
+   Les deux animations reproduisent la toile de génération : une trame de
+   points qui défile, et un halo qui se déplace lentement derrière.
+--------------------------------------------------------------------------- */
+@keyframes trame-photo { to { background-position: 0 -9px; } }
+@keyframes halo-photo {
+  0%   { transform: translate(-14%, -8%) scale(.85); }
+  50%  { transform: translate(12%, 10%) scale(1.05); }
+  100% { transform: translate(-4%, 16%) scale(.92); }
+}
+
+.toile-generation { position: relative; overflow: hidden; background: #0e1113; isolation: isolate; }
+.toile-generation .trame {
+  position: absolute; inset: 0; opacity: .55;
+  background-image: radial-gradient(circle, rgb(255 255 255 / .22) 1px, transparent 1px);
+  background-size: 9px 9px;
+  animation: trame-photo 3.2s linear infinite;
+}
+.toile-generation .halo {
+  position: absolute; left: -40%; top: -40%; width: 180%; height: 180%;
+  background: radial-gradient(closest-side, rgb(120 220 180 / .5), rgb(120 220 180 / 0) 70%);
+  filter: blur(6px);
+  animation: halo-photo 2.6s ease-in-out infinite alternate;
+}
+.toile-generation.au-repos .trame,
+.toile-generation.au-repos .halo { opacity: .18; animation-play-state: paused; }
+
+/* Pages « bord à bord en haut » : la zone de contenu du dashboard ne pose
+   ni rembourrage ni marge au-dessus. */
+[data-dashboard-content]:has(> [data-flush-top]) {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+/* Coque unique du back-office. La zone grise appartient au layout et non à
+   chaque page : aucun écran ne peut ainsi retomber sur un fond blanc nu. */
+.dashboard-page-canvas {
+  margin: 0 1.5rem 1.5rem;
+  padding: 1.25rem;
+  border-radius: 2rem;
+  background: hsl(var(--muted));
+}
+
+/* 06/09/2026 — Cowork : le canevas ne rembourrage plus, le contenu occupe
+   toute la largeur ; le conteneur de chat limité à 2xl devient pleine
+   largeur pour laisser respirer les vues riches du Cowork. Scopé à
+   `--cowork` (posé uniquement sur les routes Cowork dans AdminLayout) : le
+   sélecteur nu `.dashboard-page-canvas` aurait effacé le rembourrage de
+   TOUTES les pages du tableau de bord, pas seulement Cowork. */
+.dashboard-page-canvas.dashboard-page-canvas--cowork {
+  padding: 0 !important;
+}
+
+.dashboard-page-canvas.dashboard-page-canvas--cowork .mx-auto.px-6.pt-1.pb-3.max-w-2xl {
+  max-width: 100% !important;
+  margin: 0;
+}
+
+/* 03/09/2026 — le gris de droite était deux fois plus large que celui de
+   gauche. Presque toutes les pages débordent volontairement du rembourrage du
+   canevas avec `-m-6 lg:-m-8`, mais elles portent aussi `w-full` : une largeur
+   de 100 % se calcule sur la boîte de contenu du parent et ignore les marges
+   négatives. Le bloc part 32 px trop à gauche et s'arrête 32 px trop tôt à
+   droite. `width: auto` laisse le bloc se déduire de ses DEUX marges, donc
+   déborder symétriquement. Limité aux enfants directs du canevas. */
+[data-dashboard-content] > .w-full {
+  width: auto;
+}
+
+
+
+.dashboard-screen {
+  min-height: 100%;
+}
+
+/* Sur la scène grise, les surfaces de contenu sont blanches. Le vert pâle est
+   réservé au panneau de synthèse/élément élu, comme dans le dashboard maître. */
+/* :not(.bg-foreground) : cette règle NON en couches bat n'importe quelle classe
+   utilitaire (même bg-foreground posé exprès), quelle que soit la spécificité.
+   La carte élue de StatsCards (fond encre, texte clair) devenait blanche avec
+   texte blanc invisible et bordure noire. On épargne donc toute surface qui
+   impose explicitement un fond foncé. */
+.dashboard-page-canvas .surface-card:not(.bg-foreground),
+.dashboard-page-canvas .dashboard-panel {
+  background: hsl(var(--background));
+}
+
+.dashboard-highlight {
+  background: hsl(83 62% 86%);
+  color: hsl(345 8% 13%);
+}
+
+@media (min-width: 640px) {
+  .dashboard-page-canvas { padding: 2rem; }
+}
+
+@media (min-width: 1024px) {
+  .dashboard-page-canvas { padding: 3.5rem; }
+}
+
+/* ---------------------------------------------------------------------------
+   Habillage de l'aside des écrans de création (Product Creator, Photographe,
+   Graphiste, etc.) : fond gris clair, rembourrage et coins arrondis.
+--------------------------------------------------------------------------- */
+main.flex-1.overflow-y-auto.px-6.py-8 aside.space-y-5 {
+  background: rgb(245 245 245);
+  padding: 34px;
+  border-radius: 23px;
+}
+
+
+
+/* =============================================================================
+   BACK-OFFICE — la typographie des pages de vente s'arrête ici
+   Les règles globales h1..h4 ont été écrites pour les pages de vente (titres
+   à 32px). Dans le tableau de bord, chaque titre porte sa propre classe
+   Tailwind ; à défaut, il retombe sur une échelle sobre au lieu d'écraser le
+   titre de page. `:where(...)` garde une spécificité nulle côté classe, donc
+   toute utilitaire Tailwind (text-[15px], text-xl…) l'emporte.
+   ============================================================================= */
+:where(.bo-typo) h1 {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+:where(.bo-typo) h2 {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+:where(.bo-typo) h3 {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+:where(.bo-typo) h4 {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* La page de démonstration du design system montre l'échelle d'origine. */
+:where(.bo-typo .bo-typo-off) h1 { font-size: clamp(40px, 5vw, 56px); line-height: 1.08; }
+:where(.bo-typo .bo-typo-off) h2 { font-size: clamp(28px, 3vw, 32px); line-height: 1.1; }
+:where(.bo-typo .bo-typo-off) h3 { font-size: 20px; }
+:where(.bo-typo .bo-typo-off) h4 { font-size: 14px; }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PLUS DE SERIF D'AFFICHAGE, NULLE PART.
+
+   Demande de JP le 27/08/2026 : « partout ou il y a cette police enleve ».
+
+   La serif etait ecrite en dur dans 130 fichiers, sous la forme d'une classe
+   Tailwind arbitraire `font-['Inter']`. Les reprendre un par un
+   aurait pris la nuit pour un resultat moins sur : une seule regle les couvre
+   tous, et couvre aussi ceux que quelqu'un ecrirait demain.
+
+   Inter d'abord, Satoshi ensuite : si Inter ne charge pas, le texte prend la
+   police de la maison, jamais celle du systeme. Sans ce repli, la meme page
+   n'aurait pas la meme allure sur Mac, sur Windows et sur Android.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.font-\[\'Inter\'\],
+.font-\[\"Inter\"\],
+.font-serif,
+.serif {
+  font-family: 'Bricolage Grotesque', 'SF Pro Display', 'Inter', 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-weight: 400;
+}
+
+.biolystes-ai-scope .bento-syn .bs h4 {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 27px;
+  letter-spacing: -0.01em;
+  margin-bottom: 14px;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+}
+
+/* Override Tailwind .md:text-[51px] to 36px on medium screens and up */
+@media (min-width: 768px) {
+  .md\:text-\[51px\] {
+    font-size: 36px;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Corrections typographiques — demande JP 29/08/2026.
+   ═══════════════════════════════════════════════════════════════════════════ */
+.bkit main h1,
+.bkit h1:not(.bk-title) {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  letter-spacing: -.035em;
+  line-height: 1.02;
+  font-size: clamp(30px, 3vw, 42px) !important;
+  color: hsl(var(--bk-ink));
+  margin-bottom: 6px;
+}
+
+.biolystes-ai-scope .bento-syn .gros {
+  font-size: 64px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+}
+
+.biolystes-ai-scope .bento-syn .video-carte .lab .lk {
+  margin-top: 12px;
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.18em;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif !important;
+  font-weight: 600 !important;
+}
+
+h2 {
+  font-weight: 400 !important;
+}
+
+.text-3xl {
+  font-size: 28px;
+  line-height: 1.2;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+}
+
+.text-sm {
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: auto;
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-style: normal !important;
+}
+
+/* Le tableau de bord garde Bricolage même lorsqu'une page ancienne porte une
+   classe font-sans/font-display plus spécifique. */
+.bo-typo :is(h1, h2, h3, h4, h5, h6),
+.dashboard-heading,
+.onboarding-identity :is(h1, h2, h3, h4, h5, h6) {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif !important;
+  font-style: normal !important;
+}
+
+/* Titres éditoriaux des pages publiques (fiches d'avis) : Bricolage Grotesque,
+   graisse 500, interlettrage serré. » JP 04/10/2026. */
+.particuliers-scope .font-editorial {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  letter-spacing: -0.03em;
+}
+
+.border-b.border-apple-gray-medium.flex.items-center.p-4.justify-between
+  span.font-semibold.text-lg.text-foreground {
+  display: none;
+}
+
+/* Annuaires Cowork (JP, 02/09/2026) : polices et gabarit réduits dans les pop-ups. */
+.lystes-filter-bar,
+.lystes-creator-controls {
+  --lystes-pierre: 210 9.09% 95.69%;
+  --lystes-gris: 210 3.25% 48.24%;
+  --lystes-encre: 348 7.69% 12.75%;
+  --lystes-elu: 83.48 65.71% 86.27%;
+}
+
+.lystes-search-control,
+.lystes-filter-select,
+.lystes-select-trigger,
+.lystes-toolbar-action,
+.lystes-role-tab {
+  min-height: 32px;
+  border: 0 !important;
+  border-radius: 9px !important;
+  box-shadow: none !important;
+  letter-spacing: 0;
+  outline: 0 !important;
+}
+
+.lystes-search-control,
+.lystes-filter-select,
+.lystes-select-trigger,
+.lystes-toolbar-action,
+.lystes-role-tab[data-state="inactive"] {
+  background: hsl(var(--lystes-pierre));
+  color: hsl(var(--lystes-gris));
+}
+
+.lystes-search-control {
+  height: 32px;
+  padding: 0 12px;
+  border: 1px solid #0000000d !important;
+  border-radius: 90px !important;
+}
+
+input.w-full.min-w-0.appearance-none.border-0.bg-transparent.p-0.text-\[11px\].text-foreground.outline-none.ring-0.placeholder\:text-muted-foreground.focus\:outline-none.focus\:ring-0.focus-visible\:outline-none.focus-visible\:ring-0 {
+  font-size: 10px;
+}
+
+label.flex.cursor-pointer.items-center.gap-2.text-\[11px\].text-\[\#52504f\] {
+  font-size: 10px;
+}
+
+.annuaire-repertoire.mx-auto.max-w-6xl.px-4.py-8 {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.lystes-filter-select {
+  height: 32px;
+  min-width: 148px;
+  padding: 0 32px 0 12px;
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.lystes-filter-select-dark {
+  background: hsl(var(--lystes-pierre));
+  color: hsl(var(--lystes-gris));
+}
+
+.lystes-control-icon,
+.lystes-control-chevron {
+  width: 16px;
+  height: 16px;
+  color: hsl(var(--lystes-gris));
+  stroke-width: 1.3;
+}
+
+.lystes-toolbar-action {
+  height: 32px !important;
+  padding: 0 12px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: hsl(var(--lystes-gris)) !important;
+  text-decoration: none !important;
+}
+
+.lystes-toolbar-action:hover,
+.lystes-filter-select:hover,
+.lystes-select-trigger:hover,
+.lystes-role-tab[data-state="inactive"]:hover {
+  background: hsl(var(--background));
+  color: hsl(var(--lystes-encre));
+}
+
+.lystes-role-tabs {
+  margin-bottom: 12px;
+}
+
+.lystes-role-tab {
+  min-width: 0;
+  padding: 9px 12px !important;
+  font-size: 9.5px !important;
+  line-height: 1.2;
+  font-weight: 600 !important;
+  letter-spacing: 0;
+  white-space: normal !important;
+  text-wrap: balance;
+}
+
+.lystes-role-tab[data-state="active"] {
+  background: hsl(var(--lystes-elu)) !important;
+  color: hsl(var(--foreground)) !important;
+}
+
+.lystes-select-trigger {
+  height: 32px !important;
+  min-width: 150px;
+  padding: 0 9px 0 12px !important;
+  font-size: 11px !important;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+.lystes-select-trigger svg {
+  width: 16px;
+  height: 16px;
+  color: hsl(var(--lystes-gris));
+  stroke-width: 1.3;
+}
+
+.lystes-search-control:focus-within,
+.lystes-filter-select:focus-visible,
+.lystes-select-trigger:focus-visible,
+.lystes-toolbar-action:focus-visible,
+.lystes-role-tab:focus-visible {
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+
+.annuaire-repertoire .text-\[8px\] { font-size: 6px; }
+.annuaire-repertoire .text-\[11px\] { font-size: 9px; }
+.annuaire-repertoire .text-\[13px\] { font-size: 7px; }
+
+/* Bouton d'action pleine largeur : pastille blanche, texte noir, fin liseré. */
+.annuaire-repertoire button.inline-flex.items-center.justify-center.gap-2.rounded-btn.bg-primary.text-primary-foreground.h-9.w-full {
+  background: #fff;
+  color: #000;
+  border: 1px solid #0000000a;
+  border-radius: 26px;
+  font-size: 9px;
+}
+/* Bouton secondaire gris (Contexte cliente) : même taille de texte que le bouton blanc. */
+.annuaire-repertoire button.inline-flex.items-center.justify-center.gap-2.rounded-btn.surface-field.h-9.w-full {
+  font-size: 9px;
+}
+
+/* Séparateurs verticaux entre les chiffres. */
+.annuaire-repertoire .mt-3.grid.rounded-xl .px-2.text-center {
+  border-left: 1px solid #e4e4e4 !important;
+}
+.annuaire-repertoire .mt-3.grid.rounded-xl.py-2.grid-cols-3.bg-\[\#f3f4f5\] > div:nth-child(1) {
+  border-left: 0 !important;
+}
+.annuaire-repertoire .mt-3.grid.rounded-xl.py-2.grid-cols-3.bg-\[\#f3f4f5\] {
+  border-radius: 6px !important;
+  background: #fff !important;
+}
+
+/* Fonds validés pour les cartes des trois annuaires : bandeau gris, chiffres blancs. */
+.annuaire-repertoire .relative.h-12.bg-\[\#f3f4f5\] {
+  background-color: rgb(237 237 237);
+}
+
+.annuaire-repertoire .mt-3.grid.bg-\[\#f3f4f5\].py-2.grid-cols-3 {
+  border-radius: 6px !important;
+  background: #fff !important;
+}
+
+/* Sous-titre plus fin. */
+.annuaire-repertoire p.mt-0\.5.truncate.text-\[11px\].text-\[\#777b7f\] {
+  font-size: 8px;
+}
+
+/* Avatar débordant plus petit. */
+.annuaire-repertoire img.h-14.w-14.rounded-full.object-cover.ring-2.ring-white {
+  width: 45px;
+  height: 45px;
+}
+
+/* Titre de fiche. */
+.annuaire-repertoire h4.truncate.text-\[14px\].font-semibold.text-\[\#000\] {
+  font-size: 12px;
+}
+
+/* Planche de shooting : colonne fil de réflexion resserrée. */
+@media (min-width: 1024px) {
+    .lg\:grid-cols-\[minmax\(0\,1fr\)_300px\] {
+        grid-template-columns: minmax(0, 1fr) 199px;
+    }
+}
+
+/* Pop-up UGC : largeur plafonnée à 58rem. */
+.popup-scrollable {
+  max-width: 58rem;
+  max-height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #000000 #2a2a2a; /* pouce noir / piste grise foncée */
+}
+
+/* WebKit (Chrome, Safari, Edge) : barre fine et élégante. */
+.popup-scrollable::-webkit-scrollbar {
+  width: 6px;
+}
+.popup-scrollable::-webkit-scrollbar-track {
+  background-color: #2a2a2a;
+  border-radius: 4px;
+}
+.popup-scrollable::-webkit-scrollbar-thumb {
+  background-color: #000000;
+  border-radius: 4px;
+}
+.popup-scrollable::-webkit-scrollbar-thumb:hover {
+  background-color: #1a1a1a;
+}
+
+/* Page /creatifs : header blanc par-dessus le hero vidéo. */
+.creatifs-page > header {
+  background: #fff;
+}
+
+/* Point de présence : vert #21be21, "saute" plusieurs fois en boucle. */
+@keyframes lystes-dot-jump {
+  0%, 100% { transform: translateY(0); }
+  20% { transform: translateY(-3px); }
+  40% { transform: translateY(0); }
+  60% { transform: translateY(-2px); }
+  80% { transform: translateY(0); }
+}
+.lystes-presence-dot {
+  background: #21be21 !important;
+  animation: lystes-dot-jump 2.4s ease-in-out infinite;
+}
+
+/* Cowork (JP, 06/09/2026) : les libellés 14px du chat sont trop grands,
+   on les ramène à 13px, et les chiffres de stats passent en Bricolage
+   Grotesque à 15px. */
+.lystes-product-chat .text-\[14px\],
+.\[data-product-chat\] .text-\[14px\] {
+  font-size: 13px;
+}
+
+/* /bio : texte md:text-lg réduit à 14px */
+@media (min-width: 768px) {
+  .bio-scope .md\:text-lg {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+/* /bio, 12/10/2026 (JP) : sous 850 px, la règle globale ramène .text-2xl à
+   16 px, la taille des paragraphes : les titres de section paraissaient plus
+   petits que leur texte. Sur /bio, un titre de section reste à 24 px. */
+@media (max-width: 850px) {
+  .bio-scope h2.text-2xl {
+    font-size: 24px !important;
+    line-height: 1.25;
+  }
+}
+
+/* /bio, 12/10/2026 (JP : « padding left et right pas assez ») : sous 850 px,
+   la règle globale ramène .px-6 à 16 px et le texte touchait presque le bord
+   des grands blocs gris. Sur /bio : 28 px dans ces blocs, 20 px dans leurs cartes. */
+@media (max-width: 850px) {
+  .bio-scope .rounded-\[2\.75rem\] > .px-6 {
+    padding-left: 28px !important;
+    padding-right: 28px !important;
+  }
+  .bio-scope .rounded-\[2\.75rem\] .p-4.rounded-2xl {
+    padding: 18px 20px !important;
+  }
+}
+
+/* /bio : gras adouci (le 700 était trop marqué sur la page) */
+.bio-scope b,
+.bio-scope strong {
+  font-weight: 500;
+}

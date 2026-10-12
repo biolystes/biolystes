@@ -1,0 +1,122 @@
+{
+  "commun": {
+    "credits_one": "{{count}} credito",
+    "credits_other": "{{count}} crediti"
+  },
+  "facturation": {
+    "coutDesActions": {
+      "surtitre": "Documentazione · Fatturazione",
+      "titre": "Quanto costa ogni azione",
+      "chapo": "Un'azione che produce un'immagine o un video consuma crediti, perché ha un costo di calcolo reale. Le conversazioni dei suoi consulenti, invece, non ne consumano nessuno.",
+      "tableau": {
+        "chargement": "Lettura dei costi in corso…",
+        "echec": "I costi non sono stati letti in questo momento. Invece di mostrare una cifra di ripiego che potrebbe essere sbagliata, l'elenco resta vuoto. Ricarichi la pagina tra un momento."
+      },
+      "pasUneCopie": {
+        "titre": "Questa tabella non è una copia",
+        "p1": "È letta nella tabella che il server interroga al momento dell'addebito. Vede quindi il costo reale, non un listino ricopiato che invecchierebbe a parte. Se cambiassimo una tariffa, questa pagina cambierebbe lo stesso giorno, senza che nessuno debba pensarci."
+      },
+      "gratuit": {
+        "titre": "Ciò che non costa nulla",
+        "p1": "<0>Le conversazioni.</0> Un visitatore può porre trenta domande al suo consulente, il saldo non si muove. Un mese ricco di domande non le costa più di un mese tranquillo.",
+        "p2": "<0>Un'azione che fallisce.</0> I crediti sono riservati prima della generazione e restituiti se non va a buon fine. Non paga un'immagine che non ha ricevuto.",
+        "p3": "<0>Una doppia chiamata.</0> Una stessa azione rilanciata per errore viene addebitata una sola volta."
+      },
+      "zeroCredit": {
+        "titre": "E a zero crediti?",
+        "p1": "I suoi consulenti continuano a rispondere. Solo le azioni della tabella qui sopra si mettono in pausa, fino al rinnovo o a una ricarica.",
+        "cta": "Come funzionano i crediti"
+      }
+    }
+  },
+  "demarrer": {
+    "ceQueLystesFait": {
+      "surtitre": "Documentazione · Iniziare",
+      "titre": "Che cosa fa Lystes",
+      "chapo": "In negozio si esita davanti a uno scaffale. Arriva qualcuno, fa due domande, e si esce con il prodotto giusto. Trenta secondi. Online quel momento non esiste: una foto, una descrizione, un pulsante, nessuno. Il cliente che esita non chiede nulla, chiude la scheda. Lystes rimette qualcuno nella stanza.",
+      "section1": {
+        "titre": "Una sola domanda, su ogni scheda",
+        "p1": "Su ciascuna delle sue schede prodotto, un agente risponde alla domanda che il suo visitatore si pone davvero, e che non porrà a nessuno: questo prodotto è fatto per me?",
+        "p2": "Non è una chat piazzata in basso a destra su tutte le sue pagine. L'agente sa quale prodotto è mostrato, lo conosce, e parla solo di quello. È anche ciò che lo separa da uno strumento di assistenza: l'assistenza risponde dopo l'acquisto, su un ordine. Lystes lavora prima, sulla scheda, nel momento esatto in cui si gioca la vendita."
+      },
+      "section2": {
+        "titre": "Lo stesso gesto, nella forma che il suo prodotto richiede",
+        "p1": "Queste tre forme non si sommano e non si scelgono da un menu. È l'agente che prende quella giusta in base a ciò che lei vende.",
+        "qualifier": {
+          "titre": "Qualifica",
+          "texte": "Due domande sull'uso reale, e dice se questo prodotto risponde al caso, o quale del suo catalogo risponde meglio.",
+          "etat": "Disponibile, qualunque sia il suo settore."
+        },
+        "essayer": {
+          "titre": "Fa provare",
+          "texte": "Un selfie, e il visitatore si vede con il prodotto. Non se lo immagina più, lo guarda.",
+          "etat": "Disponibile sui capelli. Gli altri universi arrivano."
+        },
+        "diagnostiquer": {
+          "titre": "Fa una diagnosi",
+          "texte": "Una foto, e dice in che cosa il prodotto corrisponde a quella pelle, o in che cosa non fa per lei.",
+          "etat": "Non ancora aperto."
+        }
+      },
+      "section3": {
+        "titre": "Per quali prodotti",
+        "p1": "Per ogni prodotto che richiede un consiglio prima dell'acquisto. Non è una questione di reparto: una macchina da caffè, un paio di scarpe da corsa, delle crocchette per un cane anziano, un profumo, un siero. Ovunque il cliente si chieda se è quello giusto per lui, e nessuno gli risponda.",
+        "p2": "Al contrario, se i suoi visitatori sanno esattamente che cosa cercano e non esitano mai, Lystes non le servirà granché. Tanto vale dirlo."
+      },
+      "section4": {
+        "titre": "Che cosa cambia per lei",
+        "p1": "<0>Le domande trovano una risposta in tempo.</0> Quella che bloccava l'acquisto viene trattata sulla scheda, non il giorno dopo per email, quando l'acquisto è già avvenuto altrove.",
+        "p2": "<0>Riceve meno resi.</0> Un cliente che ha capito prima di comprare, o che si è visto con il prodotto, sbaglia meno. Un reso costa l'andata, il ritorno, il ricondizionamento, e spesso il cliente.",
+        "p3": "<0>Ascolta finalmente i suoi clienti.</0> Ogni conversazione resta legata al prodotto interessato. Ciò che blocca su una scheda precisa diventa leggibile, invece di restare una statistica di abbandono."
+      },
+      "section5": {
+        "titre": "Non installa uno strumento, assume",
+        "p1": "<0>Non è un agente polivalente.</0> Sono più squadre distinte, ciascuna con il suo mestiere, che lavorano sullo stesso catalogo. Quella dei consulenti di prodotto è la squadra che il suo cliente vede. Le altre lavorano per lei.",
+        "p2": "<0>È questo il senso della parola squadra.</0> Non è un'immagine: lei assume del personale, non un software. Ogni squadra ha il suo posto, e lei ne apre secondo il suo piano.",
+        "equipes": {
+          "conseillers": {
+            "nom": "I consulenti di prodotto",
+            "etat": "In servizio"
+          },
+          "essayage": {
+            "nom": "La prova virtuale",
+            "etat": "In servizio sui capelli"
+          },
+          "avis": {
+            "nom": "La gestione delle recensioni",
+            "etat": "In servizio"
+          },
+          "visuels": {
+            "nom": "I fotografi, i suoi visual di prodotto",
+            "etat": "In servizio"
+          },
+          "diagnostic": {
+            "nom": "La diagnosi di bellezza",
+            "etat": "Non ancora aperta"
+          },
+          "data": {
+            "nom": "I dati e il marketing",
+            "etat": "Non ancora aperta"
+          }
+        },
+        "p3": "E le guida tutte dal suo assistente: Lystes si collega a Claude e a ChatGPT. Chiede i suoi numeri, rilegge le conversazioni, dà un'istruzione ai suoi agenti, senza aprire alcun pannello.",
+        "lienMcp": "Come collegare"
+      },
+      "section6": {
+        "titre": "Ciò che non è ancora aperto",
+        "note": "Meglio dirglielo qui che lasciarglielo scoprire. La diagnosi tramite foto, i pannelli di marketing e la prova virtuale su universi diversi dai capelli sono in corso e non sono accessibili oggi. Se la sua decisione dipende da uno di questi, ce lo dica prima di impegnarsi, non dopo.",
+        "p1": "Lystes è un prodotto giovane portato avanti da una squadra ridotta. Ciò che legge in questa documentazione è ciò che funziona, verificato funzione per funzione. Ciò che non è descritto qui non è pronto."
+      },
+      "section7": {
+        "titre": "Che cosa Lystes non fa",
+        "p1": "I suoi agenti consigliano prima dell'acquisto. Non trattano i suoi ordini, non gestiscono i suoi resi, non rispondono alle sue email di assistenza post vendita e non modificano mai il suo negozio. Se cerca uno strumento di assistenza, tenga il suo: i due convivono senza conflitto."
+      },
+      "cta": {
+        "titre": "Vederlo sui suoi prodotti",
+        "p1": "Trenta minuti in videochiamata, gratuiti, sul suo catalogo. È il modo più rapido per sapere se le serve.",
+        "bouton": "Prenotare un incontro",
+        "boutonTarifs": "Vedere le tariffe"
+      }
+    }
+  }
+}

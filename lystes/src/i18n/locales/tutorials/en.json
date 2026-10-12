@@ -1,0 +1,416 @@
+{
+  "minutes": "{{n}} min",
+  "levels": {
+    "all": "All levels",
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced"
+  },
+  "durations": {
+    "all": "All durations",
+    "short": "< 5 min",
+    "medium": "5-7 min",
+    "long": "> 7 min"
+  },
+  "mastery": {
+    "beginner": "Beginner",
+    "apprentice": "Apprentice",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "expert": "Expert"
+  },
+  "page": {
+    "title": "Tutorials",
+    "subtitle": "Step-by-step guides to master every feature",
+    "searchPlaceholder": "Search for a tutorial...",
+    "filtersLabel": "Filters:",
+    "levelPlaceholder": "Level",
+    "durationPlaceholder": "Duration",
+    "clear": "Clear",
+    "activeFilters": "Active filters:",
+    "searchBadge": "Search: \"{{query}}\"",
+    "resultCountOne": "{{n}} tutorial found",
+    "resultCountMany": "{{n}} tutorials found",
+    "tabAll": "All ({{n}})",
+    "tabCategory": "{{name}} ({{n}})",
+    "emptyTitle": "No tutorial found",
+    "emptyBody": "Try changing your filters or your search",
+    "emptyAction": "Reset filters"
+  },
+  "card": {
+    "completed": "Completed",
+    "popular": "Popular",
+    "new": "New",
+    "video": "Video",
+    "stepsProgress": "{{done}}/{{total}} steps",
+    "stepsCount": "{{n}} steps"
+  },
+  "viewer": {
+    "stepsCount": "{{n}} steps",
+    "progress": "Step {{current}} of {{total}}",
+    "stepBadge": "Step {{n}}",
+    "previous": "Previous",
+    "next": "Next",
+    "finish": "Finish",
+    "reset": "Reset",
+    "resetToast": "Progress reset",
+    "doneToastTitle": "Tutorial completed",
+    "doneToastBody": "You have completed this tutorial.",
+    "doneInline": "Tutorial completed.",
+    "videoLink": "Watch the video for this tutorial"
+  },
+  "categories": {
+    "getting-started": {
+      "title": "Quick start",
+      "description": "First steps with Lystes AI"
+    },
+    "import": {
+      "title": "Product import",
+      "description": "WooCommerce, Shopify, CSV"
+    },
+    "agents": {
+      "title": "Managing agents",
+      "description": "Setup and customisation"
+    },
+    "analytics": {
+      "title": "Analytics & Marketing",
+      "description": "Winners, scripts, leads"
+    },
+    "advanced": {
+      "title": "Advanced settings",
+      "description": "Team, integrations, API"
+    }
+  },
+  "items": {
+    "create-first-agent": {
+      "title": "Create your first AI agent",
+      "description": "Learn how to set up a beauty diagnosis agent in a few minutes",
+      "steps": {
+        "0": {
+          "title": "Open the Agents page",
+          "description": "In the side menu, click 'Agents' to open the list of your agents. This is where you create and manage all your AI beauty advisors.",
+          "actionLabel": "Go to Agents"
+        },
+        "1": {
+          "title": "Click 'Create an agent'",
+          "description": "Click the 'Create an agent' button at the top right of the page. A creation form will open.",
+          "tip": "You can create as many agents as your plan allows."
+        },
+        "2": {
+          "title": "Fill in the basic details",
+          "description": "Enter the agent's name (e.g. 'Skincare Advisor'), the expert's name (e.g. 'Sophie'), and choose the speciality (Skincare, Haircare or Wellness).",
+          "tip": "The expert's name will appear in the messages sent to your customers."
+        },
+        "3": {
+          "title": "Choose the type of diagnosis",
+          "description": "Select the agent's role: standard Diagnosis, personalised Coach, or Pro Diagnosis with advanced analysis."
+        },
+        "4": {
+          "title": "Attach your products",
+          "description": "Select the products the agent will be able to recommend. You can pick from the products already imported into your catalogue.",
+          "tip": "Start with 5-10 products for a better recommendation rate."
+        },
+        "5": {
+          "title": "Activate and share",
+          "description": "Activate the agent, then get its unique link or QR code to share it on your website, your social networks or in store.",
+          "actionLabel": "View agents"
+        }
+      }
+    },
+    "install-widget-shopify": {
+      "title": "Install your agent on Shopify",
+      "description": "Paste one line of code into your theme so the agent appears on your store",
+      "steps": {
+        "0": {
+          "title": "Get your personal code",
+          "description": "Open the Installation page in Lystes AI, Shopify tab. The code shown already contains your account identifier: there is nothing to fill in and nothing to change inside it. Click 'Copy'.",
+          "tip": "Always use the 'Copy' button rather than retyping the code: one wrong letter and the widget will not load.",
+          "actionLabel": "Open the Installation page"
+        },
+        "1": {
+          "title": "Open your theme's code editor",
+          "description": "In your Shopify admin, go to 'Online Store' then 'Themes'. On the row of your active theme, click the three-dot button, then 'Edit code'.",
+          "tip": "You are not opening the customiser: no colour, no font and no section of your store will be touched. The design stays exactly the same."
+        },
+        "2": {
+          "title": "Open the theme.liquid file",
+          "description": "In the left-hand column, expand the 'Layout' folder and click 'theme.liquid'. This is the file shared by every page of the store: whatever you put there applies everywhere, with no need to repeat the operation page by page."
+        },
+        "3": {
+          "title": "Paste the code just before </body>",
+          "description": "Scroll all the way to the bottom of the file, to the line containing </body>. Place your cursor on the line just above it and paste the code you copied in step 1. This end-of-page position makes the widget load last, so it does not slow your store down.",
+          "tip": "If the file contains several </body> tags, take the last one, at the very bottom."
+        },
+        "4": {
+          "title": "Save",
+          "description": "Click 'Save' at the top right. Shopify applies the change to your published theme straight away: there is no extra deployment to trigger."
+        },
+        "5": {
+          "title": "Come back and check",
+          "description": "Open your store in a new tab: your agent's button should appear at the bottom right. Then come back to Lystes AI and click 'Check my installation' to confirm detection on our side.",
+          "actionLabel": "Check my installation"
+        },
+        "6": {
+          "title": "And if you want to undo it",
+          "description": "The operation is fully reversible: reopen theme.liquid, delete the lines you pasted, save. Your store returns to its previous state, since nothing else was changed in the meantime."
+        }
+      }
+    },
+    "install-widget-woocommerce": {
+      "title": "Install your agent on WooCommerce",
+      "description": "Download the plugin already configured for your account, then activate it in WordPress",
+      "steps": {
+        "0": {
+          "title": "Download your plugin",
+          "description": "Open the Installation page in Lystes AI, WooCommerce tab, then click 'Download the Lystes.ai plugin (.zip)'. The file is built on demand for your account: the identifier is already inside.",
+          "tip": "Do not unzip the .zip file. WordPress expects it as it is.",
+          "actionLabel": "Open the Installation page"
+        },
+        "1": {
+          "title": "Open the plugin installer in WordPress",
+          "description": "In your WordPress admin, in the left-hand menu, go to 'Plugins' then 'Add New'. This is the page WordPress uses to install any new module."
+        },
+        "2": {
+          "title": "Upload the file",
+          "description": "At the top of the page, click 'Upload Plugin', then 'Choose File' and select the .zip you downloaded. Finally click 'Install Now' and let WordPress work for a few seconds."
+        },
+        "3": {
+          "title": "Activate the plugin",
+          "description": "Click 'Activate Plugin'. That is it: there is no setting to enter, no key to paste, no identifier to copy. The plugin already knows which Lystes AI account it belongs to.",
+          "tip": "To remove the widget later, simply deactivate the plugin. Nothing else on your site is modified."
+        },
+        "4": {
+          "title": "Check the connection",
+          "description": "Go to 'Settings' then 'Lystes.ai'. The status should read 'Connected' with the name of your store. If so, the plugin is indeed talking to your account."
+        },
+        "5": {
+          "title": "Open a product page",
+          "description": "Open any product page of your store in a new tab: the widget should appear. Then come back to Lystes AI and click 'Check my installation'.",
+          "actionLabel": "Check my installation"
+        }
+      }
+    },
+    "install-widget-other": {
+      "title": "Install your agent on another platform",
+      "description": "PrestaShop, Magento, Wix, Squarespace: a single line of code, pasted into the page footer",
+      "steps": {
+        "0": {
+          "title": "Get your personal code",
+          "description": "Open the Installation page in Lystes AI, 'Other platform' tab. The code shown already contains your account identifier: there is nothing to fill in and nothing to change inside it. Click 'Copy'.",
+          "tip": "The code is the same whatever the platform. What changes from one tool to another is only where you paste it.",
+          "actionLabel": "Open the Installation page"
+        },
+        "1": {
+          "title": "Find where to paste code on your platform",
+          "description": "Almost every tool provides a field for custom code in the page footer. PrestaShop: Modules, then Positions, then Inject into the footer. Magento: Content, then Design, then HTML Head. Wix: Settings, then Custom Code, then Body - End. Squarespace: Settings, then Advanced, then Code Injection, then Footer.",
+          "tip": "If your platform is not in this list, look for 'custom code', 'scripts' or 'footer' in its settings: the principle is the same everywhere."
+        },
+        "2": {
+          "title": "Paste the code just before </body>",
+          "description": "Paste the code you copied in step 1 into the field you have just found, the one matching the end of the page, just before the </body> tag. This position makes the widget load last, so it does not slow your site down."
+        },
+        "3": {
+          "title": "Save, then publish if needed",
+          "description": "Save the change. Some platforms also require you to publish the site before the change is visible to your visitors: check that no deployment is still waiting to be triggered.",
+          "tip": "To remove the widget later, empty this field and save again. Nothing else will have been changed in the meantime."
+        },
+        "4": {
+          "title": "Come back and check",
+          "description": "Open your site in a new tab: your agent's button should appear at the bottom right. Then come back to Lystes AI and click 'Check my installation' to confirm detection on our side.",
+          "actionLabel": "Check my installation"
+        }
+      }
+    },
+    "verify-widget-installation": {
+      "title": "Check that everything works",
+      "description": "Two ways to confirm that your agent is really live on your store",
+      "steps": {
+        "0": {
+          "title": "Open the Installation page",
+          "description": "As long as the widget has never been seen, the page shows the verification block. As soon as it is detected, a 'Widget installed and active' banner takes its place at the top of the page: that is the only sign to watch for.",
+          "actionLabel": "Open the Installation page"
+        },
+        "1": {
+          "title": "Let automatic detection do the work",
+          "description": "Click 'Check my installation', then open your store in another tab. Every loaded page where the widget is present reports itself to Lystes AI. The page listens for two minutes and switches over as soon as the first signal arrives.",
+          "tip": "You really do have to open a page of your store while it is listening: with no visit, there is nothing to detect."
+        },
+        "2": {
+          "title": "Or check right away using a product page address",
+          "description": "Just below the button, paste the full address of a product page, for example https://your-store.com/products/moisturising-cream, then click 'Analyse'. We fetch the page ourselves and answer within seconds, without waiting for a visitor.",
+          "tip": "Prefer a product page over the homepage: that is where the agent works, and that is where you want to see it."
+        },
+        "3": {
+          "title": "If nothing is detected",
+          "description": "After two failed attempts, or after two minutes, a 'Something not working?' box appears on the page. It contains a link to book fifteen free minutes on a video call: someone opens your platform with you and validates the installation end to end.",
+          "actionLabel": "Back to the Installation page"
+        }
+      }
+    },
+    "import-woocommerce": {
+      "title": "Import from WooCommerce",
+      "description": "Authorise Lystes to read your WooCommerce catalogue, with no key to copy",
+      "steps": {
+        "0": {
+          "title": "What you need",
+          "description": "Your shop address and an administrator account on your WordPress site. Nothing to create or copy: WooCommerce will simply ask you to authorise Lystes."
+        },
+        "1": {
+          "title": "Log in to WordPress",
+          "description": "In this same browser, open your site's admin and log in with your administrator account.",
+          "tip": "If WordPress asks you to log in during the authorisation, do so: you then come back to the same page."
+        },
+        "2": {
+          "title": "Enter your shop address",
+          "description": "In Catalogue, click Import, then the WooCommerce tab. Type your shop address, for example myshop.com, then click Connect my shop.",
+          "actionLabel": "Open the catalogue"
+        },
+        "3": {
+          "title": "Authorise Lystes",
+          "description": "WooCommerce shows a page asking for access for Lystes AI. Click Approve. You come back to Lystes and the import starts on its own."
+        },
+        "4": {
+          "title": "Find your products",
+          "description": "When the import ends, you are back on your catalogue with the number of products added and updated. To pick up later changes made in your shop, open Import again and click Update my products.",
+          "tip": "If your shop refuses the authorisation, use a file: in WooCommerce, open Products, then Export, and drop the file in the File tab."
+        }
+      }
+    },
+    "import-shopify": {
+      "title": "Import from Shopify",
+      "description": "Export your products from Shopify and drop the file into Lystes",
+      "steps": {
+        "0": {
+          "title": "Open your products on Shopify",
+          "description": "In the Shopify admin, open the Products menu, then click Export, top right."
+        },
+        "1": {
+          "title": "Choose the right export",
+          "description": "Tick All products, then CSV for Excel, Numbers, or other spreadsheet programs, and confirm with Export products.",
+          "tip": "If your catalogue is large, Shopify sends you the file by email, as an attachment."
+        },
+        "2": {
+          "title": "Keep the file as it is",
+          "description": "Do not open the file to edit it: drop it as Shopify created it. Draft and archived products are skipped."
+        },
+        "3": {
+          "title": "Drop the file into Lystes",
+          "description": "In Catalogue, click Import, then the Shopify tab. Check your shop address: it creates each product's Buy link. Choose the file, then click Import the file.",
+          "actionLabel": "Open the catalogue"
+        },
+        "4": {
+          "title": "Read the summary",
+          "description": "Lystes shows the number of products added and updated, and those that did not go through, with the reason. To update your catalogue later, export again and drop the new file: nothing is created twice."
+        }
+      }
+    },
+    "import-csv": {
+      "title": "Import a file",
+      "description": "Import your products from a spreadsheet, Excel or Google Sheets",
+      "steps": {
+        "0": {
+          "title": "Prepare your file",
+          "description": "One row per product, and on the first row the column names: name, description, price, category, image, link, reference, stock. Only the name is required.",
+          "tip": "From Excel or Google Sheets, save as CSV. The image column takes the photo address, the link column the product page address."
+        },
+        "1": {
+          "title": "Open the import",
+          "description": "In Catalogue, click Import, then the File tab. Check your shop address, then choose your file, or paste its content.",
+          "actionLabel": "Open the catalogue"
+        },
+        "2": {
+          "title": "Run the import",
+          "description": "Click Import the file. A product with the same reference is updated, not added a second time. Without a reference, only a product that came from a file imported earlier is found by its name. Only the filled-in columns change the product."
+        },
+        "3": {
+          "title": "Read the summary",
+          "description": "Lystes shows the number of products added and updated, and the first rejected rows with their number and the reason. Fix them in your file, then import it again."
+        }
+      }
+    },
+    "share-agent": {
+      "title": "Embed the agent on your website",
+      "description": "Share your agent via URL, QR code or an embedded button",
+      "steps": {
+        "0": {
+          "title": "Get the agent's link",
+          "description": "On the Agents page, click the 3 dots on your agent, then 'Show QR Code'. You will find your agent's direct URL there.",
+          "actionLabel": "View agents"
+        },
+        "1": {
+          "title": "Share via QR Code",
+          "description": "Download the automatically generated QR Code. Ideal for in-store display, business cards or product packaging.",
+          "tip": "The QR Code works on every smartphone, with no app needed."
+        },
+        "2": {
+          "title": "Embed on your website",
+          "description": "Copy the link and create a button or a banner on your site that redirects to your agent. For example: 'Get my free beauty diagnosis'."
+        },
+        "3": {
+          "title": "Share on social media",
+          "description": "Share the link in your Instagram stories, Facebook posts or newsletters. Every click counts as a scan in your analytics."
+        }
+      }
+    },
+    "understand-winners": {
+      "title": "Understand Winner products",
+      "description": "Identify the products your AI recommends most",
+      "steps": {
+        "0": {
+          "title": "Open the Winners page",
+          "description": "Click 'Winners' in the side menu. This page shows the products most recommended by your AI team, sorted by number of recommendations.",
+          "actionLabel": "View Winners"
+        },
+        "1": {
+          "title": "Analyse the trends",
+          "description": "The chart shows how recommendations evolved over the last 7, 30 or 90 days. Spot the products going up and those going down.",
+          "tip": "A 'winner' product is often one that suits a broad audience."
+        },
+        "2": {
+          "title": "Optimise your catalogue",
+          "description": "Use this data to adjust your stock, create targeted promotions or develop products similar to the winners."
+        }
+      }
+    },
+    "video-scripts": {
+      "title": "Use AI video scripts",
+      "description": "Generate marketing scripts for TikTok, Instagram and YouTube",
+      "steps": {
+        "0": {
+          "title": "Open AI Marketing",
+          "description": "Go to Marketing from the side menu. Select the 'Video Scripts' tab to open the generator.",
+          "actionLabel": "Go to Marketing"
+        },
+        "1": {
+          "title": "Choose a product",
+          "description": "Select a product from your catalogue. The AI will analyse its features, its price and its category to generate relevant scripts."
+        },
+        "2": {
+          "title": "Generate and customise",
+          "description": "Click 'Generate scripts'. You will get scripts for different formats (15s, 30s, 60s) and platforms. Edit them to match your brand's tone.",
+          "tip": "The scripts include hooks, the body and optimised calls to action."
+        }
+      }
+    },
+    "manage-team": {
+      "title": "Manage your team",
+      "description": "Invite collaborators and manage permissions",
+      "steps": {
+        "0": {
+          "title": "Open team management",
+          "description": "Go to Team from the side menu. You will see the list of current members and their roles.",
+          "actionLabel": "Manage the team"
+        },
+        "1": {
+          "title": "Invite a member",
+          "description": "Click 'Invite a member', enter the email and select the role: Admin (full access), Editor (can modify), or Viewer (read only).",
+          "tip": "The invitee will receive an email with a link to join your account."
+        },
+        "2": {
+          "title": "Manage permissions",
+          "description": "Change roles at any time or remove a member's access. Changes take effect immediately."
+        }
+      }
+    }
+  }
+}

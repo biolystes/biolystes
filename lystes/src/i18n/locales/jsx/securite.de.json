@@ -1,0 +1,15 @@
+{
+  "Chiffrement AES-256 au repos, TLS 1.2+ en transit, isolation par compte, RGPD. Lystes est hébergé sur une infrastructure certifiée SOC 2 Type 2 et ISO 27001 (Supabase / AWS).": "AES-256-Verschlüsselung im Ruhezustand, TLS 1.2+ bei der Übertragung, Isolierung pro Konto, DSGVO. Lystes wird auf einer SOC 2 Type 2- und ISO 27001-zertifizierten Infrastruktur gehostet (Supabase / AWS).",
+  "Sécurité et conformité": "Sicherheit und Compliance",
+  "Ce que nous": "Was wir",
+  "protégeons": "schützen",
+  ", et comment.": "und wie.",
+  "Chiffrement au repos et en transit, isolation stricte par compte, hébergement sur une infrastructure certifiée. Cette page détaille chaque point, y compris ce que nous ne sommes pas encore.": "Verschlüsselung im Ruhezustand und bei der Übertragung, strikte Isolierung pro Konto, Hosting auf zertifizierter Infrastruktur. Diese Seite erläutert jeden Punkt im Detail, einschließlich dessen, was wir noch nicht sind.",
+  "Le détail, point par point": "Die Details, Punkt für Punkt",
+  "Une question, une faille": "Eine Frage, eine Sicherheitslücke",
+  "Écrivez au": "Schreiben Sie an den",
+  "fondateur": "Gründer",
+  ".": ".",
+  "Lystes est une jeune entreprise : votre question sécurité arrive directement chez la personne qui a écrit le code. Écrivez à contact@lystes.ai, vous recevez une réponse sous [24] heures ouvrées.": "Lystes ist ein junges Unternehmen: Ihre Sicherheitsfrage geht direkt an die Person, die den Code geschrieben hat. Schreiben Sie an contact@lystes.ai und Sie erhalten innerhalb von [24] Werkstunden eine Antwort.",
+  "Si vous pensez avoir trouvé une vulnérabilité, envoyez les détails à la même adresse avec l'objet « Sécurité ». Nous accusons réception, corrigeons en priorité et vous tenons informé de la résolution.": "Wenn Sie glauben, eine Sicherheitslücke gefunden zu haben, senden Sie die Details an dieselbe Adresse mit dem Betreff „Sicherheit“. Wir bestätigen den Eingang, beheben das Problem vorrangig und halten Sie über die Lösung auf dem Laufenden."
+}

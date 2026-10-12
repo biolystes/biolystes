@@ -1,0 +1,97 @@
+/**
+ * Peau claire de l'espace Lystes Créa — le studio.
+ *
+ * Même mécanique que pack-marketing.css : tout est porté par l'attribut
+ * `data-pack="crea"` posé sur la racine d'AdminLayout. Les autres packs ne
+ * voient rien de ce fichier, et le retirer rend au tableau de bord son
+ * apparence d'origine.
+ *
+ * Repassé en clair le 19/08/2026 sur demande de JP : « fond blanc, écriture
+ * noire ». La peau noire d'origine venait du studio porté ; elle contredisait
+ * la règle de la maison, back-offices en clair, l'anthracite aux vitrines.
+ * Page #FFFFFF, surfaces #F5F5F5 et #F1F1F1, texte #151414 / #6B6B6B.
+ *
+ * Trois principes, non négociables :
+ *   1. aucune ombre portée
+ *   2. zéro bordure visible, le contraste seul sépare
+ *   3. deux niveaux de texte
+ */
+
+/* body[data-pack-portail] est posé par AdminLayout : les portails Radix
+   (menu du sélecteur, dialogues, infobulles) se rendent sous <body>, hors du
+   div [data-pack], et n'hériteraient pas des variables sans lui. */
+[data-pack="crea"],
+body[data-pack-portail="crea"] {
+  --background: 0 0% 100%;
+  --foreground: 0 2% 8%; /* #151414 */
+  --card: 0 0% 100%;
+  --card-foreground: 0 2% 8%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 2% 8%;
+  --primary: 0 2% 8%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 0 0% 96%; /* #F5F5F5 */
+  --secondary-foreground: 0 2% 8%;
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 42%; /* #6B6B6B */
+  --accent: 0 0% 95%; /* #F1F1F1 */
+  --accent-foreground: 0 2% 8%;
+
+  /* Zéro bordure visible : les traits prennent la couleur de leur surface. */
+  --border: 0 0% 96%;
+  --input: 0 0% 95%;
+  --ring: 0 2% 8%;
+
+  /* Les gris « Apple » de la coquille, à leur valeur claire d'origine. */
+  --color-gray-light: 0 0% 100%;
+  --color-gray-medium: 0 0% 96%;
+  --color-gray-dark: 0 0% 42%;
+
+  /* Le texte sans classe de couleur suit la variable, plutôt qu'une couleur
+     posée en dur ailleurs dans la coquille. */
+  color: hsl(var(--foreground));
+
+  --sidebar-background: 0 0% 100%;
+  --sidebar-foreground: 0 2% 8%;
+  --sidebar-accent: 0 0% 95%;
+  --sidebar-accent-foreground: 0 2% 8%;
+  --sidebar-border: 0 0% 100%;
+}
+
+/* Les blocs blancs arrondis de la coquille deviennent les surfaces du studio.
+   Et aucune ombre, jamais. */
+[data-pack="crea"] aside,
+[data-pack="crea"] main,
+[data-pack="crea"] header {
+  box-shadow: none !important;
+}
+
+/* La zone de contenu s'efface : le studio est bord à bord, comme la
+   maquette. C'est l'usage prévu de la prise data-dashboard-content. */
+[data-pack="crea"] [data-dashboard-content] {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+[data-pack="crea"] [data-dashboard-content] > * {
+  min-height: 0;
+}
+[data-pack="crea"] [data-dashboard-content] > .lc-root {
+  flex: 1 1 0%;
+  height: auto;
+}
+
+/* index.css porte des couleurs EN DUR posées par-dessus bg-background
+   (ex. « .flex.flex-col.h-full.bg-background { background:#f5f5f5 } »).
+   La variable reprend la main pour que le studio reste d'un seul blanc. */
+[data-pack="crea"] .bg-background {
+  background-color: hsl(var(--background)) !important;
+}
+
+/* Zéro bordure visible : les traits de la coquille s'éteignent en prenant la
+   couleur de leur surface, y compris ceux posés en dur dans index.css. */
+[data-pack="crea"] .border-b,
+[data-pack="crea"] .border-t,
+[data-pack="crea"] [class*="border-apple-gray"] {
+  border-color: hsl(0 0% 96%) !important;
+}

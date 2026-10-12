@@ -1,0 +1,23 @@
+{
+  "soit {prix} TTC en France": "i.e. {prix} incl. VAT in France",
+  "{min} à {max}": "{min} to {max}",
+  "plus de {n}": "more than {n}",
+  "{min} à {max} produits": "{min} to {max} products",
+  "Plus de {n} produits": "More than {n} products",
+  "{min} à {max} prestations": "{min} to {max} services",
+  "Plus de {n} prestations": "More than {n} services",
+  "{min} à {max} fiches": "{min} to {max} listings",
+  "Plus de {n} fiches": "More than {n} listings",
+  "{prix} HT par mois, pour {tranche}": "{prix} excl. VAT per month, for {tranche}",
+  "Rien n'est prélevé aujourd'hui. Premier prélèvement le {date}, à la fin de votre jour d'essai. Annulable avant cette date, depuis votre espace.": "Nothing is charged today. First payment on {date}, at the end of your trial day. Cancel any time before that date, from your workspace.",
+  "Rien n'est prélevé aujourd'hui. Premier prélèvement le {date}, à la fin de vos {jours} jours d'essai. Annulable avant cette date, depuis votre espace.": "Nothing is charged today. First payment on {date}, at the end of your {jours}-day trial. Cancel any time before that date, from your workspace.",
+  "Premier prélèvement aujourd'hui, à la souscription. Sans engagement, résiliable à tout moment.": "First payment today, when you subscribe. No commitment, cancel any time.",
+  "Inscrite par le lien d'une marraine : {pct} % de moins à vie, soit {prix} HT par mois. La remise s'affiche sur la page de paiement.": "Signed up through a referral link: {pct}% off for life, i.e. {prix} excl. VAT per month. The discount shows on the payment page.",
+  "{credits} crédits inclus chaque mois, pour les essayages et les visuels générés. Un essayage en consomme {cout} : environ {n} essayages par mois.": "{credits} credits included every month, for try-ons and generated visuals. A try-on uses {cout}: about {n} try-ons a month.",
+  "{credits} crédits inclus chaque mois, pour les essayages et les visuels générés.": "{credits} credits included every month, for try-ons and generated visuals.",
+  "{credits} crédits inclus chaque mois, pour les diagnostics et les visuels générés. Un diagnostic en consomme {cout} : environ {n} diagnostics par mois.": "{credits} credits included every month, for diagnostics and generated visuals. A diagnostic uses {cout}: about {n} diagnostics a month.",
+  "{credits} crédits inclus chaque mois, pour les diagnostics et les visuels générés.": "{credits} credits included every month, for diagnostics and generated visuals.",
+  "{credits} crédits inclus chaque mois, pour générer des photos et des vidéos de vos produits.": "{credits} credits included every month, to generate photos and videos of your products.",
+  "Le montant dépend du nombre de produits de votre catalogue. Il s'affiche sur la page de paiement, avant toute validation.": "The amount depends on the number of products in your catalogue. It shows on the payment page, before you confirm anything.",
+  "Inscrite par le lien d'une marraine : {pct} % de moins à vie. La remise s'affiche sur la page de paiement.": "Signed up through a referral link: {pct}% off for life. The discount shows on the payment page."
+}

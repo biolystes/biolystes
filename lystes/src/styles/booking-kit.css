@@ -1,0 +1,391 @@
+/*
+ * Lystes Booking — peau « Studio ».
+ *
+ * Référence assumée : les tableaux de bord Donezo / Zentra / Brickline.
+ * Ce qui les rend supérieurs, et qui est repris ici point par point :
+ *
+ *  1. Un canevas gris très clair, et des cartes BLANCHES posées dessus.
+ *     La hiérarchie naît de la surface, pas d'un liseré.
+ *  2. Un rayon généreux (20 px) et une ombre presque invisible : la carte
+ *     décolle d'un demi-millimètre, elle ne flotte pas.
+ *  3. Des chiffres énormes (40 à 64 px), serrés, tabulaires, en encre pleine.
+ *     C'est la donnée qui fait le design, pas la décoration.
+ *  4. Des libellés lisibles (12-13 px), pas des micro-capitales de 9 px.
+ *  5. UNE carte d'accent saturée (vert profond) par écran, qui porte le
+ *     chiffre le plus important, avec un accent citron.
+ *  6. De la couleur réservée à la donnée : vert = encaissé, ambre = en
+ *     attente, rouge = annulé, bleu = à venir.
+ *
+ * Tout est confiné sous .bkit : le reste du back-office ne bouge pas.
+ */
+
+.bkit {
+  /* Surfaces */
+  --bk-canvas: 0 0% 96.5%;
+  --bk-card: 0 0% 100%;
+  --bk-sunk: 0 0% 94%;
+  --bk-line: 0 0% 90%;
+
+  /* Encres */
+  --bk-ink: 0 0% 7%;
+  --bk-ink-2: 0 0% 40%;
+  --bk-ink-3: 0 0% 52%;
+
+  /* Accents de donnée */
+  --bk-vert: 155 62% 14%;
+  --bk-vert-clair: 152 46% 42%;
+  --bk-citron: 74 86% 62%;
+  --bk-ambre: 33 90% 45%;
+  --bk-rouge: 4 72% 46%;
+  --bk-bleu: 216 84% 48%;
+
+  --bk-r: 20px;
+  --bk-shadow: none;
+
+  color: hsl(var(--bk-ink));
+  font-feature-settings: "ss01", "cv01";
+}
+
+.dark .bkit,
+.bkit.dark {
+  --bk-canvas: 0 0% 8%;
+  --bk-card: 0 0% 12%;
+  --bk-sunk: 0 0% 16%;
+  --bk-line: 0 0% 22%;
+  --bk-ink: 0 0% 98%;
+  --bk-ink-2: 0 0% 72%;
+  --bk-ink-3: 0 0% 62%;
+  --bk-shadow: 0 1px 2px hsl(0 0% 0% / 0.4);
+}
+
+/* Le canevas du module : les cartes blanches ont besoin d'un fond pour exister. */
+.bkit-canvas {
+  background: hsl(var(--bk-canvas));
+}
+
+/* ---- Typographie ---- */
+/* Les libellés restent sur une seule ligne, quelle que soit la largeur. */
+.bkit .bk-eyebrow {
+  font-size: clamp(7px, 1.9vw, 8px);
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: hsl(var(--bk-ink-3));
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+.bkit .bk-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  font-size: clamp(30px, 3vw, 42px);
+  color: hsl(var(--bk-ink));
+}
+/* Aucune serif, aucune italique dans le module : la deuxième ligne du titre
+   reprend la même graisse sans-serif, simplement en encre sourde. */
+.bkit .bk-title,
+.bkit .bk-title * {
+  font-family: var(--font-display) !important;
+  font-style: normal !important;
+}
+.bkit .bk-title em,
+.bkit .bk-title .bk-title-2 {
+  font-style: normal !important;
+  color: hsl(var(--bk-ink-3));
+}
+
+/* Toute classe serif héritée est neutralisée dans le module. */
+.bkit .font-serif,
+.bkit :is(h1, h2, h3, h4).font-serif {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.bkit .font-thin { font-weight: 500; }
+
+/* Uniformité des détails de tuile : une seule ligne, jamais de retour. */
+.bkit .text-\[12px\] {
+  font-size: clamp(8px, 2.1vw, 9px);
+}
+.bkit .bk-panel .text-\[12px\],
+.bkit .bk-panel-strong .text-\[12px\] {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 320–480 px : on resserre le crénage plutôt que de casser la ligne. */
+@media (max-width: 480px) {
+  .bkit .bk-eyebrow {
+    font-size: 7px;
+    letter-spacing: 0.04em;
+  }
+  .bkit .text-\[12px\] {
+    font-size: 8px;
+    letter-spacing: -0.005em;
+  }
+  .bkit .bk-panel :is(.text-\[11px\], .text-xs),
+  .bkit .bk-panel-strong :is(.text-\[11px\], .text-xs) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/* Très petites largeurs (320–360 px) : dernier cran avant le retour ligne. */
+@media (max-width: 360px) {
+  .bkit .bk-eyebrow { font-size: 7px; letter-spacing: 0.02em; }
+  .bkit .text-\[12px\] { font-size: 7.5px; }
+}
+
+
+/* ---- Surfaces ---- */
+.bkit .bk-panel {
+  background: hsl(var(--bk-card));
+  border-radius: var(--bk-r);
+  border: 0;
+  box-shadow: var(--bk-shadow);
+}
+.bkit .bk-panel-strong {
+  background: hsl(var(--bk-vert));
+  color: hsl(0 0% 100%);
+  border-radius: var(--bk-r);
+  box-shadow: var(--bk-shadow);
+}
+.bkit .bk-panel-ink {
+  background: hsl(var(--bk-ink));
+  color: hsl(var(--bk-card));
+  border-radius: var(--bk-r);
+  box-shadow: var(--bk-shadow);
+}
+.bkit .bk-sunken {
+  background: hsl(var(--bk-sunk));
+  border-radius: 14px;
+}
+
+/* ---- Chiffres ---- */
+.bkit .bk-num {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.045em;
+  line-height: 0.92;
+  font-weight: 600;
+}
+
+/* ---- Lignes de liste ---- */
+.bkit .bk-rows > * + * {
+  box-shadow: inset 0 1px 0 hsl(var(--bk-line));
+}
+.bkit .bk-row { transition: background 0.15s ease; }
+.bkit .bk-row:hover { background: hsl(var(--bk-sunk) / 0.6); }
+
+/* ---- Pastilles ---- */
+.bkit .bk-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+}
+.bkit .bk-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+/* ---- Bouton rond « … » des cartes de référence ---- */
+.bkit .bk-rond {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 999px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px hsl(var(--bk-line));
+  color: hsl(var(--bk-ink-2));
+  transition: background 0.15s ease;
+}
+.bkit .bk-rond:hover { background: hsl(var(--bk-sunk)); }
+
+/* ---- Jauge ---- */
+.bkit .bk-gauge {
+  height: 8px;
+  border-radius: 999px;
+  background: hsl(var(--bk-sunk));
+  overflow: hidden;
+}
+.bkit .bk-gauge > i {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: hsl(var(--bk-ink));
+  transition: width 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+/* Remplissage rayé, comme les barres « Gross Volume » de la référence. */
+.bkit .bk-gauge.bk-raye > i {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    hsl(0 0% 100% / 0.28) 0 3px,
+    transparent 3px 6px
+  );
+  background-blend-mode: overlay;
+}
+
+/* ---- Matrice de points (micro-graphe de la référence Zentra) ---- */
+.bkit .bk-matrice {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 4px;
+  align-items: end;
+}
+.bkit .bk-matrice > span {
+  display: grid;
+  gap: 4px;
+  justify-items: center;
+}
+.bkit .bk-matrice i {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+.bkit [data-bk-flat] {
+  border: 0;
+  box-shadow: var(--bk-shadow);
+  background: hsl(var(--bk-card));
+}
+
+/* ---- Entrée ---- */
+@keyframes bk-rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+.bkit .bk-rise {
+  animation: bk-rise 0.45s cubic-bezier(0.25, 1, 0.5, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .bkit .bk-rise { animation: none; }
+}
+
+/* ---- Contraste : le gris global du produit est trop pâle sur du blanc ---- */
+.bkit {
+  --muted-foreground: 0 0% 40%;
+  --destructive: 4 72% 42%;
+}
+
+/* ---- Focus clavier ---- */
+.bkit :is(a, button, [role="button"], input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid hsl(var(--bk-ink));
+  outline-offset: 2px;
+  border-radius: 10px;
+}
+.bkit :is(.bk-panel-strong, .bk-panel-ink) :is(a, button, [role="button"]):focus-visible {
+  outline-color: hsl(0 0% 100%);
+}
+
+/* ---- Cibles tactiles ---- */
+@media (pointer: coarse) {
+  .bkit :is(button, a[role="button"], [role="button"]) { min-height: 44px; }
+  .bkit :is(button, [role="button"]).h-8,
+  .bkit :is(button, [role="button"]).h-9 { min-width: 44px; }
+}
+
+/* ---- Adaptation ---- */
+@media (max-width: 1024px) {
+  .bkit .bk-title { font-size: clamp(28px, 5vw, 36px); }
+}
+
+@media (max-width: 768px) {
+  .bkit { --bk-r: 16px; }
+  .bkit .bk-title { font-size: 28px; }
+  .bkit .bk-bento,
+  .bkit [data-bk-grid] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bkit .bk-scroll-x {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+  }
+  .bkit .bk-scroll-x > * { min-width: 640px; }
+}
+
+@media (max-width: 480px) {
+  .bkit .bk-bento,
+  .bkit [data-bk-grid] { grid-template-columns: minmax(0, 1fr); }
+  .bkit .bk-title { font-size: 25px; }
+}
+
+.mx-auto.w-full.max-w-\[1400px\].px-1.pb-16.pt-2 {
+  /* padding: 56px; */
+  border-radius: 32px !important;
+}
+
+.bkit.bkit-canvas.min-h-full.w-full {
+  padding: 56px;
+  border-radius: 32px !important;
+}
+
+/* ---- Uniformité des écrans portés -------------------------------------
+   Toutes les pages du module n'ont pas encore l'en-tête « PageEntete ».
+   Tant qu'elles ne l'ont pas, leur h1 prend la même allure : même corps,
+   même graisse, même encre, jamais de serif. */
+.bkit main h1,
+.bkit h1:not(.bk-title) {
+  /* La charte du tableau de bord : Bricolage Grotesque, 22 → 28 px. Le repli
+     `--font-sans` n'existait pas, le titre retombait donc sur la police
+     système et sortait à 42 px, hors charte. */
+  font-family: var(--font-display) !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  font-size: clamp(22px, 2.2vw, 28px) !important;
+  color: hsl(var(--bk-ink));
+}
+
+
+/* Les écrans portés en colonne étroite reprennent la largeur du module. */
+.bkit .max-w-3xl.mx-auto {
+  max-width: 1400px;
+}
+
+/* ---- Ajustements de typographie des canevas d'espace (JP, 02/09/2026) -----
+   Sélecteurs ciblés : KPI, titres de carte, sous-titres, badges de compteur.
+   Scopés sous .bkit pour ne pas toucher les vitrines publiques ; le badge
+   de la sidebar CoworkConversationsNav est hors .bkit mais assez spécifique
+   pour être laissé global. */
+
+/* KPI : chiffres en Bricolage Grotesque. */
+.bkit .text-\[34px\].leading-none.font-medium.tabular-nums {
+  font-family: 'Bricolage Grotesque', 'Inter', sans-serif !important;
+  font-size: 24px !important;
+  line-height: 1.2 !important;
+  letter-spacing: -1px;
+}
+
+/* Libellés compacts des KPI du Copilote. */
+.bkit .text-\[13px\] {
+  font-size: 9px !important;
+}
+
+/* Titres de carte : 15 px au lieu de text-xl. */
+.bkit h3.text-xl.font-semibold.leading-none.tracking-tight.text-foreground.flex.items-center.gap-2 {
+  font-size: 15px;
+}
+
+/* Sous-titres : 10 px. */
+.bkit p.text-sm.text-muted-foreground {
+  font-size: 10px !important;
+}

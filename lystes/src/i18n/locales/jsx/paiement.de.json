@@ -1,0 +1,23 @@
+{
+  "soit {prix} TTC en France": "also {prix} inkl. MwSt. in Frankreich",
+  "{min} à {max}": "{min} bis {max}",
+  "plus de {n}": "mehr als {n}",
+  "{min} à {max} produits": "{min} bis {max} Produkte",
+  "Plus de {n} produits": "Mehr als {n} Produkte",
+  "{min} à {max} prestations": "{min} bis {max} Leistungen",
+  "Plus de {n} prestations": "Mehr als {n} Leistungen",
+  "{min} à {max} fiches": "{min} bis {max} Einträge",
+  "Plus de {n} fiches": "Mehr als {n} Einträge",
+  "{prix} HT par mois, pour {tranche}": "{prix} netto pro Monat, für {tranche}",
+  "Rien n'est prélevé aujourd'hui. Premier prélèvement le {date}, à la fin de votre jour d'essai. Annulable avant cette date, depuis votre espace.": "Heute wird nichts abgebucht. Erste Abbuchung am {date}, am Ende Ihres Testtags. Bis zu diesem Datum jederzeit kündbar, in Ihrem Bereich.",
+  "Rien n'est prélevé aujourd'hui. Premier prélèvement le {date}, à la fin de vos {jours} jours d'essai. Annulable avant cette date, depuis votre espace.": "Heute wird nichts abgebucht. Erste Abbuchung am {date}, am Ende Ihrer {jours} Testtage. Bis zu diesem Datum jederzeit kündbar, in Ihrem Bereich.",
+  "Premier prélèvement aujourd'hui, à la souscription. Sans engagement, résiliable à tout moment.": "Erste Abbuchung heute, beim Abschluss. Ohne Mindestlaufzeit, jederzeit kündbar.",
+  "Inscrite par le lien d'une marraine : {pct} % de moins à vie, soit {prix} HT par mois. La remise s'affiche sur la page de paiement.": "Über einen Empfehlungslink registriert: {pct} % weniger, dauerhaft, also {prix} netto pro Monat. Der Rabatt erscheint auf der Zahlungsseite.",
+  "{credits} crédits inclus chaque mois, pour les essayages et les visuels générés. Un essayage en consomme {cout} : environ {n} essayages par mois.": "{credits} Credits jeden Monat inklusive, für Anproben und generierte Bilder. Eine Anprobe verbraucht {cout}: etwa {n} Anproben pro Monat.",
+  "{credits} crédits inclus chaque mois, pour les essayages et les visuels générés.": "{credits} Credits jeden Monat inklusive, für Anproben und generierte Bilder.",
+  "{credits} crédits inclus chaque mois, pour les diagnostics et les visuels générés. Un diagnostic en consomme {cout} : environ {n} diagnostics par mois.": "{credits} Credits jeden Monat inklusive, für Diagnosen und generierte Bilder. Eine Diagnose verbraucht {cout}: etwa {n} Diagnosen pro Monat.",
+  "{credits} crédits inclus chaque mois, pour les diagnostics et les visuels générés.": "{credits} Credits jeden Monat inklusive, für Diagnosen und generierte Bilder.",
+  "{credits} crédits inclus chaque mois, pour générer des photos et des vidéos de vos produits.": "{credits} Credits jeden Monat inklusive, um Fotos und Videos Ihrer Produkte zu generieren.",
+  "Le montant dépend du nombre de produits de votre catalogue. Il s'affiche sur la page de paiement, avant toute validation.": "Der Betrag hängt von der Anzahl der Produkte in Ihrem Katalog ab. Er erscheint auf der Zahlungsseite, bevor Sie etwas bestätigen.",
+  "Inscrite par le lien d'une marraine : {pct} % de moins à vie. La remise s'affiche sur la page de paiement.": "Über einen Empfehlungslink registriert: {pct} % weniger, dauerhaft. Der Rabatt erscheint auf der Zahlungsseite."
+}

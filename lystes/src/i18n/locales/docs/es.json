@@ -1,0 +1,122 @@
+{
+  "commun": {
+    "credits_one": "{{count}} crédito",
+    "credits_other": "{{count}} créditos"
+  },
+  "facturation": {
+    "coutDesActions": {
+      "surtitre": "Documentación · Facturación",
+      "titre": "Lo que cuesta cada acción",
+      "chapo": "Una acción que produce una imagen o un vídeo consume créditos, porque tiene un coste de cálculo real. Las conversaciones de sus asesores, en cambio, no consumen ninguno.",
+      "tableau": {
+        "chargement": "Leyendo los costes…",
+        "echec": "Los costes no se han podido leer en este momento. En lugar de mostrar una cifra de reserva que podría ser falsa, la lista queda vacía. Vuelva a cargar la página dentro de un momento."
+      },
+      "pasUneCopie": {
+        "titre": "Esta tabla no es una copia",
+        "p1": "Se lee en la tabla que el servidor consulta en el momento del cargo. Ve por tanto el coste real, no una lista de precios copiada que envejecería a su lado. Si cambiáramos una tarifa, esta página cambiaría el mismo día, sin que nadie tuviera que pensar en ello."
+      },
+      "gratuit": {
+        "titre": "Lo que no cuesta nada",
+        "p1": "<0>Las conversaciones.</0> Un visitante puede hacer treinta preguntas a su asesor, su saldo no se mueve. Un mes cargado de preguntas no le cuesta más que un mes tranquilo.",
+        "p2": "<0>Una acción que falla.</0> Los créditos se reservan antes de la generación y se devuelven si no llega a término. No paga una imagen que no ha recibido.",
+        "p3": "<0>Una llamada doble.</0> Una misma acción relanzada por error solo se cobra una vez."
+      },
+      "zeroCredit": {
+        "titre": "¿Y con cero créditos?",
+        "p1": "Sus asesores siguen respondiendo. Solo las acciones de la tabla anterior se ponen en pausa, hasta la renovación o una recarga.",
+        "cta": "Cómo funcionan los créditos"
+      }
+    }
+  },
+  "demarrer": {
+    "ceQueLystesFait": {
+      "surtitre": "Documentación · Empezar",
+      "titre": "Lo que hace Lystes",
+      "chapo": "En una tienda, uno duda delante de un estante. Alguien se acerca, hace dos preguntas, y uno se va con el producto adecuado. Treinta segundos. En línea, ese momento no existe: una foto, una descripción, un botón, nadie. El cliente que duda no pregunta nada, cierra la pestaña. Lystes vuelve a poner a alguien en la sala.",
+      "section1": {
+        "titre": "Una sola pregunta, en cada ficha",
+        "p1": "En cada una de sus fichas de producto, un agente responde a la pregunta que su visitante se hace de verdad, y que no le hará a nadie: ¿es este producto el adecuado para mí?",
+        "p2": "No es un chat colocado abajo a la derecha en todas sus páginas. El agente sabe qué producto se está mostrando, lo conoce, y no habla de otra cosa. Es también lo que lo separa de una herramienta de soporte: el soporte responde después de la compra, sobre un pedido. Lystes trabaja antes, en la ficha, en el momento exacto en que se juega la venta."
+      },
+      "section2": {
+        "titre": "El mismo gesto, en la forma que pide su producto",
+        "p1": "Estas tres formas no se suman ni se eligen en un menú. Es el agente quien toma la adecuada según lo que usted vende.",
+        "qualifier": {
+          "titre": "Cualifica",
+          "texte": "Dos preguntas sobre el uso real, y dice si este producto responde al caso, o cuál de su catálogo responde mejor.",
+          "etat": "Disponible, sea cual sea su sector."
+        },
+        "essayer": {
+          "titre": "Hace probar",
+          "texte": "Un selfi, y el visitante se ve con él. Ya no se lo imagina, lo mira.",
+          "etat": "Disponible en cabello. Los demás universos llegan."
+        },
+        "diagnostiquer": {
+          "titre": "Diagnostica",
+          "texte": "Una foto, y dice en qué el producto corresponde a esa piel, o en qué no es para ella.",
+          "etat": "Todavía no está abierto."
+        }
+      },
+      "section3": {
+        "titre": "Para qué productos",
+        "p1": "Para todo producto que pide un consejo antes de la compra. No es cuestión de sección: una cafetera, unas zapatillas de correr, un pienso para un perro mayor, un perfume, un sérum. En todo lugar donde el cliente se pregunta si es el adecuado para él, y donde nadie le responde.",
+        "p2": "A la inversa, si sus visitantes saben exactamente lo que vienen a buscar y no dudan nunca, Lystes no le servirá de mucho. Más vale decirlo."
+      },
+      "section4": {
+        "titre": "Lo que esto cambia para usted",
+        "p1": "<0>Las preguntas encuentran respuesta a tiempo.</0> La que bloqueaba la compra se resuelve en la ficha, no al día siguiente por correo cuando la compra ya se ha hecho en otra parte.",
+        "p2": "<0>Recibe menos devoluciones.</0> Un cliente que ha entendido antes de comprar, o que se ha visto con el producto, se equivoca menos. Una devolución cuesta la ida, la vuelta, el reacondicionamiento, y a menudo el cliente.",
+        "p3": "<0>Por fin escucha a sus clientes.</0> Cada conversación queda vinculada al producto en cuestión. Lo que bloquea en una ficha concreta se vuelve legible, en lugar de quedar en una estadística de abandono."
+      },
+      "section5": {
+        "titre": "No instala una herramienta, contrata",
+        "p1": "<0>No es un agente polivalente.</0> Son varios equipos distintos, cada uno con su oficio, que trabajan sobre el mismo catálogo. El de los asesores de producto es el que ve su cliente. Los demás trabajan para usted.",
+        "p2": "<0>Ese es el sentido de la palabra equipo.</0> No es una imagen: usted contrata personal, no un programa. Cada equipo tiene su puesto, y usted abre los que le permite su plan.",
+        "equipes": {
+          "conseillers": {
+            "nom": "Los asesores de producto",
+            "etat": "En su puesto"
+          },
+          "essayage": {
+            "nom": "La prueba virtual",
+            "etat": "En su puesto en cabello"
+          },
+          "avis": {
+            "nom": "La gestión de las reseñas",
+            "etat": "En su puesto"
+          },
+          "visuels": {
+            "nom": "Los fotógrafos, sus visuales de producto",
+            "etat": "En su puesto"
+          },
+          "diagnostic": {
+            "nom": "El diagnóstico de belleza",
+            "etat": "Todavía sin abrir"
+          },
+          "data": {
+            "nom": "Los datos y el marketing",
+            "etat": "Todavía sin abrir"
+          }
+        },
+        "p3": "Y los pilota todos desde su asistente: Lystes se conecta a Claude y a ChatGPT. Usted pide sus cifras, relee las conversaciones, da una instrucción a sus agentes, sin abrir ningún panel.",
+        "lienMcp": "Cómo conectar"
+      },
+      "section6": {
+        "titre": "Lo que todavía no está abierto",
+        "note": "Más vale decírselo aquí que dejar que lo descubra. El diagnóstico por foto, los paneles de marketing y la prueba virtual en universos distintos del cabello están en curso y no son accesibles hoy. Si su decisión depende de alguno de ellos, díganoslo antes de comprometerse, no después.",
+        "p1": "Lystes es un producto joven llevado por un equipo reducido. Lo que lee en esta documentación es lo que funciona, verificado función por función. Lo que no está descrito aquí no está listo."
+      },
+      "section7": {
+        "titre": "Lo que Lystes no hace",
+        "p1": "Sus agentes aconsejan antes de la compra. No tramitan sus pedidos, no gestionan sus devoluciones, no responden a sus correos de posventa y nunca modifican su tienda. Si busca una herramienta de soporte, conserve la suya: ambas conviven sin conflicto."
+      },
+      "cta": {
+        "titre": "Verlo en sus productos",
+        "p1": "Treinta minutos por videollamada, gratuitos, sobre su propio catálogo. Es la manera más rápida de saber si le sirve.",
+        "bouton": "Reservar una cita",
+        "boutonTarifs": "Ver las tarifas"
+      }
+    }
+  }
+}

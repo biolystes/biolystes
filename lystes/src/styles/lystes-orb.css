@@ -1,0 +1,115 @@
+/* Orbe à particules — liseré lumineux et pastille « AI » repris à
+   l'identique du widget boutique (public/woo-product-chat.js). */
+
+.lystes-orbwrap {
+  position: relative;
+  flex: none;
+  display: block;
+}
+
+@property --lystes-orb-a {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.lystes-orb-beam,
+.lystes-orb-beamglow {
+  position: absolute;
+  border-radius: 999px;
+  pointer-events: none;
+  /* Au-dessus du disque : sinon l'auréole passe derrière le rond blanc
+     et devient invisible. */
+  z-index: 2;
+  background: conic-gradient(from var(--lystes-orb-a, 0deg),
+    transparent 0deg, transparent 236deg,
+    hsl(200 100% 66%) 272deg, hsl(276 92% 70%) 308deg,
+    hsl(158 90% 64%) 338deg, transparent 360deg);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: lystes-orb-angle 1.96s linear infinite,
+             lystes-orb-hue 3.92s ease-in-out infinite;
+}
+
+.lystes-orb-beam {
+  inset: -2px;
+  padding: 2px;
+}
+
+.lystes-orb-beamglow {
+  inset: -4px;
+  padding: 4px;
+  opacity: .65;
+  animation: lystes-orb-angle 1.96s linear infinite,
+             lystes-orb-hueblur 3.92s ease-in-out infinite;
+}
+
+
+@keyframes lystes-orb-angle {
+  0%   { --lystes-orb-a: 0deg; }
+  50%  { --lystes-orb-a: 180deg; }
+  100% { --lystes-orb-a: 360deg; }
+}
+
+@keyframes lystes-orb-hue {
+  0%, 100% { filter: brightness(1.3) saturate(1.2) hue-rotate(0deg); }
+  50%      { filter: brightness(1.3) saturate(1.2) hue-rotate(30deg); }
+}
+
+@keyframes lystes-orb-hueblur {
+  0%, 100% { filter: blur(6px) brightness(1.3) saturate(1.2) hue-rotate(0deg); }
+  50%      { filter: blur(6px) brightness(1.3) saturate(1.2) hue-rotate(30deg); }
+}
+
+.lystes-orb-face {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #ffffff;
+  display: block;
+}
+
+.lystes-orb-face.is-dark {
+  background: #0d0d0d;
+}
+
+.lystes-orb-inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+canvas.lystes-orb-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.lystes-orb-badge {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  z-index: 3;
+  min-width: var(--lystes-orb-badge, 18px);
+  height: var(--lystes-orb-badge, 18px);
+  border-radius: 999px;
+  padding: 0 3px;
+  background: #111;
+  border: 2px solid #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font: 700 calc(var(--lystes-orb-badge, 18px) * .45) -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #fff;
+  letter-spacing: .02em;
+}
+

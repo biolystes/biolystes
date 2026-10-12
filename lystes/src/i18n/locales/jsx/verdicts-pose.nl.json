@@ -1,0 +1,19 @@
+{
+  "Votre boutique s'ouvre, mais votre conseiller n'y est pas encore.": "Uw winkel opent, maar uw adviseur staat er nog niet op.",
+  "Vérifiez que l'extension Lystes AI est activée (Extensions, puis Extensions installées), videz le cache de votre site si vous en avez un, puis relancez.": "Controleer of de plugin Lystes AI is geactiveerd (Plugins, dan Geïnstalleerde plugins), leeg de cache van uw site als u die heeft, en controleer opnieuw.",
+  "Vérifiez que le code est collé dans theme.liquid et que le thème est enregistré, puis relancez.": "Controleer of de code in theme.liquid staat en het thema is opgeslagen, en controleer opnieuw.",
+  "Collez le code juste avant la balise de fin de page, enregistrez, videz le cache de votre site, puis relancez.": "Plak de code vlak voor de tag aan het einde van de pagina, sla op, leeg de cache van uw site en controleer opnieuw.",
+  "Un conseiller Lystes est présent, mais relié à un autre compte.": "Er staat een Lystes-adviseur, maar gekoppeld aan een ander account.",
+  "Supprimez l'ancienne extension Lystes, installez celle que vous venez de télécharger, puis relancez.": "Verwijder de oude Lystes-plugin, installeer de plugin die u net hebt gedownload en controleer opnieuw.",
+  "Remplacez l'ancien code par celui affiché sur cette page, enregistrez, puis relancez.": "Vervang de oude code door de code op deze pagina, sla op en controleer opnieuw.",
+  "Nous n'avons pas pu ouvrir votre boutique.": "We konden uw winkel niet openen.",
+  "Vérifiez l'adresse et que la boutique est en ligne, puis relancez.": "Controleer het adres en of de winkel online is, en controleer opnieuw.",
+  "Votre boutique est protégée (mot de passe, mode maintenance ou pare-feu).": "Uw winkel is beveiligd (wachtwoord, onderhoudsmodus of firewall).",
+  "Ouvrez temporairement l'accès public, puis relancez. Ou réservez un créneau : nous vérifions avec vous.": "Open tijdelijk de publieke toegang en controleer opnieuw. Of boek een afspraak: we controleren het samen met u.",
+  "Votre conseiller est bien là, mais cette page n'est pas une fiche produit.": "Uw adviseur staat er, maar deze pagina is geen productpagina.",
+  "Relancez la vérification avec l'adresse d'une fiche produit, là où votre conseiller doit apparaître.": "Controleer opnieuw met het adres van een productpagina, waar uw adviseur moet verschijnen.",
+  "Cette adresse n'est pas lisible.": "Dit adres is niet leesbaar.",
+  "Collez l'adresse de votre boutique, par exemple maboutique.fr, puis relancez.": "Plak het adres van uw winkel, bijvoorbeeld mijnwinkel.nl, en controleer opnieuw.",
+  "La vérification n'a pas pu se faire.": "De controle kon niet worden uitgevoerd.",
+  "Réessayez dans un instant. Si cela recommence, réservez un créneau : nous vérifions avec vous.": "Probeer het zo opnieuw. Gebeurt het weer, boek dan een afspraak: we controleren het samen met u."
+}

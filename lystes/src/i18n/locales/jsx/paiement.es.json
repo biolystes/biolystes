@@ -1,0 +1,23 @@
+{
+  "soit {prix} TTC en France": "es decir, {prix} con IVA en Francia",
+  "{min} à {max}": "{min} a {max}",
+  "plus de {n}": "más de {n}",
+  "{min} à {max} produits": "{min} a {max} productos",
+  "Plus de {n} produits": "Más de {n} productos",
+  "{min} à {max} prestations": "{min} a {max} servicios",
+  "Plus de {n} prestations": "Más de {n} servicios",
+  "{min} à {max} fiches": "{min} a {max} fichas",
+  "Plus de {n} fiches": "Más de {n} fichas",
+  "{prix} HT par mois, pour {tranche}": "{prix} sin IVA al mes, para {tranche}",
+  "Rien n'est prélevé aujourd'hui. Premier prélèvement le {date}, à la fin de votre jour d'essai. Annulable avant cette date, depuis votre espace.": "Hoy no se cobra nada. Primer cargo el {date}, al final de su día de prueba. Puede cancelar antes de esa fecha, desde su espacio.",
+  "Rien n'est prélevé aujourd'hui. Premier prélèvement le {date}, à la fin de vos {jours} jours d'essai. Annulable avant cette date, depuis votre espace.": "Hoy no se cobra nada. Primer cargo el {date}, al final de sus {jours} días de prueba. Puede cancelar antes de esa fecha, desde su espacio.",
+  "Premier prélèvement aujourd'hui, à la souscription. Sans engagement, résiliable à tout moment.": "Primer cargo hoy, al suscribirse. Sin permanencia, cancelable en cualquier momento.",
+  "Inscrite par le lien d'une marraine : {pct} % de moins à vie, soit {prix} HT par mois. La remise s'affiche sur la page de paiement.": "Registrada con el enlace de una madrina: {pct} % menos de por vida, es decir, {prix} sin IVA al mes. El descuento aparece en la página de pago.",
+  "{credits} crédits inclus chaque mois, pour les essayages et les visuels générés. Un essayage en consomme {cout} : environ {n} essayages par mois.": "{credits} créditos incluidos cada mes, para pruebas virtuales y visuales generados. Una prueba virtual consume {cout}: unas {n} pruebas al mes.",
+  "{credits} crédits inclus chaque mois, pour les essayages et les visuels générés.": "{credits} créditos incluidos cada mes, para pruebas virtuales y visuales generados.",
+  "{credits} crédits inclus chaque mois, pour les diagnostics et les visuels générés. Un diagnostic en consomme {cout} : environ {n} diagnostics par mois.": "{credits} créditos incluidos cada mes, para diagnósticos y visuales generados. Un diagnóstico consume {cout}: unos {n} diagnósticos al mes.",
+  "{credits} crédits inclus chaque mois, pour les diagnostics et les visuels générés.": "{credits} créditos incluidos cada mes, para diagnósticos y visuales generados.",
+  "{credits} crédits inclus chaque mois, pour générer des photos et des vidéos de vos produits.": "{credits} créditos incluidos cada mes, para generar fotos y vídeos de sus productos.",
+  "Le montant dépend du nombre de produits de votre catalogue. Il s'affiche sur la page de paiement, avant toute validation.": "El importe depende del número de productos de su catálogo. Aparece en la página de pago, antes de cualquier validación.",
+  "Inscrite par le lien d'une marraine : {pct} % de moins à vie. La remise s'affiche sur la page de paiement.": "Registrada con el enlace de una madrina: {pct} % menos de por vida. El descuento aparece en la página de pago."
+}

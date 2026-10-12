@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Krona+One&display=swap');
+/* Polices du site (Inter 300 à 700, Krona One) : chargées par src/lib/polices-du-site.ts,
+   sur toutes les pages sauf l’accueil repris de lystes.ai/bio (12/10/2026). */
 
 @tailwind base;
 @tailwind components;

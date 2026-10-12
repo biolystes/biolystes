@@ -14,8 +14,12 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
+    dedupe: ["react", "react-dom", "react/jsx-runtime"],
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      /* Page d’accueil reprise de lystes.ai/bio : ses fichiers vivent dans
+         lystes/src, avec leurs propres chemins. */
+      "@lystes": path.resolve(__dirname, "./lystes/src"),
     },
   },
 }));

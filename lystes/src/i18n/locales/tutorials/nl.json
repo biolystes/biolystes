@@ -1,0 +1,416 @@
+{
+  "minutes": "{{n}} min",
+  "levels": {
+    "all": "Alle niveaus",
+    "beginner": "Beginner",
+    "intermediate": "Gemiddeld",
+    "advanced": "Gevorderd"
+  },
+  "durations": {
+    "all": "Alle tijdsduren",
+    "short": "< 5 min",
+    "medium": "5-7 min",
+    "long": "> 7 min"
+  },
+  "mastery": {
+    "beginner": "Beginner",
+    "apprentice": "Leerling",
+    "intermediate": "Gemiddeld",
+    "advanced": "Gevorderd",
+    "expert": "Expert"
+  },
+  "page": {
+    "title": "Tutorials",
+    "subtitle": "Stapsgewijze gidsen om alle functies onder de knie te krijgen",
+    "searchPlaceholder": "Een tutorial zoeken...",
+    "filtersLabel": "Filters:",
+    "levelPlaceholder": "Niveau",
+    "durationPlaceholder": "Duur",
+    "clear": "Wissen",
+    "activeFilters": "Actieve filters:",
+    "searchBadge": "Zoeken: \"{{query}}\"",
+    "resultCountOne": "{{n}} tutorial gevonden",
+    "resultCountMany": "{{n}} tutorials gevonden",
+    "tabAll": "Alle ({{n}})",
+    "tabCategory": "{{name}} ({{n}})",
+    "emptyTitle": "Geen tutorial gevonden",
+    "emptyBody": "Pas uw filters of uw zoekopdracht aan",
+    "emptyAction": "Filters resetten"
+  },
+  "card": {
+    "completed": "Voltooid",
+    "popular": "Populair",
+    "new": "Nieuw",
+    "video": "Video",
+    "stepsProgress": "{{done}}/{{total}} stappen",
+    "stepsCount": "{{n}} stappen"
+  },
+  "viewer": {
+    "stepsCount": "{{n}} stappen",
+    "progress": "Stap {{current}} van {{total}}",
+    "stepBadge": "Stap {{n}}",
+    "previous": "Vorige",
+    "next": "Volgende",
+    "finish": "Afronden",
+    "reset": "Resetten",
+    "resetToast": "Voortgang gereset",
+    "doneToastTitle": "Tutorial voltooid",
+    "doneToastBody": "U hebt deze tutorial voltooid.",
+    "doneInline": "Tutorial voltooid.",
+    "videoLink": "Bekijk de video van deze tutorial"
+  },
+  "categories": {
+    "getting-started": {
+      "title": "Snel starten",
+      "description": "Eerste stappen met Lystes AI"
+    },
+    "import": {
+      "title": "Producten importeren",
+      "description": "WooCommerce, Shopify, CSV"
+    },
+    "agents": {
+      "title": "Agents beheren",
+      "description": "Configuratie en personalisatie"
+    },
+    "analytics": {
+      "title": "Analytics & Marketing",
+      "description": "Winners, scripts, leads"
+    },
+    "advanced": {
+      "title": "Geavanceerde instellingen",
+      "description": "Team, integraties, API"
+    }
+  },
+  "items": {
+    "create-first-agent": {
+      "title": "Uw eerste AI-agent aanmaken",
+      "description": "Leer in een paar minuten een agent voor schoonheidsdiagnoses instellen",
+      "steps": {
+        "0": {
+          "title": "De pagina Agents openen",
+          "description": "Klik in het zijmenu op 'Agents' om de lijst met uw agents te openen. Hier maakt en beheert u al uw AI-schoonheidsadviseurs.",
+          "actionLabel": "Naar Agents"
+        },
+        "1": {
+          "title": "Op 'Een agent aanmaken' klikken",
+          "description": "Klik rechtsboven op de pagina op de knop 'Een agent aanmaken'. Er wordt een aanmaakformulier geopend.",
+          "tip": "U kunt zoveel agents aanmaken als uw abonnement toelaat."
+        },
+        "2": {
+          "title": "De basisgegevens invullen",
+          "description": "Vul de naam van de agent in (bijv. 'Skincare-adviseur'), de naam van de expert (bijv. 'Sophie'), en kies de specialiteit (Skincare, Haircare of Wellness).",
+          "tip": "De naam van de expert verschijnt in de berichten die naar uw klanten worden gestuurd."
+        },
+        "3": {
+          "title": "Het type diagnose kiezen",
+          "description": "Selecteer de rol van de agent: standaarddiagnose, gepersonaliseerde coach, of Pro-diagnose met geavanceerde analyses."
+        },
+        "4": {
+          "title": "Uw producten koppelen",
+          "description": "Selecteer de producten die de agent mag aanbevelen. U kiest uit de producten die al in uw catalogus zijn geïmporteerd.",
+          "tip": "Begin met 5-10 producten voor een beter aanbevelingspercentage."
+        },
+        "5": {
+          "title": "Activeren en delen",
+          "description": "Activeer de agent en haal daarna zijn unieke link of QR Code op om hem te delen op uw website, uw sociale netwerken of in de winkel.",
+          "actionLabel": "Agents bekijken"
+        }
+      }
+    },
+    "install-widget-shopify": {
+      "title": "Uw agent installeren op Shopify",
+      "description": "Plak één regel code in uw thema zodat de agent op uw winkel verschijnt",
+      "steps": {
+        "0": {
+          "title": "Uw persoonlijke code ophalen",
+          "description": "Open de pagina Installatie in Lystes AI, tabblad Shopify. De getoonde code bevat al de identificatie van uw account: er valt niets aan te vullen en niets in te wijzigen. Klik op 'Kopiëren'.",
+          "tip": "Gebruik altijd de knop 'Kopiëren' in plaats van de code over te typen: één verkeerde letter en de widget laadt niet.",
+          "actionLabel": "De pagina Installatie openen"
+        },
+        "1": {
+          "title": "De code-editor van uw thema openen",
+          "description": "Ga in uw Shopify-beheer naar 'Onlinewinkel' en vervolgens 'Thema's'. Klik op de regel van uw actieve thema op de knop met de drie puntjes en daarna op 'Code bewerken'.",
+          "tip": "U opent niet de themabewerker: geen enkele kleur, geen enkel lettertype en geen enkele sectie van uw winkel wordt aangeraakt. Het ontwerp blijft precies hetzelfde."
+        },
+        "2": {
+          "title": "Het bestand theme.liquid openen",
+          "description": "Vouw in de linkerkolom de map 'Layout' uit en klik op 'theme.liquid'. Dit is het bestand dat alle pagina's van de winkel gemeen hebben: wat u daarin zet, geldt overal, zonder dat u de handeling pagina voor pagina hoeft te herhalen."
+        },
+        "3": {
+          "title": "De code plakken vlak vóór </body>",
+          "description": "Scrol helemaal naar de onderkant van het bestand, tot aan de regel met </body>. Zet uw cursor op de regel er direct boven en plak de code die u in stap 1 hebt gekopieerd. Door deze plek aan het einde van de pagina laadt de widget als laatste, en vertraagt hij de weergave van uw winkel dus niet.",
+          "tip": "Bevat het bestand meerdere keren </body>, neem dan de laatste, die helemaal onderaan."
+        },
+        "4": {
+          "title": "Opslaan",
+          "description": "Klik rechtsboven op 'Opslaan'. Shopify past de wijziging meteen toe op uw gepubliceerde thema: er is geen extra publicatie nodig."
+        },
+        "5": {
+          "title": "Terugkomen om te controleren",
+          "description": "Open uw winkel in een nieuw tabblad: de knop van uw agent hoort rechtsonder te verschijnen. Kom daarna terug in Lystes AI en klik op 'Mijn installatie controleren' om de detectie aan onze kant te bevestigen.",
+          "actionLabel": "Mijn installatie controleren"
+        },
+        "6": {
+          "title": "En als u het ongedaan wilt maken",
+          "description": "De handeling is volledig omkeerbaar: open theme.liquid opnieuw, verwijder de regels die u hebt geplakt en sla op. Uw winkel keert terug naar de vorige staat, omdat er intussen niets anders is gewijzigd."
+        }
+      }
+    },
+    "install-widget-woocommerce": {
+      "title": "Uw agent installeren op WooCommerce",
+      "description": "Download de plugin die al op uw account is ingesteld en activeer hem in WordPress",
+      "steps": {
+        "0": {
+          "title": "Uw plugin downloaden",
+          "description": "Open de pagina Installatie in Lystes AI, tabblad WooCommerce, en klik op 'De Lystes.ai-plugin downloaden (.zip)'. Het bestand wordt op aanvraag voor uw account gemaakt: de identificatie zit er al in.",
+          "tip": "Pak het .zip-bestand niet uit. WordPress verwacht het zoals het is.",
+          "actionLabel": "De pagina Installatie openen"
+        },
+        "1": {
+          "title": "Het toevoegen van een plugin openen in WordPress",
+          "description": "Ga in uw WordPress-beheer, in het linkermenu, naar 'Plugins' en vervolgens 'Nieuwe plugin'. Dit is de pagina waarmee WordPress elke nieuwe module installeert."
+        },
+        "2": {
+          "title": "Het bestand uploaden",
+          "description": "Klik bovenaan de pagina op 'Plugin uploaden', daarna op 'Bestand kiezen' en selecteer het gedownloade .zip-bestand. Klik ten slotte op 'Nu installeren' en laat WordPress een paar seconden werken."
+        },
+        "3": {
+          "title": "De plugin activeren",
+          "description": "Klik op 'Plugin activeren'. Dat is alles: er is geen instelling in te vullen, geen sleutel te plakken, geen identificatie over te typen. De plugin weet al bij welk Lystes AI-account hij hoort.",
+          "tip": "Wilt u de widget later verwijderen, dan volstaat het de plugin te deactiveren. Verder wordt er niets aan uw site gewijzigd."
+        },
+        "4": {
+          "title": "De koppeling controleren",
+          "description": "Ga naar 'Instellingen' en vervolgens 'Lystes.ai'. De status hoort 'Verbonden' te tonen, met de naam van uw winkel. Is dat zo, dan praat de plugin inderdaad met uw account."
+        },
+        "5": {
+          "title": "Een productpagina openen",
+          "description": "Open een willekeurige productpagina van uw winkel in een nieuw tabblad: de widget hoort te verschijnen. Kom daarna terug in Lystes AI en klik op 'Mijn installatie controleren'.",
+          "actionLabel": "Mijn installatie controleren"
+        }
+      }
+    },
+    "install-widget-other": {
+      "title": "Uw agent installeren op een ander platform",
+      "description": "PrestaShop, Magento, Wix, Squarespace: één regel code, geplakt in de voettekst",
+      "steps": {
+        "0": {
+          "title": "Uw persoonlijke code ophalen",
+          "description": "Open de pagina Installatie in Lystes AI, tabblad 'Ander platform'. De getoonde code bevat al de identificatie van uw account: er valt niets aan te vullen en niets in te wijzigen. Klik op 'Kopiëren'.",
+          "tip": "De code is dezelfde, ongeacht het platform. Wat van tool tot tool verschilt, is alleen de plek waar u hem plakt.",
+          "actionLabel": "De pagina Installatie openen"
+        },
+        "1": {
+          "title": "Vinden waar u code plakt op uw platform",
+          "description": "Bijna elke tool voorziet een veld voor eigen code in de voettekst van de pagina. PrestaShop: Modules, dan Positions, dan Inject into the footer. Magento: Content, dan Design, dan HTML Head. Wix: Settings, dan Custom Code, dan Body - End. Squarespace: Settings, dan Advanced, dan Code Injection, dan Footer.",
+          "tip": "Staat uw platform niet in deze lijst, zoek dan in de instellingen naar 'eigen code', 'scripts' of 'voettekst': het principe is overal hetzelfde."
+        },
+        "2": {
+          "title": "De code plakken vlak vóór </body>",
+          "description": "Plak de code die u in stap 1 hebt gekopieerd in het veld dat u zojuist hebt gevonden, het veld dat overeenkomt met het einde van de pagina, vlak vóór de tag </body>. Door deze plek laadt de widget als laatste, en vertraagt hij de weergave van uw site dus niet."
+        },
+        "3": {
+          "title": "Opslaan en zo nodig publiceren",
+          "description": "Sla de wijziging op. Sommige platforms vragen u daarnaast de site te publiceren voordat de wijziging zichtbaar is voor uw bezoekers: controleer of er geen publicatie meer openstaat.",
+          "tip": "Wilt u de widget later verwijderen, maak dan dit veld leeg en sla opnieuw op. Er zal intussen niets anders zijn gewijzigd."
+        },
+        "4": {
+          "title": "Terugkomen om te controleren",
+          "description": "Open uw site in een nieuw tabblad: de knop van uw agent hoort rechtsonder te verschijnen. Kom daarna terug in Lystes AI en klik op 'Mijn installatie controleren' om de detectie aan onze kant te bevestigen.",
+          "actionLabel": "Mijn installatie controleren"
+        }
+      }
+    },
+    "verify-widget-installation": {
+      "title": "Controleren of alles werkt",
+      "description": "Twee manieren om te bevestigen dat uw agent echt live staat op uw winkel",
+      "steps": {
+        "0": {
+          "title": "De pagina Installatie openen",
+          "description": "Zolang de widget nog nooit is waargenomen, toont de pagina het controleblok. Zodra hij wordt gedetecteerd, neemt een banner 'Widget geïnstalleerd en actief' bovenaan de pagina zijn plaats in: dat is het enige teken waarop u moet letten.",
+          "actionLabel": "De pagina Installatie openen"
+        },
+        "1": {
+          "title": "De automatische detectie het werk laten doen",
+          "description": "Klik op 'Mijn installatie controleren' en open daarna uw winkel in een ander tabblad. Elke geladen pagina waarop de widget aanwezig is, meldt zich vanzelf bij Lystes AI. De pagina luistert twee minuten lang en schakelt om zodra het eerste signaal binnenkomt.",
+          "tip": "U moet echt een pagina van uw winkel openen terwijl er wordt geluisterd: zonder bezoek valt er niets te detecteren."
+        },
+        "2": {
+          "title": "Of meteen controleren met het adres van een productpagina",
+          "description": "Plak vlak onder de knop het volledige adres van een productpagina, bijvoorbeeld https://uw-winkel.com/products/hydraterende-creme, en klik op 'Analyseren'. Wij halen de pagina zelf op en antwoorden binnen enkele seconden, zonder te wachten op een bezoeker.",
+          "tip": "Neem liever een productpagina dan de homepage: daar werkt de agent, en daar wilt u hem zien."
+        },
+        "3": {
+          "title": "Als er niets wordt gedetecteerd",
+          "description": "Na twee mislukte pogingen, of na twee minuten, verschijnt op de pagina een kader 'Loopt er iets vast?'. Daarin staat een link om gratis vijftien minuten videobellen te reserveren: iemand opent uw platform samen met u en valideert de installatie van begin tot eind.",
+          "actionLabel": "Terug naar de pagina Installatie"
+        }
+      }
+    },
+    "import-woocommerce": {
+      "title": "Importeren uit WooCommerce",
+      "description": "Geef Lystes toestemming om uw WooCommerce-catalogus te lezen, zonder sleutels te kopiëren",
+      "steps": {
+        "0": {
+          "title": "Wat u nodig hebt",
+          "description": "Het adres van uw winkel en een beheerdersaccount van uw WordPress-site. Niets aan te maken of te kopiëren: WooCommerce vraagt u alleen Lystes toestemming te geven."
+        },
+        "1": {
+          "title": "Inloggen bij WordPress",
+          "description": "Open in dezelfde browser het beheer van uw site en log in met uw beheerdersaccount.",
+          "tip": "Vraagt WordPress tijdens de toestemming om in te loggen, doe dat dan: daarna komt u terug op dezelfde pagina."
+        },
+        "2": {
+          "title": "Het adres van uw winkel invullen",
+          "description": "Klik in Catalogus op Importeren en daarna op het tabblad WooCommerce. Typ het adres van uw winkel, bijvoorbeeld mijnwinkel.nl, en bevestig met de knop eronder.",
+          "actionLabel": "Catalogus openen"
+        },
+        "3": {
+          "title": "Lystes toestemming geven",
+          "description": "WooCommerce toont een pagina die toegang vraagt voor Lystes AI. Klik op Goedkeuren. U komt terug in Lystes en de import start vanzelf."
+        },
+        "4": {
+          "title": "Uw producten terugvinden",
+          "description": "Na de import bent u terug in uw catalogus, met het aantal toegevoegde en bijgewerkte producten. Om latere wijzigingen in uw winkel over te nemen, opent u de import opnieuw en start u het bijwerken van uw producten.",
+          "tip": "Weigert uw winkel de toestemming, gebruik dan een bestand: open in WooCommerce Producten en daarna Exporteren, en zet het bestand in het tabblad voor bestanden."
+        }
+      }
+    },
+    "import-shopify": {
+      "title": "Importeren uit Shopify",
+      "description": "Exporteer uw producten uit Shopify en zet het bestand in Lystes",
+      "steps": {
+        "0": {
+          "title": "Uw producten openen in Shopify",
+          "description": "Open in het Shopify-beheer het menu Producten en klik rechtsboven op Exporteren."
+        },
+        "1": {
+          "title": "De juiste export kiezen",
+          "description": "Kies Alle producten, dan CSV voor Excel, Numbers of andere spreadsheetprogramma's, en bevestig met Producten exporteren.",
+          "tip": "Is uw catalogus groot, dan stuurt Shopify u het bestand per e-mail, als bijlage."
+        },
+        "2": {
+          "title": "Het bestand laten zoals het is",
+          "description": "Open het bestand niet om het te bewerken: zet het in Lystes zoals Shopify het heeft gemaakt. Concepten en gearchiveerde producten worden overgeslagen."
+        },
+        "3": {
+          "title": "Het bestand in Lystes zetten",
+          "description": "Klik in Catalogus op Importeren en daarna op het tabblad Shopify. Controleer het adres van uw winkel: daaruit ontstaat de Kopen-link van elk product. Kies het bestand en start de import.",
+          "actionLabel": "Catalogus openen"
+        },
+        "4": {
+          "title": "De balans lezen",
+          "description": "Lystes toont het aantal toegevoegde en bijgewerkte producten, en de producten die niet zijn doorgekomen, met de reden. Om uw catalogus later bij te werken, exporteert u opnieuw en zet u het nieuwe bestand erin: niets wordt dubbel aangemaakt."
+        }
+      }
+    },
+    "import-csv": {
+      "title": "Een bestand importeren",
+      "description": "Importeer uw producten uit een spreadsheet, Excel of Google Sheets",
+      "steps": {
+        "0": {
+          "title": "Uw bestand voorbereiden",
+          "description": "Eén regel per product, en op de eerste regel de kolomnamen: name, description, price, category, image, link, reference, stock. Alleen de naam is verplicht.",
+          "tip": "Sla vanuit Excel of Google Sheets op als CSV. De kolom image bevat het adres van de foto, de kolom link het adres van de productpagina."
+        },
+        "1": {
+          "title": "De import openen",
+          "description": "Klik in Catalogus op Importeren en daarna op het tabblad voor bestanden. Controleer het adres van uw winkel en kies uw bestand, of plak de inhoud ervan.",
+          "actionLabel": "Catalogus openen"
+        },
+        "2": {
+          "title": "De import starten",
+          "description": "Start de import. Een product met dezelfde referentie wordt bijgewerkt en niet nog een keer toegevoegd. Zonder referentie wordt alleen een product uit een eerder geïmporteerd bestand aan zijn naam herkend. Alleen ingevulde kolommen wijzigen het product."
+        },
+        "3": {
+          "title": "De balans lezen",
+          "description": "Lystes toont het aantal toegevoegde en bijgewerkte producten, en de eerste geweigerde regels met hun nummer en de reden. Verbeter ze in uw bestand en importeer het opnieuw."
+        }
+      }
+    },
+    "share-agent": {
+      "title": "De agent op uw site integreren",
+      "description": "Deel uw agent via URL, QR Code of een ingebouwde knop",
+      "steps": {
+        "0": {
+          "title": "De link van de agent ophalen",
+          "description": "Klik op de pagina Agents op de 3 puntjes bij uw agent en daarna op 'QR Code tonen'. Daar vindt u de directe URL van uw agent.",
+          "actionLabel": "Agents bekijken"
+        },
+        "1": {
+          "title": "Delen via QR Code",
+          "description": "Download de automatisch gegenereerde QR Code. Ideaal voor weergave in de winkel, op visitekaartjes of op productverpakkingen.",
+          "tip": "De QR Code werkt op elke smartphone, zonder app."
+        },
+        "2": {
+          "title": "Integreren op uw site",
+          "description": "Kopieer de link en maak op uw site een knop of banner die naar uw agent doorverwijst. Bijvoorbeeld: 'Ontdek mijn gratis schoonheidsdiagnose'."
+        },
+        "3": {
+          "title": "Delen op sociale media",
+          "description": "Deel de link in uw Instagram-stories, Facebook-posts of nieuwsbrieven. Elke klik telt als een scan in uw analytics."
+        }
+      }
+    },
+    "understand-winners": {
+      "title": "De Winners-producten begrijpen",
+      "description": "Ontdek welke producten uw AI het vaakst aanbeveelt",
+      "steps": {
+        "0": {
+          "title": "De Winners openen",
+          "description": "Klik in het zijmenu op 'Winners'. Deze pagina toont de producten die uw AI-team het vaakst aanbeveelt, gesorteerd op aantal aanbevelingen.",
+          "actionLabel": "Winners bekijken"
+        },
+        "1": {
+          "title": "De trends analyseren",
+          "description": "De grafiek toont hoe de aanbevelingen zich over de laatste 7, 30 of 90 dagen hebben ontwikkeld. Zie welke producten stijgen en welke dalen.",
+          "tip": "Een 'winner'-product past vaak bij een breed publiek."
+        },
+        "2": {
+          "title": "Uw catalogus optimaliseren",
+          "description": "Gebruik deze gegevens om uw voorraad bij te sturen, gerichte acties op te zetten of producten te ontwikkelen die lijken op de winners."
+        }
+      }
+    },
+    "video-scripts": {
+      "title": "De AI-videoscripts gebruiken",
+      "description": "Genereer marketingscripts voor TikTok, Instagram en YouTube",
+      "steps": {
+        "0": {
+          "title": "AI-marketing openen",
+          "description": "Ga via het zijmenu naar Marketing. Selecteer het tabblad 'Videoscripts' om de generator te openen.",
+          "actionLabel": "Naar Marketing"
+        },
+        "1": {
+          "title": "Een product kiezen",
+          "description": "Selecteer een product uit uw catalogus. De AI analyseert de kenmerken, de prijs en de categorie om relevante scripts te genereren."
+        },
+        "2": {
+          "title": "Genereren en aanpassen",
+          "description": "Klik op 'Scripts genereren'. U krijgt scripts voor verschillende formaten (15s, 30s, 60s) en platforms. Pas ze aan de toon van uw merk aan.",
+          "tip": "De scripts bevatten de hooks, de kern en geoptimaliseerde call-to-actions."
+        }
+      }
+    },
+    "manage-team": {
+      "title": "Uw team beheren",
+      "description": "Nodig medewerkers uit en beheer de rechten",
+      "steps": {
+        "0": {
+          "title": "Het teambeheer openen",
+          "description": "Ga via het zijmenu naar Team. Daar ziet u de lijst met de huidige leden en hun rollen.",
+          "actionLabel": "Het team beheren"
+        },
+        "1": {
+          "title": "Een lid uitnodigen",
+          "description": "Klik op 'Een lid uitnodigen', voer het e-mailadres in en selecteer de rol: Admin (volledige toegang), Editor (mag wijzigen), of Viewer (alleen lezen).",
+          "tip": "De genodigde ontvangt een e-mail met een link om zich bij uw account aan te sluiten."
+        },
+        "2": {
+          "title": "De rechten beheren",
+          "description": "Wijzig de rollen op elk moment of trek de toegang van een lid in. De wijzigingen gaan meteen in."
+        }
+      }
+    }
+  }
+}

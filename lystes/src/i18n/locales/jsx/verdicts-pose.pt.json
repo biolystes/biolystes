@@ -1,0 +1,19 @@
+{
+  "Votre boutique s'ouvre, mais votre conseiller n'y est pas encore.": "A sua loja abre, mas o seu conselheiro ainda não está lá.",
+  "Vérifiez que l'extension Lystes AI est activée (Extensions, puis Extensions installées), videz le cache de votre site si vous en avez un, puis relancez.": "Verifique se o plugin Lystes AI está ativado (Plugins, depois Plugins instalados), limpe a cache do seu site se tiver uma e verifique novamente.",
+  "Vérifiez que le code est collé dans theme.liquid et que le thème est enregistré, puis relancez.": "Verifique se o código está colado em theme.liquid e se o tema está guardado, e verifique novamente.",
+  "Collez le code juste avant la balise de fin de page, enregistrez, videz le cache de votre site, puis relancez.": "Cole o código logo antes da etiqueta de fim de página, guarde, limpe a cache do seu site e verifique novamente.",
+  "Un conseiller Lystes est présent, mais relié à un autre compte.": "Há um conselheiro Lystes, mas ligado a outra conta.",
+  "Supprimez l'ancienne extension Lystes, installez celle que vous venez de télécharger, puis relancez.": "Elimine o plugin Lystes antigo, instale o que acabou de descarregar e verifique novamente.",
+  "Remplacez l'ancien code par celui affiché sur cette page, enregistrez, puis relancez.": "Substitua o código antigo pelo que aparece nesta página, guarde e verifique novamente.",
+  "Nous n'avons pas pu ouvrir votre boutique.": "Não conseguimos abrir a sua loja.",
+  "Vérifiez l'adresse et que la boutique est en ligne, puis relancez.": "Verifique o endereço e se a loja está online, e verifique novamente.",
+  "Votre boutique est protégée (mot de passe, mode maintenance ou pare-feu).": "A sua loja está protegida (palavra-passe, modo de manutenção ou firewall).",
+  "Ouvrez temporairement l'accès public, puis relancez. Ou réservez un créneau : nous vérifions avec vous.": "Abra temporariamente o acesso público e verifique novamente. Ou marque um horário: verificamos consigo.",
+  "Votre conseiller est bien là, mais cette page n'est pas une fiche produit.": "O seu conselheiro está lá, mas esta página não é uma página de produto.",
+  "Relancez la vérification avec l'adresse d'une fiche produit, là où votre conseiller doit apparaître.": "Volte a verificar com o endereço de uma página de produto, onde o seu conselheiro deve aparecer.",
+  "Cette adresse n'est pas lisible.": "Este endereço não é legível.",
+  "Collez l'adresse de votre boutique, par exemple maboutique.fr, puis relancez.": "Cole o endereço da sua loja, por exemplo aminhaloja.pt, e verifique novamente.",
+  "La vérification n'a pas pu se faire.": "Não foi possível fazer a verificação.",
+  "Réessayez dans un instant. Si cela recommence, réservez un créneau : nous vérifions avec vous.": "Tente novamente dentro de instantes. Se voltar a acontecer, marque um horário: verificamos consigo."
+}
