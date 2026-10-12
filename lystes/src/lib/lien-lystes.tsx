@@ -14,6 +14,8 @@ export const SITE_LYSTES = "https://lystes.ai";
 /* Adresse sur lystes.ai → adresse équivalente sur biolystes.com. */
 const SUR_BIOLYSTES: Record<string, string> = {
   "/": "/",
+  /* /bio de lystes.ai est cette page d’accueil même. */
+  "/bio": "/",
   "/legal": "/mentions-legales",
   "/privacy": "/politique-confidentialite",
   "/terms": "/cgv",

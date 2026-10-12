@@ -19,7 +19,7 @@ import HomeHeroVideo, { type HeroVariante } from "@lystes/features/solutions/Hom
 import BioGammes from "@lystes/components/bio/BioGammes";
 import BioFaq from "@lystes/components/bio/BioFaq";
 import VisionEtagesBloc from "@lystes/features/solutions/VisionEtagesBloc";
-import BlocsAccueilCosmetique from "@lystes/features/solutions/BlocsAccueilCosmetique";
+import BlocsAccueilSecteur from "@lystes/features/solutions/BlocsAccueilSecteur";
 import { Header } from "@lystes/components/landing/Header";
 import { Footer } from "@lystes/components/landing/Footer";
 import { CommeSurAccueil } from "@lystes/features/solutions/CommeSurAccueil";
@@ -904,7 +904,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ LES BLOCS DE L’ACCUEIL, EN COSMÉTIQUE (JP, 12/10/2026) ═══ */}
-      <BlocsAccueilCosmetique />
+      <BlocsAccueilSecteur secteur="cosmetique" />
 
       {/* ═══ QUESTIONS FRÉQUENTES ═══ */}
       <section id="section-faq" ref={setRef("faq")} className="py-12 md:py-16 bg-background">

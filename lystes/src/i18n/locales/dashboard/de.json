@@ -2098,7 +2098,14 @@
     "introuvable": "Dieser Artikel wurde nicht gefunden.",
     "chargement": "Wird geladen",
     "produits": "In diesem Artikel",
-    "articlesDuProduit": "Im Magazin"
+    "articlesDuProduit": "Im Magazin",
+    "conseil": "Beratung der Marke",
+    "uneQuestion": "Eine Frage beim Lesen?",
+    "questionsAvis": "Fragen & Bewertungen",
+    "conseilTitre": "Eine Beratung für Sie",
+    "conseilDiag": "Die Diagnose von {{marque}} zeigt Ihnen das passende Produkt.",
+    "conseilChat": "Die Beratung von {{marque}} beantwortet Ihre Fragen zu diesem Artikel.",
+    "allerConseiller": "Ihre Frage an die Beratung stellen"
   },
   "journalistes": {
     "surtitre": "KI-Journalistenagentur",

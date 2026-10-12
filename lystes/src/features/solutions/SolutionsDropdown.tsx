@@ -235,7 +235,7 @@ export const GROUPS: Group[] = GROUPES_ECRITS.map((g) => ({
   entries: g.entries.filter((e) => !MASQUEES.includes(e.id as SolutionId)),
 })).filter((g) => g.entries.length > 0);
 
-function EntryRow({ entry, onClick, overlay }: { entry: MenuEntry; onClick: () => void; overlay?: boolean }) {
+export function EntryRow({ entry, onClick, overlay }: { entry: MenuEntry; onClick: () => void; overlay?: boolean }) {
   const { Icon } = entry;
   const tr = useMenuText();
   return (
@@ -290,7 +290,7 @@ export function SolutionsDropdown({ size = "sm", className, overlay = false }: S
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
         onFocus={() => setOpen(true)}
-        className={`inline-flex items-center rounded-full px-4 ${size === "sm" ? "h-9 text-sm" : "h-10 text-sm"} font-medium transition-colors ${
+        className={`inline-flex items-center rounded-full px-3 xl:px-4 whitespace-nowrap ${size === "sm" ? "h-9 text-sm" : "h-10 text-sm"} font-medium transition-colors ${
           overlay
             ? "text-white/85 hover:bg-white/10 hover:text-white"
             : "text-foreground/70 hover:bg-[#f3f4f5] hover:text-foreground"

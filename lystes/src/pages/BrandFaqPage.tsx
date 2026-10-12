@@ -13,6 +13,8 @@ import { BrandLandingProvider } from "@lystes/contexts/BrandLandingContext";
 import "@lystes/features/landing-particuliers/styles.css";
 import { titreEnFrancais } from "@lystes/lib/titre-produit";
 import { generateProductSlug } from "@lystes/lib/products/slug";
+// [lot 8] Paramètres de suivi sur les liens vers la boutique.
+import { ajouterSuivi } from "@lystes/lib/lienSuivi";
 import {
   canoniqueFaq,
   COLONNES_PRODUITS_PUBLIQUES,
@@ -107,15 +109,19 @@ export default function BrandFaqPage() {
         .filter((p): p is ProduitFaq => !!p);
       /* Filet : si la lecture échoue, les produits déjà chargés par la vitrine
          suffisent à poser l'essentiel. La page n'est jamais vide avec des produits. */
+      /* [lot 8] Le lien de la fiche porte utm_medium=faq : la vente qu'il amène se voit. */
+      const campagne = data?.slug ?? brandSlug ?? "marque";
+      const suivi = (p: ProduitFaq): ProduitFaq =>
+        typeof p.lien === "string" && p.lien ? { ...p, lien: ajouterSuivi(p.lien, "faq", campagne) } : p;
       setProduits(
-        lus.length > 0
+        (lus.length > 0
           ? lus
           : (data?.products ?? []).map((c) => ({
               id: c.id,
               nom: c.name,
               description_courte: c.tagline,
               lien: c.purchaseUrl,
-            })),
+            }))).map(suivi),
       );
       setChargement(false);
     })();
@@ -303,7 +309,8 @@ export function VueFaqMarque({
   const { t } = useTranslation();
   const slugProduit = (p: ProduitFaq) =>
     data.products.find((c) => c.id === p.id)?.slug ?? generateProductSlug(p.nom);
-  const siteDeLaMarque = data.websiteUrl ?? null;
+  // [lot 8] utm_medium=faq sur le lien vers la boutique.
+  const siteDeLaMarque = data.websiteUrl ? ajouterSuivi(data.websiteUrl, "faq", data.slug ?? "marque") : null;
 
 
   /* Nombre de questions par produit, pour les cartes du carrousel. */

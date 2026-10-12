@@ -3450,9 +3450,10 @@ label.flex.cursor-pointer.items-center.gap-2.text-\[11px\].text-\[\#52504f\] {
   font-size: 13px;
 }
 
-/* /bio : texte md:text-lg réduit à 14px */
+/* /bio et /crea : texte md:text-lg réduit à 14px */
 @media (min-width: 768px) {
-  .bio-scope .md\:text-lg {
+  .bio-scope .md\:text-lg,
+  .crea-scope .md\:text-lg {
     font-size: 14px;
     line-height: 1.5;
   }
@@ -3462,7 +3463,8 @@ label.flex.cursor-pointer.items-center.gap-2.text-\[11px\].text-\[\#52504f\] {
    16 px, la taille des paragraphes : les titres de section paraissaient plus
    petits que leur texte. Sur /bio, un titre de section reste à 24 px. */
 @media (max-width: 850px) {
-  .bio-scope h2.text-2xl {
+  .bio-scope h2.text-2xl,
+  .crea-scope h2.text-2xl {
     font-size: 24px !important;
     line-height: 1.25;
   }
@@ -3481,8 +3483,10 @@ label.flex.cursor-pointer.items-center.gap-2.text-\[11px\].text-\[\#52504f\] {
   }
 }
 
-/* /bio : gras adouci (le 700 était trop marqué sur la page) */
+/* /bio et /crea : gras adouci (le 700 était trop marqué sur la page) */
 .bio-scope b,
-.bio-scope strong {
+.bio-scope strong,
+.crea-scope b,
+.crea-scope strong {
   font-weight: 500;
 }

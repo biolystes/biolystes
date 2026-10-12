@@ -2098,7 +2098,14 @@
     "introuvable": "No se encuentra este artículo.",
     "chargement": "Cargando",
     "produits": "En este artículo",
-    "articlesDuProduit": "En la revista"
+    "articlesDuProduit": "En la revista",
+    "conseil": "Consejo de la marca",
+    "uneQuestion": "¿Una pregunta mientras lee?",
+    "questionsAvis": "Preguntas y opiniones",
+    "conseilTitre": "Un consejo para usted",
+    "conseilDiag": "El diagnóstico de {{marque}} le orienta hacia el producto que le conviene.",
+    "conseilChat": "El asesor de {{marque}} responde a sus preguntas sobre este artículo.",
+    "allerConseiller": "Hacer su pregunta al asesor"
   },
   "journalistes": {
     "surtitre": "Agencia de periodistas IA",

@@ -17,6 +17,8 @@ import { BrandAdvisorChatCard, type DemoConseiller } from "@lystes/components/br
 import { BoutonDiagFaq, type DemoDiagFaq } from "@lystes/components/brand/BoutonDiagFaq";
 import { useIsMobile } from "@lystes/hooks/use-mobile";
 import { FILTRE_AVIS_DEFINITIFS } from "@lystes/lib/reviews/authenticity";
+import { ajouterSuivi } from "@lystes/lib/lienSuivi";
+import { choisirAvisPertinents, fusionnerSansDoublon, lireMode, sourcesALaUne, type ModeALaUne } from "@lystes/lib/multilien/aLaUne";
 import { TrustpilotStars } from "@lystes/components/reviews/TrustpilotStars";
 import { LogoMultiLien, NomMultiLien, PiedMultiLien } from "@lystes/components/brand/MultiLienCommun";
 import {
@@ -598,14 +600,19 @@ function sansDoublons(avis: Review[]): Review[] {
 */
 async function avisAAfficher(accountId: string, saisis: Review[]): Promise<Review[]> {
   if (saisis.length > 0) return sansDoublons(saisis);
+  /* Lot 13 (12/10/2026) : des avis « pertinents » plutôt que les dix
+     derniers. On lit les 200 derniers avis publiés, puis on garde les mieux
+     notés et les plus détaillés, un par produit d'abord
+     (`choisirAvisPertinents`). */
   const { data, error } = await supabase
     .from("reviews")
-    .select("id, rating, content, first_name, source, provenance")
+    .select("id, rating, title, content, first_name, source, provenance, product_id, published_at")
     .eq("account_id", accountId)
     .eq("is_active", true)
+    .eq("moderation_status", "published")
     .or(FILTRE_AVIS_DEFINITIFS)
-    .order("created_at", { ascending: false })
-    .limit(10);
+    .order("published_at", { ascending: false })
+    .limit(200);
   if (error || !data) return [];
   const provenances: Record<string, string> = {
     google: "Google",
@@ -613,7 +620,16 @@ async function avisAAfficher(accountId: string, saisis: Review[]): Promise<Revie
     facebook: "Facebook",
     instagram: "Instagram",
   };
-  return sansDoublons(data.map((r) => {
+  const candidats = (data as Array<Record<string, unknown>>).map((r) => ({
+    id: String(r.id),
+    note: Number(r.rating ?? 5),
+    texte: String(r.content ?? ""),
+    titre: (r.title as string | null) ?? null,
+    produitId: (r.product_id as string | null) ?? null,
+    date: (r.published_at as string | null) ?? null,
+    ligne: r,
+  }));
+  return sansDoublons(choisirAvisPertinents(candidats, 10).map(({ ligne: r }) => {
     const via = provenances[String(r.source ?? "").toLowerCase()];
     return {
       id: r.id as string,
@@ -625,6 +641,67 @@ async function avisAAfficher(accountId: string, saisis: Review[]): Promise<Revie
       source: via,
     };
   }));
+}
+
+/**
+ * Les produits à la une quand la marque n'en a choisi aucun (lot 13).
+ *
+ * Meilleures ventes et mieux notés viennent de la fonction SQL
+ * `multilien_produits_a_la_une` (lecture seule, identifiants et rang
+ * seulement : la page publique ne lit pas `ecommerce_orders`). Tant que la
+ * migration n'est pas passée, l'appel échoue et la page retombe sur les
+ * derniers produits ajoutés, son comportement d'avant.
+ */
+async function produitsALaUneDynamiques(accountId: string, mode: ModeALaUne): Promise<FeaturedProduct[]> {
+  const listes: string[][] = [];
+  for (const source of sourcesALaUne(mode)) {
+    if (fusionnerSansDoublon(listes, 3).length >= 3) break;
+    if (source === "recents") {
+      const { data, error } = await supabase
+        .from("products")
+        .select("id")
+        .eq("account_id", accountId)
+        .not("image_url", "is", null)
+        .order("created_at", { ascending: false })
+        .limit(3);
+      if (error) console.error("BrandLinkPage: fetch top products failed", error);
+      listes.push(((data ?? []) as Array<{ id: string }>).map((p) => p.id));
+      continue;
+    }
+    // La fonction n'est pas encore dans les types générés : appel non typé.
+    const { data, error } = await (supabase.rpc as unknown as (
+      fn: string,
+      args: Record<string, unknown>,
+    ) => Promise<{ data: Array<{ product_id: string; rang: number }> | null; error: unknown }>)(
+      "multilien_produits_a_la_une",
+      { p_account_id: accountId, p_mode: source, p_limite: 3 },
+    );
+    if (error) {
+      console.warn(`BrandLinkPage: ${source} indisponible, repli`, error);
+      continue;
+    }
+    listes.push([...(data ?? [])].sort((x, y) => x.rang - y.rang).map((r) => r.product_id));
+  }
+  const ids = fusionnerSansDoublon(listes, 3);
+  if (ids.length === 0) return [];
+  const { data: lignes, error } = await supabase
+    .from("products")
+    .select("id, name, image_url, price, purchase_link")
+    .eq("account_id", accountId)
+    .in("id", ids);
+  if (error || !lignes) return [];
+  const parId = new Map((lignes as Array<{ id: string; name: string; image_url: string | null; price: number | null; purchase_link: string | null }>).map((p) => [p.id, p]));
+  return ids
+    .map((id) => parId.get(id))
+    .filter((p): p is NonNullable<typeof p> => !!p)
+    .map((p) => ({
+      id: p.id,
+      name: p.name,
+      image_url: p.image_url || "",
+      price: p.price ? `${p.price}€` : "Prix sur demande",
+      cta_label: "Acheter",
+      cta_url: p.purchase_link || undefined,
+    }));
 }
 
 function ReviewsCarousel({ reviews, slug }: { reviews: Review[]; slug?: string }) {
@@ -742,30 +819,16 @@ export default function BrandLinkPage() {
       let featuredProducts = (pageData.featured_products as unknown as FeaturedProduct[]) || [];
       let customLinks = (pageData.custom_links as unknown as CustomLink[]) || [];
 
-      // FALLBACK: Auto-fetch top 3 products if none configured
+      /* Lot 13 (12/10/2026) : produits à la une dynamiques. La liste manuelle
+         garde la priorité quand elle est remplie. Vide, la page suit le mode
+         choisi par la marque (`featured_products_mode`, « auto » par défaut) :
+         meilleures ventes (30 jours, repli 90), plus appréciés (3 avis
+         minimum), puis les derniers produits ajoutés, comme avant. */
       if (featuredProducts.length === 0) {
-        const { data: topProducts, error: topProductsError } = await supabase
-          .from("products")
-          .select("id, name, image_url, price, purchase_link")
-          .eq("account_id", pageData.account_id)
-          .not("image_url", "is", null)
-          .order("created_at", { ascending: false })
-          .limit(3);
-
-        if (topProductsError) {
-          console.error("BrandLinkPage: fetch top products failed", topProductsError);
-        }
-
-        if (topProducts && topProducts.length > 0) {
-          featuredProducts = topProducts.map(p => ({
-            id: p.id,
-            name: p.name,
-            image_url: p.image_url || "",
-            price: p.price ? `${p.price}€` : "Prix sur demande",
-            cta_label: "Acheter",
-            cta_url: p.purchase_link || undefined
-          }));
-        }
+        featuredProducts = await produitsALaUneDynamiques(
+          pageData.account_id as string,
+          lireMode((pageData as { featured_products_mode?: unknown }).featured_products_mode),
+        );
       }
 
       // ALWAYS enrich all featured products with real purchase_link from DB
@@ -790,6 +853,13 @@ export default function BrandLinkPage() {
           }));
         }
       }
+
+      /* Lot 13 : paramètres de suivi sur les liens produit, pour que la
+         marque voie dans ses statistiques les ventes venues du multi-lien. */
+      featuredProducts = featuredProducts.map((p) => ({
+        ...p,
+        cta_url: p.cta_url ? ajouterSuivi(p.cta_url, "multilien", pageData.slug as string) : p.cta_url,
+      }));
 
       // FALLBACK: Auto-generate top 3 category links if none configured.
       // « Nous contacter » et « FAQ » seuls ne comptent pas comme une

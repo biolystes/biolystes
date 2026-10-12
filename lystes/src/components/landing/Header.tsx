@@ -7,6 +7,7 @@ import { supabase } from "@lystes/integrations/supabase/client";
 import { HeaderLanguageSelector } from "@lystes/components/landing/HeaderLanguageSelector";
 import { HeaderProfileMenu } from "@lystes/components/landing/HeaderProfileMenu";
 import { SolutionsDropdown, useGroupesMenu, useMenuText } from "@lystes/features/solutions/SolutionsDropdown";
+import { LabDropdown, LAB_ENTREES } from "@lystes/features/solutions/LabDropdown";
 
 interface HeaderProps {
   minimal?: boolean;
@@ -114,7 +115,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
   }, []);
 
   const linkClass = (path: string) =>
-    `text-sm font-medium transition-colors px-4 py-2 rounded-full ${
+    `text-sm font-medium whitespace-nowrap transition-colors px-3 xl:px-4 py-2 rounded-full ${
       light
         ? "text-white/85 hover:bg-white/10 hover:text-white"
         : pathname === path
@@ -149,11 +150,17 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
 
           {!minimal && (
             <div className="hidden lg:flex items-center gap-4">
-              <nav className="flex items-center gap-2" aria-label={t("header.mainNav", "Navigation principale")}>
+              {/* Une entrée de plus avec « Lab » (12/10/2026) : sous 1280 px, les
+                  pastilles se resserrent pour que l'en-tête tienne sur une
+                  ligne à 1024, accueil compris (marges plus larges). */}
+              <nav className="flex items-center gap-1 xl:gap-2" aria-label={t("header.mainNav", "Navigation principale")}>
                 <Link to="/entreprise" className={linkClass("/entreprise")}>
                   {t("header.company", "Entreprise")}
                 </Link>
                 <SolutionsDropdown overlay={light} />
+                {/* « Lab » (12/10/2026, JP) : /bio et /crea. Même liste
+                    dans le menu du téléphone, plus bas. */}
+                <LabDropdown overlay={light} />
                 {/* « Intégrations » a quitté la barre le 27/08/2026, sur demande
                     de JP. La route /integrations reste OUVERTE : masquer n'est
                     pas supprimer, et une adresse déjà partagée doit continuer
@@ -298,6 +305,32 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                   ))}
                 </div>
               )}
+            </div>
+
+            {/* « Lab » à plat, sans accordéon (12/10/2026, JP) : un titre,
+                les deux liens et leur ligne de description. Même liste que
+                le menu de l'ordinateur (LAB_ENTREES). */}
+            <div className="border-b border-white/14 px-1.5 pt-4 pb-3">
+              <div className="text-[16px] font-medium pb-1">{tr("Lab")}</div>
+              {LAB_ENTREES.map((e) => {
+                const Icon = e.Icon;
+                return (
+                  <Link
+                    key={e.id}
+                    to={e.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-start gap-2.5 py-2.5"
+                  >
+                    <span className="w-7 h-7 rounded-lg bg-white/12 flex items-center justify-center shrink-0 mt-0.5">
+                      <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="block text-[14px] leading-snug">{tr(e.title)}</span>
+                      <span className="block text-[12px] leading-snug text-white/60 mt-0.5 text-pretty">{tr(e.tagline)}</span>
+                    </span>
+                  </Link>
+                );
+              })}
             </div>
 
             {/* « Intégrations » masquée le 27/08/2026, comme dans la barre

@@ -1,6 +1,5 @@
-import { motion } from "framer-motion";
 import { Warehouse, PackageOpen, CalendarClock, Truck, BadgeCheck, FlaskConical } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import FaqAPlat, { type QuestionAPlat } from "@lystes/components/landing/FaqAPlat";
 
 /**
  * Questions fréquentes de /bio (12/10/2026). Tout à plat, sans repliable
@@ -8,10 +7,10 @@ import type { LucideIcon } from "lucide-react";
  * dans les conditions de Biolystes ; rien n’est ajouté. La question de la
  * Personne Responsable est laissée de côté tant que JP ne l’a pas validée :
  * le règlement CE 1223/2009 en fait par défaut la marque (article 4).
+ * La mise en page est partagée avec /crea (FaqAPlat, 12/10/2026).
  */
-type Question = { icone: LucideIcon; q: string; r: string };
 
-const QUESTIONS: Question[] = [
+const QUESTIONS: QuestionAPlat[] = [
   {
     icone: Warehouse,
     q: "Faut-il acheter du stock ?",
@@ -44,34 +43,6 @@ const QUESTIONS: Question[] = [
   },
 ];
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] } }),
-};
-
 export default function BioFaq() {
-  return (
-    <div className="max-w-5xl mx-auto px-6">
-      <div className="space-y-4 mb-12 text-center">
-        <p className="text-xs tracking-[0.3em] uppercase text-foreground">Questions fréquentes</p>
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed text-balance">
-          Ce que l’on nous demande avant de se lancer
-        </h2>
-      </div>
-      <div className="grid md:grid-cols-2 gap-4">
-        {QUESTIONS.map((item, i) => (
-          <motion.div key={item.q} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={i}
-            className="bg-secondary p-6 rounded-xl flex items-start gap-4">
-            <div className="w-10 h-10 rounded-full bg-background flex items-center justify-center shrink-0">
-              <item.icone className="h-5 w-5 text-foreground" strokeWidth={1.5} />
-            </div>
-            <div>
-              <h3 className="text-base font-semibold text-foreground mb-1.5 text-balance">{item.q}</h3>
-              <p className="text-sm text-foreground leading-relaxed text-pretty">{item.r}</p>
-            </div>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  );
+  return <FaqAPlat questions={QUESTIONS} titre="Ce que l’on nous demande avant de se lancer" />;
 }

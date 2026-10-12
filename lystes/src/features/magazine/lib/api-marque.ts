@@ -1,3 +1,4 @@
+import { LYSTES_ENV } from "@lystes/integrations/supabase/env";
 /**
  * LE MAGAZINE D'UNE MARQUE, LU DANS LA BONNE TABLE (01/10/2026).
  *
@@ -16,6 +17,7 @@
 import { supabase } from "@lystes/integrations/supabase/client";
 import type { QuestionReponse } from "../../../../supabase/functions/_shared/article-marque-rendu";
 import { faqDe } from "../../../../supabase/functions/_shared/article-marque-rendu";
+import { lireReglageCanonique } from "../../../../supabase/functions/_shared/magazine-canonique";
 
 export interface PhotoArticle {
   url: string;
@@ -274,4 +276,75 @@ export async function chargerArticlesDuProduit(accountId: string, productId: str
       read_minutes: typeof l.read_minutes === "number" ? l.read_minutes : null,
       published_at: texte(l.published_at),
     }));
+}
+
+/* ------------------------------------------------------------------------
+ * [lot 11] Les modules de conseil dans l'article, et la canonique choisie.
+ * --------------------------------------------------------------------- */
+
+/** Les types d'agent qui portent un parcours de diagnostic (même liste que le multi-lien). */
+export const TYPES_AGENT_DIAGNOSTIC = ["skin_diagnostic", "hair_diagnostic", "diagnostic"] as const;
+
+export interface AgentDiagnosticMarque {
+  id: string;
+  agent_type: string;
+}
+
+/**
+ * L'agent de diagnostic actif de la marque, ou null. Même lecture que
+ * BrandLinkPage : sans agent actif de ce type, l'article ne montre aucun
+ * bouton de diagnostic. Ne lève jamais : un échec vaut « pas de diagnostic ».
+ */
+export async function chargerAgentDiagnostic(accountId: string): Promise<AgentDiagnosticMarque | null> {
+  if (!accountId) return null;
+  try {
+    const { data, error } = await supabase
+      .from("agents")
+      .select("id, agent_type")
+      .eq("account_id", accountId)
+      .in("agent_type", [...TYPES_AGENT_DIAGNOSTIC])
+      .eq("is_active", true)
+      .order("created_at", { ascending: true })
+      .limit(1)
+      .maybeSingle();
+    if (error || !data?.id) return null;
+    return { id: String(data.id), agent_type: String(data.agent_type) };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * La canonique de l'article quand la marque a choisi son propre site
+ * (réglage `magazine_canonique`, migration 20261012201101), sinon null :
+ * l'appelant garde l'adresse lystes.ai. Ne lève jamais.
+ *
+ * Lue en deux temps pour ne rien casser : le réglage d'abord, dans une
+ * requête à part (si la colonne n'existe pas encore en base, seule cette
+ * requête échoue, et la page garde lystes.ai) ; puis, seulement pour une
+ * marque qui a choisi son site, l'adresse servie par magazine-marque-public,
+ * la même que pose l'extension WordPress.
+ */
+export async function chargerCanoniqueDeLaMarque(slug: string, slugArticle: string): Promise<string | null> {
+  try {
+    const { data, error } = await supabase
+      .from("account_landing_config")
+      .select("magazine_canonique" as "slug")
+      .eq("slug", slug)
+      .maybeSingle();
+    if (error) return null;
+    const reglage = lireReglageCanonique((data as unknown as Ligne | null)?.magazine_canonique);
+    if (reglage !== "site_marque") return null;
+    const base = LYSTES_ENV.VITE_SUPABASE_URL as string | undefined;
+    if (!base) return null;
+    const r = await fetch(
+      `${base}/functions/v1/magazine-marque-public?marque=${encodeURIComponent(slug)}&article=${encodeURIComponent(slugArticle)}`,
+    );
+    if (!r.ok) return null;
+    const d = (await r.json()) as { article?: { canonique?: unknown } };
+    const c = d.article?.canonique;
+    return typeof c === "string" && /^https?:\/\/[^\s"'<>]+$/i.test(c) ? c : null;
+  } catch {
+    return null;
+  }
 }

@@ -2098,7 +2098,14 @@
     "introuvable": "This article cannot be found.",
     "chargement": "Loading",
     "produits": "In this article",
-    "articlesDuProduit": "In the magazine"
+    "articlesDuProduit": "In the magazine",
+    "conseil": "Brand advice",
+    "uneQuestion": "A question while reading?",
+    "questionsAvis": "Questions & reviews",
+    "conseilTitre": "Advice made for you",
+    "conseilDiag": "The {{marque}} diagnostic points you to the product that suits you.",
+    "conseilChat": "The {{marque}} advisor answers your questions about this article.",
+    "allerConseiller": "Ask the advisor your question"
   },
   "journalistes": {
     "surtitre": "AI journalist agency",

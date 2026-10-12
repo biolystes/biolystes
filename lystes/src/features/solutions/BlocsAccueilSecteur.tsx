@@ -13,30 +13,78 @@ import diagnosticFace from "@lystes/features/landing-particuliers/pages/diagnost
 import { getHomeLocale } from "@lystes/i18n/home-locale";
 
 /**
- * Les blocs de l'accueil que JP garde sur /bio (12/10/2026), filtrés sur la
- * cosmétique : « en ne laissant que des choses en lien avec la cosmétique ».
+ * Les blocs de l'accueil montés sur une page de marque blanche, filtrés sur
+ * un secteur (12/10/2026) : /bio en cosmétique (« en ne laissant que des
+ * choses en lien avec la cosmétique »), /crea en mode.
  *
  * Aucune copie : le bento et le carrousel des équipes sont lus dans le gabarit
  * de l'accueil (agents-vision-page.tmpl.html), préparé et traduit par les
  * mêmes fonctions que l'accueil ; les autres blocs sont les composants de
- * l'accueil. Le filtre ne touche que la copie montée ici :
- *  - carrousel : sans l'essayage virtuel (une tenue de mode) ni l'événementiel
- *    (une table de réception) ;
- *  - portfolios des cartes (photographes, UGC) : seule la série cosmétique
- *    reste, les séries lifestyle, studio sport, food, lookbook et fashion
- *    sont retirées avec leurs onglets ;
- *  - Data intelligent : sans l'onglet Essayages ;
- *  - créateurs : déjà en cosmétique seule.
+ * l'accueil. Le filtre ne touche que la copie montée ici. Pour chaque
+ * secteur :
+ *  - les cartes du carrousel retirées ;
+ *  - la série gardée dans chaque portfolio (photographes, UGC), les autres
+ *    séries partent avec leurs onglets ;
+ *  - l'onglet Essayages de Data intelligent, gardé ou non ;
+ *  - le secteur de la galerie des créateurs.
  */
-const CARTES_RETIREES = ["essayage virtuel", "événementiel"];
+export type Secteur = "cosmetique" | "mode";
 
-function extraire(lang: string) {
+type Reglage = {
+  /** Mots qui retirent une carte quand son titre les contient. */
+  cartesRetirees: string[];
+  /** Série gardée, par sa classe dans le gabarit. */
+  photographes: string;
+  ugc: string;
+  essayages: boolean;
+  /** Secteur de /creator. */
+  createurs: string;
+};
+
+const REGLAGES: Record<Secteur, Reglage> = {
+  /* /bio : sans l'essayage virtuel (une tenue de mode) ni l'événementiel
+     (une table de réception) ; séries cosmétiques. */
+  cosmetique: {
+    cartesRetirees: ["essayage virtuel", "événementiel"],
+    photographes: "s1",
+    ugc: "u1",
+    essayages: false,
+    createurs: "cosmetique",
+  },
+  /* /crea : l'essayage virtuel a toute sa place ; le diagnostic beauté (un
+     visage) et l'événementiel partent. Séries Lookbook et Fashion, créateurs
+     sur l'onglet Fashion. */
+  mode: {
+    cartesRetirees: ["diagnostic beauté", "événementiel"],
+    photographes: "s5",
+    ugc: "u2",
+    essayages: true,
+    createurs: "fashion",
+  },
+};
+
+/** Ne garde qu'une série dans un portfolio. La série gardée prend la place
+ *  et le nom de la première (s1, u1), que les styles du gabarit affichent
+ *  quand le premier bouton est coché. */
+function garderSerie(pf: Element, classe: string) {
+  const premiere = classe.charAt(0) + "1";
+  const gardee = pf.querySelector(`.pf-slide.${classe}`);
+  pf.querySelectorAll(".pf-slide").forEach((s) => { if (s !== gardee) s.remove(); });
+  gardee?.classList.replace(classe, premiere);
+  pf.querySelectorAll(".pf-radio").forEach((r, i) => {
+    if (i > 0) r.remove();
+    else r.setAttribute("checked", "");
+  });
+  pf.querySelector(".pf-tabs")?.remove();
+}
+
+function extraire(lang: string, reglage: Reglage) {
   const { fr, current } = getHomeLocale("agents-autonomes", lang);
   const { beforeHtml } = prepare(rawTemplate, true);
   const doc = new DOMParser().parseFromString(interpolate(beforeHtml, current, fr), "text/html");
 
   /* Les styles du gabarit, sans la seule règle qui ne vise pas son cadre
-     (.max-w-3xl) : elle élargirait les titres de /bio. */
+     (.max-w-3xl) : elle élargirait les titres de la page. */
   const style = (doc.querySelector("style")?.textContent ?? "").replace(/\.max-w-3xl\s*\{[^}]*\}/, "");
 
   const bento = doc.querySelector(".bento-syn");
@@ -45,20 +93,19 @@ function extraire(lang: string) {
   if (bande) {
     for (const carte of Array.from(bande.querySelectorAll(".cartes6 > div"))) {
       const titre = (carte.querySelector("h4")?.textContent ?? "").toLowerCase();
-      if (CARTES_RETIREES.some((x) => titre.includes(x))) carte.remove();
+      if (reglage.cartesRetirees.some((x) => titre.includes(x))) carte.remove();
     }
     for (const pf of Array.from(bande.querySelectorAll(".wf-portfolio"))) {
-      pf.querySelectorAll(".pf-slide").forEach((s, i) => { if (i > 0) s.remove(); });
-      pf.querySelectorAll(".pf-radio").forEach((r, i) => { if (i > 0) r.remove(); });
-      pf.querySelector(".pf-tabs")?.remove();
+      garderSerie(pf, pf.classList.contains("pf-2") ? reglage.ugc : reglage.photographes);
     }
   }
   return { style, bento: bento?.outerHTML ?? "", bande: bande?.outerHTML ?? "" };
 }
 
-export default function BlocsAccueilCosmetique() {
+export default function BlocsAccueilSecteur({ secteur }: { secteur: Secteur }) {
   const lang = "fr";
-  const blocs = useMemo(() => extraire(lang), []);
+  const reglage = REGLAGES[secteur];
+  const blocs = useMemo(() => extraire(lang, reglage), [reglage]);
   const racine = useRef<HTMLDivElement>(null);
   const [slots, setSlots] = useState<Record<string, HTMLElement | null>>({});
 
@@ -77,13 +124,14 @@ export default function BlocsAccueilCosmetique() {
   useCartes6Dots(blocs);
 
   return (
-    <div ref={racine} className="bio-blocs">
+    <div ref={racine} className="blocs-secteur">
       <style>{blocs.style}</style>
-      {/* Réglages propres à /bio (l'accueil n'est pas touché) : aucun mot seul
-          en fin de titre, et des titres de cartes plus grands que leur texte. */}
+      {/* Réglages propres à ces pages (l'accueil n'est pas touché) : aucun
+          mot seul en fin de titre, et des titres de cartes plus grands que
+          leur texte. */}
       <style>{`
-        .bio-blocs h2, .bio-blocs h3, .bio-blocs h4 { text-wrap: balance; }
-        .bio-blocs .cartes6 h4 { font-size: 15px; }
+        .blocs-secteur h2, .blocs-secteur h3, .blocs-secteur h4 { text-wrap: balance; }
+        .blocs-secteur .cartes6 h4 { font-size: 15px; }
       `}</style>
       {/* 1. Le bento « Vendez davantage… » */}
       <div className="biolystes-ai-scope px-4 sm:px-6 lg:px-0">
@@ -92,13 +140,13 @@ export default function BlocsAccueilCosmetique() {
       {/* 2. Data intelligent */}
       <div className="biolystes-ai-scope px-4 sm:px-6 lg:px-0">
         <div className="wrap" style={{ margin: "44px auto" }}>
-          <DataIntelligentBanner lang={lang} essayages={false} />
+          <DataIntelligentBanner lang={lang} essayages={reglage.essayages} />
         </div>
       </div>
       {/* 3. Le carrousel « De combien augmenterait… » */}
       <div dangerouslySetInnerHTML={{ __html: blocs.bande }} />
-      {/* 4. Les créateurs, en cosmétique seule */}
-      <HomeCreatorsGallery sansGeneration />
+      {/* 4. Les créateurs, sur le secteur de la page */}
+      <HomeCreatorsGallery sansGeneration secteur={reglage.createurs} />
       {/* 5. L'organigramme */}
       <Hierarchy className="pt-10 md:pt-14" />
 

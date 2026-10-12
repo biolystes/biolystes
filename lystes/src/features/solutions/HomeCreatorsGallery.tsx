@@ -7,8 +7,13 @@ import { useTranslation } from "react-i18next";
 import { getJsxT } from "@lystes/i18n/jsx-locale";
 
 /* `sansGeneration` (12/10/2026, /bio) : la galerie sans le panneau de
-   génération ni la sélection d'un créateur. L'accueil garde le panneau. */
-export function HomeCreatorsGallery({ sansGeneration = false }: { sansGeneration?: boolean } = {}) {
+   génération ni la sélection d'un créateur. L'accueil garde le panneau.
+   `secteur` (12/10/2026, /crea) : l'onglet de /creator ouvert, cosmétique
+   par défaut, fashion sur /crea. */
+export function HomeCreatorsGallery({
+  sansGeneration = false,
+  secteur = "cosmetique",
+}: { sansGeneration?: boolean; secteur?: string } = {}) {
   const { i18n } = useTranslation();
   const lang = (i18n.language || "fr").substring(0, 2).toLowerCase();
   const t = getJsxT("home-blocks", lang);
@@ -27,7 +32,7 @@ export function HomeCreatorsGallery({ sansGeneration = false }: { sansGeneration
         </p>
       </div>
       <iframe
-        src={`https://lystes.ai/creator?embed=1&sector=cosmetique&lang=${encodeURIComponent(lang)}${sansGeneration ? "&generation=0" : ""}`}
+        src={`https://lystes.ai/creator?embed=1&sector=${encodeURIComponent(secteur)}&lang=${encodeURIComponent(lang)}${sansGeneration ? "&generation=0" : ""}`}
         title={t("Créateurs de contenu IA")}
         loading="lazy"
         className="block h-[82dvh] md:h-[88dvh] w-full border-0"

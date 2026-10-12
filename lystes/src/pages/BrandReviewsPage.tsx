@@ -28,6 +28,9 @@ import { deMarque } from "@lystes/lib/elision";
 
 import { TrustpilotStars } from "@lystes/components/reviews/TrustpilotStars";
 import { ReviewSubmitForm } from "@lystes/components/reviews/ReviewSubmitForm";
+import { ProductAgentInlineChat } from "@lystes/components/brand/ProductAgentInlineChat";
+import { balisagePageAvisMarque, type ProduitPourBalisage } from "@lystes/lib/seo/avisJsonLd";
+import { ajouterSuivi } from "@lystes/lib/lienSuivi";
 import { Button } from "@lystes/components/ui/button";
 import valtheaShot2 from "@lystes/assets/reviews/valthea-shot-2.png";
 import valtheaShot3 from "@lystes/assets/reviews/valthea-shot-3.png";
@@ -36,6 +39,9 @@ import valtheaShot5 from "@lystes/assets/reviews/valthea-shot-5.png";
 import valtheaShot6 from "@lystes/assets/reviews/valthea-shot-6.png";
 
 const VALTHEA_SHOT_IMAGES = [valtheaShot2, valtheaShot3, valtheaShot4, valtheaShot5, valtheaShot6];
+
+/** Avis affichés avant « Voir plus d'avis » : ce sont eux que le balisage déclare. */
+const AVIS_PAR_PAGE = 8;
 
 function StarsRow({ rating, className = "w-4 h-4" }: { rating: number; className?: string }) {
   const sizeMap: Record<string, number> = { "w-3 h-3": 12, "w-4 h-4": 16, "w-5 h-5": 20, "w-6 h-6": 24 };
@@ -113,11 +119,6 @@ export default function BrandReviewsPage() {
 
   // La note vient des avis publiés ou n'existe pas. Aucune valeur de repli :
   // une moyenne dérivée des notes produits n'a jamais rien mesuré.
-  const avisReels = avis.totalCount > 0;
-  const avgRating = avis.avgRating;
-  const totalReviews = avis.totalCount;
-  const dbReviewsReels = avis.reviewsReels;
-
   const url = `https://lystes.ai/${data.slug}/avis`;
   const { title, description } = buildBrandReviewsMeta({
     brandName: data.brandName,
@@ -125,51 +126,44 @@ export default function BrandReviewsPage() {
   const ogImage = data.products[0]?.image_url ?? data.heroProducts[0]?.image_url;
 
   /**
-   * La note n'est balisée que si la boutique a au moins un avis publié.
+   * Lot 13 (12/10/2026) : les étoiles Google.
    *
-   * Ce n'est pas un filtre d'origine : tout avis publié compte (voir
-   * `src/lib/reviews/authenticity.ts`). C'est une garde contre le cas zéro —
-   * un `aggregateRating` avec `reviewCount: 0` est rejeté par Google et fait
-   * tomber tout le bloc, y compris les champs valides autour.
+   * Avant, la marque se notait elle-même (`Organization` + `aggregateRating`).
+   * Google n'affiche pas d'étoiles pour des avis qu'une entité recueille sur
+   * elle-même. Les avis portent sur des produits : chaque produit noté devient
+   * un `Product` avec sa note et ses avis, l'`Organization` reste sans note.
    *
-   * Second point : le type. `Brand` ne figure pas dans la liste fermée des
-   * types éligibles aux extraits d'avis, donc l'ancien balisage était ignoré
-   * en silence, sans erreur ni avertissement. `Organization` y figure.
+   * Seul ce qui est visible est balisé : la note d'un produit est celle de sa
+   * carte (`parProduit` de `VueAvisMarque`, mêmes avis chargés), et ses avis
+   * sont ceux de la première page de la liste (les 8 plus récents).
    */
-  const brandSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: data.brandName,
+  const visibles = [...avis.reviews]
+    .sort((x, y) => (y.published_at ?? "").localeCompare(x.published_at ?? ""))
+    .slice(0, AVIS_PAR_PAGE);
+  const produitsNotes: ProduitPourBalisage[] = data.products
+    .map((p) => {
+      const siens = avis.reviews.filter((r) => r.product_id === p.id);
+      return {
+        nom: p.name,
+        marque: data.brandName,
+        url: `https://lystes.ai/${data.slug}/${p.slug}`,
+        image: p.image_url || null,
+        description: p.tagline ?? null,
+        nombre: siens.length,
+        moyenne: siens.length ? siens.reduce((t, r) => t + r.rating, 0) / siens.length : 0,
+        avis: visibles
+          .filter((r) => r.product_id === p.id)
+          .map((r) => ({ auteur: r.author_name, note: r.rating, date: r.published_at, titre: r.title, texte: r.content })),
+      };
+    })
+    .filter((p) => p.nombre > 0);
+  const brandSchema = balisagePageAvisMarque({
+    marque: data.brandName,
     url,
-    ...(data.websiteUrl ? { sameAs: [data.websiteUrl] } : {}),
-    ...(ogImage ? { logo: ogImage, image: ogImage } : {}),
-    ...(avisReels
-      ? {
-          aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: avgRating,
-            reviewCount: totalReviews,
-            bestRating: 5,
-            worstRating: 1,
-          },
-          // Une note agrégée sans avis est une note sans preuve : on joint les
-          // avis eux-mêmes, avec auteur, date et texte.
-          review: dbReviewsReels.slice(0, 10).map((r) => ({
-            "@type": "Review",
-            author: { "@type": "Person", name: r.author_name },
-            datePublished: r.published_at.slice(0, 10),
-            reviewRating: {
-              "@type": "Rating",
-              ratingValue: r.rating,
-              bestRating: 5,
-              worstRating: 1,
-            },
-            ...(r.title ? { name: r.title } : {}),
-            reviewBody: r.content,
-          })),
-        }
-      : {}),
-  };
+    siteMarque: data.websiteUrl ?? null,
+    logo: ogImage ?? null,
+    produits: produitsNotes,
+  });
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -227,7 +221,7 @@ export function VueAvisMarque({
   const dbReviews = avis.reviews;
   const [searchVal, setSearchVal] = useState("");
   const [sort, setSort] = useState<"recent" | "rating">("recent");
-  const [visible, setVisible] = useState(8);
+  const [visible, setVisible] = useState(AVIS_PAR_PAGE);
   const [activeSlide, setActiveSlide] = useState(0);
 
   // Tous les avis publiés sont affichés et comptent, sans distinction.
@@ -453,7 +447,7 @@ export function VueAvisMarque({
                     </span>
                   </a>
                   {data.websiteUrl && (
-                    <a className="lyr-btn-outline" href={data.websiteUrl} target="_blank" rel="noopener noreferrer">
+                    <a className="lyr-btn-outline" href={ajouterSuivi(data.websiteUrl, "avis", data.slug)} target="_blank" rel="noopener noreferrer">
                       <span>Voir le site</span>
                       <span className="lyr-arrow" aria-hidden="true">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
@@ -528,6 +522,12 @@ export function VueAvisMarque({
             </div>
           </div>
         </section>
+      )}
+
+      {/* Lot 13 : le chat de la marque, comme sur la page avis d'un produit.
+          Pas dans la visite de démonstration : il interroge le serveur. */}
+      {!demo && data.accountId && (
+        <ProductAgentInlineChat accountId={data.accountId} brandName={data.brandName} />
       )}
 
       {/* DEUX COLONNES */}

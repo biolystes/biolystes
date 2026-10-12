@@ -2098,7 +2098,14 @@
     "introuvable": "Dit artikel is niet gevonden.",
     "chargement": "Laden",
     "produits": "In dit artikel",
-    "articlesDuProduit": "In het magazine"
+    "articlesDuProduit": "In het magazine",
+    "conseil": "Advies van het merk",
+    "uneQuestion": "Een vraag tijdens het lezen?",
+    "questionsAvis": "Vragen & reviews",
+    "conseilTitre": "Advies op maat",
+    "conseilDiag": "De diagnose van {{marque}} wijst u het product dat bij u past.",
+    "conseilChat": "De adviseur van {{marque}} beantwoordt uw vragen over dit artikel.",
+    "allerConseiller": "Stel uw vraag aan de adviseur"
   },
   "journalistes": {
     "surtitre": "AI-journalistenbureau",

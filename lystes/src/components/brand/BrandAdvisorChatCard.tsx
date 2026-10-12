@@ -66,6 +66,12 @@ interface Props {
    * appel réseau, rien ne s'envoie. Absente sur les vraies pages.
    */
   demo?: DemoConseiller;
+  /**
+   * [lot 11] Prévenu quand on sait si la marque a un conseiller : `true` à
+   * l'arrivée de l'agent, `false` s'il n'y en a pas. Le magazine s'en sert
+   * pour ne poser le titre de son module qu'au-dessus d'une vraie carte.
+   */
+  onDisponible?: (disponible: boolean) => void;
 }
 
 /** Ce que la visite fournit à la carte : l'agent, ses bulles, l'attente. */
@@ -451,8 +457,9 @@ export function BrandAdvisorChatCard({
   integre,
   onStatut,
   demo,
+  onDisponible,
 }: Props) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   /* Le mode contact s'active par la seule présence de la prop, même à null. */
   const modeContact = contact !== undefined;
   const messageTransmis = t(
@@ -515,9 +522,11 @@ export function BrandAdvisorChatCard({
         if (annule) return;
         if (error || !data?.agent) {
           setIndisponible(true);
+          onDisponible?.(false);
           return;
         }
         setAgent(data.agent);
+        onDisponible?.(true);
         /* Le secteur arrive avec l'agent : le visiteur n'étant pas connecté,
            une lecture directe de `accounts` depuis le navigateur ne rend rien,
            la politique d'accès la refuse. C'est la panne qui affichait « Être
@@ -544,7 +553,11 @@ export function BrandAdvisorChatCard({
           },
         ]);
       })
-      .catch(() => !annule && setIndisponible(true));
+      .catch(() => {
+        if (annule) return;
+        setIndisponible(true);
+        onDisponible?.(false);
+      });
     return () => {
       annule = true;
     };
@@ -644,7 +657,7 @@ export function BrandAdvisorChatCard({
     setLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke("conseiller-boutique-chat", {
-        body: { account_id: accountId, message: text, history: suite.slice(0, -1) },
+        body: { account_id: accountId, message: text, history: suite.slice(0, -1), langue: i18n.resolvedLanguage || i18n.language },
       });
       if (error) throw error;
       setMessages((m) => [

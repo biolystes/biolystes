@@ -176,18 +176,22 @@ export type HeroVariante = {
   /** Fins du titre, qui s'écrivent puis s'effacent en boucle. */
   phrases: string[];
   /** Vidéo plein cadre : une pour l'ordinateur, une pour le téléphone (une
-   *  seule est chargée), chacune avec son image d'affiche. */
+   *  seule est chargée), chacune avec son image d'affiche. Sans vidéo
+   *  (/crea, 12/10/2026 : aucune vidéo mode dans le dépôt), l'affiche seule
+   *  sert de fond fixe. */
   fond: {
-    ordi: { video: string; affiche: string; position?: string };
-    mobile: { video: string; affiche: string; position?: string };
+    ordi: { video?: string; affiche: string; position?: string };
+    mobile: { video?: string; affiche: string; position?: string };
   };
   /** Voile plus soutenu, pour un fond clair sous un titre blanc. */
   voile?: string;
   voileMobile?: string;
+  /** Bouton blanc au lieu du noir, sur une vidéo sombre (/crea). */
+  ctaClair?: boolean;
   /** Bouton noir. */
   cta: { label: string; labelCourt?: string; href: string; externe?: boolean };
-  /** Champ de saisie à droite du bouton. */
-  champ: { placeholder: string; bouton: string; boutonCourt?: string; onSubmit: (valeur: string) => void };
+  /** Champ de saisie à droite du bouton. Facultatif : /crea n'en a pas. */
+  champ?: { placeholder: string; bouton: string; boutonCourt?: string; onSubmit: (valeur: string) => void };
   /** Petite ligne de liens sous les boutons. */
   liens?: { label: string; href: string; icone: { paths: string[]; circles?: [number, number, number][] } }[];
   /** Phrase sous les boutons. */
@@ -493,6 +497,7 @@ export default function HomeHeroVideo({ variante }: { variante?: HeroVariante } 
 @media (min-width:768px){ .lyh--variante .lyh-bgvid{ object-position:${variante.fond.ordi.position ?? "center"}; } }
 ${variante.voile ? `.lyh--variante .lyh-veil{ background:${variante.voile}; }` : ""}
 ${variante.voileMobile ? `@media (max-width:720px){ .lyh--variante .lyh-veil{ background:${variante.voileMobile}; } }` : ""}
+${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#000; } .lyh--variante .lyh-btn-black .lyh-arrow{ background:#000; color:#fff; }` : ""}
 /* 12/10/2026 (JP, /bio en mobile) : titre plus présent mais équilibré, vidéo
    sur toute la hauteur, bouton puis champ en pleine largeur, textes lisibles.
    Règles posées après celles de l'accueil, qui ne change pas. */
@@ -520,7 +525,7 @@ ${variante.voileMobile ? `@media (max-width:720px){ .lyh--variante .lyh-veil{ ba
         {variante ? (
           fondEtat && (() => {
             const f = fondEtat.mobile ? variante.fond.mobile : variante.fond.ordi;
-            return fondEtat.fixe ? (
+            return fondEtat.fixe || !f.video ? (
               <img className="lyh-bgvid" src={f.affiche} alt="" />
             ) : (
               <video
@@ -646,12 +651,13 @@ ${variante.voileMobile ? `@media (max-width:720px){ .lyh--variante .lyh-veil{ ba
           {/* Ce n'est plus un lien de démonstration mais un champ : le
               visiteur colle l'URL de sa page produit et la fenêtre d'essai
               (techno Shot) s'ouvre sur son propre produit. */}
+          {(!variante || variante.champ) && (
           <form
             className="lyh-btn-outline lyh-field"
             onSubmit={(e) => {
               e.preventDefault();
               const v = urlSaisie.trim();
-              if (variante) variante.champ.onSubmit(v);
+              if (variante) variante.champ?.onSubmit(v);
               else if (v) setEssaiUrl(v);
             }}
           >
@@ -661,20 +667,21 @@ ${variante.voileMobile ? `@media (max-width:720px){ .lyh--variante .lyh-veil{ ba
               inputMode={variante ? "text" : "url"}
               value={urlSaisie}
               onChange={(e) => setUrlSaisie(e.target.value)}
-              placeholder={variante?.champ.placeholder ?? t("heroHome.urlPlaceholder", { defaultValue: "Lien d'une fiche produit" })}
-              aria-label={variante?.champ.placeholder ?? t("heroHome.urlPlaceholder", { defaultValue: "Lien d'une fiche produit" })}
+              placeholder={variante?.champ?.placeholder ?? t("heroHome.urlPlaceholder", { defaultValue: "Lien d'une fiche produit" })}
+              aria-label={variante?.champ?.placeholder ?? t("heroHome.urlPlaceholder", { defaultValue: "Lien d'une fiche produit" })}
             />
-            <button className="lyh-arrow lyh-submit" type="submit" aria-label={variante?.champ.bouton ?? t("heroHome.ctaFree", { defaultValue: "Tester gratuitement" })}>
-              <span className="lyh-submit-lbl">{variante?.champ.bouton ?? t("heroHome.ctaFree", { defaultValue: "Tester gratuitement" })}</span>
+            <button className="lyh-arrow lyh-submit" type="submit" aria-label={variante?.champ?.bouton ?? t("heroHome.ctaFree", { defaultValue: "Tester gratuitement" })}>
+              <span className="lyh-submit-lbl">{variante?.champ?.bouton ?? t("heroHome.ctaFree", { defaultValue: "Tester gratuitement" })}</span>
               {/* Sous 720 px la pilule était trop étroite à côté de
                   l'inscription : le libellé court prend le relais. */}
-              <span className="lyh-submit-lbl lyh-submit-lbl-s">{variante ? variante.champ.boutonCourt ?? variante.champ.bouton : t("heroHome.ctaFreeShort", { defaultValue: "Tester" })}</span>
+              <span className="lyh-submit-lbl lyh-submit-lbl-s">{variante ? variante.champ?.boutonCourt ?? variante.champ?.bouton : t("heroHome.ctaFreeShort", { defaultValue: "Tester" })}</span>
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
               </svg>
             </button>
           </form>
+          )}
 
         </div>
 

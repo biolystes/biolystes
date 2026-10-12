@@ -2098,7 +2098,14 @@
     "introuvable": "Cet article est introuvable.",
     "chargement": "Chargement",
     "produits": "Dans cet article",
-    "articlesDuProduit": "Dans le magazine"
+    "articlesDuProduit": "Dans le magazine",
+    "conseil": "Conseil de la marque",
+    "uneQuestion": "Une question en lisant ?",
+    "questionsAvis": "Questions & avis",
+    "conseilTitre": "Un conseil fait pour vous",
+    "conseilDiag": "Le diagnostic {{deMarque}} vous oriente vers le produit qui vous correspond.",
+    "conseilChat": "Le conseiller {{deMarque}} répond à vos questions sur cet article.",
+    "allerConseiller": "Poser votre question au conseiller"
   },
   "journalistes": {
     "surtitre": "Agence de journalistes IA",

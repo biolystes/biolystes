@@ -284,6 +284,7 @@ export const MENU_ACCESS: Record<string, MenuAccessConfig> = {
 
   // Vos agents et vos outils
   'activite': { requiredTier: 'starter' },
+  'ventes-assistees': { requiredTier: 'starter' },
   'mise-en-route': { requiredTier: 'starter' },
   'bibliotheque-lots': { requiredTier: 'starter' },
   'cadeaux-progressifs': { requiredTier: 'starter' },
