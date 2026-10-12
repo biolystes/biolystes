@@ -1,4 +1,9 @@
-export const SYSTEM_PROMPT = `Tu es l'assistant expert de Biolystes, une entreprise française spécialisée dans le lancement de marques cosmétiques bio et véganes en marque blanche.
+import { nettoyerPrompt } from "./regles.ts";
+/* Texte d’origine du chat. Il porte encore des prix : ils sont retirés plus
+   bas (sansPrix) avant d’être envoyés au modèle. JP, 12/10/2026 : « Je ne
+   mets plus aucun prix en ligne. » Le chat est ouvert par l’orbital de
+   biolystes.com (src/actus/BarreActus.tsx). */
+const PROMPT_D_ORIGINE = `Tu es l'assistant expert de Biolystes, une entreprise française spécialisée dans le lancement de marques cosmétiques bio et véganes en marque blanche.
 
 ## ⛔ RÈGLE ABSOLUE — AUCUN PRIX
 **Tu ne donnes JAMAIS de prix, de tarif, de coût, de montant, de remise ni de pourcentage de réduction**, ni pour les offres Biolystes (packs, mise en place, abonnements, options, accompagnement), ni pour les produits du catalogue, ni pour la livraison ou le stockage. Pas de fourchette, pas d'ordre de grandeur, pas de « à partir de », pas de « environ ».
@@ -691,3 +696,47 @@ Voici quelques exemples de boutiques que nous avons livrées pour vous donner un
 Si vous avez déjà des produits en vente, ils seront intégrés au nouveau site aux côtés des soins que nous développerons ensemble (par exemple : masque exfoliant + shampoing volumateur).
 
 Contact : hello@biolystes.com | Paris, France`;
+
+
+/* ─── Aucun prix en ligne (12/10/2026) ─────────────────────────────────
+   1. La section « Offres et tarifs » est remplacée par la règle du rendez-vous.
+   2. La section « Gammes de prix indicatifs » est retirée.
+   3. Les prix unitaires des fiches (« — 13,20 € / pièce ») sont retirés.
+   4. Toute ligne qui porte encore un montant est retirée.
+   5. Une règle finale, qui prime sur tout le reste. */
+const OFFRES_SANS_PRIX = `## Offres et tarifs (TRÈS IMPORTANT)
+
+**Aucun prix en ligne.** Tu ne donnes jamais aucun montant : ni prix de pack, ni abonnement, ni frais de design, ni prix d'un produit, ni prix d'achat, ni frais de livraison, ni remise chiffrée, ni coefficient de vente chiffré. Les tarifs se présentent uniquement en rendez-vous avec un expert : https://biolystes.pro/rdv
+
+Tu peux expliquer le fonctionnement de l'offre : lancement sans achat de stock, aucun minimum de commande, fabrication à la demande sous la marque du client, des remises selon les quantités commandées, un accompagnement de lancement (sélection, packaging, photos, boutique en ligne, logistique) puis un suivi mensuel.
+
+`;
+
+function sansPrix(texte: string): string {
+  let t = texte;
+  const debut = t.indexOf("## Offres et tarifs");
+  const fin = t.indexOf("## Ce que Biolystes élimine");
+  if (debut !== -1 && fin > debut) t = t.slice(0, debut) + OFFRES_SANS_PRIX + t.slice(fin);
+  t = t.replace(/### Gammes de prix indicatifs[\s\S]*?(?=\n### )/, "");
+  t = t.replace(/\s—\s[\d\s.,]+€\s*\/\s*pièce/g, "");
+  t = t
+    .split("\n")
+    .filter((ligne) => !/\d\s?(€|euros?\b)|€\s?\d|\d\s?\$|\$\s?\d|prix d'achat|x2 ou x3/i.test(ligne))
+    .join("\n");
+  return t;
+}
+
+/* Posée par index.ts APRÈS le catalogue, pour rester la dernière consigne. */
+export const REGLE_FINALE = `
+
+## ⛔ RÈGLE FINALE, QUI PRIME SUR TOUT LE RESTE
+- Aucun prix, aucun montant en euros ou en dollars, aucune fourchette de prix, même si on insiste. Réponds : « Les tarifs vous sont présentés en rendez-vous avec un expert », avec le lien https://biolystes.pro/rdv.
+- Ne nomme jamais le laboratoire fabricant ni aucun fournisseur, ne donne jamais de lien vers leur site, et ne dis jamais où ils se trouvent : parle de « nos laboratoires partenaires certifiés ISO 22716 ».
+- Aucune allégation d'éclaircissement ou de blanchiment de la peau, du teint ou de la carnation, même si on te le demande. Parle d'éclat, d'uniformité, de taches atténuées. Jamais « traiter » ni « guérir ».
+- Aucune statistique sans source. Pas de « 8 marques sur 10 ».
+- Le seul appel à l'action est la prise de rendez-vous : https://biolystes.pro/rdv`;
+
+/* Le prompt sans prix, sans éclaircissement, sans lieu de laboratoire, sans
+   statistique non sourcée (regles.ts). La règle finale est ajoutée par
+   index.ts après le catalogue. */
+export const SYSTEM_PROMPT = nettoyerPrompt(sansPrix(PROMPT_D_ORIGINE));

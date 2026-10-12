@@ -30,11 +30,6 @@ import AIPage from "./pages/AIPage";
 import AgencePage from "./pages/AgencePage";
 import PourquoiBiolystesPage from "./pages/PourquoiBiolystesPage";
 import PourquoiCetteOffrePage from "./pages/PourquoiCetteOffrePage";
-import BlogPage from "./pages/BlogPage";
-import ArticleCoffretsPage from "./pages/ArticleCoffretsPage";
-import ArticleMarieClairePage from "./pages/ArticleMarieClairePage";
-import ArticleLancerMarquePage from "./pages/ArticleLancerMarquePage";
-import ArticleBiaisActifPage from "./pages/ArticleBiaisActifPage";
 import RdvPage from "./pages/RdvPage";
 import CommentCaMarchePage from "./pages/CommentCaMarchePage";
 import LivraisonPage from "./pages/LivraisonPage";
@@ -48,10 +43,14 @@ import WirtzkinPage from "./pages/WirtzkinPage";
 import EchantillonsPage from "./pages/EchantillonsPage";
 import { lazy, Suspense } from "react";
 import { usePolicesDuSite } from "./lib/polices-du-site";
+import BarreActus from "./actus/BarreActus";
 
 /* Accueil repris de lystes.ai/bio (12/10/2026) : chargé à part, pour que
    son poids (thème et blocs de lystes.ai) ne pèse pas sur les autres pages. */
 const AccueilCommeBioPage = lazy(() => import("./pages/AccueilCommeBioPage"));
+/* La partie Actus vit dans le même cadre que l’accueil (thème de lystes.ai). */
+const ActusPage = lazy(() => import("./actus/ActusPage"));
+const ArticlePage = lazy(() => import("./actus/ArticlePage"));
 
 const queryClient = new QueryClient();
 
@@ -82,11 +81,10 @@ function AppRoutes() {
       <Route path="/tarifs" element={<Navigate to="/rdv" replace />} />
       <Route path="/etudes" element={<Layout><PourquoiBiolystesPage /></Layout>} />
       <Route path="/pourquoi-cette-offre" element={<Layout><PourquoiCetteOffrePage /></Layout>} />
-      <Route path="/blog" element={<Layout><BlogPage /></Layout>} />
-      <Route path="/blog/coffrets" element={<Layout><ArticleCoffretsPage /></Layout>} />
-      <Route path="/blog/reseau-presse" element={<Layout><ArticleMarieClairePage /></Layout>} />
-      <Route path="/blog/lancer-marque" element={<Layout><ArticleLancerMarquePage /></Layout>} />
-      <Route path="/blog/biais-actif" element={<Layout><ArticleBiaisActifPage /></Layout>} />
+      {/* Actus (12/10/2026) : cadre de l’accueil, articles dans src/actus/articles.ts. */}
+      <Route path="/blog" element={<Suspense fallback={null}><ActusPage /></Suspense>} />
+      <Route path="/actus" element={<Navigate to="/blog" replace />} />
+      <Route path="/blog/:slug" element={<Suspense fallback={null}><ArticlePage /></Suspense>} />
       <Route path="/rdv" element={<Layout><RdvPage /></Layout>} />
       <Route path="/comment-ca-marche" element={<Layout><CommentCaMarchePage /></Layout>} />
       <Route path="/livraison" element={<Layout><LivraisonPage /></Layout>} />
@@ -130,6 +128,8 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <AppRoutes />
+          {/* Barre « Voir nos dernières actus » et orbital, sur toutes les pages publiques. */}
+          <BarreActus />
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

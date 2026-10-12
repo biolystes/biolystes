@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=1200" />
     <script>
       /* L’accueil reprend lystes.ai/bio, conçu pour le téléphone : largeur de
-         l’appareil sur « / », 1200 px partout ailleurs, comme avant
+         l’appareil sur « / » et sur les Actus (/blog), 1200 px partout ailleurs, comme avant
          (src/pages/AccueilCommeBioPage.tsx suit la navigation ensuite). */
-      if (location.pathname === "/") document.querySelector('meta[name="viewport"]').setAttribute("content", "width=device-width, initial-scale=1.0");
+      if (location.pathname === "/" || /^\/blog(\/|$)/.test(location.pathname)) document.querySelector('meta[name="viewport"]').setAttribute("content", "width=device-width, initial-scale=1.0");
     </script>
     <!-- TODO: Set the document title to the name of your application -->
     <title>Biolystes - Lancez votre marque cosmétique bio et végane</title>
@@ -81,10 +81,12 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- Lystes (12/10/2026) : la barre flottante « Voir nos dernières actus »
-         (vers /blog) et l'orbital qui ouvre le conseiller de sélection de
-         produits. Rien ne s'affiche tant que l'identifiant de l'agent
-         Biolystes de lystes.ai n'est pas collé ci-dessous. -->
+    <!-- Lystes (12/10/2026) : le widget complet de lystes.ai (barre « Voir nos
+         dernières actus » vers /blog, orbital du conseiller de sélection).
+         Inactif tant que l'identifiant de l'agent Biolystes n'est pas collé
+         ci-dessous. En attendant, la barre et l'orbital sont dessinés par le
+         site lui-même (src/actus/BarreActus.tsx, réglages dans
+         src/actus/reglages.ts). -->
     <script>
       (function () {
         var AGENT_LYSTES = "";
@@ -98,6 +100,9 @@
         s.setAttribute("data-conseiller", "selection");
         /* La page déclare lang="en" alors que le site est en français. */
         s.setAttribute("data-language", "fr");
+        /* La barre et l’orbital écrits dans le site (src/actus) s’effacent
+           alors : le widget pose les siens. */
+        document.documentElement.setAttribute("data-lystes-widget", "1");
         document.body.appendChild(s);
       })();
     </script>
