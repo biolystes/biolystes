@@ -589,7 +589,7 @@
       "subtitle": "Välj den plan som passar dina behov",
       "discovery": {
         "name": "Discovery",
-        "price": "99€",
+        "price": "",
         "period": "/månad",
         "features": [
           "1 agent",
@@ -599,7 +599,7 @@
       },
       "pro": {
         "name": "Pro",
-        "price": "499€",
+        "price": "",
         "period": "/månad",
         "features": [
           "3 agenter",
@@ -610,7 +610,7 @@
       },
       "business": {
         "name": "Business",
-        "price": "799€",
+        "price": "",
         "period": "/månad",
         "features": [
           "5 agenter",
@@ -621,13 +621,12 @@
       },
       "free": {
         "features": [
-          "Setup from €290, then €49/month",
           "1 AI expertagent",
           "Gratis installation för de första 5 varumärkena"
         ],
         "name": "Essentiell",
-        "price": "290 €",
-        "period": "+ 49 €/månad"
+        "price": "",
+        "period": ""
       }
     },
     "faq": {
@@ -6672,7 +6671,7 @@
         {
           "question": "Vad kostar det?",
           "essai": "{{jours}} dagars gratis provperiod, kort krävs, ingen dragning före provperiodens slut.",
-          "answer": "Ett enda erbjudande med allt inkluderat, från 49,99 € exkl. moms/månad beroende på antalet produkter i din katalog. Ingen bindningstid, avbryt när som helst."
+          "answer": "Ingen bindningstid, avbryt när som helst."
         },
         {
           "question": "Vilken support finns tillgänglig?",
@@ -7224,12 +7223,12 @@
     "s130": "Lansera ditt kosmetikmärke på 2 veckor",
     "s131": "istället för 7 till 18 månader.",
     "s132": "Biolystes är inte ett alternativ till skräddarsydd formulering, det är din övergångsfas. Med",
-    "s133": "Duo Pack för 999 €",
+    "s133": "Pack Duo",
     "s134": "(2 ekologiskt certifierade produkter, redo att anpassas), är du igång på mindre än två veckor, medan ett klassiskt skräddarsytt projekt kräver 7 till 18 månader mellan formulering, stabilitetstester, toxikologiska utvärderingar och CPNP. Dessa månader blir månader av försprång: du testar din marknad, validerar din positionering med riktiga kunder och bygger din publik. Genomsnittlig besparing för en lansering av 2 produkter:",
-    "s135": "11 001 € (‑92 %)",
-    "s136": "och",
-    "s137": "301 €/månad",
-    "s138": "i undvikna återkommande kostnader.",
+    "s135": "‑92 %",
+    "s136": "",
+    "s137": "",
+    "s138": "",
     "s139": "Vi sätter upp hela AI-team för att revolutionera din verksamhet.",
     "s140": "Creative Director, SEO-managers, fotografer, hemcoacher och dataanalytiker: ett helt team, autonomt och designat för prestanda.",
     "s141": "För att gå vidare",

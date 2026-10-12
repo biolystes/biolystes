@@ -675,7 +675,7 @@
       "subtitle": "Wählen Sie den Plan, der Ihren Bedürfnissen entspricht",
       "discovery": {
         "name": "Discovery",
-        "price": "99€",
+        "price": "",
         "period": "/Monat",
         "features": [
           "1 Agent",
@@ -685,7 +685,7 @@
       },
       "pro": {
         "name": "Pro",
-        "price": "499€",
+        "price": "",
         "period": "/Monat",
         "features": [
           "3 Agenten",
@@ -696,7 +696,7 @@
       },
       "business": {
         "name": "Business",
-        "price": "799€",
+        "price": "",
         "period": "/Monat",
         "features": [
           "5 Agenten",
@@ -707,13 +707,12 @@
       },
       "free": {
         "features": [
-          "Setup ab 290 €, dann 49 €/Monat",
           "1 KI-Expertenagent",
           "Kostenlose Installation für die ersten 5 Marken"
         ],
         "name": "Essential",
-        "price": "290 €",
-        "period": "+ 49 €/Monat"
+        "price": "",
+        "period": ""
       }
     },
     "faq": {
@@ -7013,7 +7012,7 @@
         {
           "question": "Was sind die Preise?",
           "essai": "{{jours}} Tage kostenlos testen, Karte erforderlich, keine Abbuchung vor Ende des Testzeitraums.",
-          "answer": "Ein einziges Angebot mit allem inklusive, ab 49,99 € netto/Monat je nach Anzahl der Produkte in Ihrem Katalog. Keine Verpflichtung, jederzeit kündbar."
+          "answer": "Keine Verpflichtung, jederzeit kündbar."
         },
         {
           "question": "Welcher Support ist verfügbar?",
@@ -7565,12 +7564,12 @@
     "s130": "Starten Sie Ihre Kosmetikmarke in 2 Wochen",
     "s131": "statt in 7 bis 18 Monaten.",
     "s132": "Biolystes ist keine Alternative zur maßgeschneiderten Formulierung, es ist Ihre Übergangsphase. Mit dem",
-    "s133": "Duo-Pack für 999 €",
+    "s133": "Pack Duo",
     "s134": "(2 bio-zertifizierte Produkte, bereit zur Personalisierung) sind Sie in weniger als zwei Wochen einsatzbereit, während ein klassisches maßgeschneidertes Projekt 7 bis 18 Monate für Formulierung, Stabilitätstests, toxikologische Bewertungen und CPNP benötigt. Diese Monate werden zu Ihrem Vorsprung: Sie testen Ihren Markt, validieren Ihre Positionierung mit echten Kunden und bauen Ihr Publikum auf. Durchschnittliche Ersparnis für einen Launch von 2 Produkten:",
-    "s135": "11 001 € (‑92 %)",
-    "s136": "und",
-    "s137": "301 €/Monat",
-    "s138": "an vermiedenen laufenden Kosten.",
+    "s135": "‑92 %",
+    "s136": "",
+    "s137": "",
+    "s138": "",
     "s139": "Wir setzen ganze KI-Teams ein, um Ihr Geschäft zu revolutionieren.",
     "s140": "Creative Director, SEO-Manager, Fotografen, Home-Coaches und Data Analysts: ein ganzes Team, autonom und auf Leistung ausgelegt.",
     "s141": "Um weiter zu gehen",

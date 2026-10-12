@@ -7,7 +7,7 @@ export interface JSONProduct {
   slug: string;
   nom: string;
   volume: string;
-  prix: string;
+  prix?: string; // absent du JSON public depuis le 12/10/2026
   moq: string;
   certifications: string;
   ingredients_fr: string;
@@ -34,7 +34,7 @@ export interface EnrichedFields {
 
 // ─── Parse price from JSON format ─────────────────────────
 // "PRIX / 1 PIÈCE 12,90 $ TVA MIN. ORDER QTY. No MOQ" → 12.90
-export function parseJsonPrice(prixStr: string): number | null {
+export function parseJsonPrice(prixStr?: string): number | null {
   if (!prixStr) return null;
   const match = prixStr.match(/([\d]+[,.][\d]+)/);
   if (!match) return null;

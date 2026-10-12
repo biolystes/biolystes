@@ -676,7 +676,7 @@
       "subtitle": "Choose the plan that suits your needs",
       "discovery": {
         "name": "Discovery",
-        "price": "€99",
+        "price": "",
         "period": "/month",
         "features": [
           "1 agent",
@@ -686,7 +686,7 @@
       },
       "pro": {
         "name": "Pro",
-        "price": "€499",
+        "price": "",
         "period": "/month",
         "features": [
           "3 agents",
@@ -697,7 +697,7 @@
       },
       "business": {
         "name": "Business",
-        "price": "€799",
+        "price": "",
         "period": "/month",
         "features": [
           "5 agents",
@@ -708,13 +708,12 @@
       },
       "free": {
         "features": [
-          "Setup from €290, then €49/month",
           "1 AI expert agent",
           "Free installation for the first 5 brands"
         ],
         "name": "Essential",
-        "price": "€290",
-        "period": "+ €49/month"
+        "price": "",
+        "period": ""
       }
     },
     "faq": {
@@ -7378,7 +7377,7 @@
         {
           "question": "What are the prices?",
           "essai": "{{jours}}-day free trial, card required, no charge until the trial ends.",
-          "answer": "One plan with everything included, from €49.99/month excl. VAT depending on the number of products in your catalog. No commitment, cancel anytime."
+          "answer": "No commitment, cancel anytime."
         },
         {
           "question": "What support is available?",
@@ -7930,12 +7929,12 @@
     "s130": "Launch your cosmetic brand in 2 weeks",
     "s131": "instead of 7 to 18 months.",
     "s132": "Biolystes is not an alternative to custom formulation, it is your transition phase. With the",
-    "s133": "Duo Pack at 999 €",
+    "s133": "Pack Duo",
     "s134": "(2 certified organic products, ready to customize), you are operational in less than two weeks, while a classic custom project requires 7 to 18 months between formulation, stability tests, toxicological evaluations and CPNP. These months become months ahead: you test your market, validate your positioning with real customers and build your audience. Average savings for a 2-product launch:",
-    "s135": "11 001 € (‑92 %)",
-    "s136": "and",
-    "s137": "301 €/month",
-    "s138": "of recurring charges avoided.",
+    "s135": "‑92 %",
+    "s136": "",
+    "s137": "",
+    "s138": "",
     "s139": "We set up entire AI teams to revolutionize your business.",
     "s140": "Creative director, SEO managers, photographers, home coaches and data analysts: an entire team, autonomous and designed for performance.",
     "s141": "To go further",

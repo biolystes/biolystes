@@ -589,7 +589,7 @@
       "subtitle": "Wybierz plan dopasowany do Twoich potrzeb",
       "discovery": {
         "name": "Discovery",
-        "price": "99€",
+        "price": "",
         "period": "/miesiąc",
         "features": [
           "1 agent",
@@ -599,7 +599,7 @@
       },
       "pro": {
         "name": "Pro",
-        "price": "499€",
+        "price": "",
         "period": "/miesiąc",
         "features": [
           "3 agentów",
@@ -610,7 +610,7 @@
       },
       "business": {
         "name": "Business",
-        "price": "799€",
+        "price": "",
         "period": "/miesiąc",
         "features": [
           "5 agentów",
@@ -621,13 +621,12 @@
       },
       "free": {
         "features": [
-          "Uruchomienie od 290 €, następnie 49 € miesięcznie",
           "1 agent AI specjalista",
           "Darmowa instalacja dla pierwszych 5 marek"
         ],
         "name": "Podstawowy",
-        "price": "290 €",
-        "period": "+ 49 €/miesiąc"
+        "price": "",
+        "period": ""
       }
     },
     "faq": {
@@ -6672,7 +6671,7 @@
         {
           "question": "Jakie są ceny?",
           "essai": "{{jours}} dni bezpłatnego okresu próbnego, wymagana karta, żadnej opłaty przed końcem okresu próbnego.",
-          "answer": "Jedna oferta z pełnym pakietem, od 49,99 € netto/miesiąc w zależności od liczby produktów w Twoim katalogu. Bez zobowiązań, anuluj w dowolnym momencie."
+          "answer": "Bez zobowiązań, anuluj w dowolnym momencie."
         },
         {
           "question": "Jakie wsparcie jest dostępne?",
@@ -7224,12 +7223,12 @@
     "s130": "Wprowadź swoją markę kosmetyczną w 2 tygodnie",
     "s131": "zamiast 7 do 18 miesięcy.",
     "s132": "Biolystes nie jest alternatywą dla receptury na miarę, to Twoja faza przejściowa. Z",
-    "s133": "Pack Duo za 999 €",
+    "s133": "Pack Duo",
     "s134": "(2 produkty z certyfikatem bio, gotowe do personalizacji), jesteś gotowy do działania w mniej niż dwa tygodnie, podczas gdy klasyczny projekt na miarę wymaga od 7 do 18 miesięcy na opracowanie receptury, testy stabilności, oceny toksykologiczne i CPNP. Te miesiące stają się Twoją przewagą: testujesz rynek, walidujesz pozycjonowanie z prawdziwymi klientami i budujesz społeczność. Średnia oszczędność przy wprowadzeniu 2 produktów:",
-    "s135": "11 001 € (‑92 %)",
-    "s136": "oraz",
-    "s137": "301 €/miesiąc",
-    "s138": "unikniętych kosztów stałych.",
+    "s135": "‑92 %",
+    "s136": "",
+    "s137": "",
+    "s138": "",
     "s139": "Wdrażamy całe zespoły AI, aby zrewolucjonizować Twoją działalność.",
     "s140": "Dyrektor kreatywny, managerowie SEO, fotografowie, trenerzy domowi i analitycy danych: cały zespół, autonomiczny i zaprojektowany dla wydajności.",
     "s141": "Idąc dalej",

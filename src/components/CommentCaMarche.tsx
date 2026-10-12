@@ -92,12 +92,12 @@ export default function CommentCaMarche() {
         </div>
 
         {/* Stepper indicators */}
-        <div className="flex justify-center items-center gap-2 md:gap-3 mb-10">
+        <div className="flex justify-center items-center gap-1 md:gap-3 mb-10">
           {steps.map((_, i) => (
-            <div key={i} className="flex items-center gap-2 md:gap-3">
+            <div key={i} className="flex items-center gap-1 md:gap-3">
               <button
                 onClick={() => setCurrent(i)}
-                className="w-8 h-8 rounded-full text-xs font-semibold border transition-colors"
+                className="w-7 h-7 md:w-8 md:h-8 shrink-0 rounded-full text-xs font-semibold border transition-colors"
                 style={{
                   backgroundColor: i === current ? "#f3f4f5" : "transparent",
                   color: i === current ? "#121212" : "#ffffff88",
@@ -107,14 +107,14 @@ export default function CommentCaMarche() {
                 {i + 1}
               </button>
               {i < steps.length - 1 && (
-                <div className="w-4 md:w-6 h-px" style={{ backgroundColor: "#ffffff33" }} />
+                <div className="w-2 md:w-6 h-px" style={{ backgroundColor: "#ffffff33" }} />
               )}
             </div>
           ))}
         </div>
 
         {/* Step content card */}
-        <div className="max-w-2xl mx-auto rounded-2xl p-6 md:p-10" style={{ backgroundColor: "#f3f4f5" }}>
+        <div className="carte-etape max-w-2xl mx-auto rounded-2xl p-6 md:p-10" style={{ backgroundColor: "#f3f4f5" }}>
           <div className="relative">
             {steps.map((s, i) => (
               <motion.div
@@ -130,8 +130,8 @@ export default function CommentCaMarche() {
                     <span className="text-xs font-semibold text-muted-foreground block mb-2 uppercase tracking-wider">
                       {s.label}
                     </span>
-                    <h3 className="text-lg font-semibold text-foreground mb-3">{s.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{s.text}</p>
+                    <h3 className="text-lg font-semibold mb-3" style={{ color: "#1d1d1d" }}>{s.title}</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: "#1d1d1d" }}>{s.text}</p>
                   </div>
                   <img
                     src={s.image}

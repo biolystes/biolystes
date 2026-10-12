@@ -304,6 +304,12 @@ section#section-comprend p {
   color: #ffffff !important;
 }
 
+/* La carte de l'étape est claire (#f3f4f5) : son texte reste noir, sinon blanc sur clair illisible */
+section#section-comprend .carte-etape h3,
+section#section-comprend .carte-etape p {
+  color: #1d1d1d !important;
+}
+
 /* Sticky nav & header */
 .fixed.left-0.right-0.z-20.bg-background\/90.backdrop-blur-md.border-b.border-border {
   background: #f3f4f5 !important;
