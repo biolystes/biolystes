@@ -114,7 +114,7 @@ export default function CommentCaMarche() {
         </div>
 
         {/* Step content card */}
-        <div className="max-w-2xl mx-auto rounded-2xl p-6 md:p-10" style={{ backgroundColor: "#f3f4f5" }}>
+        <div className="carte-etape max-w-2xl mx-auto rounded-2xl p-6 md:p-10" style={{ backgroundColor: "#f3f4f5" }}>
           <div className="relative">
             {steps.map((s, i) => (
               <motion.div
@@ -130,8 +130,8 @@ export default function CommentCaMarche() {
                     <span className="text-xs font-semibold text-muted-foreground block mb-2 uppercase tracking-wider">
                       {s.label}
                     </span>
-                    <h3 className="text-lg font-semibold text-foreground mb-3">{s.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{s.text}</p>
+                    <h3 className="text-lg font-semibold mb-3" style={{ color: "#1d1d1d" }}>{s.title}</h3>
+                    <p className="text-sm leading-relaxed" style={{ color: "#1d1d1d" }}>{s.text}</p>
                   </div>
                   <img
                     src={s.image}
