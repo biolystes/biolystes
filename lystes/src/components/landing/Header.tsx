@@ -66,18 +66,16 @@ export function BasculeCible({ light, dans = "entete" }: { light: boolean; dans?
       className={`${emplacement} items-center gap-[2px] sm:gap-1 rounded-full p-[3px_4px] sm:p-[5px_6px] ${
         light ? "bg-white/[0.12]" : "bg-black/[0.06]"
       }`}
-      aria-label="Ecommerce ou entreprises"
+      aria-label="E-commerce ou agents IA"
     >
+      {/* biolystes.com (12/10/2026, JP) : « E-commerce » est cette page,
+          « Agents IA » mène à lystes.ai, dans le même onglet. */}
       <Link to="/" className={`${base} ${surBusiness ? repos : actif}`} aria-current={surBusiness ? undefined : "page"}>
-        Ecommerce
+        E-commerce
       </Link>
-      <Link
-        to="/business"
-        className={`${base} ${surBusiness ? actif : repos}`}
-        aria-current={surBusiness ? "page" : undefined}
-      >
-        Entreprises
-      </Link>
+      <a href="https://lystes.ai" className={`${base} ${repos}`}>
+        Agents IA
+      </a>
     </nav>
   );
 }
@@ -182,21 +180,16 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                 <HeaderProfileMenu light={light} />
               ) : (
                 <>
-                  <Link
-                    to="/auth"
-                    className={`text-sm font-medium transition-colors ${
-                      light ? "text-white/85 hover:text-white" : "text-foreground/70 hover:text-foreground"
-                    }`}
-                  >
-                    {t("header.login", "Connexion")}
-                  </Link>
-                  <Link
-                    to="/auth?mode=signup"
+                  {/* biolystes.com : un seul appel à l'action, le rendez-vous. */}
+                  <a
+                    href="https://biolystes.pro/rdv"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`group inline-flex items-center gap-2 pl-5 pr-1.5 py-1.5 rounded-full text-sm font-medium transition ${
                       light ? "bg-white/20 backdrop-blur-md text-white hover:bg-white/30" : "bg-black text-white hover:opacity-90"
                     }`}
                   >
-                    <span className="whitespace-nowrap">{t("header.hire", "S'inscrire en 5 min")}</span>
+                    <span className="whitespace-nowrap">Prendre rendez-vous</span>
                     <span
                       className={`flex items-center justify-center w-8 h-8 rounded-full transition-transform group-hover:rotate-45 ${
                         light ? "bg-white text-black" : "bg-white text-black"
@@ -204,7 +197,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                     >
                       <ArrowUpRight className="w-4 h-4" />
                     </span>
-                  </Link>
+                  </a>
                 </>
               )}
             </div>
@@ -217,14 +210,16 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
             {connecte ? (
               <HeaderProfileMenu light={light} />
             ) : (
-              <Link
-                to="/auth?mode=signup"
+              <a
+                href="https://biolystes.pro/rdv"
+                target="_blank"
+                rel="noopener noreferrer"
                 className={`inline-flex items-center rounded-full px-3.5 py-2 text-[12.5px] font-medium ${
                   light ? "bg-white text-black" : "bg-black text-white"
                 }`}
               >
-                {t("header.signup", "S'inscrire")}
-              </Link>
+                Rendez-vous
+              </a>
             )}
             <button
               className={`w-10 h-10 flex items-center justify-center rounded-full ${
@@ -352,23 +347,16 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                   <ArrowRight className="w-4 h-4" />
                 </Link>
               ) : (
-                <>
-                  <Link
-                    to="/auth?mode=signup"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-center gap-2 h-[46px] rounded-full bg-white text-black text-sm font-medium"
-                  >
-                    {t("header.hire", "S'inscrire en 5 min")}
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
-                  <Link
-                    to="/auth"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center justify-center h-[46px] rounded-full border border-white/45 text-white text-sm font-medium"
-                  >
-                    {t("header.login", "Connexion")}
-                  </Link>
-                </>
+                <a
+                  href="https://biolystes.pro/rdv"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center gap-2 h-[46px] rounded-full bg-white text-black text-sm font-medium"
+                >
+                  Prendre rendez-vous
+                  <ArrowRight className="w-4 h-4" />
+                </a>
               )}
             </div>
           </div>

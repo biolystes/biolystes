@@ -150,7 +150,8 @@ export default function BlocsAccueilSecteur({ secteur }: { secteur: Secteur }) {
       {/* 5. L'organigramme */}
       <Hierarchy className="pt-10 md:pt-14" />
 
-      {slots.clea && createPortal(<CallClaireButton variant="inline" />, slots.clea)}
+      {/* biolystes.com : pas de bouton « Appeler Cléa », le seul appel à
+          l’action de la page est le rendez-vous. */}
       {slots.face && createPortal(<FaceMeshScanner imageUrl={diagnosticFace} />, slots.face)}
       {slots.chat && createPortal(<AnimatedChat />, slots.chat)}
       {slots.titre && createPortal(<HeroRotatingTitle lang={lang} {...getSecondHeroCopy(lang)} />, slots.titre)}
