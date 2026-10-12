@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { citeLeFournisseur } from "@/lib/fournisseur-masque";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 // ─── WooCommerce config ──────────────────────────────────
@@ -85,6 +86,8 @@ async function loadCleanImages(): Promise<void> {
         .select("product_name, product_name_normalized, clean_image_url");
       if (data) {
         data.forEach((row: any) => {
+          // Jamais une image hébergée chez le laboratoire : son adresse le nomme.
+          if (citeLeFournisseur(row.clean_image_url)) return;
           cleanImageCache[row.product_name_normalized] = row.clean_image_url;
           // Also index by normalized name for fuzzy matching
           cleanImageCache[normalizeKey(row.product_name)] = row.clean_image_url;
@@ -118,7 +121,7 @@ async function loadWcCatalog(): Promise<void> {
       if (res.ok) {
         const products: { slug: string; name: string; images: { src: string }[] }[] = await res.json();
         products.forEach((p) => {
-          if (p.images?.[0]?.src) {
+          if (p.images?.[0]?.src && !citeLeFournisseur(p.images[0].src)) {
             wcImageCache[p.slug] = p.images[0].src;
             wcImageCache[normalizeName(p.name)] = p.images[0].src;
           }
