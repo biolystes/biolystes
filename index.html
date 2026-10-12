@@ -75,5 +75,25 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <!-- Lystes (12/10/2026) : la barre flottante « Voir nos dernières actus »
+         (vers /blog) et l'orbital qui ouvre le conseiller de sélection de
+         produits. Rien ne s'affiche tant que l'identifiant de l'agent
+         Biolystes de lystes.ai n'est pas collé ci-dessous. -->
+    <script>
+      (function () {
+        var AGENT_LYSTES = "";
+        if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(AGENT_LYSTES)) return;
+        var s = document.createElement("script");
+        s.src = "https://lystes.ai/woo-product-chat.js";
+        s.async = true;
+        s.setAttribute("data-agent-id", AGENT_LYSTES);
+        s.setAttribute("data-barre", "actus");
+        s.setAttribute("data-barre-lien", "/blog");
+        s.setAttribute("data-conseiller", "selection");
+        /* La page déclare lang="en" alors que le site est en français. */
+        s.setAttribute("data-language", "fr");
+        document.body.appendChild(s);
+      })();
+    </script>
   </body>
 </html>
