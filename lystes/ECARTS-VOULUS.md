@@ -13,7 +13,7 @@ et nomme l'écart à revoir : il n'écrase jamais en silence.
 - Base Supabase de lystes.ai figée (`env.ts`), `/__l5e/` servi depuis lystes.ai,
   galerie des créateurs en cadre `lystes.ai/creator`.
 
-## Un seul appel à l'action : « Prendre rendez-vous » (JP, 12/10/2026, PR biolystes 3)
+## Un seul appel à l'action : « Prendre rendez-vous » (JP, 12/10/2026, PR biolystes 4)
 
 Toutes ces cibles sont https://biolystes.pro/rdv, ouvert dans un nouvel onglet
 comme les autres boutons de rendez-vous de la page.
