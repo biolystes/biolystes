@@ -19,10 +19,10 @@ export default function CatalogPasswordGate({ children }: { children: ReactNode 
   };
 
   return (
-    <div style={{ minHeight: "70vh", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, background: "#f5f4df" }}>
-      <form onSubmit={submit} style={{ background: "#121212", color: "#f5f4df", padding: 40, borderRadius: "2rem", width: "100%", maxWidth: 400, textAlign: "center" }}>
-        <h1 style={{ fontFamily: "'Instrument Serif', serif", fontSize: 36, marginBottom: 8, color: "#f5f4df" }}>Catalogue privé</h1>
-        <p style={{ fontSize: 14, opacity: 0.8, marginBottom: 24, color: "#f5f4df" }}>Entrez le mot de passe pour accéder au catalogue.</p>
+    <div style={{ minHeight: "70vh", display: "flex", alignItems: "center", justifyContent: "center", padding: 24, background: "#ffffff" }}>
+      <form onSubmit={submit} style={{ background: "#121212", color: "#ffffff", padding: 40, borderRadius: "2rem", width: "100%", maxWidth: 400, textAlign: "center" }}>
+        <h1 style={{ fontFamily: "'Instrument Serif', serif", fontSize: 36, marginBottom: 8, color: "#ffffff" }}>Catalogue privé</h1>
+        <p style={{ fontSize: 14, opacity: 0.8, marginBottom: 24, color: "#ffffff" }}>Entrez le mot de passe pour accéder au catalogue.</p>
         <input
           type="password"
           value={value}
@@ -30,10 +30,10 @@ export default function CatalogPasswordGate({ children }: { children: ReactNode 
           placeholder="Mot de passe"
           autoFocus
           aria-label="Mot de passe"
-          style={{ width: "100%", padding: "12px 16px", borderRadius: 999, border: "1px solid #2f5955", background: "#f5f4df", color: "#121212", marginBottom: 12 }}
+          style={{ width: "100%", padding: "12px 16px", borderRadius: 999, border: "1px solid #2f5955", background: "#f3f4f5", color: "#121212", marginBottom: 12 }}
         />
         {error && <p style={{ color: "#ff8a80", fontSize: 13, marginBottom: 12 }}>Mot de passe incorrect</p>}
-        <button type="submit" style={{ width: "100%", padding: "12px 16px", borderRadius: 999, background: "#2f5955", color: "#f5f4df", fontWeight: 600 }}>
+        <button type="submit" style={{ width: "100%", padding: "12px 16px", borderRadius: 999, background: "#2f5955", color: "#ffffff", fontWeight: 600 }}>
           Accéder
         </button>
       </form>

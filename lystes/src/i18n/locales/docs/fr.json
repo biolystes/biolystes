@@ -1,0 +1,122 @@
+{
+  "commun": {
+    "credits_one": "{{count}} crédit",
+    "credits_other": "{{count}} crédits"
+  },
+  "facturation": {
+    "coutDesActions": {
+      "surtitre": "Documentation · Facturation",
+      "titre": "Ce que coûte chaque action",
+      "chapo": "Une action qui produit une image ou une vidéo consomme des crédits, parce qu'elle a un coût de calcul réel. Les conversations de vos conseillers, elles, n'en consomment aucun.",
+      "tableau": {
+        "chargement": "Lecture des coûts en cours…",
+        "echec": "Les coûts n'ont pas pu être lus à l'instant. Plutôt que d'afficher un chiffre de secours qui pourrait être faux, la liste reste vide. Rechargez la page dans un moment."
+      },
+      "pasUneCopie": {
+        "titre": "Ce tableau n'est pas une copie",
+        "p1": "Il est lu dans la table que le serveur interroge au moment du débit. Vous voyez donc le coût réel, pas une grille recopiée qui vieillirait à côté. Si nous changions un tarif, cette page changerait le même jour, sans que personne ait à y penser."
+      },
+      "gratuit": {
+        "titre": "Ce qui ne coûte rien",
+        "p1": "<0>Les conversations.</0> Un visiteur peut poser trente questions à votre conseiller, votre solde ne bouge pas. Un mois chargé en questions ne vous coûte pas plus qu'un mois calme.",
+        "p2": "<0>Une action qui échoue.</0> Les crédits sont réservés avant la génération et rendus si elle n'aboutit pas. Vous ne payez pas une image que vous n'avez pas reçue.",
+        "p3": "<0>Un double appel.</0> Une même action relancée par erreur n'est débitée qu'une fois."
+      },
+      "zeroCredit": {
+        "titre": "Et à zéro crédit ?",
+        "p1": "Vos conseillers continuent de répondre. Seules les actions du tableau ci-dessus se mettent en pause, jusqu'au renouvellement ou à une recharge.",
+        "cta": "Comment marchent les crédits"
+      }
+    }
+  },
+  "demarrer": {
+    "ceQueLystesFait": {
+      "surtitre": "Documentation · Démarrer",
+      "titre": "Ce que Lystes fait",
+      "chapo": "En boutique, on hésite devant un rayon. Quelqu'un arrive, pose deux questions, et on repart avec le bon produit. Trente secondes. En ligne, ce moment n'existe pas : une photo, un descriptif, un bouton, personne. Le client qui hésite ne demande rien, il ferme l'onglet. Lystes remet quelqu'un dans la pièce.",
+      "section1": {
+        "titre": "Une seule question, sur chaque fiche",
+        "p1": "Sur chacune de vos fiches produit, un agent répond à la question que votre visiteur se pose vraiment, et qu'il ne posera à personne : est-ce que ce produit est fait pour moi ?",
+        "p2": "Ce n'est pas un chat posé en bas à droite de toutes vos pages. L'agent sait quel produit est affiché, il le connaît, et il ne parle que de lui. C'est aussi ce qui le sépare d'un outil de support : le support répond après l'achat, sur une commande. Lystes travaille avant, sur la fiche, au moment exact où la vente se joue."
+      },
+      "section2": {
+        "titre": "Le même geste, dans la forme que votre produit appelle",
+        "p1": "Ces trois formes ne s'additionnent pas et ne se choisissent pas dans un menu. C'est l'agent qui prend la bonne selon ce que vous vendez.",
+        "qualifier": {
+          "titre": "Il qualifie",
+          "texte": "Deux questions sur l'usage réel, et il dit si ce produit répond au cas, ou lequel de votre catalogue y répond mieux.",
+          "etat": "Disponible, quel que soit votre secteur."
+        },
+        "essayer": {
+          "titre": "Il fait essayer",
+          "texte": "Un selfie, et le visiteur se voit avec. Il ne se projette plus, il regarde.",
+          "etat": "Disponible sur les cheveux. Les autres univers arrivent."
+        },
+        "diagnostiquer": {
+          "titre": "Il diagnostique",
+          "texte": "Une photo, et il dit en quoi le produit correspond à cette peau, ou en quoi il n'est pas pour elle.",
+          "etat": "Pas encore ouvert."
+        }
+      },
+      "section3": {
+        "titre": "Pour quels produits",
+        "p1": "Pour tout produit qui demande un conseil avant l'achat. Ce n'est pas une affaire de rayon : une machine à café, une paire de chaussures de course, une croquette pour un chien âgé, un parfum, un sérum. Partout où le client se demande si c'est le bon pour lui, et où personne ne lui répond.",
+        "p2": "À l'inverse, si vos visiteurs savent exactement ce qu'ils viennent chercher et n'hésitent jamais, Lystes ne vous servira pas à grand-chose. Autant le dire."
+      },
+      "section4": {
+        "titre": "Ce que ça change pour vous",
+        "p1": "<0>Les questions trouvent une réponse à temps.</0> Celle qui bloquait l'achat est traitée sur la fiche, pas le lendemain par email quand l'achat s'est fait ailleurs.",
+        "p2": "<0>Vous recevez moins de retours.</0> Un client qui a compris avant d'acheter, ou qui s'est vu avec le produit, se trompe moins. Un retour coûte l'aller, le retour, le reconditionnement, et souvent le client.",
+        "p3": "<0>Vous entendez enfin vos clients.</0> Chaque conversation est rattachée au produit concerné. Ce qui bloque sur une fiche précise devient lisible, au lieu de rester une statistique d'abandon."
+      },
+      "section5": {
+        "titre": "Vous n'installez pas un outil, vous embauchez",
+        "p1": "<0>Ce n'est pas un agent polyvalent.</0> Ce sont plusieurs équipes distinctes, chacune avec son métier, qui travaillent sur le même catalogue. Le conseiller produit est celle que votre client voit. Les autres travaillent pour vous.",
+        "p2": "<0>C'est le sens du mot équipe.</0> Ce n'est pas une image : vous recrutez du personnel, pas un logiciel. Chaque équipe a son poste, et vous en ouvrez selon votre formule.",
+        "equipes": {
+          "conseillers": {
+            "nom": "Les conseillers produit",
+            "etat": "En poste"
+          },
+          "essayage": {
+            "nom": "L'essayage virtuel",
+            "etat": "En poste sur les cheveux"
+          },
+          "avis": {
+            "nom": "La gestion des avis",
+            "etat": "En poste"
+          },
+          "visuels": {
+            "nom": "Les photographes, vos visuels produit",
+            "etat": "En poste"
+          },
+          "diagnostic": {
+            "nom": "Le diagnostic beauté",
+            "etat": "Pas encore ouverte"
+          },
+          "data": {
+            "nom": "Les données et le marketing",
+            "etat": "Pas encore ouverte"
+          }
+        },
+        "p3": "Et vous les pilotez toutes depuis votre assistant : Lystes se connecte à Claude et à ChatGPT. Vous demandez vos chiffres, vous relisez les conversations, vous donnez une consigne à vos agents, sans ouvrir de tableau de bord.",
+        "lienMcp": "Comment connecter"
+      },
+      "section6": {
+        "titre": "Ce qui n'est pas encore ouvert",
+        "note": "Autant vous le dire ici plutôt que vous le laisser découvrir. Le diagnostic par photo, les tableaux de bord marketing, et l'essayage sur les univers autres que les cheveux sont en cours et ne sont pas accessibles aujourd'hui. Si votre décision dépend de l'un d'eux, dites-le nous avant de vous engager, pas après.",
+        "p1": "Lystes est un produit jeune porté par une équipe réduite. Ce que vous lisez dans cette documentation est ce qui marche, vérifié fonction par fonction. Ce qui n'y est pas décrit n'est pas prêt."
+      },
+      "section7": {
+        "titre": "Ce que Lystes ne fait pas",
+        "p1": "Vos agents conseillent avant l'achat. Ils ne traitent pas vos commandes, ne gèrent pas vos retours, ne répondent pas à vos emails de service après vente et ne modifient jamais votre boutique. Si vous cherchez un outil de support, gardez le vôtre : les deux cohabitent sans conflit."
+      },
+      "cta": {
+        "titre": "Voir sur vos produits",
+        "p1": "Trente minutes en visio, gratuites, sur votre catalogue à vous. C'est le moyen le plus rapide de savoir si ça vous sert.",
+        "bouton": "Réserver un créneau",
+        "boutonTarifs": "Voir les tarifs"
+      }
+    }
+  }
+}

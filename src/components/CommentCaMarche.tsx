@@ -83,10 +83,10 @@ export default function CommentCaMarche() {
       <div className="max-w-5xl mx-auto px-6 py-24 md:py-32 pt-[120px]">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-balance" style={{ color: "#f5f4df" }}>
+          <h2 className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-balance" style={{ color: "#ffffff" }}>
             Comment fonctionne la mise en place de votre marque en 10-15 jours ?
           </h2>
-          <p className="mt-4 max-w-xl mx-auto" style={{ color: "#f5f4dfaa" }}>
+          <p className="mt-4 max-w-xl mx-auto" style={{ color: "#ffffffaa" }}>
             Suivez notre processus simplifié, de la conception à l'automatisation.
           </p>
         </div>
@@ -99,22 +99,22 @@ export default function CommentCaMarche() {
                 onClick={() => setCurrent(i)}
                 className="w-8 h-8 rounded-full text-xs font-semibold border transition-colors"
                 style={{
-                  backgroundColor: i === current ? "#f5f4df" : "transparent",
-                  color: i === current ? "#121212" : "#f5f4df88",
-                  borderColor: i === current ? "#f5f4df" : "#f5f4df4d",
+                  backgroundColor: i === current ? "#f3f4f5" : "transparent",
+                  color: i === current ? "#121212" : "#ffffff88",
+                  borderColor: i === current ? "#ffffff" : "#ffffff4d",
                 }}
               >
                 {i + 1}
               </button>
               {i < steps.length - 1 && (
-                <div className="w-4 md:w-6 h-px" style={{ backgroundColor: "#f5f4df33" }} />
+                <div className="w-4 md:w-6 h-px" style={{ backgroundColor: "#ffffff33" }} />
               )}
             </div>
           ))}
         </div>
 
         {/* Step content card */}
-        <div className="max-w-2xl mx-auto rounded-2xl p-6 md:p-10" style={{ backgroundColor: "#f5f4df" }}>
+        <div className="max-w-2xl mx-auto rounded-2xl p-6 md:p-10" style={{ backgroundColor: "#f3f4f5" }}>
           <div className="relative">
             {steps.map((s, i) => (
               <motion.div

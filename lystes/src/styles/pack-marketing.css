@@ -1,0 +1,165 @@
+/**
+ * Peau monochrome de l'espace Lystes Marketing.
+ *
+ * Tout est porté par l'attribut `data-pack="marketing"` posé sur la racine
+ * d'`AdminLayout`. Les autres packs ne voient rien de ce fichier, et le
+ * retirer suffit à rendre au pack son apparence d'origine : aucune page
+ * existante n'est modifiée.
+ *
+ * Trois principes
+ *   1. aucune ombre portée
+ *   2. la séparation se fait au jeu de surfaces, blanc sur gris
+ *   3. un trait seulement quand deux surfaces identiques se touchent,
+ *      et alors le plus clair possible
+ */
+
+[data-pack="marketing"] {
+  /* Les accents sémantiques perdent leur teinte et ne gardent que leur valeur.
+     Le vert, l'ambre, le bleu et le rouge deviennent quatre gris distincts,
+     ce qui conserve la hiérarchie sans introduire de couleur. */
+  --accent-success: 0 0% 32%;
+  --accent-warning: 0 0% 46%;
+  --accent-info: 0 0% 24%;
+  --accent-danger: 0 0% 11%;
+
+  --chart-1: 0 0% 11%;
+  --chart-2: 0 0% 38%;
+  --chart-3: 0 0% 55%;
+  --chart-4: 0 0% 70%;
+  --chart-5: 0 0% 84%;
+
+  --destructive: 0 0% 11%;
+  --destructive-foreground: 0 0% 100%;
+
+  /* Traits très clairs. La séparation passe d'abord par les surfaces. */
+  --border: 0 0% 94%;
+  --input: 0 0% 94%;
+
+  /* Échelle de gris : page, scène, carte. */
+  --scene: 0 0% 97%;
+}
+
+/* ---- 1. aucune ombre, jamais ---- */
+[data-pack="marketing"] *,
+[data-pack="marketing"] *::before,
+[data-pack="marketing"] *::after {
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+/* ---- 2. les aplats de couleur deviennent des gris ---- */
+[data-pack="marketing"] [class*="bg-blue-"],
+[data-pack="marketing"] [class*="bg-green-"],
+[data-pack="marketing"] [class*="bg-emerald-"],
+[data-pack="marketing"] [class*="bg-teal-"],
+[data-pack="marketing"] [class*="bg-cyan-"],
+[data-pack="marketing"] [class*="bg-sky-"],
+[data-pack="marketing"] [class*="bg-indigo-"],
+[data-pack="marketing"] [class*="bg-violet-"],
+[data-pack="marketing"] [class*="bg-purple-"],
+[data-pack="marketing"] [class*="bg-fuchsia-"],
+[data-pack="marketing"] [class*="bg-pink-"],
+[data-pack="marketing"] [class*="bg-rose-"],
+[data-pack="marketing"] [class*="bg-red-"],
+[data-pack="marketing"] [class*="bg-orange-"],
+[data-pack="marketing"] [class*="bg-amber-"],
+[data-pack="marketing"] [class*="bg-yellow-"],
+[data-pack="marketing"] [class*="bg-lime-"] {
+  background-color: hsl(0 0% 96%) !important;
+  color: hsl(0 0% 20%) !important;
+  border-color: hsl(0 0% 94%) !important;
+}
+
+/* Les mêmes familles en texte ou en icône : un seul gris de second niveau. */
+[data-pack="marketing"] [class*="text-blue-"],
+[data-pack="marketing"] [class*="text-green-"],
+[data-pack="marketing"] [class*="text-emerald-"],
+[data-pack="marketing"] [class*="text-teal-"],
+[data-pack="marketing"] [class*="text-cyan-"],
+[data-pack="marketing"] [class*="text-sky-"],
+[data-pack="marketing"] [class*="text-indigo-"],
+[data-pack="marketing"] [class*="text-violet-"],
+[data-pack="marketing"] [class*="text-purple-"],
+[data-pack="marketing"] [class*="text-fuchsia-"],
+[data-pack="marketing"] [class*="text-pink-"],
+[data-pack="marketing"] [class*="text-rose-"],
+[data-pack="marketing"] [class*="text-red-"],
+[data-pack="marketing"] [class*="text-orange-"],
+[data-pack="marketing"] [class*="text-amber-"],
+[data-pack="marketing"] [class*="text-yellow-"],
+[data-pack="marketing"] [class*="text-lime-"] {
+  color: hsl(0 0% 42%) !important;
+}
+
+[data-pack="marketing"] [class*="border-blue-"],
+[data-pack="marketing"] [class*="border-green-"],
+[data-pack="marketing"] [class*="border-emerald-"],
+[data-pack="marketing"] [class*="border-red-"],
+[data-pack="marketing"] [class*="border-orange-"],
+[data-pack="marketing"] [class*="border-amber-"],
+[data-pack="marketing"] [class*="border-purple-"],
+[data-pack="marketing"] [class*="border-indigo-"] {
+  border-color: hsl(0 0% 94%) !important;
+}
+
+/* Un dégradé n'est jamais monochrome par accident : on l'aplatit. */
+[data-pack="marketing"] [class*="bg-gradient"] {
+  background-image: none !important;
+  background-color: hsl(0 0% 96%) !important;
+}
+
+/* Le commutateur d'espace garde son pastillage : c'est le seul endroit où
+   la couleur porte une information, l'espace actif. On l'aplatit aussi,
+   sinon le dégradé violet du pack Créa revient dans une page monochrome. */
+[data-pack="marketing"] .pack-switcher-avatar {
+  background-image: none !important;
+  background-color: hsl(0 0% 11%) !important;
+}
+
+/* ---- 3. scène grise, cartes blanches, traits seulement si nécessaire ---- */
+/* La scène grise est peinte sur la zone de contenu du dashboard elle-même.
+   Les pages n'ont donc pas à sortir de leur cadre avec des marges négatives
+   calées sur un rembourrage qu'elles ne connaissent pas. */
+[data-pack="marketing"] [data-dashboard-content] {
+  background-color: hsl(var(--scene));
+}
+
+/* Même canevas que Lystes Booking : surface grise arrondie, respiration 56px. */
+[data-pack="marketing"] .lm-scene {
+  background-color: #f5f5f7;
+  border-radius: 32px;
+}
+
+[data-pack="marketing"] .lm-card {
+  background-color: hsl(0 0% 100%);
+  border: 0;
+  border-radius: 18px;
+}
+
+/* Deux surfaces blanches qui se touchent : un trait, le plus clair possible. */
+[data-pack="marketing"] .lm-rule {
+  border-bottom: 1px solid hsl(0 0% 94%);
+}
+
+/* ---- 4. la jauge de crédits ----
+   Mêmes données, même comportement, habillage repris de la maquette :
+   une carte blanche sans trait, une jauge fine, deux niveaux de texte. */
+[data-pack="marketing"] [data-credit-gauge] {
+  border: 0;
+  border-radius: 18px;
+  background-color: hsl(0 0% 97%);
+  padding: 14px;
+}
+
+[data-pack="marketing"] [data-credit-gauge] .h-1 {
+  height: 3px;
+  background-color: hsl(0 0% 89%);
+}
+
+[data-pack="marketing"] .lm-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: hsl(0 0% 53%);
+}

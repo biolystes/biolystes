@@ -1,0 +1,15 @@
+{
+  "Chiffrement AES-256 au repos, TLS 1.2+ en transit, isolation par compte, RGPD. Lystes est hébergé sur une infrastructure certifiée SOC 2 Type 2 et ISO 27001 (Supabase / AWS).": "AES-256 encryption at rest, TLS 1.2+ in transit, per-account isolation, GDPR. Lystes is hosted on SOC 2 Type 2 and ISO 27001 certified infrastructure (Supabase / AWS).",
+  "Sécurité et conformité": "Security and compliance",
+  "Ce que nous": "What we",
+  "protégeons": "protect",
+  ", et comment.": "and how.",
+  "Chiffrement au repos et en transit, isolation stricte par compte, hébergement sur une infrastructure certifiée. Cette page détaille chaque point, y compris ce que nous ne sommes pas encore.": "Encryption at rest and in transit, strict per-account isolation, hosting on certified infrastructure. This page details every point, including what we are not yet.",
+  "Le détail, point par point": "The details, point by point",
+  "Une question, une faille": "A question, a vulnerability",
+  "Écrivez au": "Write to the",
+  "fondateur": "founder",
+  ".": ".",
+  "Lystes est une jeune entreprise : votre question sécurité arrive directement chez la personne qui a écrit le code. Écrivez à contact@lystes.ai, vous recevez une réponse sous [24] heures ouvrées.": "Lystes is a young company: your security question goes straight to the person who wrote the code. Write to contact@lystes.ai and you'll get a reply within [24] business hours.",
+  "Si vous pensez avoir trouvé une vulnérabilité, envoyez les détails à la même adresse avec l'objet « Sécurité ». Nous accusons réception, corrigeons en priorité et vous tenons informé de la résolution.": "If you believe you have found a vulnerability, send the details to the same address with the subject \"Security\". We will acknowledge receipt, prioritize the fix, and keep you informed of the resolution."
+}

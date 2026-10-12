@@ -1,0 +1,19 @@
+{
+  "Votre boutique s'ouvre, mais votre conseiller n'y est pas encore.": "Your store opens, but your advisor is not there yet.",
+  "Vérifiez que l'extension Lystes AI est activée (Extensions, puis Extensions installées), videz le cache de votre site si vous en avez un, puis relancez.": "Check that the Lystes AI plugin is activated (Plugins, then Installed Plugins), clear your site cache if you have one, then check again.",
+  "Vérifiez que le code est collé dans theme.liquid et que le thème est enregistré, puis relancez.": "Check that the code is pasted in theme.liquid and that the theme is saved, then check again.",
+  "Collez le code juste avant la balise de fin de page, enregistrez, videz le cache de votre site, puis relancez.": "Paste the code right before the end-of-page tag, save, clear your site cache, then check again.",
+  "Un conseiller Lystes est présent, mais relié à un autre compte.": "A Lystes advisor is there, but linked to another account.",
+  "Supprimez l'ancienne extension Lystes, installez celle que vous venez de télécharger, puis relancez.": "Delete the old Lystes plugin, install the one you just downloaded, then check again.",
+  "Remplacez l'ancien code par celui affiché sur cette page, enregistrez, puis relancez.": "Replace the old code with the one shown on this page, save, then check again.",
+  "Nous n'avons pas pu ouvrir votre boutique.": "We could not open your store.",
+  "Vérifiez l'adresse et que la boutique est en ligne, puis relancez.": "Check the address and that the store is online, then check again.",
+  "Votre boutique est protégée (mot de passe, mode maintenance ou pare-feu).": "Your store is protected (password, maintenance mode or firewall).",
+  "Ouvrez temporairement l'accès public, puis relancez. Ou réservez un créneau : nous vérifions avec vous.": "Open public access for a moment, then check again. Or book a slot: we will check with you.",
+  "Votre conseiller est bien là, mais cette page n'est pas une fiche produit.": "Your advisor is there, but this page is not a product page.",
+  "Relancez la vérification avec l'adresse d'une fiche produit, là où votre conseiller doit apparaître.": "Run the check again with the address of a product page, where your advisor should appear.",
+  "Cette adresse n'est pas lisible.": "This address cannot be read.",
+  "Collez l'adresse de votre boutique, par exemple maboutique.fr, puis relancez.": "Paste your store address, for example mystore.com, then check again.",
+  "La vérification n'a pas pu se faire.": "The check could not be done.",
+  "Réessayez dans un instant. Si cela recommence, réservez un créneau : nous vérifions avec vous.": "Try again in a moment. If it happens again, book a slot: we will check with you."
+}

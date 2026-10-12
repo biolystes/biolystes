@@ -1,0 +1,836 @@
+{
+  "csv": {
+    "champUrlOptionnel": "Indirizzo del suo negozio (facoltativo)",
+    "chapo": "Esporti i suoi prodotti in CSV e trascini qui il file",
+    "deposezIci": "Trascini qui il file",
+    "formatAttendu": "Formato previsto",
+    "formatsAcceptes": "Formati accettati: .csv",
+    "glissezOuParcourez": "Trascini qui il CSV oppure clicchi per sfogliare",
+    "ligneExemple": "\"Prodotto di esempio\",\"Descrizione del prodotto\",29.99,\"https://example.com/image.jpg\",\"Categoria 1\",\"SKU001\",\"\",\"tag1, tag2\"",
+    "telechargerModele": "Scaricare il modello CSV",
+    "titre": "Importazione CSV"
+  },
+  "csvForm": {
+    "cliquezPourSelectionner": "Clicchi per selezionare un file CSV",
+    "colonnes": "Colonne: name, price, description, category, sku, image_url",
+    "csvStandard": "CSV standard",
+    "erreurImport": "Errore durante l'importazione",
+    "erreurImportFichier": "Errore durante l'importazione del file CSV",
+    "formatsSupportes": "Formati supportati",
+    "hintShopify": "Per le esportazioni Shopify: genera automaticamente i link di acquisto verso il suo negozio",
+    "ouGlisserDeposer": "oppure trascini qui il suo file",
+    "selectionnerCsv": "Selezioni un file CSV",
+    "telechargerModele": "Scaricare il modello CSV standard",
+    "urlOptionnel": "URL del negozio (facoltativo)"
+  },
+  "erreur": {
+    "adresseBoutiqueVide": "Indichi l'indirizzo del suo negozio, per esempio ilmionegozio.it",
+    "compteIntrouvable": "Il suo account non è stato trovato. Ricarichi la pagina e riprovi.",
+    "connexionBoutique": "Non è stato possibile avviare la connessione al suo negozio. Verifichi l'indirizzo inserito e riprovi.",
+    "csvAbsent": "Selezioni un file CSV prima di continuare.",
+    "csvIllisible": "Non è stato possibile leggere questo file CSV. Verifichi che contenga una riga di intestazione, oppure riparta dal modello scaricabile.",
+    "importEchoue": "L'importazione non è andata a buon fine. Riprovi, oppure riparta dal modello CSV scaricabile."
+  },
+  "generation": {
+    "attenteLongue": "L'elaborazione richiede più tempo del previsto. Tenga aperta questa pagina: la creazione prosegue qui e si fermerebbe se la chiudesse.",
+    "coachsLinkManquant": {
+      "message": "I suoi coach sono stati creati, ma non sono ancora associati a nessun prodotto. Li colleghi dalla pagina Il mio team.",
+      "titre": "I suoi coach post-vendita non sono stati collegati ai suoi prodotti"
+    },
+    "coachsManquants": {
+      "message": "I suoi esperti di prodotto sono operativi. Potrà riavviare la creazione dei coach dalla pagina Il mio team.",
+      "titre": "I suoi coach post-vendita non sono stati creati"
+    },
+    "etape": {
+      "coachs": "Creazione dei suoi coach di prodotto…",
+      "contexte": "Collegamento dei suoi prodotti al suo specialista…",
+      "experts": "Generazione dei suoi esperti di prodotto…",
+      "import": "I suoi prodotti sono stati importati",
+      "pret": "Il suo team IA è pronto!",
+      "specialiste": "Creazione del suo specialista {{specialiste}}…",
+      "expertsPrestations": "Un esperto per ciascuno dei suoi servizi…",
+      "importTermine": "I suoi prodotti sono importati",
+      "importTerminePrestations": "I suoi servizi sono salvati",
+      "liaison": "Collegamento dei suoi prodotti al suo specialista…",
+      "liaisonPrestations": "Collegamento dei suoi servizi al suo specialista…",
+      "managers": "Preparazione della direzione e dei manager…"
+    },
+    "expertsLinkManquant": {
+      "message": "I suoi esperti sono stati creati, ma non rispondono ancora per nessun prodotto. Li colleghi dalla pagina Il mio team.",
+      "titre": "I suoi esperti di prodotto non sono stati collegati ai suoi prodotti"
+    },
+    "panne": {
+      "catalogue": {
+        "illisible": "Non siamo riusciti a leggere il vostro catalogo. I vostri dati sono intatti e non è stato modificato nulla. Riprovate; se la schermata non cambia, tornate al passaggio di importazione del catalogo.",
+        "titre": "Nessun prodotto da affidare ai suoi agenti",
+        "vide": "Il suo catalogo è vuoto, quindi non è stato creato alcun agente: ogni agente è legato a un prodotto. Importi i suoi prodotti dalla pagina Catalogo, poi torni qui. Il suo account è intatto.",
+        "titrePrestations": "Nessun servizio da affidare ai suoi agenti",
+        "videPrestations": "Nessun servizio è registrato, quindi non è stato creato alcun agente. Tornate al passaggio precedente per inserire i vostri servizi. Il vostro account è intatto.",
+        "videTexte": "Il vostro catalogo è vuoto, quindi non è stato creato alcun agente: ogni agente si basa su un prodotto. Tornate al passaggio di importazione per aggiungere i vostri prodotti. Il vostro account è intatto."
+      },
+      "compte": {
+        "message": "Non siamo riusciti a identificare il suo account, quindi non è stato creato alcun agente. Nulla è andato perso. Riprovi; se la schermata non cambia, apra la dashboard, il suo spazio sarà disponibile lì.",
+        "titre": "Il suo spazio non è ancora pronto",
+        "texte": "Non siamo riusciti a identificare il suo account, quindi non è stato creato alcun agente. Nulla è perso. Riprovi. Se la schermata non cambia, apra la dashboard: il suo spazio sarà disponibile lì."
+      },
+      "continuerSansAgents": "Continua per ora senza i miei agenti",
+      "experts": {
+        "message": "La creazione si è interrotta prima della fine. I suoi prodotti e il suo account sono intatti. Riprovi; se la schermata non cambia, ci scriva dalla pagina Aiuto, completeremo noi stessi la configurazione.",
+        "titre": "I suoi esperti di prodotto non sono stati creati",
+        "texte": "La creazione si è fermata prima della fine. I suoi prodotti sono intatti e ciò che è già stato creato verrà ripreso senza duplicati. Riprovi. Se la schermata non cambia, ci scriva dalla pagina Aiuto: completeremo noi la configurazione."
+      },
+      "generale": {
+        "message": "Si è verificato un errore durante la creazione dei suoi agenti. Il suo account e i suoi prodotti sono intatti. Riprovi; se la schermata non cambia, ci scriva dalla pagina Aiuto.",
+        "titre": "La preparazione del suo team si è interrotta",
+        "texte": "Si è verificato un errore durante la creazione dei suoi agenti. Il suo account e i suoi prodotti sono intatti e ciò che è già stato creato verrà ripreso senza duplicati. Riprovi. Se la schermata non cambia, ci scriva dalla pagina Aiuto."
+      },
+      "ouvrirCatalogue": "Apri la pagina Catalogo",
+      "revenirImport": "Torna all'importazione del catalogo",
+      "revenirPrestations": "Torna ai miei servizi",
+      "reessayer": "Riprova",
+      "equipe": {
+        "texte": "Non siamo riusciti a verificare gli agenti già creati, quindi non ne abbiamo creato nessuno, per non duplicarli. Riprovi tra un attimo.",
+        "titre": "Non è stato possibile rileggere il suo team"
+      }
+    },
+    "produitsEnTraitement_one": "{{count}} prodotto in elaborazione",
+    "produitsEnTraitement_other": "{{count}} prodotti in elaborazione",
+    "specialistManquant": {
+      "message": "I tuoi esperti e coach sono pronti. Collega il widget principale ai tuoi prodotti dalla pagina Il mio team.",
+      "titre": "Il tuo widget principale non è ancora collegato ai tuoi prodotti"
+    },
+    "titre": "Configurazione in corso",
+    "attenteLongueTexte": "La preparazione richiede più tempo del previsto. Tenga aperta questa pagina: prosegue.",
+    "pourcentTermine": "{{pourcent}}% completato",
+    "prestationsEnTraitement_one": "{{count}} servizio in elaborazione",
+    "prestationsEnTraitement_other": "{{count}} servizi in elaborazione"
+  },
+  "import": {
+    "enCours": "Importazione in corso…",
+    "validation": "Verifica del file…",
+    "bilan": {
+      "refuses_one": "{{count}} prodotto non è stato importato. Gli altri sono arrivati.",
+      "refuses_other": "{{count}} prodotti non sono stati importati. Gli altri sono arrivati.",
+      "misDeCote_one": "{{count}} prodotto messo da parte: il suo piano è pieno. Non è stato eliminato nulla.",
+      "misDeCote_other": "{{count}} prodotti messi da parte: il suo piano è pieno. Non è stato eliminato nulla.",
+      "aucun": "Non è stato possibile importare alcun prodotto. Verifichi che il file abbia una riga di intestazione e almeno un prodotto con un nome, oppure riparta dal modello CSV."
+    }
+  },
+  "importProgress": {
+    "compteur": "{{done}} / {{total}} prodotti",
+    "connexion": "Connessione in corso...",
+    "erreur": "Errore durante l'importazione",
+    "import": "Importazione in corso...",
+    "pret": "Pronto per importare",
+    "recuperation": "Recupero dei prodotti...",
+    "termine": "Importazione completata!"
+  },
+  "importSuccess": {
+    "decouvrirEquipe": "Scopri il mio team IA",
+    "expertAssigne": "Un esperto IA dedicato sarà assegnato a ogni prodotto per assistere i suoi clienti.",
+    "produitsImportes": "{{count}} prodotto importato",
+    "produitsImportes_one": "{{count}} prodotto importato",
+    "produitsImportes_other": "{{count}} prodotti importati",
+    "titre": "Importazione riuscita!"
+  },
+  "offre": {
+    "avantages": {
+      "business": {
+        "0": "Tutto Pro, più:",
+        "1": "Team IA di coaching a domicilio",
+        "2": "Assistenza al cliente dopo l'ordine",
+        "3": "Creatività e marketing completi"
+      },
+      "pro": {
+        "0": "Tutto Standard, più:",
+        "1": "Diagnosi di pelle e capelli tramite analisi delle immagini, per cosmetica e parrucchieri",
+        "2": "Prova virtuale, in base al suo settore",
+        "3": "Lead qualificati con l'esigenza di ogni contatto"
+      },
+      "standard": {
+        "0": "Un consulente IA per prodotto, disponibile in continuo",
+        "1": "Formato sulle tue schede, sul tuo marchio e sulle tue politiche",
+        "2": "Segnala i punti di attrito che frenano le tue vendite"
+      }
+    },
+    "avertissementLiaisonCompte": "Si è verificato un piccolo problema tecnico.",
+    "avertissementLiaisonCompteDetail": "Se il suo abbonamento non appare dopo il pagamento, contatti l'assistenza.",
+    "chapo": "La tua risposta decide le schermate successive",
+    "chapoDevis": "Oltre i 600 prodotti, la sua offerta si costruisce con il nostro team: le proponiamo una tariffa adatta al suo catalogo.",
+    "chapoTranche": "Il suo catalogo corrisponde alla fascia «{{tranche}}». È questa fascia ad applicarsi, non c'è altro da scegliere.",
+    "devis": {
+      "bouton": "Parlare con il team",
+      "message": "Il suo catalogo supera i 600 prodotti: la sua tariffa si costruisce con il team."
+    },
+    "erreurPaiementDemarrage": "Non è stato possibile avviare il pagamento.",
+    "erreurPaiementDemarrageDetail": "Riprovi tra un istante. La sua carta non è stata addebitata.",
+    "erreurPaiementOuverture": "Non è stato possibile aprire il pagamento.",
+    "erreurPaiementOuvertureDetail": "Può abbonarsi dalla pagina Tariffe in qualsiasi momento.",
+    "euroHtMois": "€ IVA escl./mese",
+    "euroTtcMois": "€ IVA incl./mese",
+    "label": "La sua offerta",
+    "mentionEssai": "Prova di {{jours}} giorni. Non le verrà addebitato nulla prima del {{date}}. Annullabile in qualsiasi momento.",
+    "mentionResiliation": "Nessun impegno di durata, disdicibile con un clic dal suo spazio.",
+    "optionAjoutee": "+{{prix}} € IVA escl./mese",
+    "optionsLabel": "Opzioni",
+    "ouverturePaiement": "Apertura del pagamento…",
+    "plusTard": "Mi abbonerò più tardi",
+    "promo": {
+      "applique": "Codice applicato: accesso completo attivato.",
+      "invalide": "Questo codice non è valido.",
+      "label": "Codice di accesso",
+      "placeholder": "Il tuo codice",
+      "valider": "Conferma",
+      "chapo": "Se il team le ha dato un codice di accesso, lo inserisca qui: apre il suo spazio senza carta bancaria."
+    },
+    "sabonner": "Abbonati : {{prix}} € IVA escl./mese",
+    "surMesure": {
+      "bouton": "Parlare con il team",
+      "chapo": "Il suo catalogo esce dalla griglia: la sua tariffa si costruisce con il team.",
+      "message": "Le proponiamo una tariffa adatta al suo catalogo entro 24 ore."
+    },
+    "titre": "Che cosa vendi?",
+    "titreProduits": "{{count}} prodotti importati",
+    "titreProduits_one": "{{count}} prodotto importato",
+    "titreProduits_other": "{{count}} prodotti importati",
+    "titreVide": "Il suo catalogo",
+    "toutInclus": "Tutto incluso",
+    "catalogueAttendu": {
+      "extension": "Il suo negozio WooCommerce è collegato, ma nessun prodotto è ancora arrivato a Lystes. In WordPress apra Lystes AI, poi Impostazioni, poi Sincronizza ora. Partono solo i prodotti pubblicati: se non ce n'è nessuno, ne pubblichi prima uno. La prova partirà poi sui suoi prodotti reali.",
+      "autorisation": "Il suo negozio WooCommerce è collegato, ma nessun prodotto è stato importato: vengono importati solo i prodotti pubblicati. Ne pubblichi almeno uno in WooCommerce, torni alla schermata « Colleghi il suo negozio » con il pulsante Indietro, poi colleghi di nuovo WooCommerce. La prova partirà poi sui suoi prodotti reali.",
+      "verifier": "Verificare l'arrivo del mio catalogo",
+      "verification": "Verifica in corso…",
+      "toujoursVide": "Non è ancora arrivato nessun prodotto. Segua i passaggi qui sopra, poi verifichi di nuovo.",
+      "titre": "Il suo catalogo WooCommerce non è ancora arrivato a Lystes.",
+      "carteNonDebitee": "La sua carta non è stata addebitata. I passaggi da seguire sono scritti in questa pagina."
+    },
+    "htMois": "IVA esclusa al mese",
+    "sabonnerHt": "Abbonarsi, {{prix}} IVA esclusa al mese",
+    "chapoSansCatalogue": "Inizia senza un catalogo importato: si applica la fascia più piccola, «{{tranche}}». Tutto è incluso.",
+    "chapoTrancheUnique": "Il suo catalogo rientra nella fascia «{{tranche}}». È quella che si applica. Tutto è incluso, non c'è altro da scegliere.",
+    "chapoTranchePrestations": "I suoi servizi rientrano nella fascia {{bornes}} servizi. È quella che si applica. Tutto è incluso, non c'è altro da scegliere.",
+    "chapoTrancheMixte": "I suoi prodotti e servizi rientrano nella fascia {{bornes}} schede. È quella che si applica. Tutto è incluso, non c'è altro da scegliere.",
+    "titrePrestations_one": "{{count}} servizio registrato",
+    "titrePrestations_other": "{{count}} servizi registrati",
+    "titreMixte_one": "{{count}} scheda, prodotti e servizi",
+    "titreMixte_other": "{{count}} schede, prodotti e servizi",
+    "mentionEssaiCarte": "Prova gratuita di {{jours}} giorni. La sua carta viene richiesta ora. Primo addebito il {{date}}, alla fine della prova. Annullabile in qualsiasi momento prima di quella data.",
+    "mentionPrelevementSouscription": "Primo addebito il giorno della sottoscrizione. Senza vincoli di durata, annullabile in qualsiasi momento.",
+    "mentionSansEngagement": "Senza vincoli di durata, disdicibile con un clic dal suo spazio.",
+    "paiementARegulariser": "L'ultimo addebito del suo abbonamento non è andato a buon fine.",
+    "paiementARegulariserDetail": "Aggiorni la sua carta per regolarizzarlo. Non è stato aperto un secondo abbonamento.",
+    "dejaAbonneeVerification": "Il suo abbonamento è già attivo. Stiamo verificando il suo accesso.",
+    "products": {
+      "label": "Prodotti",
+      "desc": "Un catalogo, un carrello, consegne"
+    },
+    "services": {
+      "label": "Servizi",
+      "desc": "Appuntamenti, preventivi, un istituto o un'agenzia"
+    },
+    "both": {
+      "label": "Entrambi",
+      "desc": "Un catalogo e un'agenda"
+    }
+  },
+  "organigramme": {
+    "acces360": "Accesso 360°",
+    "agentsDedies": "agenti dedicati",
+    "createurs": "creatore",
+    "createurs_one": "creatore",
+    "createurs_other": "creatori",
+    "description": "Ogni prodotto del tuo catalogo genera automaticamente agenti specializzati in conversione, creazione di contenuti e marketing.",
+    "directeurs": "Direttori",
+    "equipesPrefix": "Team",
+    "managersPrefix": "Manager",
+    "produitsSuffix": "prodotti",
+    "sliderMax": "2000 prodotti",
+    "sliderMin": "4 prodotti",
+    "titreSuffix": "per aumentare le tue vendite",
+    "totalAgentsActifs": "Totale agenti attivi",
+    "agentsCrees_one": "{{count}} agente creato",
+    "agentsCrees_other": "{{count}} agenti creati",
+    "bilan": {
+      "autres": "Altri agenti",
+      "coachs": "Coach post-acquisto",
+      "direction": "Direzione e manager",
+      "experts": "Esperti di prodotto",
+      "site": "Sul suo negozio"
+    },
+    "descriptionPrevue": "Ecco i ruoli previsti. Nomi e numeri compariranno non appena i suoi agenti saranno creati.",
+    "descriptionReelle": "Ogni agente qui sotto esiste nel suo account. Li ritroverà nella sua dashboard.",
+    "direction": "Direzione",
+    "equipe": {
+      "coachs": "Coach post-acquisto",
+      "coachsTexte": "Accompagnano le sue clienti dopo l'acquisto.",
+      "conseiller": "Consulente del negozio",
+      "conseillerTexte": "Risponde su tutto il negozio: spedizioni, resi, catalogo.",
+      "experts": "Esperti di prodotto",
+      "expertsTexte": "Un esperto per prodotto, che risponde sulla sua scheda.",
+      "expertsTextePrestations": "Un esperto per servizio, che risponde sulla sua scheda.",
+      "specialiste": "Il suo specialista",
+      "specialisteTexte": "Il consulente che compare nella bolla della chat del suo negozio.",
+      "tableauDeBord": "Lavora nella sua dashboard, senza agente sul suo negozio."
+    },
+    "equipeDe": "Team · {{poste}}",
+    "erreur": "Non è stato possibile leggere il suo team. È salvato: è solo la lettura a non essere riuscita.",
+    "essayer": "Provare il suo consulente",
+    "essayerAideDiagnostic": "Si apre in una nuova scheda. Invii una foto, come farebbe una cliente.",
+    "essayerAideEssayage": "Si apre in una nuova scheda. Invii una foto per provare uno dei suoi prodotti.",
+    "essayerApresActivation": "Lo proverà subito dopo l'attivazione, dalla sua guida all'installazione.",
+    "essayerBoutique": "Risponderà nella bolla della chat del suo negozio. Lo proverà una volta installato sul suo sito.",
+    "lecture": "Lettura del suo team…",
+    "pourVosFiches": "per i suoi {{nombre}} {{unite}}",
+    "precedent": "Manager precedente",
+    "prestationsUnite_one": "servizio",
+    "prestationsUnite_other": "servizi",
+    "prevu": "Previsto",
+    "produitsUnite_one": "prodotto",
+    "produitsUnite_other": "prodotti",
+    "relire": "Rileggere",
+    "suivant": "Manager successivo",
+    "titrePrevu": "Il suo team IA si sta preparando",
+    "titreReel_one": "{{count}} agente creato",
+    "titreReel_other": "{{count}} agenti creati",
+    "totalCrees": "Agenti creati per lei",
+    "postes": {
+      "analytics": "Analisi dei numeri",
+      "conversations": "Conversazioni",
+      "diagnostics": "Consulenti del sito",
+      "leads": "Contatti",
+      "manager": "Manager",
+      "marketing": "Marketing",
+      "products": "Esperti di prodotto",
+      "strategy": "Strategia",
+      "upsell": "Coach post-acquisto",
+      "winners": "Prodotti vincenti"
+    }
+  },
+  "page": {
+    "continuer": "Continua",
+    "equipeActivee": "Il suo team IA è attivo!",
+    "erreurActivation": "Non è stato possibile attivare il suo team. Riprovi tra un istante, i suoi prodotti e il suo account sono intatti.",
+    "erreurCreationCompte": "Non è stato possibile creare il suo account. Verifichi la connessione a internet e riprovi.",
+    "progression_one": "Passaggio {{etape}}/{{total}} · ~{{count}} min rimanente",
+    "progression_other": "Passaggio {{etape}}/{{total}} · ~{{count}} min rimanenti",
+    "retour": "Indietro",
+    "reessayer": "Riprova",
+    "consigne": {
+      "offre": "Ci dica prima cosa vende.",
+      "secteur": "Scelga il suo settore per continuare.",
+      "enregistrement": "Stiamo salvando il suo settore…",
+      "nonEnregistre": "Il suo settore non è ancora salvato: clicchi di nuovo sulla sua scheda."
+    },
+    "progressionNonEnregistree": "Non è stato possibile salvare i suoi progressi",
+    "choixNonEnregistre": "Non è stato possibile salvare la sua scelta",
+    "configurationPartielle": "Configurazione parziale del suo team IA. Alcuni elementi saranno completati nel passaggio successivo."
+  },
+  "plateforme": {
+    "autre": {
+      "desc": "PrestaShop, Magento o CSV personalizzato",
+      "nom": "Altra piattaforma"
+    },
+    "chapo": "Importi il suo catalogo prodotti così creiamo il suo team IA",
+    "import": {
+      "compteProduits": "{{count}} prodotti",
+      "ignores": "{{count}} ignorati",
+      "reussi": "Importazione riuscita",
+      "nombreImportes_one": "{{count}} prodotto importato",
+      "nombreImportes_other": "{{count}} prodotti importati"
+    },
+    "quotaPlein": "Il suo piano attuale non ha più spazio: i nuovi prodotti verranno messi da parte, nulla verrà eliminato.",
+    "quotaRestant_one": "Il suo piano attuale copre ancora {{count}} prodotto. Oltre, i prodotti verranno messi da parte e potrà adeguare il suo piano.",
+    "quotaRestant_other": "Il suo piano attuale copre ancora {{count}} prodotti. Oltre, i prodotti verranno messi da parte e potrà adeguare il suo piano.",
+    "shopify": {
+      "boutonConnecter": "Collega il mio negozio Shopify",
+      "champUrl": "URL del suo negozio Shopify",
+      "champUrlOauth": "Indirizzo del suo negozio",
+      "chapoCsv": "Esporti i suoi prodotti da Shopify e trascini qui il file",
+      "chapoOauth": "Sincronizzazione automatica dei suoi prodotti",
+      "commentExporter": "Come esportare da Shopify:",
+      "connexionEnCours": "Connessione in corso…",
+      "desc": "Importi dal suo negozio Shopify",
+      "docLien": "Documentazione Shopify",
+      "docUrl": "https://help.shopify.com/it/manual/products/import-export/export-products",
+      "domaineInvalide": "Dominio Shopify non valido.",
+      "exportStep1": "Dall'admin Shopify, vada su Prodotti.",
+      "exportStep2": "Clicchi su Esporta, poi su «Tutti i prodotti».",
+      "exportStep3": "Scarichi il file CSV generato e lo importi qui.",
+      "oauthEnValidation": "La connessione diretta a Shopify è in fase di validazione. Nel frattempo importi i suoi prodotti tramite file CSV.",
+      "replieCsv": "Passa all'import CSV",
+      "titreCsv": "Importazione Shopify (CSV)",
+      "titreOauth": "Collegare Shopify",
+      "chapoCsv2": "Shopify esporta il suo catalogo con un clic. Lei deposita il file qui e l'agente impara i suoi prodotti.",
+      "etape1Aide": "L'indirizzo tecnico del suo negozio. Finisce con .myshopify.com e si trova in alto nel suo pannello Shopify.",
+      "etape1Titre": "Il suo negozio",
+      "etape2AideEmail": "In Prodotti, clicchi su Esporta, scelga Tutti i prodotti, poi Esporta prodotti. Shopify invia il file via e-mail all'indirizzo del suo account Shopify in pochi minuti. Apra quell'e-mail, scarichi il file e lo depositi qui sotto.",
+      "etape2Brouillons": "Vengono importati solo i prodotti con stato Attivo. Un prodotto in bozza o archiviato su Shopify no: lo metta su Attivo prima dell'esportazione se il suo consulente deve conoscerlo.",
+      "etape2Attente": "Inserisca il suo negozio qui sopra: il link ai suoi prodotti comparirà qui.",
+      "etape2Titre": "Esporti da Shopify",
+      "etape3Titre": "Depositi il file qui",
+      "ouvrirProduits": "Aprire i miei prodotti Shopify",
+      "titreCsv2": "I suoi prodotti, in tre passaggi"
+    },
+    "titre": "Colleghi il suo negozio",
+    "toast": {
+      "importReussi": "Importazione riuscita"
+    },
+    "woo": {
+      "boutonConnecter": "Collegati a WooCommerce",
+      "champUrl": "Indirizzo del suo negozio",
+      "chapo": "Si colleghi con un clic, senza chiave API",
+      "connexionEnCours": "Connessione in corso…",
+      "desc": "Colleghi il suo negozio WooCommerce",
+      "exportNatif": "Esportazione nativa WooCommerce",
+      "mentionRedirection": "Sarà reindirizzato a WooCommerce per autorizzare l'accesso in tutta sicurezza",
+      "titre": "Collegare WooCommerce"
+    }
+  },
+  "premierCollaborateur": {
+    "allerTableauBord": "Vai direttamente alla dashboard",
+    "chapo": "Il suo esperto dedicato per {{marker}}. Gli faccia una prima domanda: è il momento magico di Lystes.",
+    "direction": "Direzione la sua dashboard per iniziare.",
+    "equipePrete": "Il suo team è pronto",
+    "etapeFinale": "Fase finale",
+    "expertParDefaut": "Il suo esperto",
+    "expertProduit": "Esperto · {{produit}}",
+    "label": "Primo collaboratore",
+    "ouvrirTableauBord": "Apri la mia dashboard",
+    "rencontrez": "Incontri {{expert}}",
+    "suggestion1": "Perché acquistare {{produit}} piuttosto che un concorrente?",
+    "suggestion2": "Quali sono i 3 argomenti di vendita chiave per {{produit}}?",
+    "suggestion3": "{{expert}}, come consiglierebbe {{produit}} a un cliente indeciso?",
+    "suggestionsTitre": "Suggerimenti per iniziare"
+  },
+  "secteur": {
+    "chapo": "Adatteremo il suo team IA al suo settore",
+    "groupeAutre": "Altro",
+    "groupeSpecialise": "Con agente IA specializzato",
+    "titre": "Qual è il suo settore?",
+    "nonEnregistre": "Il suo settore non è stato salvato. Clicchi di nuovo sulla sua scheda per riprovare."
+  },
+  "secteurs": {
+    "decoration": {
+      "desc": "Decorazione d'interni",
+      "label": "Decorazioni"
+    },
+    "fashion": {
+      "desc": "Prêt-à-porter",
+      "label": "Abbigliamento"
+    },
+    "food": {
+      "desc": "Alimentari di qualità",
+      "label": "Gastronomia"
+    },
+    "furniture": {
+      "desc": "Mobili e decorazioni",
+      "label": "Arredamento"
+    },
+    "haircare": {
+      "desc": "Capelli e cura",
+      "label": "Capelli"
+    },
+    "hightech": {
+      "desc": "Elettronica",
+      "label": "High-Tech"
+    },
+    "jewelry": {
+      "desc": "Collane, anelli, orecchini",
+      "label": "Gioielli"
+    },
+    "makeup": {
+      "desc": "Incarnato, occhi, labbra",
+      "label": "Trucco"
+    },
+    "nutrition": {
+      "desc": "Dietetica e consulenza",
+      "label": "Nutrizione"
+    },
+    "optical": {
+      "desc": "Occhiali e montature",
+      "label": "Ottica"
+    },
+    "other": {
+      "desc": "Settore non elencato",
+      "label": "Altro"
+    },
+    "perfume": {
+      "desc": "Profumeria",
+      "label": "Profumi"
+    },
+    "pets": {
+      "desc": "Prodotti per animali",
+      "label": "Animali"
+    },
+    "shoes": {
+      "desc": "Sneaker, città, sport",
+      "label": "Scarpe"
+    },
+    "skincare": {
+      "desc": "Viso e corpo",
+      "label": "Skincare"
+    },
+    "sport": {
+      "desc": "Attrezzature sportive",
+      "label": "Sport"
+    },
+    "watches": {
+      "desc": "Orologi e orologeria",
+      "label": "Orologi"
+    },
+    "wellness": {
+      "desc": "Fitness e coaching",
+      "label": "Benessere"
+    },
+    "wigs": {
+      "desc": "Parrucche ed extension",
+      "label": "Parrucche"
+    }
+  },
+  "site": {
+    "aide": {
+      "gratuit": "gratuito e senza alcuna competenza tecnica richiesta.",
+      "question": "Una domanda, una difficoltà?",
+      "reserver": "Prenoti 30 minuti con il team"
+    },
+    "csv": {
+      "allerTableauBord": "Vai alla dashboard",
+      "chapo": "Carichi un'esportazione dei suoi prodotti. Viene fornito un modello se parte da zero.",
+      "enPreparation": "Il suo spazio è in fase di preparazione. Apra la dashboard: l'import è disponibile lì in qualsiasi momento.",
+      "titre": "Importazione del suo catalogo"
+    },
+    "etape": "Passaggio {{n}} di 3",
+    "plateforme": {
+      "boutiqueRetenue": "Negozio selezionato:",
+      "chapo": "Abbiamo proposto una piattaforma. La corregga se non è quella giusta.",
+      "modifier": "modifica",
+      "titre": "La sua piattaforma",
+      "toastRetenue": "Piattaforma selezionata per questa sessione."
+    },
+    "plateformes": {
+      "autre": {
+        "hint": "Import tramite file CSV",
+        "label": "Altro / non lo so",
+        "indice": "Un codice da incollare sul suo sito"
+      },
+      "shopify": {
+        "hint": "Connessione tramite token di accesso",
+        "indice": "Un codice da incollare nel suo tema"
+      },
+      "woocommerce": {
+        "hint": "Connessione sicura con un clic",
+        "indice": "Un'estensione WordPress da installare"
+      }
+    },
+    "retourGuide": "Abbonamento confermato. La riportiamo alla sua guida all'installazione…",
+    "url": {
+      "chapo": "Indichi l'indirizzo del suo sito. Il formato non è importante: lo sistemiamo noi.",
+      "erreurAdresse": "Indirizzo non riconosciuto.",
+      "exemples": "Esempi accettati: ilmionegozio.it, www.ilmionegozio.it, https://ilmionegozio.it/negozio",
+      "label": "Indirizzo del negozio",
+      "pasDeSite": "Non ho un sito online : importa un file di prodotti",
+      "placeholder": "ilmionegozio.it",
+      "titre": "Il suo negozio",
+      "toastRetenue": "Indirizzo selezionato per questa sessione.",
+      "pasDeSiteEncore": "Non ho ancora un sito online"
+    },
+    "paiement": {
+      "chapo": "Non abbiamo trovato alcun abbonamento attivo sul suo account. Se ha appena pagato, attenda un minuto e riprovi: la sua carta è stata addebitata una sola volta e nulla è perso.",
+      "reessayer": "Verificare di nuovo",
+      "revenirOffre": "Tornare alla mia offerta",
+      "titre": "Il suo abbonamento non è ancora confermato",
+      "verification": "Stiamo confermando il suo abbonamento…"
+    },
+    "reprise": "Riprendiamo da dove si era fermato…"
+  },
+  "widget": {
+    "aide": {
+      "bouton": "Confermare la richiesta",
+      "chapo": "Il nostro team tecnico installa il widget sul suo sito. Installato entro 24 ore lavorative.",
+      "detail": "La contattiamo oggi via e-mail per raccogliere i suoi accessi. Nessuna azione da parte sua fino ad allora.",
+      "titre": "Fatelo per me",
+      "dejaEnvoyee": "Richiesta inviata al team il {{date}}. Le scriveremo via e-mail per ricevere i suoi accessi."
+    },
+    "auto": {
+      "badge": "Consigliato",
+      "bouton": "Attiva ora",
+      "chapo": "Rilevato: {{plateforme}}. Un clic ed è online.",
+      "titre": "Installazione automatica"
+    },
+    "chapo": "Scelga il metodo che preferisce. Questo passaggio non è obbligatorio, potrà riprenderlo dalla dashboard.",
+    "guide": {
+      "bouton": "Ho incollato il codice, continua",
+      "boutonVerifier": "Ho incollato il codice, verifica il mio sito",
+      "chapo": "Copi questo codice e lo incolli subito prima di {{balise}} sul suo sito.",
+      "chapoShopify": "Copi questo codice e lo incolli in fondo a theme.liquid, tra {{fermeCorps}} e {{fermePage}}.",
+      "copie": "Copiato",
+      "copier": "Copia",
+      "etape1": "Apra l'editor del tema del suo sito.",
+      "etape2": "Individui il file di template principale (spesso theme.liquid, footer.php o header.html).",
+      "etape3": "Incolli il codice subito prima del tag {{balise}}.",
+      "etape4": "Salvi e ricarichi il suo sito. Il widget appare in basso a destra.",
+      "introuvable": "Il widget non è stato trovato sul tuo sito. Verifica che il codice sia incollato, salva e riavvia il controllo.",
+      "titre": "Guida illustrata passo passo",
+      "verifImpossible": "Non siamo riusciti a controllare il tuo sito adesso. Potrai riavviare il controllo dalla pagina Installazione.",
+      "preparation": "Preparazione del suo codice…",
+      "shopify": {
+        "etape1": "Nel suo pannello Shopify, apra Negozio online, poi Temi.",
+        "etape2": "Sul suo tema attivo, clicchi sui tre puntini, poi su Modifica codice, e apra layout e poi theme.liquid.",
+        "etape2bis": "Scenda fino in fondo al file e incolli il codice tra il tag di chiusura del corpo e quello della pagina, poi Salva.",
+        "ouvrirThemes": "Aprire i miei temi Shopify"
+      }
+    },
+    "plusTard": "Installa più tardi",
+    "titre": "Installi Lystes sul suo sito",
+    "toast": {
+      "activationEchouee": "Non è stato possibile attivare il widget. Riprovi, oppure scelga «Fatelo per me» e se ne occupa il nostro team.",
+      "active": "Widget attivato sul suo negozio",
+      "copie": "Codice copiato",
+      "copieEchouee": "Copia non riuscita. Selezioni il codice a mano e lo copi.",
+      "demandeEchouee": "Non è stato possibile inviare la sua richiesta. Riprovi, oppure ci scriva dalla pagina Aiuto.",
+      "demandeEnvoyee": "Il nostro team se ne occupa. Installato entro 24 ore lavorative.",
+      "sansAgent": "Crei prima il suo agente: senza di lui, il codice non può mostrare nulla."
+    },
+    "plugin": {
+      "badge": "Consigliato",
+      "chapo": "Un file da caricare su WordPress. Nessun codice, cinque minuti.",
+      "echec": "Non è stato possibile preparare l'estensione. Riprovi, oppure scelga «Fatelo per me».",
+      "etape1": "In WordPress, apra Plugin, poi Aggiungi nuovo plugin.",
+      "etape2": "Clicchi su Carica plugin, scelga il file scaricato, poi Installa ora.",
+      "etape3": "Clicchi su Attiva. I suoi consulenti compaiono sulle sue schede prodotto e il suo design non cambia.",
+      "etape4": "Torni qui e verifichi l'installazione.",
+      "guideIllustre": "Vedere la guida illustrata passo dopo passo",
+      "sansAgent": "Crei prima il suo agente: l'estensione ne ha bisogno per sapere cosa mostrare.",
+      "telecharge": "Estensione scaricata.",
+      "telecharger": "Scaricare la mia estensione",
+      "titre": "Installare l'estensione WordPress",
+      "verifier": "Ho attivato l'estensione, verificare il mio sito"
+    },
+    "replier": "Chiudi",
+    "verif": {
+      "adresseManquante": "Indichi l'indirizzo di una delle sue schede prodotto: è lì che cerchiamo il suo consulente.",
+      "aide": "Il consulente compare sulle sue schede prodotto: è lì che lo cerchiamo.",
+      "impossible": "La verifica non è riuscita da parte nostra. Riprovi tra un attimo. La sua installazione non è la causa.",
+      "label": "Indirizzo di una delle sue schede prodotto",
+      "placeholder": "https://mionegozio.it/prodotti/mio-prodotto",
+      "reussie": "Il suo consulente è online sul suo negozio."
+    },
+    "panneService": "Non siamo riusciti a raggiungere il servizio che prepara il suo codice. Il suo consulente non è la causa e non è stato modificato nulla. Riprovi tra un istante.",
+    "reessayer": "Riprova"
+  },
+  "prestations": {
+    "titre": "I suoi servizi",
+    "chapo": "Elenchi ciò che offre. Il suo consulente lo userà per guidare ogni cliente verso il servizio giusto.",
+    "dejaLa_one": "{{count}} servizio già salvato",
+    "dejaLa_other": "{{count}} servizi già salvati",
+    "numero": "Servizio {{n}}",
+    "retirer": "Rimuovi questo servizio",
+    "nom": "Nome",
+    "nomExemple": "Trattamento viso luminosità",
+    "prix": "Prezzo in euro",
+    "duree": "Durata",
+    "dureeExemple": "60 min",
+    "description": "Per chi è e cosa offre",
+    "descriptionExemple": "Pelli spente o stanche. Pulizia, scrub delicato e massaggio per un incarnato luminoso.",
+    "ajouter": "Aggiungi un servizio",
+    "enregistrer_one": "Salva il servizio",
+    "enregistrer_other": "Salva i {{count}} servizi",
+    "aussiProduits": "Vende anche prodotti online?",
+    "importerCatalogue": "Importa il catalogo",
+    "aussiPrestations": "Offre servizi senza un catalogo online?",
+    "saisirPrestations": "Inserisci i suoi servizi",
+    "prixInvalide": "Il prezzo di «{{nom}}» non è un numero. Esempio: 45 o 45,50.",
+    "echec": "Non è stato possibile salvare i servizi. Riprovi tra un momento.",
+    "enregistrees_one": "{{count}} servizio salvato",
+    "enregistrees_other": "{{count}} servizi salvati"
+  },
+  "progression": {
+    "libelle": "Passaggio {{etape}} di {{total}} · {{duree}}",
+    "duree": {
+      "catalogue": "5-15 min",
+      "equipe": "1-2 min",
+      "inscription": "1 min",
+      "installation": "5-20 min",
+      "offre": "2-3 min",
+      "secteur": "1 min"
+    }
+  },
+  "shopifyApp": {
+    "bienvenue": {
+      "titre": "Lystes per {{boutique}}",
+      "texte": "Un consulente risponde alle tue clienti su ogni scheda prodotto. I tuoi prodotti arrivano da soli da Shopify.",
+      "creer": "Crea il mio spazio",
+      "dejaUnCompte": "Ho già un account Lystes"
+    },
+    "retour": "Indietro",
+    "continuer": "Continua",
+    "reessayer": "Riprova",
+    "horsAdmin": "Apri Lystes dal tuo pannello Shopify, in App.",
+    "erreur": {
+      "refus": "Questo negozio è già collegato a un altro spazio Lystes. Scrivi a contact@lystes.ai.",
+      "creation": "Non è stato possibile creare il tuo spazio. Riprova tra un minuto.",
+      "ouverture": "Lystes non si è potuto aprire. Riprova tra un momento."
+    },
+    "produits": {
+      "titre": "I tuoi prodotti stanno arrivando",
+      "texte": "Lystes legge il tuo catalogo Shopify. Ogni prodotto riceve il suo consulente.",
+      "vide": "Il tuo negozio non ha ancora prodotti. Aggiungine uno in Shopify: arriverà qui da solo, e il tuo consulente lo presenterà alle tue clienti.",
+      "compte": "{{recus}} su {{attendus}}",
+      "compteSeul": "{{recus}} prodotti ricevuti",
+      "source": "Dal tuo negozio Shopify",
+      "essayer": "Prova il tuo consulente",
+      "enArrierePlan": "L'importazione continua in background. Puoi andare avanti.",
+      "ajouter": "Aggiungi un prodotto"
+    },
+    "liaison": {
+      "titre": "Collega il tuo account Lystes",
+      "texte": "Si apre una scheda su lystes.ai. Accedi e scegli lo spazio che riceve questo negozio. Chiunque apra Lystes in questo negozio Shopify entrerà in quello spazio.",
+      "ouvert": "Accedi nella scheda aperta, poi torna qui. L'app si aprirà sul tuo spazio.",
+      "erreur": "Non è stato possibile preparare il link. Riprova tra un minuto.",
+      "ouvrir": "Apri lystes.ai",
+      "cestFait": "Fatto"
+    },
+    "nav": {
+      "accueil": "Home",
+      "conversations": "Conversazioni",
+      "conseillers": "Consulenti",
+      "installation": "Installazione",
+      "formule": "Piano",
+      "reglages": "Impostazioni"
+    },
+    "accueil": {
+      "titre": "Lystes sul tuo negozio",
+      "chargement": "Lettura del tuo negozio",
+      "activer": "Attiva il consulente sul tuo negozio",
+      "activerTexte": "L'editor del tema si apre con Lystes già selezionato. Salva, ed è online.",
+      "tester": "Prova il tuo consulente",
+      "testerTexte": "Fagli la domanda di una cliente, in una nuova scheda.",
+      "produits": "I tuoi prodotti",
+      "produitsCompte": "{{n}} prodotti seguiti",
+      "produitsCompteUn": "1 prodotto seguito",
+      "produitsTexte": "Ogni prodotto ha il suo consulente. Vedi i consulenti.",
+      "produitsVide": "Aggiungi un prodotto in Shopify: arriverà qui da solo.",
+      "formule": "Scegli il tuo piano",
+      "formuleTexte": "Pagato sulla tua fattura Shopify, nessuna carta da inserire.",
+      "formuleEnCours": "Piano attuale: {{palier}}",
+      "formuleGelee": "Sospeso da Shopify: salda la tua fattura Shopify per riattivarlo.",
+      "formuleEssai_one": "Prova in corso: ancora {{count}} giorno.",
+      "formuleEssai_other": "Prova in corso: ancora {{count}} giorni.",
+      "formuleActive": "Pagato sulla tua fattura Shopify. Vedi o cambia il piano.",
+      "formuleOfferte": "Il tuo piano"
+    },
+    "plateforme": {
+      "titre": "Il tuo negozio Shopify è collegato",
+      "chapo": "{{shop}} è collegato tramite l'app Lystes. I tuoi prodotti arrivano da soli, niente da importare.",
+      "lecture": "Lettura del catalogo"
+    },
+    "widget": {
+      "titre": "Attiva Lystes nel tuo tema",
+      "chapo": "L'editor del tema Shopify si apre con Lystes già selezionato. Nessun codice da incollare.",
+      "bouton": "Apri l'editor del tema",
+      "etape1": "Nell'editor, Lystes appare selezionato in Incorporamenti app.",
+      "etape2": "Fai clic su Salva, in alto a destra.",
+      "etape3": "Torna qui e verifica l'installazione.",
+      "verifier": "Ho salvato il tema, verifica il mio sito"
+    },
+    "formule": {
+      "titre": "Il piano si sceglie in Shopify",
+      "chapo": "{{shop}} è collegato tramite l'app Lystes. L'abbonamento si paga sulla fattura Shopify: nessuna carta da inserire qui.",
+      "ligne": "Lystes, nel pannello di Shopify",
+      "ligneTexte": "App, poi Lystes: il piano, la prova di 7 giorni e le conversazioni.",
+      "ouvrir": "Apri Lystes in Shopify",
+      "tableauDeBord": "Vai alla dashboard"
+    }
+  },
+  "essai": {
+    "aide_one": "{{count}} messaggio gratuito per provarlo su una delle sue schede, prima di inserire la sua carta.",
+    "aide_other": "{{count}} messaggi gratuiti per provarlo su una delle sue schede, prima di inserire la sua carta.",
+    "aideFormule": "Gli faccia una domanda su una delle sue schede, come farebbe una cliente.",
+    "titre": "Il suo consulente, sulla sua scheda",
+    "consigne": "Gli faccia una domanda come farebbe una cliente. Risponde con il suo catalogo.",
+    "restant_one": "Le resta {{count}} messaggio",
+    "restant_other": "Le restano {{count}} messaggi",
+    "fini": "Prova terminata",
+    "termine": "La sua prova è terminata. Scelga la sua offerta per tenere il suo consulente.",
+    "voirOffre": "Vedere l'offerta"
+  },
+  "paiementInterrompu": {
+    "titre": "Pagamento interrotto: non è stato addebitato nulla",
+    "texte": "Ha lasciato la pagina di pagamento. Sulla sua carta non è stato addebitato nulla e la sua iscrizione è salvata: riprenda quando vuole."
+  },
+  "inscription": {
+    "verifierTitre": "Controlli la sua casella di posta",
+    "envoyeA": "Abbiamo appena inviato un link di conferma a {{email}}.",
+    "consigne": "Apra questa e-mail e clicchi sul link: la sua iscrizione riprende qui, con la scelta del suo settore.",
+    "indesirables": "Nulla dopo due minuti? Guardi nella cartella della posta indesiderata, poi invii di nuovo l'e-mail.",
+    "renvoyer": "Invia di nuovo l'e-mail",
+    "renvoyerDans_one": "Invia di nuovo l'e-mail tra {{count}} secondo",
+    "renvoyerDans_other": "Invia di nuovo l'e-mail tra {{count}} secondi",
+    "envoi": "Invio…",
+    "renvoye": "E-mail inviata di nuovo a {{email}}.",
+    "echecRenvoi": "Non è stato possibile inviare di nuovo l'e-mail. Attenda un minuto, poi riprovi.",
+    "modifierAdresse": "Modifica il mio indirizzo e-mail",
+    "motDePasse": {
+      "longueur": "La password deve contenere almeno 8 caratteri",
+      "majuscule": "La password deve contenere almeno 1 lettera maiuscola",
+      "chiffre": "La password deve contenere almeno 1 numero"
+    },
+    "formulaire": {
+      "prenom": "Nome",
+      "nom": "Cognome",
+      "nomBoutique": "Nome del suo negozio",
+      "exemplePrenom": "Giulia",
+      "exempleNom": "Rossi",
+      "exempleBoutique": "Il Mio Negozio"
+    },
+    "offreChoisie": {
+      "surtitre": "Piano selezionato",
+      "htMois": "IVA esclusa/mese",
+      "separateur": ":",
+      "paiementSecurise": "Pagamento sicuro subito dopo la creazione del suo account. Senza vincoli, disdicibile con un clic dal suo spazio.",
+      "apresPaiement": {
+        "0": "I suoi agenti IA attivi appena il pagamento è convalidato",
+        "1": "Installazione in 5 minuti, nessuna competenza tecnica",
+        "2": "Affiancamento gratuito di 30 minuti se preferisce"
+      },
+      "nommee": "Piano {{nom}}",
+      "creezPuisChoisissez": "Crei il suo account, poi scelga il suo piano nella pagina Prezzi. Nessun addebito finché non si abbona.",
+      "changer": "Cambia piano"
+    },
+    "avantages": {
+      "starter": {
+        "0": "Fino a 50 prodotti equipaggiati",
+        "1": "Consulenti prodotto 24 ore su 24, uno per prodotto",
+        "2": "Aggiunta al carrello nella conversazione",
+        "3": "Installazione in 5 minuti (Shopify, WooCommerce)"
+      },
+      "pro": {
+        "0": "Tutto Starter, fino a 150 prodotti",
+        "1": "Prova virtuale: basta un selfie",
+        "2": "Diagnosi di bellezza tramite analisi biometrica",
+        "3": "Articoli stampa in opzione (add-on)"
+      },
+      "business": {
+        "0": "Tutto Pro, fino a 500 prodotti, canali illimitati",
+        "1": "Fotografi + UGC: immagini premium senza shooting",
+        "2": "Marketing + SEO alimentati dalle sue conversazioni",
+        "3": "Data analyst: le sue conversazioni riassunte"
+      }
+    },
+    "messages": {
+      "incidentMineur": "Si è verificato un piccolo problema tecnico.",
+      "incidentMineurDetail": "Se il suo abbonamento non compare dopo il pagamento, contatti l'assistenza.",
+      "paiementNonOuvert": "Non è stato possibile aprire il pagamento.",
+      "paiementNonOuvertDetail": "Il suo account è stato creato. Trova il suo piano nella pagina Prezzi.",
+      "erreurSurvenue": "Si è verificato un errore",
+      "compteCreeFinalisation": "Account creato, ma il completamento del suo profilo ha avuto un problema. Se necessario, riprovi dall'onboarding.",
+      "compteCree": "Account creato!"
+    },
+    "meta": {
+      "titreInscription": "Registrazione",
+      "titreConnexion": "Accesso",
+      "descriptionInscription": "Crei il suo account Lystes AI per attivare il suo team di agenti IA per l'e-commerce.",
+      "descriptionConnexion": "Acceda a Lystes AI per gestire i suoi agenti IA per l'e-commerce."
+    }
+  }
+}

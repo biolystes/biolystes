@@ -1,0 +1,836 @@
+{
+  "csv": {
+    "champUrlOptionnel": "Adres van uw winkel (optioneel)",
+    "chapo": "Exporteer uw producten als CSV en sleep het bestand hierheen",
+    "deposezIci": "Sleep uw bestand hierheen",
+    "formatAttendu": "Verwacht formaat",
+    "formatsAcceptes": "Geaccepteerde formaten: .csv",
+    "glissezOuParcourez": "Sleep uw CSV hierheen of klik om te bladeren",
+    "ligneExemple": "\"Voorbeeldproduct\",\"Productomschrijving\",29.99,\"https://example.com/image.jpg\",\"Categorie 1\",\"SKU001\",\"\",\"tag1, tag2\"",
+    "telechargerModele": "CSV-sjabloon downloaden",
+    "titre": "CSV-import"
+  },
+  "csvForm": {
+    "cliquezPourSelectionner": "Klik om een CSV-bestand te selecteren",
+    "colonnes": "Kolommen: name, price, description, category, sku, image_url",
+    "csvStandard": "Standaard CSV",
+    "erreurImport": "Fout bij de import",
+    "erreurImportFichier": "Fout bij het importeren van het CSV-bestand",
+    "formatsSupportes": "Ondersteunde formaten",
+    "hintShopify": "Voor Shopify-exports: genereert automatisch aankooplinks naar uw winkel",
+    "ouGlisserDeposer": "of sleep uw bestand hierheen",
+    "selectionnerCsv": "Selecteer een CSV-bestand",
+    "telechargerModele": "Standaard CSV-sjabloon downloaden",
+    "urlOptionnel": "URL van de winkel (optioneel)"
+  },
+  "erreur": {
+    "adresseBoutiqueVide": "Geef het adres van uw winkel op, bijvoorbeeld mijnwinkel.nl",
+    "compteIntrouvable": "Uw account is niet gevonden. Laad de pagina opnieuw en probeer het nog eens.",
+    "connexionBoutique": "De koppeling met uw winkel kon niet worden gestart. Controleer het opgegeven adres en probeer het nog eens.",
+    "csvAbsent": "Selecteer een CSV-bestand voordat u verdergaat.",
+    "csvIllisible": "Dit CSV-bestand kon niet worden gelezen. Controleer of het een kopregel bevat, of begin opnieuw met het te downloaden sjabloon.",
+    "importEchoue": "De import is niet gelukt. Probeer het opnieuw of begin opnieuw met het te downloaden CSV-sjabloon."
+  },
+  "generation": {
+    "attenteLongue": "De verwerking duurt langer dan verwacht. Houd deze pagina open: het aanmaken gaat hier door en zou stoppen als u haar sluit.",
+    "coachsLinkManquant": {
+      "message": "Uw coaches zijn aangemaakt, maar nog aan geen enkel product gekoppeld. Koppel ze vanaf de pagina Mijn Team.",
+      "titre": "Uw after-sales coaches zijn niet gekoppeld aan uw producten"
+    },
+    "coachsManquants": {
+      "message": "Uw productexperts staan wel klaar. U kunt het aanmaken van de coaches later opnieuw starten vanaf de pagina Mijn Team.",
+      "titre": "Uw after-sales coaches zijn niet aangemaakt"
+    },
+    "etape": {
+      "coachs": "Uw productcoaches worden aangemaakt…",
+      "contexte": "Uw producten worden aan uw specialist gekoppeld…",
+      "experts": "Uw productexperts worden gegenereerd…",
+      "import": "Uw producten zijn geïmporteerd",
+      "pret": "Uw AI-team is klaar!",
+      "specialiste": "Uw specialist {{specialiste}} wordt aangemaakt…",
+      "expertsPrestations": "Eén expert voor elk van uw diensten…",
+      "importTermine": "Uw producten zijn geïmporteerd",
+      "importTerminePrestations": "Uw diensten zijn opgeslagen",
+      "liaison": "Uw producten worden aan uw specialist gekoppeld…",
+      "liaisonPrestations": "Uw diensten worden aan uw specialist gekoppeld…",
+      "managers": "De directie en de managers worden ingericht…"
+    },
+    "expertsLinkManquant": {
+      "message": "Uw experts zijn aangemaakt, maar reageren nog voor geen enkel product. Koppel ze vanaf de pagina Mijn Team.",
+      "titre": "Uw productexperts zijn niet gekoppeld aan uw producten"
+    },
+    "panne": {
+      "catalogue": {
+        "illisible": "We konden uw catalogus niet lezen. Uw gegevens zijn intact en er is niets gewijzigd. Probeer het opnieuw; verandert het scherm niet, ga dan terug naar de stap catalogusimport.",
+        "titre": "Geen producten om aan uw agenten toe te vertrouwen",
+        "vide": "Uw catalogus is leeg, waardoor er geen agent is aangemaakt: elke agent is gekoppeld aan een product. Importeer uw producten vanaf de pagina Catalogus en kom daarna hier terug. Uw account is intact.",
+        "titrePrestations": "Geen dienst om aan uw agenten toe te vertrouwen",
+        "videPrestations": "Er is geen dienst geregistreerd, dus er is geen agent aangemaakt. Ga terug naar de vorige stap om uw diensten in te voeren. Uw account is intact.",
+        "videTexte": "Uw catalogus is leeg, dus er is geen agent aangemaakt: elke agent is gebaseerd op een product. Ga terug naar de importstap om uw producten toe te voegen. Uw account is intact."
+      },
+      "compte": {
+        "message": "We konden uw account niet identificeren, waardoor er geen agent is aangemaakt. Niets is verloren gegaan. Probeer het opnieuw; als het scherm niet verandert, opent u het dashboard, uw omgeving zal daar beschikbaar zijn.",
+        "titre": "Uw omgeving is nog niet klaar",
+        "texte": "We konden uw account niet herkennen, dus er is geen agent aangemaakt. Er is niets verloren. Probeer het opnieuw. Verandert het scherm niet, open dan het dashboard: uw omgeving staat daar klaar."
+      },
+      "continuerSansAgents": "Voorlopig doorgaan zonder mijn agenten",
+      "experts": {
+        "message": "Het aanmaken is voortijdig gestopt. Uw producten en uw account zijn intact. Probeer het opnieuw; als het scherm niet verandert, schrijft u ons vanaf de pagina Help, wij ronden de installatie zelf af.",
+        "titre": "Uw productexperts konden niet worden aangemaakt",
+        "texte": "Het aanmaken is voor het einde gestopt. Uw producten zijn ongewijzigd en wat al is aangemaakt, wordt zonder dubbelingen overgenomen. Probeer het opnieuw. Verandert het scherm niet, schrijf ons dan via de pagina Hulp: wij ronden de installatie zelf af."
+      },
+      "generale": {
+        "message": "Er is een fout opgetreden tijdens het aanmaken van uw agenten. Uw account en uw producten zijn intact. Probeer het opnieuw; als het scherm niet verandert, schrijft u ons vanaf de pagina Help.",
+        "titre": "De voorbereiding van uw team is onderbroken",
+        "texte": "Er is een fout opgetreden bij het aanmaken van uw agenten. Uw account en uw producten zijn ongewijzigd, en wat al is aangemaakt, wordt zonder dubbelingen overgenomen. Probeer het opnieuw. Verandert het scherm niet, schrijf ons dan via de pagina Hulp."
+      },
+      "ouvrirCatalogue": "Catalogus-pagina openen",
+      "revenirImport": "Terug naar de catalogusimport",
+      "revenirPrestations": "Terug naar mijn diensten",
+      "reessayer": "Opnieuw proberen",
+      "equipe": {
+        "texte": "We konden de al aangemaakte agenten niet controleren, dus we hebben er geen aangemaakt, om dubbelingen te voorkomen. Probeer het zo meteen opnieuw.",
+        "titre": "Uw team kon niet opnieuw worden gelezen"
+      }
+    },
+    "produitsEnTraitement_one": "{{count}} product wordt verwerkt",
+    "produitsEnTraitement_other": "{{count}} producten worden verwerkt",
+    "specialistManquant": {
+      "message": "Je experts en coaches staan klaar. Koppel je hoofdwidget aan je producten via de pagina Mijn team.",
+      "titre": "Je hoofdwidget is nog niet aan je producten gekoppeld"
+    },
+    "titre": "Configuratie bezig",
+    "attenteLongueTexte": "De voorbereiding duurt langer dan verwacht. Houd deze pagina open: ze gaat door.",
+    "pourcentTermine": "{{pourcent}}% klaar",
+    "prestationsEnTraitement_one": "{{count}} dienst wordt verwerkt",
+    "prestationsEnTraitement_other": "{{count}} diensten worden verwerkt"
+  },
+  "import": {
+    "enCours": "Import bezig…",
+    "validation": "Bestand wordt gevalideerd…",
+    "bilan": {
+      "refuses_one": "{{count}} product kon niet worden geïmporteerd. De andere zijn goed aangekomen.",
+      "refuses_other": "{{count}} producten konden niet worden geïmporteerd. De andere zijn goed aangekomen.",
+      "misDeCote_one": "{{count}} product opzijgezet: uw abonnement is vol. Er is niets verwijderd.",
+      "misDeCote_other": "{{count}} producten opzijgezet: uw abonnement is vol. Er is niets verwijderd.",
+      "aucun": "Er kon geen enkel product worden geïmporteerd. Controleer of uw bestand een kopregel en minstens één product met een naam bevat, of begin opnieuw met het CSV-sjabloon."
+    }
+  },
+  "importProgress": {
+    "compteur": "{{done}} / {{total}} producten",
+    "connexion": "Bezig met verbinden...",
+    "erreur": "Fout bij de import",
+    "import": "Import bezig...",
+    "pret": "Klaar om te importeren",
+    "recuperation": "Producten ophalen...",
+    "termine": "Import voltooid!"
+  },
+  "importSuccess": {
+    "decouvrirEquipe": "Mijn AI-team ontdekken",
+    "expertAssigne": "Een toegewijde AI-expert wordt aan elk product toegewezen om uw klanten te begeleiden.",
+    "produitsImportes": "{{count}} product geïmporteerd",
+    "produitsImportes_one": "{{count}} product geïmporteerd",
+    "produitsImportes_other": "{{count}} producten geïmporteerd",
+    "titre": "Import geslaagd!"
+  },
+  "offre": {
+    "avantages": {
+      "business": {
+        "0": "Alles uit Pro, en verder:",
+        "1": "AI-team voor coaching aan huis",
+        "2": "Klantopvolging na de bestelling",
+        "3": "Creatie en marketing compleet"
+      },
+      "pro": {
+        "0": "Alles uit Standard, plus:",
+        "1": "Huid- en haardiagnose via beeldanalyse, voor cosmetica en kappers",
+        "2": "Virtueel passen, afhankelijk van uw sector",
+        "3": "Gekwalificeerde leads met de behoefte van elk contact"
+      },
+      "standard": {
+        "0": "Eén AI-adviseur per product, doorlopend beschikbaar",
+        "1": "Getraind op uw productfiches, uw merk en uw beleid",
+        "2": "Signaleert de wrijvingspunten die uw verkoop remmen"
+      }
+    },
+    "avertissementLiaisonCompte": "Er is een klein technisch probleem opgetreden.",
+    "avertissementLiaisonCompteDetail": "Als uw abonnement na de betaling niet verschijnt, neem dan contact op met de support.",
+    "chapo": "Je antwoord bepaalt welke schermen volgen",
+    "chapoDevis": "Boven de 600 producten wordt uw aanbod samen met ons team opgebouwd: wij stellen u een tarief voor dat is afgestemd op uw catalogus.",
+    "chapoTranche": "Uw catalogus komt overeen met de schijf «{{tranche}}». Deze schijf is van toepassing, er valt niets anders te kiezen.",
+    "devis": {
+      "bouton": "Met het team spreken",
+      "message": "Uw catalogus overschrijdt 600 producten: uw tarief wordt samen met het team bepaald."
+    },
+    "erreurPaiementDemarrage": "De betaling kon niet worden gestart.",
+    "erreurPaiementDemarrageDetail": "Probeer het zo weer. Uw kaart is niet belast.",
+    "erreurPaiementOuverture": "De betaling kon niet worden geopend.",
+    "erreurPaiementOuvertureDetail": "U kunt op elk moment een abonnement afsluiten vanaf de Prijzen-pagina.",
+    "euroHtMois": "€ excl. btw/maand",
+    "euroTtcMois": "€ incl. btw/maand",
+    "label": "Uw aanbod",
+    "mentionEssai": "{{jours}} dagen proefperiode. U wordt pas op {{date}} belast. Op elk moment opzegbaar.",
+    "mentionResiliation": "Geen vaste looptijd, met één klik opzegbaar vanuit uw omgeving.",
+    "optionAjoutee": "+{{prix}} € excl. btw/maand",
+    "optionsLabel": "Opties",
+    "ouverturePaiement": "Betaling wordt geopend…",
+    "plusTard": "Ik neem later een abonnement",
+    "promo": {
+      "applique": "Code toegepast: volledige toegang geactiveerd.",
+      "invalide": "Deze code is niet geldig.",
+      "label": "Toegangscode",
+      "placeholder": "Je code",
+      "valider": "Bevestigen",
+      "chapo": "Heeft het team u een toegangscode gegeven? Vul die hier in: hij opent uw omgeving zonder bankkaart."
+    },
+    "sabonner": "Abonneren : {{prix}} € excl. btw/maand",
+    "surMesure": {
+      "bouton": "Met het team spreken",
+      "chapo": "Uw catalogus valt buiten het schema: uw tarief wordt samen met het team opgebouwd.",
+      "message": "Wij stellen u binnen 24 uur een tarief voor dat is afgestemd op uw catalogus."
+    },
+    "titre": "Wat verkoop je?",
+    "titreProduits": "{{count}} producten geïmporteerd",
+    "titreProduits_one": "{{count}} product geïmporteerd",
+    "titreProduits_other": "{{count}} producten geïmporteerd",
+    "titreVide": "Uw catalogus",
+    "toutInclus": "Alles inbegrepen",
+    "catalogueAttendu": {
+      "extension": "Uw WooCommerce-webshop is gekoppeld, maar er is nog geen product bij Lystes aangekomen. Open in WordPress Lystes AI, dan Réglages, dan Synchroniser maintenant. Alleen gepubliceerde producten worden verzonden: is er geen gepubliceerd, publiceer er dan eerst een. Daarna start uw proefperiode met uw echte producten.",
+      "autorisation": "Uw WooCommerce-webshop is gekoppeld, maar er is geen product geïmporteerd: alleen gepubliceerde producten worden geïmporteerd. Publiceer er minstens een in WooCommerce, ga met de knop Terug naar het scherm ‘Koppel uw webshop’ en koppel WooCommerce opnieuw. Daarna start uw proefperiode met uw echte producten.",
+      "verifier": "Controleren of mijn catalogus is aangekomen",
+      "verification": "Bezig met controleren…",
+      "toujoursVide": "Er is nog geen product aangekomen. Volg de stappen hierboven en controleer het dan opnieuw.",
+      "titre": "Uw WooCommerce-catalogus is nog niet bij Lystes aangekomen.",
+      "carteNonDebitee": "Uw kaart is niet belast. De stappen staan op deze pagina."
+    },
+    "htMois": "excl. btw per maand",
+    "sabonnerHt": "Abonneren, {{prix}} excl. btw per maand",
+    "chapoSansCatalogue": "U begint zonder geïmporteerde catalogus: de kleinste staffel geldt, ‘{{tranche}}’. Alles is inbegrepen.",
+    "chapoTrancheUnique": "Uw catalogus valt in de staffel ‘{{tranche}}’. Die geldt. Alles is inbegrepen, er valt niets meer te kiezen.",
+    "chapoTranchePrestations": "Uw diensten vallen in de staffel van {{bornes}} diensten. Die geldt. Alles is inbegrepen, er valt niets meer te kiezen.",
+    "chapoTrancheMixte": "Uw producten en diensten vallen in de staffel van {{bornes}} fiches. Die geldt. Alles is inbegrepen, er valt niets meer te kiezen.",
+    "titrePrestations_one": "{{count}} dienst geregistreerd",
+    "titrePrestations_other": "{{count}} diensten geregistreerd",
+    "titreMixte_one": "{{count}} fiche, producten en diensten",
+    "titreMixte_other": "{{count}} fiches, producten en diensten",
+    "mentionEssaiCarte": "{{jours}} dagen gratis proberen. Uw kaart wordt nu gevraagd. Eerste afschrijving op {{date}}, aan het einde van de proefperiode. Op elk moment opzegbaar vóór die datum.",
+    "mentionPrelevementSouscription": "Eerste afschrijving op de dag van het afsluiten. Zonder minimale looptijd, op elk moment opzegbaar.",
+    "mentionSansEngagement": "Zonder minimale looptijd, met één klik opzegbaar vanuit uw omgeving.",
+    "paiementARegulariser": "De laatste afschrijving van uw abonnement is niet gelukt.",
+    "paiementARegulariserDetail": "Werk uw kaart bij om dit in orde te brengen. Er is geen tweede abonnement geopend.",
+    "dejaAbonneeVerification": "Uw abonnement is al actief. We controleren uw toegang.",
+    "products": {
+      "label": "Producten",
+      "desc": "Een catalogus, een winkelwagen, leveringen"
+    },
+    "services": {
+      "label": "Diensten",
+      "desc": "Afspraken, offertes, een salon of een bureau"
+    },
+    "both": {
+      "label": "Beide",
+      "desc": "Een catalogus en een agenda"
+    }
+  },
+  "organigramme": {
+    "acces360": "360°-toegang",
+    "agentsDedies": "toegewijde agenten",
+    "createurs": "maker",
+    "createurs_one": "maker",
+    "createurs_other": "makers",
+    "description": "Elk product in uw catalogus genereert automatisch gespecialiseerde agenten voor conversie, contentcreatie en marketing.",
+    "directeurs": "Directeuren",
+    "equipesPrefix": "Teams",
+    "managersPrefix": "Managers",
+    "produitsSuffix": "producten",
+    "sliderMax": "2000 producten",
+    "sliderMin": "4 producten",
+    "titreSuffix": "om uw verkoop te stimuleren",
+    "totalAgentsActifs": "Totaal aantal actieve agenten",
+    "agentsCrees_one": "{{count}} agent aangemaakt",
+    "agentsCrees_other": "{{count}} agenten aangemaakt",
+    "bilan": {
+      "autres": "Andere agenten",
+      "coachs": "Coaches na aankoop",
+      "direction": "Directie en managers",
+      "experts": "Productexperts",
+      "site": "In uw winkel"
+    },
+    "descriptionPrevue": "Dit zijn de geplande functies. Namen en aantallen verschijnen zodra uw agenten zijn aangemaakt.",
+    "descriptionReelle": "Elke agent hieronder bestaat in uw account. U vindt ze terug in uw dashboard.",
+    "direction": "Directie",
+    "equipe": {
+      "coachs": "Coaches na aankoop",
+      "coachsTexte": "Begeleiden uw klanten na hun aankoop.",
+      "conseiller": "Winkeladviseur",
+      "conseillerTexte": "Antwoordt in de hele winkel: verzending, retouren, catalogus.",
+      "experts": "Productexperts",
+      "expertsTexte": "Eén expert per product, die op de productpagina antwoordt.",
+      "expertsTextePrestations": "Eén expert per dienst, die op de dienstpagina antwoordt.",
+      "specialiste": "Uw specialist",
+      "specialisteTexte": "De adviseur die in de chatbubbel van uw winkel verschijnt.",
+      "tableauDeBord": "Werkt in uw dashboard, zonder agent in uw winkel."
+    },
+    "equipeDe": "Team · {{poste}}",
+    "erreur": "Uw team kon niet worden gelezen. Het is opgeslagen: alleen het lezen is mislukt.",
+    "essayer": "Uw adviseur uitproberen",
+    "essayerAideDiagnostic": "Opent in een nieuw tabblad. Stuur een foto, zoals een klant zou doen.",
+    "essayerAideEssayage": "Opent in een nieuw tabblad. Stuur een foto om een van uw producten te passen.",
+    "essayerApresActivation": "U probeert hem direct na de activering uit, vanuit uw installatiegids.",
+    "essayerBoutique": "Hij antwoordt in de chatbubbel van uw winkel. U probeert hem uit zodra hij op uw website staat.",
+    "lecture": "Uw team wordt gelezen…",
+    "pourVosFiches": "voor uw {{nombre}} {{unite}}",
+    "precedent": "Vorige manager",
+    "prestationsUnite_one": "dienst",
+    "prestationsUnite_other": "diensten",
+    "prevu": "Gepland",
+    "produitsUnite_one": "product",
+    "produitsUnite_other": "producten",
+    "relire": "Opnieuw lezen",
+    "suivant": "Volgende manager",
+    "titrePrevu": "Uw AI-team wordt ingericht",
+    "titreReel_one": "{{count}} agent aangemaakt",
+    "titreReel_other": "{{count}} agenten aangemaakt",
+    "totalCrees": "Voor u aangemaakte agenten",
+    "postes": {
+      "analytics": "Cijferanalyse",
+      "conversations": "Gesprekken",
+      "diagnostics": "Website-adviseurs",
+      "leads": "Leads",
+      "manager": "Manager",
+      "marketing": "Marketing",
+      "products": "Productexperts",
+      "strategy": "Strategie",
+      "upsell": "Coaches na aankoop",
+      "winners": "Winnende producten"
+    }
+  },
+  "page": {
+    "continuer": "Doorgaan",
+    "equipeActivee": "Uw AI-team is geactiveerd!",
+    "erreurActivation": "Uw team kon niet worden geactiveerd. Probeer het zo weer, uw producten en uw account zijn intact.",
+    "erreurCreationCompte": "Uw account kon niet worden aangemaakt. Controleer uw internetverbinding en probeer het opnieuw.",
+    "progression_one": "Stap {{etape}}/{{total}} · ~{{count}} min resterend",
+    "progression_other": "Stap {{etape}}/{{total}} · ~{{count}} min resterend",
+    "retour": "Terug",
+    "reessayer": "Opnieuw proberen",
+    "consigne": {
+      "offre": "Vertel ons eerst wat u verkoopt.",
+      "secteur": "Kies uw branche om verder te gaan.",
+      "enregistrement": "We slaan uw branche op…",
+      "nonEnregistre": "Uw branche is nog niet opgeslagen: klik opnieuw op de kaart."
+    },
+    "progressionNonEnregistree": "Uw voortgang kon niet worden opgeslagen",
+    "choixNonEnregistre": "Uw keuze kon niet worden opgeslagen",
+    "configurationPartielle": "Uw AI-team is gedeeltelijk ingesteld. Sommige onderdelen worden in de volgende stap aangevuld."
+  },
+  "plateforme": {
+    "autre": {
+      "desc": "PrestaShop, Magento of aangepaste CSV",
+      "nom": "Ander platform"
+    },
+    "chapo": "Importeer uw productcatalogus om uw AI-team te genereren",
+    "import": {
+      "compteProduits": "{{count}} producten",
+      "ignores": "{{count}} genegeerd",
+      "reussi": "Import geslaagd",
+      "nombreImportes_one": "{{count}} product geïmporteerd",
+      "nombreImportes_other": "{{count}} producten geïmporteerd"
+    },
+    "quotaPlein": "Uw huidige abonnement biedt geen ruimte meer: nieuwe producten worden opzijgezet, er wordt niets verwijderd.",
+    "quotaRestant_one": "Uw huidige abonnement dekt nog {{count}} product. Daarna worden producten opzijgezet en kunt u uw aanbod aanpassen.",
+    "quotaRestant_other": "Uw huidige abonnement dekt nog {{count}} producten. Daarna worden producten opzijgezet en kunt u uw aanbod aanpassen.",
+    "shopify": {
+      "boutonConnecter": "Mijn Shopify-winkel koppelen",
+      "champUrl": "URL van uw Shopify-winkel",
+      "champUrlOauth": "Adres van uw winkel",
+      "chapoCsv": "Exporteer uw producten vanuit Shopify en sleep het bestand hierheen",
+      "chapoOauth": "Automatische synchronisatie van uw producten",
+      "commentExporter": "Hoe te exporteren vanuit Shopify:",
+      "connexionEnCours": "Bezig met verbinden…",
+      "desc": "Importeren vanuit uw Shopify-winkel",
+      "docLien": "Shopify-documentatie",
+      "docUrl": "https://help.shopify.com/nl/manual/products/import-export/export-products",
+      "domaineInvalide": "Ongeldig Shopify-domein.",
+      "exportStep1": "Ga in de Shopify-admin naar Producten.",
+      "exportStep2": "Klik op Exporteren, daarna op «Alle producten».",
+      "exportStep3": "Download het gegenereerde CSV-bestand en importeer het hier.",
+      "oauthEnValidation": "De directe koppeling met Shopify wordt momenteel gevalideerd. Importeer intussen uw producten via een CSV-bestand.",
+      "replieCsv": "Terugvallen op CSV-import",
+      "titreCsv": "Shopify-import (CSV)",
+      "titreOauth": "Shopify koppelen",
+      "chapoCsv2": "Shopify exporteert uw catalogus in één klik. U zet het bestand hier neer en de agent leert uw producten kennen.",
+      "etape1Aide": "Het technische adres van uw winkel. Het eindigt op .myshopify.com en staat bovenaan in uw Shopify-beheer.",
+      "etape1Titre": "Uw winkel",
+      "etape2AideEmail": "Klik in Producten op Exporteren, kies Alle producten en daarna Producten exporteren. Shopify mailt het bestand binnen enkele minuten naar het adres van uw Shopify-account. Open die e-mail, download het bestand en zet het hieronder neer.",
+      "etape2Brouillons": "Alleen producten met de status Actief worden geïmporteerd. Een concept of gearchiveerd product in Shopify niet: zet het op Actief vóór de export als uw adviseur het moet kennen.",
+      "etape2Attente": "Vul hierboven uw winkel in: de link naar uw producten verschijnt dan hier.",
+      "etape2Titre": "Exporteer vanuit Shopify",
+      "etape3Titre": "Zet het bestand hier neer",
+      "ouvrirProduits": "Mijn Shopify-producten openen",
+      "titreCsv2": "Uw producten, in drie stappen"
+    },
+    "titre": "Koppel uw webshop",
+    "toast": {
+      "importReussi": "Import geslaagd"
+    },
+    "woo": {
+      "boutonConnecter": "Verbinden met WooCommerce",
+      "champUrl": "Adres van uw winkel",
+      "chapo": "Log in met één klik, zonder API-sleutel",
+      "connexionEnCours": "Bezig met verbinden…",
+      "desc": "Koppel uw WooCommerce-winkel",
+      "exportNatif": "Native WooCommerce-export",
+      "mentionRedirection": "U wordt doorgestuurd naar WooCommerce om de toegang veilig te autoriseren",
+      "titre": "WooCommerce koppelen"
+    }
+  },
+  "premierCollaborateur": {
+    "allerTableauBord": "Direct naar het dashboard gaan",
+    "chapo": "Uw toegewijde expert voor {{marker}}. Stel hem een eerste vraag, dit is het magische moment van Lystes.",
+    "direction": "Op weg naar uw dashboard om te beginnen.",
+    "equipePrete": "Uw team is klaar",
+    "etapeFinale": "Laatste stap",
+    "expertParDefaut": "Uw expert",
+    "expertProduit": "Expert · {{produit}}",
+    "label": "Eerste medewerker",
+    "ouvrirTableauBord": "Mijn dashboard openen",
+    "rencontrez": "Maak kennis met {{expert}}",
+    "suggestion1": "Waarom {{produit}} kopen in plaats van bij een concurrent?",
+    "suggestion2": "Wat zijn de 3 belangrijkste verkoopargumenten voor {{produit}}?",
+    "suggestion3": "{{expert}}, hoe zou u {{produit}} aanbevelen aan een twijfelende klant?",
+    "suggestionsTitre": "Suggesties om te beginnen"
+  },
+  "secteur": {
+    "chapo": "We passen uw AI-team aan uw branche aan",
+    "groupeAutre": "Overig",
+    "groupeSpecialise": "Met gespecialiseerde AI-agent",
+    "titre": "Wat is uw sector?",
+    "nonEnregistre": "Uw branche is niet opgeslagen. Klik opnieuw op de kaart om het nog eens te proberen."
+  },
+  "secteurs": {
+    "decoration": {
+      "desc": "Interieurdecoratie",
+      "label": "Decoratie"
+    },
+    "fashion": {
+      "desc": "Confectiekleding",
+      "label": "Kleding"
+    },
+    "food": {
+      "desc": "Fijne voeding",
+      "label": "Delicatessen"
+    },
+    "furniture": {
+      "desc": "Meubels en decoratie",
+      "label": "Meubels"
+    },
+    "haircare": {
+      "desc": "Haar en verzorging",
+      "label": "Haarverzorging"
+    },
+    "hightech": {
+      "desc": "Elektronica",
+      "label": "High-Tech"
+    },
+    "jewelry": {
+      "desc": "Kettingen, ringen, oorbellen",
+      "label": "Sieraden"
+    },
+    "makeup": {
+      "desc": "Teint, ogen, lippen",
+      "label": "Make-up"
+    },
+    "nutrition": {
+      "desc": "Dieetadvies",
+      "label": "Voeding"
+    },
+    "optical": {
+      "desc": "Brillen en monturen",
+      "label": "Optiek"
+    },
+    "other": {
+      "desc": "Niet-vermelde sector",
+      "label": "Overig"
+    },
+    "perfume": {
+      "desc": "Parfumerie",
+      "label": "Parfum"
+    },
+    "pets": {
+      "desc": "Producten voor huisdieren",
+      "label": "Huisdieren"
+    },
+    "shoes": {
+      "desc": "Sneakers, stad, sport",
+      "label": "Schoenen"
+    },
+    "skincare": {
+      "desc": "Gezichts- en lichaamsverzorging",
+      "label": "Skincare"
+    },
+    "sport": {
+      "desc": "Sportuitrusting",
+      "label": "Sport"
+    },
+    "watches": {
+      "desc": "Horloges en uurwerken",
+      "label": "Horloges"
+    },
+    "wellness": {
+      "desc": "Fitness en coaching",
+      "label": "Wellness"
+    },
+    "wigs": {
+      "desc": "Pruiken en extensions",
+      "label": "Pruiken"
+    }
+  },
+  "site": {
+    "aide": {
+      "gratuit": "gratis en zonder enige technische kennis vereist.",
+      "question": "Een vraag, een probleem?",
+      "reserver": "Boek 30 minuten met het team"
+    },
+    "csv": {
+      "allerTableauBord": "Naar het dashboard gaan",
+      "chapo": "Upload een export van uw producten. Er wordt een sjabloon meegeleverd als u vanaf nul begint.",
+      "enPreparation": "Uw omgeving wordt momenteel voorbereid. Open het dashboard: de import is daar op elk moment beschikbaar.",
+      "titre": "Import van uw catalogus"
+    },
+    "etape": "Stap {{n}} van 3",
+    "plateforme": {
+      "boutiqueRetenue": "Geselecteerde winkel:",
+      "chapo": "We hebben een platform voorgesteld. Corrigeer dit als het niet klopt.",
+      "modifier": "wijzigen",
+      "titre": "Uw platform",
+      "toastRetenue": "Platform geselecteerd voor deze sessie."
+    },
+    "plateformes": {
+      "autre": {
+        "hint": "Import via CSV-bestand",
+        "label": "Anders / weet ik niet",
+        "indice": "Een code om op uw website te plakken"
+      },
+      "shopify": {
+        "hint": "Verbinding via toegangstoken",
+        "indice": "Een code om in uw thema te plakken"
+      },
+      "woocommerce": {
+        "hint": "Beveiligde verbinding met één klik",
+        "indice": "Een WordPress-plug-in om te installeren"
+      }
+    },
+    "retourGuide": "Abonnement bevestigd. We brengen u terug naar uw installatiegids…",
+    "url": {
+      "chapo": "Geef het adres van uw website op. De opmaak maakt niet uit: wij formatteren het correct.",
+      "erreurAdresse": "Adres niet herkend.",
+      "exemples": "Geaccepteerde voorbeelden: mijnwinkel.nl, www.mijnwinkel.nl, https://mijnwinkel.nl/winkel",
+      "label": "Adres van de winkel",
+      "pasDeSite": "Ik heb geen website online : een productbestand importeren",
+      "placeholder": "mijnwinkel.nl",
+      "titre": "Uw winkel",
+      "toastRetenue": "Adres geselecteerd voor deze sessie.",
+      "pasDeSiteEncore": "Ik heb nog geen website online"
+    },
+    "paiement": {
+      "chapo": "We hebben geen actief abonnement op uw account gevonden. Hebt u net betaald, wacht dan een minuut en probeer het opnieuw: uw kaart is maar één keer belast en er is niets verloren.",
+      "reessayer": "Opnieuw controleren",
+      "revenirOffre": "Terug naar mijn aanbod",
+      "titre": "Uw abonnement is nog niet bevestigd",
+      "verification": "We bevestigen uw abonnement…"
+    },
+    "reprise": "We gaan verder waar u was gebleven…"
+  },
+  "widget": {
+    "aide": {
+      "bouton": "Verzoek bevestigen",
+      "chapo": "Ons technisch team installeert de widget op uw website. Geïnstalleerd binnen 24 werkuren.",
+      "detail": "We nemen dezelfde dag per e-mail contact met u op om uw toegangsgegevens te verkrijgen. Tot die tijd hoeft u niets te doen.",
+      "titre": "Doe het voor mij",
+      "dejaEnvoyee": "Aanvraag op {{date}} naar het team gestuurd. We mailen u om uw toegangsgegevens te krijgen."
+    },
+    "auto": {
+      "badge": "Aanbevolen",
+      "bouton": "Nu activeren",
+      "chapo": "Gedetecteerd: {{plateforme}}. Eén klik en het staat online.",
+      "titre": "Automatische installatie"
+    },
+    "chapo": "Kies de methode die u het beste past. Deze stap is niet verplicht, u kunt er later vanuit het dashboard op terugkomen.",
+    "guide": {
+      "bouton": "Ik heb de code geplakt, doorgaan",
+      "boutonVerifier": "Ik heb de code geplakt, controleer mijn site",
+      "chapo": "Kopieer deze code en plak deze net vóór {{balise}} op uw website.",
+      "chapoShopify": "Kopieer deze code en plak deze helemaal onderaan theme.liquid, tussen {{fermeCorps}} en {{fermePage}}.",
+      "copie": "Gekopieerd",
+      "copier": "Kopiëren",
+      "etape1": "Open de thema-editor van uw website.",
+      "etape2": "Zoek het hoofdsjabloonbestand (meestal theme.liquid, footer.php of header.html).",
+      "etape3": "Plak de code net vóór de tag {{balise}}.",
+      "etape4": "Sla op en herlaad uw website. De widget verschijnt rechtsonder.",
+      "introuvable": "De widget is niet op je site gevonden. Controleer of de code geplakt is, sla op en start de controle opnieuw.",
+      "titre": "Geïllustreerde stap-voor-stap handleiding",
+      "verifImpossible": "We konden je site nu niet controleren. Je kunt de controle opnieuw starten via de pagina Installatie.",
+      "preparation": "Uw code wordt voorbereid…",
+      "shopify": {
+        "etape1": "Open in uw Shopify-beheer Onlinewinkel en daarna Thema's.",
+        "etape2": "Klik bij uw actieve thema op de drie puntjes, daarna op Code bewerken, en open layout en dan theme.liquid.",
+        "etape2bis": "Scrol helemaal naar beneden in het bestand en plak de code tussen de sluitende body-tag en de sluitende html-tag, daarna Opslaan.",
+        "ouvrirThemes": "Mijn Shopify-thema's openen"
+      }
+    },
+    "plusTard": "Later installeren",
+    "titre": "Installeer Lystes op uw website",
+    "toast": {
+      "activationEchouee": "De widget kon niet worden geactiveerd. Probeer het opnieuw, of kies «Doe het voor mij» en ons team regelt het.",
+      "active": "Widget geactiveerd op uw winkel",
+      "copie": "Code gekopieerd",
+      "copieEchouee": "Kopiëren is niet gelukt. Selecteer de code handmatig en kopieer deze.",
+      "demandeEchouee": "Uw verzoek kon niet worden verzonden. Probeer het opnieuw of schrijf ons vanaf de pagina Help.",
+      "demandeEnvoyee": "Ons team regelt dit. Geïnstalleerd binnen 24 werkuren.",
+      "sansAgent": "Maak eerst uw agent aan: zonder hem kan de code niets tonen."
+    },
+    "plugin": {
+      "badge": "Aanbevolen",
+      "chapo": "Eén bestand om naar WordPress te uploaden. Geen code, vijf minuten.",
+      "echec": "De plug-in kon niet worden voorbereid. Probeer het opnieuw of kies ‘Doe het voor mij’.",
+      "etape1": "Open in WordPress Plugins en daarna Nieuwe plugin toevoegen.",
+      "etape2": "Klik op Plugin uploaden, kies het gedownloade bestand en daarna Nu installeren.",
+      "etape3": "Klik op Activeren. Uw adviseurs verschijnen op uw productpagina's, uw ontwerp blijft ongewijzigd.",
+      "etape4": "Kom hier terug en controleer de installatie.",
+      "guideIllustre": "De geïllustreerde stap-voor-stapgids bekijken",
+      "sansAgent": "Maak eerst uw agent aan: de plug-in heeft hem nodig om te weten wat hij moet tonen.",
+      "telecharge": "Plug-in gedownload.",
+      "telecharger": "Mijn plug-in downloaden",
+      "titre": "De WordPress-plug-in installeren",
+      "verifier": "Ik heb de plug-in geactiveerd, mijn website controleren"
+    },
+    "replier": "Sluiten",
+    "verif": {
+      "adresseManquante": "Vul het adres van een van uw productpagina's in: daar zoeken we uw adviseur.",
+      "aide": "De adviseur verschijnt op uw productpagina's: daar zoeken we hem.",
+      "impossible": "De controle kon aan onze kant niet worden afgerond. Probeer het zo meteen opnieuw. Aan uw installatie ligt het niet.",
+      "label": "Adres van een van uw productpagina's",
+      "placeholder": "https://mijnwinkel.nl/producten/mijn-product",
+      "reussie": "Uw adviseur staat online in uw winkel."
+    },
+    "panneService": "We konden de dienst die uw code voorbereidt niet bereiken. Uw adviseur is niet de oorzaak en er is niets gewijzigd. Probeer het zo meteen opnieuw.",
+    "reessayer": "Opnieuw proberen"
+  },
+  "prestations": {
+    "titre": "Uw diensten",
+    "chapo": "Zet op een rij wat u aanbiedt. Uw adviseur gebruikt het om elke klant naar de juiste dienst te leiden.",
+    "dejaLa_one": "{{count}} dienst al opgeslagen",
+    "dejaLa_other": "{{count}} diensten al opgeslagen",
+    "numero": "Dienst {{n}}",
+    "retirer": "Deze dienst verwijderen",
+    "nom": "Naam",
+    "nomExemple": "Stralende gezichtsbehandeling",
+    "prix": "Prijs in euro",
+    "duree": "Duur",
+    "dureeExemple": "60 min",
+    "description": "Voor wie, en wat het oplevert",
+    "descriptionExemple": "Doffe of vermoeide huid. Reiniging, zachte scrub en massage voor een stralende teint.",
+    "ajouter": "Dienst toevoegen",
+    "enregistrer_one": "Dienst opslaan",
+    "enregistrer_other": "De {{count}} diensten opslaan",
+    "aussiProduits": "Verkoopt u ook producten online?",
+    "importerCatalogue": "Uw catalogus importeren",
+    "aussiPrestations": "Biedt u diensten aan zonder online catalogus?",
+    "saisirPrestations": "Uw diensten invoeren",
+    "prixInvalide": "De prijs van ‘{{nom}}’ is geen getal. Voorbeeld: 45 of 45,50.",
+    "echec": "Uw diensten konden niet worden opgeslagen. Probeer het zo opnieuw.",
+    "enregistrees_one": "{{count}} dienst opgeslagen",
+    "enregistrees_other": "{{count}} diensten opgeslagen"
+  },
+  "progression": {
+    "libelle": "Stap {{etape}} van {{total}} · {{duree}}",
+    "duree": {
+      "catalogue": "5 tot 15 min",
+      "equipe": "1 tot 2 min",
+      "inscription": "1 min",
+      "installation": "5 tot 20 min",
+      "offre": "2 tot 3 min",
+      "secteur": "1 min"
+    }
+  },
+  "shopifyApp": {
+    "bienvenue": {
+      "titre": "Lystes voor {{boutique}}",
+      "texte": "Een adviseur beantwoordt je klanten op elke productpagina. Je producten komen vanzelf uit Shopify.",
+      "creer": "Mijn ruimte aanmaken",
+      "dejaUnCompte": "Ik heb al een Lystes-account"
+    },
+    "retour": "Terug",
+    "continuer": "Doorgaan",
+    "reessayer": "Opnieuw proberen",
+    "horsAdmin": "Open Lystes vanuit je Shopify-beheer, onder Apps.",
+    "erreur": {
+      "refus": "Deze winkel is al gekoppeld aan een andere Lystes-ruimte. Schrijf naar contact@lystes.ai.",
+      "creation": "Je ruimte kon niet worden aangemaakt. Probeer het over een minuut opnieuw.",
+      "ouverture": "Lystes kon niet worden geopend. Probeer het zo meteen opnieuw."
+    },
+    "produits": {
+      "titre": "Je producten komen binnen",
+      "texte": "Lystes leest je Shopify-catalogus. Elk product krijgt zijn adviseur.",
+      "vide": "Je winkel heeft nog geen product. Voeg er een toe in Shopify: het komt hier vanzelf binnen, en je adviseur stelt het voor aan je klanten.",
+      "compte": "{{recus}} van {{attendus}}",
+      "compteSeul": "{{recus}} producten ontvangen",
+      "source": "Uit je Shopify-winkel",
+      "essayer": "Je adviseur uitproberen",
+      "enArrierePlan": "De import gaat op de achtergrond door. U kunt verder.",
+      "ajouter": "Product toevoegen"
+    },
+    "liaison": {
+      "titre": "Je Lystes-account koppelen",
+      "texte": "Er opent een tabblad op lystes.ai. Log in en kies de ruimte die deze winkel ontvangt. Iedereen die Lystes in deze Shopify-winkel opent, komt in die ruimte.",
+      "ouvert": "Log in in het geopende tabblad en kom dan hier terug. De app opent in je ruimte.",
+      "erreur": "De link kon niet worden voorbereid. Probeer het over een minuut opnieuw.",
+      "ouvrir": "lystes.ai openen",
+      "cestFait": "Klaar"
+    },
+    "nav": {
+      "accueil": "Start",
+      "conversations": "Gesprekken",
+      "conseillers": "Adviseurs",
+      "installation": "Installatie",
+      "formule": "Abonnement",
+      "reglages": "Instellingen"
+    },
+    "accueil": {
+      "titre": "Lystes in je winkel",
+      "chargement": "Je winkel wordt gelezen",
+      "activer": "De adviseur in je winkel inschakelen",
+      "activerTexte": "De thema-editor opent met Lystes al aangevinkt. Opslaan, en het staat online.",
+      "tester": "Je adviseur uitproberen",
+      "testerTexte": "Stel hem de vraag van een klant, in een nieuw tabblad.",
+      "produits": "Je producten",
+      "produitsCompte": "{{n}} producten gevolgd",
+      "produitsCompteUn": "1 product gevolgd",
+      "produitsTexte": "Elk product heeft zijn adviseur. Bekijk de adviseurs.",
+      "produitsVide": "Voeg een product toe in Shopify: het komt hier vanzelf binnen.",
+      "formule": "Je abonnement kiezen",
+      "formuleTexte": "Betaald via je Shopify-factuur, geen kaart in te voeren.",
+      "formuleEnCours": "Huidig abonnement: {{palier}}",
+      "formuleGelee": "Opgeschort door Shopify: betaal je Shopify-factuur om het opnieuw te activeren.",
+      "formuleEssai_one": "Proefperiode loopt: nog {{count}} dag.",
+      "formuleEssai_other": "Proefperiode loopt: nog {{count}} dagen.",
+      "formuleActive": "Betaald via je Shopify-factuur. Abonnement bekijken of wijzigen.",
+      "formuleOfferte": "Je abonnement"
+    },
+    "plateforme": {
+      "titre": "Je Shopify-winkel is gekoppeld",
+      "chapo": "{{shop}} is gekoppeld via de Lystes-app. Je producten komen vanzelf, niets te importeren.",
+      "lecture": "Catalogus wordt gelezen"
+    },
+    "widget": {
+      "titre": "Lystes in je thema inschakelen",
+      "chapo": "De Shopify-thema-editor opent met Lystes al aangevinkt. Geen code om te plakken.",
+      "bouton": "Thema-editor openen",
+      "etape1": "In de editor staat Lystes aangevinkt onder App-insluitingen.",
+      "etape2": "Klik rechtsboven op Opslaan.",
+      "etape3": "Kom hier terug en controleer de installatie.",
+      "verifier": "Ik heb het thema opgeslagen, mijn site controleren"
+    },
+    "formule": {
+      "titre": "Uw abonnement kiest u in Shopify",
+      "chapo": "{{shop}} is gekoppeld via de Lystes-app. Uw abonnement wordt betaald via uw Shopify-factuur: hier hoeft u geen kaart in te voeren.",
+      "ligne": "Lystes, in uw Shopify-beheer",
+      "ligneTexte": "Apps, daarna Lystes: het abonnement, de proefperiode van 7 dagen en uw gesprekken.",
+      "ouvrir": "Lystes openen in Shopify",
+      "tableauDeBord": "Naar het dashboard"
+    }
+  },
+  "essai": {
+    "aide_one": "{{count}} gratis bericht om hem op een van uw productpagina's te testen, voordat u uw kaart invoert.",
+    "aide_other": "{{count}} gratis berichten om hem op een van uw productpagina's te testen, voordat u uw kaart invoert.",
+    "aideFormule": "Stel hem een vraag op een van uw productpagina's, zoals een klant zou doen.",
+    "titre": "Uw adviseur, op uw productpagina",
+    "consigne": "Stel hem een vraag zoals een klant zou doen. Hij antwoordt met uw catalogus.",
+    "restant_one": "Nog {{count}} bericht",
+    "restant_other": "Nog {{count}} berichten",
+    "fini": "Test afgelopen",
+    "termine": "Uw test is afgelopen. Kies uw aanbod om uw adviseur te houden.",
+    "voirOffre": "Aanbod bekijken"
+  },
+  "paiementInterrompu": {
+    "titre": "Betaling onderbroken: er is niets afgeschreven",
+    "texte": "U heeft de betaalpagina verlaten. Uw kaart is niet belast en uw aanmelding is bewaard: ga verder wanneer u wilt."
+  },
+  "inscription": {
+    "verifierTitre": "Controleer uw inbox",
+    "envoyeA": "We hebben zojuist een bevestigingslink naar {{email}} gestuurd.",
+    "consigne": "Open deze e-mail en klik op de link: uw aanmelding gaat hier verder, met de keuze van uw branche.",
+    "indesirables": "Na twee minuten niets ontvangen? Kijk in de map met ongewenste e-mail en stuur de e-mail daarna opnieuw.",
+    "renvoyer": "E-mail opnieuw sturen",
+    "renvoyerDans_one": "E-mail opnieuw sturen over {{count}} seconde",
+    "renvoyerDans_other": "E-mail opnieuw sturen over {{count}} seconden",
+    "envoi": "Versturen…",
+    "renvoye": "E-mail opnieuw gestuurd naar {{email}}.",
+    "echecRenvoi": "De e-mail kon niet opnieuw worden gestuurd. Wacht een minuut en probeer het dan opnieuw.",
+    "modifierAdresse": "Mijn e-mailadres wijzigen",
+    "motDePasse": {
+      "longueur": "Het wachtwoord moet minstens 8 tekens bevatten",
+      "majuscule": "Het wachtwoord moet minstens 1 hoofdletter bevatten",
+      "chiffre": "Het wachtwoord moet minstens 1 cijfer bevatten"
+    },
+    "formulaire": {
+      "prenom": "Voornaam",
+      "nom": "Achternaam",
+      "nomBoutique": "Naam van uw winkel",
+      "exemplePrenom": "Sanne",
+      "exempleNom": "de Vries",
+      "exempleBoutique": "Mijn Winkel"
+    },
+    "offreChoisie": {
+      "surtitre": "Gekozen formule",
+      "htMois": "excl. btw/maand",
+      "separateur": ":",
+      "paiementSecurise": "Veilige betaling direct nadat u uw account hebt aangemaakt. Zonder verplichting, met één klik op te zeggen vanuit uw omgeving.",
+      "apresPaiement": {
+        "0": "Uw AI-agenten actief zodra de betaling is bevestigd",
+        "1": "Installatie in 5 minuten, geen technische kennis nodig",
+        "2": "Gratis begeleiding van 30 minuten als u dat liever hebt"
+      },
+      "nommee": "Formule {{nom}}",
+      "creezPuisChoisissez": "Maak uw account aan en kies daarna uw formule op de pagina Prijzen. Er wordt niets afgeschreven zolang u niet bent geabonneerd.",
+      "changer": "Formule wijzigen"
+    },
+    "avantages": {
+      "starter": {
+        "0": "Tot 50 uitgeruste producten",
+        "1": "Productadviseurs 24/7, één per product",
+        "2": "Toevoegen aan winkelwagen in het gesprek",
+        "3": "Installatie in 5 minuten (Shopify, WooCommerce)"
+      },
+      "pro": {
+        "0": "Alles van Starter, tot 150 producten",
+        "1": "Virtueel passen: één selfie volstaat",
+        "2": "Schoonheidsdiagnose via biometrische analyse",
+        "3": "Persartikelen als optie (add-on)"
+      },
+      "business": {
+        "0": "Alles van Pro, tot 500 producten, onbeperkte kanalen",
+        "1": "Fotografen + UGC: premium beelden zonder fotoshoot",
+        "2": "Marketing + SEO gevoed door uw gesprekken",
+        "3": "Data-analist: uw gesprekken samengevat"
+      }
+    },
+    "messages": {
+      "incidentMineur": "Er is een klein technisch probleem opgetreden.",
+      "incidentMineurDetail": "Als uw abonnement na de betaling niet verschijnt, neem dan contact op met support.",
+      "paiementNonOuvert": "De betaling kon niet worden geopend.",
+      "paiementNonOuvertDetail": "Uw account is aangemaakt. U vindt uw formule op de pagina Prijzen.",
+      "erreurSurvenue": "Er is een fout opgetreden",
+      "compteCreeFinalisation": "Account aangemaakt, maar het afronden van uw profiel liep op een probleem. Probeer het zo nodig opnieuw via de onboarding.",
+      "compteCree": "Account aangemaakt!"
+    },
+    "meta": {
+      "titreInscription": "Aanmelden",
+      "titreConnexion": "Inloggen",
+      "descriptionInscription": "Maak uw Lystes AI-account aan om uw team van AI-agenten voor e-commerce te activeren.",
+      "descriptionConnexion": "Log in bij Lystes AI om uw AI-agenten voor e-commerce te beheren."
+    }
+  }
+}

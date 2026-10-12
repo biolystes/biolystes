@@ -1,0 +1,20 @@
+{
+  "t000_faq": "Questions fréquentes",
+  "t001_faq": "Vos questions, en clair",
+  "t002_faq": "Combien de temps prend l'installation ?",
+  "t003_faq": "Comptez 20 minutes pour un catalogue standard sur Shopify ou WooCommerce. Pour un site custom ou une intégration CRM spécifique, on cadre le délai ensemble au premier rendez-vous, et on vous accompagne du début à la fin.",
+  "t004_faq": "L'assistant peut-il vraiment déclencher un ajout au panier ?",
+  "t005_faq": "Oui. Sur Shopify et WooCommerce, il pousse le produit directement dans le panier du client depuis la conversation, sans qu'il quitte la page produit.",
+  "t006_faq": "Sur quelles plateformes ça fonctionne ?",
+  "t007_faq": "Shopify, WooCommerce, et tout site sur mesure. Pour les plateformes custom, notre équipe configure l'intégration avec vous.",
+  "t008_faq": "Mes données clients restent-elles chez moi ?",
+  "t009_faq": "Oui, à 100 %. Les conversations sont stockées dans votre boîte de réception privée. Aucune donnée n'est partagée ni utilisée pour entraîner d'autres modèles.",
+  "t010_faq": "Peut-on personnaliser la personnalité de l'assistant ?",
+  "t011_faq": "Totalement. Vous choisissez sa voix, son ton, son message d'accueil, et vous lui donnez des consignes produit par produit. Si une réponse ne vous plaît pas, vous la corrigez une fois, il s'en souvient.",
+  "t012_faq": "Que voit-on dans la boîte de réception ?",
+  "t013_faq": "Toutes les conversations, l'email du client, la page produit d'origine, le nombre de messages, la durée, l'issue, et les sujets qui reviennent, le tout dans une interface unique.",
+  "t014_faq": "Comment mesure-t-on la performance ?",
+  "t015_faq": "Volume de conversations, taux de conversion chat, puis achat, chiffre d'affaires généré, top produits vendus. Tout est consultable depuis votre dashboard.",
+  "t016_faq": "Faut-il prévoir un budget shooting photo ?",
+  "t017_faq": "Non. L'assistant utilise les visuels et avis déjà présents sur vos fiches produit. Pour enrichir votre catalogue, notre équipe Photographe AI peut générer des visuels en complément."
+}

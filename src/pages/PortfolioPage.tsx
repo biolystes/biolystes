@@ -263,7 +263,7 @@ function BrandAlbum({ brand, index }: { brand: Brand; index: number }) {
             {brand.tags.map((tag, i) => (
               <span key={i} style={{
                 padding: "4px 11px", borderRadius: 20, fontSize: 11, fontWeight: 600,
-                background: i === 0 ? `${brand.accentColor}18` : "#e8e7d2",
+                background: i === 0 ? `${brand.accentColor}18` : "#ebecee",
                 color: i === 0 ? brand.accentColor : "#121212aa",
                 border: i === 0 ? `1px solid ${brand.accentColor}30` : "none",
               }}>{tag}</span>

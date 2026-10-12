@@ -40,7 +40,7 @@ export default function SignupPage() {
   const inputStyle: React.CSSProperties = {
     width: "100%",
     padding: "14px 16px",
-    background: "#f5f4df",
+    background: "#ffffff",
     border: "none",
     borderRadius: 12,
     fontSize: 15,

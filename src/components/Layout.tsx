@@ -63,7 +63,7 @@ function TopNavBar() {
       className="hidden md:flex items-center fixed top-0 left-0 right-0 z-40 px-6"
       style={{
         height: 56,
-        background: "#f5f4df",
+        background: "#ffffff",
         borderBottom: "1px solid #1d1d1f",
       }}
     >
@@ -194,7 +194,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <div className="flex flex-col min-h-screen" style={{ background: "#f5f4df" }}>
+    <div className="flex flex-col min-h-screen" style={{ background: "#ffffff" }}>
       <TopNavBar />
 
       {/* Overlay mobile */}
@@ -315,7 +315,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </button>
         </header>
 
-        <main className="md:pt-[56px]" style={{ background: "#f5f4df", minHeight: "100vh", maxWidth: 1200, margin: "0 auto" }}>
+        <main className="md:pt-[56px]" style={{ background: "#ffffff", minHeight: "100vh", maxWidth: 1200, margin: "0 auto" }}>
           {children}
         </main>
         

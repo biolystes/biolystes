@@ -7,6 +7,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@lystes/*": [
+        "./lystes/src/*"
       ]
     },
     "skipLibCheck": true,

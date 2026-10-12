@@ -40,7 +40,7 @@ interface SelectionData {
 // ─── Palette (matching catalog) ───────────────────────────
 const C = {
   bg: "#ebebd6",
-  bgLight: "#f5f4df",
+  bgLight: "#f3f4f5",
   border: "#dddcc8",
   borderLight: "#e2e1cc",
   muted: "#8a8970",
@@ -262,7 +262,7 @@ export default function SharedSelectionPage() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f5f4df" }}>
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#ffffff" }}>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 16 }}>
           <div style={{ width: 36, height: 36, borderRadius: "50%", border: "2.5px solid #1d1d1f", borderTopColor: "transparent", animation: "spin 0.9s linear infinite" }} />
           <p style={{ fontSize: 13, color: "#86868b" }}>Chargement de la sélection…</p>
@@ -274,7 +274,7 @@ export default function SharedSelectionPage() {
 
   if (error || !selection) {
     return (
-      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#f5f4df" }}>
+      <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#ffffff" }}>
         <div style={{ textAlign: "center" }}>
           <p style={{ fontSize: 15, color: "#1d1d1f", fontWeight: 600, marginBottom: 8 }}>{error || "Sélection introuvable"}</p>
           <Link to="/" style={{ fontSize: 13, color: "#86868b", textDecoration: "underline" }}>Retour à l'accueil</Link>
@@ -286,9 +286,9 @@ export default function SharedSelectionPage() {
   const total = selection.products.reduce((acc, p) => acc + (parseFloat(p.price) || 0), 0);
 
   return (
-    <div style={{ minHeight: "100vh", background: "#f5f4df" }}>
+    <div style={{ minHeight: "100vh", background: "#ffffff" }}>
       {/* Header */}
-      <div style={{ background: "#f5f4df", borderBottom: "1px solid hsl(var(--foreground) / 0.08)", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <div style={{ background: "#ffffff", borderBottom: "1px solid hsl(var(--foreground) / 0.08)", padding: "16px 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <img src={lystesLogo} alt="Biolystes" style={{ width: 32, height: 32, objectFit: "contain" }} />
           <span style={{ fontSize: 13, fontWeight: 700, color: "#1d1d1f" }}>Biolystes</span>
@@ -356,7 +356,7 @@ export default function SharedSelectionPage() {
                     </h3>
                   </div>
                   {price > 0 && (
-                    <div style={{ background: "#f5f4df", borderRadius: 10, padding: "10px 12px" }}>
+                    <div style={{ background: "#f3f4f5", borderRadius: 10, padding: "10px 12px" }}>
                       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
                         <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".8px", textTransform: "uppercase", color: "#86868b" }}>Prix conseillé</span>
                         <span style={{ fontSize: 8, fontWeight: 800, padding: "1px 5px", borderRadius: 4, background: "#1d1d1f", color: "#fff" }}>IA</span>

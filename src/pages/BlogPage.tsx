@@ -102,7 +102,7 @@ export default function BlogPage() {
         <div
           onClick={() => navigate(featured.url)}
           className="cursor-pointer group rounded-2xl overflow-hidden"
-          style={{ background: "hsl(57 52% 92%)" }}
+          style={{ background: "#f3f4f5" }}
         >
           <div className="grid md:grid-cols-2 gap-0">
             <div className="aspect-[4/3] md:aspect-auto overflow-hidden">
@@ -155,7 +155,7 @@ export default function BlogPage() {
                 <div className="flex items-center gap-2 mb-3">
                   <span
                     className="text-[10px] font-bold tracking-[1px] uppercase px-2 py-0.5 rounded-full"
-                    style={{ background: "hsl(57 52% 88%)", color: "hsl(var(--foreground))" }}
+                    style={{ background: "#e9eaec", color: "hsl(var(--foreground))" }}
                   >
                     {article.category}
                   </span>

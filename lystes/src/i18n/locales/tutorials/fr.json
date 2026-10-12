@@ -1,0 +1,416 @@
+{
+  "minutes": "{{n}} min",
+  "levels": {
+    "all": "Tous les niveaux",
+    "beginner": "Débutant",
+    "intermediate": "Intermédiaire",
+    "advanced": "Avancé"
+  },
+  "durations": {
+    "all": "Toutes les durées",
+    "short": "< 5 min",
+    "medium": "5-7 min",
+    "long": "> 7 min"
+  },
+  "mastery": {
+    "beginner": "Débutant",
+    "apprentice": "Apprenti",
+    "intermediate": "Intermédiaire",
+    "advanced": "Avancé",
+    "expert": "Expert"
+  },
+  "page": {
+    "title": "Tutoriels",
+    "subtitle": "Guides pas-à-pas pour maîtriser toutes les fonctionnalités",
+    "searchPlaceholder": "Rechercher un tutoriel...",
+    "filtersLabel": "Filtres:",
+    "levelPlaceholder": "Niveau",
+    "durationPlaceholder": "Durée",
+    "clear": "Effacer",
+    "activeFilters": "Filtres actifs:",
+    "searchBadge": "Recherche: \"{{query}}\"",
+    "resultCountOne": "{{n}} tutoriel trouvé",
+    "resultCountMany": "{{n}} tutoriels trouvés",
+    "tabAll": "Tous ({{n}})",
+    "tabCategory": "{{name}} ({{n}})",
+    "emptyTitle": "Aucun tutoriel trouvé",
+    "emptyBody": "Essayez de modifier vos filtres ou votre recherche",
+    "emptyAction": "Réinitialiser les filtres"
+  },
+  "card": {
+    "completed": "Complété",
+    "popular": "Populaire",
+    "new": "Nouveau",
+    "video": "Vidéo",
+    "stepsProgress": "{{done}}/{{total}} étapes",
+    "stepsCount": "{{n}} étapes"
+  },
+  "viewer": {
+    "stepsCount": "{{n}} étapes",
+    "progress": "Étape {{current}} sur {{total}}",
+    "stepBadge": "Étape {{n}}",
+    "previous": "Précédent",
+    "next": "Suivant",
+    "finish": "Terminer",
+    "reset": "Réinitialiser",
+    "resetToast": "Progression réinitialisée",
+    "doneToastTitle": "Tutoriel terminé",
+    "doneToastBody": "Vous avez complété ce tutoriel.",
+    "doneInline": "Tutoriel terminé.",
+    "videoLink": "Regarder la vidéo de ce tutoriel"
+  },
+  "categories": {
+    "getting-started": {
+      "title": "Démarrage rapide",
+      "description": "Premiers pas avec Lystes AI"
+    },
+    "import": {
+      "title": "Import de produits",
+      "description": "WooCommerce, Shopify, CSV"
+    },
+    "agents": {
+      "title": "Gestion des agents",
+      "description": "Configuration et personnalisation"
+    },
+    "analytics": {
+      "title": "Analytics & Marketing",
+      "description": "Winners, scripts, leads"
+    },
+    "advanced": {
+      "title": "Paramètres avancés",
+      "description": "Équipe, intégrations, API"
+    }
+  },
+  "items": {
+    "create-first-agent": {
+      "title": "Créer votre premier agent IA",
+      "description": "Apprenez à configurer un agent de diagnostic beauté en quelques minutes",
+      "steps": {
+        "0": {
+          "title": "Accéder à la page Agents",
+          "description": "Depuis le menu latéral, cliquez sur 'Agents' pour accéder à la liste de vos agents. C'est ici que vous pourrez créer et gérer tous vos conseillers beauté IA.",
+          "actionLabel": "Aller aux Agents"
+        },
+        "1": {
+          "title": "Cliquer sur 'Créer un agent'",
+          "description": "Cliquez sur le bouton 'Créer un agent' en haut à droite de la page. Un formulaire de création va s'ouvrir.",
+          "tip": "Vous pouvez créer autant d'agents que votre plan le permet."
+        },
+        "2": {
+          "title": "Configurer les informations de base",
+          "description": "Renseignez le nom de l'agent (ex: 'Conseiller Skincare'), le nom de l'expert (ex: 'Sophie'), et choisissez la spécialité (Skincare, Haircare ou Wellness).",
+          "tip": "Le nom de l'expert apparaîtra dans les messages envoyés à vos clients."
+        },
+        "3": {
+          "title": "Choisir le type de diagnostic",
+          "description": "Sélectionnez le rôle de l'agent : Diagnostic standard, Coach personnalisé, ou Diagnostic Pro avec analyses avancées."
+        },
+        "4": {
+          "title": "Associer vos produits",
+          "description": "Sélectionnez les produits que l'agent pourra recommander. Vous pouvez choisir parmi les produits déjà importés dans votre catalogue.",
+          "tip": "Commencez avec 5-10 produits pour un meilleur taux de recommandation."
+        },
+        "5": {
+          "title": "Activer et partager",
+          "description": "Activez l'agent puis récupérez son lien unique ou son QR code pour le partager sur votre site, vos réseaux sociaux ou en boutique.",
+          "actionLabel": "Voir les agents"
+        }
+      }
+    },
+    "install-widget-shopify": {
+      "title": "Installer votre agent sur Shopify",
+      "description": "Collez une ligne de code dans votre thème pour que l'agent apparaisse sur votre boutique",
+      "steps": {
+        "0": {
+          "title": "Récupérer votre code personnel",
+          "description": "Ouvrez la page Installation dans Lystes AI, onglet Shopify. Le code affiché contient déjà l'identifiant de votre compte : il n'y a rien à compléter ni à modifier dedans. Cliquez sur 'Copier'.",
+          "tip": "Utilisez toujours le bouton 'Copier' plutôt que de retaper le code : une seule lettre de travers et le widget ne se charge pas.",
+          "actionLabel": "Ouvrir la page Installation"
+        },
+        "1": {
+          "title": "Ouvrir l'éditeur de code de votre thème",
+          "description": "Dans votre administration Shopify, allez dans 'Boutique en ligne' puis 'Thèmes'. Sur la ligne de votre thème actif, cliquez sur le bouton aux trois points, puis sur 'Modifier le code'.",
+          "tip": "Vous n'ouvrez pas le personnalisateur : aucune couleur, aucune police, aucune section de votre boutique ne sera touchée. Le design reste exactement le même."
+        },
+        "2": {
+          "title": "Ouvrir le fichier theme.liquid",
+          "description": "Dans la colonne de gauche, dépliez le dossier 'Layout' et cliquez sur 'theme.liquid'. C'est le fichier commun à toutes les pages de la boutique : ce qu'on y pose s'applique partout, sans avoir à répéter l'opération page par page."
+        },
+        "3": {
+          "title": "Coller le code juste avant </body>",
+          "description": "Descendez tout en bas du fichier jusqu'à la ligne qui contient </body>. Placez votre curseur sur la ligne juste au-dessus et collez le code copié à l'étape 1. Cette position en fin de page fait charger le widget en dernier, donc sans ralentir l'affichage de votre boutique.",
+          "tip": "Si le fichier contient plusieurs </body>, prenez le dernier, celui du bas."
+        },
+        "4": {
+          "title": "Enregistrer",
+          "description": "Cliquez sur 'Enregistrer' en haut à droite. Shopify applique la modification tout de suite sur votre thème publié : il n'y a aucune mise en ligne supplémentaire à déclencher."
+        },
+        "5": {
+          "title": "Revenir vérifier",
+          "description": "Ouvrez votre boutique dans un nouvel onglet : le bouton de votre agent doit apparaître en bas à droite. Revenez ensuite dans Lystes AI et cliquez sur 'Vérifier mon installation' pour confirmer la détection côté plateforme.",
+          "actionLabel": "Vérifier mon installation"
+        },
+        "6": {
+          "title": "Et si vous voulez revenir en arrière",
+          "description": "L'opération est entièrement réversible : rouvrez theme.liquid, supprimez les lignes que vous avez collées, enregistrez. Votre boutique retrouve son état d'avant, rien d'autre n'ayant été modifié entre-temps."
+        }
+      }
+    },
+    "install-widget-woocommerce": {
+      "title": "Installer votre agent sur WooCommerce",
+      "description": "Téléchargez le plugin déjà réglé pour votre compte, puis activez-le dans WordPress",
+      "steps": {
+        "0": {
+          "title": "Télécharger votre plugin",
+          "description": "Ouvrez la page Installation dans Lystes AI, onglet WooCommerce, puis cliquez sur 'Télécharger le plugin Lystes.ai (.zip)'. Le fichier est fabriqué à la demande pour votre compte : l'identifiant est déjà à l'intérieur.",
+          "tip": "Ne décompressez pas le fichier .zip. WordPress l'attend tel quel.",
+          "actionLabel": "Ouvrir la page Installation"
+        },
+        "1": {
+          "title": "Ouvrir l'ajout d'extension dans WordPress",
+          "description": "Dans votre administration WordPress, menu de gauche, allez dans 'Extensions' puis 'Ajouter'. C'est la page depuis laquelle WordPress installe tout nouveau module."
+        },
+        "2": {
+          "title": "Téléverser le fichier",
+          "description": "En haut de la page, cliquez sur 'Téléverser une extension', puis sur 'Choisir un fichier' et sélectionnez le .zip téléchargé. Cliquez enfin sur 'Installer maintenant' et laissez WordPress travailler quelques secondes."
+        },
+        "3": {
+          "title": "Activer l'extension",
+          "description": "Cliquez sur 'Activer l'extension'. C'est terminé : il n'y a aucun réglage à saisir, aucune clé à coller, aucun identifiant à recopier. Le plugin sait déjà à quel compte Lystes AI il se rattache.",
+          "tip": "Pour retirer le widget plus tard, il suffit de désactiver l'extension. Votre site n'est pas modifié par ailleurs."
+        },
+        "4": {
+          "title": "Vérifier le raccordement",
+          "description": "Allez dans 'Réglages' puis 'Lystes.ai'. Le statut doit afficher 'Connecté' avec le nom de votre boutique. Si c'est le cas, le plugin parle bien à votre compte."
+        },
+        "5": {
+          "title": "Ouvrir une fiche produit",
+          "description": "Ouvrez n'importe quelle fiche produit de votre boutique dans un nouvel onglet : le widget doit apparaître. Revenez ensuite dans Lystes AI et cliquez sur 'Vérifier mon installation'.",
+          "actionLabel": "Vérifier mon installation"
+        }
+      }
+    },
+    "install-widget-other": {
+      "title": "Installer votre agent sur une autre plateforme",
+      "description": "PrestaShop, Magento, Wix, Squarespace : une seule ligne de code, collée en pied de page",
+      "steps": {
+        "0": {
+          "title": "Récupérer votre code personnel",
+          "description": "Ouvrez la page Installation dans Lystes AI, onglet 'Autre plateforme'. Le code affiché contient déjà l'identifiant de votre compte : il n'y a rien à compléter ni à modifier dedans. Cliquez sur 'Copier'.",
+          "tip": "Le code est le même quelle que soit la plateforme. Ce qui change d'un outil à l'autre, c'est uniquement l'endroit où le coller.",
+          "actionLabel": "Ouvrir la page Installation"
+        },
+        "1": {
+          "title": "Trouver où coller du code sur votre plateforme",
+          "description": "Presque tous les outils prévoient un champ pour du code personnalisé en pied de page. PrestaShop : Modules, puis Positions, puis Injecter dans le footer. Magento : Content, puis Design, puis HTML Head. Wix : Settings, puis Custom Code, puis Body - End. Squarespace : Settings, puis Advanced, puis Code Injection, puis Footer.",
+          "tip": "Si votre plateforme n'est pas dans cette liste, cherchez 'code personnalisé', 'scripts' ou 'pied de page' dans ses réglages : le principe est le même partout."
+        },
+        "2": {
+          "title": "Coller le code juste avant </body>",
+          "description": "Collez le code copié à l'étape 1 dans le champ que vous venez de trouver, celui qui correspond à la fin de page, juste avant la balise </body>. Cette position fait charger le widget en dernier, donc sans ralentir l'affichage de votre site."
+        },
+        "3": {
+          "title": "Enregistrer, puis publier si nécessaire",
+          "description": "Enregistrez la modification. Certaines plateformes demandent en plus de publier le site pour que le changement soit visible par vos visiteurs : vérifiez qu'il ne reste pas une mise en ligne à déclencher.",
+          "tip": "Pour retirer le widget plus tard, videz ce champ et enregistrez à nouveau. Rien d'autre n'aura été modifié entre-temps."
+        },
+        "4": {
+          "title": "Revenir vérifier",
+          "description": "Ouvrez votre site dans un nouvel onglet : le bouton de votre agent doit apparaître en bas à droite. Revenez ensuite dans Lystes AI et cliquez sur 'Vérifier mon installation' pour confirmer la détection côté plateforme.",
+          "actionLabel": "Vérifier mon installation"
+        }
+      }
+    },
+    "verify-widget-installation": {
+      "title": "Vérifier que tout fonctionne",
+      "description": "Deux façons de confirmer que votre agent est bien en ligne sur votre boutique",
+      "steps": {
+        "0": {
+          "title": "Ouvrir la page Installation",
+          "description": "Tant que le widget n'a jamais été aperçu, la page affiche le bloc de vérification. Dès qu'il est détecté, un bandeau 'Widget installé et actif' prend sa place en haut de la page : c'est le seul signe à guetter.",
+          "actionLabel": "Ouvrir la page Installation"
+        },
+        "1": {
+          "title": "Laisser la détection automatique faire le travail",
+          "description": "Cliquez sur 'Vérifier mon installation', puis ouvrez votre boutique dans un autre onglet. Chaque page chargée où le widget est présent se signale toute seule à Lystes AI. La page écoute pendant deux minutes et bascule dès le premier signal reçu.",
+          "tip": "Il faut vraiment ouvrir une page de votre boutique pendant l'écoute : sans visite, il n'y a rien à détecter."
+        },
+        "2": {
+          "title": "Ou vérifier tout de suite avec l'adresse d'une fiche produit",
+          "description": "Juste sous le bouton, collez l'adresse complète d'une fiche produit, par exemple https://votre-boutique.com/products/creme-hydratante, puis cliquez sur 'Analyser'. Nous allons chercher la page nous-mêmes et répondons en quelques secondes, sans attendre qu'un visiteur passe.",
+          "tip": "Préférez une fiche produit à la page d'accueil : c'est là que l'agent travaille et c'est là qu'on veut le voir."
+        },
+        "3": {
+          "title": "Si rien n'est détecté",
+          "description": "Après deux tentatives infructueuses, ou au bout de deux minutes, un encadré 'Ça bloque quelque part ?' apparaît sur la page. Il contient un lien pour réserver quinze minutes en visio, gratuitement : quelqu'un ouvre votre plateforme avec vous et valide l'installation de bout en bout.",
+          "actionLabel": "Retourner à la page Installation"
+        }
+      }
+    },
+    "import-woocommerce": {
+      "title": "Importer depuis WooCommerce",
+      "description": "Autorisez Lystes à lire votre catalogue WooCommerce, sans clé à copier",
+      "steps": {
+        "0": {
+          "title": "Ce qu'il vous faut",
+          "description": "L'adresse de votre boutique et un compte administrateur de votre site WordPress. Rien à créer ni à copier : WooCommerce vous demandera simplement d'autoriser Lystes."
+        },
+        "1": {
+          "title": "Se connecter à WordPress",
+          "description": "Dans ce même navigateur, ouvrez l'administration de votre site et connectez-vous avec votre compte administrateur.",
+          "tip": "Si WordPress vous demande de vous connecter pendant l'autorisation, faites-le : vous revenez ensuite sur la même page."
+        },
+        "2": {
+          "title": "Entrer l'adresse de votre boutique",
+          "description": "Dans Catalogue, cliquez sur Importer, puis sur l'onglet WooCommerce. Tapez l'adresse de votre boutique, par exemple maboutique.fr, puis cliquez sur Connecter ma boutique.",
+          "actionLabel": "Ouvrir le catalogue"
+        },
+        "3": {
+          "title": "Autoriser Lystes",
+          "description": "WooCommerce affiche une page qui demande l'accès pour Lystes AI. Cliquez sur Approuver. Vous revenez sur Lystes et l'import démarre seul."
+        },
+        "4": {
+          "title": "Retrouver vos produits",
+          "description": "À la fin de l'import, vous revenez sur votre catalogue avec le nombre de produits ajoutés et mis à jour. Pour reprendre plus tard les changements faits dans votre boutique, rouvrez Importer et cliquez sur Mettre à jour mes produits.",
+          "tip": "Si votre boutique refuse l'autorisation, passez par un fichier : dans WooCommerce, ouvrez Produits, puis Exporter, et déposez le fichier dans l'onglet Fichier."
+        }
+      }
+    },
+    "import-shopify": {
+      "title": "Importer depuis Shopify",
+      "description": "Exportez vos produits depuis Shopify et déposez le fichier dans Lystes",
+      "steps": {
+        "0": {
+          "title": "Ouvrir vos produits sur Shopify",
+          "description": "Dans l'administration Shopify, ouvrez le menu Produits, puis cliquez sur Exporter, en haut à droite."
+        },
+        "1": {
+          "title": "Choisir le bon export",
+          "description": "Cochez Tous les produits, puis CSV pour Excel, Numbers ou d'autres tableurs, et validez avec Exporter les produits.",
+          "tip": "Si votre catalogue est grand, Shopify vous envoie le fichier par e-mail : il est en pièce jointe."
+        },
+        "2": {
+          "title": "Garder le fichier tel quel",
+          "description": "N'ouvrez pas le fichier pour le modifier : déposez-le tel que Shopify l'a créé. Les produits en brouillon ou archivés sont ignorés."
+        },
+        "3": {
+          "title": "Déposer le fichier dans Lystes",
+          "description": "Dans Catalogue, cliquez sur Importer, puis sur l'onglet Shopify. Vérifiez l'adresse de votre boutique : c'est elle qui crée le lien Acheter de chaque produit. Choisissez le fichier, puis cliquez sur Importer le fichier.",
+          "actionLabel": "Ouvrir le catalogue"
+        },
+        "4": {
+          "title": "Lire le bilan",
+          "description": "Lystes affiche le nombre de produits ajoutés et mis à jour, et ceux qui ne sont pas passés, avec la raison. Pour mettre votre catalogue à jour plus tard, refaites un export et déposez-le : rien n'est créé en double."
+        }
+      }
+    },
+    "import-csv": {
+      "title": "Importer un fichier",
+      "description": "Importez vos produits depuis un tableur, Excel ou Google Sheets",
+      "steps": {
+        "0": {
+          "title": "Préparer votre fichier",
+          "description": "Une ligne par produit, et sur la première ligne le nom des colonnes : nom, description, prix, catégorie, image, lien, référence, stock. Seul le nom est obligatoire.",
+          "tip": "Depuis Excel ou Google Sheets, enregistrez au format CSV. La colonne image reçoit l'adresse de la photo, la colonne lien l'adresse de la page du produit."
+        },
+        "1": {
+          "title": "Ouvrir l'import",
+          "description": "Dans Catalogue, cliquez sur Importer, puis sur l'onglet Fichier. Vérifiez l'adresse de votre boutique, puis choisissez votre fichier, ou collez son contenu.",
+          "actionLabel": "Ouvrir le catalogue"
+        },
+        "2": {
+          "title": "Lancer l'import",
+          "description": "Cliquez sur Importer le fichier. Un produit qui porte la même référence est mis à jour, et non ajouté une seconde fois. Sans référence, seul un produit venu d'un fichier déjà importé est retrouvé par son nom. Seules les colonnes remplies changent la fiche."
+        },
+        "3": {
+          "title": "Lire le bilan",
+          "description": "Lystes affiche le nombre de produits ajoutés et mis à jour, et les premières lignes refusées avec leur numéro et la raison. Corrigez-les dans votre fichier, puis importez-le de nouveau."
+        }
+      }
+    },
+    "share-agent": {
+      "title": "Intégrer l'agent sur votre site",
+      "description": "Partagez votre agent via URL, QR code ou bouton intégré",
+      "steps": {
+        "0": {
+          "title": "Récupérer le lien de l'agent",
+          "description": "Sur la page Agents, cliquez sur les 3 points de votre agent puis 'Afficher QR Code'. Vous y trouverez l'URL directe de votre agent.",
+          "actionLabel": "Voir les agents"
+        },
+        "1": {
+          "title": "Partager via QR Code",
+          "description": "Téléchargez le QR Code généré automatiquement. Idéal pour l'affichage en boutique, les cartes de visite ou les emballages produits.",
+          "tip": "Le QR Code fonctionne sur tous les smartphones sans app."
+        },
+        "2": {
+          "title": "Intégrer sur votre site",
+          "description": "Copiez le lien et créez un bouton ou une bannière sur votre site qui redirige vers votre agent. Exemple: 'Découvrir mon diagnostic beauté gratuit'."
+        },
+        "3": {
+          "title": "Partager sur les réseaux",
+          "description": "Partagez le lien dans vos stories Instagram, posts Facebook ou newsletters. Chaque clic compte comme un scan dans vos analytics."
+        }
+      }
+    },
+    "understand-winners": {
+      "title": "Comprendre les produits Winners",
+      "description": "Identifiez vos produits les plus recommandés par l'IA",
+      "steps": {
+        "0": {
+          "title": "Accéder aux Winners",
+          "description": "Cliquez sur 'Winners' dans le menu latéral. Cette page affiche les produits les plus recommandés par votre équipe IA, triés par nombre de recommandations.",
+          "actionLabel": "Voir les Winners"
+        },
+        "1": {
+          "title": "Analyser les tendances",
+          "description": "Le graphique montre l'évolution des recommandations sur les 7, 30 ou 90 derniers jours. Identifiez les produits qui montent et ceux qui baissent.",
+          "tip": "Un produit 'winner' est souvent adapté à une large audience."
+        },
+        "2": {
+          "title": "Optimiser votre catalogue",
+          "description": "Utilisez ces données pour ajuster votre stock, créer des promotions ciblées ou développer des produits similaires aux winners."
+        }
+      }
+    },
+    "video-scripts": {
+      "title": "Utiliser les scripts vidéo IA",
+      "description": "Générez des scripts marketing pour TikTok, Instagram et YouTube",
+      "steps": {
+        "0": {
+          "title": "Accéder au Marketing IA",
+          "description": "Allez dans Marketing depuis le menu latéral. Sélectionnez l'onglet 'Scripts Vidéo' pour accéder au générateur.",
+          "actionLabel": "Aller au Marketing"
+        },
+        "1": {
+          "title": "Choisir un produit",
+          "description": "Sélectionnez un produit de votre catalogue. L'IA analysera ses caractéristiques, son prix et sa catégorie pour générer des scripts pertinents."
+        },
+        "2": {
+          "title": "Générer et personnaliser",
+          "description": "Cliquez sur 'Générer les scripts'. Vous obtiendrez des scripts pour différents formats (15s, 30s, 60s) et plateformes. Modifiez-les selon votre ton de marque.",
+          "tip": "Les scripts incluent les hooks, le corps et les call-to-action optimisés."
+        }
+      }
+    },
+    "manage-team": {
+      "title": "Gérer votre équipe",
+      "description": "Invitez des collaborateurs et gérez les permissions",
+      "steps": {
+        "0": {
+          "title": "Accéder à la gestion d'équipe",
+          "description": "Allez dans Équipe depuis le menu latéral. Vous y verrez la liste des membres actuels et leurs rôles.",
+          "actionLabel": "Gérer l'équipe"
+        },
+        "1": {
+          "title": "Inviter un membre",
+          "description": "Cliquez sur 'Inviter un membre', entrez l'email et sélectionnez le rôle : Admin (accès total), Éditeur (modification), ou Viewer (lecture seule).",
+          "tip": "L'invité recevra un email avec un lien pour rejoindre votre compte."
+        },
+        "2": {
+          "title": "Gérer les permissions",
+          "description": "Modifiez les rôles à tout moment ou retirez l'accès d'un membre. Les changements sont immédiats."
+        }
+      }
+    }
+  }
+}

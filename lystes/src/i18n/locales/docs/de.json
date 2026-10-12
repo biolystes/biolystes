@@ -1,0 +1,122 @@
+{
+  "commun": {
+    "credits_one": "{{count}} Credit",
+    "credits_other": "{{count}} Credits"
+  },
+  "facturation": {
+    "coutDesActions": {
+      "surtitre": "Dokumentation · Abrechnung",
+      "titre": "Was jede Aktion kostet",
+      "chapo": "Eine Aktion, die ein Bild oder ein Video erzeugt, verbraucht Credits, weil sie echte Rechenzeit kostet. Die Gespräche Ihrer Berater verbrauchen dagegen keine.",
+      "tableau": {
+        "chargement": "Die Kosten werden gelesen…",
+        "echec": "Die Kosten konnten gerade nicht gelesen werden. Statt einen Ersatzwert anzuzeigen, der falsch sein könnte, bleibt die Liste leer. Laden Sie die Seite in einem Moment neu."
+      },
+      "pasUneCopie": {
+        "titre": "Diese Tabelle ist keine Kopie",
+        "p1": "Sie wird aus der Tabelle gelesen, die der Server im Moment der Abbuchung abfragt. Sie sehen also die tatsächlichen Kosten, keine abgeschriebene Preisliste, die daneben veralten würde. Würden wir einen Preis ändern, würde sich diese Seite noch am selben Tag ändern, ohne dass jemand daran denken müsste."
+      },
+      "gratuit": {
+        "titre": "Was nichts kostet",
+        "p1": "<0>Die Gespräche.</0> Ein Besucher kann Ihrem Berater dreißig Fragen stellen, Ihr Guthaben bewegt sich nicht. Ein Monat mit vielen Fragen kostet Sie nicht mehr als ein ruhiger Monat.",
+        "p2": "<0>Eine Aktion, die fehlschlägt.</0> Die Credits werden vor der Erzeugung reserviert und zurückgegeben, wenn sie nicht zustande kommt. Sie zahlen kein Bild, das Sie nicht erhalten haben.",
+        "p3": "<0>Ein doppelter Aufruf.</0> Dieselbe Aktion, versehentlich erneut ausgelöst, wird nur einmal abgebucht."
+      },
+      "zeroCredit": {
+        "titre": "Und bei null Credits?",
+        "p1": "Ihre Berater antworten weiter. Nur die Aktionen aus der Tabelle oben pausieren, bis zur Verlängerung oder einer Aufladung.",
+        "cta": "Wie Credits funktionieren"
+      }
+    }
+  },
+  "demarrer": {
+    "ceQueLystesFait": {
+      "surtitre": "Dokumentation · Erste Schritte",
+      "titre": "Was Lystes tut",
+      "chapo": "Im Laden steht man unschlüssig vor einem Regal. Jemand kommt, stellt zwei Fragen, und man geht mit dem richtigen Produkt wieder. Dreißig Sekunden. Online gibt es diesen Moment nicht: ein Foto, eine Beschreibung, ein Knopf, niemand. Der Kunde, der zögert, fragt nicht nach, er schließt den Tab. Lystes holt wieder jemanden in den Raum.",
+      "section1": {
+        "titre": "Eine einzige Frage, auf jeder Produktseite",
+        "p1": "Auf jeder Ihrer Produktseiten beantwortet ein Agent die Frage, die Ihr Besucher sich wirklich stellt und die er niemandem stellen wird: ist dieses Produkt das richtige für mich?",
+        "p2": "Das ist kein Chat, der unten rechts auf allen Ihren Seiten klebt. Der Agent weiß, welches Produkt angezeigt wird, er kennt es, und er spricht über nichts anderes. Genau das trennt ihn auch von einem Support-Werkzeug: der Support antwortet nach dem Kauf, zu einer Bestellung. Lystes arbeitet davor, auf der Produktseite, in dem Moment, in dem sich der Verkauf entscheidet."
+      },
+      "section2": {
+        "titre": "Dieselbe Geste, in der Form, die Ihr Produkt verlangt",
+        "p1": "Diese drei Formen addieren sich nicht und werden nicht in einem Menü ausgewählt. Der Agent wählt die richtige, je nachdem, was Sie verkaufen.",
+        "qualifier": {
+          "titre": "Er qualifiziert",
+          "texte": "Zwei Fragen zum tatsächlichen Gebrauch, und er sagt, ob dieses Produkt zum Fall passt, oder welches aus Ihrem Katalog besser passt.",
+          "etat": "Verfügbar, unabhängig von Ihrer Branche."
+        },
+        "essayer": {
+          "titre": "Er lässt anprobieren",
+          "texte": "Ein Selfie, und der Besucher sieht sich damit. Er stellt es sich nicht mehr vor, er sieht es.",
+          "etat": "Verfügbar für Haare. Die übrigen Bereiche folgen."
+        },
+        "diagnostiquer": {
+          "titre": "Er stellt eine Diagnose",
+          "texte": "Ein Foto, und er sagt, inwiefern das Produkt zu dieser Haut passt, oder inwiefern es nichts für sie ist.",
+          "etat": "Noch nicht freigeschaltet."
+        }
+      },
+      "section3": {
+        "titre": "Für welche Produkte",
+        "p1": "Für jedes Produkt, das vor dem Kauf eine Beratung verlangt. Das ist keine Frage der Warengruppe: eine Kaffeemaschine, ein Paar Laufschuhe, ein Futter für einen alten Hund, ein Parfum, ein Serum. Überall dort, wo der Kunde sich fragt, ob es das richtige für ihn ist, und ihm niemand antwortet.",
+        "p2": "Umgekehrt: wenn Ihre Besucher genau wissen, wonach sie suchen, und nie zögern, wird Lystes Ihnen nicht viel bringen. Das sei ruhig gesagt."
+      },
+      "section4": {
+        "titre": "Was sich dadurch für Sie ändert",
+        "p1": "<0>Fragen finden rechtzeitig eine Antwort.</0> Die eine, die den Kauf blockierte, wird auf der Produktseite geklärt, nicht am nächsten Tag per E-Mail, wenn der Kauf längst woanders stattgefunden hat.",
+        "p2": "<0>Sie bekommen weniger Retouren.</0> Ein Kunde, der vor dem Kauf verstanden hat, oder der sich mit dem Produkt gesehen hat, vergreift sich seltener. Eine Retoure kostet den Hinweg, den Rückweg, die Wiederaufbereitung, und oft den Kunden.",
+        "p3": "<0>Sie hören Ihre Kunden endlich.</0> Jedes Gespräch hängt an dem betroffenen Produkt. Was auf einer bestimmten Produktseite hakt, wird lesbar, statt eine Abbruchstatistik zu bleiben."
+      },
+      "section5": {
+        "titre": "Sie installieren kein Werkzeug, Sie stellen ein",
+        "p1": "<0>Das ist kein Allzweck-Agent.</0> Es sind mehrere eigenständige Teams, jedes mit seinem eigenen Beruf, die am selben Katalog arbeiten. Der Produktberater ist das Team, das Ihr Kunde sieht. Die anderen arbeiten für Sie.",
+        "p2": "<0>Genau das bedeutet hier das Wort Team.</0> Das ist kein Bild: Sie stellen Personal ein, keine Software. Jedes Team hat seine Stelle, und Sie besetzen sie je nach Ihrem Tarif.",
+        "equipes": {
+          "conseillers": {
+            "nom": "Die Produktberater",
+            "etat": "Im Dienst"
+          },
+          "essayage": {
+            "nom": "Die virtuelle Anprobe",
+            "etat": "Im Dienst für Haare"
+          },
+          "avis": {
+            "nom": "Die Bewertungsverwaltung",
+            "etat": "Im Dienst"
+          },
+          "visuels": {
+            "nom": "Die Fotografen, Ihre Produktvisuals",
+            "etat": "Im Dienst"
+          },
+          "diagnostic": {
+            "nom": "Die Beauty-Diagnose",
+            "etat": "Noch nicht besetzt"
+          },
+          "data": {
+            "nom": "Daten und Marketing",
+            "etat": "Noch nicht besetzt"
+          }
+        },
+        "p3": "Und Sie steuern sie alle aus Ihrem Assistenten heraus: Lystes verbindet sich mit Claude und mit ChatGPT. Sie fragen Ihre Zahlen ab, lesen Gespräche nach, geben Ihren Agenten eine Anweisung, ohne ein Dashboard zu öffnen.",
+        "lienMcp": "So stellen Sie die Verbindung her"
+      },
+      "section6": {
+        "titre": "Was noch nicht freigeschaltet ist",
+        "note": "Lieber sagen wir es Ihnen hier, als es Sie selbst herausfinden zu lassen. Die Diagnose per Foto, die Marketing-Dashboards und die Anprobe außerhalb des Haarbereichs sind in Arbeit und heute nicht zugänglich. Wenn Ihre Entscheidung von einem davon abhängt, sagen Sie es uns, bevor Sie sich binden, nicht danach.",
+        "p1": "Lystes ist ein junges Produkt, getragen von einem kleinen Team. Was Sie in dieser Dokumentation lesen, ist das, was funktioniert, Funktion für Funktion geprüft. Was hier nicht beschrieben ist, ist nicht fertig."
+      },
+      "section7": {
+        "titre": "Was Lystes nicht tut",
+        "p1": "Ihre Agenten beraten vor dem Kauf. Sie bearbeiten weder Ihre Bestellungen noch Ihre Retouren, sie beantworten keine Kundendienst-E-Mails und verändern niemals Ihren Shop. Wenn Sie ein Support-Werkzeug suchen, behalten Sie Ihres: beide kommen sich nicht in die Quere."
+      },
+      "cta": {
+        "titre": "An Ihren Produkten ansehen",
+        "p1": "Dreißig Minuten per Video, kostenlos, an Ihrem eigenen Katalog. Das ist der schnellste Weg, um zu wissen, ob es Ihnen nützt.",
+        "bouton": "Termin buchen",
+        "boutonTarifs": "Preise ansehen"
+      }
+    }
+  }
+}

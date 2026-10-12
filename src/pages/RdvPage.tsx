@@ -12,7 +12,7 @@ export default function RdvPage() {
   }, []);
 
   return (
-    <div className="py-8 px-4" style={{ background: "#f5f4df", minHeight: "100vh" }}>
+    <div className="py-8 px-4" style={{ background: "#ffffff", minHeight: "100vh" }}>
       <div
         className="iclosed-widget mx-auto"
         data-url="https://app.iclosed.io/e/biolystes/start"

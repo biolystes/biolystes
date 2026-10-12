@@ -1,0 +1,49 @@
+{
+  "trackings": {
+    "titre": "تحسين روابط التتبع",
+    "sousTitre": "المسار والإحالة وإيرادات روابطك",
+    "kpi": {
+      "liensActifs": "روابط نشطة",
+      "clics": "النقرات",
+      "conversions": "التحويلات",
+      "revenus": "الإيرادات المنسوبة",
+      "auTotal": "الإجمالي"
+    },
+    "onglets": {
+      "vueDEnsemble": "نظرة عامة",
+      "attribution": "الإحالة"
+    },
+    "surfaces": {
+      "multiLien": {
+        "titre": "صفحتي العامة",
+        "texte": "روابطك ورمز الاستجابة السريعة وتقييماتك"
+      },
+      "influenceurs": {
+        "titre": "المؤثرون",
+        "texte": "صفحات مخصصة ورموز ترويجية"
+      },
+      "campagnes": {
+        "titre": "الحملات",
+        "texte": "روابط UTM والتتبع حسب الحملة"
+      }
+    }
+  },
+  "sidebar": {
+    "creaStudio": "استوديو",
+    "creaGenerations": "الإنشاءات",
+    "creaFavoris": "المفضلة",
+    "creaProductLink": "رابط المنتج",
+    "creaAdReference": "إعلان مرجعي",
+    "creaProjets": "المشاريع"
+  },
+  "crea": {
+    "projets": {
+      "titre": "المشاريع",
+      "attente": "اجمع إنشاءاتك حسب الحملة أو المنتج للعثور عليها بسرعة أكبر."
+    },
+    "inconnue": {
+      "titre": "قسم غير معروف",
+      "attente": "هذه الصفحة غير موجودة في الاستوديو."
+    }
+  }
+}

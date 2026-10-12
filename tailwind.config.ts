@@ -17,7 +17,7 @@ export default {
         sm: ["0.775rem", { lineHeight: "1.25rem" }],
       },
       colors: {
-        cream: "hsl(57 52% 92%)",
+        cream: "#ffffff", /* 12/10/2026 : plus de crème, blanc sur fond sombre */
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

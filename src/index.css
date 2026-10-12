@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Krona+One&display=swap');
+/* Polices du site (Inter 300 à 700, Krona One) : chargées par src/lib/polices-du-site.ts,
+   sur toutes les pages sauf l’accueil repris de lystes.ai/bio (12/10/2026). */
 
 @tailwind base;
 @tailwind components;
@@ -6,24 +7,24 @@
 
 @layer base {
   :root {
-    --background: 57 52% 92%;
+    --background: 0 0% 100%;
     --foreground: 0 0% 7%;
-    --card: 57 52% 92%;
+    --card: 0 0% 100%;
     --card-foreground: 0 0% 7%;
-    --popover: 57 52% 92%;
+    --popover: 0 0% 100%;
     --popover-foreground: 0 0% 7%;
     --primary: 0 0% 7%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 57 30% 89%;
+    --secondary: 210 9% 96%;
     --secondary-foreground: 0 0% 7%;
-    --muted: 57 30% 89%;
+    --muted: 210 9% 96%;
     --muted-foreground: 0 0% 45%;
-    --accent: 57 25% 87%;
+    --accent: 220 6% 93%;
     --accent-foreground: 0 0% 7%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
-    --border: 57 20% 85%;
-    --input: 57 20% 85%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
     --ring: 0 0% 7%;
     --radius: 0.75rem;
 
@@ -110,7 +111,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, 'SF Pro Display', sans-serif;
-    background: #f5f4df;
+    background: #ffffff;
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Inter', -apple-system, sans-serif;
@@ -194,7 +195,7 @@
   border-radius: 32px !important;
   margin: 24px !important;
   padding: 56px !important;
-  background: #f5f4df !important;
+  background: #f3f4f5 !important;
 }
 
 .w-\[320px\].bg-background.rounded-\[2rem\].overflow-hidden.border.border-border {
@@ -268,7 +269,7 @@ section.bg-secondary {
   border: 1.5px solid currentColor;
 }
 
-/* Fond jaune pâle sur les sections principales */
+/* Fond des sections principales : blanc (12/10/2026, plus de crème) */
 section#section-experience,
 section#section-decouvre,
 section.overflow-hidden.py-3.bg-background,
@@ -278,7 +279,7 @@ section#section-livraison,
 section.py-24.md\:py-36.bg-secondary,
 section#section-catalogue,
 section#section-constat {
-  background: #f5f4df !important;
+  background: #ffffff !important;
 }
 
 section#section-lance {
@@ -290,7 +291,7 @@ section#section-lance {
 }
 
 .w-10.h-10.mb-3.rounded-full.bg-background.flex.items-center.justify-center {
-  background: #f5f4df !important;
+  background: #f3f4f5 !important;
 }
 
 /* Comment ça marche — fond noir */
@@ -300,12 +301,12 @@ section#section-comprend section.bg-secondary {
 
 section#section-comprend h2,
 section#section-comprend p {
-  color: #f5f4df !important;
+  color: #ffffff !important;
 }
 
 /* Sticky nav & header */
 .fixed.left-0.right-0.z-20.bg-background\/90.backdrop-blur-md.border-b.border-border {
-  background: #f5f4df !important;
+  background: #f3f4f5 !important;
   border-bottom: 1px solid #1d1d1f !important;
 }
 
@@ -328,11 +329,11 @@ img.rounded-lg.w-full.object-cover.order-1.md\:order-2 {
 
 /* Réassort Sans Minimum */
 section.py-12.md\:py-16 {
-  background: #f5f4df;
+  background: #ffffff;
 }
 
 section.py-16.md\:py-24 {
-  background: #f5f4df;
+  background: #ffffff;
 }
 
 section.py-12.md\:py-16 .bg-secondary.rounded-xl.p-6.md\:p-10,
@@ -348,36 +349,36 @@ section.py-16.md\:py-24 .hidden.md\:block.absolute.-right-16.bottom-20.bg-second
   padding: 6px;
 }
 
-/* Page wrapper & sections crème */
+/* Page wrapper & sections (autrefois crème) */
 .min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-clip,
 .min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-hidden {
-  background: #f5f4df;
+  background: #ffffff;
 }
 .min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-clip .bg-secondary.py-14.md\:py-20,
 .min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-hidden .bg-secondary.py-14.md\:py-20 {
-  background: #f5f4df !important;
+  background: #f3f4f5 !important;
 }
 .min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-clip .bg-background.py-14.md\:py-20,
 .min-h-screen.bg-background.-mx-6.lg\:-mx-10.-mt-6.lg\:-mt-10.overflow-x-hidden .bg-background.py-14.md\:py-20 {
-  background: #f5f4df !important;
+  background: #f3f4f5 !important;
 }
 .max-w-2xl.mx-auto.bg-background.rounded-2xl.p-6.md\:p-10 {
-  background: #f5f4df !important;
+  background: #f3f4f5 !important;
 }
 
-/* Textes blancs → crème */
+/* Textes blancs (autrefois crème) */
 h2.text-3xl.md\:text-4xl.font-light.tracking-tight.max-w-\[780px\].mx-auto.mb-6.text-white {
-  color: #f5f4df;
+  color: #ffffff;
 }
 p.text-\[17px\].text-white\/50.leading-\[1\.7\].max-w-\[600px\].mx-auto {
-  color: #f5f4df !important;
+  color: #ffffff !important;
   font-weight: 100 !important;
 }
 .text-2xl.md\:text-3xl.font-light.leading-none.text-white.tracking-tight.italic {
-  color: #f5f4df;
+  color: #ffffff;
 }
 .text-\[10px\].text-white\/50.font-semibold.mt-3.uppercase.tracking-\[0\.15em\].whitespace-nowrap {
-  color: #f5f4df;
+  color: #ffffff;
 }
 
 /* Cercles & badges → blanc */
@@ -437,7 +438,7 @@ p.text-xs.text-foreground.leading-snug {
 
 /* Section lance */
 section#section-lance {
-  background: #f5f4df !important;
+  background: #ffffff !important;
 }
 button.p-6.rounded-2xl.bg-secondary.hover\:bg-accent.transition-colors.text-left.group {
   background: #fff;
@@ -475,7 +476,7 @@ section.py-12.md\:py-16.bg-background {
 }
 /* Wirtzkin heading — only on dark backgrounds */
 .bg-foreground h2.text-3xl.md\:text-4xl.font-light.tracking-tight.max-w-3xl.mx-auto.text-foreground {
-  color: #f5f4df;
+  color: #ffffff;
 }
 button.w-2.h-2.rounded-full.transition-all.bg-muted-foreground\/30 {
   background: #fff;
@@ -493,12 +494,12 @@ button.w-2.h-2.rounded-full.transition-all.bg-foreground.w-6 {
 
 
 button.w-8.h-8.rounded-full.text-xs.font-semibold.border.transition-colors.bg-white.text-black.border-white {
-  background: #f5f4df !important;
+  background: #f3f4f5 !important;
 }
 
 button.w-8.h-8.rounded-full.text-xs.font-semibold.border.transition-colors.bg-transparent.text-white.border-white.hover\:bg-white\/20 {
-  border: 1px solid #f5f4df !important;
-  color: #f5f4df !important;
+  border: 1px solid #f3f4f5 !important;
+  color: #ffffff !important;
 }
 
 button.inline-flex.items-center.justify-center.gap-2.whitespace-nowrap.text-sm.font-medium.ring-offset-background.transition-colors.focus-visible\:outline-none.focus-visible\:ring-2.focus-visible\:ring-ring.focus-visible\:ring-offset-2.disabled\:pointer-events-none.disabled\:opacity-50.\[\&_svg\]\:pointer-events-none.\[\&_svg\]\:size-4.\[\&_svg\]\:shrink-0.border.border-input.bg-background.hover\:bg-accent.hover\:text-accent-foreground.h-9.px-3.rounded-full {
@@ -508,11 +509,11 @@ button.inline-flex.items-center.justify-center.gap-2.whitespace-nowrap.text-sm.f
 
 /* Wirtzkin text overrides — only on dark backgrounds */
 .bg-foreground h2.text-3xl.md\:text-4xl.font-light.tracking-tight.max-w-3xl.mx-auto.text-foreground {
-  color: #f5f4df !important;
+  color: #ffffff !important;
 }
 
 .bg-foreground p.text-base.text-muted-foreground.max-w-2xl.mx-auto.leading-relaxed,
 .bg-foreground p.text-xs.tracking-\[0\.3em\].uppercase.text-muted-foreground {
-  color: #f5f4df9e !important;
+  color: #ffffff9e !important;
   font-weight: 100;
 }

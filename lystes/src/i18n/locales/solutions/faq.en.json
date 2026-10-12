@@ -1,0 +1,20 @@
+{
+  "t000_faq": "Frequently asked questions",
+  "t001_faq": "Your questions, answered clearly",
+  "t002_faq": "How long does installation take?",
+  "t003_faq": "Count on 20 minutes for a standard catalog on Shopify or WooCommerce. For a custom site or a specific CRM integration, we scope the timeline together at the first meeting, and we support you from start to finish.",
+  "t004_faq": "Can the assistant really trigger an add to cart?",
+  "t005_faq": "Yes. On Shopify and WooCommerce, it pushes the product directly into the customer's cart from the conversation, without them leaving the product page.",
+  "t006_faq": "Which platforms does it work on?",
+  "t007_faq": "Shopify, WooCommerce, and any custom site. For custom platforms, our team configures the integration with you.",
+  "t008_faq": "Does my customer data stay with me?",
+  "t009_faq": "Yes, 100%. Conversations are stored in your private inbox. No data is shared or used to train other models.",
+  "t010_faq": "Can the assistant's personality be customized?",
+  "t011_faq": "Completely. You choose its voice, tone, welcome message, and give it product-by-product guidelines. If an answer doesn't suit you, you correct it once, it remembers.",
+  "t012_faq": "What do you see in the inbox?",
+  "t013_faq": "All conversations, the customer's email, the original product page, the number of messages, the duration, the outcome, and recurring topics, all in a single interface.",
+  "t014_faq": "How is performance measured?",
+  "t015_faq": "Conversation volume, chat-to-purchase conversion rate, revenue generated, top-selling products. Everything is available from your dashboard.",
+  "t016_faq": "Do I need a photo shoot budget?",
+  "t017_faq": "No. The assistant uses the visuals and reviews already present on your product pages. To enrich your catalog, our AI Photographer team can generate additional visuals."
+}

@@ -19,6 +19,9 @@
     "paths": {
       "@/*": [
         "./src/*"
+      ],
+      "@lystes/*": [
+        "./lystes/src/*"
       ]
     },
     "skipLibCheck": true,
@@ -30,6 +33,7 @@
     "useDefineForClassFields": true
   },
   "include": [
-    "src"
+    "src",
+    "lystes/src"
   ]
 }

@@ -1,0 +1,23 @@
+{
+  "soit {prix} TTC en France": "oftewel {prix} incl. btw in Frankrijk",
+  "{min} à {max}": "{min} tot {max}",
+  "plus de {n}": "meer dan {n}",
+  "{min} à {max} produits": "{min} tot {max} producten",
+  "Plus de {n} produits": "Meer dan {n} producten",
+  "{min} à {max} prestations": "{min} tot {max} diensten",
+  "Plus de {n} prestations": "Meer dan {n} diensten",
+  "{min} à {max} fiches": "{min} tot {max} fiches",
+  "Plus de {n} fiches": "Meer dan {n} fiches",
+  "{prix} HT par mois, pour {tranche}": "{prix} excl. btw per maand, voor {tranche}",
+  "Rien n'est prélevé aujourd'hui. Premier prélèvement le {date}, à la fin de votre jour d'essai. Annulable avant cette date, depuis votre espace.": "Vandaag wordt er niets afgeschreven. Eerste afschrijving op {date}, aan het einde van uw proefdag. Opzegbaar vóór die datum, vanuit uw omgeving.",
+  "Rien n'est prélevé aujourd'hui. Premier prélèvement le {date}, à la fin de vos {jours} jours d'essai. Annulable avant cette date, depuis votre espace.": "Vandaag wordt er niets afgeschreven. Eerste afschrijving op {date}, aan het einde van uw {jours} proefdagen. Opzegbaar vóór die datum, vanuit uw omgeving.",
+  "Premier prélèvement aujourd'hui, à la souscription. Sans engagement, résiliable à tout moment.": "Eerste afschrijving vandaag, bij het afsluiten. Zonder verplichting, op elk moment opzegbaar.",
+  "Inscrite par le lien d'une marraine : {pct} % de moins à vie, soit {prix} HT par mois. La remise s'affiche sur la page de paiement.": "Ingeschreven via een verwijslink: {pct}% korting voor altijd, oftewel {prix} excl. btw per maand. De korting staat op de betaalpagina.",
+  "{credits} crédits inclus chaque mois, pour les essayages et les visuels générés. Un essayage en consomme {cout} : environ {n} essayages par mois.": "{credits} credits per maand inbegrepen, voor virtueel passen en gegenereerde beelden. Eén keer virtueel passen verbruikt er {cout}: ongeveer {n} keer per maand.",
+  "{credits} crédits inclus chaque mois, pour les essayages et les visuels générés.": "{credits} credits per maand inbegrepen, voor virtueel passen en gegenereerde beelden.",
+  "{credits} crédits inclus chaque mois, pour les diagnostics et les visuels générés. Un diagnostic en consomme {cout} : environ {n} diagnostics par mois.": "{credits} credits per maand inbegrepen, voor diagnoses en gegenereerde beelden. Eén diagnose verbruikt er {cout}: ongeveer {n} diagnoses per maand.",
+  "{credits} crédits inclus chaque mois, pour les diagnostics et les visuels générés.": "{credits} credits per maand inbegrepen, voor diagnoses en gegenereerde beelden.",
+  "{credits} crédits inclus chaque mois, pour générer des photos et des vidéos de vos produits.": "{credits} credits per maand inbegrepen, om foto's en video's van uw producten te genereren.",
+  "Le montant dépend du nombre de produits de votre catalogue. Il s'affiche sur la page de paiement, avant toute validation.": "Het bedrag hangt af van het aantal producten in uw catalogus. Het staat op de betaalpagina, voordat u iets bevestigt.",
+  "Inscrite par le lien d'une marraine : {pct} % de moins à vie. La remise s'affiche sur la page de paiement.": "Ingeschreven via een verwijslink: {pct}% korting voor altijd. De korting staat op de betaalpagina."
+}

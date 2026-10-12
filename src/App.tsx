@@ -46,11 +46,18 @@ import InfosPage from "./pages/InfosPage";
 import QualitePage from "./pages/QualitePage";
 import WirtzkinPage from "./pages/WirtzkinPage";
 import EchantillonsPage from "./pages/EchantillonsPage";
+import { lazy, Suspense } from "react";
+import { usePolicesDuSite } from "./lib/polices-du-site";
+
+/* Accueil repris de lystes.ai/bio (12/10/2026) : chargé à part, pour que
+   son poids (thème et blocs de lystes.ai) ne pèse pas sur les autres pages. */
+const AccueilCommeBioPage = lazy(() => import("./pages/AccueilCommeBioPage"));
 
 const queryClient = new QueryClient();
 
 function AppRoutes() {
   const location = useLocation();
+  usePolicesDuSite(location.pathname);
   const isPublicAgentRoute = location.pathname.startsWith("/agent/");
   const isSharedSelectionRoute = location.pathname.startsWith("/selection/");
 
@@ -63,7 +70,7 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="/" element={<Layout><DecouvertePage /></Layout>} />
+      <Route path="/" element={<Suspense fallback={null}><AccueilCommeBioPage /></Suspense>} />
       <Route path="/decouverte" element={<Layout><DecouvertePage /></Layout>} />
       <Route path="/concept" element={<Layout><ConceptPage /></Layout>} />
       <Route path="/chat" element={<Layout><DashboardPage /></Layout>} />
