@@ -52,7 +52,7 @@ const AFFICHER_LANGUE = false;   // true pour le rallumer
 durablement, changer aussi la valeur dans `ecarts_voulus.py`, sinon le
 prochain alignement sur /bio la remettra à `false`.
 
-## Bascule dans le site et page /agents-ia (JP, 13/10/2026, PR biolystes « accueil/agents-ia »)
+## Bascule dans le site et page /agents-ia (JP, 13/10/2026, PR biolystes 11)
 
 `/agents-ia` reprend l'accueil de lystes.ai (`HomeVisionPage`, ajoutée aux racines
 de `sync.py`). Elle partage avec `/` une coquille commune (route parente,
