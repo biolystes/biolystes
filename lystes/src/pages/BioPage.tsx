@@ -15,7 +15,7 @@ import {
 import ResponsabiliteSection from "@lystes/components/bio/ResponsabiliteSection";
 import InstaFeedSection from "@lystes/components/bio/InstaFeedSection";
 import WirtzkinSection from "@lystes/components/bio/WirtzkinSection";
-import HomeHeroVideo, { type HeroVariante } from "@lystes/features/solutions/HomeHeroVideo";
+import HomeHeroVideo, { FilConversation, NB, type HeroVariante, type MsgFil } from "@lystes/features/solutions/HomeHeroVideo";
 import BioGammes from "@lystes/components/bio/BioGammes";
 import BioFaq from "@lystes/components/bio/BioFaq";
 import VisionEtagesBloc from "@lystes/features/solutions/VisionEtagesBloc";
@@ -107,6 +107,36 @@ function HomeExperienceCarousel() {
 }
 
 const CTA_URL = "https://biolystes.pro/rdv";
+
+/* 13/10/2026 (JP) : la conversation animée de l'accueil, reprise telle quelle
+   (FilConversation), pour la recherche de produits à partir du concept d'une
+   marque. Seuls les messages changent.
+   Produits vérifiés dans la moisson du catalogue du 13/10/2026 : titres
+   français exacts, tous véganes et certifiés Ecocert COSMOS Natural (aucun
+   n'est COSMOS Organic : la conversation ne dit donc pas « bio »). Les actifs
+   sont écrits comme dans l'INCI de chaque fiche ; le 2 % de Bidens Pilosa
+   vient de la description de la crème. Photos : les packshots nettoyés du
+   même dossier que la grille du catalogue (product-images/clean), réduits
+   dans public/bio-fil. Aucun prix, aucun nom de laboratoire. */
+const AGENT_SELECTION = "Conseiller de sélection";
+const CREATRICE = "Clémence";
+const FIL_CONCEPT: MsgFil[] = [
+  { side: "user", name: CREATRICE, text: "Je lance une gamme anti-âge végane pour peaux matures, esprit minimaliste. Que me proposez-vous" + NB + "?" },
+  { side: "agent", name: AGENT_SELECTION, text: "Avec plaisir. Un actif que vous voulez absolument, ou un ingrédient à éviter" + NB + "?" },
+  { side: "user", name: CREATRICE, text: "Une alternative douce au rétinol. Vos formules sont certifiées" + NB + "?" },
+  {
+    widget: "prods",
+    intro: "Oui, ces trois soins véganes sont certifiés COSMOS Natural",
+    produits: [
+      { image: "/bio-fil/serum-anti-age-peptides.webp", nom: "Sérum anti‑âge aux peptides", ligne: "Hexapeptide‑11" },
+      { image: "/bio-fil/creme-alternative-retinol.webp", nom: "Crème hydratante alternative au rétinol", ligne: "Bidens Pilosa Extract" },
+      { image: "/bio-fil/creme-de-nuit-anti-age.webp", nom: "Crème de nuit anti‑âge", ligne: "Algae Extract" },
+    ],
+    note: "L'alternative au rétinol : Bidens Pilosa Extract, à 2 % dans la crème.",
+  },
+  { side: "user", name: CREATRICE, text: "J'ajoute le sérum et la crème de nuit." },
+  { side: "agent", name: AGENT_SELECTION, text: "C'est noté. Je vous prépare votre sélection, avec la liste INCI de chaque soin." },
+];
 
 /* 12/10/2026 (JP) : la bannière de /bio reprend la mise en page du haut de
    l’accueil (HomeHeroVideo, en variante) avec les textes et les preuves qui
@@ -755,6 +785,17 @@ export default function DecouvertePage() {
               Plus de 100 produits certifiés bio et végan, disponibles sans minimum de commande.
             </motion.p>
           </motion.div>
+
+          {/* 13/10/2026 (JP) : la conversation animée de l'accueil, ici pour
+              la recherche de produits selon le concept de la marque. Photo de
+              fond présente nulle part ailleurs à l'écran sur /bio (le
+              portfolio qui la contient est masqué). Même largeur que la
+              grille du catalogue, juste en dessous. */}
+          <div className="bio-fil relative mb-16 overflow-hidden rounded-2xl bg-muted h-[520px] md:h-[560px]">
+            <img src={kaniwaUgc4} alt="Créatrice de marque cosmétique tenant son flacon" className="absolute inset-0 h-full w-full object-cover object-[30%_30%]" loading="lazy" />
+            <div className="absolute inset-0 bg-gradient-to-l from-black/55 via-black/20 to-transparent" />
+            <FilConversation messages={FIL_CONCEPT} agent={AGENT_SELECTION} className="lyh-chat--cadre" />
+          </div>
 
           {catalogProducts.length > 0 && (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
