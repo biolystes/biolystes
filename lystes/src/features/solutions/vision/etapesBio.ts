@@ -319,11 +319,13 @@ export const ONGLETS_BIO: OngletBio[] = [
         /* Chaque magazine tel qu'il est, en entier (JP, 13/10/2026 : jamais un
            article seul) : la page d'accueil, puis une page de rubrique,
            capturées le 13/10 à 1440 × 1920 et réduites sans recadrage. Aucun
-           titre anxiogène ou médical à l'écran. */
+           titre anxiogène ou médical à l'écran. Pour Élunesse, la rubrique
+           Neurosciences (visage, peau, soin) remplace l'accueil, dont la une
+           montrait un chirurgien masqué (JP, 13/10). */
         media: { type: "diapos", src: "", trio: true, intervalle: 3000, legende: ["Brume, Écrin, Élunesse", ", nos magazines partenaires"], diapos: [
           PHOTO("/bio-presse/mag-brume-accueil.webp", ["", ""]),
           PHOTO("/bio-presse/mag-ecrin-accueil.webp", ["", ""]),
-          PHOTO("/bio-presse/mag-elunesse-accueil.webp", ["", ""]),
+          PHOTO("/bio-presse/mag-elunesse-neurosciences.webp", ["", ""]),
           PHOTO("/bio-presse/mag-brume-cheveux.webp", ["", ""]),
           PHOTO("/bio-presse/mag-ecrin-green.webp", ["", ""]),
           PHOTO("/bio-presse/mag-elunesse-cheveux.webp", ["", ""]),
