@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import { poserMuet, useRelanceLecture, useSourceLisible } from "@lystes/lib/videoSansRange";
 
 interface SafeVideoProps {
   src: string;
@@ -37,12 +38,24 @@ export default function SafeVideo({
 }: SafeVideoProps) {
   const [error, setError] = useState(false);
   const [shouldLoad, setShouldLoad] = useState(!lazy);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setError(false);
   }, [src]);
+
+  /* 13/10/2026 (JP, iPhone) : fichier de public/ lu depuis une adresse
+     blob:, téléchargé seulement à l'approche de l'écran, attribut muted
+     posé, lecture relancée si refusée. Voir lib/videoSansRange. */
+  const source = useSourceLisible(src, shouldLoad);
+  const enVue = useCallback(() => {
+    const v = videoRef.current;
+    if (!v) return false;
+    const r = v.getBoundingClientRect();
+    return r.bottom > -50 && r.top < window.innerHeight + 50;
+  }, []);
+  useRelanceLecture(videoRef, source, shouldLoad && autoPlay && !controls, enVue);
 
   // Lazy loading: only render video when near viewport
   useEffect(() => {
@@ -120,8 +133,11 @@ export default function SafeVideo({
 
   return (
     <video
-      ref={videoRef}
-      src={src}
+      ref={(v) => {
+        videoRef.current = v;
+        if (muted) poserMuet(v);
+      }}
+      src={source}
       autoPlay={autoPlay}
       muted={muted}
       loop={loop}

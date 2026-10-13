@@ -1,3 +1,4 @@
+import VideoAuto from "@lystes/components/VideoAuto";
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 
 /**
@@ -208,7 +209,7 @@ export function DataIntelligentBanner({ lang = "fr", essayages = true }: { lang?
   return (
     <div style={S.root}>
       <div style={panelStyle}>
-        <video style={S.video} src="/video2.mp4" autoPlay muted loop playsInline aria-hidden="true" />
+        <VideoAuto style={S.video} src="/video2.mp4" aria-hidden="true" />
         <div style={S.scrim} aria-hidden="true" />
 
         <div style={S.head}>
