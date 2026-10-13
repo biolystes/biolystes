@@ -1,11 +1,15 @@
 /* Thème de lystes.ai, recopié tel quel (petal-diagnostics, tailwind.config.ts)
    pour la page d’accueil reprise de lystes.ai/bio. Ne sert qu’aux fichiers de
-   lystes/ : voir @config en tête de lystes/src/index.css. */
+   lystes/ et aux pages Actus (src/actus, affichées sous `.lystes-racine`) :
+   voir @config en tête de lystes/src/index.css. Sans src/actus ici, leurs
+   classes ne sortent que du thème du site, cantonné hors `.lystes-racine`
+   (postcss.config.js), et ne s’appliquent pas (13/10/2026 : étiquette de
+   catégorie sans fond noir sur /blog). */
 import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-      content: ["./lystes/src/**/*.{ts,tsx,html}"],
+  content: ["./lystes/src/**/*.{ts,tsx,html}", "./src/actus/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
     container: {
