@@ -169,6 +169,9 @@ const MODELES_IA: { nom: string; viewBox: string; d: string; evenodd?: boolean }
 export type HeroVariante = {
   /** Libellé accessible de la section. */
   aria: string;
+  /** Classe propre à la page (« lyh--bio »), pour régler une page sans
+   *  toucher les autres variantes. */
+  classe?: string;
   /** Sur-titre, en petites capitales. */
   eyebrow: string;
   /** Début du titre, avant la fin qui s'écrit. Un « \n » force un retour. */
@@ -512,7 +515,7 @@ export default function HomeHeroVideo({ variante }: { variante?: HeroVariante } 
 
   return (
     <section
-      className={variante ? "lyh lyh--variante" : "lyh"}
+      className={variante ? `lyh lyh--variante${variante.classe ? ` ${variante.classe}` : ""}` : "lyh"}
       aria-label={variante?.aria ?? t("heroHome.eyebrow", { defaultValue: "Écosystème d'agents IA par produit" })}
     >
       <style>{CSS}</style>
@@ -578,6 +581,20 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
   .lyh.lyh--variante .lyh-btn-outline.lyh-field{ padding-left:11px; gap:4px; }
   .lyh.lyh--variante .lyh-input{ font-size:12px; }
   .lyh.lyh--variante .lyh-arrow.lyh-submit{ padding:0 8px; font-size:11px; }
+}
+/* 13/10/2026 (JP, capture de référence à 375 px), /bio seulement : titre
+   sur 3 lignes fixes (« Lancez votre marque » / « cosmétique bio et
+   végane : » / la fin en italique), ~24 px à 375, mis à l'échelle à 390 et
+   430. Liste ~12,5 px, phrase ~11 px. /crea garde ses réglages. */
+@media (max-width:720px){
+  .lyh.lyh--bio .lyh-h1{ font-size:clamp(21px, 6.4vw, 28px); line-height:1.14; margin-bottom:18px; }
+  .lyh.lyh--bio .lyh-titre{ display:inline; text-wrap:wrap; }
+  .lyh.lyh--bio .lyh-br{ display:inline; }
+  .lyh.lyh--bio .lyh-titre > span, .lyh.lyh--bio .lyh-it{ white-space:nowrap; }
+  .lyh.lyh--bio .lyh-lien-shopify{ font-size:clamp(12px, 3.35vw, 14px); gap:7px; }
+  .lyh.lyh--bio .lyh-btn-logo{ width:14px; height:14px; }
+  .lyh.lyh--bio .lyh-offre{ font-size:clamp(11px, 2.95vw, 12.5px); line-height:1.5; }
+  .lyh.lyh--bio .lyh-offre-br{ display:inline; }
 }`}</style>
       )}
 
