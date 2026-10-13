@@ -6629,6 +6629,78 @@ export type Database = {
           },
         ]
       }
+      catalogue_labo: {
+        Row: {
+          accroche: string | null
+          actif: boolean
+          atouts: string | null
+          bio_pct: number | null
+          categorie: string | null
+          certification: string | null
+          code: string
+          contenance: number | null
+          description: string | null
+          etiquettes: string[] | null
+          inci: string | null
+          inci_legende: string | null
+          maj_le: string
+          mode_emploi: string | null
+          naturel_pct: number | null
+          parfum: string | null
+          retire_le: string | null
+          titre: string
+          titre_en: string | null
+          unite: string | null
+          vu_le: string
+        }
+        Insert: {
+          accroche?: string | null
+          actif?: boolean
+          atouts?: string | null
+          bio_pct?: number | null
+          categorie?: string | null
+          certification?: string | null
+          code: string
+          contenance?: number | null
+          description?: string | null
+          etiquettes?: string[] | null
+          inci?: string | null
+          inci_legende?: string | null
+          maj_le?: string
+          mode_emploi?: string | null
+          naturel_pct?: number | null
+          parfum?: string | null
+          retire_le?: string | null
+          titre: string
+          titre_en?: string | null
+          unite?: string | null
+          vu_le?: string
+        }
+        Update: {
+          accroche?: string | null
+          actif?: boolean
+          atouts?: string | null
+          bio_pct?: number | null
+          categorie?: string | null
+          certification?: string | null
+          code?: string
+          contenance?: number | null
+          description?: string | null
+          etiquettes?: string[] | null
+          inci?: string | null
+          inci_legende?: string | null
+          maj_le?: string
+          mode_emploi?: string | null
+          naturel_pct?: number | null
+          parfum?: string | null
+          retire_le?: string | null
+          titre?: string
+          titre_en?: string | null
+          unite?: string | null
+          vu_le?: string
+        }
+        Relationships: []
+      }
       catering_quotes: {
         Row: {
           account_id: string

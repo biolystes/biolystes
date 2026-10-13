@@ -30,8 +30,8 @@ comme les autres boutons de rendez-vous de la page.
 | Bento, carte « Vos équipes IA s'améliorent » | Découvrez vos équipes | Prendre rendez-vous |
 | Bento, carte photo de Cléa | « Ça vous dit de passer un coup de fil à Cléa ? » + Appeler Cléa | photo seule |
 
-Gardés tels quels : liens de navigation (menus, pied de page), champ « Trouver
-des produits » de la bannière (recherche), champ newsletter du pied de page.
+Gardés tels quels : liens de navigation (menus, pied de page), champ de projet
+de la bannière (« Décrivez votre projet… », ouvre l'orbital du widget), champ newsletter du pied de page.
 
 ## En-tête sans menus (JP, 13/10/2026, PR biolystes 10)
 

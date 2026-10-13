@@ -535,6 +535,12 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
    au contenu. */
 .lyh.lyh--variante .lyh-btns{ flex-wrap:nowrap; align-items:stretch; max-width:100%; }
 .lyh.lyh--variante .lyh-btn-black{ flex:0 0 auto; height:52px; box-sizing:border-box; }
+/* 13/10/2026 (JP) : le texte collait au bord gauche et la pastille au bord
+   droit. Air à gauche (28 px), écart net entre texte et pastille, et la
+   pastille posée à 8 px du bord, en haut, à droite et en bas : 52 px de
+   haut = 8 + 36 + 8. Même règle sur téléphone (48 = 8 + 32 + 8). */
+.lyh.lyh--variante .lyh-btn-black{ min-width:0; justify-content:space-between; align-items:center; gap:14px; padding:0 8px 0 28px; }
+.lyh.lyh--variante .lyh-btn-black .lyh-arrow{ width:36px; height:36px; }
 .lyh.lyh--variante .lyh-btn-outline.lyh-field{ flex:0 1 336px; min-width:0; height:52px; box-sizing:border-box; }
 /* Preuves : la ligne prend la largeur du contenu et passe à la ligne au
    lieu de sortir de l'écran (« Lance… » coupé à 920 px), écarts réguliers. */
@@ -549,14 +555,13 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
      « Rendez-vous », le champ prend tout le reste. */
   .lyh.lyh--variante .lyh-btns{ flex-direction:row; flex-wrap:nowrap; gap:8px; width:100%; }
   .lyh.lyh--variante .lyh-btn-black, .lyh.lyh--variante .lyh-btn-outline.lyh-field{ order:0; height:48px; min-width:0; box-sizing:border-box; }
-  .lyh.lyh--variante .lyh-btn-black{ flex:0 0 auto; width:auto; justify-content:space-between; gap:7px; padding:5px 5px 5px 14px; font-size:13px; }
-  .lyh.lyh--variante .lyh-btn-black .lyh-arrow{ width:30px; height:30px; }
+  .lyh.lyh--variante .lyh-btn-black{ flex:0 0 auto; width:auto; justify-content:space-between; gap:10px; padding:0 8px 0 18px; font-size:13px; }
+  .lyh.lyh--variante .lyh-btn-black .lyh-arrow{ width:32px; height:32px; }
   .lyh.lyh--variante .lyh-btn-outline.lyh-field{ flex:1 1 0; width:auto; padding:5px 5px 5px 13px; gap:6px; }
   .lyh.lyh--variante .lyh-input{ font-size:13px; }
   .lyh.lyh--variante .lyh-arrow.lyh-submit{ height:36px; font-size:12px; padding:0 11px; gap:4px; }
   /* Sans champ (/crea), le bouton seul garde toute la largeur. */
-  .lyh.lyh--variante .lyh-btns--seul .lyh-btn-black{ flex:1 1 auto; padding:6px 6px 6px 18px; font-size:14px; }
-  .lyh.lyh--variante .lyh-btns--seul .lyh-btn-black .lyh-arrow{ width:34px; height:34px; }
+  .lyh.lyh--variante .lyh-btns--seul .lyh-btn-black{ flex:1 1 auto; padding:0 8px 0 22px; font-size:14px; }
   .lyh.lyh--variante .lyh-btns--seul .lyh-btn-black .lyh-cta-l{ display:inline; } .lyh.lyh--variante .lyh-btns--seul .lyh-btn-black .lyh-cta-s{ display:none; }
   .lyh.lyh--variante .lyh-lien-shopify{ font-size:14px; gap:8px; }
   .lyh.lyh--variante .lyh-btn-logo{ width:16px; height:16px; }
@@ -565,13 +570,14 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
   .lyh.lyh--variante .lyh-install-track{ flex-direction:column; align-items:flex-start; row-gap:10px; }
   .lyh.lyh--variante .lyh-offre{ font-size:14px; line-height:1.5; color:rgba(255,255,255,.9); margin-top:14px; }
 }
-/* 380 px et moins : quelques pixels repris aux marges intérieures pour que
-   « Votre projet… » tienne en entier dans le champ (mesuré à 375 px). */
-@media (max-width:380px){
-  .lyh.lyh--variante .lyh-btns:not(.lyh-btns--seul) .lyh-btn-black .lyh-arrow{ width:28px; height:28px; }
-  .lyh.lyh--variante .lyh-btns:not(.lyh-btns--seul) .lyh-btn-black{ padding-left:12px; gap:6px; }
-  .lyh.lyh--variante .lyh-btn-outline.lyh-field{ padding-left:12px; gap:5px; }
-  .lyh.lyh--variante .lyh-arrow.lyh-submit{ padding:0 9px; font-size:11.5px; }
+/* 400 px et moins : quelques pixels repris, surtout au champ, pour que
+   « Votre projet… » y tienne en entier (mesuré à 390 et 375). Le bouton noir
+   garde 16 px d'air à gauche et sa pastille reste à 8 px du bord. */
+@media (max-width:400px){
+  .lyh.lyh--variante .lyh-btns:not(.lyh-btns--seul) .lyh-btn-black{ padding-left:16px; gap:8px; }
+  .lyh.lyh--variante .lyh-btn-outline.lyh-field{ padding-left:11px; gap:4px; }
+  .lyh.lyh--variante .lyh-input{ font-size:12px; }
+  .lyh.lyh--variante .lyh-arrow.lyh-submit{ padding:0 8px; font-size:11px; }
 }`}</style>
       )}
 

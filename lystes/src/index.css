@@ -3490,3 +3490,30 @@ label.flex.cursor-pointer.items-center.gap-2.text-\[11px\].text-\[\#52504f\] {
 .crea-scope strong {
   font-weight: 500;
 }
+
+/* /bio, boutons « Prendre rendez-vous » du bas de page (JP, 13/10/2026) :
+   même règle que le bouton noir de la bannière. Air à gauche, écart net
+   entre texte et pastille, pastille à 8 px du bord en haut, à droite et en
+   bas (52 = 8 + 36 + 8 ; 48 = 8 + 32 + 8 sur téléphone). Les autres pages
+   qui utilisent .btn-startup ne changent pas. */
+.bio-scope .btn-startup {
+  height: 52px;
+  box-sizing: border-box;
+  gap: 14px;
+  padding: 0 8px 0 28px;
+}
+.bio-scope .btn-startup .arrow-circle {
+  width: 36px;
+  height: 36px;
+}
+@media (max-width: 720px) {
+  .bio-scope .btn-startup {
+    height: 48px;
+    gap: 10px;
+    padding: 0 8px 0 22px;
+  }
+  .bio-scope .btn-startup .arrow-circle {
+    width: 32px;
+    height: 32px;
+  }
+}
