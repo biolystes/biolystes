@@ -2058,6 +2058,32 @@
       "aucunInscrit": "Nessun freelance iscritto per ora.",
       "aucunInscritDetail": "I profili appariranno qui man mano che i freelance si iscrivono.",
       "lienInscription": "Pagina di iscrizione per freelance"
+    },
+    "recoUgc": {
+      "genre": "Genere",
+      "age": "Età",
+      "carnation": "Carnagione cercata",
+      "peau": "Pelle",
+      "cheveux": "Capelli",
+      "preoccupations": "Preoccupazioni",
+      "pays": "Paesi",
+      "titre": "Tre UGC per sciogliere i dubbi delle tue clienti.",
+      "titreSuite": "In base alle tue conversazioni e al profilo misurato della tua clientela.",
+      "chargement": "Analisi della tua clientela…",
+      "erreur": "Non è stato possibile leggere il profilo della tua clientela. Riprova tra un istante.",
+      "kpiDoutes": "Dubbi rilevati",
+      "kpiConversations": "Conversazioni analizzate",
+      "kpiDiagnostics": "Diagnosi lette",
+      "kpiProduits": "Schede prodotto analizzate",
+      "profilTitre": "La tua clientela",
+      "profilVide": "Non ci sono ancora dati sufficienti per misurare la tua clientela. Servono almeno 10 diagnosi o 10 clienti, perché nessuna sia riconoscibile. Nel frattempo dichiara l'avatar del tuo marchio.",
+      "doute": "Dubbio da sciogliere",
+      "mentions": "Rilevato {{n}} volte",
+      "creatrice": "Profilo da scegliere",
+      "creer": "Crea questa UGC",
+      "videTitre": "Nessun dubbio rilevato per ora.",
+      "videTexte": "I dubbi vengono dall'analisi notturna delle conversazioni delle tue schede prodotto. Appena una cliente esita su una scheda, qui compare una UGC per risponderle.",
+      "titreVide": "Le tue UGC risponderanno ai dubbi delle tue clienti."
     }
   },
   "pubZernio": {

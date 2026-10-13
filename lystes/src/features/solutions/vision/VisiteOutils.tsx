@@ -6,6 +6,8 @@ import {
   EncartPose,
   LARGEUR_ENCART,
   DUREE_ETAPE,
+  useMargeDroite,
+  pointDevant,
   type Agent,
   type Cote,
   type Pied,
@@ -13,6 +15,7 @@ import {
   type Pointe,
   type Rect,
   type TailleCadre,
+  type Secteur,
 } from "../VisionEtages";
 import { createPortal } from "react-dom";
 import { EcranOmbre, type Fen } from "./EcranOmbre";
@@ -48,6 +51,21 @@ import {
   RDV_PRO_DEMO,
   SLUG_DEMO,
 } from "./demoLystes";
+import {
+  ARTICLES_CORPO,
+  AVIS_CORPO,
+  CONSEILLER_CORPO,
+  CONTACT_CORPO,
+  FAQ_DEMANDES_CORPO,
+  FAQ_GENERAL_CORPO,
+  FICHE_CORPO,
+  LOGO_CORPO,
+  MARQUE_CORPO,
+  MULTI_LIEN_CORPO,
+  RDV_CLIENT_CORPO,
+  RDV_CORPO,
+  SLUG_CORPO,
+} from "./demoCorporate";
 
 /**
  * L'onglet « Vos outils » de l'accueil (10/10/2026, JP) : « tu reproduis en
@@ -83,6 +101,10 @@ type Props = {
   taille: (t: TailleCadre) => void;
   /* L'écran de l'étape est dessiné et le point a trouvé sa cible. */
   prete?: (p: boolean) => void;
+  /* « corporate » : la version Entreprises de /business (12/10/2026). */
+  secteur?: Secteur;
+  /* Deux colonnes : l'encart peut sortir dans la marge de droite. */
+  marge?: boolean;
 };
 
 /* Chaque étape porte le nom de SON OUTIL (JP, 10/10 nuit : « il y a deux
@@ -105,7 +127,7 @@ export const AGENTS_OUTILS: Agent[] = [
     role: "Améliorer la réputation de votre marque avec une page d’avis, notée produit par produit.",
     unique: "Vos étoiles apparaissent sur Google. La page et chaque produit sont indexés : qui tape le nom d’un produit voit ses avis dans les résultats." },
   { nom: "Magazine IA", mission: "des articles qui amènent des clientes prêtes à acheter",
-    role: "Publier des articles nés des préoccupations de vos clientes et des mots-clés qui ont le plus de chances de faire vendre.",
+    role: "Publier des articles nés des préoccupations et des questions de vos clientes.",
     unique: "Ils s’écrivent seuls, pour Google et pour être cités par ChatGPT, avec des boutons qui mènent toujours à l’achat. Ils amènent un trafic qualifié, prêt à acheter." },
   { nom: "Page FAQ IA", mission: "les réponses à vos clientes, et des liens vers votre site", elle: true,
     role: "Répondre aux questions de vos clientes sur une page lue par Google et par les IA.",
@@ -133,6 +155,35 @@ export const AGENTS_OUTILS: Agent[] = [
 ];
 
 
+/* La version « Entreprises » (/business, JP, 12/10/2026) : un site vitrine,
+   sans produit ni paiement. Le multi-lien devient le lien de la bio LinkedIn,
+   le Booking IA un rendez-vous commercial ; le paiement et le lien
+   influenceur sont retirés (rien à encaisser en ligne, pas de code promo).
+   Les écrans sont les mêmes vraies vues, nourries de Brévan Architectes
+   (demoCorporate.ts). */
+export const AGENTS_OUTILS_CORPORATE: Agent[] = [
+  { nom: "Lien LinkedIn IA", mission: "un seul lien dans votre bio, qui oriente vers le bon service",
+    role: "Accueillir le visiteur venu de LinkedIn ou de votre signature e-mail, et l’orienter vers le service qui le concerne.",
+    unique: "Un chat IA lui répond tout de suite et lui propose un rendez-vous. Le bouton « Nos dernières actus » ouvre vos articles d’expertise." },
+  { nom: "Page d’avis IA", mission: "les avis de vos clients, avec vos étoiles sur Google", elle: true,
+    role: "Recueillir les avis de vos clients sur une page à votre nom, et répondre à chacun.",
+    unique: "La page est indexée : qui tape le nom de votre entreprise voit vos étoiles dans les résultats de Google." },
+  { nom: "Magazine IA", mission: "vos articles d’expertise, écrits seuls",
+    role: "Publier des articles d’expertise nés des questions de vos prospects et des recherches de votre secteur.",
+    unique: "Ils s’écrivent seuls, pour Google et pour être cités par ChatGPT. Ils amènent des visiteurs qui cherchent déjà ce que vous faites." },
+  { nom: "Page FAQ IA", mission: "les réponses à vos prospects, lues par Google et les IA", elle: true,
+    role: "Répondre aux questions de vos prospects sur une page lue par Google et par les IA.",
+    unique: "Hébergée sur lystes.ai, elle crée des liens vers votre site. Les questions qui reviennent dans vos conversations la complètent." },
+  { nom: "Contact IA", mission: "un formulaire qui règle les demandes avant vous",
+    role: "Mettre sur votre site un formulaire qui crée un ticket pour chaque demande de vos prospects.",
+    unique: "Un agent IA reprend aussitôt la conversation et répond tout de suite. Quand vous ouvrez la demande, la question simple est déjà réglée." },
+  { nom: "Rendez-vous commercial IA", mission: "vos prospects réservent un échange, même la nuit",
+    role: "Laisser vos prospects réserver un premier échange, une visite ou un point avec un associé, à toute heure.",
+    unique: "Ils choisissent le motif, le jour et le créneau, seuls. Un rappel part la veille, puis une heure avant." },
+];
+export const agentsOutils = (secteur: Secteur = "ecommerce"): Agent[] =>
+  secteur === "corporate" ? AGENTS_OUTILS_CORPORATE : AGENTS_OUTILS;
+
 /* L'adresse de chaque écran, pour une légende sous le visuel. */
 export const ADRESSES_OUTILS = [
   `lystes.ai/${SLUG_DEMO}`,
@@ -144,8 +195,11 @@ export const ADRESSES_OUTILS = [
   `lystes.ai/i/${INFLUENCEUSE_DEMO.instagram_handle}`,
   `lystes.ai/${SLUG_DEMO}/booking`,
 ];
+const ADRESSES_CORPORATE = ["", "/avis", "/mag", "/faq", "/contact", "/booking"].map((s) => `lystes.ai/${SLUG_CORPO}${s}`);
+export const adressesOutils = (secteur: Secteur = "ecommerce") => (secteur === "corporate" ? ADRESSES_CORPORATE : ADRESSES_OUTILS);
 /* La marque de la légende. */
 export const MARQUE_OUTILS = MARQUE_DEMO;
+export const marqueOutils = (secteur: Secteur = "ecommerce") => (secteur === "corporate" ? MARQUE_CORPO : MARQUE_DEMO);
 
 /* Le formulaire qui devient conversation a besoin de plus de temps qu'une
    étape ordinaire : la saisie, l'envoi, puis la réponse à lire. */
@@ -161,12 +215,47 @@ const DUREE_AVIS = 10500;
 const DUREE_INFLUENCEUR = 15000;
 /* Booking IA : la réservation d'un institut, puis celle d'une entreprise. */
 const DUREE_RDV = 20000;
-export function dureeEtapeOutils(etape: number): number {
+/* Le rendez-vous commercial seul (version Entreprises) : la moitié. */
+const DUREE_RDV_SEUL = 10500;
+const DUREES: Record<CleOutil, number> = {
+  multilien: DUREE_MULTI_LIEN, avis: DUREE_AVIS, mag: DUREE_ETAPE, faq: DUREE_ETAPE, paiement: DUREE_ETAPE,
+  contact: DUREE_CONTACT, influenceur: DUREE_INFLUENCEUR, rdv: DUREE_RDV,
+};
+export function dureeEtapeOutils(etape: number, secteur: Secteur = "ecommerce"): number {
+  if (secteur === "corporate") {
+    const cle = ETAPES_CORPORATE[etape]?.cle;
+    return cle === "rdv" ? DUREE_RDV_SEUL : cle ? DUREES[cle] : DUREE_ETAPE;
+  }
   return etape === 7 ? DUREE_RDV : etape === 6 ? DUREE_INFLUENCEUR : etape === 5 ? DUREE_CONTACT : etape === 0 ? DUREE_MULTI_LIEN : etape === 1 ? DUREE_AVIS : DUREE_ETAPE;
 }
 
-const SLUG = SLUG_DEMO;
 const MARQUE = MARQUE_DEMO;
+
+/* Le jeu de données d'un écran : la marque de l'accueil, ou l'entreprise de
+   /business. */
+type Jeu = {
+  secteur: Secteur;
+  marque: string;
+  slug: string;
+  logo: string;
+  fiche: typeof FICHE_DEMO;
+  avis: typeof AVIS_DEMO;
+  multiLien: typeof MULTI_LIEN_DEMO;
+  conseiller: typeof CONSEILLER_DEMO;
+  contact: typeof CONTACT_DEMO;
+  articles: typeof ARTICLES_DEMO;
+  faq: { demandes: typeof FAQ_DEMANDES; general: typeof FAQ_GENERAL; sections: typeof FAQ_SECTIONS };
+};
+const JEU_ECOMMERCE: Jeu = {
+  secteur: "ecommerce", marque: MARQUE_DEMO, slug: SLUG_DEMO, logo: LOGO_DEMO, fiche: FICHE_DEMO, avis: AVIS_DEMO,
+  multiLien: MULTI_LIEN_DEMO, conseiller: CONSEILLER_DEMO, contact: CONTACT_DEMO, articles: ARTICLES_DEMO,
+  faq: { demandes: FAQ_DEMANDES, general: FAQ_GENERAL, sections: FAQ_SECTIONS },
+};
+const JEU_CORPORATE: Jeu = {
+  secteur: "corporate", marque: MARQUE_CORPO, slug: SLUG_CORPO, logo: LOGO_CORPO, fiche: FICHE_CORPO, avis: AVIS_CORPO,
+  multiLien: MULTI_LIEN_CORPO, conseiller: CONSEILLER_CORPO, contact: CONTACT_CORPO, articles: ARTICLES_CORPO,
+  faq: { demandes: FAQ_DEMANDES_CORPO, general: FAQ_GENERAL_CORPO, sections: [] },
+};
 
 /* ---------- Le téléphone (présentation téléphone seulement) ----------
    Depuis le 11/10, sur ordinateur, les pages sont en largeur d'ordinateur,
@@ -311,9 +400,11 @@ type Planifier = (f: () => void, ms: number) => void;
 type Zone = { left: number; top: number; width: number; height: number };
 /* `serrer` : l'écran demande un cadre plus bas que la boîte (la hauteur de
    sa page, en pixels de page), ou null pour la hauteur pleine. */
-type Rendu = { fen: Fen; actif: boolean; cle: string; ordi: boolean; serrer: (h: number | null) => void };
+type Rendu = { fen: Fen; actif: boolean; cle: string; ordi: boolean; serrer: (h: number | null) => void; jeu: Jeu };
+type CleOutil = "multilien" | "avis" | "mag" | "faq" | "paiement" | "contact" | "influenceur" | "rdv";
 type EtapeOutil = {
-  titre: string;
+  cle: CleOutil;
+  titre: (j: Jeu) => string;
   /* La largeur de rendu de la page au téléphone, en pixels CSS (390 par défaut). */
   largeur?: number;
   /* Une règle propre à cet écran, posée dans la page. */
@@ -373,7 +464,9 @@ const finDuTexte = (p: Element | null): Zone | null => {
 };
 
 /* Les étoiles du produit, dans le résultat Google de l'étape des avis. */
-const etoilesGoogle = (f: Fen) => q(f, '[data-vo-google] [data-resultat="produit"] > div:last-child');
+const etoilesGoogle = (f: Fen) => q(f, '[data-vo-google] [data-resultat="produit"] > div:last-child')
+  /* Une entreprise n'a pas de produit : les étoiles de son propre résultat. */
+  ?? q(f, '[data-vo-google] [data-resultat="marque"] > div');
 /* Le point au bord droit du résultat, à hauteur des étoiles : l'encart ne
    couvre pas le titre du produit. */
 const zoneGoogle = (f: Fen): Zone | null => {
@@ -401,7 +494,8 @@ const zoneMultiLien = (f: Fen): Zone | null => {
 
 const ETAPES: EtapeOutil[] = [
   {
-    titre: `Le multi-lien de ${MARQUE} sur lystes.ai`,
+    cle: "multilien",
+    titre: (j) => `Le multi-lien de ${j.marque} sur lystes.ai`,
     largeur: 320,
     ordi: { largeur: COLONNE_MULTI_LIEN, colonne: COLONNE_MULTI_LIEN },
     ecran: (r) => <MultiLienDemo {...r} />,
@@ -412,7 +506,8 @@ const ETAPES: EtapeOutil[] = [
     visee: { prise: "droite", cote: "droite", decalage: 6 },
   },
   {
-    titre: `La page d’avis de ${MARQUE} sur lystes.ai`,
+    cle: "avis",
+    titre: (j) => `La page d’avis de ${j.marque} sur lystes.ai`,
     largeur: 320,
     ordi: { largeur: 1100 },
     /* Pas de carrousel de produits en haut (JP, 10/10 nuit) : caché dans la
@@ -428,8 +523,10 @@ const ETAPES: EtapeOutil[] = [
     /* Sur ordinateur, au bout des deux boutons de l'en-tête, l'encart sur les
        photos de l'en-tête (relecture du 11/10). */
     surOrdi: {
-      ancre: (f) => q(f, ".lyr-btns > :last-child"),
-      cible: (f) => etoilesGoogle(f) ?? q(f, ".lyr-btns > :last-child"),
+      /* Sans produit (une entreprise), la bannière n'a pas de boutons : la
+         répartition des notes. */
+      ancre: (f) => q(f, ".lyr-btns > :last-child") ?? q(f, "aside h2 + div"),
+      cible: (f) => etoilesGoogle(f) ?? q(f, ".lyr-btns > :last-child") ?? q(f, "aside h2 + div"),
       /* Le point 40 px (de page) sous le milieu du bouton. */
       zone: (f) => {
         if (etoilesGoogle(f)) return zoneGoogle(f);
@@ -449,7 +546,8 @@ const ETAPES: EtapeOutil[] = [
     },
   },
   {
-    titre: `Le magazine de ${MARQUE} sur lystes.ai`,
+    cle: "mag",
+    titre: (j) => `Le magazine de ${j.marque} sur lystes.ai`,
     /* 0,68 : la une garde sa photo à gauche et son titre à droite, et tient
        en hauteur, de « À la une » à « Lire l'article ». */
     ordi: { largeur: 1100, echelle: 0.68, minimum: 1100 },
@@ -460,18 +558,20 @@ const ETAPES: EtapeOutil[] = [
     visee: { prise: "droite", cote: "droite", decalage: 6 },
   },
   {
-    titre: `La FAQ de ${MARQUE} sur lystes.ai`,
+    cle: "faq",
+    titre: (j) => `La FAQ de ${j.marque} sur lystes.ai`,
     largeur: 320,
     ordi: { largeur: 1100, echelle: 0.75 },
-    ecran: () => (
+    ecran: ({ jeu }) => (
       <VueFaqMarque
-        data={FICHE_DEMO}
-        marque={MARQUE}
+        data={jeu.fiche}
+        marque={jeu.marque}
         chargement={false}
         vide={false}
-        demandes={FAQ_DEMANDES}
-        general={FAQ_GENERAL}
-        sections={FAQ_SECTIONS}
+        demandes={jeu.faq.demandes}
+        general={jeu.faq.general}
+        sections={jeu.faq.sections}
+        prestations={jeu.secteur === "corporate"}
       />
     ),
     /* Sur ordinateur, la page entière (JP, 11/10) : le point au bout des deux
@@ -486,14 +586,16 @@ const ETAPES: EtapeOutil[] = [
         return tete ? f.rect(tete).bottom + f.scrollY : 0;
       },
     },
-    /* Au téléphone, les questions PAR PRODUIT : le point au bout du titre. */
-    ancre: titreParProduit,
-    zone: (f) => finDuTexte(titreParProduit(f)),
+    /* Au téléphone, les questions PAR PRODUIT : le point au bout du titre.
+       Une entreprise sans produit : le premier titre de la page. */
+    ancre: (f) => titreParProduit(f) ?? q(f, "main h2"),
+    zone: (f) => finDuTexte(titreParProduit(f) ?? q(f, "main h2")),
     visee: { prise: "droite", cote: "droite", decalage: 18 },
     haut: (ancre, f) => f.rect(ancre).top + f.scrollY - 20,
   },
   {
-    titre: `La page de paiement de ${MARQUE} sur lystes.ai`,
+    cle: "paiement",
+    titre: (j) => `La page de paiement de ${j.marque} sur lystes.ai`,
     largeur: 320,
     ordi: { largeur: 1600, carte: true },
     ecran: (r) => <PaiementDemo {...r} />,
@@ -501,7 +603,8 @@ const ETAPES: EtapeOutil[] = [
     visee: { prise: "droite", cote: "droite", decalage: 6 },
   },
   {
-    titre: `Le formulaire de contact de ${MARQUE} sur lystes.ai`,
+    cle: "contact",
+    titre: (j) => `Le formulaire de contact de ${j.marque} sur lystes.ai`,
     largeur: 320,
     ordi: { largeur: 1600, carte: true },
     ecran: (r) => <ContactDemo {...r} />,
@@ -510,7 +613,8 @@ const ETAPES: EtapeOutil[] = [
     visee: { prise: "droite", cote: "droite", decalage: 6 },
   },
   {
-    titre: `Le lien influenceur de ${INFLUENCEUSE_DEMO.display_name} pour ${MARQUE}`,
+    cle: "influenceur",
+    titre: (j) => `Le lien influenceur de ${INFLUENCEUSE_DEMO.display_name} pour ${j.marque}`,
     /* 280 px au téléphone : à 320, réduite à 0,83 à 375, la page tombait
        sous 9 px. */
     largeur: 280,
@@ -528,7 +632,8 @@ const ETAPES: EtapeOutil[] = [
     visee: { prise: "droite", cote: "droite", decalage: 6 },
   },
   {
-    titre: `La prise de rendez-vous de ${MARQUE} sur lystes.ai`,
+    cle: "rdv",
+    titre: (j) => `La prise de rendez-vous de ${j.marque} sur lystes.ai`,
     /* 280 px au téléphone : à 320, réduite à 0,83 à 375, la page tombait
        sous 9 px. */
     largeur: 280,
@@ -542,6 +647,10 @@ const ETAPES: EtapeOutil[] = [
     visee: { prise: "droite", cote: "droite", decalage: 6 },
   },
 ];
+/* La version Entreprises : multi-lien (lien LinkedIn), avis, magazine, FAQ,
+   contact et rendez-vous. */
+const ETAPES_CORPORATE: EtapeOutil[] = (["multilien", "avis", "mag", "faq", "contact", "rdv"] as CleOutil[])
+  .map((c) => ETAPES.find((e) => e.cle === c)!);
 
 const CSS = `
 .lyv-o-ecran{ pointer-events:none; }
@@ -562,7 +671,11 @@ const SECOURS = 1500;
 
 type Vise = { p: Point; cote: Cote; etape: number; cache?: boolean };
 
-export default function VisiteOutils({ etape, survol, mobile, pied, taille, prete }: Props) {
+export default function VisiteOutils({ etape, survol, mobile, pied, taille, prete, secteur = "ecommerce", marge }: Props) {
+  const corpo = secteur === "corporate";
+  const ETAPES_V = corpo ? ETAPES_CORPORATE : ETAPES;
+  const jeu = corpo ? JEU_CORPORATE : JEU_ECOMMERCE;
+  const agents = agentsOutils(secteur);
   const boite = useRef<HTMLDivElement>(null);
   const fens = useRef<(Fen | null)[]>([]);
   const [geo, setGeo] = useState<Geometrie | null>(null);
@@ -571,21 +684,21 @@ export default function VisiteOutils({ etape, survol, mobile, pied, taille, pret
   /* La hauteur demandée par chaque écran (null : la boîte entière). */
   const [serres, setSerres] = useState<(number | null)[]>([]);
   const serrers = useMemo(
-    () => ETAPES.map((_, i) => (h: number | null) =>
+    () => ETAPES_V.map((_, i) => (h: number | null) =>
       setSerres((v) => {
         if ((v[i] ?? null) === h) return v;
         const n = [...v];
         n[i] = h;
         return n;
       })),
-    [],
+    [ETAPES_V],
   );
   /* L'écran affiché : celui de l'étape dès qu'il a trouvé sa cible. Les huit
      écrans sont montés dès l'ouverture de l'onglet : sans cadre ni réseau,
      ils se dessinent dans la même image. */
   const [affiche, setAffiche] = useState(-1);
   const [secours, setSecours] = useState(false);
-  const base = ETAPES[etape] ?? ETAPES[0];
+  const base = ETAPES_V[etape] ?? ETAPES_V[0];
   const etapeOutil = useMemo<EtapeOutil>(
     () => (mobile || !base.surOrdi ? base : { ...base, ...base.surOrdi }),
     [base, mobile],
@@ -594,6 +707,10 @@ export default function VisiteOutils({ etape, survol, mobile, pied, taille, pret
   const geoRef = useRef<Geometrie | null>(null);
   geoRef.current = geo;
   const viseCourant = vise && vise.etape === etape ? vise : null;
+  /* Deux colonnes : l'encart sort dans la marge de droite (VisionEtages,
+     useMargeDroite) ; le point vise déjà le bord droit de chaque cible. */
+  const hors = useMargeDroite(boite, !mobile && !!marge);
+  const pointVu = viseCourant ? pointDevant(viseCourant.p, hors) : null;
   const visible = secours && pret ? etape : affiche;
 
   /* Le secours ne libère l'étape que sur un écran qui a rendu sa page. */
@@ -718,7 +835,7 @@ export default function VisiteOutils({ etape, survol, mobile, pied, taille, pret
       <style>{CSS}</style>
       {geo && (
         <div className={"lyv-o-tel" + (mobile ? " plat" : " ordi")} style={{ left: geo.x, width: geo.telW, height: geo.telH }}>
-          {ETAPES.map((e, i) => {
+          {ETAPES_V.map((e, i) => {
             const vue = vueDe(e, geo, mobile);
             /* Un écran serré garde sa page entière, centrée en hauteur : la
                confirmation du rendez-vous ne laisse plus un grand blanc. */
@@ -728,7 +845,7 @@ export default function VisiteOutils({ etape, survol, mobile, pied, taille, pret
             return (
               <EcranOmbre
                 key={i}
-                titre={e.titre}
+                titre={e.titre(jeu)}
                 cache={i !== visible}
                 className={"lyv-boutique-page lyv-o-ecran" + (i === visible ? " on" : "")}
                 style={{
@@ -746,7 +863,7 @@ export default function VisiteOutils({ etape, survol, mobile, pied, taille, pret
                   <SansDefilement>
                     <div data-etape={i}>
                       {e.style && <style>{e.style}</style>}
-                      {e.ecran({ fen: f, actif: i === etape, cle: pied.cle, ordi: !mobile, serrer: serrers[i] })}
+                      {e.ecran({ fen: f, actif: i === etape, cle: pied.cle, ordi: !mobile, serrer: serrers[i], jeu })}
                     </div>
                   </SansDefilement>
                 )}
@@ -756,19 +873,20 @@ export default function VisiteOutils({ etape, survol, mobile, pied, taille, pret
         </div>
       )}
       {viseCourant && !viseCourant.cache && (
-        <span className="lyv-pouls" style={{ left: viseCourant.p.x, top: viseCourant.p.y }} aria-hidden="true" />
+        <span className="lyv-pouls" style={{ left: pointVu?.x, top: pointVu?.y }} aria-hidden="true" />
       )}
       {geo && !mobile && (viseCourant ? !viseCourant.cache : secours) && (
         <EncartPose
           key={`o${etape}`}
           poseDirecte
           serrer={{ min: 180, deborde: 24 }}
-          point={viseCourant ? viseCourant.p : null}
+          hors={hors}
+          point={pointVu}
           cote={viseCourant?.cote ?? etapeOutil.visee.cote}
           cadre={{ w: geo.boiteW, h: geo.boiteH }}
           largeur={LARGEUR_ENCART}
           contenu={(pointe: Pointe | null, style: CSSProperties) => (
-            <Encart agent={AGENTS_OUTILS[etape] ?? AGENTS_OUTILS[0]} loupe={null} pointe={pointe} pied={pied} survol={survol} style={style} />
+            <Encart agent={agents[etape] ?? agents[0]} loupe={null} pointe={pointe} pied={pied} survol={survol} style={style} />
           )}
         />
       )}
@@ -811,8 +929,12 @@ function useChrono(actif: boolean, cle: string, fin: number) {
    le début de l'étape) où la visite passe à chacune. Chaque partie reste
    assez longtemps pour se lire avec l'encart. */
 const PARTIES_ML = ["haut", "chat", "reponse", "bouton", "fenetre", "questions", "liens", "avis"] as const;
-type PartieML = (typeof PARTIES_ML)[number];
+/* Une entreprise : le bouton « Nos dernières actus », puis sa page
+   d'actualités (le magazine) par-dessus le lien, à la place du diagnostic. */
+const PARTIES_ML_CORPO = ["haut", "chat", "reponse", "bouton", "actus", "liens", "avis"] as const;
+type PartieML = (typeof PARTIES_ML)[number] | "actus";
 const T_ML = [3000, 4300, 7300, 9300, 11900, 14700, 17600];
+const T_ML_CORPO = [3000, 4300, 7300, 9300, 13800, 17600];
 
 /* Où pulse le point dans chaque partie, et quelle zone viser. */
 const CIBLE_ML: Record<PartieML, { sel: string; large?: string; visee?: Visee }> = {
@@ -821,6 +943,7 @@ const CIBLE_ML: Record<PartieML, { sel: string; large?: string; visee?: Visee }>
   chat: { sel: ".lmk-messages > .lmk-message:last-child", large: ".lmk-messages" },
   reponse: { sel: ".lmk-messages > .lmk-message:last-child", large: ".lmk-messages" },
   bouton: { sel: ".lystes-bdf-bouton" },
+  actus: { sel: ".vo-actus main > section:first-child h1", large: ".vo-actus" },
   fenetre: { sel: "#lystes-bdf-fenetre .lystes-bdf-parcours h3", large: "#lystes-bdf-fenetre" },
   questions: { sel: "#lystes-bdf-fenetre .lystes-bdf-faq h2", large: "#lystes-bdf-fenetre" },
   liens: { sel: ".blp-link-item" },
@@ -857,27 +980,29 @@ function hautPartie(f: Fen, partie: PartieML): number {
 const mouvementReduit = () => typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /* La partie en cours : un minuteur par passage, pas un rendu toutes les 40 ms. */
-function usePartie(actif: boolean, cle: string): number {
+function usePartie(actif: boolean, cle: string, temps: number[]): number {
   const [n, setN] = useState(0);
   useEffect(() => {
     setN(0);
     if (!actif) return;
-    const ids = T_ML.map((t, i) => window.setTimeout(() => setN(i + 1), t));
+    const ids = temps.map((t, i) => window.setTimeout(() => setN(i + 1), t));
     return () => ids.forEach((id) => window.clearTimeout(id));
-  }, [actif, cle]);
+  }, [actif, cle, temps]);
   return n;
 }
 
-function MultiLienDemo({ fen, actif, cle }: Rendu) {
-  const n = usePartie(actif, cle);
+function MultiLienDemo({ fen, actif, cle, jeu }: Rendu) {
+  const corpo = jeu.secteur === "corporate";
+  const parties: readonly PartieML[] = corpo ? PARTIES_ML_CORPO : PARTIES_ML;
+  const n = usePartie(actif, cle, corpo ? T_ML_CORPO : T_ML);
   /* Mouvement réduit : la page reste en haut, sans défilement ni fenêtre. */
   const reduit = useMemo(mouvementReduit, []);
-  const partie: PartieML = reduit ? "haut" : PARTIES_ML[n];
-  const repondu = n >= PARTIES_ML.indexOf("reponse");
+  const partie: PartieML = reduit ? "haut" : parties[n];
+  const repondu = n >= parties.indexOf("reponse");
   const messages = [
-    { role: "assistant" as const, content: CONSEILLER_DEMO.accueil },
-    { role: "user" as const, content: CONSEILLER_DEMO.question },
-    ...(repondu ? [{ role: "assistant" as const, content: CONSEILLER_DEMO.reponse }] : []),
+    { role: "assistant" as const, content: jeu.conseiller.accueil },
+    { role: "user" as const, content: jeu.conseiller.question },
+    ...(repondu ? [{ role: "assistant" as const, content: jeu.conseiller.reponse }] : []),
   ];
 
   /* La fenêtre du diagnostic : ouverte par son bouton, sur le parcours,
@@ -911,6 +1036,11 @@ function MultiLienDemo({ fen, actif, cle }: Rendu) {
       viser();
       return;
     }
+    /* La page d'actualités se pose par-dessus : on attend qu'elle soit dessinée. */
+    if (partie === "actus") {
+      const id = window.requestAnimationFrame(viser);
+      return () => window.cancelAnimationFrame(id);
+    }
     const haut = hautPartie(fen, partie);
     if (Math.abs(fen.scrollY - haut) < 2) {
       viser();
@@ -932,6 +1062,28 @@ function MultiLienDemo({ fen, actif, cle }: Rendu) {
     return () => window.cancelAnimationFrame(id);
   }, [partie, fen, actif]);
 
+  if (corpo) {
+    return (
+      <>
+        <VueMultiLien
+          data={jeu.multiLien}
+          agentId={null}
+          agentAvatars={null}
+          agentDiagnostic={null}
+          surMobile={false}
+          demo={{ conseiller: { agent: jeu.conseiller.agent, messages, enAttente: !repondu, libelleAction: "Nos dernières actus" } }}
+          actus={{ ouvrir: () => undefined }}
+        />
+        {partie === "actus" && createPortal(
+          <div className="vo-actus" style={{ position: "absolute", inset: 0, zIndex: 1000, overflow: "hidden", background: "#fff", animation: "vo-actus-entree .45s ease both" }}>
+            <style>{"@keyframes vo-actus-entree{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}"}</style>
+            <VueMagazineMarque marque={jeu.marque} brandSlug={jeu.slug} articles={jeu.articles} bandeau="nos dernières actus" entreprise />
+          </div>,
+          fen.vue,
+        )}
+      </>
+    );
+  }
   return (
     <VueMultiLien
       data={MULTI_LIEN_DEMO}
@@ -989,22 +1141,41 @@ function ParcoursDemo({ serre = false }: { serre?: boolean }) {
    composant de /solutions/avis, tel quel, nourri de la marque de démonstration. */
 const BASCULE_GOOGLE = 4400;
 const virgule = (n: number) => String(n).replace(".", ",");
+function etoilesDe(jeu: Jeu) {
+  const note = virgule(jeu.avis.avgRating);
+  if (jeu.secteur === "corporate") {
+    /* Une entreprise : son seul résultat, la page d'avis à son nom. */
+    return {
+      recherche: `${jeu.marque.toLowerCase()} avis`,
+      marque: {
+        fil: `lystes.ai › ${jeu.slug} › avis`,
+        lien: `https://lystes.ai/${jeu.slug}/avis`,
+        titre: `Avis ${jeu.marque}\u00a0: note ${note}/5 sur ${jeu.avis.totalCount} avis clients`,
+        note: `Note\u00a0: ${note}`,
+        votes: `· ${jeu.avis.totalCount} votes`,
+        description: `Les avis des clients de ${jeu.marque}\u00a0: projets, suivi de chantier, réponses du cabinet.`,
+      },
+      produit: undefined,
+    };
+  }
+  return ETOILES_DEMO;
+}
 const ETOILES_DEMO = (() => {
   const produit = FICHE_DEMO.products[0];
   const note = virgule(AVIS_DEMO.avgRating);
   return {
     recherche: `${MARQUE.toLowerCase()} avis`,
     marque: {
-      fil: `lystes.ai › ${SLUG} › avis`,
-      lien: `https://lystes.ai/${SLUG}/avis`,
+      fil: `lystes.ai › ${SLUG_DEMO} › avis`,
+      lien: `https://lystes.ai/${SLUG_DEMO}/avis`,
       titre: `Avis ${MARQUE}\u00a0: note ${note}/5 sur ${AVIS_DEMO.totalCount} avis vérifiés`,
       note: `Note\u00a0: ${note}`,
       votes: `· ${AVIS_DEMO.totalCount} votes`,
       description: `Découvrez les avis vérifiés sur ${MARQUE}\u00a0: produits, textures, résultats et retours clients.`,
     },
     produit: {
-      fil: `lystes.ai › ${SLUG} › ${produit.slug}`,
-      lien: `https://lystes.ai/${SLUG}/${produit.slug}`,
+      fil: `lystes.ai › ${SLUG_DEMO} › ${produit.slug}`,
+      lien: `https://lystes.ai/${SLUG_DEMO}/${produit.slug}`,
       titre: `${produit.name}\u00a0: avis ${virgule(produit.rating)}/5 | ${MARQUE}`,
       note: `Note\u00a0: ${virgule(produit.rating)}`,
       votes: `· ${produit.reviewsCount} votes`,
@@ -1012,7 +1183,8 @@ const ETOILES_DEMO = (() => {
   };
 })();
 
-function AvisDemo({ fen, actif, cle, ordi }: Rendu) {
+function AvisDemo({ fen, actif, cle, ordi, jeu }: Rendu) {
+  const etoiles = etoilesDe(jeu);
   const [google, setGoogle] = useState(false);
   useEffect(() => {
     setGoogle(false);
@@ -1022,7 +1194,7 @@ function AvisDemo({ fen, actif, cle, ordi }: Rendu) {
   }, [actif, cle]);
   return (
     <>
-      <VueAvisMarque data={FICHE_DEMO} avis={AVIS_DEMO} demo />
+      <VueAvisMarque data={jeu.fiche} avis={jeu.avis} demo />
       {google && createPortal(
         <div data-vo-google="" className="bg-neutral-50" style={{ position: "absolute", inset: 0, zIndex: 1000, display: "flex", alignItems: "center", padding: ordi ? "16px 24px" : 8, overflow: "hidden", animation: "vo-google-entree .45s ease both" }}>
           <style>{"@keyframes vo-google-entree{from{opacity:0}to{opacity:1}}"}</style>
@@ -1032,8 +1204,8 @@ function AvisDemo({ fen, actif, cle, ordi }: Rendu) {
               étoiles du produit. */}
           <div style={ordi ? { width: "52%" } : ({ width: "100%", zoom: 0.78 } as CSSProperties)}>
             <ResultatGoogleAvis
-              {...ETOILES_DEMO}
-              marque={ordi ? ETOILES_DEMO.marque : { ...ETOILES_DEMO.marque, description: undefined }}
+              {...etoiles}
+              marque={ordi ? etoiles.marque : { ...etoiles.marque, description: undefined }}
             />
           </div>
         </div>,
@@ -1052,7 +1224,7 @@ function PaiementDemo({ actif, cle }: Rendu) {
   return (
     <VuePaiement
       marque={MARQUE}
-      slug={SLUG}
+      slug={SLUG_DEMO}
       appearance={{ brand_name: MARQUE, logo_url: LOGO_DEMO, avatar_url: null, background_color: "#ececec", is_verified: true }}
       verification={false}
       confirme={null}
@@ -1074,7 +1246,7 @@ const UNE = "main > section:first-child h1";
 const BOUTON_UNE = "main > section:first-child h1 ~ a";
 const GRILLE = "main > section:nth-child(2) a:last-child h3";
 
-function MagazineDemo({ fen, actif, cle, ordi }: Rendu) {
+function MagazineDemo({ fen, actif, cle, ordi, jeu }: Rendu) {
   const [grille, setGrille] = useState(false);
 
   useEffect(() => {
@@ -1139,7 +1311,10 @@ function MagazineDemo({ fen, actif, cle, ordi }: Rendu) {
     return () => window.cancelAnimationFrame(id);
   }, [grille, fen, ordi]);
 
-  return <VueMagazineMarque marque={MARQUE} brandSlug={SLUG} articles={ARTICLES_DEMO} />;
+  return (
+    <VueMagazineMarque marque={jeu.marque} brandSlug={jeu.slug} articles={jeu.articles}
+      bandeau={jeu.secteur === "corporate" ? "nos dernières actus" : undefined} entreprise={jeu.secteur === "corporate"} />
+  );
 }
 
 /* ---------- Le contact : VueContact, le formulaire qui se remplit, puis la conversation ---------- */
@@ -1148,15 +1323,16 @@ function MagazineDemo({ fen, actif, cle, ordi }: Rendu) {
 const T = { nom: 600, email: 1500, message: 2700, envoi: 4700, conversation: 5300, enregistre: 6100, reponse: 7600 };
 const VITESSE = { nom: 85, email: 45, message: 28 };
 
-function ContactDemo({ fen, actif, cle }: Rendu) {
+function ContactDemo({ fen, actif, cle, jeu }: Rendu) {
+  const CONTACT = jeu.contact;
   const ms = useChrono(actif, cle, T.reponse + 100);
   const tape = (texte: string, debut: number, vitesse: number) =>
     ms < debut ? "" : texte.slice(0, Math.min(texte.length, Math.floor((ms - debut) / vitesse) + 1));
   const form = {
     ...FORMULAIRE_VIDE,
-    nom: tape(CONTACT_DEMO.nom, T.nom, VITESSE.nom),
-    email: tape(CONTACT_DEMO.email, T.email, VITESSE.email),
-    message: tape(CONTACT_DEMO.message, T.message, VITESSE.message),
+    nom: tape(CONTACT.nom, T.nom, VITESSE.nom),
+    email: tape(CONTACT.email, T.email, VITESSE.email),
+    message: tape(CONTACT.message, T.message, VITESSE.message),
   };
   const conversation = ms >= T.conversation;
   const enregistre = ms >= T.enregistre;
@@ -1189,9 +1365,9 @@ function ContactDemo({ fen, actif, cle }: Rendu) {
   const rien = () => undefined;
   return (
     <VueContact
-      cadre={{ nom: MARQUE, logoUrl: LOGO_DEMO, verifie: true, retour: { chemin: `/${SLUG}`, multiLien: true } }}
+      cadre={{ nom: jeu.marque, logoUrl: jeu.logo, verifie: true, retour: { chemin: `/${jeu.slug}`, multiLien: true } }}
       integre={false}
-      nom={MARQUE}
+      nom={jeu.marque}
       phase={conversation ? "conversation" : "formulaire"}
       form={form}
       onForm={rien}
@@ -1208,17 +1384,17 @@ function ContactDemo({ fen, actif, cle }: Rendu) {
       conseiller={
         <div data-vo-conversation="">
           <BrandAdvisorChatCard
-            accountId="demo-lystes-partners"
-            brandName={MARQUE}
-            logoUrl={LOGO_DEMO}
-            premierMessage={CONTACT_DEMO.message}
+            accountId={jeu.fiche.accountId}
+            brandName={jeu.marque}
+            logoUrl={jeu.logo}
+            premierMessage={CONTACT.message}
             contact={null}
             contactEnAttente
             demo={{
-              agent: CONSEILLER_DEMO.agent,
+              agent: jeu.conseiller.agent,
               messages: [
-                { role: "user", content: CONTACT_DEMO.message },
-                ...(repondu ? [{ role: "assistant" as const, content: CONTACT_DEMO.reponse }] : []),
+                { role: "user", content: CONTACT.message },
+                ...(repondu ? [{ role: "assistant" as const, content: CONTACT.reponse }] : []),
               ],
               enAttente: !repondu,
             }}
@@ -1326,15 +1502,18 @@ function InfluenceurDemo({ fen, actif, cle, ordi }: Rendu) {
    les coordonnées, la confirmation. Rien n'est envoyé. */
 const T_RDV = { prestation: 1200, creneau: 3000, coordonnees: 5000, confirme: 7600, pro: 10000, creneauPro: 12200, coordonneesPro: 14000, confirmePro: 16600 };
 
-function RdvDemo({ fen, actif, cle, serrer }: Rendu) {
-  const ms = useChrono(actif, cle, T_RDV.confirmePro + 100);
+function RdvDemo({ fen, actif, cle, serrer, jeu }: Rendu) {
+  /* Une entreprise : le rendez-vous commercial seul, sans l'institut. */
+  const corpo = jeu.secteur === "corporate";
+  const decale = corpo ? T_RDV.pro : 0;
+  const ms = useChrono(actif, cle, T_RDV.confirmePro + 100 - decale);
   const reduit = useMemo(mouvementReduit, []);
-  const t = reduit ? 0 : ms;
+  const t = (reduit ? 0 : ms) + decale;
   const pro = t >= T_RDV.pro;
-  const page = pro ? RDV_PRO_DEMO : RDV_INSTITUT_DEMO;
+  const page = pro ? (corpo ? RDV_CORPO : RDV_PRO_DEMO) : RDV_INSTITUT_DEMO;
   const d = pro ? T_RDV.pro : 0;
   const local = t - d;
-  const client = pro ? RDV_CLIENTES_DEMO.pro : RDV_CLIENTES_DEMO.institut;
+  const client = pro ? (corpo ? RDV_CLIENT_CORPO : RDV_CLIENTES_DEMO.pro) : RDV_CLIENTES_DEMO.institut;
   const jours = useMemo(() => {
     const base = new Date();
     base.setHours(0, 0, 0, 0);

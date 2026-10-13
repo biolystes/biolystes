@@ -2058,6 +2058,32 @@
       "aucunInscrit": "No freelancers have signed up yet.",
       "aucunInscritDetail": "Profiles will appear here as freelancers sign up.",
       "lienInscription": "Freelancer sign-up page"
+    },
+    "recoUgc": {
+      "genre": "Gender",
+      "age": "Age",
+      "carnation": "Target skin tone",
+      "peau": "Skin",
+      "cheveux": "Hair",
+      "preoccupations": "Concerns",
+      "pays": "Countries",
+      "titre": "Three UGC to clear your customers' doubts.",
+      "titreSuite": "Based on your conversations and the measured profile of your customers.",
+      "chargement": "Analysing your customers…",
+      "erreur": "Your customer profile could not be read. Try again in a moment.",
+      "kpiDoutes": "Doubts found",
+      "kpiConversations": "Conversations analysed",
+      "kpiDiagnostics": "Diagnostics read",
+      "kpiProduits": "Product pages analysed",
+      "profilTitre": "Your customers",
+      "profilVide": "Not enough data yet to measure your customers. We need at least 10 diagnostics or 10 customers, so that no one can be recognised. Declare your brand avatar in the meantime.",
+      "doute": "Doubt to clear",
+      "mentions": "Found {{n}} times",
+      "creatrice": "Profile to cast",
+      "creer": "Create this UGC",
+      "videTitre": "No doubt found yet.",
+      "videTexte": "Doubts come from the nightly analysis of your product page conversations. As soon as a customer hesitates on a product, a UGC to answer her appears here.",
+      "titreVide": "Your UGC will answer your customers' doubts."
     }
   },
   "pubZernio": {

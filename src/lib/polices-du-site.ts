@@ -12,7 +12,7 @@ const ID = "polices-du-site";
 
 export function usePolicesDuSite(chemin: string) {
   useEffect(() => {
-    if (chemin === "/" || document.getElementById(ID)) return;
+    if (chemin === "/" || chemin.startsWith("/agents-ia") || document.getElementById(ID)) return;
     const lien = document.createElement("link");
     lien.id = ID;
     lien.rel = "stylesheet";

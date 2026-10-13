@@ -53,7 +53,9 @@
       "importTerminePrestations": "Vos prestations sont bien enregistrées",
       "liaison": "Liaison de vos produits à votre spécialiste…",
       "liaisonPrestations": "Liaison de vos prestations à votre spécialiste…",
-      "managers": "Mise en place de la direction et des managers…"
+      "managers": "Mise en place de la direction et des managers…",
+      "specialistePrestations": "Création du conseiller de votre site…",
+      "coachsPrestations": "Création de votre suivi après rendez-vous…"
     },
     "expertsLinkManquant": {
       "message": "Vos experts sont créés, mais ne répondent pour aucun produit pour l'instant. Reliez-les depuis la page Mon équipe.",
@@ -304,6 +306,19 @@
       "strategy": "Stratégie",
       "upsell": "Coachs après-achat",
       "winners": "Produits gagnants"
+    },
+    "prestations": {
+      "experts": "Experts prestation",
+      "coachs": "Suivi après rendez-vous",
+      "coachsTexte": "Suivent vos clients après leur rendez-vous.",
+      "specialisteTexte": "Le conseiller qui s'affiche dans la bulle de votre site.",
+      "conseiller": "Conseiller du site",
+      "conseillerTexte": "Répond sur tout votre site : prestations, horaires, contact.",
+      "tableauDeBord": "Travaille dans votre tableau de bord, sans agent sur votre site.",
+      "bilanSite": "Sur votre site",
+      "postePRODUCTS": "Experts prestation",
+      "posteUPSELL": "Suivi après rendez-vous",
+      "posteWINNERS": "Prestations phares"
     }
   },
   "page": {
@@ -323,7 +338,8 @@
     },
     "progressionNonEnregistree": "Votre progression n'a pas pu être enregistrée",
     "choixNonEnregistre": "Votre choix n'a pas pu être enregistré",
-    "configurationPartielle": "Configuration partielle de votre équipe IA. Certains éléments seront complétés à l'étape suivante."
+    "configurationPartielle": "Configuration partielle de votre équipe IA. Certains éléments seront complétés à l'étape suivante.",
+    "voirLaSuite": "Voir la suite"
   },
   "plateforme": {
     "autre": {
@@ -548,6 +564,8 @@
       "bouton": "Confirmer la demande",
       "chapo": "Notre équipe technique installe le widget sur votre site. Installé sous 24h ouvrées.",
       "detail": "Nous vous contactons par e-mail dans la journée pour récupérer vos accès. Aucune action de votre côté d'ici là.",
+      "confirmer": "En confirmant, votre demande part à notre équipe, qui vous écrira pour récupérer vos accès.",
+      "enregistree": "Demande enregistrée. Notre équipe la traitera et vous écrira pour récupérer vos accès.",
       "titre": "Faites-le pour moi",
       "dejaEnvoyee": "Demande envoyée à l'équipe le {{date}}. Nous vous écrivons par e-mail pour récupérer vos accès."
     },

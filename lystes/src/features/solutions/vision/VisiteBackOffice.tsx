@@ -67,6 +67,7 @@ import {
   type Pied,
   type Pointe,
   type TailleCadre,
+  type Secteur,
 } from "../VisionEtages";
 
 /**
@@ -143,7 +144,7 @@ type Cadrage = {
      de `cible` (JP, 12/10 : « plus de magazines dans l'animation »). */
   suite?: number[];
 };
-type EtapeBO = { ecran: Ecran; onglet?: Onglet; ordi: Cadrage; tel: Cadrage };
+type EtapeBO = { ecran: Ecran; onglet?: Onglet; ordi: Cadrage; tel: Cadrage; corporate?: boolean };
 
 
 /* Les postes, dans l'ordre de la visite, chacun avec son étape. mission : la
@@ -265,7 +266,7 @@ const POSTES: { agent: Agent; etape: EtapeBO; montre?: boolean }[] = [
       nom: "Créateur UGC IA",
       mission: "du contenu à votre image : sport, lifestyle, produit",
       role: "Créer des contenus UGC adaptés à votre secteur et à votre univers, du sport au lifestyle en passant par la mise en avant du produit.",
-      unique: "Le modèle à l’écran ressemble à votre avatar client, et chaque scène répond à un doute entendu dans vos échanges.",
+      unique: "Le modèle à l’écran ressemble à votre avatar client.",
     },
     etape: {
       ecran: "modale",
@@ -358,14 +359,61 @@ for (const p of POSTES) if (p.etape.onglet === "community") p.montre = COMMUNITY
 const POSTES_MONTRES = POSTES.filter((p) => p.montre !== false);
 
 export const AGENTS_ENTREPRISE: Agent[] = POSTES_MONTRES.map((p) => p.agent);
+
+/* La version « Entreprises » (/business, JP, 12/10/2026). Gardés : le
+   Copilote, le réseau de presse (ses titres économiques : Forbes, La Tribune,
+   Les Échos) et les data analysts. Retirés : l'expert-comptable (le cabinet
+   partenaire se présente comme « le cabinet comptable des e-commerçants »), le plan
+   d'action (chiffré en paniers et commandes), le point de vente et
+   l'événementiel (diagnostic et essayage en rayon), le photographe et le
+   créateur UGC (aucun profil corporate fini au catalogue : portraits
+   d'équipe, locaux, événements restent à construire), le community manager
+   (portfolios beauté seulement). */
+const POSTES_CORPORATE: { agent: Agent; etape: EtapeBO }[] = [
+  {
+    agent: {
+      nom: "Copilote IA",
+      mission: "comme ChatGPT, mais il connaît déjà votre entreprise",
+      role: "Répondre à vos questions et vous conseiller comme ChatGPT ou Claude, sans que vous ayez à lui présenter votre entreprise.",
+      unique: "Il connaît déjà vos conversations, vos avis, vos visites et leur provenance. Ses conseils partent de ce que demandent vraiment vos prospects.",
+    },
+    etape: { ecran: "copilote-chat", corporate: true, ordi: { ecran: 960, cible: "[data-gestion-vue]" }, tel: { ecran: 380, cible: "[data-gestion-vue]" } },
+  },
+  {
+    agent: {
+      nom: "Réseau de presse",
+      mission: "votre entreprise dans Forbes, La Tribune, Les Échos…",
+      role: "Asseoir la réputation de votre entreprise dans votre secteur grâce à un article dans un titre économique connu.",
+      unique: "Chaque titre affiche son prix d’avance et sa fiche d’audience. Vous gagnez du temps, sans démarcher les rédactions une à une.",
+    },
+    /* Forbes (7e carte), La Tribune (10e), Les Échos Solutions (16e) dans le
+       catalogue presse (magazines-presse.ts). */
+    etape: {
+      ecran: "magazines",
+      corporate: true,
+      ordi: { cible: 6, suite: [6, 9, 15], rangee: true, rangees: 2, haut: ".lyv-e-modale-presse h2" },
+      tel: { cible: 6, suite: [6, 9, 15] },
+    },
+  },
+  {
+    agent: {
+      nom: "Data analysts IA",
+      mission: "ce que demandent vos prospects, et où ils hésitent",
+      role: "Lire vos conversations pour comprendre les questions de vos prospects et ce qui les retient de prendre rendez-vous.",
+      unique: "Il s’appuie sur les données de votre compte et n’invente aucun résultat. Il vous dit quels sujets reviennent, et sur quels services.",
+    },
+    etape: { ecran: "analystes", corporate: true, ordi: { ecran: 1000, cible: "[data-gestion-vue]" }, tel: { ecran: 380, cible: "[data-gestion-vue]" } },
+  },
+];
+const postesDe = (secteur: Secteur = "ecommerce") => (secteur === "corporate" ? POSTES_CORPORATE : POSTES_MONTRES);
+export const agentsEntreprise = (secteur: Secteur = "ecommerce"): Agent[] => postesDe(secteur).map((p) => p.agent);
 /* La légende sous le visuel, quand l'écran n'est pas le back-office. */
-export function legendeEntreprise(etape: number): [string, string] | null {
-  const e = POSTES_MONTRES[etape]?.etape.ecran;
+export function legendeEntreprise(etape: number, secteur: Secteur = "ecommerce"): [string, string] | null {
+  const e = postesDe(secteur)[etape]?.etape.ecran;
   if (e === "point-de-vente") return ["En magasin", ", un QR code sur chaque étiquette"];
   if (e === "evenementiel") return ["En événement", ", un conseil pour chaque visiteur"];
   return null;
 }
-const ETAPES: EtapeBO[] = POSTES_MONTRES.map((p) => p.etape);
 
 /* Ce que l'écran montre, pour les lecteurs d'écran. */
 const LIBELLE_ECRAN: Record<Ecran, string> = {
@@ -1034,9 +1082,9 @@ function Ecran({ def, listes, profilsMarketing, tel }: {
   if (def.ecran === "point-de-vente" || def.ecran === "evenementiel") return <Terrain ecran={def.ecran} />;
   if (def.ecran === "copilote-chat" || def.ecran === "community-feed" || def.ecran === "analystes") {
     return <div className="bo-typo">
-      {def.ecran === "copilote-chat" && <VueCopilote />}
+      {def.ecran === "copilote-chat" && <VueCopilote corporate={def.corporate} />}
       {def.ecran === "community-feed" && <VueCommunity profil={profilsOrdonnes("community").find(ph => ph.name === "Adèle" && estComplet(ph)) ?? profilsOrdonnes("community").find(ph => estComplet(ph) && (ph.sampleImages?.length ?? 0) >= 9) ?? profilsOrdonnes("community").find(estComplet)} />}
-      {def.ecran === "analystes" && <VueAnalystes />}
+      {def.ecran === "analystes" && <VueAnalystes corporate={def.corporate} />}
     </div>;
   }
   const cowork = def.ecran === "modale" || def.ecran === "magazines" || def.ecran === "comptable";
@@ -1179,7 +1227,8 @@ const MARGE = 5;
 type Boite = { left: number; top: number; right: number; bottom: number };
 type Vu = { s: number; x: number; y: number; w: number; h: number; gauche: number; px: number; py: number };
 
-export default function VisiteBackOffice({ etape, survol, mobile, pied, taille, prete }: {
+export default function VisiteBackOffice({ etape, survol, mobile, pied, taille, prete, secteur = "ecommerce" }: {
+  secteur?: Secteur;
   etape: number;
   survol: (s: boolean) => void;
   mobile: boolean;
@@ -1187,6 +1236,8 @@ export default function VisiteBackOffice({ etape, survol, mobile, pied, taille, 
   taille: (t: TailleCadre) => void;
   prete?: (p: boolean) => void;
 }) {
+  const ETAPES = useMemo(() => postesDe(secteur).map((p) => p.etape), [secteur]);
+  const AGENTS = useMemo(() => agentsEntreprise(secteur), [secteur]);
   const boite = useRef<HTMLDivElement>(null);
   const cadreEcran = useRef<HTMLIFrameElement | null>(null);
   const refEncart = useRef<HTMLDivElement>(null);
@@ -1210,7 +1261,7 @@ export default function VisiteBackOffice({ etape, survol, mobile, pied, taille, 
   }, [etape, suite]);
   const cad: Cadrage = suite ? { ...cadEtape, cible: suite[Math.min(tranche, suite.length - 1)] } : cadEtape;
   const largeurEcran = cad.ecran ?? ECRAN_BOUTIQUE.w;
-  const agent = AGENTS_ENTREPRISE[Math.min(rang, AGENTS_ENTREPRISE.length - 1)];
+  const agent = AGENTS[Math.min(rang, AGENTS.length - 1)];
   const vuCourant = vu && vu.etape === etape ? vu.v : null;
 
   /* Les créateurs UGC du catalogue, lus comme la vraie fenêtre (sans compte :

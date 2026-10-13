@@ -17,6 +17,7 @@ import {
   getManagerDescription
 } from '@lystes/config/sector-config';
 import { vendDesPrestations, prestationsAvecDiagnostic, normaliserTypeDOffre, type TypeDOffre } from '@lystes/config/secteurs-prestations';
+import { useTypeDeCompte } from '@lystes/hooks/useTypeDeCompte';
 
 interface UseSectorConfigReturn {
   // Secteur actuel
@@ -203,10 +204,36 @@ export function useSectorTerminology(): SectorTerminology & { isLoading: boolean
  * Hook pour vérifier les fonctionnalités du secteur
  */
 export function useSectorFeatures() {
-  const { sectorConfig, sector, offeringType, isLoading } = useSectorConfig();
+  const { sectorConfig, sector, offeringType, isLoading: secteurEnCours } = useSectorConfig();
+  /* 13/10/2026 (JP) : un compte Business n'a ni produit à diagnostiquer ni
+     produit à essayer, et vend des services. Ses drapeaux le disent ici, à la
+     source, pour que la latérale et le sélecteur n'aient rien à deviner. Un
+     compte e-commerce garde exactement les drapeaux de son secteur. */
+  const { type, isLoading: typeEnCours } = useTypeDeCompte();
+  const business = type === 'business';
+  const isLoading = secteurEnCours || typeEnCours;
+
+  if (business) {
+    return {
+      isLoading,
+      typeDeCompte: type,
+      sector,
+      offeringType,
+      vendDesPrestations: true,
+      prestationsAvecDiagnostic: false,
+      hasCamera: false,
+      hasTryOn: false,
+      hasDiagnostic: false,
+      hasQuiz: sectorConfig.features.hasQuiz,
+      hasRecipes: false,
+      hasBeforeAfter: false,
+      hasQRCoaches: false,
+    };
+  }
 
   return {
     isLoading,
+    typeDeCompte: type,
     /* Le secteur brut, et ce qu'il implique. Une boutique vend des produits,
        un institut ou une agence vend des PRESTATIONS : tout le vocabulaire et
        la moitié des écrans changent de sens (JP, 12/08/2026). */

@@ -53,7 +53,9 @@
       "importTerminePrestations": "I suoi servizi sono salvati",
       "liaison": "Collegamento dei suoi prodotti al suo specialista…",
       "liaisonPrestations": "Collegamento dei suoi servizi al suo specialista…",
-      "managers": "Preparazione della direzione e dei manager…"
+      "managers": "Preparazione della direzione e dei manager…",
+      "specialistePrestations": "Creazione del consulente del suo sito…",
+      "coachsPrestations": "Preparazione del follow-up dopo l'appuntamento…"
     },
     "expertsLinkManquant": {
       "message": "I suoi esperti sono stati creati, ma non rispondono ancora per nessun prodotto. Li colleghi dalla pagina Il mio team.",
@@ -304,6 +306,19 @@
       "strategy": "Strategia",
       "upsell": "Coach post-acquisto",
       "winners": "Prodotti vincenti"
+    },
+    "prestations": {
+      "experts": "Esperti dei servizi",
+      "coachs": "Follow-up dopo l'appuntamento",
+      "coachsTexte": "Seguono i suoi clienti dopo l'appuntamento.",
+      "specialisteTexte": "Il consulente che appare nella bolla del suo sito.",
+      "conseiller": "Consulente del sito",
+      "conseillerTexte": "Risponde su tutto il suo sito: servizi, orari, contatti.",
+      "tableauDeBord": "Lavora nella sua dashboard, senza agente sul suo sito.",
+      "bilanSite": "Sul suo sito",
+      "postePRODUCTS": "Esperti dei servizi",
+      "posteUPSELL": "Follow-up dopo l'appuntamento",
+      "posteWINNERS": "Servizi di punta"
     }
   },
   "page": {
@@ -323,7 +338,8 @@
     },
     "progressionNonEnregistree": "Non è stato possibile salvare i suoi progressi",
     "choixNonEnregistre": "Non è stato possibile salvare la sua scelta",
-    "configurationPartielle": "Configurazione parziale del suo team IA. Alcuni elementi saranno completati nel passaggio successivo."
+    "configurationPartielle": "Configurazione parziale del suo team IA. Alcuni elementi saranno completati nel passaggio successivo.",
+    "voirLaSuite": "Vedi il resto"
   },
   "plateforme": {
     "autre": {
@@ -548,6 +564,8 @@
       "bouton": "Confermare la richiesta",
       "chapo": "Il nostro team tecnico installa il widget sul suo sito. Installato entro 24 ore lavorative.",
       "detail": "La contattiamo oggi via e-mail per raccogliere i suoi accessi. Nessuna azione da parte sua fino ad allora.",
+      "confirmer": "Confermando, la richiesta arriva al nostro team, che le scriverà per raccogliere i suoi accessi.",
+      "enregistree": "Richiesta registrata. Il nostro team la gestirà e le scriverà per raccogliere i suoi accessi.",
       "titre": "Fatelo per me",
       "dejaEnvoyee": "Richiesta inviata al team il {{date}}. Le scriveremo via e-mail per ricevere i suoi accessi."
     },

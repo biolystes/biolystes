@@ -2058,6 +2058,32 @@
       "aucunInscrit": "Noch keine Freelancer registriert.",
       "aucunInscritDetail": "Profile erscheinen hier, sobald sich Freelancer registrieren.",
       "lienInscription": "Anmeldeseite für Freelancer"
+    },
+    "recoUgc": {
+      "genre": "Geschlecht",
+      "age": "Alter",
+      "carnation": "Gewünschter Hautton",
+      "peau": "Haut",
+      "cheveux": "Haare",
+      "preoccupations": "Anliegen",
+      "pays": "Länder",
+      "titre": "Drei UGC, um die Zweifel Ihrer Kundinnen auszuräumen.",
+      "titreSuite": "Auf Basis Ihrer Gespräche und des gemessenen Profils Ihrer Kundschaft.",
+      "chargement": "Ihre Kundschaft wird analysiert…",
+      "erreur": "Das Profil Ihrer Kundschaft konnte nicht gelesen werden. Versuchen Sie es gleich noch einmal.",
+      "kpiDoutes": "Erkannte Zweifel",
+      "kpiConversations": "Analysierte Gespräche",
+      "kpiDiagnostics": "Gelesene Diagnosen",
+      "kpiProduits": "Analysierte Produktseiten",
+      "profilTitre": "Ihre Kundschaft",
+      "profilVide": "Noch nicht genug Daten, um Ihre Kundschaft zu messen. Es braucht mindestens 10 Diagnosen oder 10 Kundinnen, damit keine erkennbar ist. Hinterlegen Sie bis dahin den Avatar Ihrer Marke.",
+      "doute": "Auszuräumender Zweifel",
+      "mentions": "{{n}}-mal erkannt",
+      "creatrice": "Gesuchtes Profil",
+      "creer": "Diese UGC erstellen",
+      "videTitre": "Noch kein Zweifel erkannt.",
+      "videTexte": "Die Zweifel stammen aus der nächtlichen Analyse der Gespräche auf Ihren Produktseiten. Sobald eine Kundin bei einem Produkt zögert, erscheint hier eine UGC als Antwort.",
+      "titreVide": "Ihre UGC werden die Zweifel Ihrer Kundinnen beantworten."
     }
   },
   "pubZernio": {

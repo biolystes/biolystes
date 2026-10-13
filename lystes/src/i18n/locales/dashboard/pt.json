@@ -2058,6 +2058,32 @@
       "aucunInscrit": "Ainda não há nenhum freelancer inscrito.",
       "aucunInscritDetail": "Os perfis vão aparecer aqui à medida que os freelancers se inscreverem.",
       "lienInscription": "Página de inscrição para freelancers"
+    },
+    "recoUgc": {
+      "genre": "Género",
+      "age": "Idade",
+      "carnation": "Tom de pele pretendido",
+      "peau": "Pele",
+      "cheveux": "Cabelo",
+      "preoccupations": "Preocupações",
+      "pays": "Países",
+      "titre": "Três UGC para esclarecer as dúvidas das suas clientes.",
+      "titreSuite": "Com base nas suas conversas e no perfil medido da sua clientela.",
+      "chargement": "A analisar a sua clientela…",
+      "erreur": "Não foi possível ler o perfil da sua clientela. Tente novamente dentro de instantes.",
+      "kpiDoutes": "Dúvidas detetadas",
+      "kpiConversations": "Conversas analisadas",
+      "kpiDiagnostics": "Diagnósticos lidos",
+      "kpiProduits": "Fichas de produto analisadas",
+      "profilTitre": "A sua clientela",
+      "profilVide": "Ainda não há dados suficientes para medir a sua clientela. São precisos pelo menos 10 diagnósticos ou 10 clientes, para que nenhuma seja reconhecível. Entretanto, declare o avatar da sua marca.",
+      "doute": "Dúvida a esclarecer",
+      "mentions": "Detetada {{n}} vezes",
+      "creatrice": "Perfil a escolher",
+      "creer": "Criar esta UGC",
+      "videTitre": "Ainda nenhuma dúvida detetada.",
+      "videTexte": "As dúvidas vêm da análise noturna das conversas das suas fichas de produto. Assim que uma cliente hesita numa ficha, aparece aqui uma UGC para lhe responder.",
+      "titreVide": "As suas UGC vão responder às dúvidas das suas clientes."
     }
   },
   "pubZernio": {

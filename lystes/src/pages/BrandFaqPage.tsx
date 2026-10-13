@@ -294,6 +294,7 @@ export function VueFaqMarque({
   sections,
   sectionProduit,
   tete,
+  prestations = false,
 }: {
   data: BrandLandingResolved;
   marque: string;
@@ -305,6 +306,10 @@ export function VueFaqMarque({
   sections: { produit: ProduitFaq; questions: QuestionFaq[] }[];
   sectionProduit?: { produit: ProduitFaq; questions: QuestionFaq[] };
   tete?: ReactNode;
+  /** Une entreprise de services (version Entreprises, 12/10/2026) : les
+   *  libellés parlent de clients et de services, pas de clientes et de
+   *  fiches produits. Pour l'instant en français seulement. */
+  prestations?: boolean;
 }) {
   const { t } = useTranslation();
   const slugProduit = (p: ProduitFaq) =>
@@ -362,7 +367,9 @@ export function VueFaqMarque({
                 {t("faqMarque.titre", "Questions fréquentes")}
               </h1>
               <p className="mt-3 mb-[18px] max-w-[400px] text-sm leading-relaxed text-[#777b7f]">
-                {t(
+                {prestations
+                  ? "Réponses rédigées par IA à partir de ce que nos clients demandent et des informations de l’entreprise."
+                  : t(
                   "faqMarque.mentionIa",
                   "Réponses rédigées par IA à partir de ce que nos clientes demandent et des informations de la marque.",
                 )}
@@ -477,7 +484,7 @@ export function VueFaqMarque({
             <div className="space-y-12">
               {demandes.length > 0 && (
                 <section aria-labelledby="faq-demandes">
-                  {titreSection(t("faqMarque.demandes", "Ce que nos clientes demandent le plus"), "faq-demandes")}
+                  {titreSection(prestations ? "Ce que nos clients demandent le plus" : t("faqMarque.demandes", "Ce que nos clientes demandent le plus"), "faq-demandes")}
                   <p className="mt-1 mb-6 text-sm text-[#777b7f]">
                     {t(
                       "faqMarque.demandesSousTitre",
@@ -492,7 +499,9 @@ export function VueFaqMarque({
                 <section aria-labelledby="faq-essentiel">
                   {titreSection(t("faqMarque.essentiel", "L'essentiel"), "faq-essentiel")}
                   <p className="mt-1 mb-6 text-sm text-[#777b7f]">
-                    {t(
+                    {prestations
+                      ? `Les questions de base sur ${marque} et ses services, tirées de ce que l’entreprise a renseigné.`
+                      : t(
                       "faqMarque.essentielSousTitre",
                       "Les questions de base sur {{marque}} et ses produits, tirées des fiches produits et de ce que la marque a renseigné.",
                       { marque },

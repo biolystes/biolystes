@@ -28,7 +28,7 @@ function Etoiles() {
   );
 }
 
-export function ResultatGoogleAvis({ recherche, marque, produit }: { recherche: string; marque: ResultatAvis; produit: ResultatAvis }) {
+export function ResultatGoogleAvis({ recherche, marque, produit }: { recherche: string; marque: ResultatAvis; produit?: ResultatAvis }) {
   return (
     <div className="max-w-2xl mx-auto rounded-3xl overflow-hidden bg-white">
       <div className="relative flex items-center px-6 py-5 bg-neutral-50">
@@ -47,7 +47,7 @@ export function ResultatGoogleAvis({ recherche, marque, produit }: { recherche: 
           <span className="text-[15px] text-stone-500">{recherche}</span>
         </div>
 
-        <div className="mb-10" data-resultat="marque">
+        <div className={produit ? "mb-10" : undefined} data-resultat="marque">
           <p className="text-[13px] text-stone-400 mb-2">{marque.fil}</p>
           <a href={marque.lien} target="_blank" rel="noopener noreferrer" className="block text-[22px] md:text-[24px] text-[#1a0dab] hover:underline font-medium leading-snug mb-3">
             {marque.titre}
@@ -64,7 +64,7 @@ export function ResultatGoogleAvis({ recherche, marque, produit }: { recherche: 
           )}
         </div>
 
-        <div data-resultat="produit">
+        {produit && <div data-resultat="produit">
           <p className="text-[13px] text-stone-400 mb-2">{produit.fil}</p>
           <a href={produit.lien} target="_blank" rel="noopener noreferrer" className="block text-[22px] md:text-[24px] text-[#1a0dab] hover:underline font-medium leading-snug mb-3">
             {produit.titre}
@@ -74,7 +74,7 @@ export function ResultatGoogleAvis({ recherche, marque, produit }: { recherche: 
             <span className="font-semibold text-foreground ml-1">{produit.note}</span>
             <span className="text-stone-400">{produit.votes}</span>
           </div>
-        </div>
+        </div>}
       </div>
     </div>
   );

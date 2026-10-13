@@ -1125,6 +1125,9 @@ export const PACK_MENUS: Record<PackId, readonly string[]> = {
     /* 30/08/2026 : le tableau de bord historique, sorti de /dashboard que
        Cowork occupe maintenant. */
     "activite",
+    /* 13/10/2026 (JP) : l'accueil d'un compte Business (compte-business.ts).
+       La latérale ne le crée que pour un Business. */
+    "accueil-entreprise",
     /* 12/10/2026 (lot 8) : les ventes assistées par agent. */
     "ventes-assistees",
     /* 24/09/2026 : le guide d'installation, visible jusqu'à 100 %. */
@@ -1411,7 +1414,7 @@ const PACK_ROUTE_PREFIXES: readonly [PackId, readonly string[]][] = [
   ]],
   /* 30/08/2026 : Cowork prend /dashboard. Le tableau de bord historique garde
      une URL propre, et cet espace doit la revendiquer. */
-  ["agents", ["/dashboard/activite", "/dashboard/ventes-assistees", "/dashboard/mise-en-route", "/dashboard/copilote", "/dashboard/strategie", "/dashboard/orchestrateur", "/dashboard/plan-action", "/dashboard/taches"]],
+  ["agents", ["/dashboard/activite", "/dashboard/entreprise", "/dashboard/ventes-assistees", "/dashboard/mise-en-route", "/dashboard/copilote", "/dashboard/strategie", "/dashboard/orchestrateur", "/dashboard/plan-action", "/dashboard/taches"]],
   /* 10/09/2026 (JP) : les six métiers de fiche produit AVANT « manager ».
      Le résolveur prend le premier préfixe qui colle ; laissés derrière, ces
      six chemins auraient continué d'ouvrir la latérale de « manager ». */
@@ -1452,6 +1455,8 @@ export function packForDashboardPath(pathname: string): PackId | null {
 export const ROUTES_COWORK: readonly string[] = [
   "/dashboard",
   "/dashboard/activite",
+  /* 13/10/2026 : l'accueil Business, au même titre que l'activité. */
+  "/dashboard/entreprise",
   "/dashboard/ventes-assistees",
   "/dashboard/copilote",
   "/dashboard/strategie",

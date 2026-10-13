@@ -100,12 +100,19 @@ export function VueMagazineMarque({
   brandSlug,
   articles,
   tete,
+  bandeau,
+  entreprise = false,
 }: {
   marque: string;
   brandSlug: string;
   /** `null` : la lecture est en cours. */
   articles: Pick<ArticleMarque, "id" | "slug" | "title" | "dek" | "excerpt" | "hero_image_url" | "hero_image_alt" | "featured">[] | null;
   tete?: ReactNode;
+  /** La phrase du bandeau noir ; par défaut, celle d'une boutique. */
+  bandeau?: string;
+  /** Une entreprise sans boutique (version Entreprises, 12/10/2026) : « le
+   *  site » au lieu de « la boutique ». */
+  entreprise?: boolean;
 }) {
   const aLaUne = articles?.find((a) => a.featured) ?? articles?.[0] ?? null;
   const reste = (articles ?? []).filter((a) => a.id !== aLaUne?.id);
@@ -121,7 +128,7 @@ export function VueMagazineMarque({
         className="block w-full text-center py-2.5 px-4 text-[11px] tracking-[0.28em] uppercase"
         style={{ background: ENCRE, color: IVOIRE }}
       >
-        {marque}&nbsp;: découvrez la boutique et ses nouveautés{" "}
+        {marque}&nbsp;: {bandeau ?? "découvrez la boutique et ses nouveautés"}{" "}
         <span aria-hidden="true">→</span>
       </Link>
 
@@ -147,7 +154,7 @@ export function VueMagazineMarque({
           <div className="max-w-[1100px] mx-auto px-5 sm:px-8 flex items-center justify-center gap-x-8 py-4 text-[11px] tracking-[0.22em] uppercase">
             <span className="font-semibold">Sommaire</span>
             <Link to={`/${brandSlug}`} className="hover:opacity-60" style={{ color: "#2d2d2d" }}>
-              La boutique
+              {entreprise ? "Le site" : "La boutique"}
             </Link>
             <a href="https://lystes.ai" className="hover:opacity-60" style={{ color: "#2d2d2d" }}>
               Lystes AI
@@ -259,7 +266,7 @@ export function VueMagazineMarque({
               className="inline-block mt-10 px-9 py-4 text-[11px] tracking-[0.32em] uppercase font-semibold"
               style={{ background: ENCRE, color: IVOIRE }}
             >
-              Visiter la boutique
+              {entreprise ? "Visiter le site" : "Visiter la boutique"}
             </Link>
           </section>
         )}

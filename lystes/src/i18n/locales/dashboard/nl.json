@@ -2058,6 +2058,32 @@
       "aucunInscrit": "Nog geen freelancers aangemeld.",
       "aucunInscritDetail": "Profielen verschijnen hier zodra freelancers zich aanmelden.",
       "lienInscription": "Aanmeldpagina voor freelancers"
+    },
+    "recoUgc": {
+      "genre": "Geslacht",
+      "age": "Leeftijd",
+      "carnation": "Beoogde huidtint",
+      "peau": "Huid",
+      "cheveux": "Haar",
+      "preoccupations": "Zorgen",
+      "pays": "Landen",
+      "titre": "Drie UGC om de twijfels van je klanten weg te nemen.",
+      "titreSuite": "Op basis van je gesprekken en het gemeten profiel van je klanten.",
+      "chargement": "Je klanten worden geanalyseerd…",
+      "erreur": "Het profiel van je klanten kon niet worden gelezen. Probeer het zo opnieuw.",
+      "kpiDoutes": "Gevonden twijfels",
+      "kpiConversations": "Geanalyseerde gesprekken",
+      "kpiDiagnostics": "Gelezen diagnoses",
+      "kpiProduits": "Geanalyseerde productpagina's",
+      "profilTitre": "Je klanten",
+      "profilVide": "Nog niet genoeg gegevens om je klanten te meten. Er zijn minstens 10 diagnoses of 10 klanten nodig, zodat niemand herkenbaar is. Leg intussen de avatar van je merk vast.",
+      "doute": "Weg te nemen twijfel",
+      "mentions": "{{n}} keer gevonden",
+      "creatrice": "Gezocht profiel",
+      "creer": "Deze UGC maken",
+      "videTitre": "Nog geen twijfel gevonden.",
+      "videTexte": "De twijfels komen uit de nachtelijke analyse van de gesprekken op je productpagina's. Zodra een klant twijfelt bij een product, verschijnt hier een UGC om haar te antwoorden.",
+      "titreVide": "Je UGC zullen de twijfels van je klanten beantwoorden."
     }
   },
   "pubZernio": {

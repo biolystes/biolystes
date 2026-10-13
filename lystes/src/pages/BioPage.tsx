@@ -22,6 +22,7 @@ import VisionEtagesBloc from "@lystes/features/solutions/VisionEtagesBloc";
 import BlocsAccueilSecteur from "@lystes/features/solutions/BlocsAccueilSecteur";
 import { Header } from "@lystes/components/landing/Header";
 import { Footer } from "@lystes/components/landing/Footer";
+import { useSansMotSeul } from "@lystes/hooks/useSansMotSeul";
 import { CommeSurAccueil } from "@lystes/features/solutions/CommeSurAccueil";
 import { Button } from "@lystes/components/ui/button";
 import { ExternalLink, MousePointerClick, PackagePlus, SendHorizontal } from "lucide-react";
@@ -113,7 +114,7 @@ const CTA_URL = "https://biolystes.pro/rdv";
    sur l’accueil, et un seul renvoi y mène plus bas. Les fins du titre sont
    les gammes réellement présentes au catalogue du laboratoire (moisson du
    10/10/2026) ; le parfum n’y figure pas, il n’est donc pas annoncé. */
-const BIO_HERO = (onRecherche: (q: string) => void): HeroVariante => ({
+const BIO_HERO = (onProjet: (projet: string) => void): HeroVariante => ({
   aria: "Lancez votre marque cosmétique bio et végane",
   eyebrow: "En 10 jours · Profitez de plus de 18 ans d’expérience",
   titre: "Lancez votre marque\ncosmétique bio et végane\u00a0:",
@@ -138,11 +139,14 @@ const BIO_HERO = (onRecherche: (q: string) => void): HeroVariante => ({
   voile: "linear-gradient(100deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.40) 45%, rgba(0,0,0,.12) 100%)",
   voileMobile: "linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 50%, rgba(0,0,0,.18) 100%)",
   cta: { label: "Prendre rendez-vous", labelCourt: "Rendez-vous", href: CTA_URL, externe: true },
+  /* 13/10/2026 (JP) : un champ de projet, plus une recherche de produits.
+     Le texte part au conseiller de sélection, dans l’orbital du widget. */
   champ: {
-    placeholder: "Sérum, shampooing…",
-    bouton: "Trouver des produits",
-    boutonCourt: "Trouver",
-    onSubmit: onRecherche,
+    placeholder: "Décrivez votre projet…",
+    placeholderCourt: "Votre projet…",
+    bouton: "Recevoir ma sélection",
+    boutonCourt: "Sélection",
+    onSubmit: onProjet,
   },
   liens: [
     { label: "Certifié Bio & Végan", href: "#section-qualite", icone: { paths: ["M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z", "M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"] } },
@@ -390,6 +394,8 @@ function EtapesLivraison() {
 }
 
 export default function DecouvertePage() {
+  /* Aucun mot seul en fin de ligne, nulle part sur la page (JP). */
+  useSansMotSeul();
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState<StepKey>("decouvre");
   const [catalogProducts, setCatalogProducts] = useState<{ id: number; name: string; image: string }[]>([]);
@@ -440,10 +446,15 @@ export default function DecouvertePage() {
     sectionRefs.current[key] = el;
   };
 
-  /* Le champ de la bannière cherche dans les gammes du catalogue, plus bas. */
   const [recherche, setRecherche] = useState("");
-  const heroVariante = BIO_HERO((q) => {
-    setRecherche(q);
+  /* Le champ de projet de la bannière ouvre l’orbital du widget Lystes avec
+     le texte du visiteur comme premier message (conseiller de sélection),
+     là où le widget est chargé : biolystes.com, widget 3.65.0 et plus
+     (`LystesWidget.open`). Sur lystes.ai/bio, aucun widget ni chat : le
+     visiteur descend vers les gammes du catalogue, comme avant. */
+  const heroVariante = BIO_HERO((projet) => {
+    const widget = (window as unknown as { LystesWidget?: { open?: (o: { message: string }) => boolean } }).LystesWidget;
+    if (typeof widget?.open === "function" && widget.open({ message: projet })) return;
     document.getElementById("section-catalogue")?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
@@ -607,7 +618,7 @@ export default function DecouvertePage() {
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
           className="max-w-5xl mx-auto px-6 mt-20 grid md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-border">
           {[
-            { num: "1", title: "Profitez de 18 ans d’expérience e-commerce", desc: "Nous vous accompagnons avec un savoir-faire éprouvé dans le e-commerce et la cosmétique naturelle." },
+            { num: "1", title: "Profitez de 18 ans d’expérience en e-commerce", desc: "Nous vous accompagnons avec un savoir-faire éprouvé dans le e-commerce et la cosmétique naturelle." },
             { num: "2", title: "Offrez-vous des services 360° premium", desc: "Identité visuelle, packagings et boutique en ligne conçus pour valoriser votre marque dès le départ." },
             { num: "3", title: "Profitez de notre réseau pour vous développer", desc: "Accédez à nos partenaires experts pour accélérer votre croissance sans multiplier les prestataires." },
           ].map((item) => (
@@ -795,7 +806,7 @@ export default function DecouvertePage() {
                 <div className="inline-flex items-center justify-center w-10 h-10 bg-background rounded-full mb-3">
                   <item.icon className="w-4 h-4 text-foreground" strokeWidth={1} />
                 </div>
-                <h3 className="text-sm font-semibold text-foreground mb-1 uppercase tracking-wide">{item.title}</h3>
+                <h3 className="text-sm font-semibold text-foreground mb-1 uppercase tracking-wide md:tracking-normal lg:tracking-wide">{item.title}</h3>
                 <p className="text-foreground text-xs leading-relaxed">{item.desc}</p>
               </div>
             ))}

@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { BadgeCheck, BadgeEuro, BookOpen, Brain, Clock, Network, FileText, HelpCircle, ShoppingCart, Store, UserCheck, TrendingUp, Filter, Gauge, Link2, ListChecks, MessageCircle, Star, Target, Users, type LucideIcon } from "lucide-react";
+import { BadgeCheck, BadgeEuro, BookOpen, Brain, CalendarCheck, CalendarDays, Clock, Compass, Linkedin, Network, Newspaper, FileText, HelpCircle, ShoppingCart, Store, UserCheck, TrendingUp, Filter, Gauge, Link2, ListChecks, MessageCircle, Star, Target, Users, type LucideIcon } from "lucide-react";
 import { ScrollRail } from "@lystes/components/shot/ScrollRail";
 import { FaceMeshScanner } from "@lystes/features/landing-particuliers/components/diagnostic/FaceMeshScanner";
 import diagnosticFace from "@lystes/features/landing-particuliers/pages/diagnostic-agent/assets/diagnostic-face.jpg";
@@ -49,7 +49,14 @@ import diagnosticFace from "@lystes/features/landing-particuliers/pages/diagnost
  * pour que la fiche reprenne là où elle en était.
  */
 
+/* La variante de la section (JP, 12/10/2026) : « ecommerce » sur l'accueil,
+   « corporate » sur /business (la bascule « Entreprises » de l'en-tête). Même
+   composant, mêmes visites : seuls les onglets, les agents et les données de
+   démonstration changent. */
+export type Secteur = "ecommerce" | "corporate";
+
 type Props = {
+  secteur?: Secteur;
   tete: HTMLElement;
   scene: HTMLElement;
   texte: HTMLElement;
@@ -70,7 +77,7 @@ export type Point = { x: number; y: number };
 /* Où l'encart se pose par rapport au point. */
 export type Cote = "gauche" | "droite" | "haut";
 /* Où le point se pose sur la zone. */
-export type Prise = "gauche" | "centre" | "haut";
+export type Prise = "gauche" | "droite" | "centre" | "haut";
 
 /* 09/10/2026 (JP) : « pour le moment enlève Votre réseau ». L'onglet et ses
    données restent dans le code ; repasser RESEAU_VISIBLE à true le rouvre. */
@@ -85,7 +92,7 @@ const RESEAU_VISIBLE = false;
    mesurée sur la page (EncartPose), face à la hauteur du cadre. Avant toute
    mesure, la hauteur la plus grande relevée le 10/10 à 240 px de large,
    loupes comprises. */
-export const HAUTEUR_ENCART = { produits: 420, ecommerce: 300, outils: 250, entreprise: 250, equipes: 250, reseau: 0 };
+export const HAUTEUR_ENCART: Record<string, number> = { produits: 420, ecommerce: 300, outils: 250, entreprise: 250, equipes: 250, reseau: 0, siteweb: 250 };
 /* Les encarts posés de l'onglet en cours disent leur hauteur ici. */
 export const MesureEncart = createContext<((h: number) => void) | null>(null);
 /* La taille du cadre que chaque visuel annonce ; `largeurMin` quand
@@ -110,8 +117,16 @@ const TOUS_LES_ONGLETS = [
     benefices: [[ShoppingCart, "Moins d’abandons d’achat"], [UserCheck, "Clientes rassurées avant l’achat"], [BadgeEuro, "Plus de ventes, à trafic égal"]] as [LucideIcon, string][],
     /* Le titre de la section change avec l'onglet : le problème que l'étage résout (JP, 12/10). */
     probleme: ["En moyenne dans le e-commerce, ", "98 % des visiteurs", " repartent sans acheter."],
+    /* Le chapeau finit sur « qui : » et la liste le prolonge : quatre lignes
+       de même construction, à plat, sans repli (JP, 13/10 : « plus digeste »). */
     reponse:
-      "Une question sans réponse, et votre client est déjà chez la concurrence. Lystes déploie sur chaque fiche produit des équipes IA qui répondent instantanément à vos clients et optimisent vos pages pour vendre plus. Elles s’auto-améliorent à chaque conversation : elles repèrent les réponses qui mènent à l’achat et vous remontent les points de friction.",
+      "Une question sans réponse, et votre client part chez la concurrence. Sur chaque fiche produit, Lystes place une équipe IA qui\u00a0:",
+    points: [
+      "répond tout de suite à vos clients, jour et nuit",
+      "repère les réponses qui mènent à l’achat",
+      "s’améliore à chaque conversation",
+      "vous signale ce qui bloque la vente",
+    ],
     accroche: "Une équipe de\n10 agents IA par produit,\npour déclencher l’achat.",
     chapeau:
       "Pour chaque produit, des collaborateurs IA disponibles 24 h sur 24 et 7 jours sur 7, qui s’adaptent seuls pour faire vendre davantage.",
@@ -125,7 +140,13 @@ const TOUS_LES_ONGLETS = [
     benefices: [[MessageCircle, "Un conseil sur chaque page"], [Target, "Le bon produit, à chaque besoin"], [Clock, "Une réponse, jour et nuit"]] as [LucideIcon, string][],
     probleme: ["En moyenne, ", "2 visiteurs sur 3", " ont besoin d’un conseil pour acheter."],
     reponse:
-      "Sans accompagnement, ils repartent sans savoir quel produit leur convient. Une suite d’agents IA les oriente vers le bon produit, comme une vendeuse en boutique.",
+      "Sans accompagnement, ils repartent sans savoir quel produit leur convient. Sur toute votre boutique, Lystes place une équipe IA qui\u00a0:",
+    points: [
+      "oriente chaque visiteur vers le bon produit, comme une vendeuse",
+      "compose la routine ou la tenue adaptée",
+      "répond à tout, depuis n’importe quelle page",
+      "suggère le bon complément au panier",
+    ],
     accroche: "Une équipe IA pour toute la boutique, pour guider chaque visiteuse.",
     chapeau:
       "Une barre flottante sur chaque page, et des agents qui connaissent tout votre catalogue. Ajoutez un produit au panier : tous les agents le savent.",
@@ -139,7 +160,13 @@ const TOUS_LES_ONGLETS = [
     benefices: [[Filter, "Des visiteurs déjà convaincus"], [Star, "Des avis et une FAQ qui vendent"], [Link2, "Chaque lien suivi jusqu’à l’achat"]] as [LucideIcon, string][],
     probleme: ["Un visiteur bien accueilli ", "avant le site", " achète plus."],
     reponse:
-      "Depuis Instagram, une newsletter, un avis ou ChatGPT : vos outils font le premier contact, préqualifient le visiteur et l’amènent au bon produit, dans les meilleures dispositions pour acheter.",
+      "Instagram, une newsletter, un avis ou ChatGPT\u00a0: vos outils font le premier contact. Sur la page lystes.ai de votre marque, chaque outil a son agent IA, qui\u00a0:",
+    points: [
+      "préqualifie le visiteur avant votre site",
+      "l’amène jusqu’au bon produit",
+      "fait de vos avis et de votre FAQ des arguments de vente",
+      "suit chaque lien jusqu’à l’achat",
+    ],
     accroche: "8 outils pilotés par des agents IA, pour attirer des visiteurs prêts à acheter.",
     chapeau:
       "Multi-lien, avis, magazine, FAQ, paiement et contact, réunis sur la page lystes.ai de votre marque. Chaque outil a son agent, relié aux autres agents de votre espace.",
@@ -153,7 +180,13 @@ const TOUS_LES_ONGLETS = [
     benefices: [[Gauge, "Le chiffre à viser, chaque mois"], [ListChecks, "Un plan d’action chiffré"], [Users, "Les bons experts, en un clic"]] as [LucideIcon, string][],
     probleme: ["Un écosystème de plusieurs équipes IA, ", "en 5 min", "."],
     reponse:
-      "Des centaines de collaborateurs IA, autonomes ou semi-autonomes, répartis en équipes qui se parlent : pour vos produits, votre e-commerce et votre entreprise.",
+      "Des centaines de collaborateurs IA, autonomes ou semi-autonomes, répartis en équipes qui se parlent. Pour votre entreprise, Lystes réunit des agences IA qui\u00a0:",
+    points: [
+      "vous donnent le chiffre à viser, chaque mois",
+      "tirent de vos données un plan d’action chiffré",
+      "repèrent dans vos conversations où vos clients bloquent",
+      "tiennent vos réseaux, vos campagnes et vos visuels",
+    ],
     accroche: "Des agences IA au complet, pour faire grandir votre marque.",
     chapeau:
       "Pour développer vos ventes, votre communication et votre marketing : des équipes IA qui partent du cerveau de votre espace.",
@@ -168,7 +201,13 @@ const TOUS_LES_ONGLETS = [
     benefices: [[Network, "Un organigramme par produit"], [Brain, "Un seul cerveau pour tous vos agents"], [BookOpen, "Votre marque expliquée une seule fois"]] as [LucideIcon, string][],
     probleme: ["Un outil IA isolé ", "ne sait rien", " de votre marque."],
     reponse:
-      "À chaque nouvel outil, il faut réexpliquer vos produits, vos clientes et votre ton. Lystes range vos agents en équipes, chacune avec son directeur, et tous lisent le même cerveau de marque.",
+      "À chaque nouvel outil, il faut réexpliquer vos produits, vos clientes et votre ton. Lystes range vos agents en équipes qui\u00a0:",
+    points: [
+      "ont chacune leur directeur",
+      "s’organisent produit par produit",
+      "lisent toutes le même cerveau de marque, Brand AI",
+      "grandissent avec votre catalogue",
+    ],
     accroche: "Des équipes IA organisées comme une entreprise, pour parler de votre marque d’une seule voix.",
     chapeau:
       "Un organigramme qui grandit avec votre catalogue, et Brand AI, le cerveau que tous vos agents consultent.",
@@ -189,13 +228,86 @@ const TOUS_LES_ONGLETS = [
   },
 ] as const;
 
-const ONGLETS = TOUS_LES_ONGLETS.filter((o) => RESEAU_VISIBLE || o.id !== "reseau");
+const ONGLETS_ECOMMERCE = TOUS_LES_ONGLETS.filter((o) => RESEAU_VISIBLE || o.id !== "reseau");
+
+type Onglet = {
+  id: string;
+  titre: string;
+  court: string;
+  etage: string;
+  benefices: readonly (readonly [LucideIcon, string])[];
+  probleme: readonly [string, string, string];
+  reponse: string;
+  /* La liste sous le chapeau, quand il finit par « qui : ». */
+  points?: readonly string[];
+  accroche: string;
+  chapeau: string;
+};
+
+/* La version « Entreprises » (/business, JP, 12/10/2026) : « c'est la même
+   chose, mais adaptée aux entreprises corporate. Il n'y a pas Vos produits.
+   Votre e-commerce devient Votre site web, puis Vos outils, Votre gestion,
+   Vos équipes. » L'entreprise de démonstration est un cabinet d'architectes
+   inventé, Brévan Architectes (vision/demoCorporate.ts). */
+const ONGLETS_CORPORATE: Onglet[] = [
+  {
+    id: "siteweb",
+    titre: "Votre site web",
+    court: "Site web",
+    etage: "Étage 1 · Votre site web",
+    benefices: [[MessageCircle, "Une réponse sur chaque page"], [CalendarCheck, "Des rendez-vous pris en ligne"], [Clock, "Un accueil, jour et nuit"]],
+    /* Source : Gartner, communiqué du 25/06/2025, enquête auprès de 632
+       acheteurs B2B (août-septembre 2024) : « 61 % of B2B buyers prefer an
+       overall rep-free buying experience ». */
+    probleme: ["En B2B, ", "61 % des acheteurs", " préfèrent avancer sans commercial."],
+    reponse:
+      "Ils lisent votre site avant de vous appeler, et repartent quand ils n’y trouvent pas leur réponse. Lystes pose sur votre site vitrine des agents IA qui leur répondent, les orientent vers le bon service et leur proposent un rendez-vous.",
+    accroche: "Une équipe IA sur tout votre site, pour faire d’une visite un rendez-vous.",
+    chapeau: "Un orbital sur chaque page, et des agents qui connaissent vos services, vos références et votre façon de travailler.",
+  },
+  {
+    id: "outils",
+    titre: "Vos outils",
+    court: "Outils",
+    etage: "Étage 2 · Vos outils",
+    benefices: [[Linkedin, "Un lien qui oriente depuis LinkedIn"], [Star, "Des avis visibles sur Google"], [CalendarDays, "Un rendez-vous réservé seul"]],
+    probleme: ["Votre prochain client ", "vous découvre ailleurs", " que sur votre site."],
+    reponse:
+      "Sur LinkedIn, dans Google ou dans une réponse de ChatGPT : vos outils font le premier contact, répondent à ses questions et l’amènent jusqu’au rendez-vous.",
+    accroche: "6 outils pilotés par des agents IA, pour amener vos prospects jusqu’au rendez-vous.",
+    chapeau: "Lien LinkedIn, avis, articles, FAQ, contact et rendez-vous, réunis sur la page lystes.ai de votre entreprise.",
+  },
+  {
+    id: "entreprise",
+    titre: "Votre gestion",
+    court: "Gestion",
+    etage: "Étage 3 · Votre gestion",
+    benefices: [[Compass, "Un copilote qui connaît vos clients"], [Newspaper, "Votre nom dans la presse économique"], [TrendingUp, "Vos demandes, lues et expliquées"]],
+    probleme: ["Une direction IA au complet, ", "en 5 min", "."],
+    reponse:
+      "Des collaborateurs IA, autonomes ou semi-autonomes, répartis en équipes qui se parlent : pour votre site, votre communication et votre gestion.",
+    accroche: "Des équipes IA au complet, pour faire grandir votre entreprise.",
+    chapeau: "Pour piloter et communiquer : des équipes IA qui partent du cerveau de votre espace.",
+  },
+  {
+    id: "equipes",
+    titre: "Vos équipes",
+    court: "Équipes",
+    etage: "Étage 4 · Vos équipes",
+    benefices: [[Network, "Un organigramme par métier"], [Brain, "Un seul cerveau pour tous vos agents"], [BookOpen, "Votre entreprise expliquée une fois"]],
+    probleme: ["Un outil IA isolé ", "ne sait rien", " de votre entreprise."],
+    reponse:
+      "À chaque nouvel outil, il faut réexpliquer vos services, vos clients et votre ton. Lystes range vos agents en équipes, chacune avec son directeur, et tous lisent le même cerveau d’entreprise.",
+    accroche: "Des équipes IA organisées comme votre entreprise, pour parler d’une seule voix.",
+    chapeau: "Un organigramme qui grandit avec vos métiers, et Brand AI, le cerveau que tous vos agents consultent.",
+  },
+];
 
 /* Les dix postes d'une fiche, par ordre d'importance (JP, 09/10). */
 const AGENTS_FICHE: Agent[] = [
   { nom: "Expert produit IA", mission: "répond dans le chat, jour et nuit",
     role: "Répondre à chaque question de la cliente sur ce produit, jour et nuit et dans sa langue, pour lever ses doutes et la faire passer à l’achat.",
-    unique: "Il voit ce que la cliente a déjà fait sur votre site (panier, diagnostic, essayage) et appuie ses réponses par des avant-après et des avis. Il s’auto-améliore à chaque conversation et vous remonte ce qui vous fait perdre des ventes." },
+    unique: "Il voit ce que la cliente a déjà fait sur votre site (panier, produits vus, diagnostic) et appuie ses réponses par des avant-après et des avis. Il s’auto-améliore à chaque conversation et vous remonte ce qui vous fait perdre des ventes." },
   { nom: "Diagnostiqueur ou essayeur IA", mission: "prouve que le produit lui convient, ou le lui fait essayer",
     role: "Prouver à la cliente que ce produit est fait pour elle, par un diagnostic ou un essayage, sans quitter la fiche.",
     unique: "Spécialiste de votre secteur (peau, cheveux, lunettes, vêtements), il rend un conseil sur mesure : à l’issue de l’analyse, il dit en quoi ce produit répond à son cas, au moment même où elle hésite." },
@@ -210,7 +322,7 @@ const AGENTS_FICHE: Agent[] = [
     unique: "Il sait comment ces IA choisissent leurs sources, et écrit pour être cité. Ses sujets viennent des conversations et des diagnostics de vos clientes : il répond à leurs vraies questions." },
   { nom: "Rédacteur SEO IA", mission: "réécrit la description pour qu’elle convertisse mieux",
     role: "Réécrire le titre et la description pour qu’ils fassent acheter et placent la fiche sur Google.",
-    unique: "Au-delà des techniques de référencement, il écrit avec les mots de vos clientes et répond à leurs préoccupations dès la description. Quand elles changent, la fiche se réécrit." },
+    unique: "Au-delà des techniques de référencement, il écrit avec les mots de vos clientes et répond à leurs préoccupations dès la description. Quand elles changent, il réécrit la fiche." },
   { nom: "Expert UGC IA", mission: "humanise la marque avec des UGC",
     role: "Montrer le produit utilisé par des personnes qui ressemblent à vos clients, pour qu’ils s’y projettent et achètent.",
     unique: "Il crée une communauté d’acheteurs qui ressemble à vos clients : femmes, hommes, jeunes ou plus âgés, choisis d’après vos diagnostics et votre avatar client. Il sait quel format vend quel produit." },
@@ -244,6 +356,10 @@ type EtapeFiche = {
   cote: Cote;
   onglet?: number;
   centrer?: boolean;
+  /* La photo et le QR code gardent l'encart sur la fiche, à côté de ce
+     qu'il montre, sans le couvrir (JP, 13/10 : « hors pour le QR code et la
+     photo produit ») : sorti à droite, il s'en éloignerait. */
+  garde?: boolean;
 };
 const ETAPES_FICHE: EtapeFiche[] = [
   { z: "chat", zoom: '[data-z="chat"]', prise: "gauche", cote: "gauche", vivant: true, duree: 16000 },
@@ -253,9 +369,11 @@ const ETAPES_FICHE: EtapeFiche[] = [
   { z: "faq", zoom: '[data-z="faq"]', prise: "gauche", cote: "gauche", onglet: 2 },
   { z: "seo", zoom: '[data-z="seo"]', prise: "gauche", cote: "gauche" },
   { z: "ugc", zoom: '[data-z="ugc"]', prise: "gauche", cote: "gauche" },
-  { z: "photo", zoom: '[data-z="photo"]', prise: "centre", cote: "droite", studio: true },
+  /* Au bord droit de la photo, et plus en son milieu : l'encart couvrait
+     la moitié de la photo qu'il présente (13/10). */
+  { z: "photo", zoom: '[data-z="photo"]', prise: "droite", cote: "droite", studio: true, garde: true },
   { z: "appel", zoom: ".fiche .chat-carte", prise: "centre", cote: "gauche" },
-  { z: "qr", zoom: '[data-z="qr"]', prise: "gauche", cote: "gauche" },
+  { z: "qr", zoom: '[data-z="qr"]', prise: "gauche", cote: "gauche", garde: true },
 ];
 
 /* Votre e-commerce : la même logique, à l'échelle de toute la boutique. */
@@ -268,14 +386,14 @@ const AGENTS_BOUTIQUE: Agent[] = [
     role: "Trouver les produits les plus adaptés : une routine pour un soin, l’essayage de n’importe quel vêtement du site pour la mode.",
     unique: "La barre flottante l’invite sur toutes les pages : il arrive sans savoir quoi prendre, il repart avec sa routine ou sa tenue." },
   { nom: "Conseiller boutique IA", mission: "un cerveau qui connaît tout le site",
-    role: "Répondre à tout, depuis n’importe quelle page : produits, rendez-vous, livraison, conditions de vente, prochains événements.",
+    role: "Répondre à tout, depuis n’importe quelle page : produits, rendez-vous, livraison, conditions de vente.",
     unique: "Une IA branchée sur la base de connaissances de votre site, à jour en temps réel. Il sait aussi ce qu’il y a dans le panier et ce que le client a regardé." },
   { nom: "Responsable avis IA", mission: "recueille les avis de la boutique et de chaque produit",
     role: "Recueillir les avis sur la boutique et sur chaque produit, et les montrer là où ils rassurent.",
     unique: "Il note chaque produit en plus de la marque, et répond à chaque avis en son nom. Les avis ne sont jamais filtrés." },
   { nom: "Expert SEO et GEO IA", mission: "tient l'actualité de la marque, pour Google et les IA",
     role: "Tenir l’actualité de votre marque pour la rendre visible sur Google et dans les IA.",
-    unique: "Chaque semaine, il choisit ses sujets parmi les mots-clés les plus porteurs et les préoccupations de vos clients. Chaque article mène vers les produits qui y répondent." },
+    unique: "Chaque semaine, il choisit ses sujets parmi les préoccupations et les questions de vos clients. Chaque article mène vers les produits qui y répondent." },
   { nom: "Agent FAQ IA", mission: "les questions de la boutique et de chaque produit",
     role: "Réunir les questions générales (livraison, retours, paiement) et celles de chaque produit.",
     unique: "Elle est dynamique : une préoccupation qui revient souvent dans les conversations rejoint la FAQ, lue par Google et par les IA." },
@@ -283,7 +401,7 @@ const AGENTS_BOUTIQUE: Agent[] = [
     role: "Remplacer vos formulaires de contact par un formulaire qui sait répondre.",
     unique: "Beaucoup de demandes ont une réponse immédiate : il la donne tout de suite et ferme lui-même le ticket dans votre back-office. Votre équipe ne traite que le reste." },
   { nom: "Newsletter IA", mission: "récupère les e-mails, envoie articles et sélections",
-    role: "Récupérer les e-mails et envoyer automatiquement vos articles, vos sélections de produits et vos campagnes e-mail et SMS.",
+    role: "Récupérer les e-mails et envoyer automatiquement vos articles, vos sélections de produits et vos campagnes e-mail.",
     unique: "Chaque e-mail complète la fiche du client avec ses diagnostics et ses achats : il reçoit ce qui le concerne, et vous le connaissez mieux." },
   { nom: "Conseiller téléphonique IA", mission: "l'appel depuis l'orbital, de vive voix",
     role: "Répondre de vive voix depuis n’importe quelle page, sur toute la boutique.",
@@ -407,7 +525,7 @@ const ORGA_RESEAU: Colonne[] = [
 
 
 /** Ce que la page parente lit dans l'iframe de la fiche. */
-type MesureFiche = { cadre: { w: number; h: number }; boite: Rect; zones: Record<string, Rect>; fenetreOuverte: boolean };
+type MesureFiche = { cadre: { w: number; h: number }; boite: Rect; zones: Record<string, Rect>; fenetreOuverte: boolean; plancher: Point | null };
 
 /** Lit, dans l'iframe de la fiche, où se trouve chaque zone, et règle la
     hauteur de l'iframe sur celle de la fiche (écrite par demo.js). */
@@ -439,7 +557,11 @@ function mesurerFiche(cadre: HTMLElement): MesureFiche | null {
     if (r.width === 0 && r.height === 0) continue;
     zones[e.z] = { x: ox + r.left, y: oy + r.top, w: r.width, h: r.height };
   }
+  /* Le titre et le prix : l'encart qui mord sur la fiche reste dessous. */
+  const prix = doc.querySelector(".prix")?.getBoundingClientRect();
+  const titre = doc.querySelector("h1")?.getBoundingClientRect();
   return {
+    plancher: prix ? { x: Math.round(ox + Math.max(prix.right, titre?.right ?? 0) + 4), y: Math.round(oy + prix.bottom + 6) } : null,
     cadre: { w: cadre.clientWidth, h: cadre.clientHeight },
     boite: { x: ox, y: oy, w: iframe.clientWidth, h: iframe.clientHeight },
     zones,
@@ -453,6 +575,7 @@ function mesurerFiche(cadre: HTMLElement): MesureFiche | null {
 export function prise(r: Rect, p: Prise): Point {
   if (p === "centre") return { x: r.x + r.w / 2, y: r.y + r.h / 2 };
   if (p === "haut") return { x: r.x + r.w / 2, y: r.y };
+  if (p === "droite") return { x: r.x + r.w, y: r.y + r.h / 2 };
   return { x: r.x, y: r.y + r.h / 2 };
 }
 
@@ -500,6 +623,90 @@ export const MARGE_LOUPE = 20;
    pop up en proportion », deux fois) : 240 px au lieu de 380, marges, texte
    et loupe d'autant (~0,64). Le téléphone garde la taille d'origine. */
 export const LARGEUR_ENCART = 240;
+
+/* ---------- L'encart dans la marge de droite ----------
+   JP, 13/10/2026, sur l'onglet « Vos produits » : l'encart posé sur la fiche
+   en cachait la moitié ; « j'ai le max width actuel, mais j'aimerais que,
+   quand c'est possible, ça mange moins l'écran ». Sur ordinateur, en deux
+   colonnes, l'encart sort du cadre vers la droite, dans la marge blanche de
+   la page, à la hauteur de l'élément qu'il commente, relié à lui par un
+   trait. La scène garde ses 872 px.
+   Mesuré le 13/10 (scène de 872 px, cadre gris de 16 px) :
+   - dès 1396 px d'écran : 240 px de large, tout entier dans la marge
+     blanche, hors du cadre gris ;
+   - de 1272 à 1395 px : resserré de 240 à 200 px, il ne touche plus la
+     fiche (au plus le bord du cadre gris) ;
+   - de 1100 à 1271 px : 200 px, collé à la gouttière de l'écran (16 px), il
+     ne mord que sur le bord droit de la fiche (90 px au plus, à 1100 px),
+     jamais au-dessus du titre et du prix (`plancher`), et le point recule
+     sur la partie visible de la zone ;
+   - sous 1100 px (une colonne, iPad) et sur téléphone : rien ne change.
+   La photo et le QR code gardent l'encart sur la fiche (ETAPES_FICHE,
+   `garde`). La page ne défile jamais de côté : l'encart s'arrête à la
+   gouttière. */
+export const LARGEUR_COMPACTE = 200;
+/* La gouttière laissée au bord droit de l'écran, et l'écart entre le bord
+   du contenu et l'encart sorti. */
+export const GOUTTIERE = 16;
+export const ECART_BORD = 6;
+/* Le bord droit du cadre gris (la fiche ou la visite), dans le repère de
+   l'élément où se pose l'encart, et la place libre de ce bord jusqu'à la
+   gouttière de l'écran, écart compris ; null quand l'encart ne sort pas.
+   L'encart sorti se pose dans la marge blanche, hors du cadre gris : c'est
+   là que JP l'a dessiné. */
+export function useMargeDroite(ref: { current: HTMLElement | null }, actif: boolean): Hors | null {
+  const [hors, setHors] = useState<Hors | null>(null);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    const gris = el?.closest<HTMLElement>(".lyv-cadre, #vision-demo");
+    if (!el || !gris || !actif) {
+      setHors(null);
+      return;
+    }
+    const maj = () => {
+      const g = el.getBoundingClientRect().left;
+      const bord = Math.round(gris.getBoundingClientRect().right - g);
+      const dispo = Math.floor(document.documentElement.clientWidth - GOUTTIERE - (g + bord) - ECART_BORD);
+      setHors((o) => (o && o.bord === bord && o.dispo === dispo ? o : { bord, dispo }));
+    };
+    maj();
+    window.addEventListener("resize", maj);
+    const ro = new ResizeObserver(maj);
+    ro.observe(el);
+    ro.observe(gris);
+    return () => {
+      window.removeEventListener("resize", maj);
+      ro.disconnect();
+    };
+  }, [ref, actif]);
+  return hors;
+}
+/* `bord` : le bord droit du cadre gris dans le repère de l'encart ;
+   `dispo` : useMargeDroite ; `plancher` : l'encart qui mord sur le
+   contenu à gauche de ce x ne monte pas au-dessus de ce y (le titre et le
+   prix de la fiche). */
+export type Hors = { bord: number; dispo: number; plancher?: Point };
+/* La largeur de l'encart sorti, et son bord gauche s'il se pose en face de
+   `x`. */
+const largeurHors = (h: Hors, largeur = LARGEUR_ENCART) => Math.max(LARGEUR_COMPACTE, Math.min(largeur, h.dispo));
+const gaucheHors = (h: Hors, x: number, l: number) => Math.min(Math.max(x + ECART, h.bord + ECART_BORD), h.bord + ECART_BORD + h.dispo - l);
+/* Le point de l'encart sorti : au bord droit de la zone, au plus près de
+   l'encart. Si l'encart, à cheval sur le contenu, couvre ce bord, le point
+   recule sur la partie visible de la zone, juste devant la pointe : un long
+   trait barrait la zone (relecture du 13/10 à 1180 px). */
+/* Le même recul pour un point déjà posé au bord droit de sa cible (Vos
+   outils). */
+export function pointDevant(p: Point, h: Hors | null | undefined): Point {
+  if (!h) return p;
+  const g = gaucheHors(h, p.x, largeurHors(h));
+  return g >= p.x + ECART ? p : { x: g - ECART, y: p.y };
+}
+export function pointHors(r: Rect, p: Prise, h: Hors | null | undefined): Point {
+  if (!h) return prise(r, p);
+  const d = prise(r, "droite");
+  const g = gaucheHors(h, d.x, largeurHors(h));
+  return g >= d.x + ECART ? d : { x: Math.max(r.x + 6, g - ECART), y: d.y };
+}
 export const MARGE_LOUPE_ORDI = 13;
 
 const STYLE_LOUPE = `
@@ -748,7 +955,7 @@ export function Encart({ agent, loupe, pointe, pied, survol, style, enFlux }: {
    la hauteur mesurée, sans glisser depuis la hauteur supposée de 320 px ;
    un encart de 160 px descendait de 80 px à chaque étape (relecture du
    10/10). */
-export function EncartPose({ point, cote, cadre, largeur, contenu, poseDirecte, serrer }: {
+export function EncartPose({ point, cote, cadre, largeur, contenu, poseDirecte, serrer, hors, plancher }: {
   point: Point | null;
   cote: Cote;
   cadre: { w: number; h: number };
@@ -759,8 +966,15 @@ export function EncartPose({ point, cote, cadre, largeur, contenu, poseDirecte, 
      déborder de `deborde` px dans la marge grise du visuel : dans l'orbital,
      basculé à droite, il cachait la vue qu'il présente (relecture du 10/10). */
   serrer?: { min: number; deborde: number };
+  /* L'encart sort du cadre vers la droite (voir useMargeDroite). */
+  hors?: Hors | null;
+  /* Posé sur la fiche (photo, QR code), l'encart ne monte pas sur le titre
+     ni sur le prix : il descend sous ce y quand il passe à gauche de ce x. */
+  plancher?: Point | null;
 }) {
   const boite = useRef<HTMLDivElement>(null);
+  const horsRef = useRef(hors);
+  horsRef.current = hors;
   const [h, setH] = useState(320);
   const mesure = useContext(MesureEncart);
   const mesureRef = useRef(mesure);
@@ -776,10 +990,18 @@ export function EncartPose({ point, cote, cadre, largeur, contenu, poseDirecte, 
     : cote === "gauche" ? point.x - ECART - 4
     : cote === "droite" ? cadre.w - 4 - (point.x + ECART)
     : Infinity;
-  const serre = normale < pleine && normale + serrer.deborde >= serrer.min;
-  const l = serre ? Math.min(Math.floor(normale + serrer.deborde), pleine) : pleine;
+  const serre = !hors && normale < pleine && normale + serrer.deborde >= serrer.min;
+  const l = hors ? largeurHors(hors, largeur)
+    : serre ? Math.min(Math.floor(normale + serrer.deborde), pleine) : pleine;
   /* Serré, l'encart se place dans le cadre élargi du débord. */
   const poser = (hh: number): Placement => {
+    if (hors) return placerHors(point, l, hh, cadre, hors);
+    const pl = poserDedans(hh);
+    if (!plancher || !pl.pointe || pl.pointe.cote === "haut" || pl.pointe.cote === "bas" || pl.x >= plancher.x || pl.y >= plancher.y) return pl;
+    const y = Math.max(pl.y, Math.min(plancher.y, cadre.h - hh - 4));
+    return { ...pl, y, pointe: { ...pl.pointe, decalage: pl.pointe.decalage - (y - pl.y) } };
+  };
+  const poserDedans = (hh: number): Placement => {
     if (!serre || !point || !serrer) return placer(point, cote, l, hh, cadre);
     const d = serrer.deborde;
     if (cote === "gauche") {
@@ -806,7 +1028,8 @@ export function EncartPose({ point, cote, cadre, largeur, contenu, poseDirecte, 
     const maj = () => {
       setH(el.offsetHeight);
       window.clearTimeout(attente);
-      attente = window.setTimeout(() => mesureRef.current?.(el.offsetHeight), 400);
+      /* Sorti du cadre, l'encart n'a pas à tenir dans sa hauteur. */
+      attente = window.setTimeout(() => { if (!horsRef.current) mesureRef.current?.(el.offsetHeight); }, 400);
     };
     maj();
     const ro = new ResizeObserver(maj);
@@ -817,11 +1040,32 @@ export function EncartPose({ point, cote, cadre, largeur, contenu, poseDirecte, 
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps -- la première pose seulement
   const pl = poser(h);
+  /* Le trait qui relie le point à la pointe, quand l'encart sorti s'en
+     éloigne plus que l'écart ordinaire. */
+  const trait = hors && point && pl.pointe ? pl.x - point.x - ECART : 0;
   return (
-    <div ref={boite} className="lyv-encart-pose" style={{ left: pl.x, top: pl.y, width: l }}>
+    <div ref={boite} className={"lyv-encart-pose" + (hors ? " hors" : "") + (hors && l < LARGEUR_ENCART ? " etroit" : "")} style={{ left: pl.x, top: pl.y, width: l }}>
+      {trait > 2 && pl.pointe && (
+        <span className="lyv-liaison" style={{ left: -(trait + ECART) + 7, width: trait + ECART - 7 - 3, top: pl.pointe.decalage }} aria-hidden="true" />
+      )}
       {contenu(pl.pointe, {})}
     </div>
   );
+}
+
+/* L'encart sorti : à droite du contenu, dans la marge ; s'il n'y tient
+   pas, collé à la gouttière de l'écran, à cheval sur le bord du contenu.
+   Toujours à la hauteur du point, la pointe à gauche. */
+function placerHors(p: Point | null, l: number, h: number, cadre: { w: number; h: number }, hors: Hors): Placement {
+  const borne = (v: number, min: number, max: number) => Math.max(min, Math.min(v, Math.max(min, max)));
+  if (!p) return { x: gaucheHors(hors, -Infinity, l), y: borne((cadre.h - h) / 2, 4, cadre.h - h - 4), pointe: null };
+  const x = gaucheHors(hors, p.x, l);
+  /* À cheval sur le titre et le prix de la fiche : jamais au-dessus du
+     plancher, sauf pour rester en face du point. Le bas du cadre passe
+     avant : dessous, à droite, il y a les boutons de la visite. */
+  const haut = hors.plancher && x < hors.plancher.x ? Math.max(4, Math.min(hors.plancher.y, p.y - 14)) : 4;
+  const y = Math.max(4, Math.min(Math.max(p.y - h / 2, haut), cadre.h - h - 4));
+  return { x, y, pointe: { cote: "gauche", decalage: Math.max(10, Math.min(p.y - y, h - 10)) } };
 }
 
 /* ---------- Les agents : liste sur ordinateur, carrousel sur téléphone ---------- */
@@ -1020,12 +1264,14 @@ function Organigramme({ tete, sous, cerveau, colonnes, humain }: {
 }
 
 /* ---------- Étage 2 : la boutique et l'orbital ---------- */
-function Boutique({ etape, survol, mobile, pied, taille }: {
+function Boutique({ etape, survol, mobile, pied, taille, marge }: {
   etape: number;
   survol: (s: boolean) => void;
   mobile: boolean;
   pied: Pied;
   taille: (t: TailleCadre) => void;
+  /* Deux colonnes : l'encart peut sortir dans la marge de droite. */
+  marge?: boolean;
 }) {
   const boite = useRef<HTMLDivElement>(null);
   const cadres = useRef<Partial<Record<PageBoutique, HTMLIFrameElement | null>>>({});
@@ -1034,6 +1280,10 @@ function Boutique({ etape, survol, mobile, pied, taille }: {
   const [point, setPoint] = useState<Point | null>(null);
   const [prets, setPrets] = useState<Partial<Record<PageBoutique, boolean>>>({});
   const cible = ETAPES_BOUTIQUE[etape];
+  const hors = useMargeDroite(boite, !mobile && !!marge);
+  /* Lu par la mesure du point, qui tourne à chaque image. */
+  const horsRef = useRef(hors);
+  horsRef.current = hors;
   /* Sans zone (multi-lien), la page reste celle de l'étape d'avant. */
   const pageVue = useRef<PageBoutique>("index");
   if (cible) pageVue.current = cible.page;
@@ -1152,7 +1402,7 @@ function Boutique({ etape, survol, mobile, pied, taille }: {
       if (fini) return;
       const el = cible ? doc.querySelector(cible.sel) : null;
       const r = el?.getBoundingClientRect();
-      const q = cible && r && r.width > 0 ? prise(echelonner(r), cible.prise) : null;
+      const q = cible && r && r.width > 0 ? pointHors(echelonner(r), cible.prise, horsRef.current) : null;
       /* repeindre seulement quand le point bouge vraiment */
       const proche = (a: number, b: number) => Math.abs(a - b) < 0.5;
       setPoint((p) => (!p && !q) || (p && q && proche(p.x, q.x) && proche(p.y, q.y)) ? p : q);
@@ -1204,6 +1454,7 @@ function Boutique({ etape, survol, mobile, pied, taille }: {
           cadre={cadre}
           largeur={LARGEUR_ENCART}
           serrer={cible?.orbital ? { min: 180, deborde: 24 } : undefined}
+          hors={hors}
           contenu={(pointe, style) => encart(pointe, style)}
         />
       )}
@@ -1221,16 +1472,20 @@ function loupeBoutique(cible: Cible): ReactNode {
 type ModuleOutils = typeof import("./vision/VisiteOutils");
 type ModuleEntreprise = typeof import("./vision/VisiteBackOffice");
 type ModuleEquipes = typeof import("./vision/VisiteEquipes");
-type Visites = { outils?: ModuleOutils; entreprise?: ModuleEntreprise; equipes?: ModuleEquipes };
+type ModuleSite = typeof import("./vision/VisiteSiteVitrine");
+type Visites = { outils?: ModuleOutils; entreprise?: ModuleEntreprise; equipes?: ModuleEquipes; siteweb?: ModuleSite };
 const CHARGER_VISITE = {
   outils: () => import("./vision/VisiteOutils"),
   entreprise: () => import("./vision/VisiteBackOffice"),
   equipes: () => import("./vision/VisiteEquipes"),
+  siteweb: () => import("./vision/VisiteSiteVitrine"),
 } as const;
 type IdVisite = keyof typeof CHARGER_VISITE;
 const estVisite = (id: string): id is IdVisite => id in CHARGER_VISITE;
 
-export default function VisionEtages({ tete, scene, texte, legende, visuel, pastilles, apres, demo }: Props) {
+export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte, legende, visuel, pastilles, apres, demo }: Props) {
+  const corpo = secteur === "corporate";
+  const ONGLETS: readonly Onglet[] = corpo ? ONGLETS_CORPORATE : ONGLETS_ECOMMERCE;
   const [onglet, setOnglet] = useState(0);
   const [etape, setEtape] = useState(0);
   const [tour, setTour] = useState(0);
@@ -1261,6 +1516,8 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
   const [dejaPrete, setDejaPrete] = useState<Partial<Record<IdVisite, boolean>>>({});
   const boutons = useRef<(HTMLButtonElement | null)[]>([]);
   const dernier = useRef("");
+  const refPastilles = useRef<HTMLElement | null>(pastilles);
+  refPastilles.current = pastilles;
 
   const courant = ONGLETS[onglet];
   const idVisite = estVisite(courant.id) ? courant.id : null;
@@ -1268,7 +1525,7 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
   const cadreCourant: TailleCadre | null = courant.id === "produits"
     ? fiche?.cadre ?? null
     : tailleVisuel && tailleVisuel.onglet === courant.id ? tailleVisuel : null;
-  const encartMax = Math.max(HAUTEUR_ENCART[courant.id], hauteurEncart[courant.id] ?? 0);
+  const encartMax = Math.max(HAUTEUR_ENCART[courant.id] ?? 250, hauteurEncart[courant.id] ?? 0);
   const tientDans = (w: number, h: number) => (cadreCourant?.largeurMin
     ? w >= cadreCourant.largeurMin
     : h >= encartMax + 8 && w >= LARGEUR_ENCART + 8);
@@ -1291,9 +1548,10 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
   /* Présentation téléphone : l'encart sous le visuel. */
   const mobile = telephone || !tient;
   const agents = courant.id === "produits" ? AGENTS_FICHE : courant.id === "ecommerce" ? AGENTS_BOUTIQUE
-    : courant.id === "outils" ? visites.outils?.AGENTS_OUTILS ?? null
-    : courant.id === "entreprise" ? visites.entreprise?.AGENTS_ENTREPRISE ?? null
-    : courant.id === "equipes" ? visites.equipes?.AGENTS_EQUIPES ?? null
+    : courant.id === "outils" ? visites.outils?.agentsOutils(secteur) ?? null
+    : courant.id === "entreprise" ? visites.entreprise?.agentsEntreprise(secteur) ?? null
+    : courant.id === "equipes" ? visites.equipes?.agentsEquipes(secteur) ?? null
+    : courant.id === "siteweb" ? visites.siteweb?.AGENTS_SITE ?? null
     : null;
   const fenetreOuverte = courant.id === "produits" && !!fiche?.fenetreOuverte;
   /* La clé relance la jauge à chaque étape, et à chaque tour complet. */
@@ -1386,7 +1644,9 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
       ? CHARGER_VISITE.outils().then((m) => setVisites((v) => ({ ...v, outils: m })))
       : id === "equipes"
         ? CHARGER_VISITE.equipes().then((m) => setVisites((v) => ({ ...v, equipes: m })))
-        : CHARGER_VISITE.entreprise().then((m) => setVisites((v) => ({ ...v, entreprise: m })));
+        : id === "siteweb"
+          ? CHARGER_VISITE.siteweb().then((m) => setVisites((v) => ({ ...v, siteweb: m })))
+          : CHARGER_VISITE.entreprise().then((m) => setVisites((v) => ({ ...v, entreprise: m })));
     charge.catch(() => { demandees.current.delete(id); });
   }, []);
   useEffect(() => {
@@ -1401,6 +1661,7 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
         charger("outils");
         charger("entreprise");
         charger("equipes");
+        if (corpo) charger("siteweb");
       }, 400);
     }, { rootMargin: "100% 0px" });
     io.observe(scene);
@@ -1408,7 +1669,7 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
       io.disconnect();
       window.clearTimeout(attente);
     };
-  }, [scene, charger]);
+  }, [scene, charger, corpo]);
 
   /* La loupe affiche la fiche hors de l'iframe : la police de la fiche doit
      aussi être chargée dans la page. */
@@ -1563,7 +1824,7 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
   }, [onglet, changerOnglet]);
 
   const duree = (courant.id === "produits" && ETAPES_FICHE[etape]?.duree)
-    || (courant.id === "outils" && visites.outils?.dureeEtapeOutils(etape))
+    || (courant.id === "outils" && visites.outils?.dureeEtapeOutils(etape, secteur))
     || DUREE_ETAPE;
   const pied: Pied | null = agents && {
     actif: etape,
@@ -1579,7 +1840,13 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
   /* La visite sur la fiche Éclose. */
   const etapeFiche = ETAPES_FICHE[etape];
   const zoneFiche = fiche && etapeFiche ? fiche.zones[etapeFiche.z] : undefined;
-  const pointFiche = zoneFiche ? prise(zoneFiche, etapeFiche.prise) : null;
+  /* L'encart sort dans la marge de droite : ordinateur, deux colonnes,
+     sauf la photo et le QR code. */
+  const margeFiche = useMargeDroite(refPastilles, courant.id === "produits" && !mobile && !uneColonne && !!fiche);
+  const horsFiche: Hors | null = fiche && margeFiche && etapeFiche && !etapeFiche.garde
+    ? { ...margeFiche, plancher: fiche.plancher ?? undefined }
+    : null;
+  const pointFiche = zoneFiche ? pointHors(zoneFiche, etapeFiche.prise, horsFiche) : null;
   const iframe = demo.querySelector<HTMLIFrameElement>("iframe.lyv-demo-ecran");
   const visiteFiche = courant.id === "produits" && fiche && !fiche.fenetreOuverte && pied;
   /* Sur ordinateur, les loupes de la fiche font 132 et 128 px (152 et 146
@@ -1622,7 +1889,12 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
             {courant.probleme[0]}<span className="lyv-elu">{courant.probleme[1]}</span>{courant.probleme[2]}
           </h2>
           <p className="lyv-chapeau">{courant.reponse}</p>
-          <div className="lyv-tabs" role="tablist" aria-label="Les étages de Lystes">
+          {courant.points && (
+            <ul className="lyv-points">
+              {courant.points.map((p) => <li key={p}>{p}</li>)}
+            </ul>
+          )}
+          <div className={"lyv-tabs" + (corpo ? " lyv-tabs-4" : "")} role="tablist" aria-label="Les étages de Lystes">
             {ONGLETS.map((o, i) => (
               <button
                 key={o.id}
@@ -1681,6 +1953,11 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
               cote={etapeFiche.cote}
               cadre={fiche.cadre}
               largeur={LARGEUR_ENCART}
+              hors={horsFiche}
+              /* La photo : l'encart reste à droite de la photo, quitte à perdre
+                 quelques px, au lieu de basculer dessus. */
+              serrer={etapeFiche.garde && etapeFiche.cote === "droite" ? { min: 220, deborde: 0 } : undefined}
+              plancher={fiche.plancher}
               contenu={(pointe, style) => encartFiche(pointe, style)}
             />
           )}
@@ -1699,7 +1976,7 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
           {courant.id === "ecommerce" && pied && (
             <>
               <div className="lyv-cadre">
-                <Boutique etape={etape} survol={setSurvol} mobile={mobile} pied={pied} taille={annoncerTaille} />
+                <Boutique etape={etape} survol={setSurvol} mobile={mobile} pied={pied} taille={annoncerTaille} marge={!uneColonne} />
                 <p className="lyv-legende-visuel"><b>L'orbital</b>, ouvert sur la boutique</p>
               </div>
               <div className="lyv-sous-visuel">
@@ -1725,23 +2002,25 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
               <div className="lyv-cadre">
                 {VisiteEnCours && pied
                   ? <VisiteEnCours key={idVisite} etape={etape} survol={setSurvol} mobile={mobile} pied={pied} taille={annoncerTaille}
-                      prete={signalerPrete} />
+                      prete={signalerPrete} secteur={secteur} marge={!uneColonne} />
                   : <div className={idVisite === "outils" ? "lyv-boutique lyv-o lyv-o-attente" : "lyv-boutique"} aria-busy="true" />}
                 {idVisite === "outils" ? (
                   <p className="lyv-legende-visuel lyv-legende-outils">
-                    <span className="lyv-legende-marque"><b>{visites.outils?.MARQUE_OUTILS ?? "Lystes & Partners"}</b>, sur </span>
-                    <span className="lyv-legende-adresse">{visites.outils?.ADRESSES_OUTILS[etape] ?? "lystes.ai/lystes-partners"}</span>
+                    <span className="lyv-legende-marque"><b>{visites.outils?.marqueOutils(secteur) ?? (corpo ? "Brévan Architectes" : "Lystes & Partners")}</b>, sur </span>
+                    <span className="lyv-legende-adresse">{visites.outils?.adressesOutils(secteur)[etape] ?? (corpo ? "lystes.ai/brevan-architectes" : "lystes.ai/lystes-partners")}</span>
                     {/* Les avis de la marque de démonstration sont des avis de présentation :
                         la légende le dit (relecture du 11/10). */}
                     <span className={"lyv-legende-exemple" + (etape <= 1 ? "" : " vide")} aria-hidden={etape <= 1 ? undefined : true}><span className="lyv-legende-point"> · </span>avis d’exemple</span>
                   </p>
                 ) : idVisite === "equipes" ? (
                   <p className="lyv-legende-visuel">{etape === 0
-                    ? <><b>L’organigramme</b>, de 10 à 1000 produits</>
-                    : <><b>Brand AI</b>, le cerveau de {visites.equipes?.MARQUE_EQUIPES ?? "Lystes & Partners"}</>}</p>
+                    ? <><b>L’organigramme</b>, de 10 à 1000 {corpo ? "métiers" : "produits"}</>
+                    : <><b>Brand AI</b>, le cerveau de {corpo ? "Brévan Architectes" : visites.equipes?.MARQUE_EQUIPES ?? "Lystes & Partners"}</>}</p>
+                ) : idVisite === "siteweb" ? (
+                  <p className="lyv-legende-visuel"><b>L’orbital</b>, ouvert sur le site de Brévan Architectes</p>
                 ) : (
                   <p className="lyv-legende-visuel">{(() => {
-                    const l = visites.entreprise?.legendeEntreprise(etape);
+                    const l = visites.entreprise?.legendeEntreprise(etape, secteur);
                     return l ? <><b>{l[0]}</b>{l[1]}</> : <><b>Le back-office</b>, ouvert sur vos équipes IA</>;
                   })()}</p>
                 )}
@@ -1782,17 +2061,26 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
 const CSS = `
 .lyv{ --lyv-elu:#e1f3c5; --lyv-encre:#1a1a1a; --lyv-gris:rgba(26,26,26,.6); --lyv-pierre:#f3f4f5; --lyv-trait:rgba(35,30,31,.28); --lyv-filet:#e4e5e7; }
 .lyv *{ box-sizing:border-box; }
-/* Titre, phrase et onglets centrés (JP, 10/10 nuit). */
-.lyv-tete{ margin:0; text-align:center; }
+/* Titre, chapeau et liste alignés à gauche, onglets sur toute la largeur
+   (JP, 13/10 : la mise en page qu'il a essayée dans son navigateur). */
+.lyv-tete{ margin:0; text-align:left; }
 .lyv .lyv-titre{ font-family:'Bricolage Grotesque','SF Pro Display',Inter,sans-serif; font-weight:400; font-size:51px; line-height:1.1;
   letter-spacing:-.025em; color:#171717; margin:0; text-wrap:balance; }
 .lyv-elu{ background:linear-gradient(transparent 12%, var(--lyv-elu) 12%, var(--lyv-elu) 94%, transparent 94%);
-  padding:0 6px; margin:0 -6px; border-radius:6px; white-space:nowrap; }
-.lyv-chapeau{ font-size:15px; line-height:1.6; color:var(--lyv-gris); margin:14px auto 0; max-width:660px; text-wrap:pretty; }
+  padding:0 6px 0 0; margin:0 -6px 0 0; border-radius:6px; white-space:nowrap; }
+/* Titre à gauche (13/10) : le surlignage part de la marge du titre, sans la
+   déborder ; son retrait ne se garde qu'à droite. */
+/* Équilibré plutôt que « pretty » : sur 872 px, « équipe IA qui : » restait
+   seul sur la seconde ligne. */
+.lyv-chapeau{ font-size:15px; line-height:1.6; color:#000; margin:14px 0 14px; max-width:100%; text-wrap:balance; }
+/* Ce que fait l'équipe : quatre lignes à plat, séparées d'un filet. Pas un
+   accordéon : ni flèche, ni repli, tout se lit. */
+.lyv-points{ list-style:none; margin:0; padding:0; }
+.lyv-points li{ font-size:15px; line-height:1.5; color:#000; padding:10px 0; border-bottom:1px solid #00000014; text-wrap:pretty; }
 
 /* La bascule, copiée de fiche-produit-demo.html. */
-.lyv-tabs{ display:inline-flex; gap:4px; padding:6px; margin:26px 0 0; background:#000; border-radius:999px; max-width:100%; }
-.lyv-tabs button{ display:inline-flex; align-items:center; gap:.5em; white-space:nowrap; height:40px; padding:0 18px;
+.lyv-tabs{ display:flex; width:100%; gap:4px; padding:6px; margin:24px 0 0; background:#000; border-radius:999px; max-width:100%; }
+.lyv-tabs button{ flex:1 1 auto; justify-content:center; display:inline-flex; align-items:center; gap:.5em; white-space:nowrap; height:40px; padding:0 18px;
   border:0; border-radius:999px; background:transparent; color:#a3a3a3; cursor:pointer;
   font-family:'Satoshi',-apple-system,"Helvetica Neue",Arial,sans-serif; font-weight:600; font-size:14px; letter-spacing:-.01em;
   -webkit-font-smoothing:antialiased; transition:background .22s ease, color .22s ease; }
@@ -1858,7 +2146,7 @@ const CSS = `
 .lyv-liste button.on .lyv-num{ color:#000; }
 .lyv-l{ display:flex; flex-direction:column; gap:2px; min-width:0; }
 .lyv-l b{ font-size:14.5px; font-weight:600; line-height:1.3; letter-spacing:-.006em; color:var(--lyv-encre); }
-.lyv-l small{ font-size:12.5px; line-height:1.4; color:var(--lyv-gris); }
+.lyv-l small{ font-size:12.5px; line-height:1.4; color:var(--lyv-gris); text-wrap:balance; }
 .lyv-liste button.on .lyv-l small{ color:rgba(26,26,26,.72); }
 .lyv-jauge{ position:absolute; left:12px; right:12px; bottom:5px; height:2px; border-radius:1px; background:rgba(0,0,0,.1); overflow:hidden; }
 .lyv-jauge b{ display:block; width:100%; height:100%; background:#000; transform-origin:0 50%;
@@ -1916,6 +2204,10 @@ const CSS = `
 .lyv-pointe.gauche{ left:-5px; margin-top:-6px; }
 .lyv-pointe.bas{ bottom:-5px; margin-left:-6px; }
 .lyv-pointe.haut{ top:-5px; margin-left:-6px; }
+/* Le trait du point à l'encart sorti dans la marge (13/10). Liseré blanc :
+   il reste lisible sur le voile noir de l'orbital. */
+.lyv-liaison{ position:absolute; height:1.5px; margin-top:-.75px; background:#000; border-radius:1px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.75); pointer-events:none; }
 .lyv-loupe{ position:relative; overflow:hidden; border-radius:11px; background:#fff; }
 .lyv-loupe-html{ padding:${MARGE_LOUPE}px; }
 .lyv-loupe.nue{ border-radius:0; background:transparent; overflow:visible; }
@@ -1935,7 +2227,7 @@ const CSS = `
 .lyv-encart-texte{ padding:18px 2px 0; animation:lyv-apparait .35s ease both; }
 .lyv-encart-texte b{ display:block; font-family:'Bricolage Grotesque',Inter,sans-serif; font-size:18px; font-weight:500; line-height:1.25;
   letter-spacing:-.02em; color:#fff; }
-.lyv-encart-texte p{ margin:6px 0 0; font-size:14px; line-height:1.5; color:#c9c9cc; }
+.lyv-encart-texte p{ margin:6px 0 0; font-size:14px; line-height:1.5; color:#c9c9cc; text-wrap:pretty; }
 /* Le second titre, un cran sous le nom de l'agent. */
 .lyv-encart-texte h4{ margin:14px 0 0; font-family:'Bricolage Grotesque',Inter,sans-serif; font-size:15px; font-weight:500;
   line-height:1.3; letter-spacing:-.015em; color:#fff; }
@@ -1964,6 +2256,9 @@ const CSS = `
    sur le visage, pour que l'encart de l'Expert routine tienne au-dessus de
    la barre flottante (355 px avant, 260 après). Textes inchangés. */
 .lyv-boutique .lyv-encart-pose .lyv-diag-visage{ height:64px; width:100%; aspect-ratio:auto; }
+/* Sorti et resserré (moins de 240 px) : le visage plus bas, pour que
+   l'encart du Diagnostiqueur ne dépasse pas la hauteur de la fiche. */
+#vision-demo .lyv-encart-pose.etroit .lyv-diag-visage{ height:118px; width:100%; aspect-ratio:auto; }
 .lyv-encart-pose .lyv-diag-pilule{ bottom:7px; padding:3px 7px; font-size:5.6px; letter-spacing:.1em; }
 .lyv-encart-pose .lyv-studio figcaption{ font-size:9px; }
 /* Les reproductions de la boutique sont du HTML fixe : on les met à l'échelle. */
@@ -2061,8 +2356,8 @@ const CSS = `
     grid-template-areas:"texte" "visuel" "legende"; }
 }
 @media (max-width:720px){
-  .lyv .lyv-titre{ font-size:28px; line-height:1.15; }
-  .lyv-chapeau{ font-size:15px; }
+  .lyv .lyv-titre{ font-size:24px; line-height:1.15; }
+  .lyv-chapeau{ font-size:15px; line-height:1.6; }
   .lyv .lyv-accroche{ font-size:27px; }
   .lyv-s-chapeau{ font-size:15px; }
   .lyv-benefices li{ font-size:16px; white-space:normal; }
@@ -2075,28 +2370,31 @@ const CSS = `
   /* Au doigt, un peu plus grands qu'à la souris. */
   .lyv-nav button{ width:30px; height:28px; }
 }
-/* Sous 390 px, la tête ne fait plus que 311 px : à 28 px, « Un écosystème
-   d'équipes » n'y tenait plus et « d'équipes » restait seul sur sa ligne
-   (relecture du 10/10). À 26 px, le titre revient sur deux lignes. */
-@media (max-width:389.98px){ .lyv .lyv-titre{ font-size:26px; } }
 /* Sous 768 px, cinq onglets (JP, 12/10) : libellés courts, et la pilule
    défile au doigt quand ils ne tiennent pas tous ; l'onglet ouvert se
    centre (VisionEtages, effet sur \`onglet\`). Où ils tiennent, ils se
    partagent la largeur. */
 @media (max-width:767.98px){
-  .lyv-tabs{ display:flex; width:100%; padding:4px; gap:2px; overflow-x:auto; overscroll-behavior-x:contain;
+  .lyv-tabs{ display:flex; width:100%; padding:4px; gap:0; overflow-x:auto; overscroll-behavior-x:contain;
     scrollbar-width:none; -webkit-overflow-scrolling:touch; scroll-padding:0 4px; }
   .lyv-tabs::-webkit-scrollbar{ display:none; }
-  .lyv-tabs button{ flex:1 0 auto; justify-content:center; height:36px; padding:0 8px; font-size:13px; }
+  /* Les cinq libellés courts tiennent dans la tête dès 375 px (311 px) :
+     12 px, 6 px de marge, sans écart (JP, 13/10 : « Équipes » était coupé). */
+  .lyv-tabs button{ flex:1 1 auto; justify-content:center; height:36px; padding:0 6px; font-size:12px; }
   .lyv-tabn, .lyv-tabl{ display:none; }
   .lyv-tabc{ display:inline; }
   /* Un libellé à moitié sorti de la pilule se fond dans le noir, du côté
      où il en reste à voir : on lit qu'elle défile, pas qu'un mot est coupé. */
   .lyv-tabs::before, .lyv-tabs::after{ content:""; position:sticky; z-index:1; flex:none; width:34px; align-self:stretch;
     pointer-events:none; opacity:0; transition:opacity .2s ease; }
-  .lyv-tabs::before{ left:-4px; margin:-4px -34px -4px -4px; background:linear-gradient(90deg, #000 35%, rgba(0,0,0,0)); }
-  .lyv-tabs::after{ right:-4px; margin:-4px -4px -4px -34px; background:linear-gradient(270deg, #000 35%, rgba(0,0,0,0)); }
+  .lyv-tabs::before{ left:-4px; margin:-4px -34px -4px 0; background:linear-gradient(90deg, #000 35%, rgba(0,0,0,0)); }
+  .lyv-tabs::after{ right:-4px; margin:-4px 0 -4px -34px; background:linear-gradient(270deg, #000 35%, rgba(0,0,0,0)); }
   .lyv-tabs.reste-g::before, .lyv-tabs.reste-d::after{ opacity:1; }
+  /* Quatre onglets (version Entreprises) : ils tiennent dès 320 px, la pilule
+     ne défile pas ; sans les fondus, qui la faisaient dépasser de 2 px et
+     voilaient « Équipes ». */
+  .lyv-tabs.lyv-tabs-4{ overflow:visible; }
+  .lyv-tabs.lyv-tabs-4::before, .lyv-tabs.lyv-tabs-4::after{ display:none; }
 }
 /* À 320 px, 256 px de tête : 22 px. */
 @media (max-width:359.98px){ .lyv .lyv-titre{ font-size:22px; } }

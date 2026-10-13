@@ -47,6 +47,11 @@ import { usePolicesDuSite } from "./lib/polices-du-site";
 /* Accueil repris de lystes.ai/bio (12/10/2026) : chargé à part, pour que
    son poids (thème et blocs de lystes.ai) ne pèse pas sur les autres pages. */
 const AccueilCommeBioPage = lazy(() => import("./pages/AccueilCommeBioPage"));
+/* /agents-ia : l'accueil de lystes.ai repris (13/10/2026). Il partage avec
+   l'accueil une coquille (route parente) : la bascule de l'en-tête passe de
+   l'un à l'autre sans rechargement. */
+const CoquilleLystes = lazy(() => import("./pages/CoquilleLystes"));
+const AgentsIaPage = lazy(() => import("./pages/AgentsIaPage"));
 /* La partie Actus vit dans le même cadre que l’accueil (thème de lystes.ai). */
 const ActusPage = lazy(() => import("./actus/ActusPage"));
 const ArticlePage = lazy(() => import("./actus/ArticlePage"));
@@ -68,7 +73,10 @@ function AppRoutes() {
 
   return (
     <Routes>
-      <Route path="/" element={<Suspense fallback={null}><AccueilCommeBioPage /></Suspense>} />
+      <Route element={<Suspense fallback={null}><CoquilleLystes /></Suspense>}>
+        <Route path="/" element={<Suspense fallback={null}><AccueilCommeBioPage /></Suspense>} />
+        <Route path="/agents-ia" element={<Suspense fallback={null}><AgentsIaPage /></Suspense>} />
+      </Route>
       <Route path="/decouverte" element={<Layout><DecouvertePage /></Layout>} />
       <Route path="/concept" element={<Layout><ConceptPage /></Layout>} />
       <Route path="/chat" element={<Layout><DashboardPage /></Layout>} />
