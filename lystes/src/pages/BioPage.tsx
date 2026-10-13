@@ -14,7 +14,7 @@ import {
 import ResponsabiliteSection from "@lystes/components/bio/ResponsabiliteSection";
 import InstaFeedSection from "@lystes/components/bio/InstaFeedSection";
 import WirtzkinSection from "@lystes/components/bio/WirtzkinSection";
-import HomeHeroVideo, { FilConversation, NB, type HeroVariante, type MsgFil } from "@lystes/features/solutions/HomeHeroVideo";
+import HomeHeroVideo, { NB, type HeroVariante, type MsgFil } from "@lystes/features/solutions/HomeHeroVideo";
 import BioGammes from "@lystes/components/bio/BioGammes";
 import BioFaq from "@lystes/components/bio/BioFaq";
 import VisionEtagesBloc from "@lystes/features/solutions/VisionEtagesBloc";
@@ -144,6 +144,9 @@ const FIL_CONCEPT: MsgFil[] = [
    les gammes réellement présentes au catalogue du laboratoire (moisson du
    10/10/2026) ; le parfum n’y figure pas, il n’est donc pas annoncé. */
 const BIO_HERO = (onProjet: (projet: string) => void): HeroVariante => ({
+  /* La conversation sur la vidéo, comme sur l'accueil (JP, 13/10/2026) ; elle
+     n'est plus un bloc à part dans la section Catalogue. */
+  fil: { messages: FIL_CONCEPT, agent: AGENT_SELECTION },
   aria: "Lancez votre marque cosmétique bio et végane",
   classe: "lyh--bio",
   /* 13/10/2026 (JP, capture de référence) : surtitre court. */
@@ -788,17 +791,6 @@ export default function DecouvertePage() {
               Plus de 100 produits certifiés bio et végan, disponibles sans minimum de commande.
             </motion.p>
           </motion.div>
-
-          {/* 13/10/2026 (JP) : la conversation animée de l'accueil, ici pour
-              la recherche de produits selon le concept de la marque. Photo de
-              fond présente nulle part ailleurs à l'écran sur /bio (le
-              portfolio qui la contient est masqué). Même largeur que la
-              grille du catalogue, juste en dessous. */}
-          <div className="bio-fil relative mb-16 overflow-hidden rounded-2xl bg-muted h-[520px] md:h-[560px]">
-            <img src={kaniwaUgc4} alt="Créatrice de marque cosmétique tenant son flacon" className="absolute inset-0 h-full w-full object-cover object-[30%_30%]" loading="lazy" />
-            <div className="absolute inset-0 bg-gradient-to-l from-black/55 via-black/20 to-transparent" />
-            <FilConversation messages={FIL_CONCEPT} agent={AGENT_SELECTION} className="lyh-chat--cadre" />
-          </div>
 
           {catalogProducts.length > 0 && (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
