@@ -1,7 +1,6 @@
-import { BadgeCheck, Leaf, ShieldCheck, PackageX, FileText, Image as IconeImage, Newspaper, Package, Palette, PenTool, ScanSearch, Star, Store, Truck, Bot, type LucideIcon } from "lucide-react";
+import { BadgeCheck, FileText, Image as IconeImage, Newspaper, Package, Palette, PenTool, ScanSearch, Star, Store, Truck, Bot, type LucideIcon } from "lucide-react";
 import showcaseAmarsi from "@lystes/assets/showcase-amarsi.jpg.asset.json";
 import showcasePeau from "@lystes/assets/showcase-peau.jpg.asset.json";
-import chatFiche from "@lystes/assets/chat.mov.asset.json";
 import ecrin from "@lystes/assets/magazines/ecrin.jpg.asset.json";
 import brume from "@lystes/assets/magazines/brume.jpg.asset.json";
 import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
@@ -25,8 +24,9 @@ import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
  *  - envoi : les colis reçus par nos clientes, repris de /biolystes/rdv
  *    (Sevmylook, Wirtzkin, Amarsi, 235th, Jolie Peau) et le colis Éclose ;
  *  - ecommerce-step : la boutique Kaniwa Botanique ;
- *  - chat.mov : l'agent IA qui répond sur une fiche produit Kaniwa ;
- *  - publicite-social.mov : une publication carrée, au format du feed ;
+ *  - fiche : la fiche de démonstration de l'accueil (public/demo-eclose) ;
+ *  - feed : le feed Sevmylook de biolystes.com/agence ;
+ *  - validation : les produits Lystes & Partners (public/bio-validation) ;
  *  - ecrin et brume : deux magazines beauté du réseau.
  * Jamais le mot « échantillons » (JP, 13/10 : « on vous envoie les produits »).
  * La boutique de démonstration Lystes & Partners n'existe pas en image dans
@@ -40,7 +40,9 @@ export type ProduitGrille = { image: string; nom: string; valide?: boolean };
 export type CarteInci = { photo: string; produit: string; inci: string; surligne: string };
 
 export type MediaEtape = {
-  type: "image" | "video" | "grille" | "inci" | "diptyque" | "diapos";
+  type: "image" | "video" | "grille" | "inci" | "diptyque" | "diapos" | "fiche";
+  /* Type « grille » : le nombre de colonnes (3 par défaut). */
+  colonnes?: number;
   /* Type « diapos » : plusieurs visuels qui défilent, chacun sa légende. */
   diapos?: readonly MediaEtape[];
   intervalle?: number;
@@ -81,29 +83,23 @@ export type OngletBio = {
   etapes: EtapeBio[];
 };
 
-/* L'en-tête de la section : la phrase-choc, les paragraphes, puis les trois
-   points, à plat. Aucun chiffre sourcé n'existe sur la durée d'un lancement :
-   « souvent », jamais « en moyenne ». Les « sans » et les certifications sont
-   ceux que /bio affiche déjà (section « Nos engagements »). */
+/* L'en-tête de la section : la phrase-choc, puis un seul paragraphe, centré
+   comme sur l'accueil (JP, 13/10/2026 : « mets toutes les phrases groupées,
+   il y a trop de texte » ; pas de liste). Aucun chiffre sourcé n'existe sur la
+   durée d'un lancement : « souvent », jamais « en moyenne ». Le texte de JP
+   est mot pour mot jusqu'à « 10 jours » (seuls les apostrophes et les
+   insécables sont posés) ; la dernière phrase reprend les trois anciens
+   points, avec les « sans » et les certifications que /bio affiche déjà
+   (section « Nos engagements »). */
 export const ENTETE_BIO = {
   probleme: ["Lancer une gamme cosmétique prend souvent ", "près d’un an", "."] as const,
-  /* Texte de JP, 13/10/2026, mot pour mot : seuls les apostrophes et les
-     espaces insécables sont posés. */
-  paragraphes: [
-    "Le temps perdu ne se rattrape jamais. Pendant ces 12 mois d’attente, vous ne bâtissez rien\u00a0: ni\u00a0réputation, ni\u00a0communauté, ni\u00a0preuve sociale.",
-    "Le plus grand handicap d’une jeune marque est son manque d’antériorité. Lorsque vous vous lancez enfin, les débuts sont laborieux faute d’historique, ce qui freine considérablement votre progression.",
-    "Avec Biolystes, changez la donne\u00a0: votre marque est opérationnelle en seulement 10\u00a0jours.",
-  ],
-  /* Une icône au trait devant chaque point, comme les listes d'étapes. */
-  icones: [Leaf, ShieldCheck, PackageX] as LucideIcon[],
-  points: [
-    "une formulation bio et végane, sans parabènes, sans silicones et sans PEG",
-    "des certifications reconnues : COSMOS, ECOCERT, ISO 22716, enregistrement CPNP",
-    "aucun stock à acheter, aucun minimum de commande",
-  ],
+  texte:
+    "Le temps perdu ne se rattrape jamais. Pendant ces 12 mois d’attente, vous ne bâtissez rien\u00a0: ni\u00a0réputation, ni\u00a0communauté, ni\u00a0preuve sociale. " +
+    "Le plus grand handicap d’une jeune marque est son manque d’antériorité. Lorsque vous vous lancez enfin, les débuts sont laborieux faute d’historique, ce qui freine considérablement votre progression. " +
+    "Avec Biolystes, changez la donne\u00a0: votre marque est opérationnelle en seulement 10\u00a0jours. " +
+    "Vos formules sont bio et véganes, sans parabènes, sans silicones et sans PEG, certifiées COSMOS et ECOCERT, fabriquées selon la norme ISO\u00a022716 et enregistrées au CPNP, et vous n’achetez aucun stock, sans minimum\u00a0de\u00a0commande.",
 };
 
-const VIDEO = (src: string, legende: readonly [string, string], position?: string): MediaEtape => ({ type: "video", src, legende, position });
 /* La grille de l'étape « Sélection des produits » (JP, 13/10/2026) : des
    produits réels du catalogue, packshots nettoyés sur fond blanc
    (product-images/clean-products, réduits dans public/bio-selection), noms
@@ -247,6 +243,18 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "les produits définitifs, validés après vos tests",
         role: "Après vos tests, nous validons avec vous les produits définitifs de votre gamme.",
         unique: "",
+        /* La même grille que l'étape Sélection, avec les produits finis à la
+           marque de démonstration Lystes & Partners (photos du 11/10/2026,
+           ~/Documents/lystes_ai/photos-clients/lystes/2026-10-11-demo-produits-lystes,
+           packshots de la boutique). Cinq produits différents seulement
+           (huile, nettoyant, concentré AHA, gommage, crème lissante ; le
+           coffret est un assemblage) : grille de quatre, deux par rangée. */
+        media: { type: "grille", src: "", colonnes: 2, produits: [
+          { image: "/bio-validation/huile-omega.webp", nom: "Huile Oméga 6-9", valide: true },
+          { image: "/bio-validation/nettoyant-doux.webp", nom: "Nettoyant doux", valide: true },
+          { image: "/bio-validation/concentre-aha.webp", nom: "Concentré AHA", valide: true },
+          { image: "/bio-validation/exfoliant-volcanique.webp", nom: "Exfoliant volcanique", valide: true },
+        ], legende: ["Lystes & Partners", ", vos produits validés"] },
       },
     ],
   },
@@ -255,7 +263,9 @@ export const ONGLETS_BIO: OngletBio[] = [
     titre: "E-commerce",
     court: "Site",
     etage: "Étape 4 · E-commerce",
-    benefices: [[Store, "Votre boutique en ligne"], [Bot, "Une suite d’agents IA"], [IconeImage, "Un feed Instagram de départ"]],
+    /* Le feed Instagram n'est plus ici (JP, 13/10 : « ça n'a rien à faire
+       là-bas ») : il est traité dans l'onglet Communication. */
+    benefices: [[Store, "Votre boutique en ligne"], [Bot, "Une suite d’agents IA"]],
     accroche: "Une boutique prête à vendre.",
     etapes: [
       {
@@ -270,13 +280,12 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "des agents IA qui répondent à vos clientes, jour et nuit",
         role: "Nous installons notre suite d’agents IA : sur chaque fiche produit, ils répondent à vos clientes jour et nuit, les conseillent et lèvent leurs doutes avant l’achat.",
         unique: "",
-        media: VIDEO(chatFiche.url, ["L’expert produit IA", ", sur une fiche Kaniwa Botanique"], "50% 0%"),
-      },
-      {
-        nom: "Feed Instagram",
-        mission: "un feed prêt à publier, pour bien démarrer",
-        role: "Nous vous fournissons un feed Instagram prêt à publier, pour que votre compte ne démarre pas vide.",
-        unique: "",
+        /* La fiche de démonstration de l'onglet « Vos produits » de
+           l'accueil (public/demo-eclose), la même, montée en iframe : photo
+           de l'huile Lystes & Partners, chat où la conversation se joue,
+           diagnostic, « Pourquoi acheter ce soin ? », avis, questions,
+           actualités et communauté UGC. */
+        media: { type: "fiche", src: "/demo-eclose/index.html", legende: ["L’expert produit IA", ", sur la fiche de votre marque"] },
       },
     ],
   },
@@ -293,7 +302,10 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "vos publications, prêtes à poster",
         role: "Votre feed Instagram : des publications à vos couleurs, prêtes à poster.",
         unique: "",
-        media: VIDEO("/videos/publicite-social.mov", ["Une publication", ", au format du feed"]),
+        /* Le feed réalisé pour Sevmylook, montré sur biolystes.com/agence
+           (biolystes, src/assets/agence-reseaux.jpg) : ses deux premières
+           rangées, sans retouche. */
+        media: PHOTO("/bio-communication/feed-instagram-sevmylook.webp", ["Sevmylook", ", le feed Instagram"], "50% 50%"),
       },
       {
         nom: "Articles de presse",

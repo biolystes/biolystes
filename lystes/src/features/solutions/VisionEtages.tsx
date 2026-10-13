@@ -123,16 +123,10 @@ const TOUS_LES_ONGLETS = [
     benefices: [[ShoppingCart, "Moins d’abandons d’achat"], [UserCheck, "Clientes rassurées avant l’achat"], [BadgeEuro, "Plus de ventes, à trafic égal"]] as [LucideIcon, string][],
     /* Le titre de la section change avec l'onglet : le problème que l'étage résout (JP, 12/10). */
     probleme: ["En moyenne dans le e-commerce, ", "98 % des visiteurs", " repartent sans acheter."],
-    /* Le chapeau finit sur « qui : » et la liste le prolonge : quatre lignes
-       de même construction, à plat, sans repli (JP, 13/10 : « plus digeste »). */
+    /* Le chapeau est une phrase, sans liste à puces (JP, 13/10 : « pas de
+       tabulation, mes phrases »). */
     reponse:
-      "Une question sans réponse, et votre client part chez la concurrence. Sur chaque fiche produit, Lystes place une équipe IA qui\u00a0:",
-    points: [
-      "répond tout de suite à vos clients, jour et nuit",
-      "repère les réponses qui mènent à l’achat",
-      "s’améliore à chaque conversation",
-      "vous signale ce qui bloque la vente",
-    ],
+      "Une question sans réponse, et votre client part chez la concurrence. Sur chaque fiche produit, Lystes place une équipe IA qui, jour et nuit, répond tout de suite à vos clients, repère les réponses qui mènent à l’achat, s’améliore à chaque conversation et vous signale ce qui bloque la vente.",
     accroche: "Une équipe de\n10 agents IA par produit,\npour déclencher l’achat.",
     chapeau:
       "Pour chaque produit, des collaborateurs IA disponibles 24 h sur 24 et 7 jours sur 7, qui s’adaptent seuls pour faire vendre davantage.",
@@ -146,13 +140,7 @@ const TOUS_LES_ONGLETS = [
     benefices: [[MessageCircle, "Un conseil sur chaque page"], [Target, "Le bon produit, à chaque besoin"], [Clock, "Une réponse, jour et nuit"]] as [LucideIcon, string][],
     probleme: ["En moyenne, ", "2 visiteurs sur 3", " ont besoin d’un conseil pour acheter."],
     reponse:
-      "Sans accompagnement, ils repartent sans savoir quel produit leur convient. Sur toute votre boutique, Lystes place une équipe IA qui\u00a0:",
-    points: [
-      "oriente chaque visiteur vers le bon produit, comme une vendeuse",
-      "compose la routine ou la tenue adaptée",
-      "répond à tout, depuis n’importe quelle page",
-      "suggère le bon complément au panier",
-    ],
+      "Sans accompagnement, ils repartent sans savoir quel produit leur convient. Sur toute votre boutique, Lystes place une équipe IA qui, comme une vendeuse, oriente chaque visiteur vers le bon produit, compose la routine ou la tenue adaptée, répond à tout depuis n’importe quelle page et suggère le bon complément au panier.",
     accroche: "Une équipe IA pour toute la boutique, pour guider chaque visiteuse.",
     chapeau:
       "Une barre flottante sur chaque page, et des agents qui connaissent tout votre catalogue. Ajoutez un produit au panier : tous les agents le savent.",
@@ -166,13 +154,7 @@ const TOUS_LES_ONGLETS = [
     benefices: [[Filter, "Des visiteurs déjà convaincus"], [Star, "Des avis et une FAQ qui vendent"], [Link2, "Chaque lien suivi jusqu’à l’achat"]] as [LucideIcon, string][],
     probleme: ["Un visiteur bien accueilli ", "avant le site", " achète plus."],
     reponse:
-      "Instagram, une newsletter, un avis ou ChatGPT\u00a0: vos outils font le premier contact. Sur la page lystes.ai de votre marque, chaque outil a son agent IA, qui\u00a0:",
-    points: [
-      "préqualifie le visiteur avant votre site",
-      "l’amène jusqu’au bon produit",
-      "fait de vos avis et de votre FAQ des arguments de vente",
-      "suit chaque lien jusqu’à l’achat",
-    ],
+      "Instagram, une newsletter, un avis ou ChatGPT\u00a0: vos outils font le premier contact. Sur la page lystes.ai de votre marque, chaque outil a son agent IA, qui préqualifie le visiteur avant votre site, l’amène jusqu’au bon produit, fait de vos avis et de votre FAQ des arguments de vente et suit chaque lien jusqu’à l’achat.",
     accroche: "8 outils pilotés par des agents IA, pour attirer des visiteurs prêts à acheter.",
     chapeau:
       "Multi-lien, avis, magazine, FAQ, paiement et contact, réunis sur la page lystes.ai de votre marque. Chaque outil a son agent, relié aux autres agents de votre espace.",
@@ -186,13 +168,7 @@ const TOUS_LES_ONGLETS = [
     benefices: [[Gauge, "Le chiffre à viser, chaque mois"], [ListChecks, "Un plan d’action chiffré"], [Users, "Les bons experts, en un clic"]] as [LucideIcon, string][],
     probleme: ["Un écosystème de plusieurs équipes IA, ", "en 5 min", "."],
     reponse:
-      "Des centaines de collaborateurs IA, autonomes ou semi-autonomes, répartis en équipes qui se parlent. Pour votre entreprise, Lystes réunit des agences IA qui\u00a0:",
-    points: [
-      "vous donnent le chiffre à viser, chaque mois",
-      "tirent de vos données un plan d’action chiffré",
-      "repèrent dans vos conversations où vos clients bloquent",
-      "tiennent vos réseaux, vos campagnes et vos visuels",
-    ],
+      "Des centaines de collaborateurs IA, autonomes ou semi-autonomes, répartis en équipes qui se parlent. Pour votre entreprise, Lystes réunit des agences IA qui vous donnent chaque mois le chiffre à viser, tirent de vos données un plan d’action chiffré, repèrent dans vos conversations où vos clients bloquent et tiennent vos réseaux, vos campagnes et vos visuels.",
     accroche: "Des agences IA au complet, pour faire grandir votre marque.",
     chapeau:
       "Pour développer vos ventes, votre communication et votre marketing : des équipes IA qui partent du cerveau de votre espace.",
@@ -207,13 +183,7 @@ const TOUS_LES_ONGLETS = [
     benefices: [[Network, "Un organigramme par produit"], [Brain, "Un seul cerveau pour tous vos agents"], [BookOpen, "Votre marque expliquée une seule fois"]] as [LucideIcon, string][],
     probleme: ["Un outil IA isolé ", "ne sait rien", " de votre marque."],
     reponse:
-      "À chaque nouvel outil, il faut réexpliquer vos produits, vos clientes et votre ton. Lystes range vos agents en équipes qui\u00a0:",
-    points: [
-      "ont chacune leur directeur",
-      "s’organisent produit par produit",
-      "lisent toutes le même cerveau de marque, Brand AI",
-      "grandissent avec votre catalogue",
-    ],
+      "À chaque nouvel outil, il faut réexpliquer vos produits, vos clientes et votre ton. Lystes range vos agents en équipes qui ont chacune leur directeur, s’organisent produit par produit, lisent toutes le même cerveau de marque (Brand AI) et grandissent avec votre catalogue.",
     accroche: "Des équipes IA organisées comme une entreprise, pour parler de votre marque d’une seule voix.",
     chapeau:
       "Un organigramme qui grandit avec votre catalogue, et Brand AI, le cerveau que tous vos agents consultent.",
@@ -244,12 +214,8 @@ type Onglet = {
   benefices: readonly (readonly [LucideIcon, string])[];
   probleme: readonly [string, string, string];
   reponse: string;
-  /* Plusieurs paragraphes à la place du chapeau (/bio). */
-  paragraphes?: readonly string[];
   /* La liste sous le chapeau, quand il finit par « qui : ». */
   points?: readonly string[];
-  /* Une icône devant chaque point (/bio). */
-  icones?: readonly LucideIcon[];
   accroche: string;
   chapeau: string;
   /* Les étapes de /bio, chacune avec son visuel, à la place des agents. */
@@ -319,10 +285,7 @@ const ONGLETS_CORPORATE: Onglet[] = [
 const ONGLETS_BIO_VUE: Onglet[] = ONGLETS_BIO.map((o) => ({
   ...o,
   probleme: ENTETE_BIO.probleme,
-  reponse: "",
-  paragraphes: ENTETE_BIO.paragraphes,
-  points: ENTETE_BIO.points,
-  icones: ENTETE_BIO.icones,
+  reponse: ENTETE_BIO.texte,
   chapeau: "",
 }));
 
@@ -1521,6 +1484,85 @@ const CHARGER_VISITE = {
 type IdVisite = keyof typeof CHARGER_VISITE;
 const estVisite = (id: string): id is IdVisite => id in CHARGER_VISITE;
 
+/* /bio : la fiche de démonstration de l'accueil, en iframe. La fiche écrit
+   sa hauteur réduite dans data-hauteur (demo-eclose/demo.js) : le cadre la
+   suit, sans bande blanche dessous. */
+function FicheDemo({ src }: { src: string }) {
+  const ref = useRef<HTMLIFrameElement>(null);
+  const [hauteur, setHauteur] = useState<number | null>(null);
+  useEffect(() => {
+    const lire = () => {
+      try {
+        const h = Number(ref.current?.contentDocument?.documentElement.getAttribute("data-hauteur"));
+        if (h > 0) setHauteur((v) => (v === h ? v : h));
+      } catch { /* autre origine : le format par défaut reste */ }
+    };
+    lire();
+    const id = window.setInterval(lire, 500);
+    return () => window.clearInterval(id);
+  }, []);
+  return (
+    <iframe ref={ref} src={src} className="lyv-fiche-ecran" loading="lazy"
+      style={hauteur ? { height: hauteur, aspectRatio: "auto" } : undefined}
+      title="Fiche produit de démonstration : l’expert produit IA au travail" />
+  );
+}
+
+/* /bio : le carrousel d'une étape à plusieurs visuels (JP, 13/10/2026 :
+   « un carrousel plutôt »). Les visuels glissent, la suivante dépasse de
+   15 % ; des points de pagination ; le doigt fait glisser (défilement natif
+   aimanté). L'avance automatique est pilotée par la scène (`index`) ; un
+   glissé à la main remonte l'index par `choisir`. Le même composant sert au
+   packaging Cléa et aux colis reçus. */
+function CarrouselBio({ diapos, index, choisir }: { diapos: readonly MediaEtape[]; index: number; choisir: (i: number) => void }) {
+  const piste = useRef<HTMLDivElement>(null);
+  const indexRef = useRef(index);
+  indexRef.current = index;
+  /* L'index change : la piste glisse jusqu'à la diapositive. */
+  useEffect(() => {
+    const el = piste.current;
+    const d = el?.children[index] as HTMLElement | undefined;
+    if (!el || !d) return;
+    el.scrollTo({ left: d.offsetLeft - el.offsetLeft, behavior: "smooth" });
+  }, [index]);
+  /* Un glissé à la main : l'index suit la diapositive arrivée au bord. */
+  useEffect(() => {
+    const el = piste.current;
+    if (!el) return;
+    let t = 0;
+    const fin = () => {
+      const kids = [...el.children] as HTMLElement[];
+      let mieux = 0;
+      kids.forEach((k, i) => {
+        if (Math.abs(k.offsetLeft - el.offsetLeft - el.scrollLeft) < Math.abs(kids[mieux].offsetLeft - el.offsetLeft - el.scrollLeft)) mieux = i;
+      });
+      if (mieux !== indexRef.current) choisir(mieux);
+    };
+    const defile = () => { window.clearTimeout(t); t = window.setTimeout(fin, 140); };
+    el.addEventListener("scroll", defile, { passive: true });
+    return () => { el.removeEventListener("scroll", defile); window.clearTimeout(t); };
+  }, [choisir]);
+  return (
+    <div className="lyv-carrousel">
+      <div className="lyv-carrousel-piste" ref={piste}>
+        {diapos.map((d, i) => (
+          <div className="lyv-carrousel-diapo" key={d.src + i} style={{ "--lyv-pos": d.position ?? "50% 50%" } as CSSProperties}>
+            {d.type === "video"
+              ? <SafeVideo src={d.src} poster={d.affiche} className="lyv-carrousel-el" />
+              : <img src={d.src} alt={d.legende.join("")} className="lyv-carrousel-el" loading="lazy" decoding="async" />}
+          </div>
+        ))}
+      </div>
+      <div className="lyv-carrousel-points" role="tablist" aria-label="Visuels de l’étape">
+        {diapos.map((d, i) => (
+          <button key={d.src + i} type="button" role="tab" aria-selected={i === index} aria-label={`Visuel ${i + 1} sur ${diapos.length}`}
+            className={i === index ? "on" : undefined} onClick={() => choisir(i)} />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte, legende, visuel, pastilles, apres, demo }: Props) {
   const corpo = secteur === "corporate";
   const bio = secteur === "bio";
@@ -1611,9 +1653,10 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
   useEffect(() => { setDiapo(0); }, [cle]);
   useEffect(() => {
     if (nbDiapos < 2 || !lecture) return;
-    const id = window.setInterval(() => setDiapo((d) => (d + 1) % nbDiapos), intervalleDiapos);
-    return () => window.clearInterval(id);
-  }, [nbDiapos, lecture, intervalleDiapos, cle]);
+    /* Un délai par diapositive : après un glissé au doigt, le compte repart. */
+    const id = window.setTimeout(() => setDiapo((d) => (d + 1) % nbDiapos), intervalleDiapos);
+    return () => window.clearTimeout(id);
+  }, [nbDiapos, lecture, intervalleDiapos, cle, diapo]);
 
   const ongletId = courant.id;
   const annoncerTaille = useCallback((t: TailleCadre) => {
@@ -1938,35 +1981,16 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
   return (
     <>
       {createPortal(
-        <div className="lyv lyv-tete">
+        <div className="lyv lyv-tete lyv-tete-centre">
           <style>{CSS}</style>
           <h2 className="lyv-titre" aria-live="polite">
             {courant.probleme[0]}<span className="lyv-elu">{courant.probleme[1]}</span>{courant.probleme[2]}
           </h2>
-          {courant.paragraphes ? (
-            /* /bio : paragraphes et points sur une même largeur, sans
-               équilibrage par paragraphe (JP, 13/10 : le premier cassait
-               après « vous ne » à 1440, plus étroit que le deuxième). */
-            <div className="lyv-intro">
-              {courant.paragraphes.map((p) => <p key={p} className="lyv-chapeau">{p}</p>)}
-              {courant.points && (
-                <ul className="lyv-points lyv-points-icones">
-                  {courant.points.map((p, i) => {
-                    const Icone = courant.icones?.[i];
-                    return <li key={p}>{Icone && <Icone size={18} strokeWidth={1.5} aria-hidden="true" />}<span>{p}</span></li>;
-                  })}
-                </ul>
-              )}
-            </div>
-          ) : (
-            <>
-              <p className="lyv-chapeau">{courant.reponse}</p>
-              {courant.points && (
-                <ul className="lyv-points">
-                  {courant.points.map((p) => <li key={p}>{p}</li>)}
-                </ul>
-              )}
-            </>
+          <p className="lyv-chapeau">{courant.reponse}</p>
+          {courant.points && (
+            <ul className="lyv-points">
+              {courant.points.map((p) => <li key={p}>{p}</li>)}
+            </ul>
           )}
           <div className={"lyv-tabs" + (corpo ? " lyv-tabs-4" : "")} role="tablist" aria-label={bio ? "Les étapes de création de votre marque" : "Les étages de Lystes"}>
             {ONGLETS.map((o, i) => (
@@ -2117,15 +2141,18 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
             return (
               <>
                 <div className="lyv-cadre">
-                  <div className="lyv-media" style={{ "--lyv-pos": m?.position ?? "50% 50%" } as CSSProperties}>
-                    {m?.type === "grille" && m.produits
+                  <div className={m?.type === "fiche" ? "lyv-media lyv-media-fiche" : "lyv-media"} style={{ "--lyv-pos": m?.position ?? "50% 50%" } as CSSProperties}>
+                    {m0?.type === "diapos" && m0.diapos?.length
+                      ? <CarrouselBio diapos={m0.diapos} index={diapo % m0.diapos.length} choisir={setDiapo} />
+                      : m?.type === "grille" && m.produits
                       ? (
                         /* La sélection : trois produits par rangée ; les badges
                            des produits retenus viennent un par un, comme si on
                            cochait (JP, 13/10/2026). Les autres restent tels
                            quels, sans croix. La clé relance l'animation à
                            chaque passage sur l'étape. */
-                        <ul className="lyv-grille" key={cle} aria-label="Une sélection de produits du catalogue">
+                        <ul className="lyv-grille" key={cle} aria-label="Une sélection de produits"
+                          style={{ "--lyv-cols": m.colonnes ?? 3, "--lyv-rangs": Math.ceil(m.produits.length / (m.colonnes ?? 3)) } as CSSProperties}>
                           {m.produits.map((p, i) => {
                             const rang = m.produits!.slice(0, i).filter((x) => x.valide).length;
                             return (
@@ -2177,6 +2204,13 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
                           </div>
                         </>
                       )
+                      : m?.type === "fiche"
+                      ? (
+                        /* La fiche de démonstration de l'accueil, la même
+                           (public/demo-eclose) : elle se réduit seule à la
+                           largeur du cadre et joue sa conversation. */
+                        <FicheDemo key={m.src} src={m.src} />
+                      )
                       : m?.type === "diptyque" && m.images
                       ? (
                         /* Deux photos côte à côte, de même hauteur (JP, 13/10). */
@@ -2226,6 +2260,10 @@ const CSS = `
 /* Titre, chapeau et liste alignés à gauche, onglets sur toute la largeur
    (JP, 13/10 : la mise en page qu'il a essayée dans son navigateur). */
 .lyv-tete{ margin:0; text-align:left; }
+/* Accueil : titre et phrase centrés (JP, 13/10) ; /bio garde son alignement à gauche. */
+.lyv-tete-centre{ text-align:center; }
+.lyv-tete-centre .lyv-chapeau{ max-width:780px; margin-left:auto; margin-right:auto; }
+.lyv-tete-centre .lyv-elu{ padding:0 6px; margin:0 -6px; }
 .lyv .lyv-titre{ font-family:'Bricolage Grotesque','SF Pro Display',Inter,sans-serif; font-weight:400; font-size:51px; line-height:1.1;
   letter-spacing:-.025em; color:#171717; margin:0; text-wrap:balance; }
 .lyv-elu{ background:linear-gradient(transparent 12%, var(--lyv-elu) 12%, var(--lyv-elu) 94%, transparent 94%);
@@ -2462,6 +2500,24 @@ const CSS = `
   .lyv-inci-debut{ display:none; }
   .lyv-inci-points{ display:inline; }
 }
+/* La fiche de démonstration : son propre format (1286 × 1290), sans le
+   recadrage des photos. */
+.lyv-media.lyv-media-fiche{ aspect-ratio:auto; }
+.lyv-fiche-ecran{ display:block; width:100%; aspect-ratio:1286 / 1000; border:0; background:#fff; }
+/* Le carrousel : la diapositive fait 85 % de la largeur, la suivante
+   dépasse ; défilement aimanté, sans barre ; points en bas, au centre. */
+.lyv-carrousel{ position:absolute; inset:0; }
+.lyv-carrousel-piste{ position:absolute; inset:0; display:flex; gap:8px; overflow-x:auto; scroll-snap-type:x mandatory;
+  scrollbar-width:none; overscroll-behavior-x:contain; background:#f3f4f5; }
+.lyv-carrousel-piste::-webkit-scrollbar{ display:none; }
+.lyv-carrousel-diapo{ position:relative; flex:0 0 85%; height:100%; scroll-snap-align:start; border-radius:14px; overflow:hidden; background:#fff; }
+.lyv-carrousel-el{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:var(--lyv-pos, 50% 50%); display:block; }
+.lyv-carrousel-points{ position:absolute; left:0; right:15%; bottom:10px; display:flex; justify-content:center; gap:6px; pointer-events:none; }
+.lyv-carrousel-points button{ pointer-events:auto; width:7px; height:7px; padding:0; border:0; border-radius:999px; background:rgba(255,255,255,.6);
+  box-shadow:0 0 0 1px rgba(0,0,0,.08); cursor:pointer; transition:width .25s ease, background .25s ease; }
+.lyv-carrousel-points button.on{ width:18px; background:#fff; }
+.lyv-carrousel-points button:focus-visible{ outline:2px solid #000; outline-offset:2px; }
+@media (max-width:720px){ .lyv-carrousel-diapo{ border-radius:10px; } .lyv-carrousel-piste{ gap:6px; } }
 /* Le diptyque : deux colonnes de même hauteur, petit écart, coins arrondis. */
 .lyv-diptyque{ position:absolute; inset:0; display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:0; background:#f3f4f5; }
 .lyv-diptyque img{ width:100%; height:100%; object-fit:cover; object-position:50% 45%; border-radius:14px; display:block; min-width:0; }
@@ -2469,8 +2525,8 @@ const CSS = `
 /* La grille de sélection : trois colonnes, deux rangées, dans le même cadre
    que les photos. Le badge : rond pistache (l'élu de la maison), coche
    noire, liseré blanc comme le point de la visite. */
-.lyv-grille{ position:absolute; inset:0; list-style:none; margin:0; padding:14px; display:grid; grid-template-columns:repeat(3, minmax(0, 1fr));
-  grid-template-rows:repeat(2, minmax(0, 1fr)); gap:10px; }
+.lyv-grille{ position:absolute; inset:0; list-style:none; margin:0; padding:14px; display:grid; grid-template-columns:repeat(var(--lyv-cols, 3), minmax(0, 1fr));
+  grid-template-rows:repeat(var(--lyv-rangs, 2), minmax(0, 1fr)); gap:10px; }
 .lyv-grille li{ display:flex; flex-direction:column; gap:6px; min-width:0; min-height:0; }
 .lyv-grille-photo{ position:relative; flex:1; min-height:0; border-radius:10px; overflow:hidden; background:#f3f4f5; }
 .lyv-grille-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 50%; display:block; }
@@ -2530,13 +2586,6 @@ const CSS = `
 .lyv-points{ list-style:none; margin:20px 0 0; padding:0; }
 .lyv-points li{ padding:12px 0; font-size:15px; line-height:1.55; color:var(--lyv-encre); }
 .lyv-points li + li{ border-top:1px solid rgba(241,241,241,.75); }
-/* /bio : une seule largeur pour les paragraphes et les points de l'en-tête,
-   et un remplissage « pretty » plutôt qu’équilibré, paragraphe par paragraphe.
-   760 px : le deuxième paragraphe (744 px) tient sur une ligne à 1440. */
-.lyv-intro{ max-width:760px; }
-.lyv-intro .lyv-chapeau{ text-wrap:pretty; }
-.lyv-points-icones li{ display:flex; align-items:flex-start; gap:10px; }
-.lyv-points-icones svg{ flex:none; width:18px; height:18px; margin-top:2px; color:var(--lyv-encre); }
 .lyv-page-img{ position:relative; border-radius:14px; overflow:hidden; background:#fff; aspect-ratio:1200 / 750; }
 .lyv-page-img img{ width:100%; height:100%; object-fit:cover; display:block; }
 .lyv-url{ position:absolute; left:10px; bottom:10px; background:#000; color:#fff; border-radius:8px; padding:5px 9px;
