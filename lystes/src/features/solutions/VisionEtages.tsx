@@ -6,6 +6,7 @@ import { FaceMeshScanner } from "@lystes/features/landing-particuliers/component
 import diagnosticFace from "@lystes/features/landing-particuliers/pages/diagnostic-agent/assets/diagnostic-face.jpg";
 import { demanderMaillage } from "@lystes/lib/mediapipe-sur";
 import SafeVideo from "@lystes/components/bio/SafeVideo";
+import { ChevronsCarrousel } from "./ChevronsCarrousel";
 import { ENTETE_BIO, ONGLETS_BIO, type EtapeBio, type MediaEtape } from "./vision/etapesBio";
 
 /**
@@ -216,6 +217,8 @@ type Onglet = {
   reponse: string;
   /* La liste sous le chapeau, quand il finit par « qui : ». */
   points?: readonly string[];
+  /* /bio : une icône par point ; les points passent en carrousel d'une ligne. */
+  icones?: readonly LucideIcon[];
   accroche: string;
   chapeau: string;
   /* Les étapes de /bio, chacune avec son visuel, à la place des agents. */
@@ -286,6 +289,8 @@ const ONGLETS_BIO_VUE: Onglet[] = ONGLETS_BIO.map((o) => ({
   ...o,
   probleme: ENTETE_BIO.probleme,
   reponse: ENTETE_BIO.texte,
+  points: ENTETE_BIO.points,
+  icones: ENTETE_BIO.icones,
   chapeau: "",
 }));
 
@@ -1484,6 +1489,40 @@ const CHARGER_VISITE = {
 type IdVisite = keyof typeof CHARGER_VISITE;
 const estVisite = (id: string): id is IdVisite => id in CHARGER_VISITE;
 
+/* /bio : les trois points de l'en-tête en carrousel d'une ligne (JP,
+   13/10/2026) : un point à la fois, icône et texte court, puis les flèches
+   ‹ › de la bannière (ChevronsCarrousel), juste à droite du texte.
+   Défilement lent, flèches, glissé au doigt. */
+function PointsCarrousel({ points, icones }: { points: readonly string[]; icones: readonly LucideIcon[] }) {
+  const [i, setI] = useState(0);
+  const [pause, setPause] = useState(false);
+  const n = points.length;
+  const aller = useCallback((pas: number) => setI((v) => (v + pas + n) % n), [n]);
+  useEffect(() => {
+    if (pause || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setTimeout(() => aller(1), 4500);
+    return () => window.clearTimeout(id);
+  }, [i, pause, aller]);
+  const depart = useRef<number | null>(null);
+  const Icone = icones[i];
+  return (
+    <div className="lyv-pc" onPointerEnter={(e) => { if (e.pointerType === "mouse") setPause(true); }} onPointerLeave={() => setPause(false)}
+      onTouchStart={(e) => { depart.current = e.touches[0].clientX; }}
+      onTouchEnd={(e) => {
+        const d = depart.current === null ? 0 : e.changedTouches[0].clientX - depart.current;
+        depart.current = null;
+        if (Math.abs(d) > 30) aller(d < 0 ? 1 : -1);
+      }}>
+      <p className="lyv-pc-point" key={i} aria-live="polite">
+        {Icone && <Icone size={18} strokeWidth={1.5} aria-hidden="true" />}
+        <span>{points[i]}</span>
+      </p>
+      <ChevronsCarrousel className="lyv-pc-chevs" libellePrecedent="Point précédent" libelleSuivant="Point suivant"
+        precedent={() => aller(-1)} suivant={() => aller(1)} />
+    </div>
+  );
+}
+
 /* /bio : la fiche de démonstration de l'accueil, en iframe. La fiche écrit
    sa hauteur réduite dans data-hauteur (demo-eclose/demo.js) : le cadre la
    suit, sans bande blanche dessous. */
@@ -1514,16 +1553,45 @@ function FicheDemo({ src }: { src: string }) {
    aimanté). L'avance automatique est pilotée par la scène (`index`) ; un
    glissé à la main remonte l'index par `choisir`. Le même composant sert au
    packaging Cléa et aux colis reçus. */
-function CarrouselBio({ diapos, index, choisir }: { diapos: readonly MediaEtape[]; index: number; choisir: (i: number) => void }) {
+function CarrouselBio({ diapos, index, choisir, trio, annoncer }: {
+  diapos: readonly MediaEtape[];
+  index: number;
+  choisir: (i: number) => void;
+  /* Trois à la fois sur ordinateur, une et demie sur téléphone ; le nom de
+     chaque visuel est écrit dessus. */
+  trio?: boolean;
+  /* Le nombre de positions réelles de la piste (moins que de visuels quand
+     plusieurs se voient à la fois). */
+  annoncer: (n: number) => void;
+}) {
   const piste = useRef<HTMLDivElement>(null);
   const indexRef = useRef(index);
   indexRef.current = index;
+  const [positions, setPositions] = useState(diapos.length);
+  /* Les positions : les diapositives dont le bord gauche est atteignable,
+     plus la butée de fin. */
+  useEffect(() => {
+    const el = piste.current;
+    if (!el) return;
+    const mesurer = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      const kids = [...el.children] as HTMLElement[];
+      const atteint = kids.filter((k) => k.offsetLeft - kids[0].offsetLeft < max - 2).length;
+      const n = Math.max(1, Math.min(kids.length, atteint + 1));
+      setPositions(n);
+      annoncer(n);
+    };
+    mesurer();
+    const ro = new ResizeObserver(mesurer);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [annoncer, diapos.length]);
   /* L'index change : la piste glisse jusqu'à la diapositive. */
   useEffect(() => {
     const el = piste.current;
     const d = el?.children[index] as HTMLElement | undefined;
     if (!el || !d) return;
-    el.scrollTo({ left: d.offsetLeft - el.offsetLeft, behavior: "smooth" });
+    el.scrollTo({ left: d.offsetLeft - (el.children[0] as HTMLElement).offsetLeft, behavior: "smooth" });
   }, [index]);
   /* Un glissé à la main : l'index suit la diapositive arrivée au bord. */
   useEffect(() => {
@@ -1532,10 +1600,13 @@ function CarrouselBio({ diapos, index, choisir }: { diapos: readonly MediaEtape[
     let t = 0;
     const fin = () => {
       const kids = [...el.children] as HTMLElement[];
+      const x0 = kids[0].offsetLeft;
       let mieux = 0;
       kids.forEach((k, i) => {
-        if (Math.abs(k.offsetLeft - el.offsetLeft - el.scrollLeft) < Math.abs(kids[mieux].offsetLeft - el.offsetLeft - el.scrollLeft)) mieux = i;
+        if (Math.abs(k.offsetLeft - x0 - el.scrollLeft) < Math.abs(kids[mieux].offsetLeft - x0 - el.scrollLeft)) mieux = i;
       });
+      if (el.scrollLeft >= el.scrollWidth - el.clientWidth - 2) mieux = Math.max(mieux, kids.filter((k) => k.offsetLeft - x0 < el.scrollWidth - el.clientWidth - 2).length);
+      mieux = Math.min(mieux, kids.length - 1);
       if (mieux !== indexRef.current) choisir(mieux);
     };
     const defile = () => { window.clearTimeout(t); t = window.setTimeout(fin, 140); };
@@ -1543,22 +1614,25 @@ function CarrouselBio({ diapos, index, choisir }: { diapos: readonly MediaEtape[
     return () => { el.removeEventListener("scroll", defile); window.clearTimeout(t); };
   }, [choisir]);
   return (
-    <div className="lyv-carrousel">
+    <div className={"lyv-carrousel" + (trio ? " lyv-carrousel-trio" : "")}>
       <div className="lyv-carrousel-piste" ref={piste}>
         {diapos.map((d, i) => (
           <div className="lyv-carrousel-diapo" key={d.src + i} style={{ "--lyv-pos": d.position ?? "50% 50%" } as CSSProperties}>
             {d.type === "video"
               ? <SafeVideo src={d.src} poster={d.affiche} className="lyv-carrousel-el" />
               : <img src={d.src} alt={d.legende.join("")} className="lyv-carrousel-el" loading="lazy" decoding="async" />}
+            {trio && d.legende[0] && <span className="lyv-carrousel-nom">{d.legende[0]}</span>}
           </div>
         ))}
       </div>
-      <div className="lyv-carrousel-points" role="tablist" aria-label="Visuels de l’étape">
-        {diapos.map((d, i) => (
-          <button key={d.src + i} type="button" role="tab" aria-selected={i === index} aria-label={`Visuel ${i + 1} sur ${diapos.length}`}
-            className={i === index ? "on" : undefined} onClick={() => choisir(i)} />
-        ))}
-      </div>
+      {positions > 1 && (
+        <div className="lyv-carrousel-points" role="tablist" aria-label="Visuels de l’étape">
+          {Array.from({ length: positions }, (_, i) => (
+            <button key={i} type="button" role="tab" aria-selected={i === Math.min(index, positions - 1)} aria-label={`Position ${i + 1} sur ${positions}`}
+              className={i === Math.min(index, positions - 1) ? "on" : undefined} onClick={() => choisir(i)} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
@@ -1647,7 +1721,8 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
   /* /bio : une étape à plusieurs visuels les fait défiler au rythme de la
      jauge (en pause avec elle), et repart du premier à chaque passage. */
   const mediaCourant = courant.etapes ? mediaEtape(courant.etapes, etape) : undefined;
-  const nbDiapos = mediaCourant?.type === "diapos" ? mediaCourant.diapos?.length ?? 0 : 0;
+  const [positionsDiapos, setPositionsDiapos] = useState(0);
+  const nbDiapos = mediaCourant?.type === "diapos" ? positionsDiapos || mediaCourant.diapos?.length || 0 : 0;
   const intervalleDiapos = mediaCourant?.intervalle ?? 3000;
   const [diapo, setDiapo] = useState(0);
   useEffect(() => { setDiapo(0); }, [cle]);
@@ -1987,7 +2062,9 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
             {courant.probleme[0]}<span className="lyv-elu">{courant.probleme[1]}</span>{courant.probleme[2]}
           </h2>
           <p className="lyv-chapeau">{courant.reponse}</p>
-          {courant.points && (
+          {courant.points && courant.icones ? (
+            <PointsCarrousel points={courant.points} icones={courant.icones} />
+          ) : courant.points && (
             <ul className="lyv-points">
               {courant.points.map((p) => <li key={p}>{p}</li>)}
             </ul>
@@ -2137,13 +2214,14 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
               sur téléphone, la ligne d'étapes et l'encart. */}
           {courant.etapes && pied && (() => {
             const m0 = mediaEtape(courant.etapes, etape);
-            const m = m0?.type === "diapos" && m0.diapos?.length ? m0.diapos[diapo % m0.diapos.length] : m0;
+            const m = m0?.type === "diapos" && !m0.trio && m0.diapos?.length ? m0.diapos[diapo % m0.diapos.length] : m0;
             return (
               <>
                 <div className="lyv-cadre">
-                  <div className={m?.type === "fiche" ? "lyv-media lyv-media-fiche" : "lyv-media"} style={{ "--lyv-pos": m?.position ?? "50% 50%" } as CSSProperties}>
+                  <div className={"lyv-media" + (m?.type === "fiche" ? " lyv-media-fiche" : "") + (m0?.type === "diapos" && m0.trio ? " lyv-media-trio" : "")} style={{ "--lyv-pos": m?.position ?? "50% 50%" } as CSSProperties}>
                     {m0?.type === "diapos" && m0.diapos?.length
-                      ? <CarrouselBio diapos={m0.diapos} index={diapo % m0.diapos.length} choisir={setDiapo} />
+                      ? <CarrouselBio key={courant.id + etape} diapos={m0.diapos} index={diapo % m0.diapos.length} choisir={setDiapo}
+                          trio={m0.trio} annoncer={setPositionsDiapos} />
                       : m?.type === "grille" && m.produits
                       ? (
                         /* La sélection : trois produits par rangée ; les badges
@@ -2210,13 +2288,6 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
                            (public/demo-eclose) : elle se réduit seule à la
                            largeur du cadre et joue sa conversation. */
                         <FicheDemo key={m.src} src={m.src} />
-                      )
-                      : m?.type === "diptyque" && m.images
-                      ? (
-                        /* Deux photos côte à côte, de même hauteur (JP, 13/10). */
-                        <div className="lyv-diptyque">
-                          {m.images.map((src) => <img key={src} src={src} alt="" loading="lazy" decoding="async" />)}
-                        </div>
                       )
                       : m?.type === "video"
                       ? <SafeVideo key={m.src} src={m.src} poster={m.affiche} className="lyv-media-el" />
@@ -2500,6 +2571,26 @@ const CSS = `
   .lyv-inci-debut{ display:none; }
   .lyv-inci-points{ display:inline; }
 }
+/* Les trois points de /bio : une ligne centrée, le point puis les flèches
+   ‹ › (ChevronsCarrousel, mêmes classes que la bannière, en encre ici). */
+.lyv-pc{ display:flex; justify-content:center; align-items:center; gap:6px; margin:14px auto 0; max-width:780px; touch-action:pan-y; }
+.lyv-pc-point{ display:inline-flex; align-items:center; gap:8px; margin:0; font-size:15px; line-height:1.4; color:#000; white-space:nowrap;
+  animation:lyv-apparait .4s ease both; }
+.lyv-pc-point svg{ flex:none; width:18px; height:18px; color:var(--lyv-encre); }
+.lyv-pc .lyh-install-chevs{ display:flex; align-items:center; gap:4px; flex:none; }
+.lyv-pc .lyh-install-chev{ display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; padding:0; border:0;
+  background:transparent; color:#000; opacity:.55; cursor:pointer; transition:opacity .2s; }
+.lyv-pc .lyh-install-chev:hover{ opacity:1; }
+.lyv-pc .lyh-install-chev svg{ width:16px; height:16px; display:block; }
+.lyv-pc .lyh-install-chev:focus-visible{ outline:2px solid #000; outline-offset:2px; border-radius:4px; }
+/* À 375, le plus long point (« Aucun stock, aucun minimum de commande »)
+   et ses flèches tiennent sur une ligne de 343 px à 13 px. */
+@media (max-width:720px){ .lyv-pc-point{ font-size:13px; gap:6px; } .lyv-pc-point svg{ width:16px; height:16px; } .lyv-pc{ gap:2px; }
+  .lyv-pc .lyh-install-chevs{ gap:0; } .lyv-pc .lyh-install-chev{ width:20px; } }
+/* La ligne de l'en-tête fait 311 px à 375 : 12 px, icône de 14 px, flèches
+   de 18 px, pour que le point le plus long tienne avec ses flèches. */
+@media (max-width:420px){ .lyv-pc-point{ font-size:12px; gap:4px; } .lyv-pc-point svg{ width:14px; height:14px; }
+  .lyv-pc .lyh-install-chev{ width:18px; } .lyv-pc .lyh-install-chev svg{ width:14px; height:14px; } }
 /* La fiche de démonstration : son propre format (1286 × 1290), sans le
    recadrage des photos. */
 .lyv-media.lyv-media-fiche{ aspect-ratio:auto; }
@@ -2518,10 +2609,26 @@ const CSS = `
 .lyv-carrousel-points button.on{ width:18px; background:#fff; }
 .lyv-carrousel-points button:focus-visible{ outline:2px solid #000; outline-offset:2px; }
 @media (max-width:720px){ .lyv-carrousel-diapo{ border-radius:10px; } .lyv-carrousel-piste{ gap:6px; } }
-/* Le diptyque : deux colonnes de même hauteur, petit écart, coins arrondis. */
-.lyv-diptyque{ position:absolute; inset:0; display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:0; background:#f3f4f5; }
-.lyv-diptyque img{ width:100%; height:100%; object-fit:cover; object-position:50% 45%; border-radius:14px; display:block; min-width:0; }
-@media (max-width:720px){ .lyv-diptyque{ gap:6px; } .lyv-diptyque img{ border-radius:10px; } }
+/* Trois à la fois (packaging, colis) : le cadre s'élargit pour des
+   visuels en 4:5 de même hauteur ; sur téléphone, un et demi. */
+/* JP, 13/10 : « serré », « en trois quarts ». Trois vignettes 3:4 côte à
+   côte ; la piste s'arrête à leur largeur, centrée dans le cadre gris.
+   Cadre en 2,6:1 : une vignette fait 0,75 × (largeur / 2,6) = 28,85 % de
+   large. */
+.lyv-media.lyv-media-trio{ aspect-ratio:2.6 / 1; background:transparent; }
+.lyv-carrousel-trio{ left:50%; right:auto; width:calc(86.54% + 16px); transform:translateX(-50%); }
+.lyv-carrousel-trio .lyv-carrousel-piste{ background:transparent; }
+.lyv-carrousel-trio .lyv-carrousel-diapo{ flex-basis:calc((100% - 16px) / 3); }
+.lyv-carrousel-nom{ position:absolute; left:8px; bottom:8px; background:#fff; color:#000; border-radius:999px; padding:4px 9px;
+  font-size:11px; font-weight:600; line-height:1.2; white-space:nowrap; }
+.lyv-carrousel-trio .lyv-carrousel-points{ right:0; bottom:-2px; }
+@media (max-width:720px){
+  /* Un et demi en 3:4 : cadre en 1,2:1, vignette de 62,5 % de large. */
+  .lyv-media.lyv-media-trio{ aspect-ratio:1.2 / 1; }
+  .lyv-carrousel-trio{ left:0; width:100%; transform:none; }
+  .lyv-carrousel-trio .lyv-carrousel-diapo{ flex-basis:62.5%; }
+  .lyv-carrousel-nom{ font-size:10px; padding:3px 8px; }
+}
 /* La grille de sélection : trois colonnes, deux rangées, dans le même cadre
    que les photos. Le badge : rond pistache (l'élu de la maison), coche
    noire, liseré blanc comme le point de la visite. */

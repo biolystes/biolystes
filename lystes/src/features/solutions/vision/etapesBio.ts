@@ -1,6 +1,4 @@
-import { BadgeCheck, FileText, Image as IconeImage, Newspaper, Package, Palette, PenTool, ScanSearch, Star, Store, Truck, Bot, type LucideIcon } from "lucide-react";
-import showcaseAmarsi from "@lystes/assets/showcase-amarsi.jpg.asset.json";
-import showcasePeau from "@lystes/assets/showcase-peau.jpg.asset.json";
+import { BadgeCheck, Leaf, ShieldCheck, PackageX, FileText, Image as IconeImage, Newspaper, Package, PenTool, ScanSearch, Star, Store, Truck, Bot, type LucideIcon } from "lucide-react";
 import ecrin from "@lystes/assets/magazines/ecrin.jpg.asset.json";
 import brume from "@lystes/assets/magazines/brume.jpg.asset.json";
 import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
@@ -18,11 +16,10 @@ import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
  * « diapos » fait défiler les siens.
  *  - grille de sélection : packshots du catalogue (public/bio-selection) ;
  *  - fiche INCI : la bergamote et la vraie liste INCI d'un produit ;
- *  - logo : l'enseigne et les stickers Skin Atelier (diptyque) ;
- *  - branding : la planche NURA skincare ;
+ *  - logo et branding : la planche NURA skincare ;
  *  - packaging : quatre photos Cléa Skincare (public/bio-packaging) ;
  *  - envoi : les colis reçus par nos clientes, repris de /biolystes/rdv
- *    (Sevmylook, Wirtzkin, Amarsi, 235th, Jolie Peau) et le colis Éclose ;
+ *    (Amarsi, 235th, Jolie Peau) et le colis Éclose ;
  *  - ecommerce-step : la boutique Kaniwa Botanique ;
  *  - fiche : la fiche de démonstration de l'accueil (public/demo-eclose) ;
  *  - feed : le feed Sevmylook de biolystes.com/agence ;
@@ -40,14 +37,15 @@ export type ProduitGrille = { image: string; nom: string; valide?: boolean };
 export type CarteInci = { photo: string; produit: string; inci: string; surligne: string };
 
 export type MediaEtape = {
-  type: "image" | "video" | "grille" | "inci" | "diptyque" | "diapos" | "fiche";
+  type: "image" | "video" | "grille" | "inci" | "diapos" | "fiche";
   /* Type « grille » : le nombre de colonnes (3 par défaut). */
   colonnes?: number;
-  /* Type « diapos » : plusieurs visuels qui défilent, chacun sa légende. */
+  /* Type « diapos » : plusieurs visuels qui défilent, chacun sa légende ;
+     `trio` : trois à la fois sur ordinateur, la légende d'ensemble, et le
+     nom de chaque visuel écrit dessus. */
+  trio?: boolean;
   diapos?: readonly MediaEtape[];
   intervalle?: number;
-  /* Type « diptyque » : deux photos côte à côte, même hauteur. */
-  images?: readonly [string, string];
   src: string;
   /* L'affiche d'une vidéo. */
   affiche?: string;
@@ -83,21 +81,25 @@ export type OngletBio = {
   etapes: EtapeBio[];
 };
 
-/* L'en-tête de la section : la phrase-choc, puis un seul paragraphe, centré
-   comme sur l'accueil (JP, 13/10/2026 : « mets toutes les phrases groupées,
-   il y a trop de texte » ; pas de liste). Aucun chiffre sourcé n'existe sur la
-   durée d'un lancement : « souvent », jamais « en moyenne ». Le texte de JP
-   est mot pour mot jusqu'à « 10 jours » (seuls les apostrophes et les
-   insécables sont posés) ; la dernière phrase reprend les trois anciens
-   points, avec les « sans » et les certifications que /bio affiche déjà
-   (section « Nos engagements »). */
+/* L'en-tête de la section : la phrase-choc, un seul paragraphe centré comme
+   sur l'accueil (le texte de JP, mot pour mot ; seuls les apostrophes et les
+   insécables sont posés), puis les trois points en carrousel d'une ligne
+   (JP, 13/10/2026 : moins de texte). « En moyenne » dans le titre : demandé
+   par JP le 13/10. Les « sans » et les certifications des points sont ceux
+   que /bio affiche déjà (section « Nos engagements »). */
 export const ENTETE_BIO = {
-  probleme: ["Lancer une gamme cosmétique prend souvent ", "près d’un an", "."] as const,
+  probleme: ["Lancer une gamme cosmétique prend en moyenne ", "près d’un an", "."] as const,
   texte:
     "Le temps perdu ne se rattrape jamais. Pendant ces 12 mois d’attente, vous ne bâtissez rien\u00a0: ni\u00a0réputation, ni\u00a0communauté, ni\u00a0preuve sociale. " +
     "Le plus grand handicap d’une jeune marque est son manque d’antériorité. Lorsque vous vous lancez enfin, les débuts sont laborieux faute d’historique, ce qui freine considérablement votre progression. " +
-    "Avec Biolystes, changez la donne\u00a0: votre marque est opérationnelle en seulement 10\u00a0jours. " +
-    "Vos formules sont bio et véganes, sans parabènes, sans silicones et sans PEG, certifiées COSMOS et ECOCERT, fabriquées selon la norme ISO\u00a022716 et enregistrées au CPNP, et vous n’achetez aucun stock, sans minimum\u00a0de\u00a0commande.",
+    "Avec Biolystes, changez la donne\u00a0: votre marque est opérationnelle en seulement 10\u00a0jours.",
+  /* Une ligne chacun à 375 px, une icône au trait devant. */
+  icones: [Leaf, ShieldCheck, PackageX] as LucideIcon[],
+  points: [
+    "Bio et végan, sans parabènes ni silicones",
+    "Certifié COSMOS, ECOCERT, ISO\u00a022716",
+    "Aucun stock, aucun minimum de commande",
+  ],
 };
 
 /* La grille de l'étape « Sélection des produits » (JP, 13/10/2026) : des
@@ -170,28 +172,18 @@ export const ONGLETS_BIO: OngletBio[] = [
     titre: "Logo et branding",
     court: "Logo",
     etage: "Étape 2 · Logo et branding",
-    benefices: [[PenTool, "Votre logo, créé ou modernisé"], [Palette, "Une palette et des motifs"], [Package, "Le design du packaging"]],
+    benefices: [[PenTool, "Votre logo et votre branding"], [Package, "Le design du packaging"]],
     accroche: "Une identité qui vous ressemble.",
     etapes: [
       {
-        nom: "Votre logo",
-        mission: "un logo dessiné, ou celui qui existe modernisé",
-        role: "Nous dessinons votre logo, ou nous modernisons celui que vous avez déjà.",
+        /* Logo et branding réunis (JP, 13/10/2026) ; le diptyque Skin
+           Atelier est retiré. La planche de marque NURA skincare, recomposée
+           à l'horizontale sans rien couper : logo, monogramme, photo, deux
+           déclinaisons, palette de six couleurs. */
+        nom: "Logo et branding",
+        mission: "votre logo, créé ou modernisé, et votre palette",
+        role: "Nous dessinons votre logo, ou nous modernisons celui que vous avez déjà, et nous composons votre palette et vos motifs.",
         unique: "",
-        /* JP, 13/10/2026 : « les 2 photos ensemble », l'enseigne et les
-           stickers de Skin Atelier, côte à côte. */
-        media: { type: "diptyque", src: "", images: ["/bio-selection/skin-atelier-enseigne.webp", "/bio-selection/skin-atelier-stickers.webp"],
-          legende: ["Skin Atelier", ", l’enseigne et les stickers"] },
-      },
-      {
-        nom: "Votre branding",
-        mission: "la palette de couleurs et les motifs de la marque",
-        role: "Nous composons votre branding : la palette de couleurs et les motifs qui feront reconnaître votre marque.",
-        unique: "",
-        /* La planche de marque NURA skincare, recomposée à l'horizontale sans
-           rien couper : logo, monogramme, photo, deux déclinaisons, palette de
-           six couleurs. La vidéo Skin Atelier est retirée (13/10/2026) : ses
-           plans reprenaient l'enseigne et les stickers du diptyque. */
         media: PHOTO("/bio-selection/planche-marque-nura.webp", ["NURA skincare", ", la palette et les déclinaisons"], "50% 50%"),
       },
       {
@@ -199,15 +191,16 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "l’étui et l’étiquette de chaque produit, à vos couleurs",
         role: "Nous dessinons le packaging de chaque produit : l’étui et l’étiquette, à vos couleurs.",
         unique: "",
-        /* Les photos Cléa Skincare fournies par JP (13/10/2026), qui
-           défilent ; la salle de bain en dernier. */
-        media: { type: "diapos", src: "", intervalle: 3000, legende: ["Cléa Skincare", ""], diapos: [
-          PHOTO("/bio-packaging/clea-mise-en-scene.webp", ["Cléa Skincare", ", l’étui et le flacon"], "50% 55%"),
-          PHOTO("/bio-packaging/clea-etui-flacon.webp", ["Cléa Skincare", ", le gel hydratant non gras"], "50% 45%"),
-          PHOTO("/bio-packaging/clea-contour-yeux.webp", ["Cléa Skincare", ", la crème contour des yeux"], "50% 50%"),
-          PHOTO("/bio-packaging/clea-salle-de-bain.webp", ["Cléa Skincare", ", dans la salle de bain"], "50% 60%"),
+        /* Les photos Cléa Skincare fournies par JP (13/10/2026) : trois à la
+           fois sur ordinateur, une et demie sur téléphone ; elles avancent
+           d'une à la fois, la salle de bain en dernier. */
+        media: { type: "diapos", src: "", trio: true, intervalle: 3000, legende: ["Cléa Skincare", ", le packaging de la gamme"], diapos: [
+          PHOTO("/bio-packaging/clea-mise-en-scene.webp", ["", ""], "50% 55%"),
+          PHOTO("/bio-packaging/clea-etui-flacon.webp", ["", ""], "50% 45%"),
+          PHOTO("/bio-packaging/clea-contour-yeux.webp", ["", ""], "50% 50%"),
+          PHOTO("/bio-packaging/clea-salle-de-bain.webp", ["", ""], "50% 60%"),
         ] },
-        duree: 12000,
+        duree: 9000,
       },
     ],
   },
@@ -224,19 +217,19 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "vos produits livrés, pour les tester",
         role: "Nous vous envoyons vos produits, pour que vous les testiez avant le lancement.",
         unique: "",
-        /* Les colis reçus par nos clientes (JP, 13/10/2026), repris de la
-           page /biolystes/rdv, plus le colis Éclose recadré sur le carton.
-           Vidéos réduites à 720 px, sans son, avec affiche. L'étape
-           Validation garde ce carrousel. */
-        media: { type: "diapos", src: "", intervalle: 3000, legende: ["Sevmylook", ", le colis reçu"], diapos: [
-          { type: "video", src: "/videos/bio/colis-2.mp4", affiche: "/videos/bio/colis-2.webp", legende: ["Sevmylook", ", le colis reçu"] },
-          PHOTO("/bio-colis/eclose-colis.webp", ["Éclose Paris", ", le colis reçu"], "50% 50%"),
-          { type: "video", src: "/videos/bio/colis-1.mp4", affiche: "/videos/bio/colis-1.webp", legende: ["Wirtzkin", ", le colis reçu"] },
-          PHOTO(showcaseAmarsi.url, ["Amarsi", ", le colis reçu"], "50% 50%"),
-          PHOTO("/bio-colis/235th-colis.webp", ["235th", ", le colis reçu"], "50% 45%"),
-          PHOTO(showcasePeau.url, ["Jolie Peau", ", le colis reçu"], "50% 50%"),
+        /* Les colis reçus par nos clientes (JP, 13/10/2026), au même
+           réglage que le packaging. Seuls les visuels nets : photos de
+           /biolystes/rdv (Amarsi, 235th, Jolie Peau) et le colis Éclose
+           recadré, tous en 3:4 sans couper le produit. Les vidéos Sevmylook
+           et Wirtzkin (480 px, molles) sont retirées. La marque est écrite
+           sur chaque photo. */
+        media: { type: "diapos", src: "", trio: true, intervalle: 3000, legende: ["Les colis reçus", " par nos clientes"], diapos: [
+          PHOTO("/bio-colis/eclose-colis-45.webp", ["Éclose Paris", ""], "50% 50%"),
+          PHOTO("/bio-colis/amarsi-colis.webp", ["Amarsi", ""], "50% 50%"),
+          PHOTO("/bio-colis/235th-colis-45.webp", ["235th", ""], "50% 50%"),
+          PHOTO("/bio-colis/jolie-peau-colis.webp", ["Jolie Peau", ""], "50% 50%"),
         ] },
-        duree: 18000,
+        duree: 9000,
       },
       {
         nom: "Validation des produits",
