@@ -24,13 +24,16 @@ const ScrollBar = React.forwardRef<
     orientation={orientation}
     className={cn(
       "flex touch-none select-none transition-colors",
-      orientation === "vertical" && "h-full w-2.5 border-l border-l-transparent p-[1px]",
-      orientation === "horizontal" && "h-2.5 flex-col border-t border-t-transparent p-[1px]",
+      /* La règle commune du défilement (src/index.css, JP 13/10/2026, comme lystes.ai) :
+         rail de 2 px, piste #e5e5e5, curseur #171717, angles droits,
+         6 px du bord et 16 px des extrémités (jamais dans un arrondi). */
+      orientation === "vertical" && "h-full w-2 border-r-[6px] border-transparent py-4 bg-[#e5e5e5] bg-clip-content",
+      orientation === "horizontal" && "h-2 flex-col border-b-[6px] border-transparent px-4 bg-[#e5e5e5] bg-clip-content",
       className,
     )}
     {...props}
   >
-    <ScrollAreaPrimitive.ScrollAreaThumb className="relative flex-1 rounded-full bg-border" />
+    <ScrollAreaPrimitive.ScrollAreaThumb className="relative flex-1 rounded-none bg-[#171717]" />
   </ScrollAreaPrimitive.ScrollAreaScrollbar>
 ));
 ScrollBar.displayName = ScrollAreaPrimitive.ScrollAreaScrollbar.displayName;

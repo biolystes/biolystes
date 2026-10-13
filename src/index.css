@@ -176,10 +176,40 @@
   margin: 0 auto;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 3px; }
+/* --- DÉFILEMENT : UNE SEULE RÈGLE (JP, 13/10/2026) ---
+   « Le même style de scroll que dans la description produit, là où on
+   explique les agents IA » : le rail de ScrollRail de lystes.ai
+   (src/components/shot/ScrollRail.tsx), 2 px, piste #e5e5e5 (neutral-200),
+   curseur #171717 (neutral-900), angles droits, visible en permanence.
+   Elle vaut pour TOUTE zone qui défile sous <body> : pop-ups, dialogues,
+   panneaux, tiroirs, listes. La page elle-même garde la barre du navigateur.
+   :where() = spécificité nulle : une bande volontairement masquée
+   (scrollbar-width: none, ::-webkit-scrollbar { display: none }) reste
+   masquée. Chrome et Safari lisent ::-webkit-scrollbar ; Firefox, qui ne le
+   connaît pas, lit scrollbar-width/scrollbar-color. Ne jamais poser
+   scrollbar-width: thin ou scrollbar-color sur une zone : dans Chrome, ces
+   deux propriétés annulent ::-webkit-scrollbar et rendent la barre grise
+   d'origine. Même règle que lystes.ai (petal-diagnostics, PR 378 et 380) ;
+   les zones Radix (ScrollArea) dans src/components/ui/scroll-area.tsx. */
+/* Le rail ne touche jamais le bord ni un arrondi : la barre fait 8 px,
+   dont 6 px transparents côté bord (background-clip), et la piste s'arrête
+   à 16 px des extrémités (le rayon des dialogues et pop-ups). L'écart rail
+   / texte (12-14 px) se règle par le padding du conteneur. */
+:where(body *)::-webkit-scrollbar { width: 8px; height: 8px; }
+:where(body *)::-webkit-scrollbar-track,
+:where(body *)::-webkit-scrollbar-thumb { background-clip: padding-box; border: 0 solid transparent; border-radius: 0; }
+:where(body *)::-webkit-scrollbar-track { background-color: #e5e5e5; }
+:where(body *)::-webkit-scrollbar-thumb { background-color: #171717; }
+:where(body *)::-webkit-scrollbar-track:vertical,
+:where(body *)::-webkit-scrollbar-thumb:vertical { border-right-width: 6px; }
+:where(body *)::-webkit-scrollbar-track:horizontal,
+:where(body *)::-webkit-scrollbar-thumb:horizontal { border-bottom-width: 6px; }
+:where(body *)::-webkit-scrollbar-track:vertical { margin-block: 16px; }
+:where(body *)::-webkit-scrollbar-track:horizontal { margin-inline: 16px; }
+:where(body *)::-webkit-scrollbar-corner { background: transparent; }
+@supports not selector(::-webkit-scrollbar) {
+  :where(body *) { scrollbar-width: thin; scrollbar-color: #171717 #e5e5e5; }
+}
 
 /* Hide scrollbar utility */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
