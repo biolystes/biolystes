@@ -47,13 +47,29 @@ const LIEUX_INSTALL: LieuInstall[] = [
   { key: "heroHome.ctaEvent", defaut: "Installer lors de vos événements", href: "/auth", logo: { paths: ["M3.5 5h17v16h-17z", "M8 3v4M16 3v4M3.5 10h17"] } },
 ];
 
-const NB = " "; // espace fine insécable : jamais de « ? » orphelin
+export const NB = " "; // espace fine insécable : jamais de « ? » orphelin
 const AGENT_IC =
   '<span class="lyh-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="12" cy="12" r="9.2"/><path d="M12 7.4v9.2M7.4 12h9.2M8.75 8.75l6.5 6.5M15.25 8.75l-6.5 6.5"/></svg></span>';
 const USER_IC =
   '<span class="lyh-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="12" cy="8.2" r="3.4"/><path d="M5.4 19.6c1.3-3.3 4-5 6.6-5s5.3 1.7 6.6 5"/></svg></span>';
 
-type Msg = { side?: "agent" | "user"; name?: string; text?: string; widget?: "ba" | "review" | "prods" | "slots" };
+/** Un produit d'une fiche de démonstration : photo, nom, et une ligne sous le
+ *  nom (sur /bio, un ou deux actifs clés tels qu'écrits dans l'INCI). */
+export type ProduitFil = { image: string; nom: string; ligne?: string };
+
+/** Un message du fil. Les widgets « ba », « review » et « slots » sont ceux de
+ *  l'accueil ; « prods » prend ses propres produits quand `produits` est
+ *  fourni (13/10/2026, /bio), sinon il garde les trois fiches de l'accueil. */
+export type MsgFil = {
+  side?: "agent" | "user";
+  name?: string;
+  text?: string;
+  widget?: "ba" | "review" | "prods" | "slots";
+  intro?: string;
+  note?: string;
+  produits?: ProduitFil[];
+};
+type Msg = MsgFil;
 
 /** Traducteur minimal injecte depuis le composant (react-i18next). */
 type Tr = (k: string, o?: Record<string, unknown>) => string;
@@ -243,6 +259,159 @@ function useEtroit(actif: boolean) {
   return etroit;
 }
 
+/**
+ * Le fil de conversation animé de l'accueil : bulles en verre qui glissent,
+ * se dissolvent vers le haut et rejouent en boucle. Sorti du hero le
+ * 13/10/2026 pour servir aussi à /bio (recherche de produits selon le concept
+ * d'une marque) : même moteur, même cadence, mêmes cartes, seuls les messages
+ * changent. Placé en absolu en bas à droite de son parent, comme dans le hero.
+ */
+export function FilConversation({ messages, agent, className }: { messages: MsgFil[]; agent?: string; className?: string }) {
+  const { t } = useTranslation();
+  const chatRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const chat = chatRef.current;
+    if (!chat) return;
+    const timers: number[] = [];
+    let step = 0;
+    let stopped = false;
+    /** Raccourci de traduction pour les widgets rendus en HTML brut. */
+    const tx = (key: string, fr: string) => t("heroHome." + key, { defaultValue: fr });
+    const nomAgent = agent ?? tx("agentName", "Agent Lystes");
+    const THREAD = messages;
+
+    const rowEl = (msg: Msg) => {
+      const row = document.createElement("div");
+      row.className = "lyh-row " + (msg.widget ? "agent" : msg.side);
+      const cell = document.createElement("div");
+      cell.className = "lyh-cell";
+      const b = document.createElement("div");
+      b.className = "lyh-bubble";
+      if (msg.widget === "ba") {
+        b.innerHTML =
+          '<div class="lyh-who">' + AGENT_IC + "<span>" + nomAgent + "</span></div>" +
+          '<div class="lyh-wt">' + tx("baIntro", "Oui, voici deux résultats sur peaux mixtes") + "</div>" +
+          '<div class="lyh-balist">' +
+          '<div class="lyh-barow"><img src="' + A.ba1 + '" alt=""><div class="lyh-batx"><b>' + tx("baItem1", "Anti-vieillissement") + "</b><span>" + tx("baWeeks5", "5 semaines") + "</span></div></div>" +
+          '<div class="lyh-barow"><img src="' + A.ba2 + '" alt=""><div class="lyh-batx"><b>' + tx("baItem2", "Anti-âge front") + "</b><span>" + tx("baWeeks3", "3 semaines") + "</span></div></div>" +
+          "</div>" +
+          '<div class="lyh-wn">' + tx("baAsk", "Ces résultats vous parlent") + NB + "?</div>";
+      } else if (msg.widget === "review") {
+        const star = '<i><svg viewBox="0 0 24 24"><path d="M12 2.3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.1l6.5-.9z"/></svg></i>';
+        b.innerHTML =
+          '<div class="lyh-who">' + AGENT_IC + "<span>" + nomAgent + "</span></div>" +
+          '<div class="lyh-wt">' + tx("reviewIntro", "Bien sûr, voici un retour vérifié") + "</div>" +
+          '<div class="lyh-stars">' + star.repeat(5) + "</div>" +
+          '<div class="lyh-quote">' + tx("reviewQuote", "« Ma peau paraît nettement plus jeune et lumineuse. Confort, éclat et peau revitalisée. »") + "</div>" +
+          '<div class="lyh-rfoot"><span class="lyh-rauth">' + tx("reviewAuthor", "Alice, via Trustpilot") + "</span>" +
+          '<span class="lyh-rnav"><span class="lyh-rdot off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></span>' +
+          '<span class="lyh-rcount">1 / 2</span>' +
+          '<span class="lyh-rdot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></span></span></div>';
+      } else if (msg.widget === "prods" && msg.produits) {
+        /* Fiches fournies par la page (/bio) : pas de prix, une ligne
+           d'actifs sous le nom. */
+        b.innerHTML =
+          '<div class="lyh-who">' + AGENT_IC + "<span>" + nomAgent + "</span></div>" +
+          (msg.intro ? '<div class="lyh-wt">' + msg.intro + "</div>" : "") +
+          '<div class="lyh-prods">' +
+          msg.produits
+            .map((p) => '<div class="lyh-prod"><img src="' + p.image + '" alt=""><b>' + p.nom + "</b>" + (p.ligne ? "<span>" + p.ligne + "</span>" : "") + '<span class="lyh-add">+</span></div>')
+            .join("") +
+          "</div>" +
+          (msg.note ? '<div class="lyh-wn">' + msg.note + "</div>" : "");
+      } else if (msg.widget === "prods") {
+        b.innerHTML =
+          '<div class="lyh-who">' + AGENT_IC + "<span>" + nomAgent + "</span></div>" +
+          '<div class="lyh-wt">' + tx("prodsIntro", "Voici la routine que je vous conseille") + "</div>" +
+          '<div class="lyh-prods">' +
+          '<div class="lyh-prod"><img src="' + A.prod1 + '" alt=""><b>' + tx("prod1", "Sérum vitamine C") + '</b><span class="lyh-add">+</span></div>' +
+          '<div class="lyh-prod"><img src="' + A.prod2 + '" alt=""><b>' + tx("prod2", "Sérum anti-âge") + '</b><span class="lyh-add">+</span></div>' +
+          '<div class="lyh-prod"><img src="' + A.prod1 + '" alt=""><b>' + tx("prod3", "Gel hydratation") + '</b><span class="lyh-add">+</span></div>' +
+          "</div>";
+      } else if (msg.widget === "slots") {
+        b.innerHTML =
+          '<div class="lyh-slots">' +
+          '<div class="lyh-shead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(90deg)"><path d="M8 10l4 4 4-4"/></svg>' + "<p>" + tx("tomorrow", "Demain") + "</p>" + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(-90deg)"><path d="M8 10l4 4 4-4"/></svg></div>' +
+          '<div class="lyh-sgrid"><p class="sel">09:00</p><p>09:30</p><p>10:00</p><p>10:30</p><p>11:00</p></div>' +
+          '<button type="button">' + tx("confirming", "Confirmation…") + "</button>" +
+          "</div>";
+      } else {
+        b.innerHTML =
+          '<div class="lyh-who">' + (msg.side === "agent" ? AGENT_IC : USER_IC) + "<span>" + msg.name + "</span></div>" +
+          '<div class="lyh-txt">' + msg.text + "</div>";
+      }
+      cell.appendChild(b);
+      row.appendChild(cell);
+      return row;
+    };
+
+    const restack = () => {
+      const kids = Array.from(chat.children) as HTMLElement[];
+      kids.forEach((el, i) => {
+        const fromEnd = kids.length - 1 - i;
+        el.classList.remove("dim", "fade", "gone");
+        if (fromEnd === 2) el.classList.add("dim");
+        else if (fromEnd === 3) el.classList.add("fade");
+        else if (fromEnd >= 4) el.classList.add("gone");
+      });
+      while (chat.children.length > 7) chat.removeChild(chat.firstElementChild as Node);
+    };
+
+    const addMessage = (msg: Msg, instant: boolean) => {
+      const row = rowEl(msg);
+      chat.appendChild(row);
+      if (instant) {
+        row.classList.add("in", "no-anim");
+        restack();
+        requestAnimationFrame(() => row.classList.remove("no-anim"));
+        return;
+      }
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => {
+          row.classList.add("in");
+          restack();
+        })
+      );
+    };
+
+    const MSG_INTERVAL = 2100;
+    const HOLD_AFTER = 2600;
+    const tick = () => {
+      if (stopped) return;
+      if (step >= THREAD.length) {
+        step = 0;
+        chat.replaceChildren();
+        addMessage(THREAD[0], true);
+        addMessage(THREAD[1], true);
+        step = 2;
+        timers.push(window.setTimeout(tick, HOLD_AFTER));
+        return;
+      }
+      addMessage(THREAD[step], false);
+      step += 1;
+      timers.push(window.setTimeout(tick, MSG_INTERVAL));
+    };
+
+    chat.replaceChildren();
+    addMessage(THREAD[0], true);
+    addMessage(THREAD[1], true);
+    step = 2;
+    timers.push(window.setTimeout(tick, MSG_INTERVAL));
+
+    return () => {
+      stopped = true;
+      timers.forEach((timer) => window.clearTimeout(timer));
+    };
+  }, [t, messages, agent]);
+
+  return (
+    <>
+      <style>{CSS_FIL}</style>
+      <div className={className ? "lyh-chat " + className : "lyh-chat"} ref={chatRef} aria-hidden="true" />
+    </>
+  );
+}
+
 export default function HomeHeroVideo({ variante }: { variante?: HeroVariante } = {}) {
   const fondEtat = useFondVariante(!!variante);
   const etroit = useEtroit(!!variante);
@@ -257,7 +426,6 @@ export default function HomeHeroVideo({ variante }: { variante?: HeroVariante } 
     return Array.isArray(v) && v.length ? (v as string[]) : PHRASES_FR;
   }, [t, variante]);
   const THREAD = useMemo(() => buildThread(t as Tr), [t]);
-  const chatRef = useRef<HTMLDivElement>(null);
   const typedRef = useRef<HTMLSpanElement>(null);
   const chipRefs = [useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null), useRef<HTMLImageElement>(null)];
   /* Champ d'essai du hero : l'URL saisie, puis l'URL validée qui ouvre la
@@ -345,128 +513,6 @@ export default function HomeHeroVideo({ variante }: { variante?: HeroVariante } 
           "Donnez à vos produits les moyens d'atteindre leur plein potentiel de vente, que ce soit en ligne, au domicile de vos clients, en point de vente ou lors de vos événements.",
       });
 
-
-  // Fil de conversation continu
-  useEffect(() => {
-    const chat = chatRef.current;
-    if (!chat) return;
-    const timers: number[] = [];
-    let step = 0;
-    let stopped = false;
-    /** Raccourci de traduction pour les widgets rendus en HTML brut. */
-    const tx = (key: string, fr: string) => t("heroHome." + key, { defaultValue: fr });
-
-    const rowEl = (msg: Msg) => {
-      const row = document.createElement("div");
-      row.className = "lyh-row " + (msg.widget ? "agent" : msg.side);
-      const cell = document.createElement("div");
-      cell.className = "lyh-cell";
-      const b = document.createElement("div");
-      b.className = "lyh-bubble";
-      if (msg.widget === "ba") {
-        b.innerHTML =
-          '<div class="lyh-who">' + AGENT_IC + "<span>" + tx("agentName", "Agent Lystes") + "</span></div>" +
-          '<div class="lyh-wt">' + tx("baIntro", "Oui, voici deux résultats sur peaux mixtes") + "</div>" +
-          '<div class="lyh-balist">' +
-          '<div class="lyh-barow"><img src="' + A.ba1 + '" alt=""><div class="lyh-batx"><b>' + tx("baItem1", "Anti-vieillissement") + "</b><span>" + tx("baWeeks5", "5 semaines") + "</span></div></div>" +
-          '<div class="lyh-barow"><img src="' + A.ba2 + '" alt=""><div class="lyh-batx"><b>' + tx("baItem2", "Anti-âge front") + "</b><span>" + tx("baWeeks3", "3 semaines") + "</span></div></div>" +
-          "</div>" +
-          '<div class="lyh-wn">' + tx("baAsk", "Ces résultats vous parlent") + NB + "?</div>";
-      } else if (msg.widget === "review") {
-        const star = '<i><svg viewBox="0 0 24 24"><path d="M12 2.3l2.9 5.9 6.5.9-4.7 4.6 1.1 6.4-5.8-3-5.8 3 1.1-6.4L2.6 9.1l6.5-.9z"/></svg></i>';
-        b.innerHTML =
-          '<div class="lyh-who">' + AGENT_IC + "<span>" + tx("agentName", "Agent Lystes") + "</span></div>" +
-          '<div class="lyh-wt">' + tx("reviewIntro", "Bien sûr, voici un retour vérifié") + "</div>" +
-          '<div class="lyh-stars">' + star.repeat(5) + "</div>" +
-          '<div class="lyh-quote">' + tx("reviewQuote", "« Ma peau paraît nettement plus jeune et lumineuse. Confort, éclat et peau revitalisée. »") + "</div>" +
-          '<div class="lyh-rfoot"><span class="lyh-rauth">' + tx("reviewAuthor", "Alice, via Trustpilot") + "</span>" +
-          '<span class="lyh-rnav"><span class="lyh-rdot off"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></span>' +
-          '<span class="lyh-rcount">1 / 2</span>' +
-          '<span class="lyh-rdot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></span></span></div>';
-      } else if (msg.widget === "prods") {
-        b.innerHTML =
-          '<div class="lyh-who">' + AGENT_IC + "<span>" + tx("agentName", "Agent Lystes") + "</span></div>" +
-          '<div class="lyh-wt">' + tx("prodsIntro", "Voici la routine que je vous conseille") + "</div>" +
-          '<div class="lyh-prods">' +
-          '<div class="lyh-prod"><img src="' + A.prod1 + '" alt=""><b>' + tx("prod1", "Sérum vitamine C") + '</b><span class="lyh-add">+</span></div>' +
-          '<div class="lyh-prod"><img src="' + A.prod2 + '" alt=""><b>' + tx("prod2", "Sérum anti-âge") + '</b><span class="lyh-add">+</span></div>' +
-          '<div class="lyh-prod"><img src="' + A.prod1 + '" alt=""><b>' + tx("prod3", "Gel hydratation") + '</b><span class="lyh-add">+</span></div>' +
-          "</div>";
-      } else if (msg.widget === "slots") {
-        b.innerHTML =
-          '<div class="lyh-slots">' +
-          '<div class="lyh-shead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(90deg)"><path d="M8 10l4 4 4-4"/></svg>' + "<p>" + tx("tomorrow", "Demain") + "</p>" + '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(-90deg)"><path d="M8 10l4 4 4-4"/></svg></div>' +
-          '<div class="lyh-sgrid"><p class="sel">09:00</p><p>09:30</p><p>10:00</p><p>10:30</p><p>11:00</p></div>' +
-          '<button type="button">' + tx("confirming", "Confirmation…") + "</button>" +
-          "</div>";
-      } else {
-        b.innerHTML =
-          '<div class="lyh-who">' + (msg.side === "agent" ? AGENT_IC : USER_IC) + "<span>" + msg.name + "</span></div>" +
-          '<div class="lyh-txt">' + msg.text + "</div>";
-      }
-      cell.appendChild(b);
-      row.appendChild(cell);
-      return row;
-    };
-
-    const restack = () => {
-      const kids = Array.from(chat.children) as HTMLElement[];
-      kids.forEach((el, i) => {
-        const fromEnd = kids.length - 1 - i;
-        el.classList.remove("dim", "fade", "gone");
-        if (fromEnd === 2) el.classList.add("dim");
-        else if (fromEnd === 3) el.classList.add("fade");
-        else if (fromEnd >= 4) el.classList.add("gone");
-      });
-      while (chat.children.length > 7) chat.removeChild(chat.firstElementChild as Node);
-    };
-
-    const addMessage = (msg: Msg, instant: boolean) => {
-      const row = rowEl(msg);
-      chat.appendChild(row);
-      if (instant) {
-        row.classList.add("in", "no-anim");
-        restack();
-        requestAnimationFrame(() => row.classList.remove("no-anim"));
-        return;
-      }
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => {
-          row.classList.add("in");
-          restack();
-        })
-      );
-    };
-
-    const MSG_INTERVAL = 2100;
-    const HOLD_AFTER = 2600;
-    const tick = () => {
-      if (stopped) return;
-      if (step >= THREAD.length) {
-        step = 0;
-        chat.replaceChildren();
-        addMessage(THREAD[0], true);
-        addMessage(THREAD[1], true);
-        step = 2;
-        timers.push(window.setTimeout(tick, HOLD_AFTER));
-        return;
-      }
-      addMessage(THREAD[step], false);
-      step += 1;
-      timers.push(window.setTimeout(tick, MSG_INTERVAL));
-    };
-
-    chat.replaceChildren();
-    addMessage(THREAD[0], true);
-    addMessage(THREAD[1], true);
-    step = 2;
-    timers.push(window.setTimeout(tick, MSG_INTERVAL));
-
-    return () => {
-      stopped = true;
-      timers.forEach((timer) => window.clearTimeout(timer));
-    };
-  }, [t, THREAD]);
 
   // Rotation des vignettes produit
   useEffect(() => {
@@ -853,7 +899,7 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
         )}
       </div>
 
-      {!variante && <div className="lyh-chat" ref={chatRef} aria-hidden="true" />}
+      {!variante && <FilConversation messages={THREAD} />}
 
       {essaiUrl && (
         <Suspense fallback={null}>
@@ -986,7 +1032,95 @@ const CSS = `
 .lyh-submit:hover{ background:rgba(255,255,255,.34); }
 
 
-.lyh-chat{ position:absolute; right:0; bottom:0; z-index:3; width:min(454px,100vw); height:386px; padding:16px 16px 32px; display:flex; flex-direction:column; justify-content:flex-end; overflow:clip; pointer-events:none;
+/* Tablette (721 à 1100 px) : le fil de conversation occupe la moitié droite
+   du bas de l'écran. Centré verticalement, le bloc boutons + offre
+   descendait sous les bulles (mesuré à 768 x 1024). Il se cale en haut,
+   sous l'en-tête, et laisse le bas au fil. */
+@media (min-width:721px) and (max-width:1100px){
+  .lyh-inner{ justify-content:flex-start; padding-top:150px; }
+  /* 420 px pour les boutons : l'inscription (185 px) et « Auf Shopify
+     installieren » (205 px, marges de 18 px rétablies) tiennent côte à côte
+     avec leur écart de 16 px. À 400, le bouton Shopify allemand passait seul
+     sur une ligne. L'offre garde 400 px. */
+  .lyh-btns{ max-width:420px; }
+  .lyh-offre{ max-width:400px; }
+}
+@media (max-width:720px){
+  /* Hauteur au moins égale à l'écran, et plus si le contenu l'exige : avec
+     les deux boutons et la ligne d'offre, un écran de 667 px ne suffisait
+     plus, et le sur-titre remontait sous l'en-tête. Le contenu reste calé en
+     bas, au-dessus du fil de conversation (262 px). */
+  .lyh{ height:auto; min-height:100svh; max-height:none; }
+  .lyh-inner{ height:auto; min-height:100svh; justify-content:flex-end; padding:124px 20px 262px; }
+  .lyh-eyebrow{ font-size:7px; letter-spacing:.14em; margin-bottom:7px; gap:6px; }
+  /* Carrousel d'installation sur téléphone : écart réduit entre les lieux,
+     le masque limite déjà le débordement (la translation est bornée en JS). */
+  .lyh-install-row{ width:100%; }
+  .lyh-install-row{ gap:8px; }
+  .lyh-install-track{ gap:11px; }
+  .lyh-lien-shopify{ font-size:11px; gap:7px; }
+  .lyh-btn-logo--woo{ margin-top:4px; }
+  .lyh-eyebrow-logo{ height:14px; width:14px; }
+  .lyh-eyebrow-logo--woo{ height:11px; }
+  .lyh-h1{ font-size:clamp(23px,5.9vw,29px); line-height:1.14; margin-bottom:18px; }
+  /* Mobile : le champ d'essai et l'inscription partagent la même rangée.
+     Le champ absorbe l'espace disponible tandis que l'inscription garde la
+     largeur minimale nécessaire à son libellé et à sa flèche. */
+  .lyh-btns{ gap:8px; margin-top:0; width:100%; max-width:none; flex-wrap:nowrap; align-items:stretch; }
+  .lyh-btn-outline.lyh-field{ order:-1; width:auto; min-width:0; flex:1 1 0; padding:4px 4px 4px 10px; box-sizing:border-box; overflow:hidden; }
+  .lyh-btn-black{ flex:0 0 127px; width:127px; min-width:0; box-sizing:border-box; }
+  .lyh-btn-black{ justify-content:space-between; padding:5px 5px 5px 12px; }
+  .lyh-offre{ margin-top:10px; font-size:10.5px; }
+  .lyh-input{ font-size:8.8px; text-overflow:ellipsis; }
+  .lyh-arrow.lyh-submit{ width:auto; height:30px; border-radius:18px; padding:0 14px 0 15px; font-size:8.8px; gap:4px; flex:0 0 auto; }
+  .lyh-submit-lbl{ display:none; } .lyh-submit-lbl-s{ display:inline; }
+  .lyh-arrow.lyh-submit svg{ width:11px; height:11px; }
+  .lyh-models{ width:300px; margin-top:14px; }
+  .lyh-models-track{ gap:14px; }
+  .lyh-model{ font-size:9.5px; gap:5px; }
+  .lyh-model svg{ width:11px; height:11px; }
+  .lyh-btn-outline{ min-width:0; font-size:11.5px; white-space:nowrap; padding:8px 8px 8px 14px; gap:7px; flex:0 0 auto; }
+  .lyh-btn-black{ font-size:8.8px; }
+  .lyh-arrow{ width:21px; height:21px; } .lyh-arrow svg{ width:11px; height:11px; }
+}
+@media (max-width:380px){
+  .lyh-btn-black{ flex-basis:119px; width:119px; padding-left:10px; font-size:8.4px; }
+  .lyh-btn-outline.lyh-field{ padding-left:9px; }
+  .lyh-input{ font-size:8.4px; }
+  .lyh-arrow.lyh-submit{ padding:0 12px 0 13px; font-size:8.4px; }
+}
+@media (prefers-reduced-motion:reduce){
+  .lyh-caret{ animation:none; }
+  .lyh-models-track{ animation:none; }
+}
+.lyh-models:hover .lyh-models-track{ animation-play-state:paused; }
+`;
+
+const CSS_FIL = `
+/* Fil de conversation (FilConversation) : accueil et /bio. Les variables du
+   verre sont redéfinies ici pour que le fil marche hors du hero. */
+.lyh-chat *{ box-sizing:border-box; }
+/* Dans un cadre plus étroit que l'écran (/bio) : le fil prend au plus la
+   largeur du cadre, sinon les bulles de droite sortaient du bord. */
+.lyh-chat.lyh-chat--cadre{ width:min(454px,100%); }
+/* Sur une photo claire et chargée (/bio), le verre seul laissait passer le
+   décor sous le texte : bulles teintées sombres, lisibles à tout instant. */
+.lyh-chat.lyh-chat--cadre .lyh-bubble{ background:rgba(16,16,16,.66); border-color:rgba(255,255,255,.14); }
+.lyh-chat.lyh-chat--cadre .lyh-row.dim .lyh-bubble{ opacity:.8; }
+.lyh-chat.lyh-chat--cadre .lyh-row.fade .lyh-bubble{ opacity:.45; }
+/* En mobile, le cadre de /bio fait 520px de haut : le fil y prend 380px au
+   lieu des 260px du hero, et des bulles de 300px, sinon la bulle des trois
+   produits sortait déjà par le haut et leurs noms se coupaient mot à mot. */
+@media (max-width:720px){
+  .lyh-chat.lyh-chat--cadre{ height:380px; }
+  .lyh-chat.lyh-chat--cadre .lyh-bubble{ max-width:300px; }
+  .lyh-chat.lyh-chat--cadre .lyh-prod{ padding:8px 4px 10px; }
+  .lyh-chat.lyh-chat--cadre .lyh-prod b{ font-size:10px; }
+  .lyh-chat.lyh-chat--cadre .lyh-prod span{ font-size:9.5px; line-height:1.25; }
+}
+.lyh-chat{ --gb:rgba(255,255,255,.10); --gbd:rgba(255,255,255,.18); --ease:cubic-bezier(.22,1,.36,1);
+  color:#fff; font-family:-apple-system,BlinkMacSystemFont,"Bricolage Grotesque","Helvetica Neue",Helvetica,Arial,sans-serif;
+  position:absolute; right:0; bottom:0; z-index:3; width:min(454px,100vw); height:386px; padding:16px 16px 32px; display:flex; flex-direction:column; justify-content:flex-end; overflow:clip; pointer-events:none;
   -webkit-mask-image:linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.35) 12%, #000 34%); mask-image:linear-gradient(to bottom, transparent 0%, rgba(0,0,0,.35) 12%, #000 34%); }
 .lyh-row{ display:grid; grid-template-rows:0fr; transition:grid-template-rows 500ms var(--ease); }
 .lyh-row.in{ grid-template-rows:1fr; }
@@ -1042,56 +1176,7 @@ const CSS = `
 .lyh-prod span{ font-size:10.5px; color:rgba(255,255,255,.72); }
 .lyh-prod .lyh-add{ position:absolute; right:5px; bottom:-7px; width:19px; height:19px; border-radius:50%; background:#fff; color:#111; font-size:13px; line-height:1; display:grid; place-items:center; font-weight:600; }
 
-/* Tablette (721 à 1100 px) : le fil de conversation occupe la moitié droite
-   du bas de l'écran. Centré verticalement, le bloc boutons + offre
-   descendait sous les bulles (mesuré à 768 x 1024). Il se cale en haut,
-   sous l'en-tête, et laisse le bas au fil. */
-@media (min-width:721px) and (max-width:1100px){
-  .lyh-inner{ justify-content:flex-start; padding-top:150px; }
-  /* 420 px pour les boutons : l'inscription (185 px) et « Auf Shopify
-     installieren » (205 px, marges de 18 px rétablies) tiennent côte à côte
-     avec leur écart de 16 px. À 400, le bouton Shopify allemand passait seul
-     sur une ligne. L'offre garde 400 px. */
-  .lyh-btns{ max-width:420px; }
-  .lyh-offre{ max-width:400px; }
-}
 @media (max-width:720px){
-  /* Hauteur au moins égale à l'écran, et plus si le contenu l'exige : avec
-     les deux boutons et la ligne d'offre, un écran de 667 px ne suffisait
-     plus, et le sur-titre remontait sous l'en-tête. Le contenu reste calé en
-     bas, au-dessus du fil de conversation (262 px). */
-  .lyh{ height:auto; min-height:100svh; max-height:none; }
-  .lyh-inner{ height:auto; min-height:100svh; justify-content:flex-end; padding:124px 20px 262px; }
-  .lyh-eyebrow{ font-size:7px; letter-spacing:.14em; margin-bottom:7px; gap:6px; }
-  /* Carrousel d'installation sur téléphone : écart réduit entre les lieux,
-     le masque limite déjà le débordement (la translation est bornée en JS). */
-  .lyh-install-row{ width:100%; }
-  .lyh-install-row{ gap:8px; }
-  .lyh-install-track{ gap:11px; }
-  .lyh-lien-shopify{ font-size:11px; gap:7px; }
-  .lyh-btn-logo--woo{ margin-top:4px; }
-  .lyh-eyebrow-logo{ height:14px; width:14px; }
-  .lyh-eyebrow-logo--woo{ height:11px; }
-  .lyh-h1{ font-size:clamp(23px,5.9vw,29px); line-height:1.14; margin-bottom:18px; }
-  /* Mobile : le champ d'essai et l'inscription partagent la même rangée.
-     Le champ absorbe l'espace disponible tandis que l'inscription garde la
-     largeur minimale nécessaire à son libellé et à sa flèche. */
-  .lyh-btns{ gap:8px; margin-top:0; width:100%; max-width:none; flex-wrap:nowrap; align-items:stretch; }
-  .lyh-btn-outline.lyh-field{ order:-1; width:auto; min-width:0; flex:1 1 0; padding:4px 4px 4px 10px; box-sizing:border-box; overflow:hidden; }
-  .lyh-btn-black{ flex:0 0 127px; width:127px; min-width:0; box-sizing:border-box; }
-  .lyh-btn-black{ justify-content:space-between; padding:5px 5px 5px 12px; }
-  .lyh-offre{ margin-top:10px; font-size:10.5px; }
-  .lyh-input{ font-size:8.8px; text-overflow:ellipsis; }
-  .lyh-arrow.lyh-submit{ width:auto; height:30px; border-radius:18px; padding:0 14px 0 15px; font-size:8.8px; gap:4px; flex:0 0 auto; }
-  .lyh-submit-lbl{ display:none; } .lyh-submit-lbl-s{ display:inline; }
-  .lyh-arrow.lyh-submit svg{ width:11px; height:11px; }
-  .lyh-models{ width:300px; margin-top:14px; }
-  .lyh-models-track{ gap:14px; }
-  .lyh-model{ font-size:9.5px; gap:5px; }
-  .lyh-model svg{ width:11px; height:11px; }
-  .lyh-btn-outline{ min-width:0; font-size:11.5px; white-space:nowrap; padding:8px 8px 8px 14px; gap:7px; flex:0 0 auto; }
-  .lyh-btn-black{ font-size:8.8px; }
-  .lyh-arrow{ width:21px; height:21px; } .lyh-arrow svg{ width:11px; height:11px; }
   .lyh-chat{ height:260px; padding:10px 12px 16px; }
   .lyh-bubble{ width:80vw; max-width:272px; padding:12px; border-radius:14px; gap:6px; }
   .lyh-txt{ font-size:13.5px; line-height:1.4; } .lyh-who{ font-size:11px; }
@@ -1100,15 +1185,9 @@ const CSS = `
   .lyh-sgrid{ gap:5px; font-size:11px; } .lyh-slots button{ font-size:12px; padding:8px 0; }
 }
 @media (max-width:380px){
-  .lyh-btn-black{ flex-basis:119px; width:119px; padding-left:10px; font-size:8.4px; }
-  .lyh-btn-outline.lyh-field{ padding-left:9px; }
-  .lyh-input{ font-size:8.4px; }
-  .lyh-arrow.lyh-submit{ padding:0 12px 0 13px; font-size:8.4px; }
   .lyh-bubble{ max-width:250px; }
 }
 @media (prefers-reduced-motion:reduce){
-  .lyh-row{ transition:none; } .lyh-bubble{ transition:opacity 200ms ease; } .lyh-caret{ animation:none; }
-  .lyh-models-track{ animation:none; }
+  .lyh-row{ transition:none; } .lyh-bubble{ transition:opacity 200ms ease; }
 }
-.lyh-models:hover .lyh-models-track{ animation-play-state:paused; }
 `;
