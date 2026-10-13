@@ -120,7 +120,9 @@ export function Footer() {
   return (
     <footer className="lystes-footer" style={{ background: "rgb(225, 243, 197)" }}>
       <div className="container py-16 overflow-hidden">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        {/* Colonne des liens élargie (12/10/2026) : « Programme créateurs » et
+            « Traitement des données » tiennent sur une ligne, sans mot seul. */}
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-12 lg:gap-16">
 
           {/* Bloc marque + newsletter + réseaux (50%) */}
           <div className="max-w-sm">
@@ -177,7 +179,7 @@ export function Footer() {
           </div>
 
           {/* Colonnes de liens (50%) — Confiance plus large pour "Traitement des données" */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-10 lg:gap-x-8 min-w-0">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-10 lg:gap-x-4 xl:gap-x-5 min-w-0">
             {columns.map((col) => {
               const titre = t(col.key, col.fr);
               return (

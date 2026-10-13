@@ -53,7 +53,9 @@
       "importTerminePrestations": "Ihre Leistungen sind gespeichert",
       "liaison": "Ihre Produkte werden mit Ihrem Spezialisten verknüpft…",
       "liaisonPrestations": "Ihre Leistungen werden mit Ihrem Spezialisten verknüpft…",
-      "managers": "Leitung und Manager werden eingerichtet…"
+      "managers": "Leitung und Manager werden eingerichtet…",
+      "specialistePrestations": "Ihr Website-Berater wird erstellt…",
+      "coachsPrestations": "Ihre Nachbetreuung nach Terminen wird eingerichtet…"
     },
     "expertsLinkManquant": {
       "message": "Ihre Experten sind erstellt, beantworten aber noch kein Produkt. Verknüpfen Sie sie auf der Seite „Mein Team“.",
@@ -304,6 +306,19 @@
       "strategy": "Strategie",
       "upsell": "Coaches nach dem Kauf",
       "winners": "Erfolgsprodukte"
+    },
+    "prestations": {
+      "experts": "Leistungsexperten",
+      "coachs": "Nachbetreuung nach Terminen",
+      "coachsTexte": "Betreuen Ihre Kunden nach ihrem Termin.",
+      "specialisteTexte": "Der Berater, der in der Chatblase Ihrer Website erscheint.",
+      "conseiller": "Website-Berater",
+      "conseillerTexte": "Antwortet auf Ihrer gesamten Website: Leistungen, Öffnungszeiten, Kontakt.",
+      "tableauDeBord": "Arbeitet in Ihrem Dashboard, ohne Agent auf Ihrer Website.",
+      "bilanSite": "Auf Ihrer Website",
+      "postePRODUCTS": "Leistungsexperten",
+      "posteUPSELL": "Nachbetreuung nach Terminen",
+      "posteWINNERS": "Top-Leistungen"
     }
   },
   "page": {
@@ -323,7 +338,8 @@
     },
     "progressionNonEnregistree": "Ihr Fortschritt konnte nicht gespeichert werden",
     "choixNonEnregistre": "Ihre Auswahl konnte nicht gespeichert werden",
-    "configurationPartielle": "Ihr KI-Team ist teilweise eingerichtet. Einige Elemente werden im nächsten Schritt ergänzt."
+    "configurationPartielle": "Ihr KI-Team ist teilweise eingerichtet. Einige Elemente werden im nächsten Schritt ergänzt.",
+    "voirLaSuite": "Weiter unten"
   },
   "plateforme": {
     "autre": {
@@ -548,6 +564,8 @@
       "bouton": "Anfrage bestätigen",
       "chapo": "Unser Technik-Team richtet das Widget auf Ihrer Website ein. Fertig innerhalb von 24 Stunden an Werktagen.",
       "detail": "Wir melden uns noch heute per E-Mail, um Ihre Zugangsdaten zu erhalten. Bis dahin müssen Sie nichts tun.",
+      "confirmer": "Mit Ihrer Bestätigung geht die Anfrage an unser Team, das Sie per E-Mail um Ihre Zugangsdaten bittet.",
+      "enregistree": "Anfrage gespeichert. Unser Team bearbeitet sie und bittet Sie per E-Mail um Ihre Zugangsdaten.",
       "titre": "Für mich erledigen",
       "dejaEnvoyee": "Anfrage am {{date}} an das Team gesendet. Wir schreiben Ihnen per E-Mail, um Ihre Zugänge zu erhalten."
     },

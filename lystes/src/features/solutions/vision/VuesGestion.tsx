@@ -28,13 +28,22 @@ const indicateurs = [
   { titre: "Essayages", valeur: "2 041", note: "depuis le début" },
 ];
 
-export function VueCopilote() {
+/* La version Entreprises (/business) : des rendez-vous au lieu des essayages,
+   des services au lieu des produits. */
+const indicateursCorpo = [
+  indicateurs[0],
+  indicateurs[1],
+  { titre: "Rendez-vous pris", valeur: "214", note: "6 derniers mois" },
+];
+
+export function VueCopilote({ corporate = false }: { corporate?: boolean }) {
+  const kpi = corporate ? indicateursCorpo : indicateurs;
   return <section className="vg-surface vg-copilote" data-gestion-vue="copilote">
     <header className="vg-ligne"><nav className="vg-onglets"><span className="vg-actif">Agents IA</span><span>Ventes</span><span>Visites</span><span>Photos</span><span>Prompts</span></nav><Commandes /></header>
-    <div className="vg-indicateurs">{indicateurs.map((k, i) => <article key={k.titre}><p>{k.titre}</p><strong>{k.valeur}</strong><Courbe points={SERIES[i]} className="vg-mini" /><p>{k.note}</p></article>)}</div>
+    <div className="vg-indicateurs">{kpi.map((k, i) => <article key={k.titre}><p>{k.titre}</p><strong>{k.valeur}</strong><Courbe points={SERIES[i]} className="vg-mini" /><p>{k.note}</p></article>)}</div>
     <p className="vg-reference">Démonstration · chiffres de la capture de référence</p>
     <nav className="vg-onglets vg-chat-onglets"><span className="vg-actif">Chat</span><span>Financement</span><span>Fiscal et comptable</span><span>Agence</span><span>Magazine</span><span>UGC</span><ChevronsUpDown /></nav>
-    <div className="vg-saisie"><p>Posez une question sur votre business…</p><div className="vg-saisie-bas"><span><Sparkles />ChatGPT<ChevronDown /></span><span><Users />Copilote</span><span><Package />Produit</span><span><Camera />Créatifs IA</span><span><LayoutGrid />Prompts</span><div className="vg-envoi"><Mic /><Button variant="ghost" size="icon" tabIndex={-1} aria-label="Envoyer"><ArrowUp /></Button></div></div></div>
+    <div className="vg-saisie"><p>Posez une question sur votre business…</p><div className="vg-saisie-bas"><span><Sparkles />ChatGPT<ChevronDown /></span><span><Users />Copilote</span><span><Package />{corporate ? "Services" : "Produit"}</span><span><Camera />Créatifs IA</span><span><LayoutGrid />Prompts</span><div className="vg-envoi"><Mic /><Button variant="ghost" size="icon" tabIndex={-1} aria-label="Envoyer"><ArrowUp /></Button></div></div></div>
   </section>;
 }
 
@@ -53,11 +62,11 @@ export function VueCommunity({ profil }: { profil?: AIPhotographer }) {
   </section>;
 }
 
-export function VueAnalystes() {
+export function VueAnalystes({ corporate = false }: { corporate?: boolean }) {
   return <section className="vg-surface vg-analystes" data-gestion-vue="analystes">
-    <h2>Tableau de bord</h2><p className="vg-reference">Lystes & Partners · données non connectées</p>
+    <h2>Tableau de bord</h2><p className="vg-reference">{corporate ? "Brévan Architectes" : "Lystes & Partners"} · données non connectées</p>
     <header className="vg-ligne vg-filtres"><span><CalendarDays />6 derniers mois<ChevronDown /></span><nav className="vg-onglets"><span className="vg-actif"><LayoutGrid />Vue d’ensemble</span><span><Activity />Activité</span><span><Users />Équipe</span><span><Lightbulb />Insights</span></nav></header>
-    <div className="vg-analyse-plaque"><div className="vg-courbe"><h3>Voici la courbe de vos conversations quotidiennes. <span>Sur les 12 derniers mois.</span></h3><nav className="vg-onglets"><span className="vg-actif">Conversations</span><span>Essayages</span></nav><p className="vg-reference">Évolution quotidienne</p><div className="vg-graphique"><div className="vg-graduations">{[280, 210, 140, 70, 0].map(n => <span key={n}>{n}</span>)}</div><div className="vg-graphique-vide"><Courbe points={ANNEE} className="vg-grande" /><span className="vg-badge-demo">Courbe de démonstration</span></div></div><div className="vg-dates"><span>avr.</span><span>mai</span><span>juin</span><span>juil.</span><span>août</span><span>sept.</span><span>oct.</span></div><p className="vg-sujets"><MessageCircle />Sujets fréquents</p><p className="vg-reference">Les sujets apparaîtront avec vos conversations.</p></div>
-      <aside className="vg-classement"><h3><Trophy />Top produits du mois</h3><p className="vg-reference">Les plus sollicités par vos clients</p><div className="vg-rangs">{[1, 2, 3, 4, 5].map(n => <div key={n}><span>{n}</span><Package /><p>En attente de données</p></div>)}</div></aside></div>
+    <div className="vg-analyse-plaque"><div className="vg-courbe"><h3>Voici la courbe de vos conversations quotidiennes. <span>Sur les 12 derniers mois.</span></h3><nav className="vg-onglets"><span className="vg-actif">Conversations</span><span>{corporate ? "Rendez-vous" : "Essayages"}</span></nav><p className="vg-reference">Évolution quotidienne</p><div className="vg-graphique"><div className="vg-graduations">{[280, 210, 140, 70, 0].map(n => <span key={n}>{n}</span>)}</div><div className="vg-graphique-vide"><Courbe points={ANNEE} className="vg-grande" /><span className="vg-badge-demo">Courbe de démonstration</span></div></div><div className="vg-dates"><span>avr.</span><span>mai</span><span>juin</span><span>juil.</span><span>août</span><span>sept.</span><span>oct.</span></div><p className="vg-sujets"><MessageCircle />Sujets fréquents</p><p className="vg-reference">Les sujets apparaîtront avec vos conversations.</p></div>
+      <aside className="vg-classement"><h3><Trophy />{corporate ? "Top services du mois" : "Top produits du mois"}</h3><p className="vg-reference">Les plus sollicités par vos clients</p><div className="vg-rangs">{[1, 2, 3, 4, 5].map(n => <div key={n}><span>{n}</span><Package /><p>En attente de données</p></div>)}</div></aside></div>
   </section>;
 }

@@ -16,6 +16,8 @@ const SUR_BIOLYSTES: Record<string, string> = {
   "/": "/",
   /* /bio de lystes.ai est cette page d’accueil même. */
   "/bio": "/",
+  /* L’accueil de lystes.ai, repris sur biolystes.com (13/10/2026). */
+  "/agents-ia": "/agents-ia",
   "/legal": "/mentions-legales",
   "/privacy": "/politique-confidentialite",
   "/terms": "/cgv",

@@ -53,7 +53,9 @@
       "importTerminePrestations": "Your services are saved",
       "liaison": "Linking your products to your specialist…",
       "liaisonPrestations": "Linking your services to your specialist…",
-      "managers": "Setting up the management and the managers…"
+      "managers": "Setting up the management and the managers…",
+      "specialistePrestations": "Creating your website advisor…",
+      "coachsPrestations": "Setting up your follow-up after appointments…"
     },
     "expertsLinkManquant": {
       "message": "Your experts were created, but aren't answering for any product yet. Link them from the My team page.",
@@ -304,6 +306,19 @@
       "strategy": "Strategy",
       "upsell": "After-sale coaches",
       "winners": "Winning products"
+    },
+    "prestations": {
+      "experts": "Service experts",
+      "coachs": "Follow-up after appointments",
+      "coachsTexte": "Follow up with your clients after their appointment.",
+      "specialisteTexte": "The advisor shown in the chat bubble on your website.",
+      "conseiller": "Website advisor",
+      "conseillerTexte": "Answers across your website: services, opening hours, contact.",
+      "tableauDeBord": "Works in your dashboard, with no agent on your website.",
+      "bilanSite": "On your website",
+      "postePRODUCTS": "Service experts",
+      "posteUPSELL": "Follow-up after appointments",
+      "posteWINNERS": "Top services"
     }
   },
   "page": {
@@ -323,7 +338,8 @@
     },
     "progressionNonEnregistree": "Your progress could not be saved",
     "choixNonEnregistre": "Your choice could not be saved",
-    "configurationPartielle": "Your AI team is partly configured. Some items will be completed in the next step."
+    "configurationPartielle": "Your AI team is partly configured. Some items will be completed in the next step.",
+    "voirLaSuite": "See more"
   },
   "plateforme": {
     "autre": {
@@ -548,6 +564,8 @@
       "bouton": "Confirm request",
       "chapo": "Our technical team installs the widget on your site. Installed within 24 business hours.",
       "detail": "We'll email you today to collect your access details. Nothing for you to do until then.",
+      "confirmer": "Once you confirm, your request goes to our team, who will email you to collect your access details.",
+      "enregistree": "Request saved. Our team will handle it and email you to collect your access details.",
       "titre": "Do it for me",
       "dejaEnvoyee": "Request sent to the team on {{date}}. We will email you to get your access."
     },

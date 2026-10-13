@@ -53,7 +53,9 @@
       "importTerminePrestations": "Os seus serviços estão guardados",
       "liaison": "A ligar os seus produtos ao seu especialista…",
       "liaisonPrestations": "A ligar os seus serviços ao seu especialista…",
-      "managers": "A preparar a direção e os gestores…"
+      "managers": "A preparar a direção e os gestores…",
+      "specialistePrestations": "A criar o consultor do seu site…",
+      "coachsPrestations": "A preparar o acompanhamento após a marcação…"
     },
     "expertsLinkManquant": {
       "message": "Os seus especialistas estão criados, mas ainda não respondem por nenhum produto. Associe-os a partir da página A Minha Equipa.",
@@ -304,6 +306,19 @@
       "strategy": "Estratégia",
       "upsell": "Coaches pós-compra",
       "winners": "Produtos vencedores"
+    },
+    "prestations": {
+      "experts": "Especialistas em serviços",
+      "coachs": "Acompanhamento após a marcação",
+      "coachsTexte": "Acompanham os seus clientes após a marcação.",
+      "specialisteTexte": "O consultor que aparece na bolha do seu site.",
+      "conseiller": "Consultor do site",
+      "conseillerTexte": "Responde em todo o seu site: serviços, horários, contacto.",
+      "tableauDeBord": "Trabalha no seu painel, sem agente no seu site.",
+      "bilanSite": "No seu site",
+      "postePRODUCTS": "Especialistas em serviços",
+      "posteUPSELL": "Acompanhamento após a marcação",
+      "posteWINNERS": "Serviços em destaque"
     }
   },
   "page": {
@@ -323,7 +338,8 @@
     },
     "progressionNonEnregistree": "Não foi possível guardar o seu progresso",
     "choixNonEnregistre": "Não foi possível guardar a sua escolha",
-    "configurationPartielle": "Configuração parcial da sua equipa de IA. Alguns elementos serão concluídos no passo seguinte."
+    "configurationPartielle": "Configuração parcial da sua equipa de IA. Alguns elementos serão concluídos no passo seguinte.",
+    "voirLaSuite": "Ver mais"
   },
   "plateforme": {
     "autre": {
@@ -548,6 +564,8 @@
       "bouton": "Confirmar o pedido",
       "chapo": "A nossa equipa técnica instala o widget no seu site. Instalado em 24h úteis.",
       "detail": "Contactamo-lo por e-mail durante o dia para obter os seus acessos. Nenhuma ação necessária da sua parte até lá.",
+      "confirmer": "Ao confirmar, o seu pedido chega à nossa equipa, que lhe escreverá para obter os seus acessos.",
+      "enregistree": "Pedido registado. A nossa equipa irá tratá-lo e escrever-lhe para obter os seus acessos.",
       "titre": "Façam por mim",
       "dejaEnvoyee": "Pedido enviado à equipa a {{date}}. Vamos escrever-lhe por e-mail para obter os seus acessos."
     },

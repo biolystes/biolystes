@@ -284,6 +284,8 @@ export const MENU_ACCESS: Record<string, MenuAccessConfig> = {
 
   // Vos agents et vos outils
   'activite': { requiredTier: 'starter' },
+  /* 13/10/2026 : l'accueil d'un compte Business, même palier que l'activité. */
+  'accueil-entreprise': { requiredTier: 'starter' },
   'ventes-assistees': { requiredTier: 'starter' },
   'mise-en-route': { requiredTier: 'starter' },
   'bibliotheque-lots': { requiredTier: 'starter' },

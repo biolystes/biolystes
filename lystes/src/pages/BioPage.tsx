@@ -22,6 +22,7 @@ import VisionEtagesBloc from "@lystes/features/solutions/VisionEtagesBloc";
 import BlocsAccueilSecteur from "@lystes/features/solutions/BlocsAccueilSecteur";
 import { Header } from "@lystes/components/landing/Header";
 import { Footer } from "@lystes/components/landing/Footer";
+import { useSansMotSeul } from "@lystes/hooks/useSansMotSeul";
 import { CommeSurAccueil } from "@lystes/features/solutions/CommeSurAccueil";
 import { Button } from "@lystes/components/ui/button";
 import { ExternalLink, MousePointerClick, PackagePlus, SendHorizontal } from "lucide-react";
@@ -390,6 +391,8 @@ function EtapesLivraison() {
 }
 
 export default function DecouvertePage() {
+  /* Aucun mot seul en fin de ligne, nulle part sur la page (JP). */
+  useSansMotSeul();
   const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState<StepKey>("decouvre");
   const [catalogProducts, setCatalogProducts] = useState<{ id: number; name: string; image: string }[]>([]);
@@ -607,7 +610,7 @@ export default function DecouvertePage() {
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
           className="max-w-5xl mx-auto px-6 mt-20 grid md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-border">
           {[
-            { num: "1", title: "Profitez de 18 ans d’expérience e-commerce", desc: "Nous vous accompagnons avec un savoir-faire éprouvé dans le e-commerce et la cosmétique naturelle." },
+            { num: "1", title: "Profitez de 18 ans d’expérience en e-commerce", desc: "Nous vous accompagnons avec un savoir-faire éprouvé dans le e-commerce et la cosmétique naturelle." },
             { num: "2", title: "Offrez-vous des services 360° premium", desc: "Identité visuelle, packagings et boutique en ligne conçus pour valoriser votre marque dès le départ." },
             { num: "3", title: "Profitez de notre réseau pour vous développer", desc: "Accédez à nos partenaires experts pour accélérer votre croissance sans multiplier les prestataires." },
           ].map((item) => (
@@ -795,7 +798,7 @@ export default function DecouvertePage() {
                 <div className="inline-flex items-center justify-center w-10 h-10 bg-background rounded-full mb-3">
                   <item.icon className="w-4 h-4 text-foreground" strokeWidth={1} />
                 </div>
-                <h3 className="text-sm font-semibold text-foreground mb-1 uppercase tracking-wide">{item.title}</h3>
+                <h3 className="text-sm font-semibold text-foreground mb-1 uppercase tracking-wide md:tracking-normal lg:tracking-wide">{item.title}</h3>
                 <p className="text-foreground text-xs leading-relaxed">{item.desc}</p>
               </div>
             ))}

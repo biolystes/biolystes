@@ -4,7 +4,9 @@ import { computeAgentCounts } from "@lystes/hooks/useAgentCounts";
 import Organigramme from "@lystes/components/team/Organigramme";
 import { CadreReproduit } from "./CadreReproduit";
 import { MARQUE_DEMO, PRODUITS_DEMO } from "./demoLystes";
-import { Encart, type Agent, type Pied, type Pointe, type TailleCadre } from "../VisionEtages";
+import { MARQUE_CORPO, SERVICES_CORPO } from "./demoCorporate";
+import { buildBusinessOrgData } from "../business-organigramme-data";
+import { Encart, type Agent, type Pied, type Pointe, type Secteur, type TailleCadre } from "../VisionEtages";
 
 /**
  * Étage 5, « Vos équipes » (12/10/2026, JP) : deux écrans.
@@ -48,6 +50,32 @@ const POSTES: { agent: Agent; ecran: EcranEquipes }[] = [
 
 export const AGENTS_EQUIPES: Agent[] = POSTES.map((p) => p.agent);
 
+/* La version « Entreprises » (/business, 12/10/2026) : l'organigramme de
+   /business (business-organigramme-data.ts, compté en métiers) et le
+   cerveau de Brévan Architectes. */
+const POSTES_CORPORATE: { agent: Agent; ecran: EcranEquipes }[] = [
+  {
+    agent: {
+      nom: "Organigramme IA",
+      mission: "vos équipes d’agents, métier par métier",
+      role: "Composer vos équipes d’agents selon les métiers que vous confiez, d’un assistant de direction à quatre directions, puis à leurs managers et leurs équipes.",
+      unique: "Chaque métier confié reçoit ses agents dédiés, rangés au bon endroit. Vous voyez qui fait quoi, et à qui chaque agent rend compte.",
+    },
+    ecran: "organigramme",
+  },
+  {
+    agent: {
+      nom: "Brand AI",
+      mission: "le cerveau commun de votre entreprise",
+      role: "Réunir ce que votre entreprise sait, services, références, échanges, prospects et réputation, pour que tous vos agents lisent la même source.",
+      unique: "Sa carte vivante montre ce que vos agents savent et ce qui leur manque. Vous expliquez votre entreprise une fois, et chaque équipe en parle de la même façon.",
+    },
+    ecran: "cerveau",
+  },
+];
+const postesDe = (secteur: Secteur = "ecommerce") => (secteur === "corporate" ? POSTES_CORPORATE : POSTES);
+export const agentsEquipes = (secteur: Secteur = "ecommerce"): Agent[] => postesDe(secteur).map((p) => p.agent);
+
 /* ---------- Organigramme IA ---------- */
 
 /* La largeur de l'écran rendu : au-dessus de 768 px, l'organigramme prend sa
@@ -59,7 +87,7 @@ const ECRAN_ORGA_TEL = 390;
    depuis 10 à l'ouverture de l'étape. */
 const PRODUITS_ACCUEIL = 180;
 
-function VueOrganigramme({ animer }: { animer: boolean }) {
+function VueOrganigramme({ animer, corporate = false }: { animer: boolean; corporate?: boolean }) {
   const [produits, setProduits] = useState(animer ? 10 : PRODUITS_ACCUEIL);
   const touche = useRef(false);
   useEffect(() => {
@@ -78,16 +106,17 @@ function VueOrganigramme({ animer }: { animer: boolean }) {
   }, [animer]);
   /* Les mêmes réglages que l'accueil : 140 créateurs UGC, diagnostic actif. */
   const counts = computeAgentCounts(produits, 140, true);
+  const unite = corporate ? "métiers" : "produits";
   return (
     <div className="lyv-q-orga" data-lyv-q-orga="">
       <h3 className="text-[28px] font-thin tracking-tight mb-4 leading-[1.1] text-center" data-lyv-q-compteur="">
-        <span className="font-['Inter'] italic whitespace-nowrap">{produits} produits</span>{" "}
+        <span className="font-['Inter'] italic whitespace-nowrap">{produits} {unite}</span>{" "}
         <span className="font-['Inter'] italic text-muted-foreground whitespace-nowrap">{counts.grandTotal} agents dédiés</span>
       </h3>
       <div className="w-full max-w-[400px] mx-auto mt-8 mb-8">
         <div className="flex items-center justify-between text-[12px] text-muted-foreground mb-2">
-          <span>10 produits</span>
-          <span>1000 produits</span>
+          <span>10 {unite}</span>
+          <span>1000 {unite}</span>
         </div>
         <Slider
           value={[produits]}
@@ -96,10 +125,10 @@ function VueOrganigramme({ animer }: { animer: boolean }) {
           max={1000}
           step={1}
           className="w-full"
-          aria-label="Nombre de produits"
+          aria-label={`Nombre de ${unite}`}
         />
       </div>
-      <Organigramme variant="landing" fixedProductCount={produits} />
+      <Organigramme variant="landing" fixedProductCount={produits} data={corporate ? buildBusinessOrgData(counts, true) : undefined} />
     </div>
   );
 }
@@ -215,10 +244,56 @@ function chargeCerveau() {
   };
 }
 
+/* Le savoir de l'entreprise de démonstration (Brévan Architectes). */
+function chargeCerveauCorporate() {
+  const base = chargeCerveau();
+  const arbre = [
+    { name: "Services", sub: "expertises · références · savoir", color: "#8B5CF6", intro: "Ce que vos agents savent de vos services.",
+      functions: [
+        fonction("Expertises", feuilles(SERVICES_CORPO.map((x) => x.nom))),
+        fonction("Références", feuilles(["Siège d’un groupe de conseil", "Hall d’un siège social", "Étage de direction"], ["autonomous", "autonomous", "assisted"])),
+        fonction("Savoir de l’entreprise", feuilles(["Histoire du cabinet", "Ton de voix", "Méthode de travail", "Charte graphique"], ["autonomous", "autonomous", "assisted", "plan"])),
+      ] },
+    { name: "Équipes", sub: "agents · experts", color: "#3B82F6", intro: "Les agents qui lisent ce savoir.",
+      functions: [
+        fonction("Relation client", feuilles(["Conseiller du site", "Agent FAQ", "Formulaire IA", "Responsable avis"])),
+        fonction("Communication", feuilles(["Magazine IA", "Newsletter IA", "Réseau de presse"], ["autonomous", "autonomous", "assisted"])),
+        fonction("Pilotage", feuilles(["Data analyst", "Copilote", "Expert-comptable"], ["autonomous", "autonomous", "assisted"])),
+      ] },
+    { name: "Échanges", sub: "conversations · sujets · leçons", color: "#F59E0B", intro: "Ce que demandent vos prospects.",
+      functions: [
+        fonction("Questions fréquentes", feuilles(["Délais d’étude", "Travaux en site occupé", "Zone d’intervention"])),
+        fonction("Objections", feuilles(["Budget", "Planning"], ["autonomous", "assisted"])),
+        fonction("Leçons apprises", feuilles(["Réponses qui mènent au rendez-vous", "Questions sans réponse"], ["autonomous", "assisted"])),
+      ] },
+    { name: "Prospects", sub: "contacts · rendez-vous · provenance", color: "#EC4899", intro: "À qui parlent vos agents.",
+      functions: [
+        fonction("Rendez-vous", feuilles(["Premiers échanges", "Visites de locaux"], ["autonomous", "assisted"])),
+        fonction("Provenance des visites", feuilles(["LinkedIn", "Google", "ChatGPT", "Recommandation"])),
+      ] },
+    { name: "Réputation", sub: "avis · presse", color: "#14B8A6", intro: "Ce qu’on dit de votre entreprise.",
+      functions: [
+        fonction("Avis", feuilles(["Avis cinq étoiles", "Avis à traiter"], ["autonomous", "assisted"])),
+        fonction("Presse", feuilles(["Articles économiques"], ["plan"])),
+      ] },
+  ];
+  return {
+    ...base,
+    arbre,
+    hub: `Brand AI · ${MARQUE_CORPO}`,
+    hubEntry: {
+      ...base.hubEntry,
+      components: arbre.map((f) => f.name),
+      desc: "Le seul endroit où tous vos agents viennent lire. Ce qu’ils y trouvent, ils peuvent le dire à un prospect ; ce qui n’y est pas, ils l’ignorent.",
+      notes: "Entreprise de démonstration : les points de la carte sont des exemples.",
+    },
+  };
+}
+
 /* Le fragment d'adresse que lit le moteur : du JSON en UTF-8, en base 64
    (même encodage que CerveauConstellation). */
-function adresseCerveau(): string {
-  const octets = new TextEncoder().encode(JSON.stringify(chargeCerveau()));
+function adresseCerveau(corporate = false): string {
+  const octets = new TextEncoder().encode(JSON.stringify(corporate ? chargeCerveauCorporate() : chargeCerveau()));
   let binaire = "";
   for (let i = 0; i < octets.length; i += 8192) binaire += String.fromCharCode(...octets.subarray(i, i + 8192));
   return `/cerveau-carte/index.html#${btoa(binaire)}`;
@@ -234,7 +309,8 @@ const CARTE_ORDI = { w: 980, h: 760 };
 const CARTE_TEL = { w: 780, h: 920 };
 const HAUTEUR_VUE_ORDI = 520;
 
-export default function VisiteEquipes({ etape, survol, mobile, pied, taille, prete }: {
+export default function VisiteEquipes({ etape, survol, mobile, pied, taille, prete, secteur = "ecommerce" }: {
+  secteur?: Secteur;
   etape: number;
   survol: (s: boolean) => void;
   mobile: boolean;
@@ -249,10 +325,12 @@ export default function VisiteEquipes({ etape, survol, mobile, pied, taille, pre
   /* La hauteur de l'organigramme rendu, en pixels de l'écran. */
   const [hOrga, setHOrga] = useState(0);
   const [cerveauCharge, setCerveauCharge] = useState(false);
-  const rang = Math.min(Math.max(etape, 0), POSTES.length - 1);
-  const poste = POSTES[rang];
+  const corporate = secteur === "corporate";
+  const postes = postesDe(secteur);
+  const rang = Math.min(Math.max(etape, 0), postes.length - 1);
+  const poste = postes[rang];
   const ecranOrga = mobile ? ECRAN_ORGA_TEL : ECRAN_ORGA_ORDI;
-  const adresse = useMemo(adresseCerveau, []);
+  const adresse = useMemo(() => adresseCerveau(corporate), [corporate]);
   const animer = useMemo(() => !window.matchMedia("(prefers-reduced-motion: reduce)").matches, []);
 
   /* La vue : l'organigramme entier, réduit à la largeur du cadre ; la carte
@@ -363,14 +441,14 @@ export default function VisiteEquipes({ etape, survol, mobile, pied, taille, pre
             refCadre={(n) => { cadreOrga.current = n; }}
             pret={() => setDocOrga(cadreOrga.current?.contentDocument ?? null)}
             styleEnPlus={CSS_ORGA}
-            rendu={() => <VueOrganigramme animer={animer} />}
+            rendu={() => <VueOrganigramme animer={animer} corporate={corporate} />}
           />
         ) : (
           <iframe
             key="cerveau"
             className="lyv-q-carte"
             src={adresse}
-            title={`Brand AI, le cerveau de ${MARQUE_DEMO}`}
+            title={`Brand AI, le cerveau de ${corporate ? MARQUE_CORPO : MARQUE_DEMO}`}
             style={{ width: carte.w, height: carte.h, transform: `scale(${sCarte})` }}
             onLoad={() => setCerveauCharge(true)}
             allow="fullscreen"

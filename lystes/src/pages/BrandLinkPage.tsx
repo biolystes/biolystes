@@ -15,6 +15,7 @@ import { X } from "lucide-react";
 import { getTryOnDemoUrl } from "@lystes/utils/agentRouting";
 import { BrandAdvisorChatCard, type DemoConseiller } from "@lystes/components/brand/BrandAdvisorChatCard";
 import { BoutonDiagFaq, type DemoDiagFaq } from "@lystes/components/brand/BoutonDiagFaq";
+import { BoutonActus } from "@lystes/components/brand/BoutonActus";
 import { useIsMobile } from "@lystes/hooks/use-mobile";
 import { FILTRE_AVIS_DEFINITIFS } from "@lystes/lib/reviews/authenticity";
 import { ajouterSuivi } from "@lystes/lib/lienSuivi";
@@ -1096,6 +1097,7 @@ export function VueMultiLien({
   auClicLien,
   auClicCta,
   demo,
+  actus,
   children,
 }: {
   data: BrandLinkData;
@@ -1105,7 +1107,10 @@ export function VueMultiLien({
   surMobile: boolean;
   auClicLien?: () => void;
   auClicCta?: () => void;
-  demo?: { conseiller: DemoConseiller; diag: DemoDiagFaq };
+  demo?: { conseiller: DemoConseiller; diag?: DemoDiagFaq };
+  /* Une entreprise sans diagnostic : le bouton noir « Nos dernières actus »
+     à sa place, qui ouvre son magazine (BoutonActus). */
+  actus?: { ouvrir: () => void };
   children?: ReactNode;
 }) {
   const handleLinkClick = () => auClicLien?.();
@@ -1119,7 +1124,7 @@ export function VueMultiLien({
   return (
     <>
       <style>{brandLinkPageStyles}</style>
-      <div className={"blp-body p-4" + (agentDiagnostic ? " blp-avec-bdf" : "")} style={{ background: 'hsl(var(--muted))' }}>
+      <div className={"blp-body p-4" + (agentDiagnostic || actus ? " blp-avec-bdf" : "")} style={{ background: 'hsl(var(--muted))' }}>
         {/* Main white card */}
         <div className="blp-main-card shadow-2xl">
           {/* Profile Section : le logo et le nom sont partagés avec le contact
@@ -1161,6 +1166,12 @@ export function VueMultiLien({
                   deuxLignes
                   demo={demo?.diag}
                 />
+              </div>
+            )}
+
+            {!agentDiagnostic && actus && (
+              <div className="mb-[22px]">
+                <BoutonActus ouvrir={actus.ouvrir} deuxLignes />
               </div>
             )}
 

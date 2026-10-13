@@ -53,7 +53,9 @@
       "importTerminePrestations": "Sus servicios están guardados",
       "liaison": "Vinculando sus productos con su especialista…",
       "liaisonPrestations": "Vinculando sus servicios con su especialista…",
-      "managers": "Preparando la dirección y los mánagers…"
+      "managers": "Preparando la dirección y los mánagers…",
+      "specialistePrestations": "Creando el asesor de su sitio…",
+      "coachsPrestations": "Preparando su seguimiento tras la cita…"
     },
     "expertsLinkManquant": {
       "message": "Sus expertos están creados, pero no responden por ningún producto todavía. Vincúlelos desde la página Mi equipo.",
@@ -304,6 +306,19 @@
       "strategy": "Estrategia",
       "upsell": "Coaches posventa",
       "winners": "Productos ganadores"
+    },
+    "prestations": {
+      "experts": "Expertos en servicios",
+      "coachs": "Seguimiento tras la cita",
+      "coachsTexte": "Acompañan a sus clientes después de su cita.",
+      "specialisteTexte": "El asesor que aparece en la burbuja de su sitio web.",
+      "conseiller": "Asesor del sitio",
+      "conseillerTexte": "Responde en todo su sitio: servicios, horarios, contacto.",
+      "tableauDeBord": "Trabaja en su panel, sin agente en su sitio web.",
+      "bilanSite": "En su sitio web",
+      "postePRODUCTS": "Expertos en servicios",
+      "posteUPSELL": "Seguimiento tras la cita",
+      "posteWINNERS": "Servicios estrella"
     }
   },
   "page": {
@@ -323,7 +338,8 @@
     },
     "progressionNonEnregistree": "No se pudo guardar su progreso",
     "choixNonEnregistre": "No se pudo guardar su elección",
-    "configurationPartielle": "Configuración parcial de su equipo de IA. Algunos elementos se completarán en el siguiente paso."
+    "configurationPartielle": "Configuración parcial de su equipo de IA. Algunos elementos se completarán en el siguiente paso.",
+    "voirLaSuite": "Ver más"
   },
   "plateforme": {
     "autre": {
@@ -548,6 +564,8 @@
       "bouton": "Confirmar la solicitud",
       "chapo": "Nuestro equipo técnico instala el widget en su sitio. Instalado en 24 h laborables.",
       "detail": "Le escribiremos hoy por correo para recoger sus accesos. Sin ninguna acción por su parte hasta entonces.",
+      "confirmer": "Al confirmar, su solicitud llega a nuestro equipo, que le escribirá para recoger sus accesos.",
+      "enregistree": "Solicitud registrada. Nuestro equipo la tramitará y le escribirá para recoger sus accesos.",
       "titre": "Háganlo por mí",
       "dejaEnvoyee": "Solicitud enviada al equipo el {{date}}. Le escribiremos por correo para obtener sus accesos."
     },

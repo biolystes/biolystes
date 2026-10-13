@@ -5,8 +5,7 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-      /* src/actus : la partie Actus, affichée dans le cadre de l’accueil (12/10/2026). */
-      content: ["./lystes/src/**/*.{ts,tsx,html}", "./src/actus/**/*.{ts,tsx}"],
+      content: ["./lystes/src/**/*.{ts,tsx,html}"],
   prefix: "",
   theme: {
     container: {

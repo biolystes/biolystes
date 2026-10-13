@@ -243,7 +243,7 @@ export default function HomeHeroVideo({ variante }: { variante?: HeroVariante } 
   const [installIdx, setInstallIdx] = useState(0);
   const lieux: LieuInstall[] = variante
     ? (variante.liens ?? []).map((l) => ({ key: l.label, defaut: l.label, href: l.href, logo: l.icone }))
-    : LIEUX_INSTALL;
+    : []; /* biolystes.com : pas de « Installer sur… » (inscription lystes.ai). */
   const nbLieux = lieux.length;
   const installTrackRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -361,9 +361,9 @@ export default function HomeHeroVideo({ variante }: { variante?: HeroVariante } 
           '<div class="lyh-who">' + AGENT_IC + "<span>" + tx("agentName", "Agent Lystes") + "</span></div>" +
           '<div class="lyh-wt">' + tx("prodsIntro", "Voici la routine que je vous conseille") + "</div>" +
           '<div class="lyh-prods">' +
-          '<div class="lyh-prod"><img src="' + A.prod1 + '" alt=""><b>' + tx("prod1", "Sérum vitamine C") + '</b><span>35,00 €</span><span class="lyh-add">+</span></div>' +
-          '<div class="lyh-prod"><img src="' + A.prod2 + '" alt=""><b>' + tx("prod2", "Sérum anti-âge") + '</b><span>34,00 €</span><span class="lyh-add">+</span></div>' +
-          '<div class="lyh-prod"><img src="' + A.prod1 + '" alt=""><b>' + tx("prod3", "Gel hydratation") + '</b><span>29,00 €</span><span class="lyh-add">+</span></div>' +
+          '<div class="lyh-prod"><img src="' + A.prod1 + '" alt=""><b>' + tx("prod1", "Sérum vitamine C") + '</b><span class="lyh-add">+</span></div>' +
+          '<div class="lyh-prod"><img src="' + A.prod2 + '" alt=""><b>' + tx("prod2", "Sérum anti-âge") + '</b><span class="lyh-add">+</span></div>' +
+          '<div class="lyh-prod"><img src="' + A.prod1 + '" alt=""><b>' + tx("prod3", "Gel hydratation") + '</b><span class="lyh-add">+</span></div>' +
           "</div>";
       } else if (msg.widget === "slots") {
         b.innerHTML =
@@ -628,8 +628,8 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
         <div className="lyh-btns">
           <a
             className="lyh-btn-black"
-            href={variante?.cta.href ?? "/auth?mode=signup"}
-            {...(variante?.cta.externe ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+            href={variante?.cta.href ?? "https://biolystes.pro/rdv"}
+            {...(!variante || variante.cta.externe ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           >
             <span className="lyh-lbl-l">
               {variante ? (
@@ -638,7 +638,11 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
                   <span className="lyh-cta-s">{variante.cta.labelCourt ?? variante.cta.label}</span>
                 </>
               ) : (
-                t("heroHome.ctaPrimary", { defaultValue: "S'inscrire en 5 min" })
+                /* biolystes.com : un seul appel à l’action, le rendez-vous. */
+                <>
+                  <span className="hidden min-[721px]:inline">Prendre rendez-vous</span>
+                  <span className="min-[721px]:hidden">Rendez-vous</span>
+                </>
               )}
             </span>
             <span className="lyh-arrow">

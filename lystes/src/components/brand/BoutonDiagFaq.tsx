@@ -26,7 +26,7 @@ import { createPortal } from "react-dom";
  */
 
 /* LYSTES_BDF_STYLE (woo-product-chat.js), sans les règles anti-thème. */
-const STYLE = `
+export const STYLE_BOUTON_NOIR = `
 .lystes-bdf{container-type:inline-size;width:100%;margin:12px 0 6px;font-family:inherit}
 .lystes-bdf .lystes-bdf-bouton{all:unset;box-sizing:border-box!important;display:flex!important;align-items:center!important;gap:12px!important;width:100%!important;height:44px!important;min-height:0!important;margin:0!important;padding:5px 8px 5px 5px!important;border:1px solid #111111!important;border-radius:6px!important;background:#ffffff!important;color:#111111!important;cursor:pointer!important;font-family:inherit!important;text-transform:none!important;letter-spacing:normal!important;box-shadow:none!important;text-align:left!important;line-height:1.2!important}
 .lystes-bdf .lystes-bdf-bouton:focus-visible{outline:2px solid #111111!important;outline-offset:2px!important}
@@ -86,7 +86,7 @@ const STYLE = `
 #lystes-bdf-fenetre.tel .lystes-bdf-faq h2{font-size:22px}
 `;
 
-const FLECHE = (
+export const FLECHE = (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111111" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M7 7h10v10" /><path d="M7 17 17 7" />
   </svg>
@@ -216,7 +216,7 @@ export function BoutonDiagFaq({
 
   return (
     <>
-      <style>{STYLE}</style>
+      <style>{STYLE_BOUTON_NOIR}</style>
       <div className={"lystes-bdf" + (deuxLignes ? " deux-lignes" : "")} id="lystes-bdf">
         <button type="button" className="lystes-bdf-bouton" aria-haspopup="dialog" onClick={ouvrir}>
           <span className="lystes-bdf-pastille">

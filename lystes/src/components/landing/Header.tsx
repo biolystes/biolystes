@@ -57,6 +57,8 @@ export function BasculeCible({ light, dans = "entete" }: { light: boolean; dans?
   if (!PAGES_BASCULE.includes(pathname)) return null;
 
   const surBusiness = pathname === "/business";
+  /* biolystes.com : /agents-ia, lue sur la vraie adresse (voir plus bas). */
+  const surAgents = typeof window !== "undefined" && window.location.pathname.startsWith("/agents-ia");
   const base =
     "inline-flex items-center h-[19px] px-[7px] text-[9.5px] sm:h-[23px] sm:px-[9px] sm:text-[11px] rounded-full font-semibold leading-none whitespace-nowrap no-underline transition-colors";
   const actif = "bg-white text-black";
@@ -73,14 +75,19 @@ export function BasculeCible({ light, dans = "entete" }: { light: boolean; dans?
       }`}
       aria-label="E-commerce ou agents IA"
     >
-      {/* biolystes.com (12/10/2026, JP) : « E-commerce » est cette page,
-          « Agents IA » mène à lystes.ai, dans le même onglet. */}
-      <Link to="/" className={`${base} ${surBusiness ? repos : actif}`} aria-current={surBusiness ? undefined : "page"}>
+      {/* biolystes.com (13/10/2026, JP) : une vraie bascule dans le site,
+          sans rechargement. « E-commerce » = /, « Agents IA » = /agents-ia
+          (l'accueil de lystes.ai repris). La page présente « / » à l'en-tête
+          (CommeSurAccueil) : la pastille active lit donc la vraie adresse. */}
+      {/* replace={false} : la page présente « / » à l'en-tête, et un lien vers
+          l'adresse « actuelle » remplacerait l'entrée d'historique au lieu
+          d'en ajouter une (le bouton Précédent sauterait une page). */}
+      <Link to="/" replace={false} className={`${base} ${surAgents ? repos : actif}`} aria-current={surAgents ? undefined : "page"}>
         E-commerce
       </Link>
-      <a href="https://lystes.ai" className={`${base} ${repos}`}>
+      <Link to="/agents-ia" replace={false} className={`${base} ${surAgents ? actif : repos}`} aria-current={surAgents ? "page" : undefined}>
         Agents IA
-      </a>
+      </Link>
     </nav>
   );
 }
@@ -248,12 +255,12 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
             {/* biolystes.com (13/10/2026, JP) : ni « Entreprise », ni « Équipes
                 IA », ni « Lab », ni « Tarifs ». La bascule, cachée dans l’en-tête
                 du téléphone, prend leur place ; la langue suit AFFICHER_LANGUE. */}
-            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="block border-b border-white/14 py-4 px-1.5 text-[16px] font-medium">
+            <Link to="/" replace={false} onClick={() => setMobileMenuOpen(false)} className="block border-b border-white/14 py-4 px-1.5 text-[16px] font-medium">
               E-commerce
             </Link>
-            <a href="https://lystes.ai" className="block border-b border-white/14 py-4 px-1.5 text-[16px] font-medium">
+            <Link to="/agents-ia" replace={false} onClick={() => setMobileMenuOpen(false)} className="block border-b border-white/14 py-4 px-1.5 text-[16px] font-medium">
               Agents IA
-            </a>
+            </Link>
             {AFFICHER_LANGUE && (
               <div className="border-b border-white/14 py-3 px-1.5">
                 <HeaderLanguageSelector overlay />

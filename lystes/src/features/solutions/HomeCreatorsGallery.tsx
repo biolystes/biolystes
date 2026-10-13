@@ -27,7 +27,7 @@ export function HomeCreatorsGallery({
         <h2 className="font-['Inter'] font-thin text-[28px] sm:text-[40px] md:text-[51px] leading-[1.15] md:leading-[1.1] tracking-tight max-w-[300px] sm:max-w-[640px] md:max-w-[780px] mx-auto mb-6 text-neutral-900 text-balance">
           {t("Toute une équipe de créateurs IA de contenu soutient votre marque")}
         </h2>
-        <p className="text-[14px] md:text-[17px] text-neutral-600 leading-[1.7] mx-auto text-pretty" style={{ maxWidth: 446 }}>
+        <p className="text-[14px] md:text-[17px] text-neutral-600 leading-[1.7] mx-auto text-balance" style={{ maxWidth: 446 }}>
           {t("Choisissez vos créateurs, votre univers et générez en quelques secondes des contenus fidèles à votre image de marque.")}
         </p>
       </div>

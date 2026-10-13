@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useEffect, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-import { BadgeCheck, BadgeEuro, BookOpen, Brain, Clock, Network, FileText, HelpCircle, ShoppingCart, Store, UserCheck, TrendingUp, Filter, Gauge, Link2, ListChecks, MessageCircle, Star, Target, Users, type LucideIcon } from "lucide-react";
+import { BadgeCheck, BadgeEuro, BookOpen, Brain, CalendarCheck, CalendarDays, Clock, Compass, Linkedin, Network, Newspaper, FileText, HelpCircle, ShoppingCart, Store, UserCheck, TrendingUp, Filter, Gauge, Link2, ListChecks, MessageCircle, Star, Target, Users, type LucideIcon } from "lucide-react";
 import { ScrollRail } from "@lystes/components/shot/ScrollRail";
 import { FaceMeshScanner } from "@lystes/features/landing-particuliers/components/diagnostic/FaceMeshScanner";
 import diagnosticFace from "@lystes/features/landing-particuliers/pages/diagnostic-agent/assets/diagnostic-face.jpg";
@@ -49,7 +49,14 @@ import diagnosticFace from "@lystes/features/landing-particuliers/pages/diagnost
  * pour que la fiche reprenne là où elle en était.
  */
 
+/* La variante de la section (JP, 12/10/2026) : « ecommerce » sur l'accueil,
+   « corporate » sur /business (la bascule « Entreprises » de l'en-tête). Même
+   composant, mêmes visites : seuls les onglets, les agents et les données de
+   démonstration changent. */
+export type Secteur = "ecommerce" | "corporate";
+
 type Props = {
+  secteur?: Secteur;
   tete: HTMLElement;
   scene: HTMLElement;
   texte: HTMLElement;
@@ -85,7 +92,7 @@ const RESEAU_VISIBLE = false;
    mesurée sur la page (EncartPose), face à la hauteur du cadre. Avant toute
    mesure, la hauteur la plus grande relevée le 10/10 à 240 px de large,
    loupes comprises. */
-export const HAUTEUR_ENCART = { produits: 420, ecommerce: 300, outils: 250, entreprise: 250, equipes: 250, reseau: 0 };
+export const HAUTEUR_ENCART: Record<string, number> = { produits: 420, ecommerce: 300, outils: 250, entreprise: 250, equipes: 250, reseau: 0, siteweb: 250 };
 /* Les encarts posés de l'onglet en cours disent leur hauteur ici. */
 export const MesureEncart = createContext<((h: number) => void) | null>(null);
 /* La taille du cadre que chaque visuel annonce ; `largeurMin` quand
@@ -110,8 +117,16 @@ const TOUS_LES_ONGLETS = [
     benefices: [[ShoppingCart, "Moins d’abandons d’achat"], [UserCheck, "Clientes rassurées avant l’achat"], [BadgeEuro, "Plus de ventes, à trafic égal"]] as [LucideIcon, string][],
     /* Le titre de la section change avec l'onglet : le problème que l'étage résout (JP, 12/10). */
     probleme: ["En moyenne dans le e-commerce, ", "98 % des visiteurs", " repartent sans acheter."],
+    /* Le chapeau finit sur « qui : » et la liste le prolonge : quatre lignes
+       de même construction, à plat, sans repli (JP, 13/10 : « plus digeste »). */
     reponse:
-      "Une question sans réponse, et votre client est déjà chez la concurrence. Lystes déploie sur chaque fiche produit des équipes IA qui répondent instantanément à vos clients et optimisent vos pages pour vendre plus. Elles s’auto-améliorent à chaque conversation : elles repèrent les réponses qui mènent à l’achat et vous remontent les points de friction.",
+      "Une question sans réponse, et votre client part chez la concurrence. Sur chaque fiche produit, Lystes place une équipe IA qui\u00a0:",
+    points: [
+      "répond tout de suite à vos clients, jour et nuit",
+      "repère les réponses qui mènent à l’achat",
+      "s’améliore à chaque conversation",
+      "vous signale ce qui bloque la vente",
+    ],
     accroche: "Une équipe de\n10 agents IA par produit,\npour déclencher l’achat.",
     chapeau:
       "Pour chaque produit, des collaborateurs IA disponibles 24 h sur 24 et 7 jours sur 7, qui s’adaptent seuls pour faire vendre davantage.",
@@ -125,7 +140,13 @@ const TOUS_LES_ONGLETS = [
     benefices: [[MessageCircle, "Un conseil sur chaque page"], [Target, "Le bon produit, à chaque besoin"], [Clock, "Une réponse, jour et nuit"]] as [LucideIcon, string][],
     probleme: ["En moyenne, ", "2 visiteurs sur 3", " ont besoin d’un conseil pour acheter."],
     reponse:
-      "Sans accompagnement, ils repartent sans savoir quel produit leur convient. Une suite d’agents IA les oriente vers le bon produit, comme une vendeuse en boutique.",
+      "Sans accompagnement, ils repartent sans savoir quel produit leur convient. Sur toute votre boutique, Lystes place une équipe IA qui\u00a0:",
+    points: [
+      "oriente chaque visiteur vers le bon produit, comme une vendeuse",
+      "compose la routine ou la tenue adaptée",
+      "répond à tout, depuis n’importe quelle page",
+      "suggère le bon complément au panier",
+    ],
     accroche: "Une équipe IA pour toute la boutique, pour guider chaque visiteuse.",
     chapeau:
       "Une barre flottante sur chaque page, et des agents qui connaissent tout votre catalogue. Ajoutez un produit au panier : tous les agents le savent.",
@@ -139,7 +160,13 @@ const TOUS_LES_ONGLETS = [
     benefices: [[Filter, "Des visiteurs déjà convaincus"], [Star, "Des avis et une FAQ qui vendent"], [Link2, "Chaque lien suivi jusqu’à l’achat"]] as [LucideIcon, string][],
     probleme: ["Un visiteur bien accueilli ", "avant le site", " achète plus."],
     reponse:
-      "Depuis Instagram, une newsletter, un avis ou ChatGPT : vos outils font le premier contact, préqualifient le visiteur et l’amènent au bon produit, dans les meilleures dispositions pour acheter.",
+      "Instagram, une newsletter, un avis ou ChatGPT\u00a0: vos outils font le premier contact. Sur la page lystes.ai de votre marque, chaque outil a son agent IA, qui\u00a0:",
+    points: [
+      "préqualifie le visiteur avant votre site",
+      "l’amène jusqu’au bon produit",
+      "fait de vos avis et de votre FAQ des arguments de vente",
+      "suit chaque lien jusqu’à l’achat",
+    ],
     accroche: "8 outils pilotés par des agents IA, pour attirer des visiteurs prêts à acheter.",
     chapeau:
       "Multi-lien, avis, magazine, FAQ, paiement et contact, réunis sur la page lystes.ai de votre marque. Chaque outil a son agent, relié aux autres agents de votre espace.",
@@ -153,7 +180,13 @@ const TOUS_LES_ONGLETS = [
     benefices: [[Gauge, "Le chiffre à viser, chaque mois"], [ListChecks, "Un plan d’action chiffré"], [Users, "Les bons experts, en un clic"]] as [LucideIcon, string][],
     probleme: ["Un écosystème de plusieurs équipes IA, ", "en 5 min", "."],
     reponse:
-      "Des centaines de collaborateurs IA, autonomes ou semi-autonomes, répartis en équipes qui se parlent : pour vos produits, votre e-commerce et votre entreprise.",
+      "Des centaines de collaborateurs IA, autonomes ou semi-autonomes, répartis en équipes qui se parlent. Pour votre entreprise, Lystes réunit des agences IA qui\u00a0:",
+    points: [
+      "vous donnent le chiffre à viser, chaque mois",
+      "tirent de vos données un plan d’action chiffré",
+      "repèrent dans vos conversations où vos clients bloquent",
+      "tiennent vos réseaux, vos campagnes et vos visuels",
+    ],
     accroche: "Des agences IA au complet, pour faire grandir votre marque.",
     chapeau:
       "Pour développer vos ventes, votre communication et votre marketing : des équipes IA qui partent du cerveau de votre espace.",
@@ -168,7 +201,13 @@ const TOUS_LES_ONGLETS = [
     benefices: [[Network, "Un organigramme par produit"], [Brain, "Un seul cerveau pour tous vos agents"], [BookOpen, "Votre marque expliquée une seule fois"]] as [LucideIcon, string][],
     probleme: ["Un outil IA isolé ", "ne sait rien", " de votre marque."],
     reponse:
-      "À chaque nouvel outil, il faut réexpliquer vos produits, vos clientes et votre ton. Lystes range vos agents en équipes, chacune avec son directeur, et tous lisent le même cerveau de marque.",
+      "À chaque nouvel outil, il faut réexpliquer vos produits, vos clientes et votre ton. Lystes range vos agents en équipes qui\u00a0:",
+    points: [
+      "ont chacune leur directeur",
+      "s’organisent produit par produit",
+      "lisent toutes le même cerveau de marque, Brand AI",
+      "grandissent avec votre catalogue",
+    ],
     accroche: "Des équipes IA organisées comme une entreprise, pour parler de votre marque d’une seule voix.",
     chapeau:
       "Un organigramme qui grandit avec votre catalogue, et Brand AI, le cerveau que tous vos agents consultent.",
@@ -189,13 +228,86 @@ const TOUS_LES_ONGLETS = [
   },
 ] as const;
 
-const ONGLETS = TOUS_LES_ONGLETS.filter((o) => RESEAU_VISIBLE || o.id !== "reseau");
+const ONGLETS_ECOMMERCE = TOUS_LES_ONGLETS.filter((o) => RESEAU_VISIBLE || o.id !== "reseau");
+
+type Onglet = {
+  id: string;
+  titre: string;
+  court: string;
+  etage: string;
+  benefices: readonly (readonly [LucideIcon, string])[];
+  probleme: readonly [string, string, string];
+  reponse: string;
+  /* La liste sous le chapeau, quand il finit par « qui : ». */
+  points?: readonly string[];
+  accroche: string;
+  chapeau: string;
+};
+
+/* La version « Entreprises » (/business, JP, 12/10/2026) : « c'est la même
+   chose, mais adaptée aux entreprises corporate. Il n'y a pas Vos produits.
+   Votre e-commerce devient Votre site web, puis Vos outils, Votre gestion,
+   Vos équipes. » L'entreprise de démonstration est un cabinet d'architectes
+   inventé, Brévan Architectes (vision/demoCorporate.ts). */
+const ONGLETS_CORPORATE: Onglet[] = [
+  {
+    id: "siteweb",
+    titre: "Votre site web",
+    court: "Site web",
+    etage: "Étage 1 · Votre site web",
+    benefices: [[MessageCircle, "Une réponse sur chaque page"], [CalendarCheck, "Des rendez-vous pris en ligne"], [Clock, "Un accueil, jour et nuit"]],
+    /* Source : Gartner, communiqué du 25/06/2025, enquête auprès de 632
+       acheteurs B2B (août-septembre 2024) : « 61 % of B2B buyers prefer an
+       overall rep-free buying experience ». */
+    probleme: ["En B2B, ", "61 % des acheteurs", " préfèrent avancer sans commercial."],
+    reponse:
+      "Ils lisent votre site avant de vous appeler, et repartent quand ils n’y trouvent pas leur réponse. Lystes pose sur votre site vitrine des agents IA qui leur répondent, les orientent vers le bon service et leur proposent un rendez-vous.",
+    accroche: "Une équipe IA sur tout votre site, pour faire d’une visite un rendez-vous.",
+    chapeau: "Un orbital sur chaque page, et des agents qui connaissent vos services, vos références et votre façon de travailler.",
+  },
+  {
+    id: "outils",
+    titre: "Vos outils",
+    court: "Outils",
+    etage: "Étage 2 · Vos outils",
+    benefices: [[Linkedin, "Un lien qui oriente depuis LinkedIn"], [Star, "Des avis visibles sur Google"], [CalendarDays, "Un rendez-vous réservé seul"]],
+    probleme: ["Votre prochain client ", "vous découvre ailleurs", " que sur votre site."],
+    reponse:
+      "Sur LinkedIn, dans Google ou dans une réponse de ChatGPT : vos outils font le premier contact, répondent à ses questions et l’amènent jusqu’au rendez-vous.",
+    accroche: "6 outils pilotés par des agents IA, pour amener vos prospects jusqu’au rendez-vous.",
+    chapeau: "Lien LinkedIn, avis, articles, FAQ, contact et rendez-vous, réunis sur la page lystes.ai de votre entreprise.",
+  },
+  {
+    id: "entreprise",
+    titre: "Votre gestion",
+    court: "Gestion",
+    etage: "Étage 3 · Votre gestion",
+    benefices: [[Compass, "Un copilote qui connaît vos clients"], [Newspaper, "Votre nom dans la presse économique"], [TrendingUp, "Vos demandes, lues et expliquées"]],
+    probleme: ["Une direction IA au complet, ", "en 5 min", "."],
+    reponse:
+      "Des collaborateurs IA, autonomes ou semi-autonomes, répartis en équipes qui se parlent : pour votre site, votre communication et votre gestion.",
+    accroche: "Des équipes IA au complet, pour faire grandir votre entreprise.",
+    chapeau: "Pour piloter et communiquer : des équipes IA qui partent du cerveau de votre espace.",
+  },
+  {
+    id: "equipes",
+    titre: "Vos équipes",
+    court: "Équipes",
+    etage: "Étage 4 · Vos équipes",
+    benefices: [[Network, "Un organigramme par métier"], [Brain, "Un seul cerveau pour tous vos agents"], [BookOpen, "Votre entreprise expliquée une fois"]],
+    probleme: ["Un outil IA isolé ", "ne sait rien", " de votre entreprise."],
+    reponse:
+      "À chaque nouvel outil, il faut réexpliquer vos services, vos clients et votre ton. Lystes range vos agents en équipes, chacune avec son directeur, et tous lisent le même cerveau d’entreprise.",
+    accroche: "Des équipes IA organisées comme votre entreprise, pour parler d’une seule voix.",
+    chapeau: "Un organigramme qui grandit avec vos métiers, et Brand AI, le cerveau que tous vos agents consultent.",
+  },
+];
 
 /* Les dix postes d'une fiche, par ordre d'importance (JP, 09/10). */
 const AGENTS_FICHE: Agent[] = [
   { nom: "Expert produit IA", mission: "répond dans le chat, jour et nuit",
     role: "Répondre à chaque question de la cliente sur ce produit, jour et nuit et dans sa langue, pour lever ses doutes et la faire passer à l’achat.",
-    unique: "Il voit ce que la cliente a déjà fait sur votre site (panier, diagnostic, essayage) et appuie ses réponses par des avant-après et des avis. Il s’auto-améliore à chaque conversation et vous remonte ce qui vous fait perdre des ventes." },
+    unique: "Il voit ce que la cliente a déjà fait sur votre site (panier, produits vus, diagnostic) et appuie ses réponses par des avant-après et des avis. Il s’auto-améliore à chaque conversation et vous remonte ce qui vous fait perdre des ventes." },
   { nom: "Diagnostiqueur ou essayeur IA", mission: "prouve que le produit lui convient, ou le lui fait essayer",
     role: "Prouver à la cliente que ce produit est fait pour elle, par un diagnostic ou un essayage, sans quitter la fiche.",
     unique: "Spécialiste de votre secteur (peau, cheveux, lunettes, vêtements), il rend un conseil sur mesure : à l’issue de l’analyse, il dit en quoi ce produit répond à son cas, au moment même où elle hésite." },
@@ -210,7 +322,7 @@ const AGENTS_FICHE: Agent[] = [
     unique: "Il sait comment ces IA choisissent leurs sources, et écrit pour être cité. Ses sujets viennent des conversations et des diagnostics de vos clientes : il répond à leurs vraies questions." },
   { nom: "Rédacteur SEO IA", mission: "réécrit la description pour qu’elle convertisse mieux",
     role: "Réécrire le titre et la description pour qu’ils fassent acheter et placent la fiche sur Google.",
-    unique: "Au-delà des techniques de référencement, il écrit avec les mots de vos clientes et répond à leurs préoccupations dès la description. Quand elles changent, la fiche se réécrit." },
+    unique: "Au-delà des techniques de référencement, il écrit avec les mots de vos clientes et répond à leurs préoccupations dès la description. Quand elles changent, il réécrit la fiche." },
   { nom: "Expert UGC IA", mission: "humanise la marque avec des UGC",
     role: "Montrer le produit utilisé par des personnes qui ressemblent à vos clients, pour qu’ils s’y projettent et achètent.",
     unique: "Il crée une communauté d’acheteurs qui ressemble à vos clients : femmes, hommes, jeunes ou plus âgés, choisis d’après vos diagnostics et votre avatar client. Il sait quel format vend quel produit." },
@@ -268,14 +380,14 @@ const AGENTS_BOUTIQUE: Agent[] = [
     role: "Trouver les produits les plus adaptés : une routine pour un soin, l’essayage de n’importe quel vêtement du site pour la mode.",
     unique: "La barre flottante l’invite sur toutes les pages : il arrive sans savoir quoi prendre, il repart avec sa routine ou sa tenue." },
   { nom: "Conseiller boutique IA", mission: "un cerveau qui connaît tout le site",
-    role: "Répondre à tout, depuis n’importe quelle page : produits, rendez-vous, livraison, conditions de vente, prochains événements.",
+    role: "Répondre à tout, depuis n’importe quelle page : produits, rendez-vous, livraison, conditions de vente.",
     unique: "Une IA branchée sur la base de connaissances de votre site, à jour en temps réel. Il sait aussi ce qu’il y a dans le panier et ce que le client a regardé." },
   { nom: "Responsable avis IA", mission: "recueille les avis de la boutique et de chaque produit",
     role: "Recueillir les avis sur la boutique et sur chaque produit, et les montrer là où ils rassurent.",
     unique: "Il note chaque produit en plus de la marque, et répond à chaque avis en son nom. Les avis ne sont jamais filtrés." },
   { nom: "Expert SEO et GEO IA", mission: "tient l'actualité de la marque, pour Google et les IA",
     role: "Tenir l’actualité de votre marque pour la rendre visible sur Google et dans les IA.",
-    unique: "Chaque semaine, il choisit ses sujets parmi les mots-clés les plus porteurs et les préoccupations de vos clients. Chaque article mène vers les produits qui y répondent." },
+    unique: "Chaque semaine, il choisit ses sujets parmi les préoccupations et les questions de vos clients. Chaque article mène vers les produits qui y répondent." },
   { nom: "Agent FAQ IA", mission: "les questions de la boutique et de chaque produit",
     role: "Réunir les questions générales (livraison, retours, paiement) et celles de chaque produit.",
     unique: "Elle est dynamique : une préoccupation qui revient souvent dans les conversations rejoint la FAQ, lue par Google et par les IA." },
@@ -283,7 +395,7 @@ const AGENTS_BOUTIQUE: Agent[] = [
     role: "Remplacer vos formulaires de contact par un formulaire qui sait répondre.",
     unique: "Beaucoup de demandes ont une réponse immédiate : il la donne tout de suite et ferme lui-même le ticket dans votre back-office. Votre équipe ne traite que le reste." },
   { nom: "Newsletter IA", mission: "récupère les e-mails, envoie articles et sélections",
-    role: "Récupérer les e-mails et envoyer automatiquement vos articles, vos sélections de produits et vos campagnes e-mail et SMS.",
+    role: "Récupérer les e-mails et envoyer automatiquement vos articles, vos sélections de produits et vos campagnes e-mail.",
     unique: "Chaque e-mail complète la fiche du client avec ses diagnostics et ses achats : il reçoit ce qui le concerne, et vous le connaissez mieux." },
   { nom: "Conseiller téléphonique IA", mission: "l'appel depuis l'orbital, de vive voix",
     role: "Répondre de vive voix depuis n’importe quelle page, sur toute la boutique.",
@@ -1221,16 +1333,20 @@ function loupeBoutique(cible: Cible): ReactNode {
 type ModuleOutils = typeof import("./vision/VisiteOutils");
 type ModuleEntreprise = typeof import("./vision/VisiteBackOffice");
 type ModuleEquipes = typeof import("./vision/VisiteEquipes");
-type Visites = { outils?: ModuleOutils; entreprise?: ModuleEntreprise; equipes?: ModuleEquipes };
+type ModuleSite = typeof import("./vision/VisiteSiteVitrine");
+type Visites = { outils?: ModuleOutils; entreprise?: ModuleEntreprise; equipes?: ModuleEquipes; siteweb?: ModuleSite };
 const CHARGER_VISITE = {
   outils: () => import("./vision/VisiteOutils"),
   entreprise: () => import("./vision/VisiteBackOffice"),
   equipes: () => import("./vision/VisiteEquipes"),
+  siteweb: () => import("./vision/VisiteSiteVitrine"),
 } as const;
 type IdVisite = keyof typeof CHARGER_VISITE;
 const estVisite = (id: string): id is IdVisite => id in CHARGER_VISITE;
 
-export default function VisionEtages({ tete, scene, texte, legende, visuel, pastilles, apres, demo }: Props) {
+export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte, legende, visuel, pastilles, apres, demo }: Props) {
+  const corpo = secteur === "corporate";
+  const ONGLETS: readonly Onglet[] = corpo ? ONGLETS_CORPORATE : ONGLETS_ECOMMERCE;
   const [onglet, setOnglet] = useState(0);
   const [etape, setEtape] = useState(0);
   const [tour, setTour] = useState(0);
@@ -1268,7 +1384,7 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
   const cadreCourant: TailleCadre | null = courant.id === "produits"
     ? fiche?.cadre ?? null
     : tailleVisuel && tailleVisuel.onglet === courant.id ? tailleVisuel : null;
-  const encartMax = Math.max(HAUTEUR_ENCART[courant.id], hauteurEncart[courant.id] ?? 0);
+  const encartMax = Math.max(HAUTEUR_ENCART[courant.id] ?? 250, hauteurEncart[courant.id] ?? 0);
   const tientDans = (w: number, h: number) => (cadreCourant?.largeurMin
     ? w >= cadreCourant.largeurMin
     : h >= encartMax + 8 && w >= LARGEUR_ENCART + 8);
@@ -1291,9 +1407,10 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
   /* Présentation téléphone : l'encart sous le visuel. */
   const mobile = telephone || !tient;
   const agents = courant.id === "produits" ? AGENTS_FICHE : courant.id === "ecommerce" ? AGENTS_BOUTIQUE
-    : courant.id === "outils" ? visites.outils?.AGENTS_OUTILS ?? null
-    : courant.id === "entreprise" ? visites.entreprise?.AGENTS_ENTREPRISE ?? null
-    : courant.id === "equipes" ? visites.equipes?.AGENTS_EQUIPES ?? null
+    : courant.id === "outils" ? visites.outils?.agentsOutils(secteur) ?? null
+    : courant.id === "entreprise" ? visites.entreprise?.agentsEntreprise(secteur) ?? null
+    : courant.id === "equipes" ? visites.equipes?.agentsEquipes(secteur) ?? null
+    : courant.id === "siteweb" ? visites.siteweb?.AGENTS_SITE ?? null
     : null;
   const fenetreOuverte = courant.id === "produits" && !!fiche?.fenetreOuverte;
   /* La clé relance la jauge à chaque étape, et à chaque tour complet. */
@@ -1386,7 +1503,9 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
       ? CHARGER_VISITE.outils().then((m) => setVisites((v) => ({ ...v, outils: m })))
       : id === "equipes"
         ? CHARGER_VISITE.equipes().then((m) => setVisites((v) => ({ ...v, equipes: m })))
-        : CHARGER_VISITE.entreprise().then((m) => setVisites((v) => ({ ...v, entreprise: m })));
+        : id === "siteweb"
+          ? CHARGER_VISITE.siteweb().then((m) => setVisites((v) => ({ ...v, siteweb: m })))
+          : CHARGER_VISITE.entreprise().then((m) => setVisites((v) => ({ ...v, entreprise: m })));
     charge.catch(() => { demandees.current.delete(id); });
   }, []);
   useEffect(() => {
@@ -1401,6 +1520,7 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
         charger("outils");
         charger("entreprise");
         charger("equipes");
+        if (corpo) charger("siteweb");
       }, 400);
     }, { rootMargin: "100% 0px" });
     io.observe(scene);
@@ -1408,7 +1528,7 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
       io.disconnect();
       window.clearTimeout(attente);
     };
-  }, [scene, charger]);
+  }, [scene, charger, corpo]);
 
   /* La loupe affiche la fiche hors de l'iframe : la police de la fiche doit
      aussi être chargée dans la page. */
@@ -1563,7 +1683,7 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
   }, [onglet, changerOnglet]);
 
   const duree = (courant.id === "produits" && ETAPES_FICHE[etape]?.duree)
-    || (courant.id === "outils" && visites.outils?.dureeEtapeOutils(etape))
+    || (courant.id === "outils" && visites.outils?.dureeEtapeOutils(etape, secteur))
     || DUREE_ETAPE;
   const pied: Pied | null = agents && {
     actif: etape,
@@ -1622,7 +1742,12 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
             {courant.probleme[0]}<span className="lyv-elu">{courant.probleme[1]}</span>{courant.probleme[2]}
           </h2>
           <p className="lyv-chapeau">{courant.reponse}</p>
-          <div className="lyv-tabs" role="tablist" aria-label="Les étages de Lystes">
+          {courant.points && (
+            <ul className="lyv-points">
+              {courant.points.map((p) => <li key={p}>{p}</li>)}
+            </ul>
+          )}
+          <div className={"lyv-tabs" + (corpo ? " lyv-tabs-4" : "")} role="tablist" aria-label="Les étages de Lystes">
             {ONGLETS.map((o, i) => (
               <button
                 key={o.id}
@@ -1725,23 +1850,25 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
               <div className="lyv-cadre">
                 {VisiteEnCours && pied
                   ? <VisiteEnCours key={idVisite} etape={etape} survol={setSurvol} mobile={mobile} pied={pied} taille={annoncerTaille}
-                      prete={signalerPrete} />
+                      prete={signalerPrete} secteur={secteur} />
                   : <div className={idVisite === "outils" ? "lyv-boutique lyv-o lyv-o-attente" : "lyv-boutique"} aria-busy="true" />}
                 {idVisite === "outils" ? (
                   <p className="lyv-legende-visuel lyv-legende-outils">
-                    <span className="lyv-legende-marque"><b>{visites.outils?.MARQUE_OUTILS ?? "Lystes & Partners"}</b>, sur </span>
-                    <span className="lyv-legende-adresse">{visites.outils?.ADRESSES_OUTILS[etape] ?? "lystes.ai/lystes-partners"}</span>
+                    <span className="lyv-legende-marque"><b>{visites.outils?.marqueOutils(secteur) ?? (corpo ? "Brévan Architectes" : "Lystes & Partners")}</b>, sur </span>
+                    <span className="lyv-legende-adresse">{visites.outils?.adressesOutils(secteur)[etape] ?? (corpo ? "lystes.ai/brevan-architectes" : "lystes.ai/lystes-partners")}</span>
                     {/* Les avis de la marque de démonstration sont des avis de présentation :
                         la légende le dit (relecture du 11/10). */}
                     <span className={"lyv-legende-exemple" + (etape <= 1 ? "" : " vide")} aria-hidden={etape <= 1 ? undefined : true}><span className="lyv-legende-point"> · </span>avis d’exemple</span>
                   </p>
                 ) : idVisite === "equipes" ? (
                   <p className="lyv-legende-visuel">{etape === 0
-                    ? <><b>L’organigramme</b>, de 10 à 1000 produits</>
-                    : <><b>Brand AI</b>, le cerveau de {visites.equipes?.MARQUE_EQUIPES ?? "Lystes & Partners"}</>}</p>
+                    ? <><b>L’organigramme</b>, de 10 à 1000 {corpo ? "métiers" : "produits"}</>
+                    : <><b>Brand AI</b>, le cerveau de {corpo ? "Brévan Architectes" : visites.equipes?.MARQUE_EQUIPES ?? "Lystes & Partners"}</>}</p>
+                ) : idVisite === "siteweb" ? (
+                  <p className="lyv-legende-visuel"><b>L’orbital</b>, ouvert sur le site de Brévan Architectes</p>
                 ) : (
                   <p className="lyv-legende-visuel">{(() => {
-                    const l = visites.entreprise?.legendeEntreprise(etape);
+                    const l = visites.entreprise?.legendeEntreprise(etape, secteur);
                     return l ? <><b>{l[0]}</b>{l[1]}</> : <><b>Le back-office</b>, ouvert sur vos équipes IA</>;
                   })()}</p>
                 )}
@@ -1782,17 +1909,26 @@ export default function VisionEtages({ tete, scene, texte, legende, visuel, past
 const CSS = `
 .lyv{ --lyv-elu:#e1f3c5; --lyv-encre:#1a1a1a; --lyv-gris:rgba(26,26,26,.6); --lyv-pierre:#f3f4f5; --lyv-trait:rgba(35,30,31,.28); --lyv-filet:#e4e5e7; }
 .lyv *{ box-sizing:border-box; }
-/* Titre, phrase et onglets centrés (JP, 10/10 nuit). */
-.lyv-tete{ margin:0; text-align:center; }
+/* Titre, chapeau et liste alignés à gauche, onglets sur toute la largeur
+   (JP, 13/10 : la mise en page qu'il a essayée dans son navigateur). */
+.lyv-tete{ margin:0; text-align:left; }
 .lyv .lyv-titre{ font-family:'Bricolage Grotesque','SF Pro Display',Inter,sans-serif; font-weight:400; font-size:51px; line-height:1.1;
   letter-spacing:-.025em; color:#171717; margin:0; text-wrap:balance; }
 .lyv-elu{ background:linear-gradient(transparent 12%, var(--lyv-elu) 12%, var(--lyv-elu) 94%, transparent 94%);
-  padding:0 6px; margin:0 -6px; border-radius:6px; white-space:nowrap; }
-.lyv-chapeau{ font-size:15px; line-height:1.6; color:var(--lyv-gris); margin:14px auto 0; max-width:660px; text-wrap:pretty; }
+  padding:0 6px 0 0; margin:0 -6px 0 0; border-radius:6px; white-space:nowrap; }
+/* Titre à gauche (13/10) : le surlignage part de la marge du titre, sans la
+   déborder ; son retrait ne se garde qu'à droite. */
+/* Équilibré plutôt que « pretty » : sur 872 px, « équipe IA qui : » restait
+   seul sur la seconde ligne. */
+.lyv-chapeau{ font-size:15px; line-height:1.6; color:#000; margin:14px 0 14px; max-width:100%; text-wrap:balance; }
+/* Ce que fait l'équipe : quatre lignes à plat, séparées d'un filet. Pas un
+   accordéon : ni flèche, ni repli, tout se lit. */
+.lyv-points{ list-style:none; margin:0; padding:0; }
+.lyv-points li{ font-size:15px; line-height:1.5; color:#000; padding:10px 0; border-bottom:1px solid #00000014; text-wrap:pretty; }
 
 /* La bascule, copiée de fiche-produit-demo.html. */
-.lyv-tabs{ display:inline-flex; gap:4px; padding:6px; margin:26px 0 0; background:#000; border-radius:999px; max-width:100%; }
-.lyv-tabs button{ display:inline-flex; align-items:center; gap:.5em; white-space:nowrap; height:40px; padding:0 18px;
+.lyv-tabs{ display:flex; width:100%; gap:4px; padding:6px; margin:24px 0 0; background:#000; border-radius:999px; max-width:100%; }
+.lyv-tabs button{ flex:1 1 auto; justify-content:center; display:inline-flex; align-items:center; gap:.5em; white-space:nowrap; height:40px; padding:0 18px;
   border:0; border-radius:999px; background:transparent; color:#a3a3a3; cursor:pointer;
   font-family:'Satoshi',-apple-system,"Helvetica Neue",Arial,sans-serif; font-weight:600; font-size:14px; letter-spacing:-.01em;
   -webkit-font-smoothing:antialiased; transition:background .22s ease, color .22s ease; }
@@ -1858,7 +1994,7 @@ const CSS = `
 .lyv-liste button.on .lyv-num{ color:#000; }
 .lyv-l{ display:flex; flex-direction:column; gap:2px; min-width:0; }
 .lyv-l b{ font-size:14.5px; font-weight:600; line-height:1.3; letter-spacing:-.006em; color:var(--lyv-encre); }
-.lyv-l small{ font-size:12.5px; line-height:1.4; color:var(--lyv-gris); }
+.lyv-l small{ font-size:12.5px; line-height:1.4; color:var(--lyv-gris); text-wrap:balance; }
 .lyv-liste button.on .lyv-l small{ color:rgba(26,26,26,.72); }
 .lyv-jauge{ position:absolute; left:12px; right:12px; bottom:5px; height:2px; border-radius:1px; background:rgba(0,0,0,.1); overflow:hidden; }
 .lyv-jauge b{ display:block; width:100%; height:100%; background:#000; transform-origin:0 50%;
@@ -1935,7 +2071,7 @@ const CSS = `
 .lyv-encart-texte{ padding:18px 2px 0; animation:lyv-apparait .35s ease both; }
 .lyv-encart-texte b{ display:block; font-family:'Bricolage Grotesque',Inter,sans-serif; font-size:18px; font-weight:500; line-height:1.25;
   letter-spacing:-.02em; color:#fff; }
-.lyv-encart-texte p{ margin:6px 0 0; font-size:14px; line-height:1.5; color:#c9c9cc; }
+.lyv-encart-texte p{ margin:6px 0 0; font-size:14px; line-height:1.5; color:#c9c9cc; text-wrap:pretty; }
 /* Le second titre, un cran sous le nom de l'agent. */
 .lyv-encart-texte h4{ margin:14px 0 0; font-family:'Bricolage Grotesque',Inter,sans-serif; font-size:15px; font-weight:500;
   line-height:1.3; letter-spacing:-.015em; color:#fff; }
@@ -2061,8 +2197,8 @@ const CSS = `
     grid-template-areas:"texte" "visuel" "legende"; }
 }
 @media (max-width:720px){
-  .lyv .lyv-titre{ font-size:28px; line-height:1.15; }
-  .lyv-chapeau{ font-size:15px; }
+  .lyv .lyv-titre{ font-size:24px; line-height:1.15; }
+  .lyv-chapeau{ font-size:15px; line-height:1.6; }
   .lyv .lyv-accroche{ font-size:27px; }
   .lyv-s-chapeau{ font-size:15px; }
   .lyv-benefices li{ font-size:16px; white-space:normal; }
@@ -2075,28 +2211,31 @@ const CSS = `
   /* Au doigt, un peu plus grands qu'à la souris. */
   .lyv-nav button{ width:30px; height:28px; }
 }
-/* Sous 390 px, la tête ne fait plus que 311 px : à 28 px, « Un écosystème
-   d'équipes » n'y tenait plus et « d'équipes » restait seul sur sa ligne
-   (relecture du 10/10). À 26 px, le titre revient sur deux lignes. */
-@media (max-width:389.98px){ .lyv .lyv-titre{ font-size:26px; } }
 /* Sous 768 px, cinq onglets (JP, 12/10) : libellés courts, et la pilule
    défile au doigt quand ils ne tiennent pas tous ; l'onglet ouvert se
    centre (VisionEtages, effet sur \`onglet\`). Où ils tiennent, ils se
    partagent la largeur. */
 @media (max-width:767.98px){
-  .lyv-tabs{ display:flex; width:100%; padding:4px; gap:2px; overflow-x:auto; overscroll-behavior-x:contain;
+  .lyv-tabs{ display:flex; width:100%; padding:4px; gap:0; overflow-x:auto; overscroll-behavior-x:contain;
     scrollbar-width:none; -webkit-overflow-scrolling:touch; scroll-padding:0 4px; }
   .lyv-tabs::-webkit-scrollbar{ display:none; }
-  .lyv-tabs button{ flex:1 0 auto; justify-content:center; height:36px; padding:0 8px; font-size:13px; }
+  /* Les cinq libellés courts tiennent dans la tête dès 375 px (311 px) :
+     12 px, 6 px de marge, sans écart (JP, 13/10 : « Équipes » était coupé). */
+  .lyv-tabs button{ flex:1 1 auto; justify-content:center; height:36px; padding:0 6px; font-size:12px; }
   .lyv-tabn, .lyv-tabl{ display:none; }
   .lyv-tabc{ display:inline; }
   /* Un libellé à moitié sorti de la pilule se fond dans le noir, du côté
      où il en reste à voir : on lit qu'elle défile, pas qu'un mot est coupé. */
   .lyv-tabs::before, .lyv-tabs::after{ content:""; position:sticky; z-index:1; flex:none; width:34px; align-self:stretch;
     pointer-events:none; opacity:0; transition:opacity .2s ease; }
-  .lyv-tabs::before{ left:-4px; margin:-4px -34px -4px -4px; background:linear-gradient(90deg, #000 35%, rgba(0,0,0,0)); }
-  .lyv-tabs::after{ right:-4px; margin:-4px -4px -4px -34px; background:linear-gradient(270deg, #000 35%, rgba(0,0,0,0)); }
+  .lyv-tabs::before{ left:-4px; margin:-4px -34px -4px 0; background:linear-gradient(90deg, #000 35%, rgba(0,0,0,0)); }
+  .lyv-tabs::after{ right:-4px; margin:-4px 0 -4px -34px; background:linear-gradient(270deg, #000 35%, rgba(0,0,0,0)); }
   .lyv-tabs.reste-g::before, .lyv-tabs.reste-d::after{ opacity:1; }
+  /* Quatre onglets (version Entreprises) : ils tiennent dès 320 px, la pilule
+     ne défile pas ; sans les fondus, qui la faisaient dépasser de 2 px et
+     voilaient « Équipes ». */
+  .lyv-tabs.lyv-tabs-4{ overflow:visible; }
+  .lyv-tabs.lyv-tabs-4::before, .lyv-tabs.lyv-tabs-4::after{ display:none; }
 }
 /* À 320 px, 256 px de tête : 22 px. */
 @media (max-width:359.98px){ .lyv .lyv-titre{ font-size:22px; } }

@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.5"
+    PostgrestVersion: "14.1"
   }
   public: {
     Tables: {
@@ -189,6 +189,7 @@ export type Database = {
           complexes_override_enabled: boolean
           created_at: string
           enabled: boolean
+          magazine_canonique: string
           slug: string | null
           updated_at: string
         }
@@ -201,6 +202,7 @@ export type Database = {
           complexes_override_enabled?: boolean
           created_at?: string
           enabled?: boolean
+          magazine_canonique?: string
           slug?: string | null
           updated_at?: string
         }
@@ -213,6 +215,7 @@ export type Database = {
           complexes_override_enabled?: boolean
           created_at?: string
           enabled?: boolean
+          magazine_canonique?: string
           slug?: string | null
           updated_at?: string
         }
@@ -311,6 +314,7 @@ export type Database = {
           dotation_gelee: number | null
           dotation_gelee_le: string | null
           est_test: boolean
+          extra_seats: number
           facturation: string
           grace_period_ends_at: string | null
           grace_until: string | null
@@ -322,6 +326,7 @@ export type Database = {
           install_verified: boolean
           install_verified_at: string | null
           is_agency_client: boolean
+          kind: string
           last_active_pack: string
           logo_url: string | null
           marques_autorisees: string[]
@@ -358,6 +363,8 @@ export type Database = {
           trial_tier: string | null
           trial_used: boolean
           updated_at: string
+          voice_budget_alert_sent: boolean | null
+          voice_budget_cents_monthly: number | null
           website: string | null
         }
         Insert: {
@@ -376,6 +383,7 @@ export type Database = {
           dotation_gelee?: number | null
           dotation_gelee_le?: string | null
           est_test?: boolean
+          extra_seats?: number
           facturation?: string
           grace_period_ends_at?: string | null
           grace_until?: string | null
@@ -387,6 +395,7 @@ export type Database = {
           install_verified?: boolean
           install_verified_at?: string | null
           is_agency_client?: boolean
+          kind?: string
           last_active_pack?: string
           logo_url?: string | null
           marques_autorisees?: string[]
@@ -423,6 +432,8 @@ export type Database = {
           trial_tier?: string | null
           trial_used?: boolean
           updated_at?: string
+          voice_budget_alert_sent?: boolean | null
+          voice_budget_cents_monthly?: number | null
           website?: string | null
         }
         Update: {
@@ -441,6 +452,7 @@ export type Database = {
           dotation_gelee?: number | null
           dotation_gelee_le?: string | null
           est_test?: boolean
+          extra_seats?: number
           facturation?: string
           grace_period_ends_at?: string | null
           grace_until?: string | null
@@ -452,6 +464,7 @@ export type Database = {
           install_verified?: boolean
           install_verified_at?: string | null
           is_agency_client?: boolean
+          kind?: string
           last_active_pack?: string
           logo_url?: string | null
           marques_autorisees?: string[]
@@ -488,6 +501,8 @@ export type Database = {
           trial_tier?: string | null
           trial_used?: boolean
           updated_at?: string
+          voice_budget_alert_sent?: boolean | null
+          voice_budget_cents_monthly?: number | null
           website?: string | null
         }
         Relationships: [
@@ -3897,7 +3912,11 @@ export type Database = {
           adresse_facturation: string | null
           cle_empreinte: string
           cle_indice: string
+          cle_serveur_creee_le: string | null
+          cle_serveur_empreinte: string | null
+          cle_serveur_indice: string | null
           created_at: string
+          cure_validee_le: string | null
           derniere_sync_commandes: number
           derniere_sync_commandes_erreur: string | null
           derniere_sync_commandes_le: string | null
@@ -3932,7 +3951,11 @@ export type Database = {
           adresse_facturation?: string | null
           cle_empreinte: string
           cle_indice: string
+          cle_serveur_creee_le?: string | null
+          cle_serveur_empreinte?: string | null
+          cle_serveur_indice?: string | null
           created_at?: string
+          cure_validee_le?: string | null
           derniere_sync_commandes?: number
           derniere_sync_commandes_erreur?: string | null
           derniere_sync_commandes_le?: string | null
@@ -3967,7 +3990,11 @@ export type Database = {
           adresse_facturation?: string | null
           cle_empreinte?: string
           cle_indice?: string
+          cle_serveur_creee_le?: string | null
+          cle_serveur_empreinte?: string | null
+          cle_serveur_indice?: string | null
           created_at?: string
+          cure_validee_le?: string | null
           derniere_sync_commandes?: number
           derniere_sync_commandes_erreur?: string | null
           derniere_sync_commandes_le?: string | null
@@ -4119,6 +4146,7 @@ export type Database = {
         Row: {
           commande_id: string
           created_at: string
+          est_cure: boolean
           id: string
           nom: string
           prix_cents: number
@@ -4126,11 +4154,13 @@ export type Database = {
           quantite: number
           reference: string | null
           source_id: string | null
+          total_ligne_cents: number | null
           variante_id: string | null
         }
         Insert: {
           commande_id: string
           created_at?: string
+          est_cure?: boolean
           id?: string
           nom: string
           prix_cents?: number
@@ -4138,11 +4168,13 @@ export type Database = {
           quantite?: number
           reference?: string | null
           source_id?: string | null
+          total_ligne_cents?: number | null
           variante_id?: string | null
         }
         Update: {
           commande_id?: string
           created_at?: string
+          est_cure?: boolean
           id?: string
           nom?: string
           prix_cents?: number
@@ -4150,6 +4182,7 @@ export type Database = {
           quantite?: number
           reference?: string | null
           source_id?: string | null
+          total_ligne_cents?: number | null
           variante_id?: string | null
         }
         Relationships: [
@@ -4182,15 +4215,18 @@ export type Database = {
           adresse: Json
           annulee_le: string | null
           boutique_id: string
+          cle_commande_empreinte: string | null
           client_email: string | null
           client_nom: string | null
           client_telephone: string | null
           created_at: string
+          cree_source_le: string | null
           devise: string
           email_envoye_le: string | null
           id: string
           livraison_cents: number
           numero: string
+          numero_affiche: string | null
           payee_le: string | null
           rembourse_le: string | null
           rembourse_montant_cents: number | null
@@ -4201,6 +4237,7 @@ export type Database = {
           source: string
           sous_total_cents: number
           statut: string
+          statut_source: string | null
           stripe_payment_intent: string | null
           stripe_session_id: string | null
           taxe_cents: number
@@ -4213,15 +4250,18 @@ export type Database = {
           adresse?: Json
           annulee_le?: string | null
           boutique_id: string
+          cle_commande_empreinte?: string | null
           client_email?: string | null
           client_nom?: string | null
           client_telephone?: string | null
           created_at?: string
+          cree_source_le?: string | null
           devise?: string
           email_envoye_le?: string | null
           id?: string
           livraison_cents?: number
           numero: string
+          numero_affiche?: string | null
           payee_le?: string | null
           rembourse_le?: string | null
           rembourse_montant_cents?: number | null
@@ -4232,6 +4272,7 @@ export type Database = {
           source?: string
           sous_total_cents?: number
           statut?: string
+          statut_source?: string | null
           stripe_payment_intent?: string | null
           stripe_session_id?: string | null
           taxe_cents?: number
@@ -4244,15 +4285,18 @@ export type Database = {
           adresse?: Json
           annulee_le?: string | null
           boutique_id?: string
+          cle_commande_empreinte?: string | null
           client_email?: string | null
           client_nom?: string | null
           client_telephone?: string | null
           created_at?: string
+          cree_source_le?: string | null
           devise?: string
           email_envoye_le?: string | null
           id?: string
           livraison_cents?: number
           numero?: string
+          numero_affiche?: string | null
           payee_le?: string | null
           rembourse_le?: string | null
           rembourse_montant_cents?: number | null
@@ -4263,6 +4307,7 @@ export type Database = {
           source?: string
           sous_total_cents?: number
           statut?: string
+          statut_source?: string | null
           stripe_payment_intent?: string | null
           stripe_session_id?: string | null
           taxe_cents?: number
@@ -5271,6 +5316,7 @@ export type Database = {
           created_at: string
           custom_links: Json | null
           featured_products: Json | null
+          featured_products_mode: string | null
           featured_products_title: string | null
           featured_section: Json | null
           id: string
@@ -5298,6 +5344,7 @@ export type Database = {
           created_at?: string
           custom_links?: Json | null
           featured_products?: Json | null
+          featured_products_mode?: string | null
           featured_products_title?: string | null
           featured_section?: Json | null
           id?: string
@@ -5325,6 +5372,7 @@ export type Database = {
           created_at?: string
           custom_links?: Json | null
           featured_products?: Json | null
+          featured_products_mode?: string | null
           featured_products_title?: string | null
           featured_section?: Json | null
           id?: string
@@ -11463,6 +11511,91 @@ export type Database = {
           },
         ]
       }
+      contributions_agents: {
+        Row: {
+          account_id: string
+          agent: string
+          commande_id: string
+          commande_le: string
+          created_at: string
+          dernier_contact: boolean
+          dernier_contact_le: string
+          devise: string | null
+          id: string
+          montant: number | null
+          nb_contacts: number
+          premier_contact_le: string
+          rattachement: string
+          source_order_id: string | null
+          type_evenement: string
+          types_evenement: string[]
+          updated_at: string
+          visitor_id: string
+        }
+        Insert: {
+          account_id: string
+          agent: string
+          commande_id: string
+          commande_le: string
+          created_at?: string
+          dernier_contact?: boolean
+          dernier_contact_le: string
+          devise?: string | null
+          id?: string
+          montant?: number | null
+          nb_contacts?: number
+          premier_contact_le: string
+          rattachement?: string
+          source_order_id?: string | null
+          type_evenement: string
+          types_evenement?: string[]
+          updated_at?: string
+          visitor_id: string
+        }
+        Update: {
+          account_id?: string
+          agent?: string
+          commande_id?: string
+          commande_le?: string
+          created_at?: string
+          dernier_contact?: boolean
+          dernier_contact_le?: string
+          devise?: string | null
+          id?: string
+          montant?: number | null
+          nb_contacts?: number
+          premier_contact_le?: string
+          rattachement?: string
+          source_order_id?: string | null
+          type_evenement?: string
+          types_evenement?: string[]
+          updated_at?: string
+          visitor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contributions_agents_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contributions_agents_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "contributions_agents_commande_id_fkey"
+            columns: ["commande_id"]
+            isOneToOne: false
+            referencedRelation: "ecommerce_orders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       conversation_insights: {
         Row: {
           account_id: string
@@ -12486,18 +12619,475 @@ export type Database = {
           },
         ]
       }
+      cures_acces: {
+        Row: {
+          code_empreinte: string
+          created_at: string
+          email: string
+          expire_le: string
+          id: string
+          nature: string
+          suivi_id: string
+          utilise_le: string | null
+          utilise_par: string | null
+        }
+        Insert: {
+          code_empreinte: string
+          created_at?: string
+          email: string
+          expire_le: string
+          id?: string
+          nature: string
+          suivi_id: string
+          utilise_le?: string | null
+          utilise_par?: string | null
+        }
+        Update: {
+          code_empreinte?: string
+          created_at?: string
+          email?: string
+          expire_le?: string
+          id?: string
+          nature?: string
+          suivi_id?: string
+          utilise_le?: string | null
+          utilise_par?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_acces_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: false
+            referencedRelation: "cures_suivis"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_coach: {
+        Row: {
+          account_id: string
+          created_at: string
+          id: string
+          messages: Json
+          suivi_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account_id: string
+          created_at?: string
+          id?: string
+          messages?: Json
+          suivi_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account_id?: string
+          created_at?: string
+          id?: string
+          messages?: Json
+          suivi_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_coach_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_coach_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_coach_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: true
+            referencedRelation: "cures_suivis"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_codes_promo: {
+        Row: {
+          account_id: string
+          boutique_id: string | null
+          code: string
+          created_at: string
+          erreur: string | null
+          expire_le: string | null
+          id: string
+          id_marchand: string | null
+          nature: string
+          plateforme: string
+          statut: string
+          suivi_id: string
+          type_remise: string
+          updated_at: string
+          utilise_le: string | null
+          valeur: number
+        }
+        Insert: {
+          account_id: string
+          boutique_id?: string | null
+          code: string
+          created_at?: string
+          erreur?: string | null
+          expire_le?: string | null
+          id?: string
+          id_marchand?: string | null
+          nature?: string
+          plateforme: string
+          statut?: string
+          suivi_id: string
+          type_remise: string
+          updated_at?: string
+          utilise_le?: string | null
+          valeur: number
+        }
+        Update: {
+          account_id?: string
+          boutique_id?: string | null
+          code?: string
+          created_at?: string
+          erreur?: string | null
+          expire_le?: string | null
+          id?: string
+          id_marchand?: string | null
+          nature?: string
+          plateforme?: string
+          statut?: string
+          suivi_id?: string
+          type_remise?: string
+          updated_at?: string
+          utilise_le?: string | null
+          valeur?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_codes_promo_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_codes_promo_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_codes_promo_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: false
+            referencedRelation: "cures_suivis"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_communaute_likes: {
+        Row: {
+          account_id: string
+          created_at: string
+          id: string
+          post_id: string
+          suivi_id: string
+          user_id: string
+        }
+        Insert: {
+          account_id: string
+          created_at?: string
+          id?: string
+          post_id: string
+          suivi_id: string
+          user_id: string
+        }
+        Update: {
+          account_id?: string
+          created_at?: string
+          id?: string
+          post_id?: string
+          suivi_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_communaute_likes_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_communaute_likes_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_communaute_likes_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "cures_communaute_posts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_communaute_likes_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: false
+            referencedRelation: "cures_suivis"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_communaute_posts: {
+        Row: {
+          account_id: string
+          author_name: string | null
+          category: string
+          comments_count: number
+          content: string
+          created_at: string
+          id: string
+          image_url: string | null
+          likes_count: number
+          masque: boolean
+          masque_le: string | null
+          masque_par: string | null
+          suivi_id: string
+          user_id: string
+        }
+        Insert: {
+          account_id: string
+          author_name?: string | null
+          category?: string
+          comments_count?: number
+          content: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          likes_count?: number
+          masque?: boolean
+          masque_le?: string | null
+          masque_par?: string | null
+          suivi_id: string
+          user_id: string
+        }
+        Update: {
+          account_id?: string
+          author_name?: string | null
+          category?: string
+          comments_count?: number
+          content?: string
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          likes_count?: number
+          masque?: boolean
+          masque_le?: string | null
+          masque_par?: string | null
+          suivi_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_communaute_posts_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_communaute_posts_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_communaute_posts_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: false
+            referencedRelation: "cures_suivis"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_consentements: {
+        Row: {
+          accepte_le: string
+          account_id: string
+          age_confirme: boolean
+          created_at: string
+          diagnostic_id: string | null
+          email: string | null
+          id: string
+          retire_le: string | null
+          source: string
+          suivi_id: string | null
+          texte: string
+          user_id: string | null
+          version: string
+        }
+        Insert: {
+          accepte_le?: string
+          account_id: string
+          age_confirme?: boolean
+          created_at?: string
+          diagnostic_id?: string | null
+          email?: string | null
+          id?: string
+          retire_le?: string | null
+          source?: string
+          suivi_id?: string | null
+          texte: string
+          user_id?: string | null
+          version: string
+        }
+        Update: {
+          accepte_le?: string
+          account_id?: string
+          age_confirme?: boolean
+          created_at?: string
+          diagnostic_id?: string | null
+          email?: string | null
+          id?: string
+          retire_le?: string | null
+          source?: string
+          suivi_id?: string | null
+          texte?: string
+          user_id?: string | null
+          version?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_consentements_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_consentements_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_consentements_diagnostic_id_fkey"
+            columns: ["diagnostic_id"]
+            isOneToOne: false
+            referencedRelation: "cures_diagnostics"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_consentements_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: false
+            referencedRelation: "cures_suivis"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_demandes_suppression: {
+        Row: {
+          account_id: string
+          demande_le: string
+          email: string | null
+          id: string
+          motif: string | null
+          portee: string
+          reponse_marque: string | null
+          statut: string
+          suivi_id: string
+          traitee_le: string | null
+          traitee_par: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          account_id: string
+          demande_le?: string
+          email?: string | null
+          id?: string
+          motif?: string | null
+          portee?: string
+          reponse_marque?: string | null
+          statut?: string
+          suivi_id: string
+          traitee_le?: string | null
+          traitee_par?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          account_id?: string
+          demande_le?: string
+          email?: string | null
+          id?: string
+          motif?: string | null
+          portee?: string
+          reponse_marque?: string | null
+          statut?: string
+          suivi_id?: string
+          traitee_le?: string | null
+          traitee_par?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_demandes_suppression_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_demandes_suppression_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_demandes_suppression_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: false
+            referencedRelation: "cures_suivis"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cures_diagnostics: {
         Row: {
           account_id: string
+          age_confirme: boolean | null
           boutique_id: string
           commande_id: string | null
+          consentement_id: string | null
+          consentement_version: string | null
           created_at: string
           email: string | null
           id: string
+          indicateurs: Json
           interpretation: string | null
           jeton_empreinte: string
           photos: Json
+          photos_supprimees_le: string | null
           produits_conseilles: Json
+          rattache_par: string | null
           reponses: Json
           scores: Json
           type: string
@@ -12505,15 +13095,21 @@ export type Database = {
         }
         Insert: {
           account_id: string
+          age_confirme?: boolean | null
           boutique_id: string
           commande_id?: string | null
+          consentement_id?: string | null
+          consentement_version?: string | null
           created_at?: string
           email?: string | null
           id?: string
+          indicateurs?: Json
           interpretation?: string | null
           jeton_empreinte: string
           photos?: Json
+          photos_supprimees_le?: string | null
           produits_conseilles?: Json
+          rattache_par?: string | null
           reponses?: Json
           scores?: Json
           type?: string
@@ -12521,15 +13117,21 @@ export type Database = {
         }
         Update: {
           account_id?: string
+          age_confirme?: boolean | null
           boutique_id?: string
           commande_id?: string | null
+          consentement_id?: string | null
+          consentement_version?: string | null
           created_at?: string
           email?: string | null
           id?: string
+          indicateurs?: Json
           interpretation?: string | null
           jeton_empreinte?: string
           photos?: Json
+          photos_supprimees_le?: string | null
           produits_conseilles?: Json
+          rattache_par?: string | null
           reponses?: Json
           scores?: Json
           type?: string
@@ -12571,6 +13173,255 @@ export type Database = {
             referencedRelation: "boutiques_lystes_commandes"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "cures_diagnostics_consentement_fk"
+            columns: ["consentement_id"]
+            isOneToOne: false
+            referencedRelation: "cures_consentements"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_humeurs: {
+        Row: {
+          account_id: string
+          created_at: string
+          id: string
+          mood_date: string
+          mood_level: number
+          note: string | null
+          suivi_id: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account_id: string
+          created_at?: string
+          id?: string
+          mood_date?: string
+          mood_level: number
+          note?: string | null
+          suivi_id: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account_id?: string
+          created_at?: string
+          id?: string
+          mood_date?: string
+          mood_level?: number
+          note?: string | null
+          suivi_id?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_humeurs_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_humeurs_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_humeurs_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: false
+            referencedRelation: "cures_suivis"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_menus_semaine: {
+        Row: {
+          account_id: string
+          diagnostic_snapshot: Json | null
+          generated_at: string
+          id: string
+          rationale: string | null
+          recipe_ids: string[]
+          suivi_id: string
+          user_id: string | null
+          week_start: string
+        }
+        Insert: {
+          account_id: string
+          diagnostic_snapshot?: Json | null
+          generated_at?: string
+          id?: string
+          rationale?: string | null
+          recipe_ids?: string[]
+          suivi_id: string
+          user_id?: string | null
+          week_start: string
+        }
+        Update: {
+          account_id?: string
+          diagnostic_snapshot?: Json | null
+          generated_at?: string
+          id?: string
+          rationale?: string | null
+          recipe_ids?: string[]
+          suivi_id?: string
+          user_id?: string | null
+          week_start?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_menus_semaine_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_menus_semaine_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_menus_semaine_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: false
+            referencedRelation: "cures_suivis"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_produits_enrichis: {
+        Row: {
+          account_id: string
+          meta: Json
+          product_id: string
+          source: string
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          meta?: Json
+          product_id: string
+          source?: string
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          meta?: Json
+          product_id?: string
+          source?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_produits_enrichis_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_produits_enrichis_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_produits_enrichis_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: true
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_produits_utilises: {
+        Row: {
+          account_id: string
+          brand: string | null
+          category: string | null
+          created_at: string
+          id: string
+          image_url: string | null
+          key_actives: string[]
+          name: string
+          notes: string | null
+          product_id: string | null
+          suivi_id: string
+          time_of_use: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account_id: string
+          brand?: string | null
+          category?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          key_actives?: string[]
+          name: string
+          notes?: string | null
+          product_id?: string | null
+          suivi_id: string
+          time_of_use?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account_id?: string
+          brand?: string | null
+          category?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          key_actives?: string[]
+          name?: string
+          notes?: string | null
+          product_id?: string | null
+          suivi_id?: string
+          time_of_use?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_produits_utilises_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_produits_utilises_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_produits_utilises_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_produits_utilises_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: false
+            referencedRelation: "cures_suivis"
+            referencedColumns: ["id"]
+          },
         ]
       }
       cures_protocoles: {
@@ -12579,11 +13430,14 @@ export type Database = {
           actif: boolean
           boutique_id: string
           created_at: string
+          declencheurs: Json
           duree_jours: number
           id: string
           nom: string
           phases: Json
+          segment: string | null
           slug: string
+          textes: Json
           updated_at: string
         }
         Insert: {
@@ -12591,11 +13445,14 @@ export type Database = {
           actif?: boolean
           boutique_id: string
           created_at?: string
+          declencheurs?: Json
           duree_jours?: number
           id?: string
           nom: string
           phases?: Json
+          segment?: string | null
           slug: string
+          textes?: Json
           updated_at?: string
         }
         Update: {
@@ -12603,11 +13460,14 @@ export type Database = {
           actif?: boolean
           boutique_id?: string
           created_at?: string
+          declencheurs?: Json
           duree_jours?: number
           id?: string
           nom?: string
           phases?: Json
+          segment?: string | null
           slug?: string
+          textes?: Json
           updated_at?: string
         }
         Relationships: [
@@ -12641,12 +13501,428 @@ export type Database = {
           },
         ]
       }
+      cures_quotas: {
+        Row: {
+          action: string
+          jour: string
+          nombre: number
+          suivi_id: string
+        }
+        Insert: {
+          action: string
+          jour?: string
+          nombre?: number
+          suivi_id: string
+        }
+        Update: {
+          action?: string
+          jour?: string
+          nombre?: number
+          suivi_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_quotas_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: false
+            referencedRelation: "cures_suivis"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_rattachements_differes: {
+        Row: {
+          coupe_le: string
+          created_at: string
+          email: string
+          fait_le: string | null
+          user_id: string
+        }
+        Insert: {
+          coupe_le: string
+          created_at?: string
+          email: string
+          fait_le?: string | null
+          user_id: string
+        }
+        Update: {
+          coupe_le?: string
+          created_at?: string
+          email?: string
+          fait_le?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      cures_recettes: {
+        Row: {
+          cook_time_min: number | null
+          created_at: string
+          cuisine: string | null
+          description: string | null
+          difficulty: string | null
+          hair_tags: string[]
+          id: string
+          image_url: string | null
+          ingredients: Json
+          meal_type: string | null
+          nutrients: Json
+          prep_time_min: number | null
+          scraped_at: string | null
+          segments: string[]
+          servings: number | null
+          slug: string
+          source_name: string | null
+          source_url: string | null
+          steps: Json
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          cook_time_min?: number | null
+          created_at?: string
+          cuisine?: string | null
+          description?: string | null
+          difficulty?: string | null
+          hair_tags?: string[]
+          id?: string
+          image_url?: string | null
+          ingredients?: Json
+          meal_type?: string | null
+          nutrients?: Json
+          prep_time_min?: number | null
+          scraped_at?: string | null
+          segments?: string[]
+          servings?: number | null
+          slug: string
+          source_name?: string | null
+          source_url?: string | null
+          steps?: Json
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          cook_time_min?: number | null
+          created_at?: string
+          cuisine?: string | null
+          description?: string | null
+          difficulty?: string | null
+          hair_tags?: string[]
+          id?: string
+          image_url?: string | null
+          ingredients?: Json
+          meal_type?: string | null
+          nutrients?: Json
+          prep_time_min?: number | null
+          scraped_at?: string | null
+          segments?: string[]
+          servings?: number | null
+          slug?: string
+          source_name?: string | null
+          source_url?: string | null
+          steps?: Json
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      cures_recettes_favorites: {
+        Row: {
+          account_id: string
+          created_at: string
+          recipe_id: string
+          suivi_id: string
+          user_id: string
+        }
+        Insert: {
+          account_id: string
+          created_at?: string
+          recipe_id: string
+          suivi_id: string
+          user_id: string
+        }
+        Update: {
+          account_id?: string
+          created_at?: string
+          recipe_id?: string
+          suivi_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_recettes_favorites_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_recettes_favorites_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_recettes_favorites_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "cures_recettes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_recettes_favorites_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: false
+            referencedRelation: "cures_suivis"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_reglages: {
+        Row: {
+          account_id: string
+          age_minimum: number
+          calendrier_relances: number[]
+          canal_relances: string
+          communaute_active: boolean
+          consentement_texte: string
+          consentement_version: string
+          couleur: string | null
+          coupon_reachat_type: string
+          coupon_reachat_valeur: number | null
+          coupon_reachat_validite_jours: number
+          created_at: string
+          garantie_active: boolean
+          images: Json
+          mode_declenchement: string
+          nb_livraisons: number | null
+          quota_coach_jour: number
+          quota_scans_jour: number
+          textes: Json
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          age_minimum?: number
+          calendrier_relances?: number[]
+          canal_relances?: string
+          communaute_active?: boolean
+          consentement_texte?: string
+          consentement_version?: string
+          couleur?: string | null
+          coupon_reachat_type?: string
+          coupon_reachat_valeur?: number | null
+          coupon_reachat_validite_jours?: number
+          created_at?: string
+          garantie_active?: boolean
+          images?: Json
+          mode_declenchement?: string
+          nb_livraisons?: number | null
+          quota_coach_jour?: number
+          quota_scans_jour?: number
+          textes?: Json
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          age_minimum?: number
+          calendrier_relances?: number[]
+          canal_relances?: string
+          communaute_active?: boolean
+          consentement_texte?: string
+          consentement_version?: string
+          couleur?: string | null
+          coupon_reachat_type?: string
+          coupon_reachat_valeur?: number | null
+          coupon_reachat_validite_jours?: number
+          created_at?: string
+          garantie_active?: boolean
+          images?: Json
+          mode_declenchement?: string
+          nb_livraisons?: number | null
+          quota_coach_jour?: number
+          quota_scans_jour?: number
+          textes?: Json
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_reglages_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: true
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_reglages_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: true
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_relances: {
+        Row: {
+          account_id: string
+          canal: string
+          created_at: string
+          email: string
+          envoye_le: string | null
+          erreur: string | null
+          id: string
+          jour: string
+          jour_cure: number
+          modele: string
+          statut: string
+          suivi_id: string
+        }
+        Insert: {
+          account_id: string
+          canal?: string
+          created_at?: string
+          email: string
+          envoye_le?: string | null
+          erreur?: string | null
+          id?: string
+          jour?: string
+          jour_cure: number
+          modele: string
+          statut?: string
+          suivi_id: string
+        }
+        Update: {
+          account_id?: string
+          canal?: string
+          created_at?: string
+          email?: string
+          envoye_le?: string | null
+          erreur?: string | null
+          id?: string
+          jour?: string
+          jour_cure?: number
+          modele?: string
+          statut?: string
+          suivi_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_relances_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_relances_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_relances_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: false
+            referencedRelation: "cures_suivis"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_scans: {
+        Row: {
+          account_id: string
+          consentement_id: string | null
+          created_at: string
+          detected_type: string | null
+          id: string
+          jour: number | null
+          metrics: Json
+          notes: string | null
+          photo_chemin: string | null
+          photo_supprimee_le: string | null
+          report: Json
+          scanned_at: string
+          score: number
+          source: string
+          suivi_id: string
+          user_id: string | null
+        }
+        Insert: {
+          account_id: string
+          consentement_id?: string | null
+          created_at?: string
+          detected_type?: string | null
+          id?: string
+          jour?: number | null
+          metrics?: Json
+          notes?: string | null
+          photo_chemin?: string | null
+          photo_supprimee_le?: string | null
+          report?: Json
+          scanned_at?: string
+          score?: number
+          source?: string
+          suivi_id: string
+          user_id?: string | null
+        }
+        Update: {
+          account_id?: string
+          consentement_id?: string | null
+          created_at?: string
+          detected_type?: string | null
+          id?: string
+          jour?: number | null
+          metrics?: Json
+          notes?: string | null
+          photo_chemin?: string | null
+          photo_supprimee_le?: string | null
+          report?: Json
+          scanned_at?: string
+          score?: number
+          source?: string
+          suivi_id?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_scans_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_scans_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_scans_consentement_id_fkey"
+            columns: ["consentement_id"]
+            isOneToOne: false
+            referencedRelation: "cures_consentements"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_scans_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: false
+            referencedRelation: "cures_suivis"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cures_suivi_coches: {
         Row: {
           cle_etape: string
           fait_le: string
           id: string
           jour: number
+          periode: string | null
           suivi_id: string
         }
         Insert: {
@@ -12654,6 +13930,7 @@ export type Database = {
           fait_le?: string
           id?: string
           jour: number
+          periode?: string | null
           suivi_id: string
         }
         Update: {
@@ -12661,6 +13938,7 @@ export type Database = {
           fait_le?: string
           id?: string
           jour?: number
+          periode?: string | null
           suivi_id?: string
         }
         Relationships: [
@@ -12676,32 +13954,45 @@ export type Database = {
       cures_suivi_photos: {
         Row: {
           commentaire: string | null
+          consentement_id: string | null
           created_at: string
           id: string
           jour: number
           scores: Json
           suivi_id: string
+          supprimee_le: string | null
           url: string
         }
         Insert: {
           commentaire?: string | null
+          consentement_id?: string | null
           created_at?: string
           id?: string
           jour: number
           scores?: Json
           suivi_id: string
+          supprimee_le?: string | null
           url: string
         }
         Update: {
           commentaire?: string | null
+          consentement_id?: string | null
           created_at?: string
           id?: string
           jour?: number
           scores?: Json
           suivi_id?: string
+          supprimee_le?: string | null
           url?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "cures_suivi_photos_consentement_fk"
+            columns: ["consentement_id"]
+            isOneToOne: false
+            referencedRelation: "cures_consentements"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "cures_suivi_photos_suivi_id_fkey"
             columns: ["suivi_id"]
@@ -12720,15 +14011,28 @@ export type Database = {
           debut_le: string
           diagnostic_id: string | null
           duree_jours: number
+          echelle: Json
           email: string
+          email_envoye_le: string | null
           id: string
-          jeton_empreinte: string
+          indicateurs: Json
+          jeton_empreinte: string | null
           phases: Json
+          photos_supprimees_le: string | null
           prenom: string | null
+          produit_declencheur: string | null
           protocole_id: string | null
+          protocole_nom: string | null
           protocole_slug: string
+          relances_coupees: boolean
+          segment: string | null
           statut: string
+          termine_le: string | null
           updated_at: string
+          user_id: string | null
+          whatsapp_consentement_texte: string | null
+          whatsapp_consenti_le: string | null
+          whatsapp_telephone: string | null
         }
         Insert: {
           account_id: string
@@ -12738,15 +14042,28 @@ export type Database = {
           debut_le?: string
           diagnostic_id?: string | null
           duree_jours?: number
+          echelle?: Json
           email: string
+          email_envoye_le?: string | null
           id?: string
-          jeton_empreinte: string
+          indicateurs?: Json
+          jeton_empreinte?: string | null
           phases?: Json
+          photos_supprimees_le?: string | null
           prenom?: string | null
+          produit_declencheur?: string | null
           protocole_id?: string | null
+          protocole_nom?: string | null
           protocole_slug?: string
+          relances_coupees?: boolean
+          segment?: string | null
           statut?: string
+          termine_le?: string | null
           updated_at?: string
+          user_id?: string | null
+          whatsapp_consentement_texte?: string | null
+          whatsapp_consenti_le?: string | null
+          whatsapp_telephone?: string | null
         }
         Update: {
           account_id?: string
@@ -12756,15 +14073,28 @@ export type Database = {
           debut_le?: string
           diagnostic_id?: string | null
           duree_jours?: number
+          echelle?: Json
           email?: string
+          email_envoye_le?: string | null
           id?: string
-          jeton_empreinte?: string
+          indicateurs?: Json
+          jeton_empreinte?: string | null
           phases?: Json
+          photos_supprimees_le?: string | null
           prenom?: string | null
+          produit_declencheur?: string | null
           protocole_id?: string | null
+          protocole_nom?: string | null
           protocole_slug?: string
+          relances_coupees?: boolean
+          segment?: string | null
           statut?: string
+          termine_le?: string | null
           updated_at?: string
+          user_id?: string | null
+          whatsapp_consentement_texte?: string | null
+          whatsapp_consenti_le?: string | null
+          whatsapp_telephone?: string | null
         }
         Relationships: [
           {
@@ -12814,6 +14144,70 @@ export type Database = {
             columns: ["protocole_id"]
             isOneToOne: false
             referencedRelation: "cures_protocoles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cures_whatsapp_envois: {
+        Row: {
+          account_id: string
+          code_promo: string | null
+          created_at: string
+          envoye_le: string | null
+          erreur: string | null
+          id: string
+          jour: string
+          nature: string
+          statut: string
+          suivi_id: string
+          telephone: string
+        }
+        Insert: {
+          account_id: string
+          code_promo?: string | null
+          created_at?: string
+          envoye_le?: string | null
+          erreur?: string | null
+          id?: string
+          jour?: string
+          nature?: string
+          statut?: string
+          suivi_id: string
+          telephone: string
+        }
+        Update: {
+          account_id?: string
+          code_promo?: string | null
+          created_at?: string
+          envoye_le?: string | null
+          erreur?: string | null
+          id?: string
+          jour?: string
+          nature?: string
+          statut?: string
+          suivi_id?: string
+          telephone?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cures_whatsapp_envois_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_whatsapp_envois_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cures_whatsapp_envois_suivi_id_fkey"
+            columns: ["suivi_id"]
+            isOneToOne: false
+            referencedRelation: "cures_suivis"
             referencedColumns: ["id"]
           },
         ]
@@ -13583,6 +14977,182 @@ export type Database = {
         }
         Relationships: []
       }
+      descriptions_empreintes: {
+        Row: {
+          account_id: string
+          created_at: string
+          empreinte: string
+          origine: string
+          preoccupations: Json
+          product_id: string
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          created_at?: string
+          empreinte: string
+          origine?: string
+          preoccupations?: Json
+          product_id: string
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          created_at?: string
+          empreinte?: string
+          origine?: string
+          preoccupations?: Json
+          product_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "descriptions_empreintes_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "descriptions_empreintes_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "descriptions_empreintes_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: true
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      descriptions_propositions: {
+        Row: {
+          account_id: string
+          ancienne: string
+          created_at: string
+          decide_le: string | null
+          decide_par: string | null
+          depart_auto_le: string | null
+          envoyee_le: string | null
+          erreur: string | null
+          id: string
+          mode: string
+          nouvelle: string
+          plateforme: string | null
+          preoccupations: Json
+          product_id: string
+          raisons: Json
+          statut: string
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          ancienne?: string
+          created_at?: string
+          decide_le?: string | null
+          decide_par?: string | null
+          depart_auto_le?: string | null
+          envoyee_le?: string | null
+          erreur?: string | null
+          id?: string
+          mode?: string
+          nouvelle?: string
+          plateforme?: string | null
+          preoccupations?: Json
+          product_id: string
+          raisons?: Json
+          statut?: string
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          ancienne?: string
+          created_at?: string
+          decide_le?: string | null
+          decide_par?: string | null
+          depart_auto_le?: string | null
+          envoyee_le?: string | null
+          erreur?: string | null
+          id?: string
+          mode?: string
+          nouvelle?: string
+          plateforme?: string | null
+          preoccupations?: Json
+          product_id?: string
+          raisons?: Json
+          statut?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "descriptions_propositions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "descriptions_propositions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "descriptions_propositions_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      descriptions_reglages: {
+        Row: {
+          account_id: string
+          actif: boolean
+          created_at: string
+          mode: string
+          modifie_par: string | null
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          actif?: boolean
+          created_at?: string
+          mode?: string
+          modifie_par?: string | null
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          actif?: boolean
+          created_at?: string
+          mode?: string
+          modifie_par?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "descriptions_reglages_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: true
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "descriptions_reglages_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: true
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       ecommerce_customers: {
         Row: {
           account_id: string
@@ -13829,6 +15399,7 @@ export type Database = {
           boutique_id: string | null
           browser: string | null
           cancel_reason: string | null
+          contributions_calculees_le: string | null
           coupon_codes: string[] | null
           created_at: string | null
           currency: string | null
@@ -13891,6 +15462,7 @@ export type Database = {
           utm_medium: string | null
           utm_source: string | null
           utm_term: string | null
+          visitor_id: string | null
         }
         Insert: {
           account_id: string
@@ -13907,6 +15479,7 @@ export type Database = {
           boutique_id?: string | null
           browser?: string | null
           cancel_reason?: string | null
+          contributions_calculees_le?: string | null
           coupon_codes?: string[] | null
           created_at?: string | null
           currency?: string | null
@@ -13969,6 +15542,7 @@ export type Database = {
           utm_medium?: string | null
           utm_source?: string | null
           utm_term?: string | null
+          visitor_id?: string | null
         }
         Update: {
           account_id?: string
@@ -13985,6 +15559,7 @@ export type Database = {
           boutique_id?: string | null
           browser?: string | null
           cancel_reason?: string | null
+          contributions_calculees_le?: string | null
           coupon_codes?: string[] | null
           created_at?: string | null
           currency?: string | null
@@ -14047,6 +15622,7 @@ export type Database = {
           utm_medium?: string | null
           utm_source?: string | null
           utm_term?: string | null
+          visitor_id?: string | null
         }
         Relationships: [
           {
@@ -15288,6 +16864,76 @@ export type Database = {
           },
         ]
       }
+      emails_newsletter_envois: {
+        Row: {
+          account_id: string
+          contact_id: string
+          created_at: string
+          envoye_le: string | null
+          etat: string
+          fournisseur: string | null
+          id: string
+          message_id: string | null
+          mois: string
+          motif: string | null
+          objet: string | null
+          tentatives: number
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          contact_id: string
+          created_at?: string
+          envoye_le?: string | null
+          etat?: string
+          fournisseur?: string | null
+          id?: string
+          message_id?: string | null
+          mois: string
+          motif?: string | null
+          objet?: string | null
+          tentatives?: number
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          contact_id?: string
+          created_at?: string
+          envoye_le?: string | null
+          etat?: string
+          fournisseur?: string | null
+          id?: string
+          message_id?: string | null
+          mois?: string
+          motif?: string | null
+          objet?: string | null
+          tentatives?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "emails_newsletter_envois_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "emails_newsletter_envois_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "emails_newsletter_envois_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "emails_contacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       emails_reglages: {
         Row: {
           account_id: string
@@ -15302,6 +16948,7 @@ export type Database = {
           information_declaree_par: string | null
           max_par_contact_jour: number
           modifie_par: string | null
+          newsletter_actif: boolean
           panier_actif: boolean
           plafond_jour: number
           plafond_mois: number
@@ -15321,6 +16968,7 @@ export type Database = {
           information_declaree_par?: string | null
           max_par_contact_jour?: number
           modifie_par?: string | null
+          newsletter_actif?: boolean
           panier_actif?: boolean
           plafond_jour?: number
           plafond_mois?: number
@@ -15340,6 +16988,7 @@ export type Database = {
           information_declaree_par?: string | null
           max_par_contact_jour?: number
           modifie_par?: string | null
+          newsletter_actif?: boolean
           panier_actif?: boolean
           plafond_jour?: number
           plafond_mois?: number
@@ -18157,6 +19806,7 @@ export type Database = {
           premiere_reponse_le: string | null
           recontacte_le: string | null
           recontacte_par: string | null
+          reponse_email_envoyee_le: string | null
           source: string | null
           statut_contact: string | null
           statut_maj_le: string | null
@@ -18182,6 +19832,7 @@ export type Database = {
           premiere_reponse_le?: string | null
           recontacte_le?: string | null
           recontacte_par?: string | null
+          reponse_email_envoyee_le?: string | null
           source?: string | null
           statut_contact?: string | null
           statut_maj_le?: string | null
@@ -18207,6 +19858,7 @@ export type Database = {
           premiere_reponse_le?: string | null
           recontacte_le?: string | null
           recontacte_par?: string | null
+          reponse_email_envoyee_le?: string | null
           source?: string | null
           statut_contact?: string | null
           statut_maj_le?: string | null
@@ -26036,6 +27688,7 @@ export type Database = {
           shop_domain: string | null
           updated_at: string
           variant_id: string | null
+          visitor_id: string | null
         }
         Insert: {
           account_id: string
@@ -26061,6 +27714,7 @@ export type Database = {
           shop_domain?: string | null
           updated_at?: string
           variant_id?: string | null
+          visitor_id?: string | null
         }
         Update: {
           account_id?: string
@@ -26086,6 +27740,7 @@ export type Database = {
           shop_domain?: string | null
           updated_at?: string
           variant_id?: string | null
+          visitor_id?: string | null
         }
         Relationships: [
           {
@@ -29992,6 +31647,156 @@ export type Database = {
           },
         ]
       }
+      upsell_offres: {
+        Row: {
+          acceptee: boolean
+          acceptee_le: string | null
+          account_id: string
+          agent_id: string | null
+          created_at: string
+          devise: string | null
+          id: string
+          langue: string | null
+          montant: number | null
+          moteur: string | null
+          plateforme: string | null
+          prix: number | null
+          produit_ajoute_externe: string | null
+          produit_ajoute_id: string | null
+          produit_propose_externe: string | null
+          produit_propose_id: string | null
+          produit_propose_nom: string | null
+          raison: string | null
+          regle_id: string | null
+          remise_pourcent: number | null
+          source: string
+          visitor_id: string | null
+        }
+        Insert: {
+          acceptee?: boolean
+          acceptee_le?: string | null
+          account_id: string
+          agent_id?: string | null
+          created_at?: string
+          devise?: string | null
+          id?: string
+          langue?: string | null
+          montant?: number | null
+          moteur?: string | null
+          plateforme?: string | null
+          prix?: number | null
+          produit_ajoute_externe?: string | null
+          produit_ajoute_id?: string | null
+          produit_propose_externe?: string | null
+          produit_propose_id?: string | null
+          produit_propose_nom?: string | null
+          raison?: string | null
+          regle_id?: string | null
+          remise_pourcent?: number | null
+          source: string
+          visitor_id?: string | null
+        }
+        Update: {
+          acceptee?: boolean
+          acceptee_le?: string | null
+          account_id?: string
+          agent_id?: string | null
+          created_at?: string
+          devise?: string | null
+          id?: string
+          langue?: string | null
+          montant?: number | null
+          moteur?: string | null
+          plateforme?: string | null
+          prix?: number | null
+          produit_ajoute_externe?: string | null
+          produit_ajoute_id?: string | null
+          produit_propose_externe?: string | null
+          produit_propose_id?: string | null
+          produit_propose_nom?: string | null
+          raison?: string | null
+          regle_id?: string | null
+          remise_pourcent?: number | null
+          source?: string
+          visitor_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "upsell_offres_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "upsell_offres_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "upsell_offres_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "upsell_offres_produit_ajoute_id_fkey"
+            columns: ["produit_ajoute_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "upsell_offres_produit_propose_id_fkey"
+            columns: ["produit_propose_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      upsell_reglages: {
+        Row: {
+          account_id: string
+          actif: boolean
+          created_at: string
+          remise_max_pourcent: number | null
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          actif?: boolean
+          created_at?: string
+          remise_max_pourcent?: number | null
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          actif?: boolean
+          created_at?: string
+          remise_max_pourcent?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "upsell_reglages_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: true
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "upsell_reglages_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: true
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       usage_tracking: {
         Row: {
           account_id: string
@@ -30347,6 +32152,137 @@ export type Database = {
           },
         ]
       }
+      visiteur_contexte: {
+        Row: {
+          account_id: string | null
+          agent_id: string | null
+          appels: Json
+          avis_montres: Json
+          created_at: string
+          diagnostic: Json | null
+          email: string | null
+          faq_ouvertes: Json
+          langue: string | null
+          offres_montrees: Json
+          panier: Json | null
+          produits_vus: Json
+          resume_conversation: string | null
+          updated_at: string
+          visitor_id: string
+        }
+        Insert: {
+          account_id?: string | null
+          agent_id?: string | null
+          appels?: Json
+          avis_montres?: Json
+          created_at?: string
+          diagnostic?: Json | null
+          email?: string | null
+          faq_ouvertes?: Json
+          langue?: string | null
+          offres_montrees?: Json
+          panier?: Json | null
+          produits_vus?: Json
+          resume_conversation?: string | null
+          updated_at?: string
+          visitor_id: string
+        }
+        Update: {
+          account_id?: string | null
+          agent_id?: string | null
+          appels?: Json
+          avis_montres?: Json
+          created_at?: string
+          diagnostic?: Json | null
+          email?: string | null
+          faq_ouvertes?: Json
+          langue?: string | null
+          offres_montrees?: Json
+          panier?: Json | null
+          produits_vus?: Json
+          resume_conversation?: string | null
+          updated_at?: string
+          visitor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "visiteur_contexte_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "visiteur_contexte_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "visiteur_contexte_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      visiteur_evenements: {
+        Row: {
+          account_id: string | null
+          agent: string | null
+          agent_id: string | null
+          created_at: string
+          donnees: Json
+          id: string
+          type: string
+          visitor_id: string
+        }
+        Insert: {
+          account_id?: string | null
+          agent?: string | null
+          agent_id?: string | null
+          created_at?: string
+          donnees?: Json
+          id?: string
+          type: string
+          visitor_id: string
+        }
+        Update: {
+          account_id?: string | null
+          agent?: string | null
+          agent_id?: string | null
+          created_at?: string
+          donnees?: Json
+          id?: string
+          type?: string
+          visitor_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "visiteur_evenements_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "visiteur_evenements_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "visiteur_evenements_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       visitors: {
         Row: {
           account_id: string
@@ -30486,6 +32422,129 @@ export type Database = {
             columns: ["product_id"]
             isOneToOne: false
             referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      voice_messages: {
+        Row: {
+          audio_duration_ms: number | null
+          content: string
+          created_at: string | null
+          id: string
+          role: string
+          voice_session_id: string
+        }
+        Insert: {
+          audio_duration_ms?: number | null
+          content: string
+          created_at?: string | null
+          id?: string
+          role: string
+          voice_session_id: string
+        }
+        Update: {
+          audio_duration_ms?: number | null
+          content?: string
+          created_at?: string | null
+          id?: string
+          role?: string
+          voice_session_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "voice_messages_voice_session_id_fkey"
+            columns: ["voice_session_id"]
+            isOneToOne: false
+            referencedRelation: "voice_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      voice_sessions: {
+        Row: {
+          account_id: string
+          agent_id: string | null
+          cost_cents: number | null
+          created_at: string | null
+          duration_seconds: number | null
+          elevenlabs_agent_id: string | null
+          elevenlabs_conversation_id: string | null
+          ended_at: string | null
+          had_add_to_cart: boolean | null
+          had_product_recommendation: boolean | null
+          had_purchase: boolean | null
+          id: string
+          language: string | null
+          message_count: number | null
+          platform: string
+          product_id: string | null
+          product_name: string | null
+          started_at: string | null
+          status: string | null
+        }
+        Insert: {
+          account_id: string
+          agent_id?: string | null
+          cost_cents?: number | null
+          created_at?: string | null
+          duration_seconds?: number | null
+          elevenlabs_agent_id?: string | null
+          elevenlabs_conversation_id?: string | null
+          ended_at?: string | null
+          had_add_to_cart?: boolean | null
+          had_product_recommendation?: boolean | null
+          had_purchase?: boolean | null
+          id?: string
+          language?: string | null
+          message_count?: number | null
+          platform?: string
+          product_id?: string | null
+          product_name?: string | null
+          started_at?: string | null
+          status?: string | null
+        }
+        Update: {
+          account_id?: string
+          agent_id?: string | null
+          cost_cents?: number | null
+          created_at?: string | null
+          duration_seconds?: number | null
+          elevenlabs_agent_id?: string | null
+          elevenlabs_conversation_id?: string | null
+          ended_at?: string | null
+          had_add_to_cart?: boolean | null
+          had_product_recommendation?: boolean | null
+          had_purchase?: boolean | null
+          id?: string
+          language?: string | null
+          message_count?: number | null
+          platform?: string
+          product_id?: string | null
+          product_name?: string | null
+          started_at?: string | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "voice_sessions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "voice_sessions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts_public_directory"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "voice_sessions_agent_id_fkey"
+            columns: ["agent_id"]
+            isOneToOne: false
+            referencedRelation: "agents"
             referencedColumns: ["id"]
           },
         ]
@@ -31551,6 +33610,7 @@ export type Database = {
           session_id: string | null
           store_url: string | null
           updated_at: string
+          visitor_id: string | null
         }
         Insert: {
           account_id: string
@@ -31575,6 +33635,7 @@ export type Database = {
           session_id?: string | null
           store_url?: string | null
           updated_at?: string
+          visitor_id?: string | null
         }
         Update: {
           account_id?: string
@@ -31599,6 +33660,7 @@ export type Database = {
           session_id?: string | null
           store_url?: string | null
           updated_at?: string
+          visitor_id?: string | null
         }
         Relationships: [
           {
@@ -31903,6 +33965,7 @@ export type Database = {
           client_nom: string | null
           commande_native_id: string | null
           created_at: string | null
+          cure: boolean | null
           customer_note: string | null
           date_commande: string | null
           devise: string | null
@@ -31931,7 +33994,32 @@ export type Database = {
           tax_total: number | null
           telephone: string | null
           total_cents: number | null
+          via_lystes: boolean | null
           woo_order_id: string | null
+        }
+        Relationships: []
+      }
+      cures_v_produits: {
+        Row: {
+          account_id: string | null
+          brand: string | null
+          category: string | null
+          created_at: string | null
+          description: string | null
+          id: string | null
+          image_url: string | null
+          is_active: boolean | null
+          meta: Json | null
+          name: string | null
+          price_eur: number | null
+          product_url: string | null
+          shopify_id: string | null
+          shopify_product_id: string | null
+          sku: string | null
+          source_platform: string | null
+          trending_score: number | null
+          updated_at: string | null
+          woo_id: string | null
         }
         Relationships: []
       }
@@ -32602,18 +34690,30 @@ export type Database = {
         }
         Returns: string
       }
-      attribute_order_to_diagnostics: {
-        Args: {
-          p_account_id?: string
-          p_customer_email: string
-          p_order_date?: string
-          p_order_id: string
-          p_session_id?: string
-          p_visitor_id?: string
-          p_window_days?: number
-        }
-        Returns: Json
-      }
+      attribute_order_to_diagnostics:
+        | {
+            Args: {
+              p_account_id?: string
+              p_customer_email: string
+              p_order_id: string
+              p_session_id?: string
+              p_visitor_id?: string
+              p_window_days?: number
+            }
+            Returns: Json
+          }
+        | {
+            Args: {
+              p_account_id?: string
+              p_customer_email: string
+              p_order_date?: string
+              p_order_id: string
+              p_session_id?: string
+              p_visitor_id?: string
+              p_window_days?: number
+            }
+            Returns: Json
+          }
       avec_ia_mesures: {
         Args: { p_account_id: string; p_depuis: string; p_jusqua: string }
         Returns: Json
@@ -32799,6 +34899,64 @@ export type Database = {
         Returns: Json
       }
       credit_baselines_ensure: { Args: never; Returns: number }
+      cure_cocher: {
+        Args: {
+          p_completed: boolean
+          p_date: string
+          p_period: string
+          p_step_key: string
+          p_suivi?: string
+        }
+        Returns: Json
+      }
+      cure_communaute_active: { Args: { p_compte: string }; Returns: boolean }
+      cure_consommer_quota: {
+        Args: {
+          p_action: string
+          p_plafond: number
+          p_rendre?: boolean
+          p_suivi: string
+        }
+        Returns: Json
+      }
+      cure_couper_sessions: {
+        Args: { p_garder?: string; p_user: string }
+        Returns: number
+      }
+      cure_demander_suppression: {
+        Args: { p_motif?: string; p_suivi?: string }
+        Returns: Json
+      }
+      cure_espace_etat: { Args: { p_suivi?: string }; Returns: Json }
+      cure_mes_comptes: { Args: never; Returns: string[] }
+      cure_mes_suivis: { Args: never; Returns: string[] }
+      cure_nom_public: { Args: { p_suivi: string }; Returns: string }
+      cure_peut_lire_photo: { Args: { p_nom: string }; Returns: boolean }
+      cure_produits_visibles: {
+        Args: never
+        Returns: {
+          account_id: string
+          brand: string
+          category: string
+          created_at: string
+          description: string
+          id: string
+          image_url: string
+          is_active: boolean
+          meta: Json
+          name: string
+          price_eur: number
+          product_url: string
+          shopify_id: string
+          shopify_product_id: string
+          sku: string
+          source_platform: string
+          trending_score: number
+          updated_at: string
+          woo_id: string
+        }[]
+      }
+      cure_suivi_actif: { Args: { p_suivi?: string }; Returns: string }
       current_ccx_org_id: { Args: never; Returns: string }
       current_request_session_token: { Args: never; Returns: string }
       debug_conversations_status: {
@@ -32885,6 +35043,7 @@ export type Database = {
         }[]
       }
       essai_conseiller_limite_par_defaut: { Args: never; Returns: number }
+      est_admin_du_compte: { Args: { compte: string }; Returns: boolean }
       est_appel_privilegie: { Args: never; Returns: boolean }
       est_membre_du_compte: { Args: { compte: string }; Returns: boolean }
       expire_topups: { Args: never; Returns: number }
@@ -32988,6 +35147,10 @@ export type Database = {
         Returns: Json
       }
       get_influencer_portal_data: { Args: { p_token: string }; Returns: Json }
+      get_monthly_voice_cost: {
+        Args: { p_account_id: string }
+        Returns: number
+      }
       get_product_purchase_links_for_account: {
         Args: { p_account_id: string; p_product_ids: string[] }
         Returns: {
@@ -33206,10 +35369,18 @@ export type Database = {
         }
         Returns: number
       }
+      multilien_produits_a_la_une: {
+        Args: { p_account_id: string; p_limite?: number; p_mode?: string }
+        Returns: {
+          product_id: string
+          rang: number
+        }[]
+      }
       mygpt_trafic_agrege: {
         Args: { _account_id: string; _from: string; _to: string }
         Returns: Json
       }
+      newsletter_verser_inscrites: { Args: never; Returns: number }
       nom_expert_de_fiche: {
         Args: { p_metier: string; p_product_id: string }
         Returns: string
@@ -33910,6 +36081,10 @@ export type Database = {
           isOneToOne: true
           isSetofReturn: false
         }
+      }
+      ventes_assistees_par_agent: {
+        Args: { p_account_id: string; p_jours?: number }
+        Returns: Json
       }
       webhook_delivery_claim: {
         Args: {

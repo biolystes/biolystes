@@ -2058,6 +2058,32 @@
       "aucunInscrit": "Aucun freelance inscrit pour l'instant.",
       "aucunInscritDetail": "Les profils apparaîtront ici au fil des inscriptions.",
       "lienInscription": "Page d'inscription des freelances"
+    },
+    "recoUgc": {
+      "genre": "Genre",
+      "age": "Âge",
+      "carnation": "Carnation visée",
+      "peau": "Peau",
+      "cheveux": "Cheveux",
+      "preoccupations": "Préoccupations",
+      "pays": "Pays",
+      "titre": "Trois UGC pour lever les doutes de vos clientes.",
+      "titreSuite": "D'après vos conversations et le profil mesuré de votre clientèle.",
+      "chargement": "Analyse de votre clientèle…",
+      "erreur": "Le profil de votre clientèle n'a pas pu être lu. Réessayez dans un instant.",
+      "kpiDoutes": "Doutes relevés",
+      "kpiConversations": "Conversations analysées",
+      "kpiDiagnostics": "Diagnostics lus",
+      "kpiProduits": "Fiches produit analysées",
+      "profilTitre": "Votre clientèle",
+      "profilVide": "Pas encore assez de données pour mesurer votre clientèle. Il faut au moins 10 diagnostics ou 10 clientes, pour qu'aucune ne soit reconnaissable. Déclarez l'avatar de votre marque en attendant.",
+      "doute": "Doute à lever",
+      "mentions": "Relevé {{n}} fois",
+      "creatrice": "Profil à caster",
+      "creer": "Créer cette UGC",
+      "videTitre": "Aucun doute relevé pour l'instant.",
+      "videTexte": "Les doutes viennent de l'analyse de nuit des conversations de vos fiches produit. Dès qu'une cliente hésite sur une fiche, une UGC pour lui répondre apparaît ici.",
+      "titreVide": "Vos UGC répondront aux doutes de vos clientes."
     }
   },
   "pubZernio": {

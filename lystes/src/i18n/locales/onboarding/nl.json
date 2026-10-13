@@ -53,7 +53,9 @@
       "importTerminePrestations": "Uw diensten zijn opgeslagen",
       "liaison": "Uw producten worden aan uw specialist gekoppeld…",
       "liaisonPrestations": "Uw diensten worden aan uw specialist gekoppeld…",
-      "managers": "De directie en de managers worden ingericht…"
+      "managers": "De directie en de managers worden ingericht…",
+      "specialistePrestations": "De adviseur van uw website wordt aangemaakt…",
+      "coachsPrestations": "Uw opvolging na afspraken wordt ingericht…"
     },
     "expertsLinkManquant": {
       "message": "Uw experts zijn aangemaakt, maar reageren nog voor geen enkel product. Koppel ze vanaf de pagina Mijn Team.",
@@ -304,6 +306,19 @@
       "strategy": "Strategie",
       "upsell": "Coaches na aankoop",
       "winners": "Winnende producten"
+    },
+    "prestations": {
+      "experts": "Dienstexperts",
+      "coachs": "Opvolging na afspraken",
+      "coachsTexte": "Volgen uw klanten op na hun afspraak.",
+      "specialisteTexte": "De adviseur die in de chatbubbel van uw website verschijnt.",
+      "conseiller": "Website-adviseur",
+      "conseillerTexte": "Antwoordt op uw hele website: diensten, openingstijden, contact.",
+      "tableauDeBord": "Werkt in uw dashboard, zonder agent op uw website.",
+      "bilanSite": "Op uw website",
+      "postePRODUCTS": "Dienstexperts",
+      "posteUPSELL": "Opvolging na afspraken",
+      "posteWINNERS": "Topdiensten"
     }
   },
   "page": {
@@ -323,7 +338,8 @@
     },
     "progressionNonEnregistree": "Uw voortgang kon niet worden opgeslagen",
     "choixNonEnregistre": "Uw keuze kon niet worden opgeslagen",
-    "configurationPartielle": "Uw AI-team is gedeeltelijk ingesteld. Sommige onderdelen worden in de volgende stap aangevuld."
+    "configurationPartielle": "Uw AI-team is gedeeltelijk ingesteld. Sommige onderdelen worden in de volgende stap aangevuld.",
+    "voirLaSuite": "Meer bekijken"
   },
   "plateforme": {
     "autre": {
@@ -548,6 +564,8 @@
       "bouton": "Verzoek bevestigen",
       "chapo": "Ons technisch team installeert de widget op uw website. Geïnstalleerd binnen 24 werkuren.",
       "detail": "We nemen dezelfde dag per e-mail contact met u op om uw toegangsgegevens te verkrijgen. Tot die tijd hoeft u niets te doen.",
+      "confirmer": "Na uw bevestiging gaat uw verzoek naar ons team, dat u mailt om uw toegangsgegevens te verkrijgen.",
+      "enregistree": "Verzoek opgeslagen. Ons team behandelt het en mailt u om uw toegangsgegevens te verkrijgen.",
       "titre": "Doe het voor mij",
       "dejaEnvoyee": "Aanvraag op {{date}} naar het team gestuurd. We mailen u om uw toegangsgegevens te krijgen."
     },

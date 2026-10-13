@@ -370,7 +370,8 @@ export default function AgentsVisionRawPage() {
       {conseillersSlot && createPortal(<AnimatedChat />, conseillersSlot)}
       {faceMeshSlot && createPortal(<FaceMeshScanner imageUrl={diagnosticFace} />, faceMeshSlot)}
       {!isHomeRoute && videoPromptSlot && createPortal(<VideoPromptBanner />, videoPromptSlot)}
-      {callCleaSlot && createPortal(<CallClaireButton variant="inline" />, callCleaSlot)}
+      {/* biolystes.com : pas de bouton « Appeler Cléa », le seul appel à
+          l’action est le rendez-vous. */}
       {dataIntelSlot && createPortal(<DataIntelligentBanner lang={lang} />, dataIntelSlot)}
       {heroTitleSlot && createPortal(<HeroRotatingTitle lang={lang} />, heroTitleSlot)}
       {/* Sous 640 px, le hero porte la bascule Ecommerce / Entreprises, qui
