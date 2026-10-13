@@ -22,7 +22,7 @@ import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
  *  - ecommerce-step : la boutique Kaniwa Botanique ;
  *  - fiche : la fiche de démonstration de l'accueil (public/demo-eclose) ;
  *  - feed : six publications du feed Sevmylook de biolystes.com/agence (3:4) ;
- *  - presse : deux articles par magazine, Brume, Écrin, Élunesse (3:4) ;
+ *  - presse : l'accueil et une rubrique de Brume, Écrin, Élunesse, en entier (3:4) ;
  *  - avis, mag IA, multilien : vraies vues lystes.ai de Lystes & Partners (3:4) ;
  *  - assurance : l'étui 235th abîmé et la carte « Protection réglementaire ».
  *  - validation : les produits Lystes & Partners (public/bio-validation) ;
@@ -316,14 +316,17 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "votre marque dans des magazines beauté",
         role: "Des articles de presse sur votre marque, dans des magazines beauté : qui tape son nom sur Google trouve de vrais articles.",
         unique: "",
-        /* Deux articles par magazine, capturés le 13/10/2026 à 1440 px (bandeaux refusés), recadrés en 3:4 : le nom du magazine, le titre, l'image ; articles sans visage. */
+        /* Chaque magazine tel qu'il est, en entier (JP, 13/10/2026 : jamais un
+           article seul) : la page d'accueil, puis une page de rubrique,
+           capturées le 13/10 à 1440 × 1920 et réduites sans recadrage. Aucun
+           titre anxiogène ou médical à l'écran. */
         media: { type: "diapos", src: "", trio: true, intervalle: 3000, legende: ["Brume, Écrin, Élunesse", ", nos magazines partenaires"], diapos: [
-          PHOTO("/bio-presse/presse-brume-anua.webp", ["", ""]),
-          PHOTO("/bio-presse/presse-ecrin-rdrd.webp", ["", ""]),
-          PHOTO("/bio-presse/presse-elunesse-phytochimie.webp", ["", ""]),
-          PHOTO("/bio-presse/presse-brume-sync-beauty.webp", ["", ""]),
-          PHOTO("/bio-presse/presse-ecrin-lacto-glow.webp", ["", ""]),
-          PHOTO("/bio-presse/presse-elunesse-niacinamide.webp", ["", ""]),
+          PHOTO("/bio-presse/mag-brume-accueil.webp", ["", ""]),
+          PHOTO("/bio-presse/mag-ecrin-accueil.webp", ["", ""]),
+          PHOTO("/bio-presse/mag-elunesse-accueil.webp", ["", ""]),
+          PHOTO("/bio-presse/mag-brume-cheveux.webp", ["", ""]),
+          PHOTO("/bio-presse/mag-ecrin-green.webp", ["", ""]),
+          PHOTO("/bio-presse/mag-elunesse-cheveux.webp", ["", ""]),
         ] },
         duree: 9000,
       },
