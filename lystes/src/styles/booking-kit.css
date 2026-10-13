@@ -336,6 +336,15 @@
   border-radius: 32px !important;
 }
 
+/* Au téléphone, 56 px de chaque côté laissaient 150 à 260 px de contenu
+   (fiche prospect, suivi des clientes : lot L7, 13/10/2026). */
+@media (max-width: 639px) {
+  .bkit.bkit-canvas.min-h-full.w-full {
+    padding: 8px;
+    border-radius: 20px !important;
+  }
+}
+
 /* ---- Uniformité des écrans portés -------------------------------------
    Toutes les pages du module n'ont pas encore l'en-tête « PageEntete ».
    Tant qu'elles ne l'ont pas, leur h1 prend la même allure : même corps,

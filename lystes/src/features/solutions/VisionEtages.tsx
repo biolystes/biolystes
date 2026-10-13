@@ -6,7 +6,7 @@ import { FaceMeshScanner } from "@lystes/features/landing-particuliers/component
 import diagnosticFace from "@lystes/features/landing-particuliers/pages/diagnostic-agent/assets/diagnostic-face.jpg";
 import { demanderMaillage } from "@lystes/lib/mediapipe-sur";
 import SafeVideo from "@lystes/components/bio/SafeVideo";
-import { ChevronsCarrousel } from "./ChevronsCarrousel";
+import { CarrouselLieux, CSS_CARROUSEL_LIEUX } from "./CarrouselLieux";
 import { CarteProtection } from "@lystes/components/bio/ResponsabiliteSection";
 import { ENTETE_BIO, ONGLETS_BIO, type EtapeBio, type MediaEtape } from "./vision/etapesBio";
 
@@ -1490,36 +1490,39 @@ const CHARGER_VISITE = {
 type IdVisite = keyof typeof CHARGER_VISITE;
 const estVisite = (id: string): id is IdVisite => id in CHARGER_VISITE;
 
-/* /bio : les trois points de l'en-tête en carrousel d'une ligne (JP,
-   13/10/2026) : un point à la fois, icône et texte court, puis les flèches
-   ‹ › de la bannière (ChevronsCarrousel), juste à droite du texte.
-   Défilement lent, flèches, glissé au doigt. */
+/* /bio : les trois points de l'en-tête dans le carrousel d'une ligne de la
+   bannière de l'accueil (CarrouselLieux, « Installer sur Shopify /
+   WooCommerce… »), le même, avec ses flèches (JP, 13/10/2026). Défilement
+   lent, flèches, glissé au doigt. */
 function PointsCarrousel({ points, icones }: { points: readonly string[]; icones: readonly LucideIcon[] }) {
   const [i, setI] = useState(0);
   const [pause, setPause] = useState(false);
   const n = points.length;
-  const aller = useCallback((pas: number) => setI((v) => (v + pas + n) % n), [n]);
   useEffect(() => {
     if (pause || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const id = window.setTimeout(() => aller(1), 4500);
+    const id = window.setTimeout(() => setI((v) => (v + 1) % n), 4500);
     return () => window.clearTimeout(id);
-  }, [i, pause, aller]);
+  }, [i, pause, n]);
   const depart = useRef<number | null>(null);
-  const Icone = icones[i];
   return (
     <div className="lyv-pc" onPointerEnter={(e) => { if (e.pointerType === "mouse") setPause(true); }} onPointerLeave={() => setPause(false)}
       onTouchStart={(e) => { depart.current = e.touches[0].clientX; }}
       onTouchEnd={(e) => {
         const d = depart.current === null ? 0 : e.changedTouches[0].clientX - depart.current;
         depart.current = null;
-        if (Math.abs(d) > 30) aller(d < 0 ? 1 : -1);
+        if (Math.abs(d) > 30) setI((v) => (v + (d < 0 ? 1 : -1) + n) % n);
       }}>
-      <p className="lyv-pc-point" key={i} aria-live="polite">
-        {Icone && <Icone size={18} strokeWidth={1.5} aria-hidden="true" />}
-        <span>{points[i]}</span>
-      </p>
-      <ChevronsCarrousel className="lyv-pc-chevs" libellePrecedent="Point précédent" libelleSuivant="Point suivant"
-        precedent={() => aller(-1)} suivant={() => aller(1)} />
+      <style>{CSS_CARROUSEL_LIEUX}</style>
+      <CarrouselLieux
+        index={i}
+        setIndex={(f) => setI(f)}
+        libellePrecedent="Point précédent"
+        libelleSuivant="Point suivant"
+        elements={points.map((p, k) => {
+          const Icone = icones[k];
+          return { key: p, contenu: <>{Icone && <Icone className="lyh-btn-logo" strokeWidth={1.6} aria-hidden="true" />}<span>{p}</span></> };
+        })}
+      />
     </div>
   );
 }
@@ -2581,26 +2584,17 @@ const CSS = `
   .lyv-inci-debut{ display:none; }
   .lyv-inci-points{ display:inline; }
 }
-/* Les trois points de /bio : une ligne centrée, le point puis les flèches
-   ‹ › (ChevronsCarrousel, mêmes classes que la bannière, en encre ici). */
-.lyv-pc{ display:flex; justify-content:center; align-items:center; gap:6px; margin:14px auto 0; max-width:780px; touch-action:pan-y; }
-.lyv-pc-point{ display:inline-flex; align-items:center; gap:8px; margin:0; font-size:15px; line-height:1.4; color:#000; white-space:nowrap;
-  animation:lyv-apparait .4s ease both; }
-.lyv-pc-point svg{ flex:none; width:18px; height:18px; color:var(--lyv-encre); }
-.lyv-pc .lyh-install-chevs{ display:flex; align-items:center; gap:4px; flex:none; }
-.lyv-pc .lyh-install-chev{ display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; padding:0; border:0;
-  background:transparent; color:#000; opacity:.55; cursor:pointer; transition:opacity .2s; }
+/* Les trois points de /bio : le carrousel de la bannière (CarrouselLieux),
+   centré sous le paragraphe, en encre sur le blanc. La ligne fait la largeur
+   du plus long point plus les flèches : un seul point se voit à la fois. */
+.lyv-pc{ display:flex; justify-content:center; margin:14px auto 0; max-width:780px; touch-action:pan-y; }
+.lyv-pc .lyh-install-row{ width:420px; max-width:100%; margin-top:0; }
+.lyv-pc .lyh-lien-shopify{ color:#000; font-size:13px; }
+.lyv-pc .lyh-install-track{ gap:40px; }
+.lyv-pc .lyh-install-chev{ color:#000; opacity:.55; }
 .lyv-pc .lyh-install-chev:hover{ opacity:1; }
-.lyv-pc .lyh-install-chev svg{ width:16px; height:16px; display:block; }
 .lyv-pc .lyh-install-chev:focus-visible{ outline:2px solid #000; outline-offset:2px; border-radius:4px; }
-/* À 375, le plus long point (« Aucun stock, aucun minimum de commande »)
-   et ses flèches tiennent sur une ligne de 343 px à 13 px. */
-@media (max-width:720px){ .lyv-pc-point{ font-size:13px; gap:6px; } .lyv-pc-point svg{ width:16px; height:16px; } .lyv-pc{ gap:2px; }
-  .lyv-pc .lyh-install-chevs{ gap:0; } .lyv-pc .lyh-install-chev{ width:20px; } }
-/* La ligne de l'en-tête fait 311 px à 375 : 12 px, icône de 14 px, flèches
-   de 18 px, pour que le point le plus long tienne avec ses flèches. */
-@media (max-width:420px){ .lyv-pc-point{ font-size:12px; gap:4px; } .lyv-pc-point svg{ width:14px; height:14px; }
-  .lyv-pc .lyh-install-chev{ width:18px; } .lyv-pc .lyh-install-chev svg{ width:14px; height:14px; } }
+@media (max-width:420px){ .lyv-pc .lyh-install-row{ width:100%; gap:4px; } .lyv-pc .lyh-lien-shopify{ font-size:11px; gap:6px; } .lyv-pc .lyh-install-chevs{ gap:0; } .lyv-pc .lyh-install-chev{ width:18px; } }
 /* La fiche de démonstration : son propre format (1286 × 1290), sans le
    recadrage des photos. */
 .lyv-media.lyv-media-fiche{ aspect-ratio:auto; }
