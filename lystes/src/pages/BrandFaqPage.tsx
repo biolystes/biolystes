@@ -417,7 +417,7 @@ export function VueFaqMarque({
                   )}
                 </p>
               </div>
-              <div className="-mx-6 flex snap-x snap-mandatory gap-2 overflow-x-auto bg-[#f3f4f5] px-6 py-4 [scrollbar-width:thin]">
+              <div className="-mx-6 flex snap-x snap-mandatory gap-2 overflow-x-auto bg-[#f3f4f5] px-6 py-4">
                 {data.products.map((p: BrandProductCard) => {
                   const n = questionsParProduit.get(p.id) ?? 0;
                   return (

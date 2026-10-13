@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
-import CommentCaMarche from "@lystes/components/bio/CommentCaMarche";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Link } from "@lystes/lib/lien-lystes";
@@ -664,9 +663,12 @@ export default function DecouvertePage() {
 
       </section>
 
-      {/* ═══ 4. JE COMPRENDS : LA MISE EN PLACE ═══ */}
-      <section id="section-comprend" ref={setRef("comprend")} className="bg-secondary">
-        <CommentCaMarche />
+      {/* ═══ 4. JE COMPRENDS : LES ÉTAPES DE CRÉATION DE MARQUE ═══
+          13/10/2026 (JP) : remplace « Comment ça marche ». Le gabarit des
+          étages de l’accueil (VisionEtages), seul le contenu change
+          (vision/etapesBio.ts). */}
+      <section id="section-comprend" ref={setRef("comprend")} className="pt-12 md:pt-16 bg-background px-4 sm:px-6 lg:px-0">
+        <VisionEtagesBloc secteur="bio" />
       </section>
 
       {/* ═══ 5. LA LIVRAISON ═══ */}
@@ -944,13 +946,8 @@ export default function DecouvertePage() {
         </div>
       </section>
 
-      {/* ═══ ET APRÈS LE LANCEMENT : LA SECTION DES ÉTAGES DE L’ACCUEIL ═══
-          12/10/2026 (JP) : « on ne s’arrête pas à créer ta marque ». Même
-          composant que l’accueil (VisionEtages, via VisionEtagesBloc). */}
-      <section id="section-apres" className="pt-12 md:pt-16 bg-background px-4 sm:px-6 lg:px-0">
-        <p className="text-xs tracking-[0.3em] uppercase text-foreground text-center">Et après le lancement</p>
-        <VisionEtagesBloc />
-      </section>
+      {/* « Et après le lancement » retiré (JP, 13/10/2026) : l’onglet
+          Communication des étapes de création le couvre. */}
 
       {/* ═══ LES BLOCS DE L’ACCUEIL, EN COSMÉTIQUE (JP, 12/10/2026) ═══ */}
       <BlocsAccueilSecteur secteur="cosmetique" />

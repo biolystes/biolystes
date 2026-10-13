@@ -316,7 +316,6 @@
   .bkit .bk-scroll-x {
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
   }
   .bkit .bk-scroll-x > * { min-width: 640px; }
 }

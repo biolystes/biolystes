@@ -5,6 +5,8 @@ import { ScrollRail } from "@lystes/components/shot/ScrollRail";
 import { FaceMeshScanner } from "@lystes/features/landing-particuliers/components/diagnostic/FaceMeshScanner";
 import diagnosticFace from "@lystes/features/landing-particuliers/pages/diagnostic-agent/assets/diagnostic-face.jpg";
 import { demanderMaillage } from "@lystes/lib/mediapipe-sur";
+import SafeVideo from "@lystes/components/bio/SafeVideo";
+import { ENTETE_BIO, ONGLETS_BIO, type EtapeBio, type MediaEtape } from "./vision/etapesBio";
 
 /**
  * La vision Lystes par étages, sur `/accueil-v2` (09/10/2026, JP) : vos
@@ -54,7 +56,10 @@ import { demanderMaillage } from "@lystes/lib/mediapipe-sur";
    « corporate » sur /business (la bascule « Entreprises » de l'en-tête). Même
    composant, mêmes visites : seuls les onglets, les agents et les données de
    démonstration changent. */
-export type Secteur = "ecommerce" | "corporate";
+/* « bio » (JP, 13/10/2026) : les étapes de création de marque de /bio, dans
+   la même section. Un seul en-tête pour tous les onglets, et chaque étape
+   montre un visuel réel (vision/etapesBio.ts) au lieu d'une visite. */
+export type Secteur = "ecommerce" | "corporate" | "bio";
 
 type Props = {
   secteur?: Secteur;
@@ -239,10 +244,16 @@ type Onglet = {
   benefices: readonly (readonly [LucideIcon, string])[];
   probleme: readonly [string, string, string];
   reponse: string;
+  /* Plusieurs paragraphes à la place du chapeau (/bio). */
+  paragraphes?: readonly string[];
   /* La liste sous le chapeau, quand il finit par « qui : ». */
   points?: readonly string[];
+  /* Une icône devant chaque point (/bio). */
+  icones?: readonly LucideIcon[];
   accroche: string;
   chapeau: string;
+  /* Les étapes de /bio, chacune avec son visuel, à la place des agents. */
+  etapes?: EtapeBio[];
 };
 
 /* La version « Entreprises » (/business, JP, 12/10/2026) : « c'est la même
@@ -303,6 +314,23 @@ const ONGLETS_CORPORATE: Onglet[] = [
     chapeau: "Un organigramme qui grandit avec vos métiers, et Brand AI, le cerveau que tous vos agents consultent.",
   },
 ];
+
+/* /bio : le même en-tête sur les cinq onglets. */
+const ONGLETS_BIO_VUE: Onglet[] = ONGLETS_BIO.map((o) => ({
+  ...o,
+  probleme: ENTETE_BIO.probleme,
+  reponse: "",
+  paragraphes: ENTETE_BIO.paragraphes,
+  points: ENTETE_BIO.points,
+  icones: ENTETE_BIO.icones,
+  chapeau: "",
+}));
+
+/* Le visuel d'une étape de /bio : le sien, sinon celui de l'étape d'avant. */
+function mediaEtape(etapes: EtapeBio[], i: number): MediaEtape | undefined {
+  for (let k = i; k >= 0; k--) if (etapes[k]?.media) return etapes[k].media;
+  return undefined;
+}
 
 /* Les dix postes d'une fiche, par ordre d'importance (JP, 09/10). */
 const AGENTS_FICHE: Agent[] = [
@@ -946,8 +974,13 @@ export function Encart({ agent, loupe, pointe, pied, survol, style, enFlux }: {
       <div className="lyv-encart-texte" key={`${pied.cle}-t`} aria-live={enFlux ? "polite" : undefined}>
         <b>{agent.nom}</b>
         <p>{agent.role}</p>
-        <h4>En quoi {agent.elle ? "elle" : "il"} est unique&#8239;?</h4>
-        <p>{agent.unique}</p>
+        {/* Les étapes de /bio n'ont que leur texte. */}
+        {agent.unique && (
+          <>
+            <h4>En quoi {agent.elle ? "elle" : "il"} est unique&#8239;?</h4>
+            <p>{agent.unique}</p>
+          </>
+        )}
       </div>
     </div>
   );
@@ -1490,7 +1523,8 @@ const estVisite = (id: string): id is IdVisite => id in CHARGER_VISITE;
 
 export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte, legende, visuel, pastilles, apres, demo }: Props) {
   const corpo = secteur === "corporate";
-  const ONGLETS: readonly Onglet[] = corpo ? ONGLETS_CORPORATE : ONGLETS_ECOMMERCE;
+  const bio = secteur === "bio";
+  const ONGLETS: readonly Onglet[] = corpo ? ONGLETS_CORPORATE : bio ? ONGLETS_BIO_VUE : ONGLETS_ECOMMERCE;
   const [onglet, setOnglet] = useState(0);
   const [etape, setEtape] = useState(0);
   const [tour, setTour] = useState(0);
@@ -1552,7 +1586,7 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
   const uneColonne = !largeEcran || telephone || !tientEnDeux;
   /* Présentation téléphone : l'encart sous le visuel. */
   const mobile = telephone || !tient;
-  const agents = courant.id === "produits" ? AGENTS_FICHE : courant.id === "ecommerce" ? AGENTS_BOUTIQUE
+  const agents = courant.etapes ? courant.etapes : courant.id === "produits" ? AGENTS_FICHE : courant.id === "ecommerce" ? AGENTS_BOUTIQUE
     : courant.id === "outils" ? visites.outils?.agentsOutils(secteur) ?? null
     : courant.id === "entreprise" ? visites.entreprise?.agentsEntreprise(secteur) ?? null
     : courant.id === "equipes" ? visites.equipes?.agentsEquipes(secteur) ?? null
@@ -1658,6 +1692,8 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
     if (idVisite) charger(idVisite);
   }, [idVisite, charger]);
   useEffect(() => {
+    /* /bio n'a aucune visite à charger. */
+    if (bio) return;
     let attente = 0;
     const io = new IntersectionObserver((es) => {
       if (!es.some((e) => e.isIntersecting)) return;
@@ -1674,7 +1710,7 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
       io.disconnect();
       window.clearTimeout(attente);
     };
-  }, [scene, charger, corpo]);
+  }, [scene, charger, corpo, bio]);
 
   /* La loupe affiche la fiche hors de l'iframe : la police de la fiche doit
      aussi être chargée dans la page. */
@@ -1893,13 +1929,32 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
           <h2 className="lyv-titre" aria-live="polite">
             {courant.probleme[0]}<span className="lyv-elu">{courant.probleme[1]}</span>{courant.probleme[2]}
           </h2>
-          <p className="lyv-chapeau">{courant.reponse}</p>
-          {courant.points && (
-            <ul className="lyv-points">
-              {courant.points.map((p) => <li key={p}>{p}</li>)}
-            </ul>
+          {courant.paragraphes ? (
+            /* /bio : paragraphes et points sur une même largeur, sans
+               équilibrage par paragraphe (JP, 13/10 : le premier cassait
+               après « vous ne » à 1440, plus étroit que le deuxième). */
+            <div className="lyv-intro">
+              {courant.paragraphes.map((p) => <p key={p} className="lyv-chapeau">{p}</p>)}
+              {courant.points && (
+                <ul className="lyv-points lyv-points-icones">
+                  {courant.points.map((p, i) => {
+                    const Icone = courant.icones?.[i];
+                    return <li key={p}>{Icone && <Icone size={18} strokeWidth={1.5} aria-hidden="true" />}<span>{p}</span></li>;
+                  })}
+                </ul>
+              )}
+            </div>
+          ) : (
+            <>
+              <p className="lyv-chapeau">{courant.reponse}</p>
+              {courant.points && (
+                <ul className="lyv-points">
+                  {courant.points.map((p) => <li key={p}>{p}</li>)}
+                </ul>
+              )}
+            </>
           )}
-          <div className={"lyv-tabs" + (corpo ? " lyv-tabs-4" : "")} role="tablist" aria-label="Les étages de Lystes">
+          <div className={"lyv-tabs" + (corpo ? " lyv-tabs-4" : "")} role="tablist" aria-label={bio ? "Les étapes de création de votre marque" : "Les étages de Lystes"}>
             {ONGLETS.map((o, i) => (
               <button
                 key={o.id}
@@ -2040,6 +2095,27 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
               )}
             </>
           )}
+          {/* /bio : le visuel réel de l'étape, sa légende, puis la navigation ;
+              sur téléphone, la ligne d'étapes et l'encart. */}
+          {courant.etapes && pied && (() => {
+            const m = mediaEtape(courant.etapes, etape);
+            return (
+              <>
+                <div className="lyv-cadre">
+                  <div className="lyv-media" style={{ "--lyv-pos": m?.position ?? "50% 50%" } as CSSProperties}>
+                    {m?.type === "video"
+                      ? <SafeVideo key={m.src} src={m.src} className="lyv-media-el" />
+                      : m && <img key={m.src} src={m.src} alt={m.legende.join("")} className="lyv-media-el" loading="lazy" decoding="async" />}
+                  </div>
+                  {m && <p className="lyv-legende-visuel"><b>{m.legende[0]}</b>{m.legende[1]}</p>}
+                </div>
+                <div className="lyv-sous-visuel">
+                  {sousVisuel}
+                  {mobile && <Encart agent={courant.etapes[etape]} loupe={null} pointe={null} pied={pied} survol={setSurvol} enFlux />}
+                </div>
+              </>
+            );
+          })()}
           {RESEAU_VISIBLE && courant.id === "reseau" && (
             <div className="lyv-cadre">
               <Organigramme tete="Votre réseau" sous="Des experts et des partenaires humains" colonnes={ORGA_RESEAU} humain />
@@ -2281,6 +2357,10 @@ const CSS = `
 #vision-demo .lyv-demo-ecran{ display:block; width:100%; aspect-ratio:1286 / 1290; border:0; border-radius:14px; background:#fff; }
 
 .lyv-cadre{ background:#f3f4f5; border-radius:22px; padding:24px; }
+/* /bio : le visuel réel de l'étape, photo ou vidéo, dans le format de la
+   boutique de l'étage 2. */
+.lyv-media{ position:relative; aspect-ratio:1280 / 800; border-radius:14px; overflow:hidden; background:#fff; }
+.lyv-media-el{ position:absolute; inset:0; display:block; width:100%; height:100%; object-fit:cover; object-position:var(--lyv-pos, 50% 50%); animation:lyv-apparait .35s ease both; }
 
 /* Étage 2 : la boutique et l'orbital, composés comme la diapo 16. */
 .lyv-boutique{ position:relative; aspect-ratio:1280 / 800; border-radius:14px; overflow:hidden; background:#fff; }
@@ -2322,6 +2402,13 @@ const CSS = `
 .lyv-points{ list-style:none; margin:20px 0 0; padding:0; }
 .lyv-points li{ padding:12px 0; font-size:15px; line-height:1.55; color:var(--lyv-encre); }
 .lyv-points li + li{ border-top:1px solid rgba(241,241,241,.75); }
+/* /bio : une seule largeur pour les paragraphes et les points de l'en-tête,
+   et un remplissage « pretty » plutôt qu’équilibré, paragraphe par paragraphe.
+   760 px : le deuxième paragraphe (744 px) tient sur une ligne à 1440. */
+.lyv-intro{ max-width:760px; }
+.lyv-intro .lyv-chapeau{ text-wrap:pretty; }
+.lyv-points-icones li{ display:flex; align-items:flex-start; gap:10px; }
+.lyv-points-icones svg{ flex:none; width:18px; height:18px; margin-top:2px; color:var(--lyv-encre); }
 .lyv-page-img{ position:relative; border-radius:14px; overflow:hidden; background:#fff; aspect-ratio:1200 / 750; }
 .lyv-page-img img{ width:100%; height:100%; object-fit:cover; display:block; }
 .lyv-url{ position:absolute; left:10px; bottom:10px; background:#000; color:#fff; border-radius:8px; padding:5px 9px;
