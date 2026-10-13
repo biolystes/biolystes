@@ -911,6 +911,17 @@ const CSS = `
    sous les boutons sur téléphone. Avec un fil (/bio), la place de l'accueil
    reste. */
 @media (max-width:720px){ .lyh--variante:not(.lyh--fil) .lyh-inner{ padding-bottom:56px !important; } }
+/* /bio sur téléphone (JP, 13/10/2026) : le fil s'arrête 110 px au-dessus du
+   bas, au-dessus de la barre flottante du widget (« Voir nos dernières
+   actus ») ; le texte de la bannière garde toute la hauteur du fil plus un
+   écart au-dessus, et une bulle qui sort par le haut s'efface avant
+   d'approcher le texte. */
+@media (max-width:720px){
+  .lyh--fil .lyh-inner{ padding-bottom:396px !important; }
+  .lyh--fil .lyh-chat{ bottom:110px; height:260px;
+    -webkit-mask-image:linear-gradient(to bottom, transparent 0%, transparent 10%, rgba(0,0,0,.4) 22%, #000 40%);
+    mask-image:linear-gradient(to bottom, transparent 0%, transparent 10%, rgba(0,0,0,.4) 22%, #000 40%); }
+}
 /* Variante : peu de liens, tous visibles d'un coup, sans flèches ni masque ;
    ils passent à la ligne sur téléphone au lieu d'être coupés. */
 .lyh--variante .lyh-install-row{ width:auto !important; max-width:100%; }
