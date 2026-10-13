@@ -42,7 +42,7 @@ export type MediaEtape = {
   src: string;
   /* L'affiche d'une vidéo. */
   affiche?: string;
-  /* Type « inci » : la vidéo d'abord, puis la carte sur sa photo. */
+  /* Type « inci » : la carte posée sur la photo (et, si `src`, une vidéo avant). */
   carte?: CarteInci;
   /* La grille de sélection (type « grille ») : trois produits par rangée. */
   produits?: readonly ProduitGrille[];
@@ -80,10 +80,12 @@ export type OngletBio = {
    ceux que /bio affiche déjà (section « Nos engagements »). */
 export const ENTETE_BIO = {
   probleme: ["Lancer une gamme cosmétique prend souvent ", "près d’un an", "."] as const,
+  /* Texte de JP, 13/10/2026, mot pour mot : seuls les apostrophes et les
+     espaces insécables sont posés. */
   paragraphes: [
-    "Ce temps-là ne se rattrape pas. Pendant cette année, vous ne construisez ni\u00a0réputation, ni\u00a0communauté, ni\u00a0retours clients, ni\u00a0notoriété.",
-    "Le plus gros défaut d’une jeune marque, c’est sa jeunesse : elle manque de recul. Mieux vaut commencer tôt.",
-    "Avec Biolystes, votre marque est en place en 10 jours :",
+    "Le temps perdu ne se rattrape jamais. Pendant ces 12 mois d’attente, vous ne bâtissez rien\u00a0: ni\u00a0réputation, ni\u00a0communauté, ni\u00a0preuve sociale.",
+    "Le plus grand handicap d’une jeune marque est son manque d’antériorité. Lorsque vous vous lancez enfin, les débuts sont laborieux faute d’historique, ce qui freine considérablement votre progression.",
+    "Avec Biolystes, changez la donne\u00a0: votre marque est opérationnelle en seulement 10\u00a0jours.",
   ],
   /* Une icône au trait devant chaque point, comme les listes d'étapes. */
   icones: [Leaf, ShieldCheck, PackageX] as LucideIcon[],
@@ -112,8 +114,8 @@ const GRILLE_SELECTION: ProduitGrille[] = [
   { image: "/bio-selection/mousse-nettoyante.webp", nom: "Mousse nettoyante", valide: true },
 ];
 
-/* La fiche INCI (JP, 13/10/2026) : sa vidéo de textures (« vidoe 4 »,
-   réduite à 720 px, sans son), puis sa photo de bergamote, avec une carte
+/* La fiche INCI (JP, 13/10/2026) : sa photo de bergamote, sans vidéo avant
+   (retirée à sa demande le 13/10), avec une carte
    blanche : la vraie liste INCI d'un produit du catalogue qui en contient,
    le Shampooing volumateur à la kératine (products.ts, champ inci, recopié
    tel quel jusqu'aux notes ➀➁➂). Citrus Aurantium Bergamia Peel Oil est
@@ -122,8 +124,7 @@ const INCI_SHAMPOOING =
   "Aqua/Water, Lauryl Glucoside, Sodium Coco-Sulfate, Cantharellus Cibarius (Chanterelle) Extract, Glycerin, Citric Acid, Disodium Cocoyl Glutamate, PCA Glyceryl Oleate, Sodium PCA, Zinc PCA, Coco-Glucoside, Glyceryl Oleate, Parfum/Fragrance, Sodium Chloride, Caffeine, Benzyl Alcohol, Sodium Cocoyl Glutamate, Sodium Benzoate, Potassium Sorbate, Hydrolyzed Keratin, Leuconostoc/Radish Root Ferment Filtrate, Rosmarinus Officinalis Leaf Oil, Mentha Piperita Oil, Menthol, Limonene, Camphor, Citrus Aurantium Bergamia Peel Oil, Pinene";
 const FICHE_INCI: MediaEtape = {
   type: "inci",
-  src: "/videos/bio/fiche-inci-textures.mp4",
-  affiche: "/videos/bio/fiche-inci-textures.webp",
+  src: "",
   legende: ["La fiche INCI", ", ingrédient par ingrédient"],
   carte: {
     photo: "/bio-selection/bergamote.webp",
@@ -158,7 +159,6 @@ export const ONGLETS_BIO: OngletBio[] = [
         role: "Nous vous envoyons la fiche INCI de chaque produit retenu : la liste complète de ses ingrédients.",
         unique: "",
         media: FICHE_INCI,
-        duree: 10000,
       },
     ],
   },

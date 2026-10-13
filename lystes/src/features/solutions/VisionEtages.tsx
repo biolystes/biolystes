@@ -2137,8 +2137,8 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
                            l'ingrédient et sa carte, qui viennent au rythme de
                            la jauge (en pause avec elle). */
                         <>
-                          <SafeVideo key={m.src} src={m.src} poster={m.affiche} className="lyv-media-el" />
-                          <div className="lyv-inci" key={cle} style={{ animationPlayState: lecture ? "running" : "paused" }}>
+                          {m.src && <SafeVideo key={m.src} src={m.src} poster={m.affiche} className="lyv-media-el" />}
+                          <div className={m.src ? "lyv-inci" : "lyv-inci lyv-inci-direct"} key={cle} style={{ animationPlayState: lecture ? "running" : "paused" }}>
                             <img src={m.carte.photo} alt="" className="lyv-media-el" loading="lazy" decoding="async" />
                             <div className="lyv-inci-carte">
                               <b>Fiche INCI</b>
@@ -2423,6 +2423,8 @@ const CSS = `
 /* La fiche INCI : la photo de l'ingrédient vient sur la vidéo à 45 % de
    l'étape, avec sa carte blanche à droite ; l'ingrédient en élu. */
 .lyv-inci{ position:absolute; inset:0; opacity:0; animation:lyv-apparait .6s ease 4.5s both; }
+/* Sans vidéo (JP, 13/10) : la photo et sa carte tout de suite. */
+.lyv-inci.lyv-inci-direct{ opacity:1; animation:none; }
 .lyv-inci > img{ object-position:50% 40%; }
 .lyv-inci-carte{ position:absolute; top:14px; right:14px; bottom:14px; width:52%; overflow:hidden; background:#fff; border-radius:12px;
   padding:14px 16px; display:flex; flex-direction:column; gap:4px; }
