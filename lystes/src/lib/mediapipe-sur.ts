@@ -51,3 +51,32 @@ export function neutraliserAlerteMediapipe(): void {
     alerteNative(message as string);
   };
 }
+
+/* ---------- Chargement demandé par un miroir ----------
+ * Le scanner du visage (FaceMeshScanner) ne charge MediaPipe qu'à l'approche
+ * de l'écran. Mais l'encart du Diagnostiqueur et de l'Expert routine
+ * (VisionEtages, MiroirVisage) recopie son canvas depuis une autre section :
+ * le scanner reste hors de l'écran, MediaPipe ne se chargeait jamais et
+ * l'encart montrait la photo sans maillage (régression du 13/10/2026, PR 363).
+ * Le miroir demande donc le chargement, quelle que soit la position du bloc.
+ */
+const EVENEMENT_MAILLAGE = "lystes:maillage-demande";
+let maillageDemande = false;
+
+/** Un miroir a besoin du maillage : les scanners chargent MediaPipe sans attendre. */
+export function demanderMaillage(): void {
+  if (typeof window === "undefined") return;
+  maillageDemande = true;
+  window.dispatchEvent(new Event(EVENEMENT_MAILLAGE));
+}
+
+/** Appelle `rappel` dès qu'un miroir demande le maillage (tout de suite si c'est déjà fait). */
+export function surDemandeMaillage(rappel: () => void): () => void {
+  if (typeof window === "undefined") return () => {};
+  if (maillageDemande) {
+    rappel();
+    return () => {};
+  }
+  window.addEventListener(EVENEMENT_MAILLAGE, rappel);
+  return () => window.removeEventListener(EVENEMENT_MAILLAGE, rappel);
+}
