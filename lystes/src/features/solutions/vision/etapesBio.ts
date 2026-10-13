@@ -1,4 +1,4 @@
-import { BadgeCheck, FileText, Image as IconeImage, Newspaper, Package, Palette, PenTool, ScanSearch, Star, Store, Truck, Bot, type LucideIcon } from "lucide-react";
+import { BadgeCheck, Leaf, ShieldCheck, PackageX, FileText, Image as IconeImage, Newspaper, Package, Palette, PenTool, ScanSearch, Star, Store, Truck, Bot, type LucideIcon } from "lucide-react";
 import showcase1 from "@lystes/assets/showcase-1.mp4.asset.json";
 import showcase2 from "@lystes/assets/showcase-2.mp4.asset.json";
 import showcasePeau from "@lystes/assets/showcase-peau.jpg.asset.json";
@@ -19,9 +19,10 @@ import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
  * Visuels : uniquement des photos et des vidéos réelles déjà dans le dépôt,
  * aucune image générée, aucune deux fois sur la page. Une étape sans visuel
  * garde celui de l'étape d'avant.
- *  - showcase-1 et showcase-2 : les vraies vidéos d'échantillons reçus,
+ *  - showcase-1 et showcase-2 : les vraies vidéos des produits reçus,
  *    Wirtzkin et Sevmylook ;
- *  - showcase-peau : les échantillons d'une marque, étiquetés ;
+ *  - showcase-peau : les produits d'une marque, étiquetés ;
+ * Jamais le mot « échantillons » (JP, 13/10 : « on vous envoie les produits »).
  *  - design-packaging-step et kaniwa-serum : le packaging Kaniwa
  *    Botanique, l'étui et le packshot ;
  *  - ecommerce-step : la boutique Kaniwa Botanique ;
@@ -68,10 +69,12 @@ export type OngletBio = {
 export const ENTETE_BIO = {
   probleme: ["Lancer une gamme cosmétique prend souvent ", "près d’un an", "."] as const,
   paragraphes: [
-    "Ce temps-là ne se rattrape pas. Pendant cette année, vous ne construisez ni réputation, ni communauté, ni retours clients, ni notoriété.",
+    "Ce temps-là ne se rattrape pas. Pendant cette année, vous ne construisez ni\u00a0réputation, ni\u00a0communauté, ni\u00a0retours clients, ni\u00a0notoriété.",
     "Le plus gros défaut d’une jeune marque, c’est sa jeunesse : elle manque de recul. Mieux vaut commencer tôt.",
     "Avec Biolystes, votre marque est en place en 10 jours :",
   ],
+  /* Une icône au trait devant chaque point, comme les listes d'étapes. */
+  icones: [Leaf, ShieldCheck, PackageX] as LucideIcon[],
   points: [
     "une formulation bio et végane, sans parabènes, sans silicones et sans PEG",
     "des certifications reconnues : COSMOS, ECOCERT, ISO 22716, enregistrement CPNP",
@@ -88,7 +91,7 @@ export const ONGLETS_BIO: OngletBio[] = [
     titre: "Sélection",
     court: "Produits",
     etage: "Étape 1 · Sélection des produits",
-    benefices: [[ScanSearch, "Des produits choisis pour votre projet"], [FileText, "La fiche INCI de chaque produit"], [Package, "Vos échantillons chez vous"]],
+    benefices: [[ScanSearch, "Des produits choisis pour votre projet"], [FileText, "La fiche INCI de chaque produit"], [Package, "Vos produits envoyés chez vous"]],
     accroche: "Une gamme choisie pour votre projet.",
     etapes: [
       {
@@ -96,7 +99,7 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "les produits du catalogue adaptés à votre projet",
         role: "Nous sélectionnons dans le catalogue les produits adaptés à votre projet, à votre clientèle et à votre positionnement.",
         unique: "",
-        media: PHOTO(showcasePeau.url, ["Des échantillons", ", étiquetés produit par produit"], "50% 50%"),
+        media: PHOTO(showcasePeau.url, ["Des produits", ", étiquetés un par un"], "50% 50%"),
       },
       {
         nom: "Fiche INCI",
@@ -109,7 +112,7 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "les produits sélectionnés arrivent chez vous",
         role: "Nous envoyons les produits sélectionnés à votre adresse, pour que vous les voyiez et les essayiez.",
         unique: "",
-        media: VIDEO(showcase1.url, ["Wirtzkin", ", les échantillons reçus"]),
+        media: VIDEO(showcase1.url, ["Wirtzkin", ", les produits reçus"]),
       },
     ],
   },

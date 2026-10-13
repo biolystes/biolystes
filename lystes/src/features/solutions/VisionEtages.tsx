@@ -248,6 +248,8 @@ type Onglet = {
   paragraphes?: readonly string[];
   /* La liste sous le chapeau, quand il finit par « qui : ». */
   points?: readonly string[];
+  /* Une icône devant chaque point (/bio). */
+  icones?: readonly LucideIcon[];
   accroche: string;
   chapeau: string;
   /* Les étapes de /bio, chacune avec son visuel, à la place des agents. */
@@ -320,6 +322,7 @@ const ONGLETS_BIO_VUE: Onglet[] = ONGLETS_BIO.map((o) => ({
   reponse: "",
   paragraphes: ENTETE_BIO.paragraphes,
   points: ENTETE_BIO.points,
+  icones: ENTETE_BIO.icones,
   chapeau: "",
 }));
 
@@ -1926,13 +1929,30 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
           <h2 className="lyv-titre" aria-live="polite">
             {courant.probleme[0]}<span className="lyv-elu">{courant.probleme[1]}</span>{courant.probleme[2]}
           </h2>
-          {courant.paragraphes
-            ? courant.paragraphes.map((p) => <p key={p} className="lyv-chapeau">{p}</p>)
-            : <p className="lyv-chapeau">{courant.reponse}</p>}
-          {courant.points && (
-            <ul className="lyv-points">
-              {courant.points.map((p) => <li key={p}>{p}</li>)}
-            </ul>
+          {courant.paragraphes ? (
+            /* /bio : paragraphes et points sur une même largeur, sans
+               équilibrage par paragraphe (JP, 13/10 : le premier cassait
+               après « vous ne » à 1440, plus étroit que le deuxième). */
+            <div className="lyv-intro">
+              {courant.paragraphes.map((p) => <p key={p} className="lyv-chapeau">{p}</p>)}
+              {courant.points && (
+                <ul className="lyv-points lyv-points-icones">
+                  {courant.points.map((p, i) => {
+                    const Icone = courant.icones?.[i];
+                    return <li key={p}>{Icone && <Icone size={18} strokeWidth={1.5} aria-hidden="true" />}<span>{p}</span></li>;
+                  })}
+                </ul>
+              )}
+            </div>
+          ) : (
+            <>
+              <p className="lyv-chapeau">{courant.reponse}</p>
+              {courant.points && (
+                <ul className="lyv-points">
+                  {courant.points.map((p) => <li key={p}>{p}</li>)}
+                </ul>
+              )}
+            </>
           )}
           <div className={"lyv-tabs" + (corpo ? " lyv-tabs-4" : "")} role="tablist" aria-label={bio ? "Les étapes de création de votre marque" : "Les étages de Lystes"}>
             {ONGLETS.map((o, i) => (
@@ -2382,6 +2402,13 @@ const CSS = `
 .lyv-points{ list-style:none; margin:20px 0 0; padding:0; }
 .lyv-points li{ padding:12px 0; font-size:15px; line-height:1.55; color:var(--lyv-encre); }
 .lyv-points li + li{ border-top:1px solid rgba(241,241,241,.75); }
+/* /bio : une seule largeur pour les paragraphes et les points de l'en-tête,
+   et un remplissage « pretty » plutôt qu’équilibré, paragraphe par paragraphe.
+   760 px : le deuxième paragraphe (744 px) tient sur une ligne à 1440. */
+.lyv-intro{ max-width:760px; }
+.lyv-intro .lyv-chapeau{ text-wrap:pretty; }
+.lyv-points-icones li{ display:flex; align-items:flex-start; gap:10px; }
+.lyv-points-icones svg{ flex:none; width:18px; height:18px; margin-top:2px; color:var(--lyv-encre); }
 .lyv-page-img{ position:relative; border-radius:14px; overflow:hidden; background:#fff; aspect-ratio:1200 / 750; }
 .lyv-page-img img{ width:100%; height:100%; object-fit:cover; display:block; }
 .lyv-url{ position:absolute; left:10px; bottom:10px; background:#000; color:#fff; border-radius:8px; padding:5px 9px;
