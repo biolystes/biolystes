@@ -245,6 +245,99 @@ function useFondVariante(actif: boolean) {
   return etat;
 }
 
+/** Vidéo de fond d'une variante (/bio, biolystes.com).
+ *
+ *  13/10/2026 (JP, iPhone) : sur téléphone, seule l'affiche s'affichait. Les
+ *  fichiers de public/ sont servis sans requêtes partielles : une demande
+ *  « Range: bytes=0-1 » reçoit 200 et le fichier entier, jamais 206. Safari
+ *  sur iPhone exige 206 pour lire une vidéo et s'arrête sur l'affiche ;
+ *  Chrome et Safari sur ordinateur s'en passent, d'où un défaut visible
+ *  seulement sur téléphone. La vidéo de l'accueil, servie par __l5e (206),
+ *  n'est pas touchée.
+ *
+ *  Le fichier (2,4 Mo) est donc téléchargé en entier puis lu depuis la
+ *  mémoire (adresse blob:), qui n'a pas besoin du serveur. L'affiche reste
+ *  à l'écran pendant le téléchargement. Si le téléchargement échoue (autre
+ *  domaine sans CORS), la vidéo est lue directement, comme avant.
+ *
+ *  React ne pose pas l'attribut `muted` dans le DOM, seulement la
+ *  propriété : il est posé à la main avant la source, sinon iOS peut
+ *  refuser la lecture automatique. Une lecture refusée est relancée quand
+ *  la vidéo est prête, au retour sur l'onglet et au premier toucher. Le mode
+ *  économie d'énergie d'iOS bloque toute lecture automatique : seul le
+ *  toucher la relance. */
+function VideoFond({ src, affiche }: { src: string; affiche: string }) {
+  const ref = useRef<HTMLVideoElement | null>(null);
+  const [source, setSource] = useState<string | null>(null);
+
+  useEffect(() => {
+    let fini = false;
+    let url: string | null = null;
+    const ctrl = new AbortController();
+    fetch(src, { signal: ctrl.signal })
+      .then((r) => {
+        if (!r.ok) throw new Error(String(r.status));
+        return r.blob();
+      })
+      .then((b) => {
+        if (fini) return;
+        url = URL.createObjectURL(b.type ? b : new Blob([b], { type: "video/mp4" }));
+        setSource(url);
+      })
+      .catch(() => {
+        if (!fini) setSource(src);
+      });
+    return () => {
+      fini = true;
+      ctrl.abort();
+      if (url) URL.revokeObjectURL(url);
+    };
+  }, [src]);
+
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || !source) return;
+    const lancer = () => {
+      if (!v.paused) return;
+      const p = v.play();
+      if (p) p.catch(() => {});
+    };
+    const auRetour = () => {
+      if (document.visibilityState === "visible") lancer();
+    };
+    lancer();
+    v.addEventListener("canplay", lancer);
+    document.addEventListener("visibilitychange", auRetour);
+    document.addEventListener("touchstart", lancer, { passive: true });
+    return () => {
+      v.removeEventListener("canplay", lancer);
+      document.removeEventListener("visibilitychange", auRetour);
+      document.removeEventListener("touchstart", lancer);
+    };
+  }, [source]);
+
+  return (
+    <video
+      ref={(v) => {
+        ref.current = v;
+        if (v) {
+          v.muted = true;
+          v.defaultMuted = true;
+          v.setAttribute("muted", "");
+        }
+      }}
+      className="lyh-bgvid"
+      src={source ?? undefined}
+      poster={affiche}
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="auto"
+    />
+  );
+}
+
 /** Téléphone au sens de la mise en page du hero (720 px et moins). */
 function useEtroit(actif: boolean) {
   const [etroit, setEtroit] = useState(false);
@@ -651,17 +744,7 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
             return fondEtat.fixe || !f.video ? (
               <img className="lyh-bgvid" src={f.affiche} alt="" />
             ) : (
-              <video
-                key={f.video}
-                className="lyh-bgvid"
-                src={f.video}
-                poster={f.affiche}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-              />
+              <VideoFond key={f.video} src={f.video} affiche={f.affiche} />
             );
           })()
         ) : (
