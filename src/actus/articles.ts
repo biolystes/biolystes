@@ -29,7 +29,9 @@ import imgSansStock from "@lystes/assets/bio/product-235th-3.jpg";
 import imgMarqueBlanche from "@lystes/assets/bio/sevmylook-1.jpg";
 import imgReglementaire from "@lystes/assets/bio/product-box.jpg";
 import imgCertifications from "@lystes/assets/bio/kaniwa-7.jpg";
-import imgLivraison from "@lystes/assets/bio/logistique-step.jpg";
+/* Copie propre au site (src/assets) : le dossier lystes/ est resynchronisé et
+   ne contient pas toujours cette image. */
+import imgLivraison from "@/assets/logistique-step.jpg";
 import imgDixJours from "@lystes/assets/bio/ecommerce-step.png";
 import imgEquipesIA from "@lystes/assets/bio/kaniwa-ugc-4.jpg";
 import imgInstituts from "@lystes/assets/bio/salon-coiffure.webp";
