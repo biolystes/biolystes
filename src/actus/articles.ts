@@ -16,7 +16,7 @@
    - apostrophes ’, pas de tiret long, une photo différente par article. */
 import type { LucideIcon } from "lucide-react";
 import {
-  Boxes, Brain, Eye, FileCheck2, Gift, Globe, Leaf, Megaphone, Package, PackageCheck, Palette,
+  Boxes, Brain, Building2, Calculator, Eye, FileCheck2, Gift, Globe, Landmark, Leaf, Megaphone, Package, PackageCheck, Palette, Receipt,
   Recycle, Scale, ShieldCheck, ShoppingBag, Sparkles, Star, Store, Target, Timer, TrendingUp, Truck, Users, Zap,
 } from "lucide-react";
 
@@ -33,6 +33,9 @@ import imgLivraison from "@lystes/assets/bio/logistique-step.jpg";
 import imgDixJours from "@lystes/assets/bio/ecommerce-step.png";
 import imgEquipesIA from "@lystes/assets/bio/kaniwa-ugc-4.jpg";
 import imgInstituts from "@lystes/assets/bio/salon-coiffure.webp";
+/* Portrait du cabinet, repris du panneau « Fiscal et comptable » de lystes.ai
+   (petal-diagnostics, src/assets/cabinet/hr-associes-portrait.avif), recadré en 4:3. */
+import imgHrAssocies from "@/assets/hr-associes-partenariat.jpg";
 
 export type Carte = { titre: string; texte: string; icone?: LucideIcon };
 
@@ -71,6 +74,46 @@ export type Article = {
 };
 
 export const articles: Article[] = [
+  /* ─────────────── Partenariat HR & Associés (13/10/2026), à la une ───────────────
+     La photo montre le directeur du cabinet (JP). Son nom n’est pas connu :
+     le texte n’en a pas besoin, et aucune citation ne lui est prêtée.
+     « HR\u00a0&\u00a0Associés » : espaces insécables, le nom ne se coupe jamais. */
+  {
+    slug: "partenariat-hr-associes",
+    titre: "Biolystes s’associe à HR\u00a0&\u00a0Associés pour vous accompagner dans vos démarches administratives, comptables et fiscales",
+    titreSeo: "Biolystes et HR & Associés, cabinet comptable | Biolystes",
+    description: "Création de société, comptabilité, TVA, fiscalité, déclarations : Biolystes s’associe au cabinet HR\u00a0&\u00a0Associés pour accompagner les créatrices de marques cosmétiques.",
+    chapo: "Lancer sa marque cosmétique, c’est aussi créer une société, tenir une comptabilité et déclarer sa TVA. Pour que ces démarches ne freinent plus votre lancement, Biolystes s’associe au cabinet HR\u00a0&\u00a0Associés.",
+    categorie: "Partenariat",
+    date: "2026-10-13",
+    image: imgHrAssocies,
+    alt: "Le directeur du cabinet HR\u00a0&\u00a0Associés, partenaire de Biolystes",
+    appel: "Parlons de votre projet, et de l’accompagnement comptable qui va avec.",
+    corps: [
+      { t: "h2", texte: "Pourquoi ce partenariat" },
+      { t: "p", texte: "Les créatrices que nous accompagnons nous posent souvent les mêmes questions avant leur première vente. Quel statut choisir ? Faut-il facturer la TVA ? Que déclarer, et quand ? Ces questions ne relèvent pas de notre métier. Elles relèvent de celui d’un expert-comptable." },
+      { t: "p", texte: "Nous avons donc choisi de travailler avec **HR\u00a0&\u00a0Associés**, le cabinet comptable des e-commerçants. Le cabinet accompagne les marques en ligne sur leur comptabilité, leur fiscalité et leur pilotage financier, de la TVA e-commerce au suivi de marge." },
+      { t: "p", texte: "Le directeur du cabinet et son équipe deviennent les interlocuteurs des marques Biolystes pour toutes les questions administratives, comptables et fiscales." },
+      { t: "h2", texte: "Ce que le cabinet prend en charge pour votre marque" },
+      { t: "cartes", items: [
+        { icone: Building2, titre: "La création de votre société", texte: "Choix du statut, rédaction des statuts, immatriculation : votre marque démarre sur une structure adaptée à votre activité." },
+        { icone: Calculator, titre: "La comptabilité", texte: "Tenue comptable, bilan, liasse fiscale et comptes annuels, préparés par des experts qui connaissent la vente en ligne." },
+        { icone: Receipt, titre: "La TVA", texte: "Déclarations de TVA, et TVA e-commerce quand vous vendez à des particuliers dans d’autres pays de l’Union européenne." },
+        { icone: Landmark, titre: "La fiscalité et les déclarations", texte: "Impôt sur les sociétés, déclaration de revenus du dirigeant, rémunération : chaque échéance est suivie." },
+      ] },
+      { t: "h2", texte: "Les formalités, sans y passer vos soirées" },
+      { t: "p", texte: "Une marque qui vend a des obligations qui reviennent chaque mois, chaque trimestre et chaque année. Le cabinet s’en charge aussi :" },
+      { t: "liste", items: [
+        "Les modifications de statuts, l’approbation des comptes et leur dépôt.",
+        "Les bulletins de paie et les déclarations sociales, le jour où vous embauchez.",
+        "L’assistance en cas de contrôle fiscal ou URSSAF.",
+        "Un tableau de bord mensuel et un prévisionnel de trésorerie pour piloter votre marque.",
+      ] },
+      { t: "h2", texte: "Comment en profiter" },
+      { t: "p", texte: "Parlez-en lors de votre rendez-vous avec un expert Biolystes. Nous faisons le point sur votre projet, puis nous vous mettons en relation avec HR\u00a0&\u00a0Associés pour les démarches qui vous concernent." },
+      { t: "note", texte: "Biolystes reste votre interlocuteur pour la gamme, la fabrication et la boutique. HR\u00a0&\u00a0Associés prend le relais pour tout ce qui touche à votre société, à vos comptes et à vos déclarations." },
+    ],
+  },
   /* ─────────────── Nouveaux articles (12/10/2026) ─────────────── */
   {
     slug: "lancer-marque-cosmetique-sans-stock",
