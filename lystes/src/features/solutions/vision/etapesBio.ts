@@ -1,7 +1,6 @@
 import { BadgeCheck, Leaf, ShieldCheck, PackageX, FileText, Image as IconeImage, Newspaper, Package, Palette, PenTool, ScanSearch, Star, Store, Truck, Bot, type LucideIcon } from "lucide-react";
 import showcase1 from "@lystes/assets/showcase-1.mp4.asset.json";
 import showcase2 from "@lystes/assets/showcase-2.mp4.asset.json";
-import showcasePeau from "@lystes/assets/showcase-peau.jpg.asset.json";
 import kaniwaSerum from "@lystes/assets/kaniwa-serum.webp.asset.json";
 import chatFiche from "@lystes/assets/chat.mov.asset.json";
 import ecrin from "@lystes/assets/magazines/ecrin.jpg.asset.json";
@@ -20,8 +19,7 @@ import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
  * aucune image générée, aucune deux fois sur la page. Une étape sans visuel
  * garde celui de l'étape d'avant.
  *  - showcase-1 et showcase-2 : les vraies vidéos des produits reçus,
- *    Wirtzkin et Sevmylook ;
- *  - showcase-peau : les produits d'une marque, étiquetés ;
+ *    Wirtzkin et Sevmylook, dans l'onglet Envoi seulement ;
  * Jamais le mot « échantillons » (JP, 13/10 : « on vous envoie les produits »).
  *  - design-packaging-step et kaniwa-serum : le packaging Kaniwa
  *    Botanique, l'étui et le packshot ;
@@ -33,9 +31,21 @@ import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
  * le dépôt : l'onglet E-commerce montre la vraie boutique Kaniwa Botanique.
  */
 
+/* Un produit de la grille de sélection : `valide` reçoit le badge. */
+export type ProduitGrille = { image: string; nom: string; valide?: boolean };
+
+/* La fiche INCI posée sur la photo d'un ingrédient (type « inci »). */
+export type CarteInci = { photo: string; produit: string; inci: string; surligne: string };
+
 export type MediaEtape = {
-  type: "image" | "video";
+  type: "image" | "video" | "grille" | "inci";
   src: string;
+  /* L'affiche d'une vidéo. */
+  affiche?: string;
+  /* Type « inci » : la vidéo d'abord, puis la carte sur sa photo. */
+  carte?: CarteInci;
+  /* La grille de sélection (type « grille ») : trois produits par rangée. */
+  produits?: readonly ProduitGrille[];
   /* Le cadrage dans le cadre (object-position). */
   position?: string;
   /* La légende sous le visuel : la partie en gras, puis la suite. */
@@ -50,6 +60,8 @@ export type EtapeBio = {
   role: string;
   unique: string;
   media?: MediaEtape;
+  /* Durée de l'étape, quand elle a deux diapositives (ms). */
+  duree?: number;
 };
 
 export type OngletBio = {
@@ -83,6 +95,44 @@ export const ENTETE_BIO = {
 };
 
 const VIDEO = (src: string, legende: readonly [string, string], position?: string): MediaEtape => ({ type: "video", src, legende, position });
+/* La grille de l'étape « Sélection des produits » (JP, 13/10/2026) : des
+   produits réels du catalogue, packshots nettoyés sur fond blanc
+   (product-images/clean-products, réduits dans public/bio-selection), noms
+   exacts du catalogue raccourcis. Aucun ne reprend la grille du catalogue ni
+   la conversation animée de /bio. Les produits retenus reçoivent le badge,
+   les autres restent tels quels. */
+/* Chemins écrits en entier : sync.py (biolystes.com) ne recopie que les
+   fichiers publics cités tels quels. */
+const GRILLE_SELECTION: ProduitGrille[] = [
+  { image: "/bio-selection/brume-visage-prebiotique-microbiome.webp", nom: "Brume prébiotique", valide: true },
+  { image: "/bio-selection/creme-contour-des-yeux-apaisante.webp", nom: "Contour des yeux" },
+  { image: "/bio-selection/creme-riche-nourrissante.webp", nom: "Crème riche", valide: true },
+  { image: "/bio-selection/gel-hydratant-a-la-niacinamide.webp", nom: "Gel niacinamide", valide: true },
+  { image: "/bio-selection/huile-visage-tout-en-un.webp", nom: "Huile tout-en-un" },
+  { image: "/bio-selection/mousse-nettoyante.webp", nom: "Mousse nettoyante", valide: true },
+];
+
+/* La fiche INCI (JP, 13/10/2026) : sa vidéo de textures (« vidoe 4 »,
+   réduite à 720 px, sans son), puis sa photo de bergamote, avec une carte
+   blanche : la vraie liste INCI d'un produit du catalogue qui en contient,
+   le Shampooing volumateur à la kératine (products.ts, champ inci, recopié
+   tel quel jusqu'aux notes ➀➁➂). Citrus Aurantium Bergamia Peel Oil est
+   surligné. */
+const INCI_SHAMPOOING =
+  "Aqua/Water, Lauryl Glucoside, Sodium Coco-Sulfate, Cantharellus Cibarius (Chanterelle) Extract, Glycerin, Citric Acid, Disodium Cocoyl Glutamate, PCA Glyceryl Oleate, Sodium PCA, Zinc PCA, Coco-Glucoside, Glyceryl Oleate, Parfum/Fragrance, Sodium Chloride, Caffeine, Benzyl Alcohol, Sodium Cocoyl Glutamate, Sodium Benzoate, Potassium Sorbate, Hydrolyzed Keratin, Leuconostoc/Radish Root Ferment Filtrate, Rosmarinus Officinalis Leaf Oil, Mentha Piperita Oil, Menthol, Limonene, Camphor, Citrus Aurantium Bergamia Peel Oil, Pinene";
+const FICHE_INCI: MediaEtape = {
+  type: "inci",
+  src: "/videos/bio/fiche-inci-textures.mp4",
+  affiche: "/videos/bio/fiche-inci-textures.webp",
+  legende: ["La fiche INCI", ", ingrédient par ingrédient"],
+  carte: {
+    photo: "/bio-selection/bergamote.webp",
+    produit: "Shampooing volumateur à la kératine",
+    inci: INCI_SHAMPOOING,
+    surligne: "Citrus Aurantium Bergamia Peel Oil",
+  },
+};
+
 const PHOTO = (src: string, legende: readonly [string, string], position?: string): MediaEtape => ({ type: "image", src, legende, position });
 
 export const ONGLETS_BIO: OngletBio[] = [
@@ -91,7 +141,8 @@ export const ONGLETS_BIO: OngletBio[] = [
     titre: "Sélection",
     court: "Produits",
     etage: "Étape 1 · Sélection des produits",
-    benefices: [[ScanSearch, "Des produits choisis pour votre projet"], [FileText, "La fiche INCI de chaque produit"], [Package, "Vos produits envoyés chez vous"]],
+    /* L'envoi n'est traité que dans l'onglet Envoi (JP, 13/10/2026). */
+    benefices: [[ScanSearch, "Des produits choisis pour votre projet"], [FileText, "La fiche INCI de chaque produit"]],
     accroche: "Une gamme choisie pour votre projet.",
     etapes: [
       {
@@ -99,20 +150,15 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "les produits du catalogue adaptés à votre projet",
         role: "Nous sélectionnons dans le catalogue les produits adaptés à votre projet, à votre clientèle et à votre positionnement.",
         unique: "",
-        media: PHOTO(showcasePeau.url, ["Des produits", ", étiquetés un par un"], "50% 50%"),
+        media: { type: "grille", src: "", produits: GRILLE_SELECTION, legende: ["Votre sélection", ", validée produit par produit"] },
       },
       {
         nom: "Fiche INCI",
         mission: "la liste des ingrédients de chaque produit",
         role: "Nous vous envoyons la fiche INCI de chaque produit retenu : la liste complète de ses ingrédients.",
         unique: "",
-      },
-      {
-        nom: "Envoi à votre adresse",
-        mission: "les produits sélectionnés arrivent chez vous",
-        role: "Nous envoyons les produits sélectionnés à votre adresse, pour que vous les voyiez et les essayiez.",
-        unique: "",
-        media: VIDEO(showcase1.url, ["Wirtzkin", ", les produits reçus"]),
+        media: FICHE_INCI,
+        duree: 10000,
       },
     ],
   },
@@ -166,6 +212,7 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "les produits définitifs, validés après vos tests",
         role: "Après vos tests, nous validons avec vous les produits définitifs de votre gamme.",
         unique: "",
+        media: VIDEO(showcase1.url, ["Wirtzkin", ", les produits reçus"]),
       },
     ],
   },
