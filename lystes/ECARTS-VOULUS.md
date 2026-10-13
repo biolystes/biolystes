@@ -33,7 +33,7 @@ comme les autres boutons de rendez-vous de la page.
 Gardés tels quels : liens de navigation (menus, pied de page), champ « Trouver
 des produits » de la bannière (recherche), champ newsletter du pied de page.
 
-## En-tête sans menus (JP, 13/10/2026, PR biolystes « entete/sans-menus »)
+## En-tête sans menus (JP, 13/10/2026, PR biolystes 10)
 
 | Endroit | Sur /bio | Sur biolystes.com |
 |---|---|---|
