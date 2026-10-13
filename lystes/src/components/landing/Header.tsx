@@ -35,6 +35,11 @@ interface HeaderProps {
  */
 const PAGES_BASCULE = ["/", "/business"];
 
+/* biolystes.com (13/10/2026, JP) : le sélecteur de langue (drapeau et globe)
+   est caché pour le moment, en ordinateur et dans le menu du téléphone.
+   Le rallumer : passer cette constante à true. Voir lystes/ECARTS-VOULUS.md. */
+const AFFICHER_LANGUE = false;
+
 /**
  * Où elle s'affiche :
  *
@@ -152,29 +157,10 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                   pastilles se resserrent pour que l'en-tête tienne sur une
                   ligne à 1024, accueil compris (marges plus larges). */}
               <nav className="flex items-center gap-1 xl:gap-2" aria-label={t("header.mainNav", "Navigation principale")}>
-                <Link to="/entreprise" className={linkClass("/entreprise")}>
-                  {t("header.company", "Entreprise")}
-                </Link>
-                <SolutionsDropdown overlay={light} />
-                {/* « Lab » (12/10/2026, JP) : /bio et /crea. Même liste
-                    dans le menu du téléphone, plus bas. */}
-                <LabDropdown overlay={light} />
-                {/* « Intégrations » a quitté la barre le 27/08/2026, sur demande
-                    de JP. La route /integrations reste OUVERTE : masquer n'est
-                    pas supprimer, et une adresse déjà partagée doit continuer
-                    de répondre. Pour la remettre, décommenter ici ET dans la
-                    barre du téléphone, plus bas : elles sont écrites
-                    séparément, et n'en remettre qu'une la ferait réapparaître
-                    d'un seul côté. */}
-                {/* « Sécurité » et « FAQ » ont quitté la barre le 11/10/2026,
-                    sur demande de JP : elles restent accessibles en pied de
-                    page. Les routes /securite et /faq restent OUVERTES :
-                    masquer n'est pas supprimer. Pour les remettre, décommenter
-                    ici ET dans la barre du téléphone, plus bas. */}
-                <Link to="/tarifs" className={linkClass("/tarifs")}>
-                  {t("header.pricing", "Tarifs")}
-                </Link>
-                <HeaderLanguageSelector overlay={light} />
+                {/* biolystes.com (13/10/2026, JP) : ni « Entreprise », ni « Équipes
+                    IA », ni « Lab », ni « Tarifs ». La langue reste, cachée par
+                    AFFICHER_LANGUE. */}
+                {AFFICHER_LANGUE && <HeaderLanguageSelector overlay={light} />}
               </nav>
               {connecte ? (
                 <HeaderProfileMenu light={light} />
@@ -259,82 +245,20 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
           </button>
 
           <div className="relative h-full overflow-y-auto px-4 pt-[76px] pb-8 text-white">
-            <Link to="/entreprise" onClick={() => setMobileMenuOpen(false)} className="block border-b border-white/14 py-4 px-1.5 text-[16px] font-medium">
-              {t("header.company", "Entreprise")}
+            {/* biolystes.com (13/10/2026, JP) : ni « Entreprise », ni « Équipes
+                IA », ni « Lab », ni « Tarifs ». La bascule, cachée dans l’en-tête
+                du téléphone, prend leur place ; la langue suit AFFICHER_LANGUE. */}
+            <Link to="/" onClick={() => setMobileMenuOpen(false)} className="block border-b border-white/14 py-4 px-1.5 text-[16px] font-medium">
+              E-commerce
             </Link>
-
-            {/* Accordéon équipes IA */}
-            <div className="border-b border-white/14">
-              <button
-                type="button"
-                onClick={() => setOpenAcc((v) => (v === "teams" ? null : "teams"))}
-                className="w-full flex items-center justify-between py-4 px-1.5 text-[16px] font-medium"
-              >
-                {tr("Équipes IA")}
-                <ChevronDown className={`w-4 h-4 opacity-60 transition-transform ${openAcc === "teams" ? "rotate-180" : ""}`} />
-              </button>
-              {openAcc === "teams" && (
-                <div className="px-1.5 pb-3">
-                  {groupesMenu.map((g) => (
-                    <div key={g.label}>
-                      <div className="text-[10px] font-bold uppercase tracking-[0.12em] text-white/50 pt-2.5 pb-1">
-                        {tr(g.label)}
-                      </div>
-                      {g.entries.map((e) => {
-                        const Icon = e.Icon;
-                        return (
-                          <Link
-                            key={e.id}
-                            to={e.href}
-                            onClick={() => setMobileMenuOpen(false)}
-                            className="flex items-center gap-2.5 py-2.5 text-[14px]"
-                          >
-                            <span className="w-7 h-7 rounded-lg bg-white/12 flex items-center justify-center shrink-0">
-                              <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />
-                            </span>
-                            {tr(e.title)}
-                          </Link>
-                        );
-                      })}
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            {/* « Lab » à plat, sans accordéon (12/10/2026, JP) : un titre,
-                les deux liens et leur ligne de description. Même liste que
-                le menu de l'ordinateur (LAB_ENTREES). */}
-            <div className="border-b border-white/14 px-1.5 pt-4 pb-3">
-              <div className="text-[16px] font-medium pb-1">{tr("Lab")}</div>
-              {LAB_ENTREES.map((e) => {
-                const Icon = e.Icon;
-                return (
-                  <Link
-                    key={e.id}
-                    to={e.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-start gap-2.5 py-2.5"
-                  >
-                    <span className="w-7 h-7 rounded-lg bg-white/12 flex items-center justify-center shrink-0 mt-0.5">
-                      <Icon className="w-3.5 h-3.5" strokeWidth={1.5} />
-                    </span>
-                    <span className="min-w-0">
-                      <span className="block text-[14px] leading-snug">{tr(e.title)}</span>
-                      <span className="block text-[12px] leading-snug text-white/60 mt-0.5 text-pretty">{tr(e.tagline)}</span>
-                    </span>
-                  </Link>
-                );
-              })}
-            </div>
-
-            {/* « Intégrations » masquée le 27/08/2026, comme dans la barre
-                bureau plus haut. Les deux vont ensemble. */}
-            {/* « Sécurité » et « FAQ » masquées le 11/10/2026, comme dans la
-                barre bureau plus haut. Les deux vont ensemble. */}
-            <Link to="/tarifs" onClick={() => setMobileMenuOpen(false)} className="block border-b border-white/14 py-4 px-1.5 text-[16px] font-medium">
-              {t("header.pricing", "Tarifs")}
-            </Link>
+            <a href="https://lystes.ai" className="block border-b border-white/14 py-4 px-1.5 text-[16px] font-medium">
+              Agents IA
+            </a>
+            {AFFICHER_LANGUE && (
+              <div className="border-b border-white/14 py-3 px-1.5">
+                <HeaderLanguageSelector overlay />
+              </div>
+            )}
 
             <div className="flex flex-col gap-2.5 mt-6">
               {connecte ? (
