@@ -1602,6 +1602,19 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
   }, [cleEtape, idVisite]);
   const lecture = !!agents && vu && !enPause && !survol && !fenetreOuverte && (!idVisite || pretePour === cleEtape);
 
+  /* /bio : une étape à plusieurs visuels les fait défiler au rythme de la
+     jauge (en pause avec elle), et repart du premier à chaque passage. */
+  const mediaCourant = courant.etapes ? mediaEtape(courant.etapes, etape) : undefined;
+  const nbDiapos = mediaCourant?.type === "diapos" ? mediaCourant.diapos?.length ?? 0 : 0;
+  const intervalleDiapos = mediaCourant?.intervalle ?? 3000;
+  const [diapo, setDiapo] = useState(0);
+  useEffect(() => { setDiapo(0); }, [cle]);
+  useEffect(() => {
+    if (nbDiapos < 2 || !lecture) return;
+    const id = window.setInterval(() => setDiapo((d) => (d + 1) % nbDiapos), intervalleDiapos);
+    return () => window.clearInterval(id);
+  }, [nbDiapos, lecture, intervalleDiapos, cle]);
+
   const ongletId = courant.id;
   const annoncerTaille = useCallback((t: TailleCadre) => {
     setTailleVisuel((o) => (o && o.onglet === ongletId && o.w === t.w && o.h === t.h && o.largeurMin === t.largeurMin ? o : { onglet: ongletId, ...t }));
@@ -2099,7 +2112,8 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
           {/* /bio : le visuel réel de l'étape, sa légende, puis la navigation ;
               sur téléphone, la ligne d'étapes et l'encart. */}
           {courant.etapes && pied && (() => {
-            const m = mediaEtape(courant.etapes, etape);
+            const m0 = mediaEtape(courant.etapes, etape);
+            const m = m0?.type === "diapos" && m0.diapos?.length ? m0.diapos[diapo % m0.diapos.length] : m0;
             return (
               <>
                 <div className="lyv-cadre">
@@ -2137,8 +2151,8 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
                            l'ingrédient et sa carte, qui viennent au rythme de
                            la jauge (en pause avec elle). */
                         <>
-                          <SafeVideo key={m.src} src={m.src} poster={m.affiche} className="lyv-media-el" />
-                          <div className="lyv-inci" key={cle} style={{ animationPlayState: lecture ? "running" : "paused" }}>
+                          {m.src && <SafeVideo key={m.src} src={m.src} poster={m.affiche} className="lyv-media-el" />}
+                          <div className={m.src ? "lyv-inci" : "lyv-inci lyv-inci-direct"} key={cle} style={{ animationPlayState: lecture ? "running" : "paused" }}>
                             <img src={m.carte.photo} alt="" className="lyv-media-el" loading="lazy" decoding="async" />
                             <div className="lyv-inci-carte">
                               <b>Fiche INCI</b>
@@ -2162,6 +2176,13 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
                             </div>
                           </div>
                         </>
+                      )
+                      : m?.type === "diptyque" && m.images
+                      ? (
+                        /* Deux photos côte à côte, de même hauteur (JP, 13/10). */
+                        <div className="lyv-diptyque">
+                          {m.images.map((src) => <img key={src} src={src} alt="" loading="lazy" decoding="async" />)}
+                        </div>
                       )
                       : m?.type === "video"
                       ? <SafeVideo key={m.src} src={m.src} poster={m.affiche} className="lyv-media-el" />
@@ -2423,6 +2444,8 @@ const CSS = `
 /* La fiche INCI : la photo de l'ingrédient vient sur la vidéo à 45 % de
    l'étape, avec sa carte blanche à droite ; l'ingrédient en élu. */
 .lyv-inci{ position:absolute; inset:0; opacity:0; animation:lyv-apparait .6s ease 4.5s both; }
+/* Sans vidéo (JP, 13/10) : la photo et sa carte tout de suite. */
+.lyv-inci.lyv-inci-direct{ opacity:1; animation:none; }
 .lyv-inci > img{ object-position:50% 40%; }
 .lyv-inci-carte{ position:absolute; top:14px; right:14px; bottom:14px; width:52%; overflow:hidden; background:#fff; border-radius:12px;
   padding:14px 16px; display:flex; flex-direction:column; gap:4px; }
@@ -2439,6 +2462,10 @@ const CSS = `
   .lyv-inci-debut{ display:none; }
   .lyv-inci-points{ display:inline; }
 }
+/* Le diptyque : deux colonnes de même hauteur, petit écart, coins arrondis. */
+.lyv-diptyque{ position:absolute; inset:0; display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:0; background:#f3f4f5; }
+.lyv-diptyque img{ width:100%; height:100%; object-fit:cover; object-position:50% 45%; border-radius:14px; display:block; min-width:0; }
+@media (max-width:720px){ .lyv-diptyque{ gap:6px; } .lyv-diptyque img{ border-radius:10px; } }
 /* La grille de sélection : trois colonnes, deux rangées, dans le même cadre
    que les photos. Le badge : rond pistache (l'élu de la maison), coche
    noire, liseré blanc comme le point de la visite. */
