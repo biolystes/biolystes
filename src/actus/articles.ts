@@ -74,9 +74,12 @@ export type Article = {
   corps: Bloc[];
   /** Lien vers une page existante au lieu du gabarit (étude /etudes). */
   url?: string;
+  /** Article écrit mais caché : absent de /blog, de la pop-up actus et de
+      articles.json, page introuvable. JP le rend visible en retirant la ligne. */
+  masque?: boolean;
 };
 
-export const articles: Article[] = [
+const tousLesArticles: Article[] = [
   /* ─────────────── Partenariat HR & Associés (13/10/2026), à la une ───────────────
      La photo montre le directeur du cabinet (JP). Son nom n’est pas connu :
      le texte n’en a pas besoin, et aucune citation ne lui est prêtée.
@@ -125,6 +128,8 @@ export const articles: Article[] = [
      aucun nom de fondatrice. Pas de verbe médical (traiter, guérir) : cosmétique. */
   {
     slug: "eclose-paris-lancement",
+    /* Caché le 13/10/2026 à la demande de JP : « pour le moment, n’affiche pas l’article, mais cache-le ». */
+    masque: true,
     titre: "Éclose\u00a0Paris nous fait confiance pour lancer sa marque de soins du corps dédiée à la kératose\u00a0pilaire",
     titreSeo: "Éclose Paris lance sa marque avec Biolystes | Biolystes",
     description: "Éclose Paris crée des soins du corps pour les peaux à kératose pilaire. Gamme, stratégie de lancement, boutique et widget Lystes : ce que Biolystes a pris en charge.",
@@ -571,6 +576,9 @@ export const articles: Article[] = [
     ],
   },
 ];
+
+/** Les articles visibles : les articles cachés (`masque`) n’en font pas partie. */
+export const articles = tousLesArticles.filter((a) => !a.masque);
 
 export const articlesDuGabarit = articles.filter((a) => !a.url);
 
