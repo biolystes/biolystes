@@ -36,6 +36,9 @@ import imgInstituts from "@lystes/assets/bio/salon-coiffure.webp";
 /* Portrait du cabinet, repris du panneau « Fiscal et comptable » de lystes.ai
    (petal-diagnostics, src/assets/cabinet/hr-associes-portrait.avif), recadré en 4:3. */
 import imgHrAssocies from "@/assets/hr-associes-partenariat.jpg";
+/* Photo produit d’Éclose Paris (concentré exfoliant AHA, étui et flacon),
+   reprise de sa fiche sur ecloseparis.com et recadrée en 4:3. Aucune image générée. */
+import imgEclose from "@/assets/eclose-paris-lancement.jpg";
 
 export type Carte = { titre: string; texte: string; icone?: LucideIcon };
 
@@ -112,6 +115,45 @@ export const articles: Article[] = [
       { t: "h2", texte: "Comment en profiter" },
       { t: "p", texte: "Parlez-en lors de votre rendez-vous avec un expert Biolystes. Nous faisons le point sur votre projet, puis nous vous mettons en relation avec HR\u00a0&\u00a0Associés pour les démarches qui vous concernent." },
       { t: "note", texte: "Biolystes reste votre interlocuteur pour la gamme, la fabrication et la boutique. HR\u00a0&\u00a0Associés prend le relais pour tout ce qui touche à votre société, à vos comptes et à vos déclarations." },
+    ],
+  },
+  /* ─────────────── Éclose Paris (13/10/2026), juste sous HR & Associés ───────────────
+     Même date que HR & Associés : le tri de /blog et de articles.json est stable,
+     donc à date égale l’ordre de ce tableau décide. HR & Associés reste à la une.
+     Faits tirés de ecloseparis.com (accueil, Concept, fiches) et du dossier
+     Biolystes d’Éclose : aucun chiffre, aucune date de lancement, aucune citation,
+     aucun nom de fondatrice. Pas de verbe médical (traiter, guérir) : cosmétique. */
+  {
+    slug: "eclose-paris-lancement",
+    titre: "Éclose\u00a0Paris nous fait confiance pour lancer sa marque de soins du corps dédiée à la kératose\u00a0pilaire",
+    titreSeo: "Éclose Paris lance sa marque avec Biolystes | Biolystes",
+    description: "Éclose Paris crée des soins du corps pour les peaux à kératose pilaire. Gamme, stratégie de lancement, boutique et widget Lystes : ce que Biolystes a pris en charge.",
+    chapo: "Éclose\u00a0Paris s’adresse aux peaux qui ont du grain : la kératose pilaire, ces petits grains sur les bras et les cuisses. Pour lancer sa marque, elle a choisi Biolystes.",
+    categorie: "Nos marques",
+    date: "2026-10-13",
+    image: imgEclose,
+    alt: "Concentré exfoliant AHA d’Éclose\u00a0Paris, étui violet et flacon compte-gouttes à son nom",
+    appel: "Vous aussi, vous avez une marque en tête ? Parlons de votre gamme.",
+    corps: [
+      { t: "h2", texte: "Une marque née d’un geste" },
+      { t: "p", texte: "La kératose pilaire ne fait pas mal, mais elle se voit et se sent sous les doigts. Beaucoup finissent par tirer sur leurs manches pour cacher leurs bras. **Éclose\u00a0Paris** est née de ce réflexe, pour que la kératose pilaire cesse de dicter ce qu’on porte." },
+      { t: "p", texte: "Son idée de départ : un rituel régulier, doux et agréable à suivre fait plus qu’un gommage agressif une fois par mois. Les formules desquamantes affinent le grain de peau sans l’irriter, les textures nourrissantes gardent la souplesse retrouvée. La marque le dit elle-même : pas de promesse miracle, des gestes quotidiens." },
+      { t: "h2", texte: "Une gamme pensée en deux temps" },
+      { t: "p", texte: "Le rituel Éclose libère d’abord en douceur l’excès de kératine qui bouche les follicules, puis nourrit la peau pour qu’elle reste souple. La gamme suit cette logique :" },
+      { t: "cartes", items: [
+        { icone: Sparkles, titre: "Exfolier en douceur", texte: "Un concentré peeling aux AHA, soin de nuit qui affine le grain de peau, et un exfoliant visage et corps, un gommage doux pour lisser les grains." },
+        { icone: Leaf, titre: "Nourrir chaque jour", texte: "Une crème corps à l’urée et au panthénol pour les peaux rugueuses, et une huile corporelle aux oméga 6 et 9 qui protège la douceur retrouvée." },
+        { icone: ShieldCheck, titre: "Nettoyer sans agresser", texte: "Un nettoyant visage et corps à la formule minimaliste, pensé pour les peaux sensibles." },
+      ] },
+      { t: "h2", texte: "Ce que Biolystes a pris en charge" },
+      { t: "cartes", items: [
+        { icone: PackageCheck, titre: "La gamme", texte: "Les soins viennent du catalogue Biolystes et sont fabriqués sous le nom Éclose\u00a0Paris, avec son packaging." },
+        { icone: Target, titre: "La stratégie de lancement", texte: "Un plan de lancement complet : la cible, le message, puis la crédibilité à construire avant la première publicité." },
+        { icone: Store, titre: "La boutique en ligne", texte: "Le site ecloseparis.com, retravaillé pour que chaque visiteuse trouve son soin et passe à l’achat." },
+        { icone: Brain, titre: "Les outils Lystes", texte: "Sur chaque fiche, le widget Lystes répond aux questions des clientes, affiche les avis et propose un diagnostic de peau." },
+      ] },
+      { t: "h2", texte: "Découvrir Éclose\u00a0Paris" },
+      { t: "p", texte: "Le rituel, la gamme et le diagnostic de peau sont à découvrir sur **ecloseparis.com**." },
     ],
   },
   /* ─────────────── Nouveaux articles (12/10/2026) ─────────────── */
