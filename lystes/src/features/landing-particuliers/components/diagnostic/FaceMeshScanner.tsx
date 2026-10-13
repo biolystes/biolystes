@@ -1,8 +1,8 @@
-import { toast } from "sonner";
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { getJsxT } from "@lystes/i18n/jsx-locale";
 import { useMouvementReduit } from "@lystes/hooks/useMouvementReduit";
+import { neutraliserAlerteMediapipe, webglDisponible } from "@lystes/lib/mediapipe-sur";
 
 // Generate face mesh tesselation connections (subset for performance)
 const generateConnections = () => {
@@ -96,10 +96,41 @@ export function FaceMeshScanner({ imageUrl, className = "", onFaceDetected }: Fa
   const [mediaLoaded, setMediaLoaded] = useState(false);
   const [imageLoaded, setImageLoaded] = useState(false);
   const [canvasDimensions, setCanvasDimensions] = useState({ width: 300, height: 400 });
+  /* MediaPipe (plusieurs Mo de wasm) ne se charge que lorsque le bloc
+     approche de l'écran, et jamais sans WebGL : sans WebGL, son face_mesh.js
+     ouvre une alert() au visiteur (13/10/2026). Le repli est le même canvas :
+     la photo, le balayage et les particules, sans le maillage. */
+  const [enVue, setEnVue] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      setEnVue(true);
+      return;
+    }
+    const obs = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setEnVue(true);
+          obs.disconnect();
+        }
+      },
+      { rootMargin: "200px 0px" },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
 
   const scanSpeed = 0.008;
 
   useEffect(() => {
+    if (!enVue) return;
+    if (!webglDisponible()) {
+      console.warn("[FaceMeshScanner] WebGL indisponible : MediaPipe n'est pas chargé, démo sans maillage.");
+      setIsLoading(false);
+      return;
+    }
+    neutraliserAlerteMediapipe();
     const loadScripts = async () => {
       try {
         const scripts = [
@@ -123,13 +154,12 @@ export function FaceMeshScanner({ imageUrl, className = "", onFaceDetected }: Fa
         setMediaLoaded(true);
       } catch (err) {
         console.error("MediaPipe load error:", err);
-        toast.error(tr("Module de détection indisponible"));
         setError(tr("Module de détection indisponible"));
         setIsLoading(false);
       }
     };
     loadScripts();
-  }, []);
+  }, [enVue]);
 
   useEffect(() => {
     if (!imageUrl) return;
