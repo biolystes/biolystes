@@ -1864,7 +1864,8 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
     boutons.current[n]?.focus();
   }, [onglet, changerOnglet]);
 
-  const duree = (courant.id === "produits" && ETAPES_FICHE[etape]?.duree)
+  const duree = courant.etapes?.[etape]?.duree
+    || (courant.id === "produits" && ETAPES_FICHE[etape]?.duree)
     || (courant.id === "outils" && visites.outils?.dureeEtapeOutils(etape, secteur))
     || DUREE_ETAPE;
   const pied: Pied | null = agents && {
@@ -2103,8 +2104,67 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
               <>
                 <div className="lyv-cadre">
                   <div className="lyv-media" style={{ "--lyv-pos": m?.position ?? "50% 50%" } as CSSProperties}>
-                    {m?.type === "video"
-                      ? <SafeVideo key={m.src} src={m.src} className="lyv-media-el" />
+                    {m?.type === "grille" && m.produits
+                      ? (
+                        /* La sélection : trois produits par rangée ; les badges
+                           des produits retenus viennent un par un, comme si on
+                           cochait (JP, 13/10/2026). Les autres restent tels
+                           quels, sans croix. La clé relance l'animation à
+                           chaque passage sur l'étape. */
+                        <ul className="lyv-grille" key={cle} aria-label="Une sélection de produits du catalogue">
+                          {m.produits.map((p, i) => {
+                            const rang = m.produits!.slice(0, i).filter((x) => x.valide).length;
+                            return (
+                              <li key={p.image}>
+                                <span className="lyv-grille-photo">
+                                  <img src={p.image} alt="" loading="lazy" decoding="async" />
+                                  {p.valide && (
+                                    <span className="lyv-badge" style={{ animationDelay: `${500 + rang * 700}ms` }} aria-label="validé" role="img">
+                                      <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="3"
+                                        strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>
+                                    </span>
+                                  )}
+                                </span>
+                                <span className="lyv-grille-nom">{p.nom}</span>
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      )
+                      : m?.type === "inci" && m.carte
+                      ? (
+                        /* La fiche INCI : la vidéo, puis la photo de
+                           l'ingrédient et sa carte, qui viennent au rythme de
+                           la jauge (en pause avec elle). */
+                        <>
+                          <SafeVideo key={m.src} src={m.src} poster={m.affiche} className="lyv-media-el" />
+                          <div className="lyv-inci" key={cle} style={{ animationPlayState: lecture ? "running" : "paused" }}>
+                            <img src={m.carte.photo} alt="" className="lyv-media-el" loading="lazy" decoding="async" />
+                            <div className="lyv-inci-carte">
+                              <b>Fiche INCI</b>
+                              <span className="lyv-inci-produit">{m.carte.produit}</span>
+                              <p>
+                                {(() => {
+                                  const [avant, apres] = m.carte!.inci.split(m.carte!.surligne);
+                                  /* Sur un téléphone étroit, la fin de la liste seulement. */
+                                  const coupe = avant.lastIndexOf(", ", avant.length - 60);
+                                  return (
+                                    <>
+                                      <span className="lyv-inci-debut">{avant.slice(0, coupe + 2)}</span>
+                                      <span className="lyv-inci-points" aria-hidden="true">…&nbsp;</span>
+                                      {avant.slice(coupe + 2)}
+                                      <mark>{m.carte!.surligne}</mark>
+                                      {apres}
+                                    </>
+                                  );
+                                })()}
+                              </p>
+                            </div>
+                          </div>
+                        </>
+                      )
+                      : m?.type === "video"
+                      ? <SafeVideo key={m.src} src={m.src} poster={m.affiche} className="lyv-media-el" />
                       : m && <img key={m.src} src={m.src} alt={m.legende.join("")} className="lyv-media-el" loading="lazy" decoding="async" />}
                   </div>
                   {m && <p className="lyv-legende-visuel"><b>{m.legende[0]}</b>{m.legende[1]}</p>}
@@ -2360,6 +2420,47 @@ const CSS = `
 /* /bio : le visuel réel de l'étape, photo ou vidéo, dans le format de la
    boutique de l'étage 2. */
 .lyv-media{ position:relative; aspect-ratio:1280 / 800; border-radius:14px; overflow:hidden; background:#fff; }
+/* La fiche INCI : la photo de l'ingrédient vient sur la vidéo à 45 % de
+   l'étape, avec sa carte blanche à droite ; l'ingrédient en élu. */
+.lyv-inci{ position:absolute; inset:0; opacity:0; animation:lyv-apparait .6s ease 4.5s both; }
+.lyv-inci > img{ object-position:50% 40%; }
+.lyv-inci-carte{ position:absolute; top:14px; right:14px; bottom:14px; width:52%; overflow:hidden; background:#fff; border-radius:12px;
+  padding:14px 16px; display:flex; flex-direction:column; gap:4px; }
+.lyv-inci-carte b{ font-size:10px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:#777b7f; }
+.lyv-inci-produit{ font-family:'Bricolage Grotesque',Inter,sans-serif; font-size:15px; line-height:1.25; letter-spacing:-.015em; color:#171717; }
+.lyv-inci-carte p{ margin:6px 0 0; font-size:10.5px; line-height:1.5; color:var(--lyv-gris); }
+.lyv-inci-carte mark{ background:var(--lyv-elu); color:#000; font-weight:600; border-radius:3px; padding:0 2px; }
+.lyv-inci-points{ display:none; }
+@media (prefers-reduced-motion:reduce){ .lyv-inci{ animation-duration:0s; } }
+@media (max-width:720px){
+  .lyv-inci-carte{ top:10px; right:10px; bottom:10px; width:58%; padding:10px 12px; }
+  .lyv-inci-produit{ font-size:12px; }
+  .lyv-inci-carte p{ font-size:10px; margin-top:3px; }
+  .lyv-inci-debut{ display:none; }
+  .lyv-inci-points{ display:inline; }
+}
+/* La grille de sélection : trois colonnes, deux rangées, dans le même cadre
+   que les photos. Le badge : rond pistache (l'élu de la maison), coche
+   noire, liseré blanc comme le point de la visite. */
+.lyv-grille{ position:absolute; inset:0; list-style:none; margin:0; padding:14px; display:grid; grid-template-columns:repeat(3, minmax(0, 1fr));
+  grid-template-rows:repeat(2, minmax(0, 1fr)); gap:10px; }
+.lyv-grille li{ display:flex; flex-direction:column; gap:6px; min-width:0; min-height:0; }
+.lyv-grille-photo{ position:relative; flex:1; min-height:0; border-radius:10px; overflow:hidden; background:#f3f4f5; }
+.lyv-grille-photo img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 50%; display:block; }
+.lyv-grille-nom{ font-size:12px; line-height:1.25; color:var(--lyv-encre); text-align:center; white-space:nowrap; overflow:hidden; text-overflow:clip; }
+.lyv-badge{ position:absolute; top:8px; right:8px; width:24px; height:24px; border-radius:50%; background:var(--lyv-elu); color:#000;
+  outline:2px solid #fff; display:flex; align-items:center; justify-content:center;
+  animation:lyv-coche .35s cubic-bezier(.22,1,.36,1) both; }
+@keyframes lyv-coche{ from{ opacity:0; transform:scale(.6); } to{ opacity:1; transform:scale(1); } }
+@media (prefers-reduced-motion:reduce){ .lyv-badge{ animation:none; } }
+/* Sur un téléphone étroit, les vignettes seules : les noms ne tiendraient
+   pas entiers sous des cases de 100 px. */
+@media (max-width:480px){
+  .lyv-grille{ padding:10px; gap:8px; }
+  .lyv-grille-nom{ display:none; }
+  .lyv-badge{ top:6px; right:6px; width:20px; height:20px; }
+  .lyv-badge svg{ width:10px; height:10px; }
+}
 .lyv-media-el{ position:absolute; inset:0; display:block; width:100%; height:100%; object-fit:cover; object-position:var(--lyv-pos, 50% 50%); animation:lyv-apparait .35s ease both; }
 
 /* Étage 2 : la boutique et l'orbital, composés comme la diapo 16. */
