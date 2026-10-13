@@ -1,0 +1,233 @@
+[
+  {
+    "fichier": "profil-01.jpg",
+    "prenom": "Aminata",
+    "age": 32,
+    "carnation": "foncée",
+    "type_peau": "grasse",
+    "preoccupations": [
+      "brillance",
+      "pores dilatés",
+      "petites taches pigmentaires"
+    ],
+    "observations": "Peau brun foncé très brillante sur le front, le nez et les pommettes, pores visibles sur les joues et quelques petits points pigmentés sur les pommettes.",
+    "usage": "diagnostic",
+    "origine": "_ (12).jpeg"
+  },
+  {
+    "fichier": "profil-02.jpg",
+    "prenom": "Nadia",
+    "age": 42,
+    "carnation": "mate",
+    "type_peau": "normale",
+    "preoccupations": [
+      "taches pigmentaires",
+      "rides",
+      "perte de fermeté"
+    ],
+    "observations": "Peau brun moyen couverte d'éphélides et de taches solaires sur le nez et les pommettes, rides du front et ridules au coin des yeux, sillons autour de la bouche.",
+    "usage": "diagnostic",
+    "origine": "_ (11).jpeg"
+  },
+  {
+    "fichier": "profil-03.jpg",
+    "prenom": "Inès",
+    "age": 23,
+    "carnation": "mate",
+    "type_peau": "mixte",
+    "preoccupations": [
+      "brillance zone T",
+      "pores dilatés"
+    ],
+    "observations": "Peau dorée unie, brillante sur le front et l'arête du nez, plus mate sur les joues, pores visibles sur le nez et quelques taches de rousseur légères.",
+    "usage": "diagnostic",
+    "origine": "_ (13).jpeg"
+  },
+  {
+    "fichier": "profil-04.jpg",
+    "prenom": "Priya",
+    "age": 30,
+    "carnation": "mate",
+    "type_peau": "normale",
+    "preoccupations": [
+      "hyperpigmentation",
+      "teint irrégulier"
+    ],
+    "observations": "Peau brun moyen au teint irrégulier, zones plus foncées sur le front et le haut des joues, petites taches brunes sur les pommettes, léger reflet sur le nez.",
+    "usage": "diagnostic",
+    "origine": "Natural Beauty AI Influencer.jpeg"
+  },
+  {
+    "fichier": "profil-05.jpg",
+    "prenom": "Maya",
+    "age": 26,
+    "carnation": "mate",
+    "type_peau": "mixte",
+    "preoccupations": [
+      "rougeurs",
+      "taches de rousseur",
+      "brillance"
+    ],
+    "observations": "Peau dorée très constellée de taches de rousseur, rougeur marquée sur les joues et les ailes du nez, front et nez brillants.",
+    "usage": "diagnostic",
+    "origine": "_ (22).jpeg"
+  },
+  {
+    "fichier": "profil-06.jpg",
+    "prenom": "Léa",
+    "age": 21,
+    "carnation": "claire",
+    "type_peau": "grasse",
+    "preoccupations": [
+      "acné",
+      "rougeurs",
+      "marques post-acné"
+    ],
+    "observations": "Boutons inflammatoires et petites marques rouges sur la joue gauche et le menton, peau brillante sur le front et le nez, pores visibles.",
+    "usage": "diagnostic",
+    "origine": "_ (21).jpeg"
+  },
+  {
+    "fichier": "profil-07.jpg",
+    "prenom": "Elsa",
+    "age": 34,
+    "carnation": "claire",
+    "type_peau": "normale",
+    "preoccupations": [
+      "rougeurs légères",
+      "teint pâle"
+    ],
+    "observations": "Peau très claire et plutôt unie, légère rougeur autour des narines et sur les pommettes, fin reflet sur le front, quelques ridules sous les yeux.",
+    "usage": "diagnostic",
+    "origine": "_ (16).jpeg"
+  },
+  {
+    "fichier": "profil-08.jpg",
+    "prenom": "Claire",
+    "age": 46,
+    "carnation": "claire",
+    "type_peau": "normale",
+    "preoccupations": [
+      "rides",
+      "taches solaires",
+      "perte de fermeté"
+    ],
+    "observations": "Peau claire hâlée en lumière dorée, rides du front et pattes d'oie, taches de rousseur et taches solaires sur les joues et le décolleté, ovale un peu relâché.",
+    "usage": "diagnostic",
+    "origine": "Currently reaching for these on repeat 🤎 @armanibeauty.jpeg"
+  },
+  {
+    "fichier": "profil-09.jpg",
+    "prenom": "Sophie",
+    "age": 52,
+    "carnation": "claire",
+    "type_peau": "seche",
+    "preoccupations": [
+      "rides",
+      "taches de l'âge",
+      "sécheresse"
+    ],
+    "observations": "Rides marquées sur le front et autour des yeux, sillons nasogéniens, taches pigmentaires sur les pommettes et le décolleté, peau d'aspect sec sous une lumière latérale.",
+    "usage": "diagnostic",
+    "origine": "Just a little something for that sunkissed look ✨.jpeg"
+  },
+  {
+    "fichier": "profil-10.jpg",
+    "prenom": "Yasmine",
+    "age": 24,
+    "carnation": "mate",
+    "type_peau": "mixte",
+    "preoccupations": [
+      "pores dilatés",
+      "brillance",
+      "imperfections"
+    ],
+    "observations": "Peau olive brillante sur le front et le nez, pores dilatés sur le nez et l'intérieur des joues, quelques petites taches de rousseur et un grain de beauté sur la joue.",
+    "usage": "diagnostic",
+    "origine": "_ (17).jpeg"
+  },
+  {
+    "fichier": "profil-11.jpg",
+    "prenom": "Camille",
+    "age": 37,
+    "carnation": "claire",
+    "type_peau": "sensible",
+    "preoccupations": [
+      "rougeurs",
+      "couperose"
+    ],
+    "observations": "Rougeurs diffuses sur les joues et autour du nez, petits vaisseaux visibles sur les ailes du nez, peau fine d'aspect réactif.",
+    "usage": "diagnostic",
+    "origine": "_ (19).jpeg"
+  },
+  {
+    "fichier": "profil-12.jpg",
+    "prenom": "Mei",
+    "age": 28,
+    "carnation": "claire",
+    "type_peau": "grasse",
+    "preoccupations": [
+      "brillance",
+      "pores dilatés"
+    ],
+    "observations": "Peau claire beige très brillante sur le front, le nez et les joues, pores visibles sur les joues, éclairage latéral qui accentue le relief.",
+    "usage": "diagnostic",
+    "origine": "_ What Dermatologists Recommend Daily.jpeg"
+  },
+  {
+    "fichier": "profil-13.jpg",
+    "prenom": "Lucie",
+    "age": 25,
+    "carnation": "mate",
+    "type_peau": "mixte",
+    "preoccupations": [
+      "taches de rousseur",
+      "points noirs",
+      "brillance zone T"
+    ],
+    "observations": "Peau hâlée en plein soleil, nombreuses taches de rousseur sur le nez et les joues, brillance sur le front et le nez, quelques points noirs sur le nez.",
+    "usage": "diagnostic",
+    "origine": "Maquillage naturel facile en 5 minutes.jpeg"
+  },
+  {
+    "fichier": "profil-14.jpg",
+    "prenom": "Anne",
+    "age": 38,
+    "carnation": "claire",
+    "type_peau": "seche",
+    "preoccupations": [
+      "déshydratation",
+      "ridules",
+      "teint terne"
+    ],
+    "observations": "Peau claire rosée au teint un peu terne, ridules au coin des yeux et sur les joues, légère rougeur sur le nez, cheveux sous une serviette après la douche.",
+    "usage": "diagnostic",
+    "origine": "Fresh Shower Makeup _ Dewy Skin & Natural Glossy Lips.jpeg"
+  },
+  {
+    "fichier": "profil-15.jpg",
+    "prenom": "Sarah",
+    "age": 31,
+    "carnation": "mate",
+    "type_peau": "normale",
+    "preoccupations": [
+      "hydratation"
+    ],
+    "observations": "Femme en salle de bain appliquant un soin du bout des doigts sur les deux joues, peau brun clair légèrement brillante là où le soin vient d'être posé.",
+    "usage": "illustration",
+    "origine": "Simple Skincare Routine for Healthy, Hydrated & Glowing Skin.jpeg"
+  },
+  {
+    "fichier": "profil-16.jpg",
+    "prenom": "Julie",
+    "age": 35,
+    "carnation": "claire",
+    "type_peau": "normale",
+    "preoccupations": [
+      "routine du soir"
+    ],
+    "observations": "Femme en peignoir blanc, yeux fermés, main posée sous le menton dans un geste de massage, peau claire avec un léger éclat sur les pommettes.",
+    "usage": "illustration",
+    "origine": "_ (23).jpeg"
+  }
+]

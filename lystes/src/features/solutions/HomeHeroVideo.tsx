@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import VideoAuto from "@lystes/components/VideoAuto";
 
@@ -126,7 +126,7 @@ const PHRASES_FR = [
 import { useTranslation } from "react-i18next";
 import { BasculeCible } from "@lystes/components/landing/Header";
 import { getJsxT } from "@lystes/i18n/jsx-locale";
-import { ChevronsCarrousel } from "./ChevronsCarrousel";
+import { CarrouselLieux } from "./CarrouselLieux";
 import shopifyLogo from "@lystes/assets/shopify-icon.png";
 import wooLogo from "@lystes/assets/woocommerce-icon.webp";
 // 28/09 (JP) : le logo fourni par JP, bulle violette et lettres blanches, pour le
@@ -455,58 +455,15 @@ export default function HomeHeroVideo({ variante }: { variante?: HeroVariante } 
     ? (variante.liens ?? []).map((l) => ({ key: l.label, defaut: l.label, href: l.href, logo: l.icone }))
     : []; /* biolystes.com : pas de « Installer sur… » (inscription lystes.ai). */
   const nbLieux = lieux.length;
-  const installTrackRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const track = installTrackRef.current;
-    if (!track) return;
-    const viewport = track.parentElement;
-    if (!viewport) return;
-    const row = viewport.parentElement;
-    const appliquer = () => {
-      const items = Array.from(track.children) as HTMLElement[];
-      const courant = items[installIdx];
-      if (!courant) return;
-      /* 30/09 : la ligne du carrousel épouse la largeur réelle du champ
-         « Tester gratuitement » au-dessus — mesurée, pas devinée, car le
-         champ grandit avec son libellé selon la langue. Les deux flèches se
-         trouvent ainsi exactement à l'extrémité droite du bouton. La fenêtre
-         occupe le reste de la ligne ; plus étroite que la piste, elle laisse
-         toujours apparaître le début du lieu suivant sous le masque. */
-      const champ = track.closest(".lyh-inner")?.querySelector(".lyh-field")
-        ?? document.querySelector(".lyh-field");
-      /* 30/09 : sur mobile l'alignement sur le champ rognait la fenêtre et
-         « Installer sur WooCommerce » restait coupé. Sous 720 px la ligne
-         prend toute la largeur : les deux flèches partent plus à droite. */
-      const mobile = window.innerWidth <= 720;
-      if (row && mobile) {
-        row.style.width = "100%";
-      } else if (row && champ) {
-        /* Le champ est précédé du bouton noir « S'inscrire » : sa largeur
-           seule ne suffit pas, on aligne les BORDS DROITS des deux lignes. */
-        const droite = champ.getBoundingClientRect().right;
-        const gauche = row.getBoundingClientRect().left;
-        row.style.width = `${Math.max(0, droite - gauche)}px`;
-      }
-      const rendu = viewport.clientWidth;
-      const max = Math.max(0, track.scrollWidth - rendu);
-      track.style.transform = `translateX(${-Math.min(courant.offsetLeft, max)}px)`;
-    };
-    appliquer();
-    /* Au premier montage, les styles et les polices ne sont pas tous encore
-       appliqués : les largeurs mesurées seraient fausses (le libellé débordait
-       alors de sa fenêtre). Une passe à la frame suivante, plus une à chaque
-       changement de taille de la piste, garantissent une fenêtre juste. */
-    const raf = requestAnimationFrame(appliquer);
-    const ro = new ResizeObserver(() => appliquer());
-    ro.observe(track);
-    document.fonts?.ready?.then(() => appliquer()).catch(() => {});
-    window.addEventListener("resize", appliquer);
-    return () => {
-      cancelAnimationFrame(raf);
-      ro.disconnect();
-      window.removeEventListener("resize", appliquer);
-    };
-  }, [installIdx]);
+  /* La ligne épouse la largeur réelle du champ « Tester gratuitement » au
+     dessus (30/09) : ses bords droits s'alignent ; sous 720 px, toute la
+     largeur. Le carrousel lui-même est CarrouselLieux (13/10/2026). */
+  const largeurInstall = useCallback((row: HTMLElement) => {
+    if (window.innerWidth <= 720) return "100%";
+    const champ = row.closest(".lyh-inner")?.querySelector(".lyh-field") ?? document.querySelector(".lyh-field");
+    if (!champ) return null;
+    return `${Math.max(0, champ.getBoundingClientRect().right - row.getBoundingClientRect().left)}px`;
+  }, []);
 
   /* L'OFFRE, DITE UNE FOIS ET JUSTE, SOUS LES BOUTONS.
      Le bouton noir portait « Dès 99 € barré 49 €/mois » : masqué sur
@@ -830,33 +787,30 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
             basculera seul sur la connexion en un clic quand
             `EXAMEN_SHOPIFY_PASSE` passera à vrai. */}
         {nbLieux > 0 && (
-        <div className="lyh-install-row">
-          <div className="lyh-install-viewport">
-            <div className="lyh-install-track" ref={installTrackRef}>
-              {lieux.map((lieu) => (
-                <a key={lieu.key} className="lyh-lien-shopify" href={lieu.href}>
-                  {lieu.logo === "shopify" && <img src={shopifyLogo} alt="" className="lyh-btn-logo" />}
-                  {lieu.logo === "woo" && <img src={wooLogoViolet} alt="" className="lyh-btn-logo lyh-btn-logo--woo" />}
-                  {typeof lieu.logo === "object" && (
-                    <svg className="lyh-btn-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
-                      {lieu.logo.paths.map((d) => <path key={d} d={d} />)}
-                      {lieu.logo.circles?.map(([cx, cy, r]) => <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={r} />)}
-                    </svg>
-                  )}
-                  <span>{t(lieu.key, { defaultValue: lieu.defaut })}</span>
-                </a>
-              ))}
-            </div>
-          </div>
-          {/* Les deux flèches suivent le carrousel : elles sont dans le flux,
-            juste après la fenêtre, et non posées en absolu au bord droit. */}
-          <ChevronsCarrousel
-            libellePrecedent={t("heroHome.installPrec", { defaultValue: "Lieu d'installation précédent" })}
-            libelleSuivant={t("heroHome.installSuiv", { defaultValue: "Lieu d'installation suivant" })}
-            precedent={() => setInstallIdx((i) => (i - 1 + nbLieux) % nbLieux)}
-            suivant={() => setInstallIdx((i) => (i + 1) % nbLieux)}
-          />
-        </div>
+        <CarrouselLieux
+          index={installIdx}
+          setIndex={setInstallIdx}
+          largeur={largeurInstall}
+          libellePrecedent={t("heroHome.installPrec", { defaultValue: "Lieu d'installation précédent" })}
+          libelleSuivant={t("heroHome.installSuiv", { defaultValue: "Lieu d'installation suivant" })}
+          elements={lieux.map((lieu) => ({
+            key: lieu.key,
+            href: lieu.href,
+            contenu: (
+              <>
+                {lieu.logo === "shopify" && <img src={shopifyLogo} alt="" className="lyh-btn-logo" />}
+                {lieu.logo === "woo" && <img src={wooLogoViolet} alt="" className="lyh-btn-logo lyh-btn-logo--woo" />}
+                {typeof lieu.logo === "object" && (
+                  <svg className="lyh-btn-logo" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round">
+                    {lieu.logo.paths.map((d) => <path key={d} d={d} />)}
+                    {lieu.logo.circles?.map(([cx, cy, r]) => <circle key={`${cx}-${cy}`} cx={cx} cy={cy} r={r} />)}
+                  </svg>
+                )}
+                <span>{t(lieu.key, { defaultValue: lieu.defaut })}</span>
+              </>
+            ),
+          }))}
+        />
         )}
 
         {/* 28/09 (JP) : sur ordinateur, le prix passe sur sa propre ligne —

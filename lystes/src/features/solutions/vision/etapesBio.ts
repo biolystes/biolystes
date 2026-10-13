@@ -21,9 +21,9 @@ import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
  *    (Amarsi, 235th, Jolie Peau) et le colis Éclose ;
  *  - ecommerce-step : la boutique Kaniwa Botanique ;
  *  - fiche : la fiche de démonstration de l'accueil (public/demo-eclose) ;
- *  - feed : quatre vignettes du feed Sevmylook de biolystes.com/agence ;
- *  - presse : captures des magazines Brume, Écrin, Élunesse (public/bio-presse) ;
- *  - avis, mag IA, multilien : vraies vues lystes.ai de Lystes & Partners ;
+ *  - feed : six publications du feed Sevmylook de biolystes.com/agence (3:4) ;
+ *  - presse : deux articles par magazine, Brume, Écrin, Élunesse (3:4) ;
+ *  - avis, mag IA, multilien : vraies vues lystes.ai de Lystes & Partners (3:4) ;
  *  - assurance : l'étui 235th abîmé et la carte « Protection réglementaire ».
  *  - validation : les produits Lystes & Partners (public/bio-validation) ;
  * Jamais le mot « échantillons » (JP, 13/10 : « on vous envoie les produits »).
@@ -300,53 +300,71 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "vos publications, prêtes à poster",
         role: "Votre feed Instagram : des publications à vos couleurs, prêtes à poster.",
         unique: "",
-        /* Le feed réalisé pour Sevmylook (biolystes.com/agence, biolystes
-           src/assets/agence-reseaux.jpg) : quatre de ses vignettes produit,
-           deux par rangée, en plus petit (JP, 13/10 : « trop zoomé »).
-           Aucune vignette avec un visage. */
-        media: { type: "image", src: "/bio-communication/feed-sevmylook-produits.webp", contenir: true, legende: ["Sevmylook", ", le feed Instagram"] },
+        /* Six publications du feed Sevmylook (biolystes.com/agence), en 3:4 comme sur Instagram ; aucune avec un visage. */
+        media: { type: "diapos", src: "", trio: true, intervalle: 3000, legende: ["Sevmylook", ", le feed Instagram"], diapos: [
+          PHOTO("/bio-communication/feed-1.webp", ["", ""]),
+          PHOTO("/bio-communication/feed-2.webp", ["", ""]),
+          PHOTO("/bio-communication/feed-3.webp", ["", ""]),
+          PHOTO("/bio-communication/feed-4.webp", ["", ""]),
+          PHOTO("/bio-communication/feed-5.webp", ["", ""]),
+          PHOTO("/bio-communication/feed-6.webp", ["", ""]),
+        ] },
+        duree: 9000,
       },
       {
         nom: "Articles de presse",
         mission: "votre marque dans des magazines beauté",
         role: "Des articles de presse sur votre marque, dans des magazines beauté : qui tape son nom sur Google trouve de vrais articles.",
         unique: "",
-        /* Captures d'écran des magazines, prises le 13/10/2026 à 1440 px
-           (bandeaux refusés) et cadrées sur le nom et le titre ; des articles
-           sans visage, les accueils en montrant. Deux à la fois. */
-        media: { type: "diapos", src: "", duo: true, intervalle: 3000, legende: ["Brume, Écrin, Élunesse", ", nos magazines partenaires"], diapos: [
-          PHOTO("/bio-presse/brume-anua.webp", ["", ""]),
-          PHOTO("/bio-presse/ecrin-rdrd.webp", ["", ""]),
-          PHOTO("/bio-presse/elunesse-phytochimie.webp", ["", ""]),
-          PHOTO("/bio-presse/brume-sync-beauty.webp", ["", ""]),
-          PHOTO("/bio-presse/ecrin-lacto-glow.webp", ["", ""]),
-          PHOTO("/bio-presse/elunesse-niacinamide.webp", ["", ""]),
+        /* Deux articles par magazine, capturés le 13/10/2026 à 1440 px (bandeaux refusés), recadrés en 3:4 : le nom du magazine, le titre, l'image ; articles sans visage. */
+        media: { type: "diapos", src: "", trio: true, intervalle: 3000, legende: ["Brume, Écrin, Élunesse", ", nos magazines partenaires"], diapos: [
+          PHOTO("/bio-presse/presse-brume-anua.webp", ["", ""]),
+          PHOTO("/bio-presse/presse-ecrin-rdrd.webp", ["", ""]),
+          PHOTO("/bio-presse/presse-elunesse-phytochimie.webp", ["", ""]),
+          PHOTO("/bio-presse/presse-brume-sync-beauty.webp", ["", ""]),
+          PHOTO("/bio-presse/presse-ecrin-lacto-glow.webp", ["", ""]),
+          PHOTO("/bio-presse/presse-elunesse-niacinamide.webp", ["", ""]),
         ] },
-        duree: 15000,
+        duree: 9000,
       },
       {
         nom: "Plateforme d’avis",
         mission: "les avis de vos clientes, avec vos étoiles sur Google",
         role: "Notre plateforme d’avis recueille les avis de vos clientes, produit par produit, et vos étoiles apparaissent sur Google.",
         unique: "",
-        /* Les vraies vues des pages publiques de lystes.ai, avec la marque de
-           démonstration Lystes & Partners (étage « Vos outils » de
-           l'accueil) : la marque n'a pas de page publique en ligne. */
-        media: PHOTO("/bio-communication/lystes-partners-avis.webp", ["Lystes & Partners", ", la page d’avis (avis d’exemple)"], "50% 0%"),
+        /* La vraie page d'avis de lystes.ai, avec la marque de démonstration Lystes & Partners (étage « Vos outils » de l'accueil) : un avis, la répartition des notes, le résultat Google avec ses étoiles. */
+        media: { type: "diapos", src: "", trio: true, intervalle: 3000, legende: ["Lystes & Partners", ", la page d’avis et ses étoiles sur Google (avis d’exemple)"], diapos: [
+          PHOTO("/bio-communication/avis-1.webp", ["", ""]),
+          PHOTO("/bio-communication/avis-2.webp", ["", ""]),
+          PHOTO("/bio-communication/avis-3.webp", ["", ""]),
+        ] },
+        duree: 9000,
       },
       {
         nom: "Mag IA",
         mission: "des articles qui amènent des clientes sur votre boutique",
         role: "Le mag IA publie des articles nés des questions de vos clientes, écrits pour Google et pour ChatGPT, avec des boutons qui mènent à l’achat.",
         unique: "",
-        media: PHOTO("/bio-communication/lystes-partners-mag.webp", ["Lystes & Partners", ", le magazine de la marque"], "50% 0%"),
+        /* La vraie page magazine de marque (/<marque>/mag) de Lystes & Partners : l'en-tête, l'article à la une, un autre article. */
+        media: { type: "diapos", src: "", trio: true, intervalle: 3000, legende: ["Lystes & Partners", ", le magazine de la marque"], diapos: [
+          PHOTO("/bio-communication/mag-1.webp", ["", ""]),
+          PHOTO("/bio-communication/mag-2.webp", ["", ""]),
+          PHOTO("/bio-communication/mag-3.webp", ["", ""]),
+        ] },
+        duree: 9000,
       },
       {
         nom: "Multilien",
         mission: "un seul lien dans votre bio, vers le bon produit",
         role: "Notre multilien : un seul lien dans votre bio Instagram, avec un conseiller IA qui oriente chaque visiteuse vers le bon produit.",
         unique: "",
-        media: { type: "image", src: "/bio-communication/lystes-partners-multilien.webp", contenir: true, legende: ["Lystes & Partners", ", le multilien"] },
+        /* Le vrai multilien de Lystes & Partners : le conseiller IA, le diagnostic et les produits (sans leurs prix), les avis. */
+        media: { type: "diapos", src: "", trio: true, intervalle: 3000, legende: ["Lystes & Partners", ", le multilien"], diapos: [
+          PHOTO("/bio-communication/multilien-1.webp", ["", ""]),
+          PHOTO("/bio-communication/multilien-2.webp", ["", ""]),
+          PHOTO("/bio-communication/multilien-3.webp", ["", ""]),
+        ] },
+        duree: 9000,
       },
     ],
   },
