@@ -43,7 +43,6 @@ import WirtzkinPage from "./pages/WirtzkinPage";
 import EchantillonsPage from "./pages/EchantillonsPage";
 import { lazy, Suspense } from "react";
 import { usePolicesDuSite } from "./lib/polices-du-site";
-import BarreActus from "./actus/BarreActus";
 
 /* Accueil repris de lystes.ai/bio (12/10/2026) : chargé à part, pour que
    son poids (thème et blocs de lystes.ai) ne pèse pas sur les autres pages. */
@@ -128,8 +127,6 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <AppRoutes />
-          {/* Barre « Voir nos dernières actus » et orbital, sur toutes les pages publiques. */}
-          <BarreActus />
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

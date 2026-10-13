@@ -81,28 +81,47 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- Lystes (12/10/2026) : le widget complet de lystes.ai (barre « Voir nos
-         dernières actus » vers /blog, orbital du conseiller de sélection).
+    <!-- Widget Lystes (13/10/2026) : le VRAI widget de lystes.ai, chargé comme
+         sur ecloseparis.com (même script, data-agent-id, data-archive-mode),
+         jamais une copie dessinée dans le site (consigne de JP).
+         Options du site vitrine (widget 3.64.0, petal-diagnostics) :
+           - data-barre="actus" : la barre dit « Voir nos dernières actus » ; son
+             bouton noir ouvre la fenêtre « L'actualité » de l'orbital, la même
+             que « Découvrir notre actualité » sur Éclose ;
+           - data-actus-source : les articles du blog, publiés au build dans
+             /blog/articles.json (scripts/articles-json.ts) ;
+           - data-conseiller="selection" : l'orbital répond avec le conseiller
+             de sélection, sans panier, sans prix, sans appel vocal.
          Inactif tant que l'identifiant de l'agent Biolystes n'est pas collé
-         ci-dessous. En attendant, la barre et l'orbital sont dessinés par le
-         site lui-même (src/actus/BarreActus.tsx, réglages dans
-         src/actus/reglages.ts). -->
+         ci-dessous (AGENT_LYSTES). -->
     <script>
       (function () {
         var AGENT_LYSTES = "";
         if (!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(AGENT_LYSTES)) return;
+        /* Espaces connectés, outils internes, pages partagées : pas de widget. */
+        var SANS_WIDGET = /^\/(agent\/|selection\/|admin|espace-client|onboarding|login|signup|forgot-password|settings|chat|catalogue)/;
+        var st = document.createElement("style");
+        st.textContent = "html.lystes-sans-widget #lystes-widget-btn,html.lystes-sans-widget #lystes-brandcall-btn,html.lystes-sans-widget #lystes-goo-layer{display:none!important}";
+        document.head.appendChild(st);
+        function suivre() { document.documentElement.classList.toggle("lystes-sans-widget", SANS_WIDGET.test(location.pathname)); }
+        ["pushState", "replaceState"].forEach(function (n) {
+          var origine = history[n];
+          history[n] = function () { var r = origine.apply(this, arguments); suivre(); return r; };
+        });
+        window.addEventListener("popstate", suivre);
+        suivre();
         var s = document.createElement("script");
-        s.src = "https://lystes.ai/woo-product-chat.js";
+        s.id = "lystes-product-chat-js";
+        s.src = "https://lystes.ai/woo-product-chat.js?ver=3.64.0";
         s.async = true;
         s.setAttribute("data-agent-id", AGENT_LYSTES);
+        s.setAttribute("data-archive-mode", "true");
         s.setAttribute("data-barre", "actus");
         s.setAttribute("data-barre-lien", "/blog");
+        s.setAttribute("data-actus-source", "/blog/articles.json");
         s.setAttribute("data-conseiller", "selection");
         /* La page déclare lang="en" alors que le site est en français. */
         s.setAttribute("data-language", "fr");
-        /* La barre et l’orbital écrits dans le site (src/actus) s’effacent
-           alors : le widget pose les siens. */
-        document.documentElement.setAttribute("data-lystes-widget", "1");
         document.body.appendChild(s);
       })();
     </script>
