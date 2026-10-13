@@ -182,10 +182,14 @@ const MODELES_IA: { nom: string; viewBox: string; d: string; evenodd?: boolean }
  * Variante du hero pour une autre page (12/10/2026, /bio) : même mise en
  * page, même machine à écrire, mêmes boutons, mais textes, photo de fond,
  * champ et liens fournis par la page. Sans variante, rien ne change pour
- * l'accueil. Une variante n'a ni fil de conversation, ni bascule, ni
- * carrousel des modèles IA.
+ * l'accueil. Une variante n'a ni bascule, ni carrousel des modèles IA ; elle
+ * peut avoir son fil de conversation (`fil`, /bio depuis le 13/10/2026),
+ * posé comme celui de l'accueil.
  */
 export type HeroVariante = {
+  /** Le fil de conversation sur la vidéo, comme sur l'accueil (JP, 13/10/2026 :
+   *  « les deux bannières uniformes »). */
+  fil?: { messages: MsgFil[]; agent?: string };
   /** Libellé accessible de la section. */
   aria: string;
   /** Classe propre à la page (« lyh--bio »), pour régler une page sans
@@ -572,7 +576,7 @@ export default function HomeHeroVideo({ variante }: { variante?: HeroVariante } 
 
   return (
     <section
-      className={variante ? `lyh lyh--variante${variante.classe ? ` ${variante.classe}` : ""}` : "lyh"}
+      className={variante ? `lyh lyh--variante${variante.fil ? " lyh--fil" : ""}${variante.classe ? ` ${variante.classe}` : ""}` : "lyh"}
       aria-label={variante?.aria ?? t("heroHome.eyebrow", { defaultValue: "Écosystème d'agents IA par produit" })}
     >
       <style>{CSS}</style>
@@ -888,7 +892,9 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
         )}
       </div>
 
-      {!variante && <FilConversation messages={THREAD} />}
+      {variante?.fil
+        ? <FilConversation messages={variante.fil.messages} agent={variante.fil.agent} />
+        : !variante && <FilConversation messages={THREAD} />}
 
       {essaiUrl && (
         <Suspense fallback={null}>
@@ -901,9 +907,10 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
 }
 
 const CSS = `
-/* Variante (autre page) : pas de fil de conversation, donc pas de place
-   réservée sous les boutons sur téléphone. */
-@media (max-width:720px){ .lyh--variante .lyh-inner{ padding-bottom:56px !important; } }
+/* Variante (autre page) sans fil de conversation : pas de place réservée
+   sous les boutons sur téléphone. Avec un fil (/bio), la place de l'accueil
+   reste. */
+@media (max-width:720px){ .lyh--variante:not(.lyh--fil) .lyh-inner{ padding-bottom:56px !important; } }
 /* Variante : peu de liens, tous visibles d'un coup, sans flèches ni masque ;
    ils passent à la ligne sur téléphone au lieu d'être coupés. */
 .lyh--variante .lyh-install-row{ width:auto !important; max-width:100%; }
@@ -1086,27 +1093,9 @@ const CSS = `
 `;
 
 const CSS_FIL = `
-/* Fil de conversation (FilConversation) : accueil et /bio. Les variables du
+/* Fil de conversation (FilConversation) : bannière de l'accueil et de /bio. Les variables du
    verre sont redéfinies ici pour que le fil marche hors du hero. */
 .lyh-chat *{ box-sizing:border-box; }
-/* Dans un cadre plus étroit que l'écran (/bio) : le fil prend au plus la
-   largeur du cadre, sinon les bulles de droite sortaient du bord. */
-.lyh-chat.lyh-chat--cadre{ width:min(454px,100%); }
-/* Sur une photo claire et chargée (/bio), le verre seul laissait passer le
-   décor sous le texte : bulles teintées sombres, lisibles à tout instant. */
-.lyh-chat.lyh-chat--cadre .lyh-bubble{ background:rgba(16,16,16,.66); border-color:rgba(255,255,255,.14); }
-.lyh-chat.lyh-chat--cadre .lyh-row.dim .lyh-bubble{ opacity:.8; }
-.lyh-chat.lyh-chat--cadre .lyh-row.fade .lyh-bubble{ opacity:.45; }
-/* En mobile, le cadre de /bio fait 520px de haut : le fil y prend 380px au
-   lieu des 260px du hero, et des bulles de 300px, sinon la bulle des trois
-   produits sortait déjà par le haut et leurs noms se coupaient mot à mot. */
-@media (max-width:720px){
-  .lyh-chat.lyh-chat--cadre{ height:380px; }
-  .lyh-chat.lyh-chat--cadre .lyh-bubble{ max-width:300px; }
-  .lyh-chat.lyh-chat--cadre .lyh-prod{ padding:8px 4px 10px; }
-  .lyh-chat.lyh-chat--cadre .lyh-prod b{ font-size:10px; }
-  .lyh-chat.lyh-chat--cadre .lyh-prod span{ font-size:9.5px; line-height:1.25; }
-}
 .lyh-chat{ --gb:rgba(255,255,255,.10); --gbd:rgba(255,255,255,.18); --ease:cubic-bezier(.22,1,.36,1);
   color:#fff; font-family:-apple-system,BlinkMacSystemFont,"Bricolage Grotesque","Helvetica Neue",Helvetica,Arial,sans-serif;
   position:absolute; right:0; bottom:0; z-index:3; width:min(454px,100vw); height:386px; padding:16px 16px 32px; display:flex; flex-direction:column; justify-content:flex-end; overflow:clip; pointer-events:none;
