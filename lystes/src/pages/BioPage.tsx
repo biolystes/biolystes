@@ -148,7 +148,8 @@ const BIO_HERO = (onProjet: (projet: string) => void): HeroVariante => ({
   classe: "lyh--bio",
   /* 13/10/2026 (JP, capture de référence) : surtitre court. */
   eyebrow: "Mise en place en 10 jours",
-  titre: "Lancez votre marque\ncosmétique bio et végane\u00a0:",
+  /* Sans deux-points (JP, 13/10/2026). */
+  titre: "Lancez votre marque\ncosmétique bio et végane",
   phrases: [
     "soins du visage",
     "soins anti-âge",
