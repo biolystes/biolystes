@@ -7,6 +7,7 @@ import diagnosticFace from "@lystes/features/landing-particuliers/pages/diagnost
 import { demanderMaillage } from "@lystes/lib/mediapipe-sur";
 import SafeVideo from "@lystes/components/bio/SafeVideo";
 import { ChevronsCarrousel } from "./ChevronsCarrousel";
+import { CarteProtection } from "@lystes/components/bio/ResponsabiliteSection";
 import { ENTETE_BIO, ONGLETS_BIO, type EtapeBio, type MediaEtape } from "./vision/etapesBio";
 
 /**
@@ -1553,13 +1554,15 @@ function FicheDemo({ src }: { src: string }) {
    aimanté). L'avance automatique est pilotée par la scène (`index`) ; un
    glissé à la main remonte l'index par `choisir`. Le même composant sert au
    packaging Cléa et aux colis reçus. */
-function CarrouselBio({ diapos, index, choisir, trio, annoncer }: {
+function CarrouselBio({ diapos, index, choisir, trio, duo, annoncer }: {
   diapos: readonly MediaEtape[];
   index: number;
   choisir: (i: number) => void;
   /* Trois à la fois sur ordinateur, une et demie sur téléphone ; le nom de
      chaque visuel est écrit dessus. */
   trio?: boolean;
+  /* Deux à la fois (captures de magazines, 4:5). */
+  duo?: boolean;
   /* Le nombre de positions réelles de la piste (moins que de visuels quand
      plusieurs se voient à la fois). */
   annoncer: (n: number) => void;
@@ -1614,7 +1617,7 @@ function CarrouselBio({ diapos, index, choisir, trio, annoncer }: {
     return () => { el.removeEventListener("scroll", defile); window.clearTimeout(t); };
   }, [choisir]);
   return (
-    <div className={"lyv-carrousel" + (trio ? " lyv-carrousel-trio" : "")}>
+    <div className={"lyv-carrousel" + (trio ? " lyv-carrousel-trio" : "") + (duo ? " lyv-carrousel-duo" : "")}>
       <div className="lyv-carrousel-piste" ref={piste}>
         {diapos.map((d, i) => (
           <div className="lyv-carrousel-diapo" key={d.src + i} style={{ "--lyv-pos": d.position ?? "50% 50%" } as CSSProperties}>
@@ -2214,14 +2217,15 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
               sur téléphone, la ligne d'étapes et l'encart. */}
           {courant.etapes && pied && (() => {
             const m0 = mediaEtape(courant.etapes, etape);
-            const m = m0?.type === "diapos" && !m0.trio && m0.diapos?.length ? m0.diapos[diapo % m0.diapos.length] : m0;
+            const m = m0?.type === "diapos" && !m0.trio && !m0.duo && m0.diapos?.length ? m0.diapos[diapo % m0.diapos.length] : m0;
             return (
               <>
                 <div className="lyv-cadre">
-                  <div className={"lyv-media" + (m?.type === "fiche" ? " lyv-media-fiche" : "") + (m0?.type === "diapos" && m0.trio ? " lyv-media-trio" : "")} style={{ "--lyv-pos": m?.position ?? "50% 50%" } as CSSProperties}>
+                  <div className={"lyv-media" + (m?.type === "fiche" ? " lyv-media-fiche" : "") + (m?.type === "protection" ? " lyv-media-protection" : "")
+                    + (m?.contenir ? " lyv-media-contenir" : "") + (m0?.type === "diapos" && m0.trio ? " lyv-media-trio" : "") + (m0?.type === "diapos" && m0.duo ? " lyv-media-duo" : "")} style={{ "--lyv-pos": m?.position ?? "50% 50%" } as CSSProperties}>
                     {m0?.type === "diapos" && m0.diapos?.length
                       ? <CarrouselBio key={courant.id + etape} diapos={m0.diapos} index={diapo % m0.diapos.length} choisir={setDiapo}
-                          trio={m0.trio} annoncer={setPositionsDiapos} />
+                          trio={m0.trio} duo={m0.duo} annoncer={setPositionsDiapos} />
                       : m?.type === "grille" && m.produits
                       ? (
                         /* La sélection : trois produits par rangée ; les badges
@@ -2288,6 +2292,12 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
                            (public/demo-eclose) : elle se réduit seule à la
                            largeur du cadre et joue sa conversation. */
                         <FicheDemo key={m.src} src={m.src} />
+                      )
+                      : m?.type === "protection"
+                      ? (
+                        /* La carte « Protection réglementaire 100 % » de la
+                           section Conformité, reprise telle quelle. */
+                        <div className="lyv-protection"><CarteProtection /></div>
                       )
                       : m?.type === "video"
                       ? <SafeVideo key={m.src} src={m.src} poster={m.affiche} className="lyv-media-el" />
@@ -2609,6 +2619,20 @@ const CSS = `
 .lyv-carrousel-points button.on{ width:18px; background:#fff; }
 .lyv-carrousel-points button:focus-visible{ outline:2px solid #000; outline-offset:2px; }
 @media (max-width:720px){ .lyv-carrousel-diapo{ border-radius:10px; } .lyv-carrousel-piste{ gap:6px; } }
+/* Deux à la fois (magazines) : vignettes 4:5 dans le cadre 1,6 ; sur
+   téléphone, une et quart, dans un cadre carré. */
+.lyv-carrousel-duo .lyv-carrousel-piste{ background:transparent; }
+.lyv-carrousel-duo .lyv-carrousel-diapo{ flex-basis:calc((100% - 8px) / 2); }
+.lyv-media.lyv-media-duo{ background:transparent; }
+@media (max-width:720px){ .lyv-media.lyv-media-duo{ aspect-ratio:1 / 1; } .lyv-carrousel-duo .lyv-carrousel-diapo{ flex-basis:80%; } }
+/* Une image entière, centrée sur le gris du cadre (feed, multilien). */
+.lyv-media.lyv-media-contenir{ background:transparent; }
+.lyv-media.lyv-media-contenir .lyv-media-el{ object-fit:contain; border-radius:12px; }
+/* Sur téléphone, un cadre plus haut : le multilien et le feed restent lisibles. */
+@media (max-width:720px){ .lyv-media.lyv-media-contenir{ aspect-ratio:4 / 5; } }
+/* La carte « Protection réglementaire » : à sa hauteur, sur fond blanc. */
+.lyv-media.lyv-media-protection{ aspect-ratio:auto; padding:20px; }
+@media (max-width:720px){ .lyv-media.lyv-media-protection{ padding:14px; } }
 /* Trois à la fois (packaging, colis) : le cadre s'élargit pour des
    visuels en 4:5 de même hauteur ; sur téléphone, un et demi. */
 /* JP, 13/10 : « serré », « en trois quarts ». Trois vignettes 3:4 côte à

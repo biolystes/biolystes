@@ -154,7 +154,6 @@ function ficheEclose({ etat = 0, plein = 0 } = {}) {
       <div class="etoiles" data-z="avis">${carres(15)}<b>Excellent</b><span>· 4,7 sur 5</span><u>(10 avis)</u></div>
       <div class="seo" data-z="seo">
         <h1 class="titre" data-z="seoTitre">${ECLOSE.titre}</h1>
-        <div class="prix">45 €</div>
         <div class="desc-boite"><p class="desc">${ECLOSE.description}</p></div>
       </div>
       ${chat()}

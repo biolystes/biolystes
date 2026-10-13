@@ -11,7 +11,6 @@ import {
   Sparkles, Clock, Shield, Zap,
   AlertTriangle, Warehouse, Users, Eye, Timer, ChevronLeft, ChevronRight,
 } from "lucide-react";
-import ResponsabiliteSection from "@lystes/components/bio/ResponsabiliteSection";
 import InstaFeedSection from "@lystes/components/bio/InstaFeedSection";
 import WirtzkinSection from "@lystes/components/bio/WirtzkinSection";
 import HomeHeroVideo, { NB, type HeroVariante, type MsgFil } from "@lystes/features/solutions/HomeHeroVideo";
@@ -185,7 +184,7 @@ const BIO_HERO = (onProjet: (projet: string) => void): HeroVariante => ({
   },
   liens: [
     { label: "Certifié Bio & Végan", href: "#section-qualite", icone: { paths: ["M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z", "M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"] } },
-    { label: "Conformité COSMOS/ECOCERT/FDA", href: "#section-conformite", icone: { paths: ["M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"] } },
+    { label: "Conformité COSMOS/ECOCERT/FDA", href: "#section-qualite", icone: { paths: ["M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"] } },
     { label: "Lancement Rapide", href: "#section-comprend", icone: { paths: ["M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"] } },
   ],
   texte: "Pas de stock à acheter, pas de minimum de commande. On prend tout en charge de A à Z.",
@@ -612,7 +611,7 @@ export default function DecouvertePage() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0} className="mt-12 text-center">
             <p className="text-[10px] font-bold tracking-[0.35em] uppercase text-muted-foreground">Ce que nous garantissons</p>
             <div className="mt-5 flex flex-wrap justify-center gap-2">
-              {["Ingrédients d’origine naturelle", "Parfums véganes", "Production à la demande", "Traçabilité complète", "Laboratoires certifiés", "Échantillons disponibles", "Aucun minimum de commande", "Expédition sous votre marque", "Végétalien", "Certifié naturel"].map(item => (
+              {["Ingrédients d’origine naturelle", "Parfums véganes", "Production à la demande", "Traçabilité complète", "Laboratoires certifiés", "Testez vos produits avant de vous engager", "Aucun minimum de commande", "Expédition sous votre marque", "Végétalien", "Certifié naturel"].map(item => (
                 <span key={item} className="bg-secondary rounded-full px-4 py-2 text-[11px] text-foreground inline-flex items-center gap-1.5">
                   <Check className="h-3 w-3 shrink-0" strokeWidth={2.5} />
                   {item}
@@ -738,13 +737,8 @@ export default function DecouvertePage() {
       </section>
 
 
-      {/* ═══ 6. LA CONFORMITÉ ═══
-          12/10/2026 : les blocs IA (équipes, avant/après) qui partageaient
-          cette section sont retirés ; la partie IA se présente sur l’accueil.
-          Reste le bloc conformité, qui est le sujet de la marque blanche. */}
-      <section id="section-conformite" ref={setRef("conformite")} className="max-w-5xl mx-auto bg-background mt-8 px-6 md:px-16 pb-10 md:pb-14">
-        <ResponsabiliteSection />
-      </section>
+      {/* « Conformité & Responsabilité » et « Litige » sont passés dans
+          l’onglet Assurance des étapes de création (JP, 13/10/2026). */}
 
 
       {/* ═══ 7. PORTFOLIO : NOS CLIENTS ═══ */}

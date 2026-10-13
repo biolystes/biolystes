@@ -1,6 +1,5 @@
-import { BadgeCheck, Leaf, ShieldCheck, PackageX, FileText, Image as IconeImage, Newspaper, Package, PenTool, ScanSearch, Star, Store, Truck, Bot, type LucideIcon } from "lucide-react";
-import ecrin from "@lystes/assets/magazines/ecrin.jpg.asset.json";
-import brume from "@lystes/assets/magazines/brume.jpg.asset.json";
+import { BadgeCheck, Scale, FileCheck2, Leaf, ShieldCheck, PackageX, FileText, Image as IconeImage, Newspaper, Package, PenTool, ScanSearch, Star, Store, Truck, Bot, type LucideIcon } from "lucide-react";
+import { PHOTO_PRODUIT_ENDOMMAGE, TEXTE_LITIGE, TEXTE_RISQUE } from "@lystes/components/bio/ResponsabiliteSection";
 import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
 
 /**
@@ -22,9 +21,11 @@ import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
  *    (Amarsi, 235th, Jolie Peau) et le colis Éclose ;
  *  - ecommerce-step : la boutique Kaniwa Botanique ;
  *  - fiche : la fiche de démonstration de l'accueil (public/demo-eclose) ;
- *  - feed : le feed Sevmylook de biolystes.com/agence ;
+ *  - feed : quatre vignettes du feed Sevmylook de biolystes.com/agence ;
+ *  - presse : captures des magazines Brume, Écrin, Élunesse (public/bio-presse) ;
+ *  - avis, mag IA, multilien : vraies vues lystes.ai de Lystes & Partners ;
+ *  - assurance : l'étui 235th abîmé et la carte « Protection réglementaire ».
  *  - validation : les produits Lystes & Partners (public/bio-validation) ;
- *  - ecrin et brume : deux magazines beauté du réseau.
  * Jamais le mot « échantillons » (JP, 13/10 : « on vous envoie les produits »).
  * La boutique de démonstration Lystes & Partners n'existe pas en image dans
  * le dépôt : l'onglet E-commerce montre la vraie boutique Kaniwa Botanique.
@@ -37,7 +38,11 @@ export type ProduitGrille = { image: string; nom: string; valide?: boolean };
 export type CarteInci = { photo: string; produit: string; inci: string; surligne: string };
 
 export type MediaEtape = {
-  type: "image" | "video" | "grille" | "inci" | "diapos" | "fiche";
+  type: "image" | "video" | "grille" | "inci" | "diapos" | "fiche" | "protection";
+  /* Image entière, centrée sur le fond du cadre, au lieu d'être recadrée. */
+  contenir?: boolean;
+  /* Type « diapos » : deux à la fois (captures de magazines). */
+  duo?: boolean;
   /* Type « grille » : le nombre de colonnes (3 par défaut). */
   colonnes?: number;
   /* Type « diapos » : plusieurs visuels qui défilent, chacun sa légende ;
@@ -285,7 +290,7 @@ export const ONGLETS_BIO: OngletBio[] = [
   {
     id: "bio-communication",
     titre: "Communication",
-    court: "Communication",
+    court: "Comm.",
     etage: "Étape 5 · Communication",
     benefices: [[IconeImage, "Votre feed Instagram"], [Newspaper, "Des articles de presse"], [Star, "Vos avis visibles sur Google"]],
     accroche: "Une marque visible dès son lancement.",
@@ -295,36 +300,81 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "vos publications, prêtes à poster",
         role: "Votre feed Instagram : des publications à vos couleurs, prêtes à poster.",
         unique: "",
-        /* Le feed réalisé pour Sevmylook, montré sur biolystes.com/agence
-           (biolystes, src/assets/agence-reseaux.jpg) : ses deux premières
-           rangées, sans retouche. */
-        media: PHOTO("/bio-communication/feed-instagram-sevmylook.webp", ["Sevmylook", ", le feed Instagram"], "50% 50%"),
+        /* Le feed réalisé pour Sevmylook (biolystes.com/agence, biolystes
+           src/assets/agence-reseaux.jpg) : quatre de ses vignettes produit,
+           deux par rangée, en plus petit (JP, 13/10 : « trop zoomé »).
+           Aucune vignette avec un visage. */
+        media: { type: "image", src: "/bio-communication/feed-sevmylook-produits.webp", contenir: true, legende: ["Sevmylook", ", le feed Instagram"] },
       },
       {
         nom: "Articles de presse",
         mission: "votre marque dans des magazines beauté",
         role: "Des articles de presse sur votre marque, dans des magazines beauté : qui tape son nom sur Google trouve de vrais articles.",
         unique: "",
-        media: PHOTO(ecrin.url, ["Écrin", ", un magazine beauté du réseau"], "50% 0%"),
+        /* Captures d'écran des magazines, prises le 13/10/2026 à 1440 px
+           (bandeaux refusés) et cadrées sur le nom et le titre ; des articles
+           sans visage, les accueils en montrant. Deux à la fois. */
+        media: { type: "diapos", src: "", duo: true, intervalle: 3000, legende: ["Brume, Écrin, Élunesse", ", nos magazines partenaires"], diapos: [
+          PHOTO("/bio-presse/brume-anua.webp", ["", ""]),
+          PHOTO("/bio-presse/ecrin-rdrd.webp", ["", ""]),
+          PHOTO("/bio-presse/elunesse-phytochimie.webp", ["", ""]),
+          PHOTO("/bio-presse/brume-sync-beauty.webp", ["", ""]),
+          PHOTO("/bio-presse/ecrin-lacto-glow.webp", ["", ""]),
+          PHOTO("/bio-presse/elunesse-niacinamide.webp", ["", ""]),
+        ] },
+        duree: 15000,
       },
       {
         nom: "Plateforme d’avis",
         mission: "les avis de vos clientes, avec vos étoiles sur Google",
         role: "Notre plateforme d’avis recueille les avis de vos clientes, produit par produit, et vos étoiles apparaissent sur Google.",
         unique: "",
+        /* Les vraies vues des pages publiques de lystes.ai, avec la marque de
+           démonstration Lystes & Partners (étage « Vos outils » de
+           l'accueil) : la marque n'a pas de page publique en ligne. */
+        media: PHOTO("/bio-communication/lystes-partners-avis.webp", ["Lystes & Partners", ", la page d’avis (avis d’exemple)"], "50% 0%"),
       },
       {
         nom: "Mag IA",
         mission: "des articles qui amènent des clientes sur votre boutique",
         role: "Le mag IA publie des articles nés des questions de vos clientes, écrits pour Google et pour ChatGPT, avec des boutons qui mènent à l’achat.",
         unique: "",
-        media: PHOTO(brume.url, ["Brume", ", un magazine beauté du réseau"], "50% 0%"),
+        media: PHOTO("/bio-communication/lystes-partners-mag.webp", ["Lystes & Partners", ", le magazine de la marque"], "50% 0%"),
       },
       {
         nom: "Multilien",
         mission: "un seul lien dans votre bio, vers le bon produit",
         role: "Notre multilien : un seul lien dans votre bio Instagram, avec un conseiller IA qui oriente chaque visiteuse vers le bon produit.",
         unique: "",
+        media: { type: "image", src: "/bio-communication/lystes-partners-multilien.webp", contenir: true, legende: ["Lystes & Partners", ", le multilien"] },
+      },
+    ],
+  },
+  {
+    /* 13/10/2026 (JP) : les sections « Litige » et « Conformité &
+       Responsabilité » de /bio deviennent cet onglet ; textes repris mot
+       pour mot (components/bio/ResponsabiliteSection.tsx), sections retirées
+       de la page. */
+    id: "bio-assurance",
+    titre: "Assurance",
+    court: "Assurance",
+    etage: "Étape 6 · Assurance",
+    benefices: [[ShieldCheck, "Produits endommagés remplacés"], [Scale, "Le risque produit porté par le laboratoire"], [FileCheck2, "Conformité réglementaire incluse"]],
+    accroche: "Comment se passe le partage des responsabilités en cas de litige ?",
+    etapes: [
+      {
+        nom: "Produit endommagé ou défectueux",
+        mission: "remplacement pris en charge sous 30 jours après livraison",
+        role: TEXTE_LITIGE,
+        unique: "",
+        media: { type: "image", src: PHOTO_PRODUIT_ENDOMMAGE, contenir: true, legende: ["Un étui abîmé", ", photographié à la réception"] },
+      },
+      {
+        nom: "Le risque produit",
+        mission: "Vous vendez. Le laboratoire assume le risque produit",
+        role: TEXTE_RISQUE,
+        unique: "",
+        media: { type: "protection", src: "", legende: ["Protection réglementaire", ", incluse"] },
       },
     ],
   },
