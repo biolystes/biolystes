@@ -116,7 +116,9 @@ const CTA_URL = "https://biolystes.pro/rdv";
    10/10/2026) ; le parfum n’y figure pas, il n’est donc pas annoncé. */
 const BIO_HERO = (onProjet: (projet: string) => void): HeroVariante => ({
   aria: "Lancez votre marque cosmétique bio et végane",
-  eyebrow: "En 10 jours · Profitez de plus de 18 ans d’expérience",
+  classe: "lyh--bio",
+  /* 13/10/2026 (JP, capture de référence) : surtitre court. */
+  eyebrow: "Mise en place en 10 jours",
   titre: "Lancez votre marque\ncosmétique bio et végane\u00a0:",
   phrases: [
     "soins du visage",
