@@ -485,7 +485,7 @@ export function VueAvisMarque({
                 {data.products.length} produits : cliquez pour voir la fiche et ses avis
               </p>
             </div>
-            <div className="-mx-6 flex snap-x snap-mandatory gap-2 overflow-x-auto bg-stone-50 px-6 py-4 [scrollbar-width:thin]">
+            <div className="-mx-6 flex snap-x snap-mandatory gap-2 overflow-x-auto bg-stone-50 px-6 py-4">
               {data.products.map((p: BrandProductCard) => {
                 const st = parProduit.get(p.id);
                 const moy = st ? st.somme / st.n : 0;

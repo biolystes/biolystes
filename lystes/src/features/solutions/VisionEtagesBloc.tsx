@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import VisionEtages from "./VisionEtages";
+import VisionEtages, { type Secteur } from "./VisionEtages";
 import scopeCss from "@lystes/features/shot/biolystes-scope.css?raw";
 
 /**
@@ -10,6 +10,9 @@ import scopeCss from "@lystes/features/shot/biolystes-scope.css?raw";
  * composant : textes, onglets, visites et styles restent à un seul endroit,
  * VisionEtages.tsx. Les styles du cadre (.biolystes-ai-scope) viennent de la
  * même feuille que /shot.
+ *
+ * `secteur="bio"` (13/10/2026, JP) : les étapes de création de marque de
+ * /bio. Pas de fiche Éclose : le cadre de la fiche reste vide et masqué.
  */
 type Slots = {
   tete: HTMLElement;
@@ -22,7 +25,7 @@ type Slots = {
   demo: HTMLElement;
 };
 
-export default function VisionEtagesBloc() {
+export default function VisionEtagesBloc({ secteur }: { secteur?: Secteur } = {}) {
   const tete = useRef<HTMLDivElement>(null);
   const scene = useRef<HTMLDivElement>(null);
   const texte = useRef<HTMLDivElement>(null);
@@ -51,13 +54,13 @@ export default function VisionEtagesBloc() {
             <div id="vision-texte-slot" className="lyv-s-texte" ref={texte} />
             <div className="lyv-s-visuel">
               <div id="vision-demo" className="lyv-demo" ref={demo} style={{ position: "relative", width: "100%", borderRadius: 22, background: "#f3f4f5" }}>
-                <iframe
+                {secteur !== "bio" && <iframe
                   className="lyv-demo-ecran"
                   src="/demo-eclose/index.html"
                   title="Fiche produit Éclose Paris : les dix agents IA au travail"
                   loading="lazy"
                   style={{ display: "block", width: "100%", border: 0 }}
-                />
+                />}
                 <div id="vision-pastilles-slot" ref={pastilles} style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 2 }} />
               </div>
               <div id="vision-visuel-slot" ref={visuel} />
@@ -67,7 +70,7 @@ export default function VisionEtagesBloc() {
           <div id="vision-panneaux-slot" ref={apres} />
         </div>
       </div>
-      {slots && <VisionEtages {...slots} />}
+      {slots && <VisionEtages secteur={secteur} {...slots} />}
     </div>
   );
 }
