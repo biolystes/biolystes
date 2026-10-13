@@ -1,7 +1,6 @@
 import { BadgeCheck, Leaf, ShieldCheck, PackageX, FileText, Image as IconeImage, Newspaper, Package, Palette, PenTool, ScanSearch, Star, Store, Truck, Bot, type LucideIcon } from "lucide-react";
-import showcase1 from "@lystes/assets/showcase-1.mp4.asset.json";
-import showcase2 from "@lystes/assets/showcase-2.mp4.asset.json";
-import kaniwaSerum from "@lystes/assets/kaniwa-serum.webp.asset.json";
+import showcaseAmarsi from "@lystes/assets/showcase-amarsi.jpg.asset.json";
+import showcasePeau from "@lystes/assets/showcase-peau.jpg.asset.json";
 import chatFiche from "@lystes/assets/chat.mov.asset.json";
 import ecrin from "@lystes/assets/magazines/ecrin.jpg.asset.json";
 import brume from "@lystes/assets/magazines/brume.jpg.asset.json";
@@ -14,19 +13,22 @@ import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
  * contenu change. Les titres des onglets restent courts : les cinq tiennent
  * dans la pilule, comme ceux de l’accueil.
  *
- * Visuels : uniquement des photos et des vidéos réelles déjà dans le dépôt,
- * aucune image générée, aucune deux fois sur la page. Une étape sans visuel
- * garde celui de l'étape d'avant.
- *  - showcase-1 et showcase-2 : les vraies vidéos des produits reçus,
- *    Wirtzkin et Sevmylook, dans l'onglet Envoi seulement ;
- * Jamais le mot « échantillons » (JP, 13/10 : « on vous envoie les produits »).
- *  - planche-marque-nura : la planche de marque fournie par JP ;
- *  - kaniwa-serum : le packaging Kaniwa
- *    Botanique, l'étui et le packshot ;
+ * Visuels : uniquement des photos et des vidéos réelles, du dépôt ou
+ * fournies par JP, aucune image générée, aucune deux fois sur la page. Une
+ * étape sans visuel garde celui de l'étape d'avant ; une étape de type
+ * « diapos » fait défiler les siens.
+ *  - grille de sélection : packshots du catalogue (public/bio-selection) ;
+ *  - fiche INCI : la bergamote et la vraie liste INCI d'un produit ;
+ *  - logo : l'enseigne et les stickers Skin Atelier (diptyque) ;
+ *  - branding : la planche NURA skincare ;
+ *  - packaging : quatre photos Cléa Skincare (public/bio-packaging) ;
+ *  - envoi : les colis reçus par nos clientes, repris de /biolystes/rdv
+ *    (Sevmylook, Wirtzkin, Amarsi, 235th, Jolie Peau) et le colis Éclose ;
  *  - ecommerce-step : la boutique Kaniwa Botanique ;
  *  - chat.mov : l'agent IA qui répond sur une fiche produit Kaniwa ;
  *  - publicite-social.mov : une publication carrée, au format du feed ;
  *  - ecrin et brume : deux magazines beauté du réseau.
+ * Jamais le mot « échantillons » (JP, 13/10 : « on vous envoie les produits »).
  * La boutique de démonstration Lystes & Partners n'existe pas en image dans
  * le dépôt : l'onglet E-commerce montre la vraie boutique Kaniwa Botanique.
  */
@@ -38,7 +40,12 @@ export type ProduitGrille = { image: string; nom: string; valide?: boolean };
 export type CarteInci = { photo: string; produit: string; inci: string; surligne: string };
 
 export type MediaEtape = {
-  type: "image" | "video" | "grille" | "inci";
+  type: "image" | "video" | "grille" | "inci" | "diptyque" | "diapos";
+  /* Type « diapos » : plusieurs visuels qui défilent, chacun sa légende. */
+  diapos?: readonly MediaEtape[];
+  intervalle?: number;
+  /* Type « diptyque » : deux photos côte à côte, même hauteur. */
+  images?: readonly [string, string];
   src: string;
   /* L'affiche d'une vidéo. */
   affiche?: string;
@@ -167,7 +174,7 @@ export const ONGLETS_BIO: OngletBio[] = [
     titre: "Logo et branding",
     court: "Logo",
     etage: "Étape 2 · Logo et branding",
-    benefices: [[PenTool, "Votre logo, créé ou modernisé"], [Palette, "Une palette et des motifs"], [Package, "Vos produits dessinés"]],
+    benefices: [[PenTool, "Votre logo, créé ou modernisé"], [Palette, "Une palette et des motifs"], [Package, "Le design du packaging"]],
     accroche: "Une identité qui vous ressemble.",
     etapes: [
       {
@@ -175,24 +182,36 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "un logo dessiné, ou celui qui existe modernisé",
         role: "Nous dessinons votre logo, ou nous modernisons celui que vous avez déjà.",
         unique: "",
-        /* La planche de marque fournie par JP (13/10/2026), recomposée à
-           l'horizontale sans rien couper : logo, monogramme, photo, deux
-           déclinaisons et la palette de six couleurs. Elle sert aussi à
-           l'étape branding. */
-        media: PHOTO("/bio-selection/planche-marque-nura.webp", ["NURA skincare", ", la planche de marque"], "50% 50%"),
+        /* JP, 13/10/2026 : « les 2 photos ensemble », l'enseigne et les
+           stickers de Skin Atelier, côte à côte. */
+        media: { type: "diptyque", src: "", images: ["/bio-selection/skin-atelier-enseigne.webp", "/bio-selection/skin-atelier-stickers.webp"],
+          legende: ["Skin Atelier", ", l’enseigne et les stickers"] },
       },
       {
         nom: "Votre branding",
         mission: "la palette de couleurs et les motifs de la marque",
         role: "Nous composons votre branding : la palette de couleurs et les motifs qui feront reconnaître votre marque.",
         unique: "",
+        /* La planche de marque NURA skincare, recomposée à l'horizontale sans
+           rien couper : logo, monogramme, photo, deux déclinaisons, palette de
+           six couleurs. La vidéo Skin Atelier est retirée (13/10/2026) : ses
+           plans reprenaient l'enseigne et les stickers du diptyque. */
+        media: PHOTO("/bio-selection/planche-marque-nura.webp", ["NURA skincare", ", la palette et les déclinaisons"], "50% 50%"),
       },
       {
-        nom: "Vos produits dessinés",
-        mission: "chaque flacon et chaque étui à vos couleurs",
-        role: "Nous dessinons vos produits : chaque flacon et chaque étui reçoit votre logo et votre univers.",
+        nom: "Design du packaging",
+        mission: "l’étui et l’étiquette de chaque produit, à vos couleurs",
+        role: "Nous dessinons le packaging de chaque produit : l’étui et l’étiquette, à vos couleurs.",
         unique: "",
-        media: PHOTO(kaniwaSerum.url, ["Kaniwa Botanique", ", le flacon et son étui"], "50% 55%"),
+        /* Les photos Cléa Skincare fournies par JP (13/10/2026), qui
+           défilent ; la salle de bain en dernier. */
+        media: { type: "diapos", src: "", intervalle: 3000, legende: ["Cléa Skincare", ""], diapos: [
+          PHOTO("/bio-packaging/clea-mise-en-scene.webp", ["Cléa Skincare", ", l’étui et le flacon"], "50% 55%"),
+          PHOTO("/bio-packaging/clea-etui-flacon.webp", ["Cléa Skincare", ", le gel hydratant non gras"], "50% 45%"),
+          PHOTO("/bio-packaging/clea-contour-yeux.webp", ["Cléa Skincare", ", la crème contour des yeux"], "50% 50%"),
+          PHOTO("/bio-packaging/clea-salle-de-bain.webp", ["Cléa Skincare", ", dans la salle de bain"], "50% 60%"),
+        ] },
+        duree: 12000,
       },
     ],
   },
@@ -209,14 +228,25 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "vos produits livrés, pour les tester",
         role: "Nous vous envoyons vos produits, pour que vous les testiez avant le lancement.",
         unique: "",
-        media: VIDEO(showcase2.url, ["Sevmylook", ", le coffret reçu"]),
+        /* Les colis reçus par nos clientes (JP, 13/10/2026), repris de la
+           page /biolystes/rdv, plus le colis Éclose recadré sur le carton.
+           Vidéos réduites à 720 px, sans son, avec affiche. L'étape
+           Validation garde ce carrousel. */
+        media: { type: "diapos", src: "", intervalle: 3000, legende: ["Sevmylook", ", le colis reçu"], diapos: [
+          { type: "video", src: "/videos/bio/colis-2.mp4", affiche: "/videos/bio/colis-2.webp", legende: ["Sevmylook", ", le colis reçu"] },
+          PHOTO("/bio-colis/eclose-colis.webp", ["Éclose Paris", ", le colis reçu"], "50% 50%"),
+          { type: "video", src: "/videos/bio/colis-1.mp4", affiche: "/videos/bio/colis-1.webp", legende: ["Wirtzkin", ", le colis reçu"] },
+          PHOTO(showcaseAmarsi.url, ["Amarsi", ", le colis reçu"], "50% 50%"),
+          PHOTO("/bio-colis/235th-colis.webp", ["235th", ", le colis reçu"], "50% 45%"),
+          PHOTO(showcasePeau.url, ["Jolie Peau", ", le colis reçu"], "50% 50%"),
+        ] },
+        duree: 18000,
       },
       {
         nom: "Validation des produits",
         mission: "les produits définitifs, validés après vos tests",
         role: "Après vos tests, nous validons avec vous les produits définitifs de votre gamme.",
         unique: "",
-        media: VIDEO(showcase1.url, ["Wirtzkin", ", les produits reçus"]),
       },
     ],
   },

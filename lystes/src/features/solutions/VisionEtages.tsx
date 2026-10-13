@@ -1602,6 +1602,19 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
   }, [cleEtape, idVisite]);
   const lecture = !!agents && vu && !enPause && !survol && !fenetreOuverte && (!idVisite || pretePour === cleEtape);
 
+  /* /bio : une étape à plusieurs visuels les fait défiler au rythme de la
+     jauge (en pause avec elle), et repart du premier à chaque passage. */
+  const mediaCourant = courant.etapes ? mediaEtape(courant.etapes, etape) : undefined;
+  const nbDiapos = mediaCourant?.type === "diapos" ? mediaCourant.diapos?.length ?? 0 : 0;
+  const intervalleDiapos = mediaCourant?.intervalle ?? 3000;
+  const [diapo, setDiapo] = useState(0);
+  useEffect(() => { setDiapo(0); }, [cle]);
+  useEffect(() => {
+    if (nbDiapos < 2 || !lecture) return;
+    const id = window.setInterval(() => setDiapo((d) => (d + 1) % nbDiapos), intervalleDiapos);
+    return () => window.clearInterval(id);
+  }, [nbDiapos, lecture, intervalleDiapos, cle]);
+
   const ongletId = courant.id;
   const annoncerTaille = useCallback((t: TailleCadre) => {
     setTailleVisuel((o) => (o && o.onglet === ongletId && o.w === t.w && o.h === t.h && o.largeurMin === t.largeurMin ? o : { onglet: ongletId, ...t }));
@@ -2099,7 +2112,8 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
           {/* /bio : le visuel réel de l'étape, sa légende, puis la navigation ;
               sur téléphone, la ligne d'étapes et l'encart. */}
           {courant.etapes && pied && (() => {
-            const m = mediaEtape(courant.etapes, etape);
+            const m0 = mediaEtape(courant.etapes, etape);
+            const m = m0?.type === "diapos" && m0.diapos?.length ? m0.diapos[diapo % m0.diapos.length] : m0;
             return (
               <>
                 <div className="lyv-cadre">
@@ -2162,6 +2176,13 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
                             </div>
                           </div>
                         </>
+                      )
+                      : m?.type === "diptyque" && m.images
+                      ? (
+                        /* Deux photos côte à côte, de même hauteur (JP, 13/10). */
+                        <div className="lyv-diptyque">
+                          {m.images.map((src) => <img key={src} src={src} alt="" loading="lazy" decoding="async" />)}
+                        </div>
                       )
                       : m?.type === "video"
                       ? <SafeVideo key={m.src} src={m.src} poster={m.affiche} className="lyv-media-el" />
@@ -2441,6 +2462,10 @@ const CSS = `
   .lyv-inci-debut{ display:none; }
   .lyv-inci-points{ display:inline; }
 }
+/* Le diptyque : deux colonnes de même hauteur, petit écart, coins arrondis. */
+.lyv-diptyque{ position:absolute; inset:0; display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:0; background:#f3f4f5; }
+.lyv-diptyque img{ width:100%; height:100%; object-fit:cover; object-position:50% 45%; border-radius:14px; display:block; min-width:0; }
+@media (max-width:720px){ .lyv-diptyque{ gap:6px; } .lyv-diptyque img{ border-radius:10px; } }
 /* La grille de sélection : trois colonnes, deux rangées, dans le même cadre
    que les photos. Le badge : rond pistache (l'élu de la maison), coche
    noire, liseré blanc comme le point de la visite. */
