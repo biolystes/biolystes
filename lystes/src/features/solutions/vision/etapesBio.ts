@@ -96,7 +96,7 @@ export const ENTETE_BIO = {
   probleme: ["Lancer une gamme cosmétique prend en moyenne ", "près d’un an", "."] as const,
   texte:
     "Le temps perdu ne se rattrape jamais. Pendant ces 12 mois d’attente, vous ne bâtissez rien\u00a0: ni\u00a0réputation, ni\u00a0communauté, ni\u00a0preuve sociale. " +
-    "Le plus grand handicap d’une jeune marque est son manque d’antériorité. Lorsque vous vous lancez enfin, les débuts sont laborieux faute d’historique, ce qui freine considérablement votre progression. " +
+    "Le plus grand handicap d’une jeune marque est son manque d’antériorité. " +
     "Avec Biolystes, changez la donne\u00a0: votre marque est opérationnelle en seulement 10\u00a0jours.",
   /* Une ligne chacun à 375 px, une icône au trait devant. */
   icones: [Leaf, ShieldCheck, PackageX] as LucideIcon[],
