@@ -45,8 +45,15 @@ const cantonnerLystes = () => ({
       }
       regle.selectors = regle.selectors.map((s) => {
         const sel = s.trim();
-        /* Variables du thème, barre de défilement de la fenêtre : inchangées. */
-        if (/^(:root|\.dark)\b/.test(sel) || /^::-webkit-scrollbar/.test(sel)) return sel;
+        /* Variables du thème, barres de défilement : inchangées. Chrome
+           n'applique ni bordure ni background-clip aux pièces de la barre
+           (::-webkit-scrollbar-track, -thumb) quand le sélecteur passe par un
+           combinateur descendant : préfixée, la règle commune
+           `:where(body *)::-webkit-scrollbar-*` rendait une barre pleine de
+           8 px au lieu du rail de 2 px (constaté le 13/10/2026). La bande
+           masquée `.scrollbar-hide` vaut aussi sur l'accueil (carrousel
+           Wirtzkin de lystes/, qui s'en sert sans la définir). */
+        if (/^(:root|\.dark)\b/.test(sel) || /^(:where\(body \*\))?::-webkit-scrollbar/.test(sel) || /^\.scrollbar-hide(::-webkit-scrollbar)?$/.test(sel)) return sel;
         /* html { overflow-x: hidden } empêchait les blocs collants de la page reprise. */
         if (/^html\b/.test(sel)) return `html:not(:has(> body${PORTEE}))${sel.slice(4)}`;
         if (/^body\b/.test(sel)) return `body:not(${PORTEE})${sel.slice(4)}`;

@@ -226,18 +226,7 @@ export default function BiolystesArticlesWidget() {
           padding: 8px;
         }
 
-        .biolystes-panel-scroll::-webkit-scrollbar {
-          width: 4px;
-        }
-
-        .biolystes-panel-scroll::-webkit-scrollbar-track {
-          background: transparent;
-        }
-
-        .biolystes-panel-scroll::-webkit-scrollbar-thumb {
-          background: rgba(0,0,0,0.12);
-          border-radius: 4px;
-        }
+        /* Défilement : la règle commune de src/index.css (rail 2 px). */
 
         .biolystes-article {
           padding: 14px;
