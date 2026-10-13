@@ -5,7 +5,6 @@ import kaniwaSerum from "@lystes/assets/kaniwa-serum.webp.asset.json";
 import chatFiche from "@lystes/assets/chat.mov.asset.json";
 import ecrin from "@lystes/assets/magazines/ecrin.jpg.asset.json";
 import brume from "@lystes/assets/magazines/brume.jpg.asset.json";
-import designPackaging from "@lystes/assets/bio/design-packaging-step.jpg";
 import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
 
 /**
@@ -21,7 +20,8 @@ import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
  *  - showcase-1 et showcase-2 : les vraies vidéos des produits reçus,
  *    Wirtzkin et Sevmylook, dans l'onglet Envoi seulement ;
  * Jamais le mot « échantillons » (JP, 13/10 : « on vous envoie les produits »).
- *  - design-packaging-step et kaniwa-serum : le packaging Kaniwa
+ *  - planche-marque-nura : la planche de marque fournie par JP ;
+ *  - kaniwa-serum : le packaging Kaniwa
  *    Botanique, l'étui et le packshot ;
  *  - ecommerce-step : la boutique Kaniwa Botanique ;
  *  - chat.mov : l'agent IA qui répond sur une fiche produit Kaniwa ;
@@ -175,7 +175,11 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "un logo dessiné, ou celui qui existe modernisé",
         role: "Nous dessinons votre logo, ou nous modernisons celui que vous avez déjà.",
         unique: "",
-        media: PHOTO(designPackaging, ["Kaniwa Botanique", ", le logo et les motifs"], "50% 40%"),
+        /* La planche de marque fournie par JP (13/10/2026), recomposée à
+           l'horizontale sans rien couper : logo, monogramme, photo, deux
+           déclinaisons et la palette de six couleurs. Elle sert aussi à
+           l'étape branding. */
+        media: PHOTO("/bio-selection/planche-marque-nura.webp", ["NURA skincare", ", la planche de marque"], "50% 50%"),
       },
       {
         nom: "Votre branding",
