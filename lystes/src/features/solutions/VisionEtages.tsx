@@ -4,6 +4,7 @@ import { BadgeCheck, BadgeEuro, BookOpen, Brain, CalendarCheck, CalendarDays, Cl
 import { ScrollRail } from "@lystes/components/shot/ScrollRail";
 import { FaceMeshScanner } from "@lystes/features/landing-particuliers/components/diagnostic/FaceMeshScanner";
 import diagnosticFace from "@lystes/features/landing-particuliers/pages/diagnostic-agent/assets/diagnostic-face.jpg";
+import { demanderMaillage } from "@lystes/lib/mediapipe-sur";
 
 /**
  * La vision Lystes par étages, sur `/accueil-v2` (09/10/2026, JP) : vos
@@ -840,6 +841,10 @@ function MiroirVisage() {
   const toile = useRef<HTMLCanvasElement>(null);
   const [miroir, setMiroir] = useState(true);
   useEffect(() => {
+    /* Le scanner de la page ne charge MediaPipe qu'à l'approche de l'écran
+       (PR 363) : sans cette demande, il restait hors de vue et l'encart
+       recopiait la photo sans maillage (JP, 13/10). */
+    demanderMaillage();
     let id = 0;
     const pas = () => {
       const source = document.querySelector<HTMLCanvasElement>("#diagnostic-facemesh-slot canvas");

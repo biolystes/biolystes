@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { getJsxT } from "@lystes/i18n/jsx-locale";
 import { useMouvementReduit } from "@lystes/hooks/useMouvementReduit";
-import { neutraliserAlerteMediapipe, webglDisponible } from "@lystes/lib/mediapipe-sur";
+import { neutraliserAlerteMediapipe, surDemandeMaillage, webglDisponible } from "@lystes/lib/mediapipe-sur";
 
 // Generate face mesh tesselation connections (subset for performance)
 const generateConnections = () => {
@@ -108,6 +108,9 @@ export function FaceMeshScanner({ imageUrl, className = "", onFaceDetected }: Fa
       setEnVue(true);
       return;
     }
+    /* L'encart des étages (MiroirVisage) recopie ce canvas hors de l'écran :
+       il demande le maillage sans attendre que le bloc soit en vue. */
+    const lacher = surDemandeMaillage(() => setEnVue(true));
     const obs = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
@@ -118,7 +121,10 @@ export function FaceMeshScanner({ imageUrl, className = "", onFaceDetected }: Fa
       { rootMargin: "200px 0px" },
     );
     obs.observe(el);
-    return () => obs.disconnect();
+    return () => {
+      obs.disconnect();
+      lacher();
+    };
   }, []);
 
   const scanSpeed = 0.008;
