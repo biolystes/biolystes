@@ -32,3 +32,22 @@ comme les autres boutons de rendez-vous de la page.
 
 Gardés tels quels : liens de navigation (menus, pied de page), champ « Trouver
 des produits » de la bannière (recherche), champ newsletter du pied de page.
+
+## En-tête sans menus (JP, 13/10/2026, PR biolystes 10)
+
+| Endroit | Sur /bio | Sur biolystes.com |
+|---|---|---|
+| En-tête ordinateur | Entreprise, Équipes IA ▾, Lab ▾, Tarifs, langue | rien entre la bascule et « Prendre rendez-vous » |
+| Menu du téléphone | Entreprise, Équipes IA, Lab, Tarifs | E-commerce (/), Agents IA (https://lystes.ai), puis « Prendre rendez-vous » |
+
+**Langue cachée, pas supprimée.** Le sélecteur (drapeau et globe) et son code
+restent. Une constante le masque en ordinateur et dans le menu du téléphone :
+
+```ts
+// lystes/src/components/landing/Header.tsx
+const AFFICHER_LANGUE = false;   // true pour le rallumer
+```
+
+`ecarts_voulus.py` pose cette constante à `false` : pour rallumer la langue
+durablement, changer aussi la valeur dans `ecarts_voulus.py`, sinon le
+prochain alignement sur /bio la remettra à `false`.
