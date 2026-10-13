@@ -191,7 +191,15 @@ export type HeroVariante = {
   /** Bouton noir. */
   cta: { label: string; labelCourt?: string; href: string; externe?: boolean };
   /** Champ de saisie à droite du bouton. Facultatif : /crea n'en a pas. */
-  champ?: { placeholder: string; bouton: string; boutonCourt?: string; onSubmit: (valeur: string) => void };
+  champ?: {
+    placeholder: string;
+    /** Texte d'aide sur téléphone (720 px et moins), quand le long ne tient pas. */
+    placeholderCourt?: string;
+    bouton: string;
+    boutonCourt?: string;
+    /** Appelé avec le texte saisi, jamais vide : un champ vide prend seulement le focus. */
+    onSubmit: (valeur: string) => void;
+  };
   /** Petite ligne de liens sous les boutons. */
   liens?: { label: string; href: string; icone: { paths: string[]; circles?: [number, number, number][] } }[];
   /** Phrase sous les boutons. */
@@ -218,8 +226,24 @@ function useFondVariante(actif: boolean) {
   return etat;
 }
 
+/** Téléphone au sens de la mise en page du hero (720 px et moins). */
+function useEtroit(actif: boolean) {
+  const [etroit, setEtroit] = useState(false);
+  useEffect(() => {
+    if (!actif) return;
+    const mq = window.matchMedia("(max-width: 720px)");
+    const maj = () => setEtroit(mq.matches);
+    maj();
+    mq.addEventListener("change", maj);
+    return () => mq.removeEventListener("change", maj);
+  }, [actif]);
+  return etroit;
+}
+
 export default function HomeHeroVideo({ variante }: { variante?: HeroVariante } = {}) {
   const fondEtat = useFondVariante(!!variante);
+  const etroit = useEtroit(!!variante);
+  const champInputRef = useRef<HTMLInputElement>(null);
   /* Le titre etait ecrit en dur : sur /de la page passait en allemand mais le
      H1 restait en francais. Il passe par les cles, avec le francais en repli. */
   const { t, i18n } = useTranslation();
@@ -499,25 +523,55 @@ ${variante.voile ? `.lyh--variante .lyh-veil{ background:${variante.voile}; }` :
 ${variante.voileMobile ? `@media (max-width:720px){ .lyh--variante .lyh-veil{ background:${variante.voileMobile}; } }` : ""}
 ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#000; } .lyh--variante .lyh-btn-black .lyh-arrow{ background:#000; color:#fff; }` : ""}
 /* 12/10/2026 (JP, /bio en mobile) : titre plus présent mais équilibré, vidéo
-   sur toute la hauteur, bouton puis champ en pleine largeur, textes lisibles.
-   Règles posées après celles de l'accueil, qui ne change pas. */
+   sur toute la hauteur, textes lisibles. Règles posées après celles de
+   l'accueil, qui ne change pas.
+   13/10/2026 (JP, capture à 920 px) : « ces 2 doivent toujours être alignés
+   sur la même ligne ». Le bouton noir et le champ partagent UNE rangée à
+   toutes les largeurs, téléphone compris : même hauteur, mêmes bords haut et
+   bas, bord gauche sur la marge du titre. Avant, entre 721 et 1100 px, la
+   borne de 420 px de l'accueil les empilait, et le bouton (48 px) n'avait
+   pas la hauteur du champ (52 px). Une version côte à côte avait déplu en
+   mobile pour la même raison : les hauteurs sont donc fixées, pas laissées
+   au contenu. */
+.lyh.lyh--variante .lyh-btns{ flex-wrap:nowrap; align-items:stretch; max-width:100%; }
+.lyh.lyh--variante .lyh-btn-black{ flex:0 0 auto; height:52px; box-sizing:border-box; }
+.lyh.lyh--variante .lyh-btn-outline.lyh-field{ flex:0 1 336px; min-width:0; height:52px; box-sizing:border-box; }
+/* Preuves : la ligne prend la largeur du contenu et passe à la ligne au
+   lieu de sortir de l'écran (« Lance… » coupé à 920 px), écarts réguliers. */
+.lyh.lyh--variante .lyh-install-row{ width:100% !important; }
+.lyh.lyh--variante .lyh-install-track{ column-gap:16px; row-gap:10px; }
 @media (max-width:720px){
   .lyh.lyh--variante .lyh-h1{ font-size:clamp(30px, 9vw, 38px); line-height:1.08; margin-bottom:20px; }
   .lyh.lyh--variante .lyh-titre{ display:block; text-wrap:balance; }
   .lyh.lyh--variante .lyh-br{ display:none; }
   .lyh.lyh--variante .lyh-stage, .lyh.lyh--variante .lyh-bgvid{ height:100%; }
-  .lyh.lyh--variante .lyh-btns{ flex-direction:column; flex-wrap:nowrap; gap:10px; width:100%; }
-  .lyh.lyh--variante .lyh-btn-black, .lyh.lyh--variante .lyh-btn-outline.lyh-field{ order:0; width:100%; flex:0 0 auto; height:48px; min-width:0; box-sizing:border-box; }
-  .lyh.lyh--variante .lyh-btn-black{ justify-content:space-between; padding:6px 6px 6px 18px; font-size:14px; }
-  .lyh.lyh--variante .lyh-btn-black .lyh-cta-l{ display:inline; } .lyh.lyh--variante .lyh-btn-black .lyh-cta-s{ display:none; }
-  .lyh.lyh--variante .lyh-btn-black .lyh-arrow{ width:34px; height:34px; }
-  .lyh.lyh--variante .lyh-btn-outline.lyh-field{ padding:6px 6px 6px 18px; }
-  .lyh.lyh--variante .lyh-input{ font-size:14px; }
-  .lyh.lyh--variante .lyh-arrow.lyh-submit{ height:36px; font-size:12px; padding:0 14px; }
+  /* Téléphone : même rangée, libellés courts. Le bouton garde la largeur de
+     « Rendez-vous », le champ prend tout le reste. */
+  .lyh.lyh--variante .lyh-btns{ flex-direction:row; flex-wrap:nowrap; gap:8px; width:100%; }
+  .lyh.lyh--variante .lyh-btn-black, .lyh.lyh--variante .lyh-btn-outline.lyh-field{ order:0; height:48px; min-width:0; box-sizing:border-box; }
+  .lyh.lyh--variante .lyh-btn-black{ flex:0 0 auto; width:auto; justify-content:space-between; gap:7px; padding:5px 5px 5px 14px; font-size:13px; }
+  .lyh.lyh--variante .lyh-btn-black .lyh-arrow{ width:30px; height:30px; }
+  .lyh.lyh--variante .lyh-btn-outline.lyh-field{ flex:1 1 0; width:auto; padding:5px 5px 5px 13px; gap:6px; }
+  .lyh.lyh--variante .lyh-input{ font-size:13px; }
+  .lyh.lyh--variante .lyh-arrow.lyh-submit{ height:36px; font-size:12px; padding:0 11px; gap:4px; }
+  /* Sans champ (/crea), le bouton seul garde toute la largeur. */
+  .lyh.lyh--variante .lyh-btns--seul .lyh-btn-black{ flex:1 1 auto; padding:6px 6px 6px 18px; font-size:14px; }
+  .lyh.lyh--variante .lyh-btns--seul .lyh-btn-black .lyh-arrow{ width:34px; height:34px; }
+  .lyh.lyh--variante .lyh-btns--seul .lyh-btn-black .lyh-cta-l{ display:inline; } .lyh.lyh--variante .lyh-btns--seul .lyh-btn-black .lyh-cta-s{ display:none; }
   .lyh.lyh--variante .lyh-lien-shopify{ font-size:14px; gap:8px; }
   .lyh.lyh--variante .lyh-btn-logo{ width:16px; height:16px; }
+  /* Preuves empilées, sur la marge du titre. */
   .lyh.lyh--variante .lyh-install-row{ margin-top:16px; }
+  .lyh.lyh--variante .lyh-install-track{ flex-direction:column; align-items:flex-start; row-gap:10px; }
   .lyh.lyh--variante .lyh-offre{ font-size:14px; line-height:1.5; color:rgba(255,255,255,.9); margin-top:14px; }
+}
+/* 380 px et moins : quelques pixels repris aux marges intérieures pour que
+   « Votre projet… » tienne en entier dans le champ (mesuré à 375 px). */
+@media (max-width:380px){
+  .lyh.lyh--variante .lyh-btns:not(.lyh-btns--seul) .lyh-btn-black .lyh-arrow{ width:28px; height:28px; }
+  .lyh.lyh--variante .lyh-btns:not(.lyh-btns--seul) .lyh-btn-black{ padding-left:12px; gap:6px; }
+  .lyh.lyh--variante .lyh-btn-outline.lyh-field{ padding-left:12px; gap:5px; }
+  .lyh.lyh--variante .lyh-arrow.lyh-submit{ padding:0 9px; font-size:11.5px; }
 }`}</style>
       )}
 
@@ -625,7 +679,7 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
         </h1>
         )}
 
-        <div className="lyh-btns">
+        <div className={variante && !variante.champ ? "lyh-btns lyh-btns--seul" : "lyh-btns"}>
           <a
             className="lyh-btn-black"
             href={variante?.cta.href ?? "https://biolystes.pro/rdv"}
@@ -655,23 +709,28 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
           {/* Ce n'est plus un lien de démonstration mais un champ : le
               visiteur colle l'URL de sa page produit et la fenêtre d'essai
               (techno Shot) s'ouvre sur son propre produit. */}
-          {(!variante || variante.champ) && (
+          {/* biolystes.com : pas de champ « Tester gratuitement » hors variante. */}
+          {variante?.champ && (
           <form
             className="lyh-btn-outline lyh-field"
             onSubmit={(e) => {
               e.preventDefault();
               const v = urlSaisie.trim();
-              if (variante) variante.champ?.onSubmit(v);
-              else if (v) setEssaiUrl(v);
+              if (variante) {
+                /* Champ vide : rien ne part, le curseur se place dans le champ. */
+                if (!v) champInputRef.current?.focus();
+                else variante.champ?.onSubmit(v);
+              } else if (v) setEssaiUrl(v);
             }}
           >
             <input
+              ref={champInputRef}
               className="lyh-input"
               type="text"
               inputMode={variante ? "text" : "url"}
               value={urlSaisie}
               onChange={(e) => setUrlSaisie(e.target.value)}
-              placeholder={variante?.champ?.placeholder ?? t("heroHome.urlPlaceholder", { defaultValue: "Lien d'une fiche produit" })}
+              placeholder={(etroit && variante?.champ?.placeholderCourt) || variante?.champ?.placeholder || t("heroHome.urlPlaceholder", { defaultValue: "Lien d'une fiche produit" })}
               aria-label={variante?.champ?.placeholder ?? t("heroHome.urlPlaceholder", { defaultValue: "Lien d'une fiche produit" })}
             />
             <button className="lyh-arrow lyh-submit" type="submit" aria-label={variante?.champ?.bouton ?? t("heroHome.ctaFree", { defaultValue: "Tester gratuitement" })}>

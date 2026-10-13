@@ -6,6 +6,8 @@ import {
   EncartPose,
   LARGEUR_ENCART,
   DUREE_ETAPE,
+  useMargeDroite,
+  pointDevant,
   type Agent,
   type Cote,
   type Pied,
@@ -101,6 +103,8 @@ type Props = {
   prete?: (p: boolean) => void;
   /* « corporate » : la version Entreprises de /business (12/10/2026). */
   secteur?: Secteur;
+  /* Deux colonnes : l'encart peut sortir dans la marge de droite. */
+  marge?: boolean;
 };
 
 /* Chaque étape porte le nom de SON OUTIL (JP, 10/10 nuit : « il y a deux
@@ -667,7 +671,7 @@ const SECOURS = 1500;
 
 type Vise = { p: Point; cote: Cote; etape: number; cache?: boolean };
 
-export default function VisiteOutils({ etape, survol, mobile, pied, taille, prete, secteur = "ecommerce" }: Props) {
+export default function VisiteOutils({ etape, survol, mobile, pied, taille, prete, secteur = "ecommerce", marge }: Props) {
   const corpo = secteur === "corporate";
   const ETAPES_V = corpo ? ETAPES_CORPORATE : ETAPES;
   const jeu = corpo ? JEU_CORPORATE : JEU_ECOMMERCE;
@@ -703,6 +707,10 @@ export default function VisiteOutils({ etape, survol, mobile, pied, taille, pret
   const geoRef = useRef<Geometrie | null>(null);
   geoRef.current = geo;
   const viseCourant = vise && vise.etape === etape ? vise : null;
+  /* Deux colonnes : l'encart sort dans la marge de droite (VisionEtages,
+     useMargeDroite) ; le point vise déjà le bord droit de chaque cible. */
+  const hors = useMargeDroite(boite, !mobile && !!marge);
+  const pointVu = viseCourant ? pointDevant(viseCourant.p, hors) : null;
   const visible = secours && pret ? etape : affiche;
 
   /* Le secours ne libère l'étape que sur un écran qui a rendu sa page. */
@@ -865,14 +873,15 @@ export default function VisiteOutils({ etape, survol, mobile, pied, taille, pret
         </div>
       )}
       {viseCourant && !viseCourant.cache && (
-        <span className="lyv-pouls" style={{ left: viseCourant.p.x, top: viseCourant.p.y }} aria-hidden="true" />
+        <span className="lyv-pouls" style={{ left: pointVu?.x, top: pointVu?.y }} aria-hidden="true" />
       )}
       {geo && !mobile && (viseCourant ? !viseCourant.cache : secours) && (
         <EncartPose
           key={`o${etape}`}
           poseDirecte
           serrer={{ min: 180, deborde: 24 }}
-          point={viseCourant ? viseCourant.p : null}
+          hors={hors}
+          point={pointVu}
           cote={viseCourant?.cote ?? etapeOutil.visee.cote}
           cadre={{ w: geo.boiteW, h: geo.boiteH }}
           largeur={LARGEUR_ENCART}

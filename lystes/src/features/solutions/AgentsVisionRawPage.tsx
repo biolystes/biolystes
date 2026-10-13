@@ -363,7 +363,8 @@ export default function AgentsVisionRawPage() {
         {/* La home depuis le 11/10/2026 (JP) : indexée, sans noindex. */}
       </Helmet>
       <div dangerouslySetInnerHTML={{ __html: beforeHtml }} />
-      {isHomeRoute && <HomeCreatorsGallery />}
+      {/* biolystes.com : sans le panneau de création, comme sur l’accueil. */}
+      {isHomeRoute && <HomeCreatorsGallery sansGeneration />}
       <Hierarchy className="pt-10 md:pt-14" />
       <div dangerouslySetInnerHTML={{ __html: afterHierarchyHtml }} />
       {chatSlot && createPortal(<AnimatedChat />, chatSlot)}

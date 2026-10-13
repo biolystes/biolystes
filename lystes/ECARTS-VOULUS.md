@@ -63,14 +63,19 @@ rechargement.
 |---|---|---|
 | Bascule de l'en-tête | Ecommerce (/) / Entreprises (/business) | E-commerce (/) / Agents IA (/agents-ia), en `Link`, `replace={false}`, pastille lue sur la vraie adresse |
 | Menu du téléphone | — | E-commerce (/) / Agents IA (/agents-ia), en `Link` |
-| Bannière de /agents-ia | S'inscrire en 5 min | Prendre rendez-vous (court : « Rendez-vous » sous 721 px) |
+| Bannière de /agents-ia | S'inscrire en 5 min | Prendre rendez-vous (« Rendez-vous » sous 721 px, sinon le libellé passe sur deux lignes) |
 | Bannière de /agents-ia | Installer sur Shopify, WooCommerce, en point de vente, au domicile, lors de vos événements | rangée retirée |
 | Photo de Cléa (/agents-ia) | Appeler Cléa | retiré |
 | Bas de page de /agents-ia | S'inscrire en 5 min + Parler au fondateur | Prendre rendez-vous |
-| Bas de page de /agents-ia | « N jours d'essai gratuits, carte demandée… » | « Sans engagement · Configuration guidée » |
+| Bas de page de /agents-ia | « N jours d'essai gratuits, carte demandée… » | retiré |
 | Démos (bannière de /agents-ia, chat animé) | 35,00 €, 34,00 €, 29,00 € | sans prix |
 
-Gardés : le bandeau « Démo : ajoutez lystes.ai/ … » au-dessus de l'en-tête, le champ
-« Lien d'une fiche produit / Tester gratuitement » (démonstration, pas une
-inscription), les liens « En savoir plus » des cartes (vers lystes.ai/solutions),
-le pied de page.
+### Décisions du 13/10/2026 sur /agents-ia (règles de JP)
+
+| Endroit | Sur lystes.ai | Sur biolystes.com |
+|---|---|---|
+| Au-dessus de l'en-tête | bandeau vert « Démo : ajoutez lystes.ai/… » | retiré (pistache réservé au pied de page) |
+| Bannière | champ « Lien d'une fiche produit / Tester gratuitement » | retiré ; seul « Prendre rendez-vous » reste |
+| Galerie des créateurs | panneau « Téléchargez votre image produit » | masqué (`sansGeneration`), comme sur l'accueil |
+| Bas de page | « Sans engagement / résiliable à tout moment », « Sans engagement · Configuration guidée » | retirés (arguments d'abonnement) |
+| Cartes | « En savoir plus » vers lystes.ai/solutions | gardés (navigation) |

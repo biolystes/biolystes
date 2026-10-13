@@ -114,7 +114,7 @@ const CTA_URL = "https://biolystes.pro/rdv";
    sur l’accueil, et un seul renvoi y mène plus bas. Les fins du titre sont
    les gammes réellement présentes au catalogue du laboratoire (moisson du
    10/10/2026) ; le parfum n’y figure pas, il n’est donc pas annoncé. */
-const BIO_HERO = (onRecherche: (q: string) => void): HeroVariante => ({
+const BIO_HERO = (onProjet: (projet: string) => void): HeroVariante => ({
   aria: "Lancez votre marque cosmétique bio et végane",
   eyebrow: "En 10 jours · Profitez de plus de 18 ans d’expérience",
   titre: "Lancez votre marque\ncosmétique bio et végane\u00a0:",
@@ -139,11 +139,14 @@ const BIO_HERO = (onRecherche: (q: string) => void): HeroVariante => ({
   voile: "linear-gradient(100deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.40) 45%, rgba(0,0,0,.12) 100%)",
   voileMobile: "linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 50%, rgba(0,0,0,.18) 100%)",
   cta: { label: "Prendre rendez-vous", labelCourt: "Rendez-vous", href: CTA_URL, externe: true },
+  /* 13/10/2026 (JP) : un champ de projet, plus une recherche de produits.
+     Le texte part au conseiller de sélection, dans l’orbital du widget. */
   champ: {
-    placeholder: "Sérum, shampooing…",
-    bouton: "Trouver des produits",
-    boutonCourt: "Trouver",
-    onSubmit: onRecherche,
+    placeholder: "Décrivez votre projet…",
+    placeholderCourt: "Votre projet…",
+    bouton: "Recevoir ma sélection",
+    boutonCourt: "Sélection",
+    onSubmit: onProjet,
   },
   liens: [
     { label: "Certifié Bio & Végan", href: "#section-qualite", icone: { paths: ["M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z", "M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"] } },
@@ -443,10 +446,15 @@ export default function DecouvertePage() {
     sectionRefs.current[key] = el;
   };
 
-  /* Le champ de la bannière cherche dans les gammes du catalogue, plus bas. */
   const [recherche, setRecherche] = useState("");
-  const heroVariante = BIO_HERO((q) => {
-    setRecherche(q);
+  /* Le champ de projet de la bannière ouvre l’orbital du widget Lystes avec
+     le texte du visiteur comme premier message (conseiller de sélection),
+     là où le widget est chargé : biolystes.com, widget 3.65.0 et plus
+     (`LystesWidget.open`). Sur lystes.ai/bio, aucun widget ni chat : le
+     visiteur descend vers les gammes du catalogue, comme avant. */
+  const heroVariante = BIO_HERO((projet) => {
+    const widget = (window as unknown as { LystesWidget?: { open?: (o: { message: string }) => boolean } }).LystesWidget;
+    if (typeof widget?.open === "function" && widget.open({ message: projet })) return;
     document.getElementById("section-catalogue")?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 

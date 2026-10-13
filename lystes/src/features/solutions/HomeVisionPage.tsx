@@ -27,7 +27,9 @@ export default function HomeVisionPage() {
       {/* L'en-tête lit le chemin : sur « / » il prend toute la largeur et
           porte la bascule Ecommerce / Entreprises. On lui présente « / ». */}
       <CommeSurAccueil>
-        <Header overlay topBar={<TopBar />} />
+        {/* biolystes.com : pas de bandeau « Démo : ajoutez lystes.ai/ » (pistache
+            réservé au pied de page, refusé sur /bio). */}
+        <Header overlay />
       </CommeSurAccueil>
       <main data-solution-shell data-vision-shell style={{ paddingTop: 0 }}>
         <AgentsVisionRawPage />

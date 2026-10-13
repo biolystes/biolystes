@@ -77,7 +77,7 @@ export type Point = { x: number; y: number };
 /* Où l'encart se pose par rapport au point. */
 export type Cote = "gauche" | "droite" | "haut";
 /* Où le point se pose sur la zone. */
-export type Prise = "gauche" | "centre" | "haut";
+export type Prise = "gauche" | "droite" | "centre" | "haut";
 
 /* 09/10/2026 (JP) : « pour le moment enlève Votre réseau ». L'onglet et ses
    données restent dans le code ; repasser RESEAU_VISIBLE à true le rouvre. */
@@ -356,6 +356,10 @@ type EtapeFiche = {
   cote: Cote;
   onglet?: number;
   centrer?: boolean;
+  /* La photo et le QR code gardent l'encart sur la fiche, à côté de ce
+     qu'il montre, sans le couvrir (JP, 13/10 : « hors pour le QR code et la
+     photo produit ») : sorti à droite, il s'en éloignerait. */
+  garde?: boolean;
 };
 const ETAPES_FICHE: EtapeFiche[] = [
   { z: "chat", zoom: '[data-z="chat"]', prise: "gauche", cote: "gauche", vivant: true, duree: 16000 },
@@ -365,9 +369,11 @@ const ETAPES_FICHE: EtapeFiche[] = [
   { z: "faq", zoom: '[data-z="faq"]', prise: "gauche", cote: "gauche", onglet: 2 },
   { z: "seo", zoom: '[data-z="seo"]', prise: "gauche", cote: "gauche" },
   { z: "ugc", zoom: '[data-z="ugc"]', prise: "gauche", cote: "gauche" },
-  { z: "photo", zoom: '[data-z="photo"]', prise: "centre", cote: "droite", studio: true },
+  /* Au bord droit de la photo, et plus en son milieu : l'encart couvrait
+     la moitié de la photo qu'il présente (13/10). */
+  { z: "photo", zoom: '[data-z="photo"]', prise: "droite", cote: "droite", studio: true, garde: true },
   { z: "appel", zoom: ".fiche .chat-carte", prise: "centre", cote: "gauche" },
-  { z: "qr", zoom: '[data-z="qr"]', prise: "gauche", cote: "gauche" },
+  { z: "qr", zoom: '[data-z="qr"]', prise: "gauche", cote: "gauche", garde: true },
 ];
 
 /* Votre e-commerce : la même logique, à l'échelle de toute la boutique. */
@@ -519,7 +525,7 @@ const ORGA_RESEAU: Colonne[] = [
 
 
 /** Ce que la page parente lit dans l'iframe de la fiche. */
-type MesureFiche = { cadre: { w: number; h: number }; boite: Rect; zones: Record<string, Rect>; fenetreOuverte: boolean };
+type MesureFiche = { cadre: { w: number; h: number }; boite: Rect; zones: Record<string, Rect>; fenetreOuverte: boolean; plancher: Point | null };
 
 /** Lit, dans l'iframe de la fiche, où se trouve chaque zone, et règle la
     hauteur de l'iframe sur celle de la fiche (écrite par demo.js). */
@@ -551,7 +557,11 @@ function mesurerFiche(cadre: HTMLElement): MesureFiche | null {
     if (r.width === 0 && r.height === 0) continue;
     zones[e.z] = { x: ox + r.left, y: oy + r.top, w: r.width, h: r.height };
   }
+  /* Le titre et le prix : l'encart qui mord sur la fiche reste dessous. */
+  const prix = doc.querySelector(".prix")?.getBoundingClientRect();
+  const titre = doc.querySelector("h1")?.getBoundingClientRect();
   return {
+    plancher: prix ? { x: Math.round(ox + Math.max(prix.right, titre?.right ?? 0) + 4), y: Math.round(oy + prix.bottom + 6) } : null,
     cadre: { w: cadre.clientWidth, h: cadre.clientHeight },
     boite: { x: ox, y: oy, w: iframe.clientWidth, h: iframe.clientHeight },
     zones,
@@ -565,6 +575,7 @@ function mesurerFiche(cadre: HTMLElement): MesureFiche | null {
 export function prise(r: Rect, p: Prise): Point {
   if (p === "centre") return { x: r.x + r.w / 2, y: r.y + r.h / 2 };
   if (p === "haut") return { x: r.x + r.w / 2, y: r.y };
+  if (p === "droite") return { x: r.x + r.w, y: r.y + r.h / 2 };
   return { x: r.x, y: r.y + r.h / 2 };
 }
 
@@ -612,6 +623,90 @@ export const MARGE_LOUPE = 20;
    pop up en proportion », deux fois) : 240 px au lieu de 380, marges, texte
    et loupe d'autant (~0,64). Le téléphone garde la taille d'origine. */
 export const LARGEUR_ENCART = 240;
+
+/* ---------- L'encart dans la marge de droite ----------
+   JP, 13/10/2026, sur l'onglet « Vos produits » : l'encart posé sur la fiche
+   en cachait la moitié ; « j'ai le max width actuel, mais j'aimerais que,
+   quand c'est possible, ça mange moins l'écran ». Sur ordinateur, en deux
+   colonnes, l'encart sort du cadre vers la droite, dans la marge blanche de
+   la page, à la hauteur de l'élément qu'il commente, relié à lui par un
+   trait. La scène garde ses 872 px.
+   Mesuré le 13/10 (scène de 872 px, cadre gris de 16 px) :
+   - dès 1396 px d'écran : 240 px de large, tout entier dans la marge
+     blanche, hors du cadre gris ;
+   - de 1272 à 1395 px : resserré de 240 à 200 px, il ne touche plus la
+     fiche (au plus le bord du cadre gris) ;
+   - de 1100 à 1271 px : 200 px, collé à la gouttière de l'écran (16 px), il
+     ne mord que sur le bord droit de la fiche (90 px au plus, à 1100 px),
+     jamais au-dessus du titre et du prix (`plancher`), et le point recule
+     sur la partie visible de la zone ;
+   - sous 1100 px (une colonne, iPad) et sur téléphone : rien ne change.
+   La photo et le QR code gardent l'encart sur la fiche (ETAPES_FICHE,
+   `garde`). La page ne défile jamais de côté : l'encart s'arrête à la
+   gouttière. */
+export const LARGEUR_COMPACTE = 200;
+/* La gouttière laissée au bord droit de l'écran, et l'écart entre le bord
+   du contenu et l'encart sorti. */
+export const GOUTTIERE = 16;
+export const ECART_BORD = 6;
+/* Le bord droit du cadre gris (la fiche ou la visite), dans le repère de
+   l'élément où se pose l'encart, et la place libre de ce bord jusqu'à la
+   gouttière de l'écran, écart compris ; null quand l'encart ne sort pas.
+   L'encart sorti se pose dans la marge blanche, hors du cadre gris : c'est
+   là que JP l'a dessiné. */
+export function useMargeDroite(ref: { current: HTMLElement | null }, actif: boolean): Hors | null {
+  const [hors, setHors] = useState<Hors | null>(null);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    const gris = el?.closest<HTMLElement>(".lyv-cadre, #vision-demo");
+    if (!el || !gris || !actif) {
+      setHors(null);
+      return;
+    }
+    const maj = () => {
+      const g = el.getBoundingClientRect().left;
+      const bord = Math.round(gris.getBoundingClientRect().right - g);
+      const dispo = Math.floor(document.documentElement.clientWidth - GOUTTIERE - (g + bord) - ECART_BORD);
+      setHors((o) => (o && o.bord === bord && o.dispo === dispo ? o : { bord, dispo }));
+    };
+    maj();
+    window.addEventListener("resize", maj);
+    const ro = new ResizeObserver(maj);
+    ro.observe(el);
+    ro.observe(gris);
+    return () => {
+      window.removeEventListener("resize", maj);
+      ro.disconnect();
+    };
+  }, [ref, actif]);
+  return hors;
+}
+/* `bord` : le bord droit du cadre gris dans le repère de l'encart ;
+   `dispo` : useMargeDroite ; `plancher` : l'encart qui mord sur le
+   contenu à gauche de ce x ne monte pas au-dessus de ce y (le titre et le
+   prix de la fiche). */
+export type Hors = { bord: number; dispo: number; plancher?: Point };
+/* La largeur de l'encart sorti, et son bord gauche s'il se pose en face de
+   `x`. */
+const largeurHors = (h: Hors, largeur = LARGEUR_ENCART) => Math.max(LARGEUR_COMPACTE, Math.min(largeur, h.dispo));
+const gaucheHors = (h: Hors, x: number, l: number) => Math.min(Math.max(x + ECART, h.bord + ECART_BORD), h.bord + ECART_BORD + h.dispo - l);
+/* Le point de l'encart sorti : au bord droit de la zone, au plus près de
+   l'encart. Si l'encart, à cheval sur le contenu, couvre ce bord, le point
+   recule sur la partie visible de la zone, juste devant la pointe : un long
+   trait barrait la zone (relecture du 13/10 à 1180 px). */
+/* Le même recul pour un point déjà posé au bord droit de sa cible (Vos
+   outils). */
+export function pointDevant(p: Point, h: Hors | null | undefined): Point {
+  if (!h) return p;
+  const g = gaucheHors(h, p.x, largeurHors(h));
+  return g >= p.x + ECART ? p : { x: g - ECART, y: p.y };
+}
+export function pointHors(r: Rect, p: Prise, h: Hors | null | undefined): Point {
+  if (!h) return prise(r, p);
+  const d = prise(r, "droite");
+  const g = gaucheHors(h, d.x, largeurHors(h));
+  return g >= d.x + ECART ? d : { x: Math.max(r.x + 6, g - ECART), y: d.y };
+}
 export const MARGE_LOUPE_ORDI = 13;
 
 const STYLE_LOUPE = `
@@ -860,7 +955,7 @@ export function Encart({ agent, loupe, pointe, pied, survol, style, enFlux }: {
    la hauteur mesurée, sans glisser depuis la hauteur supposée de 320 px ;
    un encart de 160 px descendait de 80 px à chaque étape (relecture du
    10/10). */
-export function EncartPose({ point, cote, cadre, largeur, contenu, poseDirecte, serrer }: {
+export function EncartPose({ point, cote, cadre, largeur, contenu, poseDirecte, serrer, hors, plancher }: {
   point: Point | null;
   cote: Cote;
   cadre: { w: number; h: number };
@@ -871,8 +966,15 @@ export function EncartPose({ point, cote, cadre, largeur, contenu, poseDirecte, 
      déborder de `deborde` px dans la marge grise du visuel : dans l'orbital,
      basculé à droite, il cachait la vue qu'il présente (relecture du 10/10). */
   serrer?: { min: number; deborde: number };
+  /* L'encart sort du cadre vers la droite (voir useMargeDroite). */
+  hors?: Hors | null;
+  /* Posé sur la fiche (photo, QR code), l'encart ne monte pas sur le titre
+     ni sur le prix : il descend sous ce y quand il passe à gauche de ce x. */
+  plancher?: Point | null;
 }) {
   const boite = useRef<HTMLDivElement>(null);
+  const horsRef = useRef(hors);
+  horsRef.current = hors;
   const [h, setH] = useState(320);
   const mesure = useContext(MesureEncart);
   const mesureRef = useRef(mesure);
@@ -888,10 +990,18 @@ export function EncartPose({ point, cote, cadre, largeur, contenu, poseDirecte, 
     : cote === "gauche" ? point.x - ECART - 4
     : cote === "droite" ? cadre.w - 4 - (point.x + ECART)
     : Infinity;
-  const serre = normale < pleine && normale + serrer.deborde >= serrer.min;
-  const l = serre ? Math.min(Math.floor(normale + serrer.deborde), pleine) : pleine;
+  const serre = !hors && normale < pleine && normale + serrer.deborde >= serrer.min;
+  const l = hors ? largeurHors(hors, largeur)
+    : serre ? Math.min(Math.floor(normale + serrer.deborde), pleine) : pleine;
   /* Serré, l'encart se place dans le cadre élargi du débord. */
   const poser = (hh: number): Placement => {
+    if (hors) return placerHors(point, l, hh, cadre, hors);
+    const pl = poserDedans(hh);
+    if (!plancher || !pl.pointe || pl.pointe.cote === "haut" || pl.pointe.cote === "bas" || pl.x >= plancher.x || pl.y >= plancher.y) return pl;
+    const y = Math.max(pl.y, Math.min(plancher.y, cadre.h - hh - 4));
+    return { ...pl, y, pointe: { ...pl.pointe, decalage: pl.pointe.decalage - (y - pl.y) } };
+  };
+  const poserDedans = (hh: number): Placement => {
     if (!serre || !point || !serrer) return placer(point, cote, l, hh, cadre);
     const d = serrer.deborde;
     if (cote === "gauche") {
@@ -918,7 +1028,8 @@ export function EncartPose({ point, cote, cadre, largeur, contenu, poseDirecte, 
     const maj = () => {
       setH(el.offsetHeight);
       window.clearTimeout(attente);
-      attente = window.setTimeout(() => mesureRef.current?.(el.offsetHeight), 400);
+      /* Sorti du cadre, l'encart n'a pas à tenir dans sa hauteur. */
+      attente = window.setTimeout(() => { if (!horsRef.current) mesureRef.current?.(el.offsetHeight); }, 400);
     };
     maj();
     const ro = new ResizeObserver(maj);
@@ -929,11 +1040,32 @@ export function EncartPose({ point, cote, cadre, largeur, contenu, poseDirecte, 
     };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps -- la première pose seulement
   const pl = poser(h);
+  /* Le trait qui relie le point à la pointe, quand l'encart sorti s'en
+     éloigne plus que l'écart ordinaire. */
+  const trait = hors && point && pl.pointe ? pl.x - point.x - ECART : 0;
   return (
-    <div ref={boite} className="lyv-encart-pose" style={{ left: pl.x, top: pl.y, width: l }}>
+    <div ref={boite} className={"lyv-encart-pose" + (hors ? " hors" : "") + (hors && l < LARGEUR_ENCART ? " etroit" : "")} style={{ left: pl.x, top: pl.y, width: l }}>
+      {trait > 2 && pl.pointe && (
+        <span className="lyv-liaison" style={{ left: -(trait + ECART) + 7, width: trait + ECART - 7 - 3, top: pl.pointe.decalage }} aria-hidden="true" />
+      )}
       {contenu(pl.pointe, {})}
     </div>
   );
+}
+
+/* L'encart sorti : à droite du contenu, dans la marge ; s'il n'y tient
+   pas, collé à la gouttière de l'écran, à cheval sur le bord du contenu.
+   Toujours à la hauteur du point, la pointe à gauche. */
+function placerHors(p: Point | null, l: number, h: number, cadre: { w: number; h: number }, hors: Hors): Placement {
+  const borne = (v: number, min: number, max: number) => Math.max(min, Math.min(v, Math.max(min, max)));
+  if (!p) return { x: gaucheHors(hors, -Infinity, l), y: borne((cadre.h - h) / 2, 4, cadre.h - h - 4), pointe: null };
+  const x = gaucheHors(hors, p.x, l);
+  /* À cheval sur le titre et le prix de la fiche : jamais au-dessus du
+     plancher, sauf pour rester en face du point. Le bas du cadre passe
+     avant : dessous, à droite, il y a les boutons de la visite. */
+  const haut = hors.plancher && x < hors.plancher.x ? Math.max(4, Math.min(hors.plancher.y, p.y - 14)) : 4;
+  const y = Math.max(4, Math.min(Math.max(p.y - h / 2, haut), cadre.h - h - 4));
+  return { x, y, pointe: { cote: "gauche", decalage: Math.max(10, Math.min(p.y - y, h - 10)) } };
 }
 
 /* ---------- Les agents : liste sur ordinateur, carrousel sur téléphone ---------- */
@@ -1132,12 +1264,14 @@ function Organigramme({ tete, sous, cerveau, colonnes, humain }: {
 }
 
 /* ---------- Étage 2 : la boutique et l'orbital ---------- */
-function Boutique({ etape, survol, mobile, pied, taille }: {
+function Boutique({ etape, survol, mobile, pied, taille, marge }: {
   etape: number;
   survol: (s: boolean) => void;
   mobile: boolean;
   pied: Pied;
   taille: (t: TailleCadre) => void;
+  /* Deux colonnes : l'encart peut sortir dans la marge de droite. */
+  marge?: boolean;
 }) {
   const boite = useRef<HTMLDivElement>(null);
   const cadres = useRef<Partial<Record<PageBoutique, HTMLIFrameElement | null>>>({});
@@ -1146,6 +1280,10 @@ function Boutique({ etape, survol, mobile, pied, taille }: {
   const [point, setPoint] = useState<Point | null>(null);
   const [prets, setPrets] = useState<Partial<Record<PageBoutique, boolean>>>({});
   const cible = ETAPES_BOUTIQUE[etape];
+  const hors = useMargeDroite(boite, !mobile && !!marge);
+  /* Lu par la mesure du point, qui tourne à chaque image. */
+  const horsRef = useRef(hors);
+  horsRef.current = hors;
   /* Sans zone (multi-lien), la page reste celle de l'étape d'avant. */
   const pageVue = useRef<PageBoutique>("index");
   if (cible) pageVue.current = cible.page;
@@ -1264,7 +1402,7 @@ function Boutique({ etape, survol, mobile, pied, taille }: {
       if (fini) return;
       const el = cible ? doc.querySelector(cible.sel) : null;
       const r = el?.getBoundingClientRect();
-      const q = cible && r && r.width > 0 ? prise(echelonner(r), cible.prise) : null;
+      const q = cible && r && r.width > 0 ? pointHors(echelonner(r), cible.prise, horsRef.current) : null;
       /* repeindre seulement quand le point bouge vraiment */
       const proche = (a: number, b: number) => Math.abs(a - b) < 0.5;
       setPoint((p) => (!p && !q) || (p && q && proche(p.x, q.x) && proche(p.y, q.y)) ? p : q);
@@ -1316,6 +1454,7 @@ function Boutique({ etape, survol, mobile, pied, taille }: {
           cadre={cadre}
           largeur={LARGEUR_ENCART}
           serrer={cible?.orbital ? { min: 180, deborde: 24 } : undefined}
+          hors={hors}
           contenu={(pointe, style) => encart(pointe, style)}
         />
       )}
@@ -1377,6 +1516,8 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
   const [dejaPrete, setDejaPrete] = useState<Partial<Record<IdVisite, boolean>>>({});
   const boutons = useRef<(HTMLButtonElement | null)[]>([]);
   const dernier = useRef("");
+  const refPastilles = useRef<HTMLElement | null>(pastilles);
+  refPastilles.current = pastilles;
 
   const courant = ONGLETS[onglet];
   const idVisite = estVisite(courant.id) ? courant.id : null;
@@ -1699,7 +1840,13 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
   /* La visite sur la fiche Éclose. */
   const etapeFiche = ETAPES_FICHE[etape];
   const zoneFiche = fiche && etapeFiche ? fiche.zones[etapeFiche.z] : undefined;
-  const pointFiche = zoneFiche ? prise(zoneFiche, etapeFiche.prise) : null;
+  /* L'encart sort dans la marge de droite : ordinateur, deux colonnes,
+     sauf la photo et le QR code. */
+  const margeFiche = useMargeDroite(refPastilles, courant.id === "produits" && !mobile && !uneColonne && !!fiche);
+  const horsFiche: Hors | null = fiche && margeFiche && etapeFiche && !etapeFiche.garde
+    ? { ...margeFiche, plancher: fiche.plancher ?? undefined }
+    : null;
+  const pointFiche = zoneFiche ? pointHors(zoneFiche, etapeFiche.prise, horsFiche) : null;
   const iframe = demo.querySelector<HTMLIFrameElement>("iframe.lyv-demo-ecran");
   const visiteFiche = courant.id === "produits" && fiche && !fiche.fenetreOuverte && pied;
   /* Sur ordinateur, les loupes de la fiche font 132 et 128 px (152 et 146
@@ -1806,6 +1953,11 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
               cote={etapeFiche.cote}
               cadre={fiche.cadre}
               largeur={LARGEUR_ENCART}
+              hors={horsFiche}
+              /* La photo : l'encart reste à droite de la photo, quitte à perdre
+                 quelques px, au lieu de basculer dessus. */
+              serrer={etapeFiche.garde && etapeFiche.cote === "droite" ? { min: 220, deborde: 0 } : undefined}
+              plancher={fiche.plancher}
               contenu={(pointe, style) => encartFiche(pointe, style)}
             />
           )}
@@ -1824,7 +1976,7 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
           {courant.id === "ecommerce" && pied && (
             <>
               <div className="lyv-cadre">
-                <Boutique etape={etape} survol={setSurvol} mobile={mobile} pied={pied} taille={annoncerTaille} />
+                <Boutique etape={etape} survol={setSurvol} mobile={mobile} pied={pied} taille={annoncerTaille} marge={!uneColonne} />
                 <p className="lyv-legende-visuel"><b>L'orbital</b>, ouvert sur la boutique</p>
               </div>
               <div className="lyv-sous-visuel">
@@ -1850,7 +2002,7 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
               <div className="lyv-cadre">
                 {VisiteEnCours && pied
                   ? <VisiteEnCours key={idVisite} etape={etape} survol={setSurvol} mobile={mobile} pied={pied} taille={annoncerTaille}
-                      prete={signalerPrete} secteur={secteur} />
+                      prete={signalerPrete} secteur={secteur} marge={!uneColonne} />
                   : <div className={idVisite === "outils" ? "lyv-boutique lyv-o lyv-o-attente" : "lyv-boutique"} aria-busy="true" />}
                 {idVisite === "outils" ? (
                   <p className="lyv-legende-visuel lyv-legende-outils">
@@ -2052,6 +2204,10 @@ const CSS = `
 .lyv-pointe.gauche{ left:-5px; margin-top:-6px; }
 .lyv-pointe.bas{ bottom:-5px; margin-left:-6px; }
 .lyv-pointe.haut{ top:-5px; margin-left:-6px; }
+/* Le trait du point à l'encart sorti dans la marge (13/10). Liseré blanc :
+   il reste lisible sur le voile noir de l'orbital. */
+.lyv-liaison{ position:absolute; height:1.5px; margin-top:-.75px; background:#000; border-radius:1px;
+  box-shadow:0 0 0 1px rgba(255,255,255,.75); pointer-events:none; }
 .lyv-loupe{ position:relative; overflow:hidden; border-radius:11px; background:#fff; }
 .lyv-loupe-html{ padding:${MARGE_LOUPE}px; }
 .lyv-loupe.nue{ border-radius:0; background:transparent; overflow:visible; }
@@ -2100,6 +2256,9 @@ const CSS = `
    sur le visage, pour que l'encart de l'Expert routine tienne au-dessus de
    la barre flottante (355 px avant, 260 après). Textes inchangés. */
 .lyv-boutique .lyv-encart-pose .lyv-diag-visage{ height:64px; width:100%; aspect-ratio:auto; }
+/* Sorti et resserré (moins de 240 px) : le visage plus bas, pour que
+   l'encart du Diagnostiqueur ne dépasse pas la hauteur de la fiche. */
+#vision-demo .lyv-encart-pose.etroit .lyv-diag-visage{ height:118px; width:100%; aspect-ratio:auto; }
 .lyv-encart-pose .lyv-diag-pilule{ bottom:7px; padding:3px 7px; font-size:5.6px; letter-spacing:.1em; }
 .lyv-encart-pose .lyv-studio figcaption{ font-size:9px; }
 /* Les reproductions de la boutique sont du HTML fixe : on les met à l'échelle. */
