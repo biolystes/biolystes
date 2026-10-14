@@ -49,7 +49,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Helmet } from "react-helmet-async";
 import {
-  ArrowUpRight, BadgePercent, Camera, Check, ChevronLeft, ChevronRight, CreditCard, FlaskConical, HandCoins, Heart, KeyRound, PackageCheck,
+  ArrowUpRight, BadgePercent, Camera, Check, ChevronLeft, ChevronRight, ClipboardCheck, CreditCard, FlaskConical, HandCoins, Heart, KeyRound, PackageCheck,
   Palette, PenTool, Receipt, ShieldCheck, Store, Tag, Truck, Wallet, type LucideIcon,
 } from "lucide-react";
 import { Bande, BoutonRdv, Entete, RondIcone } from "./pied/elements";
@@ -70,7 +70,7 @@ function euros(n: number, centimes?: boolean) {
 const colle = (t: string) => t.replace(/ (\S+)$/, "\u00a0$1");
 const ht = (ttc: number) => Math.round((ttc / 1.2) * 100) / 100;
 
-type Etape = { icone: LucideIcon; quand: string; montant: number | null; ligne: string; protege?: boolean; minimum?: boolean };
+type Etape = { icone: LucideIcon; quand: string; montant: number | null; ligne: string; protege?: boolean; minimum?: boolean; offert?: boolean };
 type Offre = {
   slug: string; comprend: string[];
   cle: string; nom: string; contenu: string; total: number; totalTitre: string;
@@ -79,7 +79,11 @@ type Offre = {
 
 /* Les étapes de paiement d’un pack acheté. */
 const ACOMPTE = (montant: number): Etape => ({ icone: Wallet, quand: "Payé à la commande", montant, ligne: "L’acompte lance votre projet." });
-const RECUS: Etape = { icone: PackageCheck, quand: "Vos produits arrivent", montant: null, ligne: "Vous les recevez chez vous et vous les testez." };
+/* Étape 0 (JP, 14/10/2026, compétence tarifs-biolystes, « Le parcours
+   complet ») : la sélection et les fiches INCI sont offertes ; rien à payer
+   avant d'avoir validé ses produits. */
+const SELECTION: Etape = { icone: ClipboardCheck, quand: "Avant tout paiement", montant: null, offert: true, ligne: "Votre sélection et vos fiches INCI, offertes : avec notre IA ou nos experts produits." };
+const RECUS: Etape = { icone: PackageCheck, quand: "Vos produits arrivent", montant: null, ligne: "En une dizaine de jours, chez vous : vous les testez." };
 const PLAISENT = (montant: number, solde = false): Etape => ({
   icone: Heart, quand: "Payé s’ils vous plaisent", montant, protege: true,
   ligne: solde ? "Le solde, seulement si vous continuez." : "2e tranche, seulement si vous continuez.",
@@ -119,21 +123,22 @@ const achat = (cle: string, nom: string, contenu: string, total: number, abonnem
 /* Packs achetés, dans l’ordre de JP. Source : packs.ts (PACKS_AVEC_SITE). */
 const ACHATS: Offre[] = [
   achat("design", "Pack Design", "4 produits, design seul, sans site", 599, 39, "Accès à tout notre catalogue, sans minimum de commande : vous commandez le produit que vous voulez, quand vous voulez. Un produit pas encore designé : 39 € une fois.",
-    [ACOMPTE(199), RECUS, PLAISENT(400, true)]),
+    [SELECTION, ACOMPTE(199), RECUS, PLAISENT(400, true)]),
   achat("solo", "Pack Solo", "1 design + site e-commerce", 499, 49, "Dès la mise en ligne. Ce que ça vous donne : hébergement, support, logistique et sécurité de votre boutique, sans minimum de commande.",
-    [ACOMPTE(199), RECUS, PLAISENT(300, true)]),
+    [SELECTION, ACOMPTE(199), RECUS, PLAISENT(300, true)]),
   achat("duo", "Pack Duo", "2 designs + site e-commerce", 999, 79, "Dès la mise en ligne. Ce que ça vous donne : hébergement, support prioritaire et logistique, sans minimum de commande.",
-    [ACOMPTE(199), RECUS, PLAISENT(301), SOLDE(499)]),
+    [SELECTION, ACOMPTE(199), RECUS, PLAISENT(301), SOLDE(499)]),
   achat("standard", "Pack Standard", "4 designs + site complet + expert dédié", 1499, 99, "Dès la mise en ligne. Ce que ça vous donne : hébergement, livraisons, référencement, support et sécurité, sans minimum de commande.",
-    [ACOMPTE(199), RECUS, PLAISENT(551), SOLDE(749)]),
+    [SELECTION, ACOMPTE(199), RECUS, PLAISENT(551), SOLDE(749)]),
   achat("ia", "Pack IA", "8 designs, UGC IA, diagnostic, marketing", 2999, 99, "Dès la mise en ligne. Ce que ça vous donne : tout le Standard, plus diagnostic IA, contenus UGC IA et marketing, sans minimum de commande.",
-    [ACOMPTE(299), RECUS, PLAISENT(1201), SOLDE(1499)]),
+    [SELECTION, ACOMPTE(299), RECUS, PLAISENT(1201), SOLDE(1499)]),
 ];
 
 /* Location. Source : packs.ts (PACKS_LOCATION) : mise en place, puis un
    loyer ; le site est acquis au prix du pack acheté. */
 const location = (cle: string, nom: string, contenu: string, miseEnPlace: number, loyer: number, acquis: number): Offre => ({
   slug: cle + "-location", comprend: COMPREND[cle + "-location"], cle, nom, contenu, total: miseEnPlace, totalTitre: "Mise en place", etapes: [
+    SELECTION,
     { icone: KeyRound, quand: "Mise en place", montant: miseEnPlace, ligne: "Pour lancer votre projet." },
     { icone: Receipt, quand: "Puis chaque mois", montant: loyer, minimum: true, ligne: "Vous pouvez verser plus chaque mois, ou solder quand vous voulez, pour que le site soit à vous plus vite." },
     { icone: Store, quand: "Le site est à vous", montant: acquis, ligne: "Une fois ce montant payé au total.", protege: true },
@@ -197,21 +202,25 @@ function PetitRond({ icone: Icone }: { icone: LucideIcon }) {
 function Frise({ etapes }: { etapes: Etape[] }) {
   const n = etapes.length;
   return (
-    <ol className={"grid gap-0 lg:gap-6 max-w-[420px] lg:max-w-none mx-auto " + (n === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3")}>
+    <ol className={"grid gap-0 lg:gap-6 max-w-[420px] lg:max-w-none mx-auto " + (n === 5 ? "lg:grid-cols-5" : n === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3")}>
       {etapes.map((e, i) => (
         <li key={e.quand} className="relative flex lg:flex-col lg:items-center lg:text-center gap-4 pb-8 lg:pb-0 last:pb-0">
           {i < n - 1 && <span aria-hidden="true" className="lg:hidden absolute left-[19px] top-12 bottom-2 w-px bg-border" />}
           {i < n - 1 && <span aria-hidden="true" className="hidden lg:block absolute top-5 left-[calc(50%_+_36px)] right-[calc(12px_-_50%)] h-px bg-border" />}
           <div className="relative shrink-0">
             <RondIcone icone={e.icone} />
-            <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-background border border-border text-[0.6875rem] font-semibold text-foreground flex items-center justify-center tabular-nums">{i + 1}</span>
+            <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-background border border-border text-[0.6875rem] font-semibold text-foreground flex items-center justify-center tabular-nums">{i}</span>
           </div>
           <div className="min-w-0 lg:mt-1">
-            <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">
-              <span className={e.protege ? "rounded bg-[#e1f3c5] px-1.5 py-0.5 -mx-1.5" : undefined}>{e.quand}</span>
+            {/* Ordinateur : deux lignes réservées, étiquette posée en bas, pour que
+                les montants restent alignés d'une étape à l'autre. */}
+            <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground lg:min-h-[3.2em] lg:flex lg:items-end lg:justify-center">
+              <span><span className={e.protege ? "rounded bg-[#e1f3c5] px-1.5 py-0.5 [box-decoration-break:clone]" : undefined}>{colle(e.quand)}</span></span>
             </p>
             <div className="mt-3">
-              {e.montant === null
+              {e.offert
+                ? <p className="text-[2.25rem] md:text-[2.5rem] leading-none tracking-tight text-foreground" style={{ fontFamily: BRICOLAGE, fontWeight: 400 }}>0&nbsp;€</p>
+                : e.montant === null
                 ? <p className="text-[1.75rem] md:text-[2rem] leading-none tracking-tight text-foreground" style={{ fontFamily: BRICOLAGE, fontWeight: 400 }}>Rien à&nbsp;payer</p>
                 : <Montant ttc={e.montant} minimum={e.minimum} />}
             </div>
@@ -372,7 +381,7 @@ export default function TarifsPage() {
   const offre = famille === "sans" ? SANS_BOUTIQUE
     : mode === "location" ? LOCATIONS.find((o) => o.cle === cleLocation) ?? LOCATIONS[0]
     : AVEC_BOUTIQUE.find((o) => o.cle === cleBoutique) ?? AVEC_BOUTIQUE[0];
-  const acompte = offre.etapes[0].montant ?? 0;
+  const acompte = offre.etapes[1].montant ?? 0;
 
   return (
     <>
@@ -405,6 +414,10 @@ export default function TarifsPage() {
         <div className="max-w-5xl mx-auto mt-10 md:mt-12">
           <Frise etapes={offre.etapes} />
         </div>
+
+        {/* Le rendez-vous, juste après le parcours (JP, 14/10/2026) : la cliente
+            vient de voir qu'elle ne paie rien avant d'avoir validé sa sélection. */}
+        <BoutonRdv className="mt-10 md:mt-12" />
 
         {/* Pourquoi un acompte (achat) : texte de JP, mot pour mot (compétence
             tarifs-biolystes, « Pourquoi l'acompte », 14/10/2026). */}
