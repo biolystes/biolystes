@@ -1264,7 +1264,7 @@ export const PACK_MENUS: Record<PackId, readonly string[]> = {
   ],
   booking: [
     "booking", "booking-espace", "booking-pipeline-config", "booking-equipe",
-    "booking-calendar", "booking-clientes-espace", "booking-tableau-closer", "booking-bookings", "booking-customers", "booking-services",
+    "booking-calendar", "booking-clientes-espace", "booking-taches", "booking-paiements-clientes", "booking-tableau-closer", "booking-bookings", "booking-customers", "booking-services",
     "booking-agents", "booking-payments", "booking-invoices", "booking-coupons",
     "booking-addons", "booking-event-types", "booking-notifications",
     "booking-automations", "booking-integrations", "booking-reports", "booking-settings",

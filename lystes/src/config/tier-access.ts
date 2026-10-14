@@ -238,6 +238,8 @@ export const MENU_ACCESS: Record<string, MenuAccessConfig> = {
   'booking-bookings': { requiredTier: 'starter' },
   'booking-calendar': { requiredTier: 'starter' },
   'booking-clientes-espace': { requiredTier: 'starter' },
+  'booking-taches': { requiredTier: 'starter' },
+  'booking-paiements-clientes': { requiredTier: 'starter' },
   'booking-tableau-closer': { requiredTier: 'starter' },
   'booking-coupons': { requiredTier: 'starter' },
   'booking-customers': { requiredTier: 'starter' },

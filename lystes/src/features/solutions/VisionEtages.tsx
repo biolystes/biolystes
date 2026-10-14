@@ -1626,7 +1626,7 @@ function CarrouselBio({ diapos, index, choisir, trio, duo, annoncer }: {
           <div className="lyv-carrousel-diapo" key={d.src + i} style={{ "--lyv-pos": d.position ?? "50% 50%" } as CSSProperties}>
             {d.type === "video"
               ? <SafeVideo src={d.src} poster={d.affiche} className="lyv-carrousel-el" />
-              : <img src={d.src} alt={d.legende.join("")} className="lyv-carrousel-el" loading="lazy" decoding="async" />}
+              : <img src={d.src} alt={d.legende.join("")} className="lyv-carrousel-el" decoding="async" />}
             {trio && d.legende[0] && <span className="lyv-carrousel-nom">{d.legende[0]}</span>}
           </div>
         ))}
@@ -1828,6 +1828,30 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
   useEffect(() => {
     if (idVisite) charger(idVisite);
   }, [idVisite, charger]);
+  /* /bio : les visuels des six onglets se téléchargent dès que le bloc
+     approche, pas à l'ouverture de leur onglet ; sinon les cartes restaient
+     blanches une à deux secondes (JP, 14/10/2026). Les vidéos, plus lourdes,
+     n'avancent que leur affiche. */
+  useEffect(() => {
+    if (!bio) return;
+    const io = new IntersectionObserver((es) => {
+      if (!es.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      const urls = new Set<string>();
+      const ajoute = (m?: MediaEtape) => {
+        if (!m) return;
+        if (m.type === "video") { if (m.affiche) urls.add(m.affiche); }
+        else if (m.type === "image") urls.add(m.src);
+        if (m.carte) urls.add(m.carte.photo);
+        m.produits?.forEach((p) => urls.add(p.image));
+        m.diapos?.forEach(ajoute);
+      };
+      ONGLETS_BIO.forEach((o) => o.etapes.forEach((e) => ajoute(e.media)));
+      urls.forEach((u) => { const i = new Image(); i.decoding = "async"; i.src = u; });
+    }, { rootMargin: "100% 0px" });
+    io.observe(scene);
+    return () => io.disconnect();
+  }, [scene, bio]);
   useEffect(() => {
     /* /bio n'a aucune visite à charger. */
     if (bio) return;
@@ -2348,15 +2372,15 @@ const CSS = `
 .lyv-tete-centre{ text-align:center; }
 .lyv-tete-centre .lyv-chapeau{ max-width:780px; margin-left:auto; margin-right:auto; }
 .lyv-tete-centre .lyv-elu{ padding:0 6px; margin:0 -6px; }
-.lyv .lyv-titre{ font-family:'Bricolage Grotesque','SF Pro Display',Inter,sans-serif; font-weight:400; font-size:51px; line-height:1.1;
-  letter-spacing:-.025em; color:#171717; margin:0; text-wrap:balance; }
+.lyv .lyv-titre{ font-family:'Bricolage Grotesque','SF Pro Display',Inter,sans-serif; font-size:36px; line-height:1.1;
+  letter-spacing:-.025em; color:#171717; text-wrap:auto; max-width:606px; margin:1px auto; }
 .lyv-elu{ background:linear-gradient(transparent 12%, var(--lyv-elu) 12%, var(--lyv-elu) 94%, transparent 94%);
   padding:0 6px 0 0; margin:0 -6px 0 0; border-radius:6px; white-space:nowrap; }
 /* Titre à gauche (13/10) : le surlignage part de la marge du titre, sans la
    déborder ; son retrait ne se garde qu'à droite. */
 /* Équilibré plutôt que « pretty » : sur 872 px, « équipe IA qui : » restait
    seul sur la seconde ligne. */
-.lyv-chapeau{ font-size:15px; line-height:1.6; color:#000; margin:14px 0 14px; max-width:100%; text-wrap:balance; }
+.lyv-chapeau{ font-size:14px; line-height:1.6; color:#000; margin:14px 0 14px; text-wrap:auto; }
 /* Ce que fait l'équipe : quatre lignes à plat, séparées d'un filet. Pas un
    accordéon : ni flèche, ni repli, tout se lit. */
 .lyv-points{ list-style:none; margin:0; padding:0; }
@@ -2743,7 +2767,7 @@ const CSS = `
 /* Sous 1100 px, la scène passe en une colonne : le titre, le visuel, puis
    la liste, et elle revient dans le conteneur de la page. */
 @media (max-width:1099px){
-  .lyv .lyv-titre{ font-size:40px; }
+  .lyv .lyv-titre{ font-size:32px; }
   .lyv-s-legende{ padding-top:0; }
   .lyv-liste{ grid-template-columns:1fr 1fr; gap:2px 8px; }
   .lyv-scene{ grid-template-columns:minmax(0, 1fr); grid-template-rows:auto; row-gap:22px;
@@ -2751,7 +2775,7 @@ const CSS = `
 }
 @media (max-width:720px){
   .lyv .lyv-titre{ font-size:24px; line-height:1.15; }
-  .lyv-chapeau{ font-size:15px; line-height:1.6; }
+  .lyv-chapeau{ font-size:14px; line-height:1.6; }
   .lyv .lyv-accroche{ font-size:27px; }
   .lyv-s-chapeau{ font-size:15px; }
   .lyv-benefices li{ font-size:16px; white-space:normal; }
