@@ -9,7 +9,7 @@ import {
   ArrowRight, Check, FlaskConical, Truck, Globe, Package, Leaf, Award, X,
   Rabbit, FileCheck2, BadgeCheck, ShoppingBag, MessageCircle, HelpCircle,
   Sparkles, Clock, Zap,
-  AlertTriangle, Warehouse, Users, Eye, Timer, ChevronLeft, ChevronRight,
+  Warehouse, Users, ChevronLeft, ChevronRight,
 } from "lucide-react";
 import InstaFeedSection from "@lystes/components/bio/InstaFeedSection";
 import EnteteSection from "@lystes/components/bio/EnteteSection";
@@ -102,6 +102,9 @@ function HomeExperienceCarousel() {
 }
 
 const CTA_URL = "https://biolystes.pro/rdv";
+/* JP, 14/10/2026 : les appels à l'action privilégient « S'inscrire »
+   (inscription de l'espace client) ; le rendez-vous passe en second. */
+const INSCRIPTION_URL = "https://lystes.ai/biolystes/inscription";
 
 /* 13/10/2026 (JP) : la conversation animée de l'accueil, reprise telle quelle
    (FilConversation), pour la recherche de produits à partir du concept d'une
@@ -169,7 +172,7 @@ const BIO_HERO = (onProjet: (projet: string) => void): HeroVariante => ({
      blanc. Plus sombre à gauche, là où se trouve le texte. */
   voile: "linear-gradient(100deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.40) 45%, rgba(0,0,0,.12) 100%)",
   voileMobile: "linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 50%, rgba(0,0,0,.18) 100%)",
-  cta: { label: "Prendre rendez-vous", labelCourt: "Rendez-vous", href: CTA_URL, externe: true },
+  cta: { label: "S’inscrire", labelCourt: "S’inscrire", href: INSCRIPTION_URL, externe: true },
   /* 13/10/2026 (JP) : un champ de projet, plus une recherche de produits.
      Le texte part au conseiller de sélection, dans l’orbital du widget. */
   champ: {
@@ -360,6 +363,15 @@ function StepProgress({ activeStep }: { activeStep: StepKey }) {
 }
 
 
+/* Les quatre obstacles du constat (biolystes.com/etudes), chacun avec la
+   réponse de Biolystes. */
+const OBSTACLES = [
+  { icon: Warehouse, titre: "Le stock", probleme: "Jusqu’à 90 % du budget part dans le stock ; il ne reste plus rien pour se faire connaître.", reponse: "aucun stock à acheter." },
+  { icon: FlaskConical, titre: "La fabrication", probleme: "Des mois d’allers-retours avec les laboratoires, parfois sans un seul produit fini.", reponse: "votre gamme en ligne en 10 jours." },
+  { icon: Users, titre: "Les prestataires", probleme: "Laboratoire, designer, photographe, développeur : un seul maillon faible suffit.", reponse: "un seul interlocuteur, de la sélection à la boutique." },
+  { icon: Award, titre: "Les certifications", probleme: "COSMOS, ECOCERT, CPNP, ISO 22716 : des années pour tout cocher seul.", reponse: "des formules déjà certifiées." },
+];
+
 /* Les deux modes de livraison, chacun avec ses cinq étapes, dans sa carte
    (JP, 14/10/2026 : « chaque mode a son step », même nombre d'étapes, pour
    voir d'un coup d'œil que l'express n'a pas de fabrication). Les phrases
@@ -548,18 +560,24 @@ export default function DecouvertePage() {
       {/* ═══ 3. LA QUALITÉ : NOS ENGAGEMENTS ═══ */}
       <section id="section-qualite" ref={setRef("qualite")} className="py-8 md:py-12">
         <div className="max-w-4xl mx-auto px-6">
-          <EnteteSection className="mb-8" surtitre="Nos engagements"
+          <EnteteSection className="mb-8" aLaLigne={false} surtitre="Nos engagements"
             noir="Sans achat de stock," gris={"des cosmétiques d’excellence, certifiés et\u00a0responsables"}
             texte="Tous nos produits sont formulés sans parabènes, sans silicones, sans PEG, sans filtres UV chimiques, sans microplastiques et sans colorants artificiels." />
 
-          {/* Les six photos de JP (12/10/2026), sous le texte des engagements
-              depuis le 14/10/2026 (JP), au lieu d'une bande à part. */}
+          {/* Les photos de JP, sous le texte des engagements (14/10/2026).
+              Le même jour, JP : la vidéo du diagnostic (H.264, avec son
+              affiche) à la place de fralene-10, kaniwa-1 juste après elle,
+              sevmylook-3 et pmyrris-4 retirées. */}
           <div className="flex gap-3 mb-10 -mx-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
             {[
-              kaniwa1, pmyrris1, sevmylook1, fralene10, sevmylook3, pmyrris4,
-            ].map((src, i) => (
-              <div key={i} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden">
-                <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+              { src: pmyrris1 }, { src: sevmylook1 },
+              { src: "/videos/bio-exp/diagnostic-peau.mp4", affiche: "/videos/bio-exp/diagnostic-peau.webp" },
+              { src: kaniwa1 },
+            ].map((m) => (
+              <div key={m.src} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden bg-neutral-100">
+                {"affiche" in m
+                  ? <SafeVideo src={m.src} poster={m.affiche} className="w-full h-full object-cover" />
+                  : <img src={m.src} alt="" className="w-full h-full object-cover" loading="lazy" />}
               </div>
             ))}
           </div>
@@ -633,19 +651,14 @@ export default function DecouvertePage() {
         <HomeExperienceCarousel />
 
         <div className="max-w-5xl mx-auto px-6 text-center">
-          <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-            className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed text-balance">
-            18 ans d’expérience dans le secteur de la beauté ont donné naissance à Biolystes
-          </motion.h2>
-          <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-            className="mt-6 text-base md:text-lg text-foreground max-w-2xl mx-auto leading-relaxed">
-            Nous avons éliminé les obstacles pour vous permettre de vous concentrer sur l’essentiel : bâtir une marque qui vous ressemble.
-          </motion.p>
+          <EnteteSection surtitre="L’expérience"
+            noir="18 ans d’expérience dans la beauté" gris={"ont donné naissance à\u00a0Biolystes."}
+            texte="Nous avons éliminé les obstacles pour vous permettre de vous concentrer sur l’essentiel : bâtir une marque qui vous ressemble." />
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
             className="mt-10 flex flex-wrap justify-center gap-4">
-            {/* biolystes.com : un seul appel à l'action, le rendez-vous. */}
-            <a href="https://biolystes.pro/rdv" target="_blank" rel="noopener noreferrer" className="btn-startup">
-              <span>Prendre rendez-vous</span>
+            {/* biolystes.com : un seul appel à l'action, l'inscription. */}
+            <a href={INSCRIPTION_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
+              <span>S’inscrire</span>
               <span className="arrow-circle">
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
@@ -656,14 +669,17 @@ export default function DecouvertePage() {
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
           className="max-w-5xl mx-auto px-6 mt-20 grid md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-border">
           {[
-            { num: "1", title: "Profitez de 18 ans d’expérience en e-commerce", desc: "Nous vous accompagnons avec un savoir-faire éprouvé dans le e-commerce et la cosmétique naturelle." },
-            { num: "2", title: "Offrez-vous des services 360° premium", desc: "Identité visuelle, packagings et boutique en ligne conçus pour valoriser votre marque dès le départ." },
-            { num: "3", title: "Profitez de notre réseau pour vous développer", desc: "Accédez à nos partenaires experts pour accélérer votre croissance sans multiplier les prestataires." },
+            /* Deux lignes chacun (JP, 14/10/2026 : même nombre de lignes). */
+            { num: "1", title: ["18 ans d’expérience", "en e-commerce"], desc: "Nous vous accompagnons avec un savoir-faire éprouvé dans le e‑commerce et la cosmétique naturelle." },
+            { num: "2", title: ["Des services", "360° premium"], desc: "Identité visuelle, packagings et boutique en ligne conçus pour valoriser votre marque dès le départ." },
+            { num: "3", title: ["Un réseau d’experts", "pour vous développer"], desc: "Accédez à nos partenaires experts pour accélérer votre croissance sans multiplier les prestataires." },
           ].map((item) => (
             <div key={item.num} className="px-8 py-10 md:py-8">
               <span className="text-4xl text-foreground" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 100 }}>{item.num}</span>
-              <h3 className="text-base font-black uppercase tracking-wide text-foreground mt-3 mb-3 text-balance">{item.title}</h3>
-              <p className="text-sm text-foreground leading-relaxed">{item.desc}</p>
+              <h3 className="text-base font-black uppercase tracking-wide text-foreground mt-3 mb-3">
+                {item.title.map((ligne) => <span key={ligne} className="block whitespace-nowrap">{ligne}</span>)}
+              </h3>
+              <p className="text-sm text-foreground leading-relaxed text-pretty">{item.desc}</p>
             </div>
           ))}
         </motion.div>
@@ -722,15 +738,9 @@ export default function DecouvertePage() {
       {/* ═══ 8. CATALOGUE ═══ */}
       <section id="section-catalogue" ref={setRef("catalogue")} className="bg-secondary py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
-            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-foreground">Catalogue</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl text-foreground leading-relaxed text-balance">
-              Des formulations d’excellence, prêtes à vendre.
-            </motion.h2>
-            <motion.p variants={fadeUp} custom={2} className="text-foreground max-w-xl leading-relaxed">
-              Plus de 100 produits certifiés bio et végan, disponibles sans minimum de commande.
-            </motion.p>
-          </motion.div>
+          <EnteteSection className="mb-12" surtitre="Catalogue"
+            noir="Des formulations d’excellence," gris={"prêtes à\u00a0vendre."}
+            texte="Plus de 100 produits certifiés bio et végan, disponibles sans minimum de commande." />
 
           {catalogProducts.length > 0 && (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -750,7 +760,11 @@ export default function DecouvertePage() {
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="mt-12 text-center flex flex-wrap justify-center gap-4">
-            <a href="https://biolystes.pro/rdv" target="_blank" rel="noopener noreferrer" className="btn-startup">
+            <a href={INSCRIPTION_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
+              <span>S’inscrire</span>
+              <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
+            </a>
+            <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-outline">
               <span>Prendre rendez-vous</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
@@ -763,16 +777,9 @@ export default function DecouvertePage() {
       {/* ═══ RÉASSORT SANS MINIMUM ═══ */}
       <section className="py-12 md:py-16">
         <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed text-balance"
-              style={{ fontFamily: "'Inter', -apple-system, sans-serif" }}>
-              Réassort Sans Minimum<br />
-              Vous êtes un institut ? un centre médical ? un salon de coiffure ?
-            </h2>
-            <p className="text-foreground mt-4 max-w-xl mx-auto leading-relaxed text-sm">
-              Pas besoin de minimum de stock pour vos points de vente physiques. Commandez 1, 10 ou 1000 produits selon vos besoins réels. Livré dans votre établissement en moins de 15 jours.
-            </p>
-          </div>
+          <EnteteSection className="mb-10" surtitre="Réassort sans minimum"
+            noir="Un institut, un centre médical," gris={"un salon de\u00a0coiffure\u00a0?"}
+            texte="Pas besoin de minimum de stock pour vos points de vente physiques. Commandez 1, 10 ou 1000 produits selon vos besoins réels. Livré dans votre établissement en moins de 15 jours." />
 
           <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
             {[
@@ -812,69 +819,42 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ LE CONSTAT ═══ */}
+      {/* 14/10/2026 (JP, note 5/10) : le chiffre de l'étude (9 sur 10, et non
+          « huit chances sur dix »), quatre obstacles au lieu de six, chacun
+          avec la réponse de Biolystes, puis les deux appels à l'action. */}
       <section id="section-constat" ref={setRef("constat")} className="bg-secondary py-12 md:py-16">
-        <div className="max-w-5xl mx-auto px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16 text-center">
-            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-foreground">Le constat</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed text-balance">
-              Nous avons créé Biolystes car de nombreuses personnes échouent en raison de choix inadaptés lors du lancement de leur marque cosmétique bio et végane.
-            </motion.h2>
-          </motion.div>
-
-          <div className="space-y-6">
-            {[
-              {
-                icon: Warehouse,
-                title: "Le stock",
-                desc: "La majorité des créateurs investissent jusqu’à 90 % de leur budget dans l’achat de stock. Une fois la marque lancée, il ne reste plus rien pour se faire connaître. Sans visibilité, pas de ventes. Le stock dort, la trésorerie fond, et le projet s’arrête.",
-              },
-              {
-                icon: FlaskConical,
-                title: "La fabrication",
-                desc: "Trouver la bonne formule, le bon dosage, le bon équilibre. Certains de nos clients avaient passé huit mois, un an, parfois des années en allers-retours avec des laboratoires, sans jamais réussir à finaliser un seul produit.",
-              },
-              {
-                icon: Users,
-                title: "La chaîne de prestataires",
-                desc: "Il ne suffit pas de trouver un bon laboratoire. Il faut aussi le bon designer, le bon photographe, le bon développeur. Si un seul maillon est faible, c’est toute votre image de marque qui en souffre.",
-              },
-              {
-                icon: Timer,
-                title: "La procrastination",
-                desc: "Des projets qui restent à l’état d’idée pendant des mois, parce que la complexité du parcours pousse à toujours remettre à demain.",
-              },
-              {
-                icon: Award,
-                title: "Les certifications",
-                desc: "COSMOS, ECOCERT, FDA, CPNP, ISO 22716, packaging recyclable, sans parabènes, sans silicones, sans microplastiques. Cocher toutes ces cases par vous-même, ça prend des années.",
-              },
-              {
-                icon: Eye,
-                title: "Le manque de recul",
-                desc: "Chaque nouvelle formulation demande du temps pour être affinée. C’est un investissement en temps que la plupart des créateurs n’ont tout simplement pas.",
-              },
-            ].map((item, i) => (
-              <motion.div key={item.title} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-30px" }}
-                variants={fadeUp} custom={i} className="p-6 md:p-8 rounded-2xl bg-background">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-destructive/10 flex items-center justify-center shrink-0 mt-0.5">
-                    <item.icon className="h-5 w-5 text-destructive" strokeWidth={1.5} />
+        <div className="max-w-4xl mx-auto px-6">
+          <EnteteSection className="mb-10 md:mb-12" surtitre="Le constat"
+            noir="9 projets cosmétiques sur 10" gris={"ne sont toujours pas lancés 7\u00a0mois après."}
+            texte="D’après notre étude sur 30 porteurs de projet. Quatre obstacles reviennent à chaque fois : Biolystes les supprime." />
+          <div className="grid md:grid-cols-2 gap-4">
+            {OBSTACLES.map((item, i) => (
+              <motion.div key={item.titre} initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-30px" }}
+                variants={fadeUp} custom={i} className="rounded-2xl bg-background p-6">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 shrink-0 rounded-full bg-foreground text-primary-foreground flex items-center justify-center">
+                    <item.icon className="h-5 w-5" strokeWidth={1.5} />
                   </div>
-                  <div>
-                    <h3 className="text-base font-semibold text-foreground mb-2">{item.title}</h3>
-                    <p className="text-sm text-foreground leading-relaxed">{item.desc}</p>
-                  </div>
+                  <h3 className="text-base font-semibold text-foreground">{item.titre}</h3>
                 </div>
+                <p className="mt-4 text-sm text-muted-foreground leading-relaxed text-pretty md:min-h-[2lh]">{item.probleme}</p>
+                <p className="mt-3 flex items-start gap-2 text-sm font-medium text-foreground leading-relaxed">
+                  <Check className="h-4 w-4 mt-0.5 shrink-0" strokeWidth={2} />
+                  <span><span className="rounded bg-[#e1f3c5] px-1 -mx-1">Biolystes</span> : {item.reponse}</span>
+                </p>
               </motion.div>
             ))}
           </div>
-
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-            className="mt-16 p-8 md:p-12 rounded-2xl bg-foreground text-center text-white">
-            <AlertTriangle className="h-6 w-6 mx-auto mb-4 opacity-70" strokeWidth={1.5} />
-            <p className="text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto">
-              Huit chances sur dix de tomber dans un de ces cas de figure. C’est ce constat qui a donné naissance à Biolystes. Nous avons éliminé chacun de ces obstacles, un par un, pour que vous puissiez vous concentrer sur l’essentiel : <span className="font-semibold">vendre et développer votre marque.</span>
-            </p>
+            className="mt-10 flex flex-wrap justify-center gap-4">
+            <a href={INSCRIPTION_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
+              <span>S’inscrire</span>
+              <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
+            </a>
+            <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-outline">
+              <span>Prendre rendez-vous</span>
+              <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
+            </a>
           </motion.div>
         </div>
       </section>
@@ -893,22 +873,20 @@ export default function DecouvertePage() {
       {/* ═══ 10. JE ME LANCE ═══ */}
       <section id="section-lance" ref={setRef("lance")} className="bg-secondary py-12 md:py-16">
         <div className="max-w-5xl mx-auto px-6 text-center">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-6">
-            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-foreground">Passez à l’action</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed text-balance">
-              Prêt à lancer votre marque ?
-            </motion.h2>
-            <motion.p variants={fadeUp} custom={2} className="text-foreground max-w-xl mx-auto leading-relaxed">
-              Explorez notre catalogue de formulations certifiées, puis prenez rendez-vous avec un expert pour composer votre gamme.
-            </motion.p>
-          </motion.div>
+          <EnteteSection surtitre="Passez à l’action"
+            noir="Prêt à lancer" gris={"votre marque\u00a0?"}
+            texte="Inscrivez-vous, composez votre gamme parmi nos formulations certifiées, et testez vos produits avant de vous engager." />
 
 
 
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4}
             className="mt-16 flex flex-wrap justify-center gap-4">
-            <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
+            <a href={INSCRIPTION_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
+              <span>S’inscrire</span>
+              <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
+            </a>
+            <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-outline">
               <span>Prendre rendez-vous</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>

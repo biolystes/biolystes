@@ -44,5 +44,5 @@ const QUESTIONS: QuestionAPlat[] = [
 ];
 
 export default function BioFaq() {
-  return <FaqAPlat questions={QUESTIONS} titre="Ce que l’on nous demande avant de se lancer" />;
+  return <FaqAPlat questions={QUESTIONS} titre="Ce que l’on nous demande" gris={"avant de se\u00a0lancer."} />;
 }
