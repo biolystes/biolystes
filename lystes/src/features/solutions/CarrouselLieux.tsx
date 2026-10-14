@@ -12,7 +12,8 @@ import { ChevronsCarrousel } from "./ChevronsCarrousel";
  * `index` est piloté par l'appelant. `largeur` : facultatif, calcule la
  * largeur de la ligne à chaque mesure (la bannière l'aligne sur son champ).
  */
-export type ElementLieu = { key: string; contenu: ReactNode; href?: string };
+/* `ordiSeulement` : masqué sous 720 px (lien qui coûte une ligne au téléphone). */
+export type ElementLieu = { key: string; contenu: ReactNode; href?: string; ordiSeulement?: boolean };
 
 export function CarrouselLieux({ elements, index, setIndex, largeur, className, libellePrecedent, libelleSuivant }: {
   elements: ElementLieu[];
@@ -62,9 +63,12 @@ export function CarrouselLieux({ elements, index, setIndex, largeur, className, 
     <div className={"lyh-install-row" + (className ? " " + className : "")}>
       <div className="lyh-install-viewport">
         <div className="lyh-install-track" ref={trackRef}>
-          {elements.map((e) => e.href
-            ? <a key={e.key} className="lyh-lien-shopify" href={e.href}>{e.contenu}</a>
-            : <span key={e.key} className="lyh-lien-shopify">{e.contenu}</span>)}
+          {elements.map((e) => {
+            const cl = "lyh-lien-shopify" + (e.ordiSeulement ? " lyh-ordi-seulement" : "");
+            return e.href
+              ? <a key={e.key} className={cl} href={e.href}>{e.contenu}</a>
+              : <span key={e.key} className={cl}>{e.contenu}</span>;
+          })}
         </div>
       </div>
       {/* Les deux flèches suivent le carrousel : elles sont dans le flux,
