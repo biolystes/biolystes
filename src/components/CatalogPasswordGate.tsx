@@ -12,7 +12,17 @@ const LIEN_RDV = "https://biolystes.pro/rdv";
    comme src/pages/CoquilleLystes.tsx. */
 const LARGEUR_APPAREIL = "width=device-width, initial-scale=1.0";
 
-export default function CatalogPasswordGate({ children }: { children: ReactNode }) {
+/* Même mot de passe et même accès pour le catalogue et /tarifs (JP, 14/10/2026) :
+   l'offre ne se voit qu'avec le mot de passe donné par la conseillère. */
+export default function CatalogPasswordGate({
+  children,
+  titre = "Catalogue privé",
+  objet = "au catalogue",
+}: {
+  children: ReactNode;
+  titre?: string;
+  objet?: string;
+}) {
   const [ok, setOk] = useState(() => typeof window !== "undefined" && sessionStorage.getItem(KEY) === "1");
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
@@ -38,34 +48,47 @@ export default function CatalogPasswordGate({ children }: { children: ReactNode 
     } else setError(true);
   };
 
+  /* Identité du site (JP, 14/10/2026 : « ce n'est pas mon identité ») : plus de
+     boîte noire, de titre à empattements ni de bouton vert. Fond blanc, en-tête
+     de section de l'accueil (sur-titre espacé, titre léger noir puis gris), carte
+     #f3f4f5, bouton noir à rond blanc (.btn-startup), comme /tarifs et l'accueil. */
+  /* Marges en ligne : le Tailwind des pages du pied ne génère pas toutes les
+     classes de ce composant (pt-32, p-6 absents). */
   return (
-    <div style={{ minHeight: "70vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "24px 16px", background: "#ffffff" }}>
-      <form onSubmit={submit} style={{ background: "#121212", color: "#ffffff", padding: "clamp(28px, 8vw, 40px)", borderRadius: "2rem", width: "100%", maxWidth: 400, textAlign: "center", boxSizing: "border-box" }}>
-        <h1 style={{ fontFamily: "'Instrument Serif', serif", fontSize: "clamp(32px, 9vw, 36px)", lineHeight: 1.1, marginBottom: 8, color: "#ffffff", textWrap: "balance" }}>Catalogue privé</h1>
-        <p style={{ fontSize: 14, lineHeight: 1.5, opacity: 0.8, marginBottom: 24, color: "#ffffff", textWrap: "pretty" }}>Entrez le mot de passe pour accéder au catalogue.</p>
-        <input
-          type="password"
-          value={value}
-          onChange={(e) => { setValue(e.target.value); setError(false); }}
-          placeholder="Mot de passe"
-          autoFocus
-          aria-label="Mot de passe"
-          style={{ width: "100%", boxSizing: "border-box", padding: "12px 16px", fontSize: 16, borderRadius: 999, border: "1px solid #2f5955", background: "#f3f4f5", color: "#121212", marginBottom: 12 }}
-        />
-        {error && <p style={{ color: "#ff8a80", fontSize: 13, marginBottom: 12 }}>Mot de passe incorrect</p>}
-        <button type="submit" style={{ width: "100%", padding: "12px 16px", fontSize: 16, borderRadius: 999, background: "#2f5955", color: "#ffffff", fontWeight: 600 }}>
-          Accéder
-        </button>
-        <div style={{ marginTop: 24, paddingTop: 20, borderTop: "1px solid rgba(255, 255, 255, 0.15)", fontSize: 14, lineHeight: 1.5, color: "#ffffff", textWrap: "balance" }}>
-          <p style={{ color: "#ffffff", opacity: 0.8 }}>Votre conseillère vous donne le mot de passe.</p>
-          <p style={{ color: "#ffffff", opacity: 0.8, marginTop: 4 }}>Pas encore de conseillère&nbsp;?</p>
-          <p style={{ color: "#ffffff", marginTop: 4 }}>
-            <a href={LIEN_RDV} style={{ color: "#ffffff", fontWeight: 600, textDecoration: "underline", textUnderlineOffset: 3, whiteSpace: "nowrap" }}>
-              Prenez rendez-vous
+    <section className="bg-white flex justify-center" style={{ padding: "clamp(40px, 7vw, 88px) 16px clamp(64px, 8vw, 96px)" }}>
+      <div className="w-full max-w-md text-center">
+        <p className="text-xs tracking-[0.3em] uppercase text-foreground">{titre}</p>
+        <h1
+          className="mt-4 text-[1.5rem] md:text-[1.75rem] !font-light tracking-tight text-foreground leading-[1.25]"
+          style={{ textWrap: "balance", fontFamily: "'Bricolage Grotesque', 'Inter', sans-serif" }}
+        >
+          Entrez votre mot de passe <span className="text-muted-foreground">pour accéder {objet}.</span>
+        </h1>
+        <form onSubmit={submit} className="mt-8 rounded-2xl bg-[#f3f4f5] text-left" style={{ padding: "clamp(24px, 5vw, 32px)" }}>
+          <input
+            type="password"
+            value={value}
+            onChange={(e) => { setValue(e.target.value); setError(false); }}
+            placeholder="Mot de passe"
+            autoFocus
+            aria-label="Mot de passe"
+            className="w-full h-12 rounded-full border border-black/15 bg-white px-5 text-base text-foreground placeholder:text-muted-foreground outline-none focus:border-black"
+          />
+          {error && <p className="mt-2 px-2 text-sm text-red-600">Mot de passe incorrect.</p>}
+          <button type="submit" className="btn-startup mt-4 w-full !justify-between">
+            <span>Accéder</span>
+            <span className="arrow-circle">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+            </span>
+          </button>
+          <p className="mt-5 text-[0.9375rem] leading-relaxed text-muted-foreground" style={{ textWrap: "pretty" }}>
+            Votre conseillère vous donne le mot de passe. Pas encore de conseillère&nbsp;?{" "}
+            <a href={LIEN_RDV} target="_blank" rel="noopener noreferrer" className="text-foreground font-medium underline underline-offset-4 whitespace-nowrap">
+              Prendre rendez-vous
             </a>
           </p>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </section>
   );
 }
