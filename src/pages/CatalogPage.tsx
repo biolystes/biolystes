@@ -18,16 +18,27 @@
      « Bientôt disponible » passe au noir ;
    - le panneau prend toute la largeur sous 420 px, et passe au-dessus de
      l'en-tête du site (z-index 9999999) ;
-   - noms de produits en text-wrap: balance (jamais un mot seul en fin de ligne) ;
+   - noms de produits en text-wrap: balance, deux derniers mots liés
+     (sansMotSeul, repris de biolystes.pro) : jamais un mot seul en fin de ligne ;
    - le lien « Voir sur Biolystes.com » (on y est déjà) devient
      « Prendre rendez-vous ».
+
+   Repris aussi de la PR #40 de biolystes.pro : badge noir « Nouveau » pendant
+   60 jours (estNouveau), nouveautés en tête dans toutes les catégories
+   (nouveautesDabord), pastille « Nouveautés » avant les catégories, compteur
+   NOMBRE_PRODUITS_CATALOGUE (fiches cosmétiques en ligne), photo refusée au
+   contrôle (image_a_refaire) remplacée par « Image à venir ».
 
    Le nom du laboratoire ne figure nulle part : les adresses d'images passent
    par citeLeFournisseur (src/lib/fournisseur-masque.ts). */
 import { useMemo, useState } from "react";
 import { Search, Star, Clock, CalendarDays } from "lucide-react";
 import { citeLeFournisseur } from "@/lib/fournisseur-masque";
-import { PRODUCTS, CATEGORIES, MENTION_IMAGE_A_VENIR, MENTION_RETIRE } from "@/data/catalogue-pro/products";
+import { sansMotSeul } from "@/lib/sans-mot-seul";
+import {
+  PRODUCTS, CATEGORIES, MENTION_IMAGE_A_VENIR, MENTION_RETIRE, MENTION_NOUVEAU,
+  NOMBRE_PRODUITS_CATALOGUE, estNouveau, nouveautesDabord,
+} from "@/data/catalogue-pro/products";
 import cleanImageEntries from "@/data/catalogue-pro/clean-image-map.json";
 import imagesApprouvees from "@/data/catalogue-pro/images-approuvees.json";
 import { CTA_URL, Entete } from "./pied/elements";
@@ -37,7 +48,23 @@ const LABEL_CATEGORIE: Record<string, string> = {
   "soins-du-corps": "Soins du corps",
   "soins-du-cheveu": "Soins du cheveu",
   "collection-box": "Collection",
+  maquillage: "Maquillage",
+  supplements: "Compléments alimentaires",
 };
+
+/** Filtre « Nouveautés », proposé avant les catégories. */
+const ID_NOUVEAUTES = "nouveautes";
+
+/** Pastille « Nouveau » : même facture que les tags du catalogue (fond noir, texte blanc, capitales). */
+const BadgeNouveau = ({ grand = false }: { grand?: boolean }) => (
+  <span
+    data-badge-nouveau
+    className={`inline-flex items-center rounded-lg font-bold uppercase whitespace-nowrap ${grand ? "px-2 py-1 text-[10px] tracking-[0.5px]" : "px-2 py-0.5 text-[9px] tracking-[0.4px]"}`}
+    style={{ background: "rgb(29,29,31)", color: "#ffffff" }}
+  >
+    {MENTION_NOUVEAU}
+  </span>
+);
 
 // Slug-keyed clean image map from JSON
 const CLEAN_IMAGE_BY_SLUG: Record<string, string> = cleanImageEntries as unknown as Record<string, string>;
@@ -54,9 +81,11 @@ const withImageVersion = (url: string, version: string) => {
   return `${url}${separator}v=${encodeURIComponent(version)}`;
 };
 
-/* Même ordre que biolystes.pro : photo approuvée, photo de products.ts,
+/* Même ordre que biolystes.pro : photo refusée = rien, photo approuvée, photo de products.ts,
    carte JSON, sinon rien (« Image à venir »). */
 export function getProductImage(product: typeof PRODUCTS[0]): string {
+  // Photo refusée au contrôle visuel : « Image à venir », quelle que soit l'image approuvée.
+  if (product.image_a_refaire) return "/placeholder.svg";
   const approved = APPROVED_CLEAN_IMAGES[product.slug];
   if (approved && !citeLeFournisseur(approved.url)) return withImageVersion(approved.url, approved.version);
   if (product.image && !citeLeFournisseur(product.image)) return product.image;
@@ -71,15 +100,20 @@ export default function CatalogPage() {
   const [selectedProduct, setSelectedProduct] = useState<typeof PRODUCTS[0] | null>(null);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
+  const nombreNouveautes = useMemo(() => PRODUCTS.filter((p) => estNouveau(p)).length, []);
+
+  // Nouveautés en tête par défaut, dans « Tous les produits » comme dans chaque catégorie.
   const filtered = useMemo(() => {
-    return PRODUCTS.filter((p) => {
-      const matchCat = activeCategory === "all" || p.categorie === activeCategory;
+    return nouveautesDabord(PRODUCTS.filter((p) => {
+      const matchCat =
+        activeCategory === "all" ||
+        (activeCategory === ID_NOUVEAUTES ? estNouveau(p) : p.categorie === activeCategory);
       const matchSearch =
         !search ||
         p.nom.toLowerCase().includes(search.toLowerCase()) ||
         p.description.toLowerCase().includes(search.toLowerCase());
       return matchCat && matchSearch;
-    });
+    }));
   }, [search, activeCategory]);
 
   const toggleFav = (slug: string, e: React.MouseEvent) => {
@@ -100,7 +134,7 @@ export default function CatalogPage() {
           surtitre="Catalogue"
           noir="Vos produits"
           gris="en marque blanche."
-          texte={<><span className="whitespace-nowrap">{PRODUCTS.length} produits</span>, avec leur prix hors taxes et leur composition INCI.</>}
+          texte={<><span className="whitespace-nowrap" data-testid="nombre-catalogue">{NOMBRE_PRODUITS_CATALOGUE} produits</span>, dont <span className="whitespace-nowrap">{nombreNouveautes} nouveautés</span>, avec leur prix hors taxes et leur composition INCI.</>}
           className="pb-4 md:pb-6"
         />
 
@@ -117,6 +151,18 @@ export default function CatalogPage() {
             />
           </div>
           <div className="flex gap-2 flex-wrap">
+            {nombreNouveautes > 0 && (
+              <button
+                onClick={() => setActiveCategory(ID_NOUVEAUTES)}
+                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                  activeCategory === ID_NOUVEAUTES ? "bg-foreground text-background" : "text-foreground hover:bg-black/10"
+                }`}
+                style={activeCategory === ID_NOUVEAUTES ? undefined : { background: "#f3f4f5" }}
+              >
+                Nouveautés
+                <span className="ml-1.5 opacity-60 text-xs">({nombreNouveautes})</span>
+              </button>
+            )}
             {CATEGORIES.map((cat) => (
               <button
                 key={cat.id}
@@ -161,12 +207,17 @@ export default function CatalogPage() {
                     Retiré
                   </div>
                 )}
-                {product.volume && !product.status && (
-                  <div
-                    className="absolute top-3 left-3 z-10 px-2 py-0.5 rounded-lg text-[9px] font-bold tracking-wide"
-                    style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(8px)", color: "#666666" }}
-                  >
-                    {product.volume}
+                {!product.status && (estNouveau(product) || product.volume) && (
+                  <div className="absolute top-3 left-3 z-10 flex flex-col items-start gap-1">
+                    {estNouveau(product) && <BadgeNouveau />}
+                    {product.volume && (
+                      <div
+                        className="px-2 py-0.5 rounded-lg text-[9px] font-bold tracking-wide"
+                        style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(8px)", color: "#666666" }}
+                      >
+                        {product.volume}
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -198,7 +249,7 @@ export default function CatalogPage() {
 
               <div className="px-[18px] pt-4 pb-[18px] flex flex-col gap-2 flex-1">
                 <h3 className="text-[11px] font-bold uppercase tracking-[0.3px] leading-[1.4] line-clamp-2 min-h-[30px]" style={{ color: "rgb(29,29,31)", textWrap: "balance" }}>
-                  {product.nom}
+                  {sansMotSeul(product.nom)}
                 </h3>
 
                 {product.description && (
@@ -301,7 +352,10 @@ export default function CatalogPage() {
             </div>
 
             <div className="p-6 flex flex-col gap-4">
-              <h2 className="text-[15px] font-bold" style={{ color: "rgb(29,29,31)", textWrap: "balance" }}>{selectedProduct.nom}</h2>
+              {estNouveau(selectedProduct) && (
+                <div className="-mb-2"><BadgeNouveau grand /></div>
+              )}
+              <h2 className="text-[15px] font-bold" style={{ color: "rgb(29,29,31)", textWrap: "balance" }}>{sansMotSeul(selectedProduct.nom)}</h2>
 
               {selectedProduct.volume && (
                 <span className="text-[11px] font-semibold px-2 py-1 rounded-lg self-start" style={{ background: "#f3f4f5", color: "#666666" }}>
@@ -320,7 +374,7 @@ export default function CatalogPage() {
               )}
 
               {selectedProduct.description && (
-                <p className="text-[12px] leading-[1.65]" style={{ color: "#666666" }}>{selectedProduct.description}</p>
+                <p className="text-[12px] leading-[1.65] whitespace-pre-line" style={{ color: "#666666" }}>{selectedProduct.description}</p>
               )}
 
               {selectedProduct.certifications.length > 0 && (
