@@ -220,8 +220,10 @@ describe("Garde-fou : la page /tarifs", () => {
   for (const [pack, acompte, total] of [["Standard", 199, 1499], ["IA", 299, 2999]] as const) {
     it(`${pack} sur plusieurs mois : 0 €, acompte ${acompte} €, 300 € à la livraison du site, puis 199 €/mois abonnement inclus, total ${total} €`, () => {
       const texte = afficher();
-      fireEvent.click(screen.getByRole("tab", { name: "Payer sur plusieurs mois" }));
-      fireEvent.click(within(screen.getByRole("tablist", { name: "Votre pack, payé sur plusieurs mois" })).getByRole("tab", { name: pack }));
+      // Le pack d'abord (onglets « Votre pack »), puis le mode de paiement,
+      // dans la carte du prix : il n'existe que pour Standard et IA (PR 67).
+      fireEvent.click(within(screen.getByRole("tablist", { name: "Votre pack" })).getByRole("tab", { name: pack }));
+      fireEvent.click(within(screen.getByRole("tablist", { name: "Comment payer" })).getByRole("tab", { name: "Payer sur plusieurs mois" }));
       const f = etapes();
       expect(f).toHaveLength(5);
       expect(f[0]).toMatch(/0 €/);

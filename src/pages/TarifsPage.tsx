@@ -261,8 +261,10 @@ function Frise({ etapes }: { etapes: Etape[] }) {
 /* Onglets sobres (JP, 14/10/2026 : « trop de boutons ») : du texte, un trait
    sous l'onglet actif, rien sous les autres. Au doigt comme au clavier
    (flèches). Trois tailles : la formule, le mode de paiement, le pack. */
-function Onglets<T extends string>({ label, options, valeur, onChange, niveau }: {
+function Onglets<T extends string>({ label, options, valeur, onChange, niveau, gauche = false }: {
   label: string; options: { cle: T; nom: string }[]; valeur: T; onChange: (v: T) => void; niveau: 1 | 2 | 3;
+  /** Dans une carte : alignés à gauche, plus petits, sans trait de fond. */
+  gauche?: boolean;
 }) {
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const clavier = (e: KeyboardEvent, i: number) => {
@@ -273,10 +275,10 @@ function Onglets<T extends string>({ label, options, valeur, onChange, niveau }:
     onChange(options[j].cle);
     refs.current[j]?.focus();
   };
-  const taille = niveau === 1 ? "text-[1rem] sm:text-[1.125rem] pb-3" : niveau === 2 ? "text-[0.9375rem] sm:text-[1rem] pb-2.5" : "text-[0.9375rem] pb-2";
+  const taille = gauche ? "text-[0.8125rem] sm:text-[0.875rem] pb-1.5" : niveau === 1 ? "text-[1rem] sm:text-[1.125rem] pb-3" : niveau === 2 ? "text-[0.9375rem] sm:text-[1rem] pb-2.5" : "text-[0.9375rem] pb-2";
   return (
     <div role="tablist" aria-label={label}
-      className={"flex justify-center " + (niveau === 1 ? "gap-6 sm:gap-10 border-b border-border" : niveau === 2 ? "gap-6 sm:gap-8" : "gap-5 sm:gap-7")}>
+      className={gauche ? "flex justify-start gap-5 sm:gap-6" : "flex justify-center " + (niveau === 1 ? "gap-6 sm:gap-10 border-b border-border" : niveau === 2 ? "gap-6 sm:gap-8" : "gap-5 sm:gap-7")}>
       {options.map((o, i) => {
         const actif = o.cle === valeur;
         return (
@@ -436,21 +438,20 @@ export default function TarifsPage() {
           </p>
         </div>
 
-        {/* Le mode de paiement, juste au-dessus du prix (JP, 14/10/2026 : moins
-            d'onglets empilés en haut). Seulement pour Standard et IA. */}
-        {avecMois && (
-          <div className="max-w-5xl mx-auto mt-7 md:mt-8">
-            <Onglets label="Comment payer" niveau={2} valeur={modeBoutique} onChange={(v) => setModeBoutique(v as "achat" | "location")}
-              options={[{ cle: "achat", nom: LIBELLES_MODE.achat }, { cle: "location", nom: LIBELLES_MODE.location }]} />
-          </div>
-        )}
-
         {/* 1. Le prix, en haut, sans défiler (JP, 14/10/2026) : le total du pack
             et l'acompte demandé ; à côté, l'abonnement. Sur plusieurs mois : le
             total pour que le site soit à la cliente, l'acompte et le reste de la
             mise en place, et la mensualité (à partir de), abonnement compris. */}
-        <div className={"max-w-5xl mx-auto rounded-2xl bg-secondary " + (avecMois ? "mt-5 md:mt-6" : "mt-8 md:mt-10") + " p-[1.5rem] md:p-[2rem] grid md:grid-cols-2 gap-6 md:gap-10 items-center"}>
+        <div className={"max-w-5xl mx-auto rounded-2xl bg-secondary " + "mt-8 md:mt-10 p-[1.5rem] md:p-[2rem] grid md:grid-cols-2 gap-6 md:gap-10 items-center"}>
           <div>
+            {/* Le mode de paiement, dans la carte, en haut à gauche (JP, 14/10/2026).
+                Seulement pour Standard et IA. */}
+            {avecMois && (
+              <div className="mb-5">
+                <Onglets label="Comment payer" niveau={2} gauche valeur={modeBoutique} onChange={(v) => setModeBoutique(v as "achat" | "location")}
+                  options={[{ cle: "achat", nom: LIBELLES_MODE.achat }, { cle: "location", nom: LIBELLES_MODE.location }]} />
+              </div>
+            )}
             <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">{offre.totalTitre}</p>
             <div className="mt-3"><Montant ttc={offre.total} /></div>
             {mode === "achat" && <p className="mt-3 text-[0.9375rem] text-foreground font-medium text-pretty">Dont un acompte de {euros(acompte)} TTC, payé à la commande.</p>}
