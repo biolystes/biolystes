@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Droplet, Hourglass, Wind, Bath, Sun, Paintbrush, User, Gift, Search, X } from "lucide-react";
+import { Droplet, Hourglass, Wind, Bath, Sun, Paintbrush, User, Gift } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 /**
@@ -53,22 +53,6 @@ export default function BioGammes({ recherche, onRecherche }: { recherche: strin
             Visage, corps, cheveux, maquillage : composez votre gamme
           </h3>
         </div>
-        <label className="relative flex items-center w-full md:w-[300px] shrink-0">
-          <Search className="absolute left-4 h-4 w-4 text-muted-foreground" strokeWidth={1.5} aria-hidden="true" />
-          <input
-            type="search"
-            value={recherche}
-            onChange={(e) => onRecherche(e.target.value)}
-            placeholder="Chercher un produit"
-            aria-label="Chercher un produit dans les gammes"
-            className="w-full h-11 rounded-full bg-background border border-border pl-10 pr-10 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-foreground"
-          />
-          {recherche && (
-            <button type="button" onClick={() => onRecherche("")} aria-label="Effacer la recherche" className="absolute right-3 w-6 h-6 rounded-full flex items-center justify-center text-muted-foreground hover:text-foreground">
-              <X className="h-3.5 w-3.5" />
-            </button>
-          )}
-        </label>
       </div>
 
       {filtrees.length > 0 ? (
