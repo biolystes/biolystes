@@ -225,16 +225,20 @@ const JSON_LD = {
   })),
 };
 
+/* Les deux derniers mots d'une réponse restent ensemble : jamais un mot seul
+   sur la dernière ligne (JP). */
+const colle = (t: string) => t.replace(/ (\S+)$/, "\u00a0$1");
+
 function CarteQuestion({ item }: { item: Question }) {
   return (
-    <div className="bg-secondary rounded-2xl p-6 md:p-7 flex items-start gap-4">
+    <div className="bg-secondary rounded-2xl p-[1.5rem] md:p-[2rem] flex items-start gap-4">
       <RondIcone icone={item.icone} />
       <div className="min-w-0">
         <h3 className="text-[1.0625rem] !font-semibold text-foreground leading-snug text-balance"
           style={{ fontFamily: "'Bricolage Grotesque', 'Inter', sans-serif", textTransform: "none", letterSpacing: "-0.01em" }}>
           {item.q}
         </h3>
-        <p className="mt-2 text-[0.9375rem] text-foreground/80 leading-[1.7] text-pretty">{item.r}</p>
+        <p className="mt-2 text-[0.9375rem] text-foreground/80 leading-[1.7] text-pretty">{colle(item.r)}</p>
       </div>
     </div>
   );
@@ -251,7 +255,7 @@ export default function FaqPage() {
       />
 
       {/* ═══ HAUT DE PAGE ═══ */}
-      <section className="bg-background pt-12 md:pt-20 pb-10 md:pb-12 px-6">
+      <section className="bg-background pt-12 md:pt-20 pb-10 md:pb-12 px-[1.25rem] md:px-[1.5rem]">
         <Entete niveau={1} surtitre="Questions fréquentes"
           noir="Ce que l’on nous demande" gris={"avant de se lancer."}
           texte="Les réponses aux questions que nos clientes nous posent le plus souvent, du choix des produits à la livraison de leurs propres clientes." />
@@ -268,7 +272,7 @@ export default function FaqPage() {
       {/* ═══ LES THÈMES, À PLAT ═══ */}
       {THEMES.map((t, i) => (
         <Bande key={t.id} id={t.id} className={i === 0 ? "!pt-4 md:!pt-6" : ""}>
-          <div className="max-w-5xl mx-auto px-6">
+          <div className="max-w-5xl mx-auto px-[1.25rem] md:px-[1.5rem]">
             <Entete className="mb-8 md:mb-10" surtitre={`${t.questions.length} questions`} noir={t.titre} gris={t.gris.replace(/ (\S+)$/, "\u00a0$1")} aLaLigne={false} />
             <div className="grid md:grid-cols-2 gap-4">
               {t.questions.map((item) => <CarteQuestion key={item.q} item={item} />)}
@@ -279,7 +283,7 @@ export default function FaqPage() {
 
       {/* ═══ RENDEZ-VOUS ═══ */}
       <Bande gris>
-        <div className="max-w-3xl mx-auto px-6">
+        <div className="max-w-[48rem] mx-auto px-[1.25rem] md:px-[1.5rem]">
           <Entete surtitre="Une autre question ?" noir="Parlons de votre projet" gris={"en\u00a0rendez-vous."}
             texte="Nous répondons à vos questions et vous donnons tous les montants, avec l’échéancier complet." />
           <BoutonRdv className="mt-8" />

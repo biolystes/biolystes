@@ -46,11 +46,11 @@
    dans l’espace client), les pourcentages de remise, « le premier mois
    offert », le tarif horaire hors forfait, la durée d’engagement de
    l’abonnement, le prix exact de chaque référence. */
-import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Helmet } from "react-helmet-async";
 import {
-  ArrowUpRight, BadgePercent, Check, ChevronLeft, ChevronRight, CreditCard, HandCoins, Heart, KeyRound, PackageCheck,
-  Receipt, ShieldCheck, ShoppingBag, Store, Tag, Truck, Wallet, type LucideIcon,
+  ArrowUpRight, BadgePercent, Camera, Check, ChevronLeft, ChevronRight, ClipboardCheck, CreditCard, FlaskConical, HandCoins, Heart, KeyRound, PackageCheck,
+  Palette, PenTool, Receipt, ShieldCheck, Store, Tag, Truck, Wallet, type LucideIcon,
 } from "lucide-react";
 import { Bande, BoutonRdv, Entete, RondIcone } from "./pied/elements";
 import showcaseAmarsi from "@/assets/showcase-amarsi.jpg";
@@ -66,9 +66,11 @@ function euros(n: number, centimes?: boolean) {
   const avec = centimes ?? !Number.isInteger(n);
   return n.toLocaleString("fr-FR", { minimumFractionDigits: avec ? 2 : 0, maximumFractionDigits: avec ? 2 : 0 }).replace(/\u202f/g, INSECABLE) + INSECABLE + "€";
 }
+/* Les deux derniers mots restent ensemble : jamais un mot seul en fin de ligne. */
+const colle = (t: string) => t.replace(/ (\S+)$/, "\u00a0$1");
 const ht = (ttc: number) => Math.round((ttc / 1.2) * 100) / 100;
 
-type Etape = { icone: LucideIcon; quand: string; montant: number | null; ligne: string; protege?: boolean; minimum?: boolean };
+type Etape = { icone: LucideIcon; quand: string; montant: number | null; ligne: string; protege?: boolean; minimum?: boolean; offert?: boolean };
 type Offre = {
   slug: string; comprend: string[];
   cle: string; nom: string; contenu: string; total: number; totalTitre: string;
@@ -77,7 +79,11 @@ type Offre = {
 
 /* Les étapes de paiement d’un pack acheté. */
 const ACOMPTE = (montant: number): Etape => ({ icone: Wallet, quand: "Payé à la commande", montant, ligne: "L’acompte lance votre projet." });
-const RECUS: Etape = { icone: PackageCheck, quand: "Vos produits arrivent", montant: null, ligne: "Vous les recevez chez vous et vous les testez." };
+/* Étape 0 (JP, 14/10/2026, compétence tarifs-biolystes, « Le parcours
+   complet ») : la sélection et les fiches INCI sont offertes ; rien à payer
+   avant d'avoir validé ses produits. */
+const SELECTION: Etape = { icone: ClipboardCheck, quand: "Avant tout paiement", montant: null, offert: true, ligne: "Votre sélection et vos fiches INCI, offertes : avec notre IA ou nos experts produits." };
+const RECUS: Etape = { icone: PackageCheck, quand: "Vos produits arrivent", montant: null, ligne: "En une dizaine de jours, chez vous : vous les testez." };
 const PLAISENT = (montant: number, solde = false): Etape => ({
   icone: Heart, quand: "Payé s’ils vous plaisent", montant, protege: true,
   ligne: solde ? "Le solde, seulement si vous continuez." : "2e tranche, seulement si vous continuez.",
@@ -99,6 +105,16 @@ const COMPREND: Record<string, string[]> = {
 };
 const OFFRE_URL = "https://biolystes.pro/offre/";
 
+/* Ce que comprend l'acompte (JP, 14/10/2026, mot pour mot ; « (offert) » : le
+   logo n'est facturé ni dans l'acompte ni dans les packs). */
+const ACOMPTE_COMPREND: { icone: LucideIcon; texte: string }[] = [
+  { icone: Palette, texte: "Votre logo (offert) et votre branding" },
+  { icone: PenTool, texte: "Le design de vos produits" },
+  { icone: FlaskConical, texte: "La fabrication de vos produits" },
+  { icone: Truck, texte: "L’envoi chez vous" },
+  { icone: Camera, texte: "Les photos de vos designs" },
+];
+
 const achat = (cle: string, nom: string, contenu: string, total: number, abonnement: number, abonnementTexte: string, etapes: Etape[]): Offre => ({
   slug: cle, comprend: COMPREND[cle], cle, nom, contenu, total, totalTitre: "Total du " + nom, etapes,
   mensuel: abonnement, mensuelTitre: "Puis l’abonnement, par mois", mensuelTexte: abonnementTexte,
@@ -107,21 +123,22 @@ const achat = (cle: string, nom: string, contenu: string, total: number, abonnem
 /* Packs achetés, dans l’ordre de JP. Source : packs.ts (PACKS_AVEC_SITE). */
 const ACHATS: Offre[] = [
   achat("design", "Pack Design", "4 produits, design seul, sans site", 599, 39, "Accès à tout notre catalogue, sans minimum de commande : vous commandez le produit que vous voulez, quand vous voulez. Un produit pas encore designé : 39 € une fois.",
-    [ACOMPTE(199), RECUS, PLAISENT(400, true)]),
+    [SELECTION, ACOMPTE(199), RECUS, PLAISENT(400, true)]),
   achat("solo", "Pack Solo", "1 design + site e-commerce", 499, 49, "Dès la mise en ligne. Ce que ça vous donne : hébergement, support, logistique et sécurité de votre boutique, sans minimum de commande.",
-    [ACOMPTE(199), RECUS, PLAISENT(300, true)]),
+    [SELECTION, ACOMPTE(199), RECUS, PLAISENT(300, true)]),
   achat("duo", "Pack Duo", "2 designs + site e-commerce", 999, 79, "Dès la mise en ligne. Ce que ça vous donne : hébergement, support prioritaire et logistique, sans minimum de commande.",
-    [ACOMPTE(199), RECUS, PLAISENT(301), SOLDE(499)]),
+    [SELECTION, ACOMPTE(199), RECUS, PLAISENT(301), SOLDE(499)]),
   achat("standard", "Pack Standard", "4 designs + site complet + expert dédié", 1499, 99, "Dès la mise en ligne. Ce que ça vous donne : hébergement, livraisons, référencement, support et sécurité, sans minimum de commande.",
-    [ACOMPTE(199), RECUS, PLAISENT(551), SOLDE(749)]),
+    [SELECTION, ACOMPTE(199), RECUS, PLAISENT(551), SOLDE(749)]),
   achat("ia", "Pack IA", "8 designs, UGC IA, diagnostic, marketing", 2999, 99, "Dès la mise en ligne. Ce que ça vous donne : tout le Standard, plus diagnostic IA, contenus UGC IA et marketing, sans minimum de commande.",
-    [ACOMPTE(299), RECUS, PLAISENT(1201), SOLDE(1499)]),
+    [SELECTION, ACOMPTE(299), RECUS, PLAISENT(1201), SOLDE(1499)]),
 ];
 
 /* Location. Source : packs.ts (PACKS_LOCATION) : mise en place, puis un
    loyer ; le site est acquis au prix du pack acheté. */
 const location = (cle: string, nom: string, contenu: string, miseEnPlace: number, loyer: number, acquis: number): Offre => ({
   slug: cle + "-location", comprend: COMPREND[cle + "-location"], cle, nom, contenu, total: miseEnPlace, totalTitre: "Mise en place", etapes: [
+    SELECTION,
     { icone: KeyRound, quand: "Mise en place", montant: miseEnPlace, ligne: "Pour lancer votre projet." },
     { icone: Receipt, quand: "Puis chaque mois", montant: loyer, minimum: true, ligne: "Vous pouvez verser plus chaque mois, ou solder quand vous voulez, pour que le site soit à vous plus vite." },
     { icone: Store, quand: "Le site est à vous", montant: acquis, ligne: "Une fois ce montant payé au total.", protege: true },
@@ -170,26 +187,40 @@ function Montant({ ttc, petit = false, minimum = false }: { ttc: number; petit?:
   );
 }
 
+/* Petit rond noir d'icône, 36 px partout : sous 850 px, lystes/src/index.css
+   ramène de force .w-8.h-8 à 17 px (celui de RondIcone petit). */
+function PetitRond({ icone: Icone }: { icone: LucideIcon }) {
+  return (
+    <span className="w-[2.25rem] h-[2.25rem] shrink-0 rounded-full bg-foreground text-background flex items-center justify-center">
+      <Icone className="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
+    </span>
+  );
+}
+
 /* La frise : horizontale dès 1024 px, verticale et centrée en dessous (une
    seule présentation par largeur, jamais d’entre-deux). */
 function Frise({ etapes }: { etapes: Etape[] }) {
   const n = etapes.length;
   return (
-    <ol className={"grid gap-0 lg:gap-6 max-w-[420px] lg:max-w-none mx-auto " + (n === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3")}>
+    <ol className={"grid gap-0 lg:gap-6 max-w-[420px] lg:max-w-none mx-auto " + (n === 5 ? "lg:grid-cols-5" : n === 4 ? "lg:grid-cols-4" : "lg:grid-cols-3")}>
       {etapes.map((e, i) => (
         <li key={e.quand} className="relative flex lg:flex-col lg:items-center lg:text-center gap-4 pb-8 lg:pb-0 last:pb-0">
           {i < n - 1 && <span aria-hidden="true" className="lg:hidden absolute left-[19px] top-12 bottom-2 w-px bg-border" />}
           {i < n - 1 && <span aria-hidden="true" className="hidden lg:block absolute top-5 left-[calc(50%_+_36px)] right-[calc(12px_-_50%)] h-px bg-border" />}
           <div className="relative shrink-0">
             <RondIcone icone={e.icone} />
-            <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-background border border-border text-[0.6875rem] font-semibold text-foreground flex items-center justify-center tabular-nums">{i + 1}</span>
+            <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-background border border-border text-[0.6875rem] font-semibold text-foreground flex items-center justify-center tabular-nums">{i}</span>
           </div>
           <div className="min-w-0 lg:mt-1">
-            <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">
-              <span className={e.protege ? "rounded bg-[#e1f3c5] px-1.5 py-0.5 -mx-1.5" : undefined}>{e.quand}</span>
+            {/* Ordinateur : deux lignes réservées, étiquette posée en bas, pour que
+                les montants restent alignés d'une étape à l'autre. */}
+            <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground lg:min-h-[3.2em] lg:flex lg:items-end lg:justify-center">
+              <span><span className={e.protege ? "rounded bg-[#e1f3c5] px-1.5 py-0.5 [box-decoration-break:clone]" : undefined}>{colle(e.quand)}</span></span>
             </p>
             <div className="mt-3">
-              {e.montant === null
+              {e.offert
+                ? <p className="text-[2.25rem] md:text-[2.5rem] leading-none tracking-tight text-foreground" style={{ fontFamily: BRICOLAGE, fontWeight: 400 }}>0&nbsp;€</p>
+                : e.montant === null
                 ? <p className="text-[1.75rem] md:text-[2rem] leading-none tracking-tight text-foreground" style={{ fontFamily: BRICOLAGE, fontWeight: 400 }}>Rien à&nbsp;payer</p>
                 : <Montant ttc={e.montant} minimum={e.minimum} />}
             </div>
@@ -201,9 +232,11 @@ function Frise({ etapes }: { etapes: Etape[] }) {
   );
 }
 
-/* Groupe de choix, au doigt comme au clavier (flèches, comme des onglets). */
-function Choix<T extends string>({ label, options, valeur, onChange, grand = false, petit = false }: {
-  label: string; options: { cle: T; nom: string; icone?: LucideIcon }[]; valeur: T; onChange: (v: T) => void; grand?: boolean; petit?: boolean;
+/* Onglets sobres (JP, 14/10/2026 : « trop de boutons ») : du texte, un trait
+   sous l'onglet actif, rien sous les autres. Au doigt comme au clavier
+   (flèches). Trois tailles : la formule, le mode de paiement, le pack. */
+function Onglets<T extends string>({ label, options, valeur, onChange, niveau }: {
+  label: string; options: { cle: T; nom: string }[]; valeur: T; onChange: (v: T) => void; niveau: 1 | 2 | 3;
 }) {
   const refs = useRef<(HTMLButtonElement | null)[]>([]);
   const clavier = (e: KeyboardEvent, i: number) => {
@@ -214,20 +247,19 @@ function Choix<T extends string>({ label, options, valeur, onChange, grand = fal
     onChange(options[j].cle);
     refs.current[j]?.focus();
   };
+  const taille = niveau === 1 ? "text-[1rem] sm:text-[1.125rem] pb-3" : niveau === 2 ? "text-[0.9375rem] sm:text-[1rem] pb-2.5" : "text-[0.9375rem] pb-2";
   return (
-    <div role="radiogroup" aria-label={label} className={"flex flex-wrap justify-center " + (grand ? "gap-3" : petit ? "gap-1.5 sm:gap-2" : "gap-2.5")}>
+    <div role="tablist" aria-label={label}
+      className={"flex justify-center " + (niveau === 1 ? "gap-6 sm:gap-10 border-b border-border" : niveau === 2 ? "gap-6 sm:gap-8" : "gap-5 sm:gap-7")}>
       {options.map((o, i) => {
         const actif = o.cle === valeur;
-        const Icone = o.icone;
         return (
-          <button key={o.cle} ref={(el) => { refs.current[i] = el; }} type="button" role="radio" aria-checked={actif}
+          <button key={o.cle} ref={(el) => { refs.current[i] = el; }} type="button" role="tab" aria-selected={actif}
             tabIndex={actif ? 0 : -1} onClick={() => onChange(o.cle)} onKeyDown={(e) => clavier(e, i)}
-            className={"inline-flex items-center justify-center gap-2 rounded-full border font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 " +
-              (grand ? "w-full sm:w-auto h-14 px-7 text-[1.0625rem] " : petit ? "h-10 px-3.5 sm:px-5 text-[0.875rem] sm:text-[0.9375rem] " : "w-full sm:w-auto h-12 px-6 text-[1rem] ") +
-              (actif ? "bg-foreground text-background border-foreground" : "bg-background text-foreground border-foreground/20 hover:border-foreground")}>
-            {Icone && <Icone className="h-5 w-5" strokeWidth={1.5} />}
+            className={"relative -mb-px text-center leading-snug text-balance transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-4 rounded-sm " + taille + " " +
+              (actif ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground")}>
             {o.nom}
-            {actif && petit && <Check className="h-4 w-4" strokeWidth={2} />}
+            <span aria-hidden="true" className={"absolute left-0 right-0 bottom-0 h-[2px] rounded-full " + (actif ? "bg-foreground" : "bg-transparent")} />
           </button>
         );
       })}
@@ -244,13 +276,13 @@ function Carrousel({ titre, children }: { titre: string; children: ReactNode }) 
     <div className="space-y-3">
       <p className="text-[1.0625rem] font-semibold text-foreground" style={{ fontFamily: BRICOLAGE }}>{titre}</p>
       <div className="relative">
-        <button type="button" aria-label="Précédent" onClick={() => defiler(-1)} className={fleche + " -left-3"}>
+        <button type="button" aria-label="Précédent" onClick={() => defiler(-1)} className={fleche + " left-2"}>
           <ChevronLeft className="h-4 w-4 text-foreground" />
         </button>
         <div ref={ref} className="flex gap-3 overflow-x-auto snap-x snap-mandatory" style={{ scrollbarWidth: "none" }}>
           {children}
         </div>
-        <button type="button" aria-label="Suivant" onClick={() => defiler(1)} className={fleche + " -right-3"}>
+        <button type="button" aria-label="Suivant" onClick={() => defiler(1)} className={fleche + " right-2"}>
           <ChevronRight className="h-4 w-4 text-foreground" />
         </button>
       </div>
@@ -269,6 +301,76 @@ const SOUS_TITRES_MODE = {
 const AVEC_BOUTIQUE = ACHATS.filter((o) => o.cle !== "design");
 const SANS_BOUTIQUE = ACHATS.find((o) => o.cle === "design") as Offre;
 
+/* Marges (JP, 14/10/2026 : « partout ») : sous 850 px, lystes/src/index.css
+   ramène de force .px-6 à 16 px, .p-6 à 16 px et .p-5 à 12 px. D'où des
+   valeurs explicites, les mêmes pour toute la page : gouttière de 20 px au
+   téléphone, 24 px au-delà ; intérieur des cartes 24 px, 32 px dès 768 px. */
+
+/* Le dernier site lancé, vu en vrai (JP, 14/10/2026) : ecloseparis.com en
+   iframe (le site ne l'interdit pas : ni X-Frame-Options, ni
+   frame-ancestors, vérifié le 14/10/2026), réduit à la largeur du cadre.
+   Ordinateur : écran 1440 × 900 dans une fenêtre de navigateur ; téléphone :
+   écran 390 × 844 dans un cadre de téléphone. Une seule iframe chargée. */
+const ECLOSE_URL = "https://ecloseparis.com";
+/* L'iframe est plus haute que le cadre : le bandeau de cookies et le bouton
+   de conseil du site, fixés en bas de sa fenêtre, tombent hors du cadre. */
+const MARGE_CACHEE = 420;
+function ApercuSite() {
+  const cadre = useRef<HTMLDivElement>(null);
+  const [largeur, setLargeur] = useState(0);
+  const [telephone, setTelephone] = useState(() => typeof window !== "undefined" && window.matchMedia("(max-width: 639px)").matches);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const suivre = () => setTelephone(mq.matches);
+    mq.addEventListener("change", suivre);
+    return () => mq.removeEventListener("change", suivre);
+  }, []);
+  useEffect(() => {
+    const el = cadre.current;
+    if (!el) return;
+    const ro = new ResizeObserver(() => setLargeur(el.clientWidth));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [telephone]);
+  const ecran = telephone ? { w: 390, h: 844 } : { w: 1440, h: 900 };
+  const echelle = largeur ? largeur / ecran.w : 0;
+  const iframe = (
+    <iframe src={ECLOSE_URL} title="Éclose Paris, le site" loading="lazy" tabIndex={-1} aria-hidden="true"
+      className="absolute top-0 left-0 border-0 pointer-events-none origin-top-left"
+      style={{ width: ecran.w, height: ecran.h + MARGE_CACHEE, transform: `scale(${echelle})`, visibility: echelle ? "visible" : "hidden" }} />
+  );
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <p className="text-[1.0625rem] font-semibold text-foreground" style={{ fontFamily: BRICOLAGE }}>Le dernier site lancé : Éclose Paris</p>
+        <a href={ECLOSE_URL} target="_blank" rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
+          Voir le site <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
+        </a>
+      </div>
+      {telephone ? (
+        <div className="mx-auto w-[260px] rounded-[2.25rem] border-[7px] border-foreground bg-foreground overflow-hidden">
+          <div ref={cadre} className="relative w-full overflow-hidden rounded-[1.75rem] bg-background" style={{ aspectRatio: `${ecran.w} / ${ecran.h}` }}>
+            {iframe}
+          </div>
+        </div>
+      ) : (
+        <div className="rounded-2xl border border-border bg-background overflow-hidden">
+          <div className="flex items-center gap-3 px-4 h-9 border-b border-border">
+            <span className="flex gap-1.5" aria-hidden="true">
+              <span className="w-2.5 h-2.5 rounded-full bg-border" /><span className="w-2.5 h-2.5 rounded-full bg-border" /><span className="w-2.5 h-2.5 rounded-full bg-border" />
+            </span>
+            <span className="mx-auto text-[0.75rem] text-muted-foreground">ecloseparis.com</span>
+          </div>
+          <div ref={cadre} className="relative w-full overflow-hidden" style={{ aspectRatio: `${ecran.w} / ${ecran.h}` }}>
+            {iframe}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function TarifsPage() {
   const [famille, setFamille] = useState<Famille>("boutique");
   /* La location n'existe qu'avec une boutique en ligne (JP). */
@@ -279,7 +381,7 @@ export default function TarifsPage() {
   const offre = famille === "sans" ? SANS_BOUTIQUE
     : mode === "location" ? LOCATIONS.find((o) => o.cle === cleLocation) ?? LOCATIONS[0]
     : AVEC_BOUTIQUE.find((o) => o.cle === cleBoutique) ?? AVEC_BOUTIQUE[0];
-  const acompte = offre.etapes[0].montant ?? 0;
+  const acompte = offre.etapes[1].montant ?? 0;
 
   return (
     <>
@@ -289,22 +391,19 @@ export default function TarifsPage() {
       </Helmet>
 
       {/* ═══ LE CHOIX, PUIS LE PAIEMENT DU PACK CHOISI ═══ */}
-      <section className="bg-background pt-12 md:pt-20 pb-12 md:pb-16 px-6">
+      <section className="bg-background pt-12 md:pt-20 pb-12 md:pb-16 px-[1.25rem] md:px-[1.5rem]">
         <Entete niveau={1} surtitre="Tarifs"
           noir="Vous ne payez le reste" gris={"que si nos produits vous" + INSECABLE + "plaisent."} />
 
         <div className="max-w-5xl mx-auto mt-8 md:mt-10 space-y-4">
-          <Choix label="Votre formule" grand valeur={famille} onChange={(v) => setFamille(v as Famille)}
-            options={[
-              { cle: "boutique", nom: "Avec boutique en ligne", icone: Store },
-              { cle: "sans", nom: "Sans boutique en ligne", icone: ShoppingBag },
-            ]} />
-          {famille === "boutique" && <Choix label="Comment payer" valeur={modeBoutique} onChange={(v) => setModeBoutique(v as "achat" | "location")}
-            options={[{ cle: "achat", nom: LIBELLES_MODE.achat, icone: Wallet }, { cle: "location", nom: LIBELLES_MODE.location, icone: KeyRound }]} />}
+          <Onglets label="Votre formule" niveau={1} valeur={famille} onChange={(v) => setFamille(v as Famille)}
+            options={[{ cle: "boutique", nom: "Avec boutique en ligne" }, { cle: "sans", nom: "Sans boutique en ligne" }]} />
+          {famille === "boutique" && <Onglets label="Comment payer" niveau={2} valeur={modeBoutique} onChange={(v) => setModeBoutique(v as "achat" | "location")}
+            options={[{ cle: "achat", nom: LIBELLES_MODE.achat }, { cle: "location", nom: LIBELLES_MODE.location }]} />}
           {famille === "boutique" && <p className="text-center text-[0.9375rem] text-foreground/80 text-pretty">{SOUS_TITRES_MODE[mode]}</p>}
-          {famille === "boutique" && mode === "achat" && <Choix label="Votre pack" petit valeur={cleBoutique} onChange={setCleBoutique}
+          {famille === "boutique" && mode === "achat" && <Onglets label="Votre pack" niveau={3} valeur={cleBoutique} onChange={setCleBoutique}
             options={AVEC_BOUTIQUE.map((o) => ({ cle: o.cle, nom: o.nom.replace("Pack ", "") }))} />}
-          {mode === "location" && <Choix label="Votre pack, payé sur plusieurs mois" petit valeur={cleLocation} onChange={setCleLocation}
+          {mode === "location" && <Onglets label="Votre pack, payé sur plusieurs mois" niveau={3} valeur={cleLocation} onChange={setCleLocation}
             options={LOCATIONS.map((o) => ({ cle: o.cle, nom: o.nom.replace("Pack ", "") }))} />}
           <p className="text-center text-[0.9375rem] text-muted-foreground text-pretty">
             <span className="text-foreground font-semibold">{offre.nom}</span> : {famille === "sans" ? "vos produits à votre marque, sans site" : offre.contenu}.
@@ -316,23 +415,62 @@ export default function TarifsPage() {
           <Frise etapes={offre.etapes} />
         </div>
 
-        {/* Ce qui protège la cliente (achat) ; ce que dit la location. */}
-        <div className="max-w-5xl mx-auto mt-10 md:mt-12 rounded-2xl border border-foreground p-6 md:p-8 flex items-start gap-4">
-          <RondIcone icone={mode === "achat" ? ShieldCheck : KeyRound} />
-          <div className="min-w-0">
-            <h2 className="text-[1.125rem] md:text-[1.25rem] !font-semibold text-foreground leading-snug text-pretty" style={{ fontFamily: BRICOLAGE, textTransform: "none" }}>
-              {mode === "achat" ? <>Ils ne vous plaisent pas&nbsp;?</> : <>Sans engagement</>}
-            </h2>
-            <p className="mt-2 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">
-              {mode === "achat"
-                ? <>Vous vous arrêtez là : vous ne payez rien de plus que l’acompte ({euros(acompte)} TTC), et vous gardez votre logo et votre branding, même pour un autre laboratoire.</>
-                : <>Vous arrêtez quand vous voulez. Si vous arrêtez avant d’avoir réglé la totalité, le site est simplement désactivé. Vous gardez votre logo, votre charte et votre packaging.</>}
-            </p>
+        {/* Le rendez-vous, juste après le parcours (JP, 14/10/2026) : la cliente
+            vient de voir qu'elle ne paie rien avant d'avoir validé sa sélection. */}
+        <BoutonRdv className="mt-10 md:mt-12" />
+
+        {/* Pourquoi un acompte (achat) : texte de JP, mot pour mot (compétence
+            tarifs-biolystes, « Pourquoi l'acompte », 14/10/2026). */}
+        {mode === "achat" ? (
+          <div className="max-w-5xl mx-auto mt-10 md:mt-12 rounded-2xl border border-foreground p-[1.5rem] md:p-[2rem] grid lg:grid-cols-2 gap-8 lg:gap-12">
+            <div>
+              <div className="flex items-center gap-3">
+                <RondIcone icone={ShieldCheck} />
+                <h2 className="text-[1.25rem] md:text-[1.5rem] !font-semibold text-foreground leading-snug" style={{ fontFamily: BRICOLAGE, textTransform: "none" }}>
+                  Pourquoi un acompte&nbsp;?
+                </h2>
+              </div>
+              <p className="mt-4 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">
+                Avant de vous engager vraiment, vous devez vérifier que nos produits tiennent leurs promesses. Avec l’acompte, nous créons votre logo et votre branding, nous fabriquons vos produits et nous vous les envoyons. Vous les recevez à votre marque, et c’est seulement là que vous décidez de continuer avec nous, ou non.
+              </p>
+              <p className="mt-5 rounded-xl bg-[#e1f3c5] p-[1.5rem] md:p-[2rem] text-[1rem] md:text-[1.0625rem] text-foreground leading-relaxed text-pretty" style={{ fontFamily: BRICOLAGE }}>
+                Pendant cette première étape, nous prenons à notre charge une grande partie de la création de vos produits. Nous le faisons parce que nous sommes sûrs de leur qualité.
+              </p>
+            </div>
+            <div className="lg:border-l lg:border-border lg:pl-12">
+              <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Ce que comprend l’acompte</p>
+              <ul className="mt-4 space-y-3">
+                {ACOMPTE_COMPREND.map((x) => (
+                  <li key={x.texte} className="flex items-center gap-3 text-[0.9375rem] md:text-base text-foreground">
+                    <PetitRond icone={x.icone} />
+                    <span className="text-pretty">{x.texte}</span>
+                  </li>
+                ))}
+              </ul>
+              {/* Le logo est offert (JP, 14/10/2026) : coupe court aux « j'ai déjà mon logo ». */}
+              <p className="mt-4 text-[0.9375rem] text-foreground font-medium text-pretty">Le logo est offert : il n’est pas compté dans le prix.</p>
+              <p className="mt-6 text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Si les produits ne vous conviennent pas</p>
+              <p className="mt-2 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">
+                Vous vous arrêtez là, sans rien payer de plus ({euros(acompte)} TTC d’acompte au total), et vous gardez votre logo et votre branding.
+              </p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="max-w-5xl mx-auto mt-10 md:mt-12 rounded-2xl border border-foreground p-[1.5rem] md:p-[2rem] flex items-start gap-4">
+            <RondIcone icone={KeyRound} />
+            <div className="min-w-0">
+              <h2 className="text-[1.125rem] md:text-[1.25rem] !font-semibold text-foreground leading-snug text-pretty" style={{ fontFamily: BRICOLAGE, textTransform: "none" }}>
+                Sans engagement
+              </h2>
+              <p className="mt-2 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">
+                Vous arrêtez quand vous voulez. Si vous arrêtez avant d’avoir réglé la totalité, le site est simplement désactivé. Vous gardez votre logo, votre charte et votre packaging.
+              </p>
+            </div>
+          </div>
+        )}
 
         {/* Le total et l’abonnement du pack acheté (en location, la frise dit déjà tout). */}
-        {mode === "achat" && <div className="max-w-5xl mx-auto mt-4 rounded-2xl bg-secondary p-6 md:p-8 grid md:grid-cols-2 gap-6 md:gap-10 items-center">
+        {mode === "achat" && <div className="max-w-5xl mx-auto mt-4 rounded-2xl bg-secondary p-[1.5rem] md:p-[2rem] grid md:grid-cols-2 gap-6 md:gap-10 items-center">
           <div>
             <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">{offre.totalTitre}</p>
             <div className="mt-3"><Montant ttc={offre.total} /></div>
@@ -345,13 +483,13 @@ export default function TarifsPage() {
         </div>}
 
         {/* Ce que comprend le pack choisi (mêmes mots que biolystes.pro/offre/<slug>). */}
-        <div className="max-w-5xl mx-auto mt-4 rounded-2xl border border-border p-6 md:p-8">
-          <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Ce que comprend le {offre.nom}</p>
+        <div className="max-w-5xl mx-auto mt-4 rounded-2xl border border-border p-[1.5rem] md:p-[2rem]">
+          <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">{colle("Ce que comprend le " + offre.nom)}</p>
           <ul className="mt-4 grid sm:grid-cols-2 gap-x-8 gap-y-2.5">
             {offre.comprend.map((f) => (
               <li key={f} className="flex items-start gap-2.5 text-[0.9375rem] text-foreground/80 leading-snug">
                 <Check className="h-4 w-4 mt-0.5 shrink-0 text-foreground" strokeWidth={2} />
-                <span className="text-pretty">{f}</span>
+                <span className="text-pretty">{colle(f)}</span>
               </li>
             ))}
           </ul>
@@ -364,8 +502,9 @@ export default function TarifsPage() {
 
       {/* ═══ RÉASSURANCE : LES CARROUSELS DE BIOLYSTES.PRO/RDV ═══ */}
       <Bande gris>
-        <div className="max-w-[1072px] mx-auto px-6 space-y-10">
+        <div className="max-w-[1072px] mx-auto px-[1.25rem] md:px-[1.5rem] space-y-10">
           <Entete surtitre="Ils nous font confiance" noir="Des marques bien réelles," gris="déjà lancées." />
+          <ApercuSite />
           <Carrousel titre="Ils ont lancé leur marque avec nous">
             {SHOWCASE_ITEMS.map((item) => (
               <div key={item.src} className="snap-start flex-shrink-0 w-[200px] h-[260px] rounded-xl overflow-hidden bg-muted">
@@ -384,7 +523,7 @@ export default function TarifsPage() {
           </Carrousel>
           <div className="space-y-2">
             <p className="text-[1.0625rem] font-semibold text-foreground" style={{ fontFamily: BRICOLAGE }}>Qui sommes-nous</p>
-            <div className="rounded-xl border border-border bg-background p-4">
+            <div className="rounded-xl border border-border bg-background p-[1.5rem] md:p-[2rem]">
               <p className="text-sm font-medium text-foreground text-pretty">Biolystes est une activité de LYSTES SAS, dirigée par Jean Pierre Bias</p>
               <p className="text-xs text-muted-foreground mt-1 text-pretty">immatriculée au RCS de Paris sous le numéro 907 951 867, dont le siège est au 26 rue du Général Beuret, 75015</p>
             </div>
@@ -394,13 +533,13 @@ export default function TarifsPage() {
 
       {/* ═══ CE QUE COÛTE CHAQUE VENTE ═══ */}
       <Bande>
-        <div className="max-w-[1072px] mx-auto px-6">
+        <div className="max-w-[1072px] mx-auto px-[1.25rem] md:px-[1.5rem]">
           <Entete className="mb-10" surtitre="Une fois en ligne" noir="Ce que coûte" gris="chaque vente." />
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {FRAIS.map((f) => (
               /* Téléphone : icône à gauche, carte courte ; dès 640 px, icône au-dessus. */
-              <div key={f.titre} className="bg-secondary rounded-2xl p-5 sm:p-6 flex sm:flex-col items-start gap-4 sm:gap-0">
-                <RondIcone icone={f.icone} petit />
+              <div key={f.titre} className="bg-secondary rounded-2xl p-[1.5rem] md:p-[2rem] flex sm:flex-col items-start gap-4 sm:gap-0">
+                <PetitRond icone={f.icone} />
                 <div className="min-w-0 sm:mt-4">
                   <p className="text-[0.8125rem] text-muted-foreground leading-snug">{f.titre}</p>
                   <p className="mt-1 text-[1.25rem] sm:text-[1.375rem] leading-tight tracking-tight text-foreground" style={{ fontFamily: BRICOLAGE }}>{f.valeur}</p>
@@ -414,7 +553,7 @@ export default function TarifsPage() {
 
       {/* ═══ RENDEZ-VOUS ═══ */}
       <Bande gris>
-        <div className="max-w-3xl mx-auto px-6">
+        <div className="max-w-[48rem] mx-auto px-[1.25rem] md:px-[1.5rem]">
           <Entete surtitre="Votre projet" noir="On en parle" gris={"en" + INSECABLE + "rendez-vous."}
             texte="Nous choisissons ensemble le pack, les produits et l’échéancier." />
           <ul className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[0.9375rem] text-foreground/80">
