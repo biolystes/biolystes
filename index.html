@@ -6,11 +6,11 @@
     <script>
       /* L’accueil reprend lystes.ai/bio, conçu pour le téléphone : largeur de
          l’appareil sur « / », « /agents-ia », les Actus (/blog), les pages du pied
-         de page (src/pages/pied), la FAQ et le catalogue (/catalogue, dès l’écran du mot
+         de page (src/pages/pied), la FAQ, /tarifs et le catalogue (/catalogue, dès l’écran du mot
          de passe), 1200 px partout ailleurs, comme avant
          (src/pages/CoquilleLystes.tsx et src/components/CatalogPasswordGate.tsx
          suivent la navigation). */
-      if (location.pathname === "/" || /^\/(blog|agents-ia|catalogue|pourquoi-cette-offre|etudes|mentions-legales|politique-confidentialite|cgv|faq)(\/|$)/.test(location.pathname)) document.querySelector('meta[name="viewport"]').setAttribute("content", "width=device-width, initial-scale=1.0");
+      if (location.pathname === "/" || /^\/(blog|agents-ia|catalogue|pourquoi-cette-offre|etudes|mentions-legales|politique-confidentialite|cgv|faq|tarifs)(\/|$)/.test(location.pathname)) document.querySelector('meta[name="viewport"]').setAttribute("content", "width=device-width, initial-scale=1.0");
     </script>
     <!-- TODO: Set the document title to the name of your application -->
     <title>Biolystes - Lancez votre marque cosmétique bio et végane</title>
