@@ -114,7 +114,7 @@ function HomeExperienceCarousel() {
 const CTA_URL = "https://biolystes.pro/rdv";
 /* JP, 14/10/2026 : les appels à l'action privilégient « S'inscrire »
    (inscription de l'espace client) ; le rendez-vous passe en second. */
-const INSCRIPTION_URL = "https://lystes.ai/biolystes/inscription";
+const CATALOGUE_URL = "/catalogue";
 
 /* 13/10/2026 (JP) : la conversation animée de l'accueil, reprise telle quelle
    (FilConversation), pour la recherche de produits à partir du concept d'une
@@ -182,7 +182,7 @@ const BIO_HERO = (onProjet: (projet: string) => void): HeroVariante => ({
      blanc. Plus sombre à gauche, là où se trouve le texte. */
   voile: "linear-gradient(100deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.40) 45%, rgba(0,0,0,.12) 100%)",
   voileMobile: "linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 50%, rgba(0,0,0,.18) 100%)",
-  cta: { label: "S’inscrire", labelCourt: "S’inscrire", href: INSCRIPTION_URL, externe: true },
+  cta: { label: "Découvrez notre catalogue", labelCourt: "Découvrez notre catalogue", href: CATALOGUE_URL, externe: false },
   /* 13/10/2026 (JP) : un champ de projet, plus une recherche de produits.
      Le texte part au conseiller de sélection, dans l’orbital du widget. */
   champ: {
@@ -748,8 +748,8 @@ export default function DecouvertePage() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
             className="mt-10 flex flex-wrap justify-center gap-4">
             {/* biolystes.com : un seul appel à l'action, l'inscription. */}
-            <a href={INSCRIPTION_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
-              <span>S’inscrire</span>
+            <a href={CATALOGUE_URL} className="btn-startup">
+              <span>Découvrez notre catalogue</span>
               <span className="arrow-circle">
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
@@ -851,8 +851,8 @@ export default function DecouvertePage() {
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="mt-12 text-center flex flex-wrap justify-center gap-4">
-            <a href={INSCRIPTION_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
-              <span>S’inscrire</span>
+            <a href={CATALOGUE_URL} className="btn-startup">
+              <span>Découvrez notre catalogue</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-outline">
@@ -926,8 +926,8 @@ export default function DecouvertePage() {
           </div>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href={INSCRIPTION_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
-              <span>S’inscrire</span>
+            <a href={CATALOGUE_URL} className="btn-startup">
+              <span>Découvrez notre catalogue</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-outline">
@@ -954,15 +954,15 @@ export default function DecouvertePage() {
         <div className="max-w-5xl mx-auto px-6 text-center">
           <EnteteSection surtitre="Passez à l’action"
             noir="Prêt à lancer" gris={"votre marque\u00a0?"}
-            texte="Inscrivez-vous, composez votre gamme parmi nos formulations certifiées, et testez vos produits avant de vous engager." />
+            texte="Découvrez notre catalogue, composez votre gamme parmi nos formulations certifiées, et testez vos produits avant de vous engager." />
 
 
 
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4}
             className="mt-16 flex flex-wrap justify-center gap-4">
-            <a href={INSCRIPTION_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
-              <span>S’inscrire</span>
+            <a href={CATALOGUE_URL} className="btn-startup">
+              <span>Découvrez notre catalogue</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-outline">
