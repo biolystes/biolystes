@@ -1,1132 +1,393 @@
-import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { supabase } from "@/integrations/supabase/client";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { useAuth } from "@/contexts/AuthContext";
-import { toast } from "sonner";
-import {
-  type JSONProduct,
-  type EnrichedFields,
-  buildEnrichmentMap,
-  jsonToWCProduct,
-  parseCertifications,
-  parseIngredients,
-  parseStarFeatures,
-  normalize,
-  getCategoryLabel,
-  getCategoryId,
-  getCanonicalSlug,
-} from "@/data/productsData";
-import { getProductImagesSync } from "@/data/productImageMap";
+/* /catalogue (JP, 14/10/2026) : exactement le catalogue de biolystes.pro.
 
-// ─── Crème palette (no grays) ─────────────────────────────
-const C = {
-  bg: "#ebebd6",         // main crème background
-  bgLight: "#f3f4f5",    // lighter crème (panels, dropdowns)
-  border: "#dddcc8",     // crème border
-  borderLight: "#e2e1cc",// lighter crème border
-  muted: "#8a8970",      // warm olive muted text
-  mutedLight: "#a5a48e", // lighter muted
-  accent: "#6b6a55",     // darker warm accent text
-  skeleton: "#e2e1cc",   // skeleton pulse
-  skeletonDark: "#d6d5c0",
-  badgeBg: "rgba(139,138,112,0.1)",
-  badgeBgStrong: "rgba(139,138,112,0.14)",
+   Repris de src/pages/CataloguePage.tsx de biolystes/commandcenterbiolystes
+   (PR #14 et #15) : même recherche, mêmes catégories avec leurs compteurs,
+   mêmes cartes gris pierre (#f3f4f5) avec le prix HT, même panneau de fiche
+   avec la composition INCI. Les données ne sont pas réécrites : elles sont
+   recopiées par scripts/sync-catalogue-pro.mjs dans src/data/catalogue-pro/,
+   et src/test/catalogue-pro.test.ts échoue si les deux catalogues divergent.
+
+   Ce qui diffère de biolystes.pro, et pourquoi :
+   - pas d'onglet « Nos Offres » ni de prix de packs : les packs sont sur /tarifs ;
+   - pas des boutons du back-office (« Nettoyer tout », « Générer et
+     appliquer ») : ils écrivent dans la base de biolystes.pro ;
+   - les photos approuvées sont celles de biolystes.pro, figées à la
+     synchronisation (images-approuvees.json) au lieu d'être lues en direct ;
+   - le cadre (en-tête, pied de page, titre Entete) et les couleurs sont ceux
+     de biolystes.com : fond blanc, cartes #f3f4f5, noir ; le violet de
+     « Bientôt disponible » passe au noir ;
+   - le panneau prend toute la largeur sous 420 px, et passe au-dessus de
+     l'en-tête du site (z-index 9999999) ;
+   - noms de produits en text-wrap: balance (jamais un mot seul en fin de ligne) ;
+   - le lien « Voir sur Biolystes.com » (on y est déjà) devient
+     « Prendre rendez-vous ».
+
+   Le nom du laboratoire ne figure nulle part : les adresses d'images passent
+   par citeLeFournisseur (src/lib/fournisseur-masque.ts). */
+import { useMemo, useState } from "react";
+import { Search, Star, Clock, CalendarDays } from "lucide-react";
+import { citeLeFournisseur } from "@/lib/fournisseur-masque";
+import { PRODUCTS, CATEGORIES, MENTION_IMAGE_A_VENIR, MENTION_RETIRE } from "@/data/catalogue-pro/products";
+import cleanImageEntries from "@/data/catalogue-pro/clean-image-map.json";
+import imagesApprouvees from "@/data/catalogue-pro/images-approuvees.json";
+import { CTA_URL, Entete } from "./pied/elements";
+
+const LABEL_CATEGORIE: Record<string, string> = {
+  "soins-du-visage": "Soins du visage",
+  "soins-du-corps": "Soins du corps",
+  "soins-du-cheveu": "Soins du cheveu",
+  "collection-box": "Collection",
 };
 
-// ─── WooCommerce config ───────────────────────────────────
-// Ancienne boutique WooCommerce : l'adresse sert désormais l'appli biolystes.pro,
-// l'appel échoue comme avant. Clés d'API retirées du code public le 12/10/2026.
-const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
+// Slug-keyed clean image map from JSON
+const CLEAN_IMAGE_BY_SLUG: Record<string, string> = cleanImageEntries as unknown as Record<string, string>;
+/* Les photos « approved » de biolystes.pro (table clean_product_images). */
+const APPROVED_CLEAN_IMAGES: Record<string, { url: string; version: string }> = imagesApprouvees;
 
-function buildUrl(endpoint: string, params: Record<string, string> = {}) {
-  const url = new URL(`${WC_BASE}${endpoint}`);
-  Object.entries(params).forEach(([k, v]) => url.searchParams.set(k, v));
-  return url.toString();
-}
+const isGeneratedProductImageUrl = (url: string) =>
+  url.includes("/storage/v1/object/public/product-images/clean") ||
+  url.includes("/storage/v1/object/public/product-images/clean-products");
 
-function stripHtml(html: string) {
-  if (!html) return "";
-  const tmp = document.createElement("div");
-  tmp.innerHTML = html;
-  return tmp.textContent || tmp.innerText || "";
-}
-
-// ─── Inline SVG icon ─────────────────────────────────────
-function Icon({ d, size = 16, sw = 1.5 }: { d: string | string[]; size?: number; sw?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round">
-      {Array.isArray(d) ? d.map((p, i) => <path key={i} d={p} />) : <path d={d} />}
-    </svg>
-  );
-}
-
-const Icons = {
-  box:     (p: any) => <Icon {...p} d={["M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z","M12 22V12","M3.29 7 12 12l8.71-5","M7.5 4.27l9 5.15"]} />,
-  close:   (p: any) => <Icon {...p} d={["M18 6 6 18","m6 6 12 12"]} />,
-  search:  (p: any) => <Icon {...p} d={["M11 3a8 8 0 1 0 0 16 8 8 0 0 0 0-16z","m21 21-4.3-4.3"]} />,
-  leaf:    (p: any) => <Icon {...p} d={["M11 20A7 7 0 0 1 9.8 6.9C15.5 4.9 17 3.5 19 2c1 2 2 4.5 1 8.5-2 3-5.5 5-9 5.5","M2 21c0-3 1.85-5.36 5.08-7C9.5 12.52 12 13 13 14"]} />,
+const withImageVersion = (url: string, version: string) => {
+  if (!isGeneratedProductImageUrl(url)) return url;
+  const separator = url.includes("?") ? "&" : "?";
+  return `${url}${separator}v=${encodeURIComponent(version)}`;
 };
 
-// ─── Types ────────────────────────────────────────────────
-interface WCProduct {
-  id: number;
-  name: string;
-  price: string;
-  images: { src: string }[];
-  tags: { id: number; name: string }[];
-  categories: { id: number; name: string }[];
-  attributes: { id: number; name: string; options: string[] }[];
-  short_description: string;
-  description: string;
-  permalink: string;
-  _enriched?: EnrichedFields;
+/* Même ordre que biolystes.pro : photo approuvée, photo de products.ts,
+   carte JSON, sinon rien (« Image à venir »). */
+export function getProductImage(product: typeof PRODUCTS[0]): string {
+  const approved = APPROVED_CLEAN_IMAGES[product.slug];
+  if (approved && !citeLeFournisseur(approved.url)) return withImageVersion(approved.url, approved.version);
+  if (product.image && !citeLeFournisseur(product.image)) return product.image;
+  const jsonClean = CLEAN_IMAGE_BY_SLUG[product.slug];
+  if (jsonClean && !citeLeFournisseur(jsonClean)) return jsonClean;
+  return "/placeholder.svg";
 }
 
-interface WCCategory { id: number; name: string; slug: string; count: number; parent: number; image?: { src: string } | null; }
-interface WCTag { id: number; name: string; count: number; }
-interface WCAttribute { id: number; name: string; slug: string; }
-interface WCAttributeTerm { id: number; name: string; count: number; }
+export default function CatalogPage() {
+  const [search, setSearch] = useState("");
+  const [activeCategory, setActiveCategory] = useState("all");
+  const [selectedProduct, setSelectedProduct] = useState<typeof PRODUCTS[0] | null>(null);
+  const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
-// ─── Color map ────────────────────────────────────────────
-const COLOR_MAP: Record<string, string> = {
-  "ambre": "#c17e3f", "amber": "#c17e3f",
-  "noir": "#1a1a1a", "black": "#1a1a1a", "noire": "#1a1a1a",
-  "blanche": "#f9f9f9", "blanc": C.bgLight, "white": "#f9f9f9",
-  "vert": "#4a8c4a", "verte": "#4a8c4a", "green": "#4a8c4a",
-  "transparente": `repeating-conic-gradient(${C.skeletonDark} 0% 25%, ${C.bgLight} 0% 50%) 0 0/8px 8px`,
-  "rose": "#e8a0b0", "bleu": "#4a7cb5", "violet": "#8b5cf6",
-  "beige": "#d4b896", "crème": "#f5e6d3", "argent": "#a8a8a8", "or": "#d4af37",
-};
+  const filtered = useMemo(() => {
+    return PRODUCTS.filter((p) => {
+      const matchCat = activeCategory === "all" || p.categorie === activeCategory;
+      const matchSearch =
+        !search ||
+        p.nom.toLowerCase().includes(search.toLowerCase()) ||
+        p.description.toLowerCase().includes(search.toLowerCase());
+      return matchCat && matchSearch;
+    });
+  }, [search, activeCategory]);
 
-// ─── Hidden products (excluded from catalog) ─────────────
-const HIDDEN_PRODUCTS = new Set<string>();
-
-// ─── Priority products (shown first in default order) ─────
-const PRIORITY_PRODUCTS = [
-  "cremedenuitpourpeauxsensiblessansparfum",
-  "serumcontourdesyeuxalternatifauretinol",
-  "toniqueexfoliantalacideglycolique",
-  "serumperfecteurdepigment",
-  "cremedejourhydratante",
-  "huilevisagenourrissante",
-  "serumnaturelabasedhuilealternatifauretinol",
-  "gelboosterauginkgoantioxydant",
-];
-
-
-// Images are now loaded from the product_clean_images database table
-function getCdnFallbackImage(_name: string): string | null {
-  return null;
-}
-
-const TAG_GROUP_LABELS: Record<string, string> = {
-  "réclamations": "Réclamations", "reclamations": "Réclamations", "claims": "Réclamations",
-  "inquiétude": "Besoin", "inquietude": "Besoin", "concern": "Besoin",
-  "préoccupation": "Besoin", "préoccupations": "Besoin",
-  "principes actifs": "Principes actifs", "principe actif": "Principes actifs",
-  "actifs": "Principes actifs", "ingrédients actifs": "Principes actifs",
-  "couleur de l'emballage": "Couleur de l'emballage", "couleur": "Couleur de l'emballage",
-};
-
-const FILTER_ORDER = ["Réclamations", "Besoin", "Principes actifs", "Couleur de l'emballage"];
-
-
-
-function parseTag(tagName: string): { displayName: string; group: string | null } {
-  const match = tagName.match(/^(.+?)\s*\((.+?)\)\s*$/);
-  if (match) return { displayName: match[1].trim(), group: match[2].trim().toLowerCase() };
-  return { displayName: tagName, group: null };
-}
-
-function normalizeStr(name: string): string {
-  return name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
-}
-
-// ─── Filter Dropdown ──────────────────────────────────────
-type FilterOption = { id: number | string; name: string; image?: string };
-
-function FilterDropdown({ label, options, selected, onChange, grid = false }: {
-  label: string; options: FilterOption[]; selected: (number | string)[]; onChange: (ids: (number | string)[]) => void; grid?: boolean;
-}) {
-  const [open, setOpen] = useState(false);
-  const hasActive = selected.length > 0;
+  const toggleFav = (slug: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    setFavorites((prev) => {
+      const next = new Set(prev);
+      if (next.has(slug)) next.delete(slug);
+      else next.add(slug);
+      return next;
+    });
+  };
 
   return (
-    <div style={{ position: "relative" }}>
-      <button onClick={() => setOpen(o => !o)}
-        style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 20, border: hasActive ? "1.5px solid #1d1d1f" : `0px solid ${C.border}`, background: hasActive ? "#1d1d1f" : C.badgeBg, color: hasActive ? C.bgLight : "#1d1d1f", fontSize: 12, fontWeight: 500, cursor: "pointer", transition: "all .15s", whiteSpace: "nowrap" }}>
-        {label}
-        {hasActive && <span style={{ background: "rgba(255,255,255,0.25)", borderRadius: 10, padding: "1px 6px", fontSize: 10, fontWeight: 700 }}>{selected.length}</span>}
-        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d={open ? "m18 15-6-6-6 6" : "m6 9 6 6 6-6"} /></svg>
-      </button>
-      {open && (
-        <>
-          <div onClick={() => setOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 98 }} />
-          <div style={{ position: "absolute", top: "calc(100% + 8px)", left: 0, zIndex: 99, background: C.bgLight, borderRadius: 14, minWidth: grid ? 380 : 220, boxShadow: "0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.06)", border: `1px solid ${C.borderLight}` }}>
-            <div style={{ padding: 10, display: grid ? "grid" : "block", gridTemplateColumns: grid ? "1fr 1fr" : undefined, gap: grid ? 2 : 0 }}>
-              {options.map(opt => {
-                const active = selected.includes(opt.id);
-                return (
-                  <button key={opt.id} onClick={() => onChange(active ? selected.filter(id => id !== opt.id) : [...selected, opt.id])}
-                    style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "9px 10px", borderRadius: 8, border: "none", background: active ? C.bg : "transparent", cursor: "pointer", textAlign: "left", transition: "background .1s" }}>
-                    <div style={{ width: 16, height: 16, borderRadius: "50%", flexShrink: 0, border: active ? "none" : `1.5px solid ${C.border}`, background: active ? "#1d1d1f" : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                      {active && <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
-                    </div>
-                    {opt.image && <div style={{ width: 22, height: 22, borderRadius: "50%", background: opt.image, border: `1px solid ${C.border}`, flexShrink: 0 }} />}
-                    <span style={{ fontSize: 13, fontWeight: 400, color: "#1d1d1f" }}>{opt.name}</span>
-                  </button>
-                );
-              })}
-            </div>
-            {selected.length > 0 && (
-              <div style={{ borderTop: `1px solid ${C.bg}`, padding: "6px 10px" }}>
-                <button onClick={() => onChange([])} style={{ width: "100%", padding: "6px", borderRadius: 8, border: "none", background: "transparent", color: C.muted, fontSize: 12, cursor: "pointer" }}>Effacer la sélection</button>
+    <section className="bg-background pt-10 pb-16 md:pt-14 md:pb-20">
+      <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-5">
+        <Entete
+          niveau={1}
+          surtitre="Catalogue"
+          noir="Vos produits"
+          gris="en marque blanche."
+          texte={<><span className="whitespace-nowrap">{PRODUCTS.length} produits</span>, avec leur prix hors taxes et leur composition INCI.</>}
+          className="pb-4 md:pb-6"
+        />
+
+        <div className="flex flex-col gap-3">
+          <div className="relative max-w-md">
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input
+              type="text"
+              placeholder="Rechercher un produit..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full pl-9 pr-4 py-2 rounded-xl text-sm text-foreground placeholder:text-muted-foreground outline-none border-0 focus:ring-1 focus:ring-black/20"
+              style={{ background: "#f3f4f5" }}
+            />
+          </div>
+          <div className="flex gap-2 flex-wrap">
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveCategory(cat.id)}
+                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                  activeCategory === cat.id ? "bg-foreground text-background" : "text-foreground hover:bg-black/10"
+                }`}
+                style={activeCategory === cat.id ? undefined : { background: "#f3f4f5" }}
+              >
+                {cat.label}
+                <span className="ml-1.5 opacity-60 text-xs">
+                  ({cat.id === "all" ? PRODUCTS.length : PRODUCTS.filter((p) => p.categorie === cat.id).length})
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <p className="text-xs text-muted-foreground" data-testid="nombre-produits">{filtered.length} produit{filtered.length > 1 ? "s" : ""}</p>
+
+        <div className="catalogue-products-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          {filtered.map((product) => (
+            <div
+              key={product.slug}
+              data-produit={product.slug}
+              onClick={() => setSelectedProduct(product)}
+              className="flex flex-col cursor-pointer rounded-[20px] overflow-hidden transition-shadow hover:ring-1 hover:ring-black/20"
+              style={{ background: "#f3f4f5" }}
+            >
+              <div className="relative w-full aspect-square overflow-hidden flex items-center justify-center" style={{ background: "#f3f4f5" }}>
+                {product.status === "coming_soon" && (
+                  <div
+                    className="absolute top-3 left-3 z-20 flex items-center gap-1 px-2 py-0.5 rounded-lg text-[9px] font-bold tracking-wide"
+                    style={{ background: "rgb(29,29,31)", color: "#fff" }}
+                  >
+                    <Clock className="w-2.5 h-2.5" />
+                    Bientôt disponible
+                  </div>
+                )}
+                {product.status === "retired" && (
+                  <div className="absolute top-3 left-3 z-20 px-2 py-0.5 rounded-lg text-[9px] font-bold tracking-wide bg-foreground text-background">
+                    Retiré
+                  </div>
+                )}
+                {product.volume && !product.status && (
+                  <div
+                    className="absolute top-3 left-3 z-10 px-2 py-0.5 rounded-lg text-[9px] font-bold tracking-wide"
+                    style={{ background: "rgba(255,255,255,0.7)", backdropFilter: "blur(8px)", color: "#666666" }}
+                  >
+                    {product.volume}
+                  </div>
+                )}
+
+                <button
+                  onClick={(e) => toggleFav(product.slug, e)}
+                  aria-label="Favori"
+                  className="absolute top-2.5 right-2.5 z-10 w-[26px] h-[26px] rounded-lg flex items-center justify-center transition-colors"
+                  style={{ border: "2px solid rgba(0,0,0,0.15)", background: "rgba(255,255,255,0.7)", backdropFilter: "blur(6px)" }}
+                >
+                  <Star
+                    className="w-3 h-3"
+                    style={{ color: favorites.has(product.slug) ? "#4b5357" : "#666666" }}
+                    fill={favorites.has(product.slug) ? "#4b5357" : "none"}
+                  />
+                </button>
+
+                {product.image_a_venir && getProductImage(product) === "/placeholder.svg" ? (
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.4px] text-muted-foreground">{MENTION_IMAGE_A_VENIR}</span>
+                ) : (
+                  <img
+                    src={getProductImage(product)}
+                    alt={product.nom}
+                    loading="lazy"
+                    className="w-full h-full object-cover"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                  />
+                )}
               </div>
-            )}
+
+              <div className="px-[18px] pt-4 pb-[18px] flex flex-col gap-2 flex-1">
+                <h3 className="text-[11px] font-bold uppercase tracking-[0.3px] leading-[1.4] line-clamp-2 min-h-[30px]" style={{ color: "rgb(29,29,31)", textWrap: "balance" }}>
+                  {product.nom}
+                </h3>
+
+                {product.description && (
+                  <p className="text-[10px] leading-[1.5] line-clamp-2" style={{ color: "#666666" }}>
+                    {product.description}
+                  </p>
+                )}
+
+                <div className="flex gap-1 flex-wrap">
+                  {product.certifications.slice(0, 3).map((cert) => (
+                    <span key={cert} className="px-[7px] py-[2px] rounded-[6px] text-[8px] font-semibold tracking-[0.3px] whitespace-nowrap" style={{ background: "rgba(13,31,36,0.06)", color: "#4b5357" }}>
+                      {cert}
+                    </span>
+                  ))}
+                  {product.certifications.length > 3 && (
+                    <span className="text-[8px] font-semibold self-center" style={{ color: "#9ca3af" }}>
+                      +{product.certifications.length - 3}
+                    </span>
+                  )}
+                </div>
+
+                {(() => {
+                  const conseilles = product.prix_conseilles
+                    ? { ...product.prix_conseilles, isAI: false }
+                    : product.prix_ht
+                      ? { milieu: Math.round(product.prix_ht * 2.2), bio: Math.round(product.prix_ht * 3.5), luxe: Math.round(product.prix_ht * 4.5), isAI: true }
+                      : null;
+                  if (!conseilles) return null;
+                  return (
+                    <div className="flex flex-col gap-[2px]">
+                      <div className="flex items-center justify-between gap-1.5 mb-[6px]">
+                        <span className="text-[9px] font-bold tracking-[1px] uppercase" style={{ color: "rgb(17,17,17)" }}>
+                          <span className="sm:hidden">Prix conseillés</span>
+                          <span className="hidden sm:inline">Prix de vente conseillé</span>
+                        </span>
+                        {conseilles.isAI && (
+                          <span className="hidden sm:inline text-[8px] font-extrabold px-[6px] py-[2px] rounded" style={{ background: "rgb(29,29,31)", color: "#ffffff" }}>
+                            AI
+                          </span>
+                        )}
+                      </div>
+                      <div className="flex justify-between items-center gap-2 py-1">
+                        <span className="text-[11px]" style={{ color: "rgb(17,17,17)" }}><span className="sm:hidden">Milieu</span><span className="hidden sm:inline">Milieu de gamme</span></span>
+                        <span className="text-[12px] font-semibold whitespace-nowrap" style={{ color: "rgb(17,17,17)" }}>{conseilles.milieu}€</span>
+                      </div>
+                      <div className="flex justify-between items-center gap-2 py-1">
+                        <span className="text-[11px]" style={{ color: "rgb(17,17,17)" }}><span className="sm:hidden">Bio</span><span className="hidden sm:inline">Marché Bio</span></span>
+                        <span className="text-[12px] font-semibold whitespace-nowrap" style={{ color: "rgb(17,17,17)" }}>{conseilles.bio}€</span>
+                      </div>
+                      <div className="flex justify-between items-center gap-2 py-1">
+                        <span className="text-[11px]" style={{ color: "rgb(17,17,17)" }}><span className="sm:hidden">Luxe</span><span className="hidden sm:inline">Marché Luxe</span></span>
+                        <span className="text-[12px] font-semibold whitespace-nowrap" style={{ color: "rgb(17,17,17)" }}>{conseilles.luxe}€</span>
+                      </div>
+                    </div>
+                  );
+                })()}
+
+                <div className="flex flex-wrap items-center justify-between gap-x-1.5 gap-y-1 mt-auto pt-[6px]" style={{ borderTop: "1px solid #e5e7eb" }}>
+                  {product.prix_ht != null ? (
+                    <span className="text-[15px] font-bold flex-shrink-0 whitespace-nowrap" style={{ color: "rgb(17,17,17)" }}>
+                      {product.prix_ht.toFixed(2).replace(".", ",")} € <span className="text-[9px] font-normal">HT</span>
+                    </span>
+                  ) : (
+                    <span className="text-[10px] leading-tight text-muted-foreground">{product.status === "retired" ? MENTION_RETIRE : ""}</span>
+                  )}
+                  <span className="px-[9px] py-[3px] rounded-full text-[8px] font-bold uppercase tracking-[0.4px] whitespace-nowrap" style={{ background: "rgb(29,29,31)", color: "#ffffff" }}>
+                    {LABEL_CATEGORIE[product.categorie] || product.categorie}
+                  </span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {selectedProduct && (
+        <>
+          <div className="fixed inset-0 bg-black/30 z-[10000000]" onClick={() => setSelectedProduct(null)} />
+          <div
+            role="dialog"
+            aria-label={selectedProduct.nom}
+            className="fixed top-0 right-0 bottom-0 z-[10000001] overflow-y-auto flex flex-col"
+            style={{ width: "min(420px, 100vw)", background: "#ffffff" }}
+          >
+            <div className="flex items-center justify-between px-6 py-5" style={{ borderBottom: "1px solid #f3f4f5" }}>
+              <span className="text-[11px] font-bold tracking-[1px] uppercase" style={{ color: "#666666" }}>Fiche produit</span>
+              <button onClick={() => setSelectedProduct(null)} aria-label="Fermer" className="w-[30px] h-[30px] rounded-lg flex items-center justify-center cursor-pointer" style={{ border: "none", background: "#f3f4f5", color: "#666666" }}>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="aspect-square overflow-hidden flex-shrink-0" style={{ background: "#f3f4f5" }}>
+              {selectedProduct.image_a_venir && getProductImage(selectedProduct) === "/placeholder.svg" ? (
+                <div className="w-full h-full flex items-center justify-center text-[12px] font-semibold uppercase tracking-[0.4px] text-muted-foreground">{MENTION_IMAGE_A_VENIR}</div>
+              ) : (
+                <img src={getProductImage(selectedProduct)} alt={selectedProduct.nom} className="w-full h-full object-cover" />
+              )}
+            </div>
+
+            <div className="p-6 flex flex-col gap-4">
+              <h2 className="text-[15px] font-bold" style={{ color: "rgb(29,29,31)", textWrap: "balance" }}>{selectedProduct.nom}</h2>
+
+              {selectedProduct.volume && (
+                <span className="text-[11px] font-semibold px-2 py-1 rounded-lg self-start" style={{ background: "#f3f4f5", color: "#666666" }}>
+                  {selectedProduct.certifications.some(c => c.toLowerCase().includes("bio") || c.toLowerCase().includes("biologique")) ? "Bio · " : ""}{selectedProduct.volume}
+                </span>
+              )}
+
+              {selectedProduct.star_features.length > 0 && (
+                <div className="flex flex-wrap gap-1.5">
+                  {selectedProduct.star_features.map((f) => (
+                    <span key={f} className="px-2 py-1 rounded-lg text-[10px] font-semibold" style={{ background: "rgba(13,31,36,0.06)", color: "#4b5357" }}>
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {selectedProduct.description && (
+                <p className="text-[12px] leading-[1.65]" style={{ color: "#666666" }}>{selectedProduct.description}</p>
+              )}
+
+              {selectedProduct.certifications.length > 0 && (
+                <div>
+                  <p className="text-[10px] font-bold tracking-[0.5px] uppercase mb-2" style={{ color: "rgb(29,29,31)" }}>Certifications</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {selectedProduct.certifications.map((cert) => (
+                      <span key={cert} className="px-2 py-1 rounded-lg text-[10px] font-semibold" style={{ background: "rgba(13,31,36,0.06)", color: "#4b5357" }}>
+                        {cert}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {selectedProduct.ingredients && (
+                <div>
+                  <p className="text-[10px] font-bold tracking-[0.5px] uppercase mb-1" style={{ color: "rgb(29,29,31)" }}>Ingrédients clés</p>
+                  <p className="text-[12px]" style={{ color: "#666666" }}>{selectedProduct.ingredients}</p>
+                </div>
+              )}
+
+              {selectedProduct.arome && (
+                <div>
+                  <p className="text-[10px] font-bold tracking-[0.5px] uppercase mb-1" style={{ color: "rgb(29,29,31)" }}>🌸 Arôme</p>
+                  <p className="text-[12px]" style={{ color: "#666666" }}>{selectedProduct.arome}</p>
+                </div>
+              )}
+
+              {selectedProduct.inci && (
+                <div>
+                  <p className="text-[10px] font-bold tracking-[0.5px] uppercase mb-1" style={{ color: "rgb(29,29,31)" }}>Composition INCI</p>
+                  <p className="text-[11px] leading-[1.5]" style={{ color: "#666666" }}>{selectedProduct.inci}</p>
+                </div>
+              )}
+
+              {selectedProduct.prix_conseilles && (
+                <div className="rounded-xl p-4" style={{ background: "#f3f4f5" }}>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-[10px] font-bold tracking-[0.5px] uppercase" style={{ color: "rgb(29,29,31)" }}>Prix de vente conseillé</span>
+                    <span className="text-[8px] font-extrabold px-[6px] py-[2px] rounded" style={{ background: "rgb(29,29,31)", color: "#ffffff" }}>AI</span>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <div className="flex justify-between"><span className="text-[12px]" style={{ color: "rgb(17,17,17)" }}>Milieu de gamme</span><span className="text-[13px] font-semibold" style={{ color: "rgb(17,17,17)" }}>{selectedProduct.prix_conseilles.milieu}€</span></div>
+                    <div className="flex justify-between"><span className="text-[12px]" style={{ color: "rgb(17,17,17)" }}>Marché Bio</span><span className="text-[13px] font-semibold" style={{ color: "rgb(17,17,17)" }}>{selectedProduct.prix_conseilles.bio}€</span></div>
+                    <div className="flex justify-between"><span className="text-[12px]" style={{ color: "rgb(17,17,17)" }}>Marché Luxe</span><span className="text-[13px] font-semibold" style={{ color: "rgb(17,17,17)" }}>{selectedProduct.prix_conseilles.luxe}€</span></div>
+                  </div>
+                </div>
+              )}
+
+              {selectedProduct.prix_ht != null && (
+                <div className="flex items-center gap-2 pt-2" style={{ borderTop: "1px solid #e5e7eb" }} data-testid="prix-ht">
+                  <span className="text-[18px] font-bold" style={{ color: "rgb(17,17,17)" }}>{selectedProduct.prix_ht.toFixed(2).replace(".", ",")} €</span>
+                  <span className="text-[11px]" style={{ color: "#666666" }}>HT</span>
+                </div>
+              )}
+              {selectedProduct.status === "retired" && (
+                <p className="text-[12px] font-semibold pt-2" style={{ color: "rgb(17,17,17)" }}>{MENTION_RETIRE} · non commandable</p>
+              )}
+
+              <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-medium transition-colors" style={{ background: "rgb(29,29,31)", color: "#ffffff" }}>
+                <CalendarDays className="w-4 h-4" /> Prendre rendez-vous
+              </a>
+            </div>
           </div>
         </>
       )}
-    </div>
-  );
-}
-
-// ─── Product Placeholder (no image) ───────────────────────
-function ProductPlaceholder({ name }: { name: string }) {
-  return (
-    <div style={{
-      width: "100%", height: "100%", display: "flex", flexDirection: "column",
-      alignItems: "center", justifyContent: "center", gap: 12,
-      background: "#ecebd7", padding: 24,
-    }}>
-      <Icons.leaf size={32} sw={1} />
-      <span style={{
-        fontSize: 11, fontWeight: 700, color: C.muted,
-        textTransform: "uppercase", letterSpacing: ".5px",
-        textAlign: "center", lineHeight: 1.5, maxWidth: "80%",
-      }}>
-        {name}
-      </span>
-    </div>
-  );
-}
-
-// ─── Certification Badge ──────────────────────────────────
-function CertBadge({ label }: { label: string }) {
-  return (
-    <span style={{
-      padding: "2px 7px", borderRadius: 6, fontSize: 8, fontWeight: 600,
-      letterSpacing: ".3px", background: C.badgeBg, color: C.accent,
-      whiteSpace: "nowrap",
-    }}>
-      {label}
-    </span>
-  );
-}
-
-// ─── Product Detail Panel ─────────────────────────────────
-function ProductPanel({ product, onClose, overrideImage, isMobile = false }: { product: WCProduct; onClose: () => void; overrideImage?: string; isMobile?: boolean }) {
-  const img = overrideImage || product.images?.[0]?.src || getCdnFallbackImage(product.name);
-  const price = product.price ? parseFloat(product.price) : null;
-  const desc = product._enriched?.description_full || stripHtml(product.short_description || product.description);
-  const tags = product.tags?.map(t => t.name) || [];
-  const cats = product.categories?.map(c => c.name) || [];
-  const isVegan = tags.some(t => t.toLowerCase().includes("vegan")) ||
-    product._enriched?.certifications?.some(c => c.toLowerCase().includes("végan") || c.toLowerCase().includes("vegan"));
-  const isBio = tags.some(t => t.toLowerCase().includes("bio") || t.toLowerCase().includes("ecocert") || t.toLowerCase().includes("cosmos")) ||
-    product._enriched?.certifications?.some(c => c.toLowerCase().includes("bio") || c.toLowerCase().includes("certifié"));
-  const midRange = price ? Math.round(price * 2.2) : null;
-  const bio = price ? Math.round(price * 3.5) : null;
-  const luxury = price ? Math.round(price * 4.5) : null;
-  const enriched = product._enriched;
-
-  return (
-    <>
-      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose}
-        style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.18)", zIndex: 100 }} />
-      <motion.div
-        initial={isMobile ? { y: "100%" } : { x: "100%" }}
-        animate={isMobile ? { y: 0 } : { x: 0 }}
-        exit={isMobile ? { y: "100%" } : { x: "100%" }}
-        transition={{ type: "spring", damping: 30, stiffness: 300 }}
-        style={{
-          position: "fixed",
-          ...(isMobile
-            ? { left: 0, right: 0, bottom: 0, top: "8vh", borderRadius: "20px 20px 0 0" }
-            : { top: 0, right: 0, bottom: 0, width: 420 }),
-          background: C.bgLight, zIndex: 101, overflowY: "auto", display: "flex", flexDirection: "column",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "20px 24px", borderBottom: `1px solid ${C.bg}` }}>
-          <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: C.muted }}>Fiche produit</span>
-          <button onClick={onClose} style={{ width: 30, height: 30, borderRadius: 8, border: "none", background: C.bg, display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: C.muted }}>
-            <Icons.close size={14} />
-          </button>
-        </div>
-
-        <div style={{ background: C.bg, aspectRatio: "1", overflow: "hidden", flexShrink: 0 }}>
-          {img
-            ? <img src={img} alt={product.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-            : <ProductPlaceholder name={product.name} />
-          }
-        </div>
-
-        <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: 16 }}>
-          {/* Badges */}
-          <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-            {isVegan && <span style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700, letterSpacing: ".5px", textTransform: "uppercase", background: C.bg, color: C.muted }}>Vegan</span>}
-            {isBio && <span style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700, letterSpacing: ".5px", textTransform: "uppercase", background: C.bg, color: C.muted }}>Bio</span>}
-            {enriched?.volume && <span style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700, letterSpacing: ".5px", textTransform: "uppercase", background: C.bg, color: C.muted }}>{enriched.volume}</span>}
-          </div>
-
-          <h2 style={{ fontSize: 16, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.4, textTransform: "uppercase", letterSpacing: ".2px" }}>{product.name}</h2>
-
-          {/* Star features */}
-          {enriched?.star_features && enriched.star_features.length > 0 && (
-            <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-              {enriched.star_features.map((f, i) => (
-                <span key={i} style={{ padding: "4px 10px", borderRadius: 8, fontSize: 10, fontWeight: 600, background: "#e8e6d0", color: C.accent }}>
-                  {f}
-                </span>
-              ))}
-            </div>
-          )}
-
-          {desc && <p style={{ fontSize: 13, color: C.muted, lineHeight: 1.65 }}>{desc.length > 400 ? desc.slice(0, 400) + "…" : desc}</p>}
-
-          {/* Certifications */}
-          {enriched?.certifications && enriched.certifications.length > 0 && (
-            <div>
-              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: C.muted, display: "block", marginBottom: 8 }}>Certifications</span>
-              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                {enriched.certifications.map((c, i) => <CertBadge key={i} label={c} />)}
-              </div>
-            </div>
-          )}
-
-          {/* Key ingredients */}
-          {enriched?.ingredients_fr && enriched.ingredients_fr.length > 0 && (
-            <div>
-              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: C.muted, display: "block", marginBottom: 8 }}>Ingrédients clés</span>
-              <div style={{ display: "flex", gap: 6, flexWrap: "wrap" }}>
-                {enriched.ingredients_fr.map((ing, i) => (
-                  <span key={i} style={{ padding: "4px 10px", borderRadius: 8, fontSize: 11, fontWeight: 500, background: C.bg, color: C.accent }}>
-                    {ing}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Aroma */}
-          {enriched?.arome && enriched.arome !== "Divers" && (
-            <div>
-              <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: C.muted, display: "block", marginBottom: 6 }}>Arôme</span>
-              <p style={{ fontSize: 12, color: C.accent, lineHeight: 1.6, fontStyle: "italic" }}>{enriched.arome}</p>
-            </div>
-          )}
-
-          {/* INCI */}
-          {enriched?.inci && (
-            <details style={{ marginTop: 4 }}>
-              <summary style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: C.muted, cursor: "pointer", marginBottom: 6 }}>
-                Composition INCI
-              </summary>
-              <p style={{ fontSize: 10, color: C.mutedLight, lineHeight: 1.6, marginTop: 6 }}>
-                {enriched.inci.length > 500 ? enriched.inci.slice(0, 500) + "…" : enriched.inci}
-              </p>
-            </details>
-          )}
-
-          {/* Price tiers */}
-          {price && (
-            <div style={{ background: C.bg, borderRadius: 12, padding: "16px" }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
-                <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: C.muted }}>Prix de vente conseillé</span>
-                <span style={{ fontSize: 8, fontWeight: 800, padding: "2px 6px", borderRadius: 4, background: "#1d1d1f", color: C.bgLight }}>IA</span>
-              </div>
-              {[{ label: "Milieu de gamme", val: midRange }, { label: "Marché bio", val: bio }, { label: "Marché luxe", val: luxury }].map((tier, i) => (
-                <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", paddingBottom: 8, marginBottom: i < 2 ? 8 : 0, borderBottom: i < 2 ? `1px solid ${C.borderLight}` : "none" }}>
-                  <span style={{ fontSize: 11, color: C.muted, fontWeight: 500, textTransform: "uppercase", letterSpacing: ".3px" }}>{tier.label}</span>
-                  <span style={{ fontSize: 13, color: "#1d1d1f", fontWeight: 700 }}>{tier.val}€</span>
-                </div>
-              ))}
-            </div>
-          )}
-
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-            {price && <span style={{ fontSize: 22, fontWeight: 700, color: "#1d1d1f" }}>{Math.round(price)}€ <span style={{ fontSize: 12, fontWeight: 400, color: C.muted }}>TTC</span></span>}
-            <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
-              {cats.slice(0, 3).map((cat, i) => (
-                <span key={i} style={{ padding: "3px 10px", borderRadius: 20, fontSize: 9, fontWeight: 700, letterSpacing: ".5px", textTransform: "uppercase", background: "#1d1d1f", color: C.bgLight }}>{cat}</span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </motion.div>
-    </>
-  );
-}
-
-// ─── Product Card ─────────────────────────────────────────
-function ProductCard({ product, onSelect, vatEnabled = false, isSelected = false, onToggleSelect, onGenerateClean, overrideImage, isGenerating, index = 0, hasCleanPending = false }: { product: WCProduct; onSelect: () => void; vatEnabled?: boolean; isSelected?: boolean; onToggleSelect?: (e: React.MouseEvent) => void; onGenerateClean?: (product: WCProduct, imgSrc: string) => void; overrideImage?: string; isGenerating?: boolean; index?: number; hasCleanPending?: boolean }) {
-  const originalImg = product.images?.[0]?.src || getCdnFallbackImage(product.name);
-  // If a clean image is known to exist but not yet loaded, show placeholder instead of branded image
-  const img = overrideImage || (hasCleanPending ? null : originalImg);
-  const cats = product.categories?.map(c => c.name) || [];
-  const price = product.price ? parseFloat(product.price) : null;
-  const midRange = price ? Math.round(price * 2.2) : null;
-  const bioPrix = price ? Math.round(price * 3.5) : null;
-  const luxury = price ? Math.round(price * 4.5) : null;
-  const displayCats = cats.filter(c => c.length < 24).slice(0, 2);
-  const enriched = product._enriched;
-
-  const handleGenerate = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    // Always regenerate from the original product image to avoid reprocessing
-    // an already "clean" override that may still contain residual text.
-    const imgSrc = originalImg || overrideImage;
-    if (imgSrc && onGenerateClean && !isGenerating) onGenerateClean(product, imgSrc);
-  };
-
-  return (
-    <motion.div
-      style={{
-        display: "flex", flexDirection: "column",
-        borderRadius: 20, overflow: "hidden",
-        outline: isSelected ? "2.5px solid #1d1d1f" : "none",
-        border: "none", boxShadow: "none",
-        transition: "outline .15s",
-        background: C.bg,
-      }}
-    >
-      {/* Image area */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "1", overflow: "hidden", display: "flex", alignItems: "center", justifyContent: "center", background: "#ecebd7" }}>
-        {enriched?.volume && (
-          <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, padding: "3px 10px", borderRadius: 8, background: "rgba(245,244,223,0.7)", backdropFilter: "blur(8px)", fontSize: 9, fontWeight: 700, color: C.muted, letterSpacing: ".3px" }}>
-            {enriched.volume}
-          </div>
-        )}
-        {!enriched?.volume && (
-          <div style={{ position: "absolute", top: 12, left: 12, zIndex: 2, width: 26, height: 26, borderRadius: 8, background: "rgba(245,244,223,0.7)", backdropFilter: "blur(8px)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: C.muted }}>#</div>
-        )}
-        {enriched?.certifications?.some(c => c.toLowerCase().includes("nouveauté") || c.toLowerCase().includes("nouveaute")) && (
-          <div style={{ position: "absolute", top: 12, right: 44, zIndex: 3, padding: "4px 10px", borderRadius: 999, background: "#1d1d1f", color: "#ffffff", fontSize: 9, fontWeight: 800, letterSpacing: ".8px", textTransform: "uppercase", boxShadow: "0 2px 8px rgba(0,0,0,0.25)" }}>
-            ✨ Nouveauté
-          </div>
-        )}
-
-        {onToggleSelect && (
-          <button onClick={onToggleSelect}
-            style={{ position: "absolute", top: 10, right: 10, zIndex: 10, width: 26, height: 26, borderRadius: 8, border: isSelected ? "none" : "2px solid rgba(0,0,0,0.15)", background: isSelected ? "#1d1d1f" : "rgba(245,244,223,0.6)", backdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", transition: "all .15s" }}>
-            {isSelected && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
-          </button>
-        )}
-
-        {/* AI Generate Clean Image button — always show so user can regenerate */}
-        {onGenerateClean && (originalImg || overrideImage) && (
-          <button onClick={handleGenerate}
-            title="Générer une photo sans marque"
-            style={{
-              position: "absolute", bottom: 10, left: 10, zIndex: 10,
-              width: 32, height: 32, borderRadius: 10,
-              border: "none",
-              background: "rgba(29,29,31,0.85)", backdropFilter: "blur(8px)",
-              color: "#fff", cursor: "pointer",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              transition: "all .15s",
-            }}
-            onMouseEnter={e => { e.currentTarget.style.background = "#1d1d1f"; e.currentTarget.style.transform = "scale(1.1)"; }}
-            onMouseLeave={e => { e.currentTarget.style.background = "rgba(29,29,31,0.85)"; e.currentTarget.style.transform = "scale(1)"; }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-              <path d="M5 3v4" /><path d="M19 17v4" /><path d="M3 5h4" /><path d="M17 19h4" />
-            </svg>
-          </button>
-        )}
-
-        {img
-          ? <img src={img} alt={product.name} loading={index < 9 ? "eager" : "lazy"}
-              fetchPriority={index < 3 ? "high" : "auto"}
-              style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(1)", transition: "transform .4s" }}
-              onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.05)")}
-              onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")} />
-          : hasCleanPending
-            ? <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10, background: "#ecebd7" }}>
-                <svg style={{ animation: "spin .8s linear infinite" }} width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.muted} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-                <span style={{ fontSize: 9, fontWeight: 600, color: C.muted, textTransform: "uppercase", letterSpacing: ".5px" }}>Chargement…</span>
-              </div>
-            : <ProductPlaceholder name={product.name} />
-        }
-
-        {/* Loading overlay during generation */}
-        {isGenerating && (
-          <div style={{ position: "absolute", inset: 0, zIndex: 15, background: "rgba(236,235,215,0.8)", backdropFilter: "blur(4px)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8 }}>
-            <svg style={{ animation: "spin .8s linear infinite" }} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={C.muted} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 12a9 9 0 1 1-6.219-8.56"/>
-            </svg>
-            <p style={{ fontSize: 10, fontWeight: 600, color: C.muted }}>IA en cours…</p>
-          </div>
-        )}
-      </div>
-
-      {/* Content */}
-      <div style={{ padding: "16px 18px 18px", display: "flex", flexDirection: "column", gap: 8, flex: 1 }}>
-        <h3 style={{ fontSize: 11, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.4, textTransform: "uppercase", letterSpacing: ".3px", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", minHeight: 30, margin: 0 }}>
-          {product.name}
-        </h3>
-
-        {enriched?.star_features && enriched.star_features.length > 0 && (
-          <p style={{ fontSize: 10, color: C.muted, lineHeight: 1.5, margin: 0, display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-            {enriched.star_features.join(" · ")}
-          </p>
-        )}
-
-        {enriched?.certifications && enriched.certifications.length > 0 && (
-          <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
-            {enriched.certifications.slice(0, 3).map((c, i) => <CertBadge key={i} label={c} />)}
-            {enriched.certifications.length > 3 && (
-              <span style={{ fontSize: 8, fontWeight: 600, color: C.mutedLight, alignSelf: "center" }}>+{enriched.certifications.length - 3}</span>
-            )}
-          </div>
-        )}
-
-
-        {price && (
-          <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
-              <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: "#111" }}>Prix de vente conseillé</span>
-              <span style={{ fontSize: 8, fontWeight: 800, padding: "2px 6px", borderRadius: 4, background: "#1d1d1f", color: C.bgLight }}>AI</span>
-            </div>
-            {[
-              { label: "Milieu de gamme", val: midRange },
-              { label: "Marché Bio", val: bioPrix },
-              { label: "Marché Luxe", val: luxury },
-            ].map((tier, i) => (
-              <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "4px 0" }}>
-                <span style={{ fontSize: 11, color: "#111", fontWeight: 400 }}>{tier.label}</span>
-                <span style={{ fontSize: 12, color: "#111", fontWeight: 600 }}>{tier.val}€</span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "nowrap", gap: 6, overflow: "hidden", marginTop: "auto", paddingTop: 6, borderTop: `1px solid ${C.borderLight}` }}>
-          {price && <span style={{ fontSize: 15, fontWeight: 700, color: "#111", flexShrink: 0 }}>{Math.round(price)}€ <span style={{ fontSize: 9, fontWeight: 400, color: "#111" }}>TTC</span></span>}
-          <div style={{ display: "flex", gap: 4, flexWrap: "nowrap", overflow: "hidden", justifyContent: "flex-end" }}>
-            {displayCats.slice(0, 2).map((cat, i) => (
-              <span key={i} style={{ padding: "3px 9px", borderRadius: 20, fontSize: 8, fontWeight: 700, letterSpacing: ".4px", textTransform: "uppercase", background: "#1d1d1f", color: C.bgLight, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis", maxWidth: 100 }}>{cat}</span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </motion.div>
-  );
-}
-
-// ─── Skeleton ─────────────────────────────────────────────
-function ProductSkeleton() {
-  return (
-    <div style={{ borderRadius: 20, overflow: "hidden", border: "none", boxShadow: "none", background: C.bgLight }}>
-      <div style={{ width: "100%", aspectRatio: "1", background: C.bg, animation: "pulse 1.5s infinite" }} />
-      <div style={{ padding: "16px 18px" }}>
-        <div style={{ height: 10, width: "75%", background: C.skeleton, borderRadius: 4, marginBottom: 8, animation: "pulse 1.5s infinite" }} />
-        <div style={{ height: 10, width: "55%", background: C.skeleton, borderRadius: 4, marginBottom: 12, animation: "pulse 1.5s infinite" }} />
-        <div style={{ height: 8, width: "90%", background: C.borderLight, borderRadius: 4, marginBottom: 6, animation: "pulse 1.5s infinite" }} />
-        <div style={{ height: 8, width: "80%", background: C.borderLight, borderRadius: 4, marginBottom: 6, animation: "pulse 1.5s infinite" }} />
-        <div style={{ height: 8, width: "70%", background: C.borderLight, borderRadius: 4, animation: "pulse 1.5s infinite" }} />
-      </div>
-    </div>
-  );
-}
-
-// ─── Main CatalogPage ─────────────────────────────────────
-export default function CatalogPage() {
-  const isMobile = useIsMobile();
-
-  // Largeur du téléphone : posée dès l’écran du mot de passe par
-  // src/components/CatalogPasswordGate.tsx (et index.html au chargement).
-
-  const [allProducts, setAllProducts] = useState<WCProduct[]>([]);
-  const [allCategories, setAllCategories] = useState<WCCategory[]>([]);
-  const [allTags, setAllTags] = useState<WCTag[]>([]);
-  const [attributes, setAttributes] = useState<WCAttribute[]>([]);
-  const [attrTerms, setAttrTerms] = useState<Record<number, WCAttributeTerm[]>>({});
-  const [selectedCatIds, setSelectedCatIds] = useState<(number | string)[]>([]);
-  const [selectedTagIds, setSelectedTagIds] = useState<number[]>([]);
-  const [selectedAttrTerms, setSelectedAttrTerms] = useState<Record<number, string[]>>({});
-  const [selectedGroupTags, setSelectedGroupTags] = useState<Record<string, number[]>>({});
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCerts, setSelectedCerts] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [csvReady, setCsvReady] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [selectedProduct, setSelectedProduct] = useState<WCProduct | null>(null);
-  const [vatEnabled, setVatEnabled] = useState(false);
-  const [sortBy, setSortBy] = useState<"date" | "price-asc" | "price-desc">("date");
-  const [sortOpen, setSortOpen] = useState(false);
-  const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
-  const [selectionMode, setSelectionMode] = useState(false);
-  const [sharing, setSharing] = useState(false);
-  const [jsonProducts, setJsonProducts] = useState<JSONProduct[]>([]);
-  const [cleanImages, setCleanImages] = useState<Record<number, string>>({});
-  const [cleanImagesByName, setCleanImagesByName] = useState<Record<string, string>>({});
-  const [cleanNamesKnown, setCleanNamesKnown] = useState<Set<string>>(new Set());
-  const [cleanImagesReady, setCleanImagesReady] = useState(false);
-  const [genLoadingId, setGenLoadingId] = useState<number | null>(null);
-  const { user } = useAuth();
-
-  // Step 1: Quickly load just the list of product names that have clean images (lightweight)
-  // Step 2: Then load the actual image URLs in batches
-  useEffect(() => {
-    (async () => {
-      // Step 1: Get just the names (very fast, tiny payload)
-      const { data: names, error: namesErr } = await supabase
-        .from("product_clean_images")
-        .select("product_name_normalized");
-      if (!namesErr && names) {
-        setCleanNamesKnown(new Set(names.map(r => r.product_name_normalized)));
-      }
-
-      // Step 2: Load actual image URLs in batches
-      const map: Record<string, string> = {};
-      let from = 0;
-      const PAGE = 20;
-      let hasMore = true;
-      while (hasMore) {
-        const { data, error } = await supabase
-          .from("product_clean_images")
-          .select("product_name_normalized, clean_image_url")
-          .range(from, from + PAGE - 1);
-        if (error) { console.error("Error loading clean images:", error); break; }
-        if (data && data.length > 0) {
-          for (const row of data) {
-            map[row.product_name_normalized] = row.clean_image_url;
-          }
-          // Update state progressively so images appear as they load
-          setCleanImagesByName(prev => ({ ...prev, ...Object.fromEntries(data.map(r => [r.product_name_normalized, r.clean_image_url])) }));
-        }
-        hasMore = (data?.length ?? 0) === PAGE;
-        from += PAGE;
-      }
-      setCleanImagesReady(true);
-    })();
-  }, []);
-
-  const handleGenerateClean = async (product: WCProduct, imgSrc: string) => {
-    setGenLoadingId(product.id);
-    toast.info("Génération IA en cours… (~30s)");
-    try {
-      const { data, error } = await supabase.functions.invoke("generate-clean-image", {
-        body: { imageUrl: imgSrc, productName: product.name },
-      });
-      if (error) throw error;
-      if (data?.error) throw new Error(data.error);
-      if (!data?.imageUrl) throw new Error("Pas d'image générée");
-      
-      const normalized = normalizeStr(product.name);
-
-      // Save to state (instant UI feedback)
-      setCleanImages((prev) => ({ ...prev, [product.id]: data.imageUrl }));
-      setCleanImagesByName((prev) => ({ ...prev, [normalized]: data.imageUrl }));
-
-      toast.success("Image remplacée et sauvegardée !");
-    } catch (err: any) {
-      toast.error(err?.message || "Erreur lors de la génération");
-    } finally {
-      setGenLoadingId(null);
-    }
-  };
-
-  useEffect(() => {
-    // Load CSV image map first (critical for HD images), then produits.json
-    import("@/data/productImageMap").then(({ loadProductImages }) => loadProductImages()).then(() => {
-      setCsvReady(true);
-      fetch("/data/produits.json")
-        .then(r => r.json())
-        .then((data: JSONProduct[]) => setJsonProducts(data))
-        .catch(() => {});
-    });
-  }, []);
-
-  useEffect(() => {
-    Promise.all([
-      fetch(buildUrl("/products/categories", { per_page: "100", hide_empty: "true" })).then(r => r.json()),
-      fetch(buildUrl("/products/tags", { per_page: "100", hide_empty: "true" })).then(r => r.json()),
-      fetch(buildUrl("/products/attributes", { per_page: "50" })).then(r => r.json()),
-    ]).then(([cats, tags, attrs]: [WCCategory[], WCTag[], WCAttribute[]]) => {
-      setAllCategories(cats.filter(c => c.slug !== "uncategorized" && c.count > 0 && !/^\d+$/.test(c.name.trim()) && !["type", "types"].includes(c.name.toLowerCase().trim())).sort((a, b) => b.count - a.count));
-      setAllTags(tags.filter(t => t.count > 0).sort((a, b) => b.count - a.count));
-      setAttributes(attrs);
-      Promise.all(
-        attrs.map(attr =>
-          fetch(buildUrl(`/products/attributes/${attr.id}/terms`, { per_page: "100", hide_empty: "true" }))
-            .then(r => r.json())
-            .then((terms: WCAttributeTerm[]) => ({ id: attr.id, terms: terms.filter(t => t.count > 0) }))
-        )
-      ).then(results => {
-        const map: Record<number, WCAttributeTerm[]> = {};
-        results.forEach(({ id, terms }) => { map[id] = terms.sort((a, b) => b.count - a.count); });
-        setAttrTerms(map);
-      });
-    }).catch(() => {});
-  }, []);
-
-  useEffect(() => {
-    if (!csvReady) return; // Wait for CSV images to be loaded first
-    setLoading(true);
-    setError(null);
-    fetch(buildUrl("/products", { page: "1", per_page: "100", status: "publish", orderby: "date", order: "desc" }))
-      .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
-      .then((prods: WCProduct[]) => { setAllProducts(prods); setLoading(false); })
-      .catch(() => {
-        // Fallback: use local produits.json (CSV already loaded)
-        fetch("/data/produits.json")
-          .then(r => r.json())
-          .then((data: JSONProduct[]) => {
-            const fallback: WCProduct[] = data.map((jp, i) => jsonToWCProduct(jp, i));
-            setAllProducts(fallback);
-            setLoading(false);
-          })
-          .catch((err2: Error) => { setError(err2.message); setLoading(false); });
-      });
-  }, [csvReady]);
-
-  const mergedProducts = (() => {
-    if (jsonProducts.length === 0) return allProducts;
-    const enrichmentMap = buildEnrichmentMap(jsonProducts);
-    const wcNormalizedNames = new Set(allProducts.map(p => normalizeStr(p.name)));
-    const enrichedWC = allProducts.map(p => {
-      const key = normalizeStr(p.name);
-      const enrichment = enrichmentMap.get(key);
-      // Replace WC images with high-res CSV images when available
-      const csvImages = getProductImagesSync(key);
-      const images = csvImages.length > 0
-        ? csvImages.map(src => ({ src }))
-        : p.images;
-      if (enrichment) {
-        const jsonCatSlug = enrichment.jsonProduct?.categorie;
-        const jsonCatId = jsonCatSlug ? getCategoryId(jsonCatSlug) : null;
-        const catLabel = jsonCatSlug ? getCategoryLabel(jsonCatSlug) : null;
-        const existingCatIds = new Set(p.categories.map(c => c.id));
-        const extraCats = (jsonCatId && !existingCatIds.has(jsonCatId) && catLabel)
-          ? [{ id: jsonCatId, name: catLabel }]
-          : [];
-        return { ...p, images, _enriched: enrichment, categories: [...p.categories, ...extraCats] };
-      }
-      return { ...p, images };
-    });
-    const jsonOnlyProducts: WCProduct[] = [];
-    jsonProducts.forEach((jp, idx) => {
-      const key = normalizeStr(jp.nom);
-      if (!wcNormalizedNames.has(key)) jsonOnlyProducts.push(jsonToWCProduct(jp, idx) as WCProduct);
-    });
-    return [...enrichedWC, ...jsonOnlyProducts];
-  })();
-
-  const topLevel = allCategories.filter(c => c.parent === 0).sort((a, b) => b.count - a.count);
-
-  // Build category options from JSON data (works without WC API)
-  const jsonCategories = (() => {
-    if (jsonProducts.length === 0) return [];
-    const cats = new Map<string, string>();
-    jsonProducts.forEach(jp => {
-      if (jp.categorie) {
-        const canonical = getCanonicalSlug(jp.categorie);
-        cats.set(canonical, getCategoryLabel(jp.categorie));
-      }
-    });
-    return Array.from(cats.entries()).map(([slug, label]) => ({ id: getCategoryId(slug), name: label, slug }));
-  })();
-
-  // Build certification options from JSON data
-  const allCertOptions = (() => {
-    const certs = new Map<string, number>();
-    mergedProducts.forEach(p => {
-      const enrichedCerts = p._enriched?.certifications || [];
-      enrichedCerts.forEach(c => certs.set(c, (certs.get(c) || 0) + 1));
-    });
-    return Array.from(certs.entries())
-      .sort((a, b) => b[1] - a[1])
-      .map(([name]) => ({ id: name, name }));
-  })();
-
-  const tagGroups = (() => {
-    const groups: Record<string, { label: string; tags: WCTag[]; displayNames: string[] }> = {};
-    allTags.forEach(tag => {
-      const { displayName, group } = parseTag(tag.name);
-      if (!group) return;
-      const mappedLabel = TAG_GROUP_LABELS[group];
-      if (!mappedLabel) return;
-      if (!groups[mappedLabel]) groups[mappedLabel] = { label: mappedLabel, tags: [], displayNames: [] };
-      groups[mappedLabel].tags.push(tag);
-      groups[mappedLabel].displayNames.push(displayName);
-    });
-    return groups;
-  })();
-
-  // Build a map of synonym category IDs
-  const catSynonymMap = (() => {
-    const map = new Map<number | string, Set<number | string>>();
-    allCategories.forEach(c => {
-      const canonical = getCanonicalSlug(c.slug);
-      const jsonId = getCategoryId(canonical);
-      if (jsonId !== c.id) {
-        if (!map.has(c.id)) map.set(c.id, new Set());
-        map.get(c.id)!.add(jsonId);
-        if (!map.has(jsonId)) map.set(jsonId, new Set());
-        map.get(jsonId)!.add(c.id);
-      }
-    });
-    return map;
-  })();
-
-  const expandedSelectedCatIds = (() => {
-    const expanded = new Set<number | string>(selectedCatIds);
-    selectedCatIds.forEach(id => {
-      const synonyms = catSynonymMap.get(id);
-      if (synonyms) synonyms.forEach(s => expanded.add(s));
-    });
-    return expanded;
-  })();
-
-  const filteredProducts = mergedProducts.filter(p => {
-    // Text search
-    if (searchQuery.trim()) {
-      const q = normalizeStr(searchQuery);
-      const nameMatch = normalizeStr(p.name).includes(q);
-      const descMatch = normalizeStr(p._enriched?.description_full || "").includes(q);
-      const featMatch = (p._enriched?.star_features || []).some(f => normalizeStr(f).includes(q));
-      const certMatch = (p._enriched?.certifications || []).some(c => normalizeStr(c).includes(q));
-      const catMatch = p.categories.some(c => normalizeStr(c.name).includes(q));
-      if (!nameMatch && !descMatch && !featMatch && !certMatch && !catMatch) return false;
-    }
-
-    const pCatIds = new Set(p.categories.map(c => c.id));
-    const pTagIds = new Set(p.tags.map(t => t.id));
-    const pAttrMap: Record<string, string[]> = {};
-    p.attributes.forEach(a => { pAttrMap[a.id] = a.options.map(o => o.toLowerCase()); });
-    if (expandedSelectedCatIds.size > 0 && ![...expandedSelectedCatIds].some(id => pCatIds.has(id as number))) return false;
-    if (selectedTagIds.length > 0 && !selectedTagIds.some(id => pTagIds.has(id))) return false;
-
-    // Certification filter
-    if (selectedCerts.length > 0) {
-      const pCerts = p._enriched?.certifications || [];
-      if (!selectedCerts.some(c => pCerts.includes(c))) return false;
-    }
-
-    for (const [, tagIds] of Object.entries(selectedGroupTags)) {
-      if (tagIds.length === 0) continue;
-      if (!tagIds.some(id => pTagIds.has(id))) return false;
-    }
-    for (const [attrId, terms] of Object.entries(selectedAttrTerms)) {
-      if (terms.length === 0) continue;
-      const pTerms = pAttrMap[attrId] || [];
-      if (!terms.some(t => pTerms.includes(t.toLowerCase()))) return false;
-    }
-    return true;
-  });
-
-  const toggleSelect = (productId: number, e: React.MouseEvent) => {
-    e.stopPropagation();
-    setSelectedIds(prev => {
-      const next = new Set(prev);
-      if (next.has(productId)) next.delete(productId);
-      else next.add(productId);
-      return next;
-    });
-    if (!selectionMode) setSelectionMode(true);
-  };
-
-  const shareSelection = async () => {
-    const selectedProducts = products
-      .filter(p => selectedIds.has(p.id))
-      .map(p => ({ id: p.id, name: p.name, price: p.price, image: p.images?.[0]?.src || "", permalink: p.permalink, categories: p.categories.map(c => c.name) }));
-    if (selectedProducts.length === 0) return;
-    setSharing(true);
-    try {
-      const userId = user?.id;
-      const { data, error } = await supabase
-        .from("product_selections")
-        .insert({ user_id: userId || "00000000-0000-0000-0000-000000000000", title: `Sélection Biolystes — ${selectedProducts.length} produit${selectedProducts.length > 1 ? "s" : ""}`, products: selectedProducts as any })
-        .select("id").single();
-      if (error || !data) { console.error("Supabase insert error:", error); throw error; }
-      const shareUrl = `${window.location.origin}/selection/${data.id}`;
-      try { await navigator.clipboard.writeText(shareUrl); toast.success("Lien copié !", { description: "Partagez ce lien pour présenter votre sélection." }); }
-      catch { prompt("Copiez ce lien :", shareUrl); toast.success("Lien de partage créé !"); }
-    } catch (err) { console.error("Share error:", err); toast.error("Erreur lors de la création du lien."); }
-    finally { setSharing(false); }
-  };
-
-  const products = [...filteredProducts]
-    .filter(p => !HIDDEN_PRODUCTS.has(normalizeStr(p.name)))
-    .sort((a, b) => {
-      if (sortBy === "price-asc") return (parseFloat(a.price) || 0) - (parseFloat(b.price) || 0);
-      if (sortBy === "price-desc") return (parseFloat(b.price) || 0) - (parseFloat(a.price) || 0);
-      // Default: priority products first
-      const aN = normalizeStr(a.name);
-      const bN = normalizeStr(b.name);
-      const aIdx = PRIORITY_PRODUCTS.indexOf(aN);
-      const bIdx = PRIORITY_PRODUCTS.indexOf(bN);
-      const aPri = aIdx >= 0 ? aIdx : PRIORITY_PRODUCTS.length;
-      const bPri = bIdx >= 0 ? bIdx : PRIORITY_PRODUCTS.length;
-      return aPri - bPri;
-    });
-
-  const hasFilters = selectedCatIds.length > 0 || selectedTagIds.length > 0 || selectedCerts.length > 0 || searchQuery.trim() !== "" ||
-    Object.values(selectedAttrTerms).some(v => v.length > 0) ||
-    Object.values(selectedGroupTags).some(v => v.length > 0);
-
-  const clearFilters = () => { setSelectedCatIds([]); setSelectedTagIds([]); setSelectedAttrTerms({}); setSelectedGroupTags({}); setSelectedCerts([]); setSearchQuery(""); };
-
-  // Map of WC category names that should be treated as synonyms
-  const WC_CAT_NAME_SYNONYMS: Record<string, string> = {
-    "soins du cheveu": "soins capillaires",
-    "coffrets cadeaux": "coffrets",
-  };
-
-  const catOptions: FilterOption[] = (() => {
-    const seen = new Map<string, FilterOption>();
-    topLevel.forEach(c => {
-      const lowerName = c.name.toLowerCase();
-      const canonicalName = WC_CAT_NAME_SYNONYMS[lowerName] || lowerName;
-      if (!seen.has(canonicalName)) {
-        seen.set(canonicalName, { id: c.id, name: c.name });
-      }
-    });
-    jsonCategories.forEach(jc => {
-      const canonicalName = jc.name.toLowerCase();
-      if (!seen.has(canonicalName)) {
-        seen.set(canonicalName, { id: jc.id, name: jc.name });
-      }
-    });
-    return Array.from(seen.values());
-  })();
-
-  // Count products per category from mergedProducts (for pill badges)
-  const catCounts = (() => {
-    const counts = new Map<number | string, number>();
-    const visibleProducts = mergedProducts.filter(p => !HIDDEN_PRODUCTS.has(normalizeStr(p.name)));
-    visibleProducts.forEach(p => {
-      p.categories.forEach(c => {
-        counts.set(c.id, (counts.get(c.id) || 0) + 1);
-        // Also count for synonym IDs
-        const synonyms = catSynonymMap.get(c.id);
-        if (synonyms) synonyms.forEach(s => counts.set(s, (counts.get(s) || 0) + 1));
-      });
-    });
-    return counts;
-  })();
-
-  const unGroupedTags = allTags.filter(t => { const { group } = parseTag(t.name); if (!group) return true; return !TAG_GROUP_LABELS[group]; }).slice(0, 30).map(t => ({ id: t.id, name: t.name }));
-
-  const groupFilters = FILTER_ORDER.map(label => {
-    const group = tagGroups[label];
-    if (!group || group.tags.length === 0) return null;
-    const isColor = label === "Couleur de l'emballage";
-    const options: FilterOption[] = group.tags.map((t, i) => ({
-      id: t.id, name: group.displayNames[i],
-      ...(isColor ? { image: COLOR_MAP[group.displayNames[i].toLowerCase()] || C.border } : {}),
-    }));
-    return { label, options, isColor };
-  }).filter(Boolean) as { label: string; options: FilterOption[]; isColor: boolean }[];
-
-  const sortOptions = [
-    { key: "date", label: "Plus récent" },
-    { key: "price-asc", label: "Prix croissant" },
-    { key: "price-desc", label: "Prix décroissant" },
-  ];
-
-  return (
-    <div style={{ padding: isMobile ? "16px 12px" : "0 24px" }}>
-      <style>{`@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} } @keyframes spin { from{transform:rotate(0deg)} to{transform:rotate(360deg)} } .catalog-pills::-webkit-scrollbar { display: none; }`}</style>
-
-      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ marginBottom: isMobile ? 20 : 32, padding: isMobile ? "0 4px" : undefined }}>
-        <p style={{ fontSize: isMobile ? 12 : 14, fontWeight: 500, color: C.muted, marginBottom: 4 }}>Catalogue</p>
-        <h1 style={{ fontSize: isMobile ? 22 : 28, fontWeight: 700, color: "#1d1d1f", lineHeight: 1.1, letterSpacing: "-.5px" }}>
-          Vos produits<br />
-          <span style={{ color: "#000" }}>en marque blanche.</span>
-        </h1>
-        <p style={{ fontSize: isMobile ? 12 : 14, color: C.muted, marginTop: 10, maxWidth: 460, lineHeight: 1.65 }}>
-          Sélectionnez les produits que vous souhaitez commercialiser sous votre propre marque.
-        </p>
-      </motion.div>
-
-      <div>
-        {/* Search bar */}
-        <div style={{ position: "relative", marginBottom: 16 }}>
-          <div style={{ position: "absolute", left: 16, top: "50%", transform: "translateY(-50%)", color: C.muted, pointerEvents: "none" }}>
-            <Icons.search size={16} />
-          </div>
-          <input
-            type="text"
-            placeholder="Rechercher un produit..."
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            style={{
-              width: "100%", maxWidth: isMobile ? "100%" : 520, padding: "12px 14px 12px 44px", borderRadius: 28, border: `1px solid ${C.border}`,
-              background: C.bgLight, fontSize: 14, color: "#1d1d1f", outline: "none",
-              transition: "border-color .15s", boxSizing: "border-box",
-            }}
-            onFocus={e => e.currentTarget.style.borderColor = "#1d1d1f"}
-            onBlur={e => e.currentTarget.style.borderColor = C.border}
-          />
-          {searchQuery && (
-            <button onClick={() => setSearchQuery("")} style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: C.muted, padding: 4 }}>
-              <Icons.close size={14} />
-            </button>
-          )}
-        </div>
-
-        {/* Category pills */}
-        <div style={{ display: "flex", gap: 8, flexWrap: isMobile ? "nowrap" : "wrap", marginBottom: 16, alignItems: "center", overflowX: isMobile ? "auto" : undefined, WebkitOverflowScrolling: "touch", paddingBottom: isMobile ? 4 : undefined, msOverflowStyle: "none", scrollbarWidth: "none" }}>
-          {/* "Tous les produits" pill */}
-          <button
-            onClick={() => { setSelectedCatIds([]); setSelectedCerts([]); }}
-            style={{
-              padding: isMobile ? "6px 14px" : "8px 18px", borderRadius: 24, border: "none",
-              background: selectedCatIds.length === 0 && selectedCerts.length === 0 ? "#1d1d1f" : C.badgeBg,
-              color: selectedCatIds.length === 0 && selectedCerts.length === 0 ? C.bgLight : "#1d1d1f",
-              fontSize: isMobile ? 12 : 14, fontWeight: 600, cursor: "pointer",
-              transition: "all .15s", whiteSpace: "nowrap", flexShrink: 0,
-            }}
-          >
-            Tous les produits <span style={{ fontWeight: 400, opacity: 0.7, marginLeft: 4 }}>({mergedProducts.filter(p => !HIDDEN_PRODUCTS.has(normalizeStr(p.name))).length})</span>
-          </button>
-
-          {catOptions.map(cat => {
-            const isActive = selectedCatIds.includes(cat.id as number);
-            const count = catCounts.get(cat.id) || 0;
-            if (count === 0) return null;
-            return (
-              <button
-                key={cat.id}
-                onClick={() => {
-                  if (isActive) {
-                    setSelectedCatIds(selectedCatIds.filter(id => id !== cat.id));
-                  } else {
-                    setSelectedCatIds([cat.id as number]);
-                  }
-                }}
-                style={{
-                  padding: isMobile ? "6px 14px" : "8px 18px", borderRadius: 24, border: "none",
-                  background: isActive ? "#1d1d1f" : C.badgeBg,
-                  color: isActive ? C.bgLight : "#1d1d1f",
-                  fontSize: isMobile ? 12 : 14, fontWeight: 600, cursor: "pointer",
-                  transition: "all .15s", whiteSpace: "nowrap", flexShrink: 0,
-                }}
-              >
-                {cat.name} <span style={{ fontWeight: 400, opacity: 0.7, marginLeft: 4 }}>({count})</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Secondary filters row */}
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: 8, marginBottom: 20, overflowX: isMobile ? "auto" : undefined }}>
-          <div style={{ display: "flex", gap: 8, flexWrap: isMobile ? "nowrap" : "wrap", alignItems: "center", flexShrink: 0 }}>
-            {allCertOptions.length > 0 && <FilterDropdown label="Certification" options={allCertOptions} selected={selectedCerts} onChange={ids => setSelectedCerts(ids as string[])} grid={allCertOptions.length > 4} />}
-            {unGroupedTags.length > 0 && <FilterDropdown label="Étiquette" options={unGroupedTags} selected={selectedTagIds} onChange={ids => setSelectedTagIds(ids as number[])} grid={unGroupedTags.length > 6} />}
-            {groupFilters.map(f => <FilterDropdown key={f.label} label={f.label} options={f.options} selected={selectedGroupTags[f.label] || []} onChange={ids => setSelectedGroupTags(prev => ({ ...prev, [f.label]: ids as number[] }))} grid={f.options.length > 6 && !f.isColor} />)}
-          </div>
-
-          <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
-            {/* Product count */}
-            <span style={{ fontSize: 13, color: C.muted, fontWeight: 500 }}>{products.length} produits</span>
-
-            {/* Sort */}
-            <div style={{ position: "relative" }}>
-              <button onClick={() => setSortOpen(o => !o)}
-                style={{ display: "flex", alignItems: "center", gap: 6, padding: "7px 14px", borderRadius: 20, border: `1px solid ${C.border}`, background: C.bgLight, color: "#1d1d1f", fontSize: 12, fontWeight: 500, cursor: "pointer", whiteSpace: "nowrap" }}>
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18M7 12h10M11 18h2" /></svg>
-                Trier
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d={sortOpen ? "m18 15-6-6-6 6" : "m6 9 6 6 6-6"} /></svg>
-              </button>
-              {sortOpen && (
-                <>
-                  <div onClick={() => setSortOpen(false)} style={{ position: "fixed", inset: 0, zIndex: 98 }} />
-                  <div style={{ position: "absolute", top: "calc(100% + 8px)", right: 0, zIndex: 99, background: C.bgLight, borderRadius: 14, minWidth: 180, boxShadow: "0 8px 32px rgba(0,0,0,0.14)", border: `1px solid ${C.borderLight}`, padding: 8 }}>
-                    {sortOptions.map(opt => (
-                      <button key={opt.key} onClick={() => { setSortBy(opt.key as typeof sortBy); setSortOpen(false); }}
-                        style={{ display: "flex", alignItems: "center", gap: 10, width: "100%", padding: "9px 10px", borderRadius: 8, border: "none", background: sortBy === opt.key ? C.bg : "transparent", cursor: "pointer", textAlign: "left", fontSize: 13, color: "#1d1d1f" }}>
-                        <div style={{ width: 16, height: 16, borderRadius: "50%", flexShrink: 0, border: sortBy === opt.key ? "none" : `1.5px solid ${C.border}`, background: sortBy === opt.key ? "#1d1d1f" : "transparent", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                          {sortBy === opt.key && <svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5" /></svg>}
-                        </div>
-                        {opt.label}
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {error && (
-          <div style={{ textAlign: "center", padding: "48px 0" }}>
-            <p style={{ fontSize: 14, color: C.muted }}>Erreur de connexion au catalogue</p>
-            <p style={{ fontSize: 12, color: C.border, marginTop: 4 }}>{error}</p>
-          </div>
-        )}
-
-        <style>{`
-          .catalog-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-          @media (max-width: 768px), (pointer: coarse) and (max-width: 1024px) {
-            .catalog-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 8px !important; }
-          }
-        `}</style>
-        {loading && (
-          <div className="catalog-grid">
-            {Array.from({ length: 8 }).map((_, i) => <ProductSkeleton key={i} />)}
-          </div>
-        )}
-
-        {!loading && !error && products.length > 0 && (
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1 }} className="catalog-grid">
-            {products.map((p, i) => (
-              <ProductCard key={p.id} product={p} index={i} onSelect={() => setSelectedProduct(p)} vatEnabled={vatEnabled} isSelected={selectedIds.has(p.id)} onToggleSelect={(e) => toggleSelect(p.id, e)} onGenerateClean={handleGenerateClean} overrideImage={cleanImages[p.id] || cleanImagesByName[normalizeStr(p.name)]} isGenerating={genLoadingId === p.id} hasCleanPending={cleanNamesKnown.has(normalizeStr(p.name)) && !cleanImagesByName[normalizeStr(p.name)] && !cleanImages[p.id]} />
-            ))}
-          </motion.div>
-        )}
-
-        {!loading && !error && products.length === 0 && (
-          <div style={{ textAlign: "center", padding: "64px 0", color: C.muted }}>
-            <Icons.box size={30} sw={1} />
-            <p style={{ fontSize: 14, marginTop: 12 }}>Aucun produit dans cette catégorie</p>
-          </div>
-        )}
-      </div>
-
-      <AnimatePresence>
-        {selectedProduct && <ProductPanel product={selectedProduct} onClose={() => setSelectedProduct(null)} overrideImage={cleanImages[selectedProduct.id] || cleanImagesByName[normalizeStr(selectedProduct.name)]} isMobile={isMobile} />}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {selectedIds.size > 0 && (
-          <motion.div
-            initial={{ y: 80, opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: 80, opacity: 0 }}
-            transition={{ type: "spring", damping: 28, stiffness: 300 }}
-            style={{ position: "fixed", bottom: isMobile ? 16 : 28, left: "50%", transform: "translateX(-50%)", zIndex: 200, display: "flex", alignItems: "center", gap: isMobile ? 8 : 12, background: "#1d1d1f", borderRadius: 20, padding: isMobile ? "10px 12px" : "12px 16px 12px 20px", boxShadow: "0 8px 32px rgba(0,0,0,0.28)", whiteSpace: "nowrap", maxWidth: isMobile ? "calc(100vw - 32px)" : undefined, flexWrap: isMobile ? "wrap" : "nowrap", justifyContent: isMobile ? "center" : undefined }}
-          >
-            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-              <span style={{ width: 26, height: 26, borderRadius: "50%", background: C.bgLight, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 800, color: "#1d1d1f" }}>{selectedIds.size}</span>
-              <span style={{ fontSize: 13, fontWeight: 600, color: "rgba(245,244,223,0.85)" }}>produit{selectedIds.size > 1 ? "s" : ""} sélectionné{selectedIds.size > 1 ? "s" : ""}</span>
-            </div>
-            <button onClick={() => setSelectedIds(new Set())} style={{ background: "rgba(245,244,223,0.12)", border: "none", borderRadius: 10, padding: "6px 12px", color: "rgba(245,244,223,0.7)", fontSize: 12, cursor: "pointer" }}>Effacer</button>
-            <button onClick={shareSelection} disabled={sharing}
-              style={{ display: "flex", alignItems: "center", gap: 7, background: C.bgLight, border: "none", borderRadius: 12, padding: "8px 16px", fontSize: 13, fontWeight: 700, color: "#1d1d1f", cursor: sharing ? "default" : "pointer", opacity: sharing ? 0.7 : 1, transition: "opacity .15s" }}>
-              {sharing ? (
-                <svg style={{ animation: "spin .8s linear infinite" }} width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-              ) : (
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
-              )}
-              {sharing ? "Création…" : "Partager la sélection"}
-            </button>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-    </div>
+    </section>
   );
 }

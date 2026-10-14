@@ -7,7 +7,6 @@ import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-route
 import { AuthProvider } from "./contexts/AuthContext";
 import Layout from "./components/Layout";
 import DashboardPage from "./pages/DashboardPage";
-import CatalogPage from "./pages/CatalogPage";
 import SettingsPage from "./pages/SettingsPage";
 import PortfolioPage from "./pages/PortfolioPage";
 import PublicAgentPage from "./pages/PublicAgentPage";
@@ -67,6 +66,9 @@ const TarifsPage = lazy(() => import("./pages/TarifsPage"));
 const LivraisonPage = lazy(() => import("./pages/LivraisonPage"));
 /* /innovation (14/10/2026) : « Toujours plus d’innovation », dans le menu principal. */
 const InnovationPage = lazy(() => import("./pages/InnovationPage"));
+/* /catalogue (14/10/2026) : le catalogue de biolystes.pro, dans le même cadre
+   que /tarifs (en-tête, pied de page, mot de passe à l'identité du site). */
+const CatalogPage = lazy(() => import("./pages/CatalogPage"));
 
 const queryClient = new QueryClient();
 
@@ -92,7 +94,6 @@ function AppRoutes() {
       <Route path="/decouverte" element={<Layout><DecouvertePage /></Layout>} />
       <Route path="/concept" element={<Layout><ConceptPage /></Layout>} />
       <Route path="/chat" element={<Layout><DashboardPage /></Layout>} />
-      <Route path="/catalogue" element={<Layout><CatalogPasswordGate><CatalogPage /></CatalogPasswordGate></Layout>} />
       <Route path="/portfolio" element={<Layout><PortfolioPage /></Layout>} />
       <Route path="/ai" element={<Layout><AIPage /></Layout>} />
       <Route path="/agence" element={<Layout><AgencePage /></Layout>} />
@@ -108,6 +109,7 @@ function AppRoutes() {
         <Route path="/tarifs" element={<Suspense fallback={null}><CatalogPasswordGate titre="Offre privée" objet="à l’offre"><TarifsPage /></CatalogPasswordGate></Suspense>} />
         <Route path="/livraison" element={<Suspense fallback={null}><LivraisonPage /></Suspense>} />
         <Route path="/innovation" element={<Suspense fallback={null}><InnovationPage /></Suspense>} />
+        <Route path="/catalogue" element={<Suspense fallback={null}><CatalogPasswordGate><CatalogPage /></CatalogPasswordGate></Suspense>} />
       </Route>
       {/* Actus (12/10/2026) : cadre de l’accueil, articles dans src/actus/articles.ts. */}
       <Route path="/blog" element={<Suspense fallback={null}><ActusPage /></Suspense>} />
