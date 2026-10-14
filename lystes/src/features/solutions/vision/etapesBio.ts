@@ -97,7 +97,9 @@ export type OngletBio = {
    dernière phrase ne commence jamais une ligne. Le titre
    porte la promesse (sans stock, 10 jours), le chapeau le problème. */
 export const ENTETE_BIO = {
-  probleme: ["Votre gamme cosmétique, ", "sans stock", " et\u00a0en\u00a010\u00a0jours."] as const,
+  /* Entre crochets : sur ordinateur seulement (au téléphone, le titre tient
+     ainsi sur deux lignes ; JP, 14/10/2026). */
+  probleme: ["Votre gamme cosmétique[ bio & végane], ", "sans stock", " en\u00a010\u00a0jours."] as const,
   texte:
     "Pour obtenir une formulation d’excellence, les laboratoires imposent des stocks massifs et des délais de 7 à 9\u00a0mois. " +
     "Conséquence\u00a0: votre capital reste immobilisé dans le stock au détriment du marketing, et vous perdez une année dans la construction de votre crédibilité.\u00a0" +
