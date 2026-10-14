@@ -8,7 +8,7 @@ const fadeUp = {
 };
 
 const features = [
-  "Vos produits finis à votre marque, chez vous sous 10 jours ouvrés",
+  "Vos produits finis à votre marque",
   "Création de votre logo",
   "Design packaging",
   "Shooting photo IA de vos produits",
@@ -34,7 +34,7 @@ export default function EchantillonsPage() {
             </motion.h2>
             <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
               className="text-sm text-foreground leading-relaxed">
-              Votre acompte est déduit de votre offre. Création de votre logo, design packaging et shooting photo IA de vos produits.
+              Création de votre logo, design packaging et shooting photo IA de vos produits.
             </motion.p>
           </div>
 
@@ -48,7 +48,7 @@ export default function EchantillonsPage() {
                 <h3 className="text-lg md:text-xl font-extrabold uppercase tracking-tight mb-1 mt-2 text-foreground">
                   Recevez vos produits
                 </h3>
-                <p className="text-sm mb-8 text-foreground leading-relaxed">
+                <p className="text-sm mb-8 text-foreground leading-relaxed text-balance">
                   Validez la qualité avant de vous lancer. Tarif communiqué en rendez-vous.
                 </p>
 
