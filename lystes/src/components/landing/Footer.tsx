@@ -14,7 +14,7 @@ import { ArrowRight, Instagram, Youtube } from "lucide-react";
  */
 /* `to` absent : simple texte (une adresse). Une ancre (#…), un mailto: ou un
    lien externe partent en <a> ; le reste en <Link>. */
-type FooterLink = { key?: string; fr: string; to?: string; external?: boolean };
+type FooterLink = { key?: string; fr: string; to?: string; external?: boolean; uneLigne?: boolean };
 type FooterColumn = { key: string; fr: string; links: FooterLink[] };
 
 const columns: FooterColumn[] = [
@@ -119,7 +119,8 @@ const colonnesBiolystes: FooterColumn[] = [
   {
     key: "footer.bio.lancer", fr: "Se lancer",
     links: [
-      { fr: "S’inscrire", to: "https://lystes.ai/biolystes/inscription", external: true },
+      /* 14/10/2026, JP : « S'inscrire » devient l'entrée du catalogue, comme l'en-tête. */
+      { fr: "Découvrez notre catalogue", to: BIOLYSTES + "/catalogue", external: false, uneLigne: true },
       { fr: "Prendre rendez-vous", to: "https://biolystes.pro/rdv", external: true },
       { fr: "Pourquoi cette offre", to: BIOLYSTES + "/pourquoi-cette-offre", external: true },
       { fr: "Notre étude", to: BIOLYSTES + "/etudes", external: true },
@@ -245,7 +246,7 @@ export function Footer({ marque = "lystes" }: { marque?: "lystes" | "biolystes" 
                   <ul className="space-y-2.5">
                     {col.links.map((link) => {
                       /* Biolystes : pas de coupure de mot (« Descha-nel »), JP 14/10/2026. */
-                      const cl = "block text-sm leading-snug text-muted-foreground hover:text-foreground transition-colors " + (bio ? "" : "break-words hyphens-auto");
+                      const cl = "block text-sm leading-snug text-muted-foreground hover:text-foreground transition-colors " + (bio ? "" : "break-words hyphens-auto") + (link.uneLigne ? " xl:whitespace-nowrap" : "");
                       const libelle = link.key ? t(link.key, link.fr) : link.fr;
                       return (
                         <li key={(link.to ?? "") + link.fr}>
