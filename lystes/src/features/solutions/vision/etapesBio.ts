@@ -1,4 +1,4 @@
-import { BadgeCheck, Scale, FileCheck2, Leaf, ShieldCheck, PackageX, FileText, Image as IconeImage, Newspaper, Package, PenTool, ScanSearch, Star, Store, Truck, Bot, type LucideIcon } from "lucide-react";
+import { BadgeCheck, Scale, FileCheck2, Leaf, FlaskConical, ShieldCheck, PackageX, FileText, Image as IconeImage, Newspaper, Package, PenTool, ScanSearch, Star, Store, Truck, Bot, type LucideIcon } from "lucide-react";
 import { PHOTO_PRODUIT_ENDOMMAGE, TEXTE_LITIGE, TEXTE_RISQUE } from "@lystes/components/bio/ResponsabiliteSection";
 import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
 
@@ -92,18 +92,24 @@ export type OngletBio = {
    (JP, 13/10/2026 : moins de texte). « En moyenne » dans le titre : demandé
    par JP le 13/10. Les « sans » et les certifications des points sont ceux
    que /bio affiche déjà (section « Nos engagements »). */
+/* En-tête de /bio (JP, 14/10/2026) : la douleur n°1 des porteuses de
+   projet, l'argent bloqué dans le stock ; chiffres de biolystes.com/etudes
+   (minimums des laboratoires, 9 projets sur 10 non lancés à 7 mois). */
 export const ENTETE_BIO = {
-  probleme: ["Lancer une gamme cosmétique prend en moyenne ", "près d’un an", "."] as const,
+  probleme: ["Avant votre première vente, un\u00a0laboratoire vous fait acheter ", "15\u00a0000\u00a0€ de stock", "."] as const,
   texte:
-    "Le temps perdu ne se rattrape jamais. Pendant ces 12 mois d’attente, vous ne bâtissez rien\u00a0: ni\u00a0réputation, ni\u00a0communauté, ni\u00a0preuve sociale. " +
-    "Le plus grand handicap d’une jeune marque est son manque d’antériorité. Lorsque vous vous lancez enfin, les débuts sont laborieux faute d’historique, ce qui freine considérablement votre progression. " +
-    "Avec Biolystes, changez la donne\u00a0: votre marque est opérationnelle en seulement 10\u00a0jours.",
-  /* Une ligne chacun à 375 px, une icône au trait devant. */
-  icones: [Leaf, ShieldCheck, PackageX] as LucideIcon[],
+    "Pour une cosmétique d’excellence certifiée, les laboratoires imposent un minimum de 500 à 1\u00a0000\u00a0flacons par produit. " +
+    "D’après notre étude, 9\u00a0projets sur\u00a010 ne sont toujours pas lancés 7\u00a0mois après. " +
+    "Très souvent aussi, le gros de votre budget part dans le stock, et il ne reste plus de fonds pour vous faire connaître. " +
+    "Enfin, vous perdez près d’un an qui aurait dû servir à bâtir votre crédibilité, indispensable pour vendre. " +
+    "Avec Biolystes, aucun stock à acheter\u00a0: vous testez vos produits avant de valider votre lancement, et votre marque est en\u00a0ligne\u00a0en\u00a010\u00a0jours.",
+  /* Une ligne chacun à 375 px, une icône au trait devant ; la réponse au
+     titre en premier. */
+  icones: [PackageX, FlaskConical, ShieldCheck] as LucideIcon[],
   points: [
-    "Bio et végan, sans parabènes ni silicones",
-    "Certifié COSMOS, ECOCERT, ISO\u00a022716",
     "Aucun stock, aucun minimum de commande",
+    "Testez vos produits avant de vous engager",
+    "Certifié COSMOS, ECOCERT, ISO\u00a022716",
   ],
 };
 
