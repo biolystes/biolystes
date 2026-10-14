@@ -1491,6 +1491,13 @@ const CHARGER_VISITE = {
 type IdVisite = keyof typeof CHARGER_VISITE;
 const estVisite = (id: string): id is IdVisite => id in CHARGER_VISITE;
 
+/* Un texte d'en-tête dont la partie entre crochets ne s'affiche que sur
+   ordinateur (au-delà de 720 px). */
+function ordiSeulement(texte: string): ReactNode {
+  if (!texte.includes("[")) return texte;
+  return texte.split(/\[(.*?)\]/).map((part, i) => (i % 2 ? <span key={i} className="lyv-ordi">{part}</span> : part));
+}
+
 /* /bio : les trois points de l'en-tête dans le carrousel d'une ligne de la
    bannière de l'accueil (CarrouselLieux, « Installer sur Shopify /
    WooCommerce… »), le même, avec ses flèches (JP, 13/10/2026). Défilement
@@ -2099,7 +2106,7 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
         <div className="lyv lyv-tete lyv-tete-centre">
           <style>{CSS}</style>
           <h2 className="lyv-titre" aria-live="polite">
-            {courant.probleme[0]}<span className="lyv-elu">{courant.probleme[1]}</span>{courant.probleme[2]}
+            {ordiSeulement(courant.probleme[0])}<span className="lyv-elu">{courant.probleme[1]}</span>{ordiSeulement(courant.probleme[2])}
           </h2>
           <p className="lyv-chapeau">{courant.reponse}</p>
           {courant.points && courant.icones ? (
@@ -2383,7 +2390,7 @@ const CSS = `
 .lyv-tete-centre .lyv-chapeau{ max-width:780px; margin-left:auto; margin-right:auto; }
 .lyv-tete-centre .lyv-elu{ padding:0 6px; margin:0 -6px; }
 .lyv .lyv-titre{ font-family:'Bricolage Grotesque','SF Pro Display',Inter,sans-serif; font-size:36px; line-height:1.1;
-  letter-spacing:-.025em; color:#171717; text-wrap:auto; max-width:606px; margin:1px auto; }
+  letter-spacing:-.025em; color:#171717; text-wrap:auto; max-width:623px; margin:1px auto; }
 .lyv-elu{ background:linear-gradient(transparent 12%, var(--lyv-elu) 12%, var(--lyv-elu) 94%, transparent 94%);
   padding:0 6px 0 0; margin:0 -6px 0 0; border-radius:6px; white-space:nowrap; }
 /* Titre à gauche (13/10) : le surlignage part de la marge du titre, sans la
@@ -2623,6 +2630,7 @@ const CSS = `
    Le cadre garde de chaque côté la place des flèches, le texte reste au
    milieu de la page. */
 .lyv-pc{ display:flex; justify-content:center; margin:14px auto 0; max-width:780px; touch-action:pan-y; }
+@media (max-width:720px){ .lyv-ordi{ display:none; } }
 .lyv-pc-cadre{ position:relative; width:440px; max-width:calc(100% - 112px); }
 .lyv-pc-scene{ overflow:hidden; }
 .lyv-pc-piste{ display:flex; transition:transform .35s cubic-bezier(.22,1,.36,1); }
