@@ -5,16 +5,14 @@
    7 ter, 7 quater, 7 quinquies) et sur le modèle de paiement validé par JP
    (compétence tarifs-biolystes) : packs Design, Solo, Duo, Standard, IA ;
    sélection des produits et fichiers INCI offerts avant tout paiement ;
-   acompte 199 € ou 299 € (IA), objet de l’acompte (texte de référence de
+   acompte, objet de l’acompte (texte de référence de
    JP) ; trois temps, deux pour Solo et Design ; « Payer sur plusieurs
    mois » (JP, 14/10/2026 soir) : acompte à la validation de la sélection, reste
-   de la mise en place à la livraison du site, puis mensualité à partir de
-   199 € par mois, abonnement compris ; à l'achat, abonnement payant à
-   partir de la livraison du site, une fois le solde réglé ; 39 € par
-   produit en plus ; logo
+   de la mise en place à la livraison du site, puis mensualité, abonnement compris ; à l'achat, abonnement payant à
+   partir de la livraison du site, une fois le solde réglé ; produit en plus facturé ; logo
    offert, hors prix des offres ; délais de 10 jours ouvrés ; livraison avec
-   renvoi vers /livraison. Les prix de chaque pack se donnent en rendez-vous et
-   figurent au contrat ; les articles 3 et 4.7 reprennent mot pour mot ceux
+   renvoi vers /livraison. Aucun montant ici (JP, 14/10/2026 nuit) : les prix
+   se donnent en rendez-vous et figurent au devis et au contrat ; les articles 3 et 4.7 reprennent, montants retirés, ceux
    du contrat (7 quater.6 et 7 quinquies.2, alignés le 14/10/2026 dans les
    trois dépôts), seuls « client » et « site » passent en minuscules. Les « – » de liste
    d’origine sont des puces. */
@@ -97,7 +95,7 @@ export default function CGVPage() {
           contenu: (
             <>
               <p><strong>Tous les abonnements sont sans engagement.</strong> Le client peut résilier son abonnement à tout moment, sans pénalité ni justification. La résiliation prend effet à la fin de la période mensuelle en cours.</p>
-              <p>Pour les packs avec site, l’abonnement mensuel démarre à la livraison du site, une fois le solde réglé. Il est payant pour tous ces packs, Pack Standard compris (quatre-vingt-dix-neuf euros (99 €) TTC par mois). Dans la formule « Payer sur plusieurs mois », il est compris dans le loyer mensuel (article 4.7).</p>
+              <p>Pour les packs avec site, l’abonnement mensuel démarre à la livraison du site, une fois le solde réglé. Il est payant pour tous ces packs, Pack Standard compris ; son montant figure dans le devis ou le contrat signé. Dans la formule « Payer sur plusieurs mois », il est compris dans le loyer mensuel (article 4.7).</p>
               <p>Le paiement de l'abonnement est prélevé automatiquement chaque mois par carte bancaire. En cas de résiliation, le client conserve l'accès aux services jusqu'à la fin de la période déjà payée.</p>
             </>
           ),
@@ -111,12 +109,12 @@ export default function CGVPage() {
               <p><strong>4.1 Prix.</strong> Le prix de chaque offre est communiqué au client lors d’un rendez-vous avec un expert et précisé dans le devis ou le contrat signé. Il est exprimé en euros, toutes taxes comprises. Le montant et la date de chaque paiement figurent dans l’échéancier du contrat et dans l’espace client.</p>
               <p><strong>4.1 bis Sélection des produits offerte.</strong> Avant tout paiement, le client vérifie que nos produits lui correspondent, seul avec notre outil d’intelligence artificielle ou avec nos experts produits pour une sélection sur mesure. Il reçoit gratuitement sa sélection de produits et leurs fichiers INCI. Aucune somme n’est due tant que le client n’a pas validé sa sélection.</p>
               <p><strong>4.2 Objet de l’acompte.</strong> Avant de s’engager davantage, le client doit pouvoir vérifier que nos produits tiennent leurs promesses. L’acompte lance le projet : le Prestataire crée le logo et le branding du client, réalise le design de ses produits, les fait fabriquer et les lui envoie, avec les photos qui en montrent le design. Le client reçoit ainsi ses produits à sa marque, et c’est seulement à ce moment qu’il décide de poursuivre ou non. Pendant cette première étape, le Prestataire prend à sa charge une grande partie du coût de création des produits.</p>
-              <p><strong>4.3 Montant de l’acompte.</strong> L’acompte est de 199 € TTC, ou de 299 € TTC pour le Pack IA. Il est réglé à la commande, une fois la sélection des produits validée, et n’est pas remboursable.</p>
+              <p><strong>4.3 Montant de l’acompte.</strong> Le montant de l’acompte figure dans le devis ou le contrat signé. Il est réglé à la commande, une fois la sélection des produits validée, et n’est pas remboursable.</p>
               <p><strong>4.4 Si le client ne poursuit pas.</strong> À la réception de ses produits, le client qui ne souhaite pas poursuivre ne doit rien d’autre que l’acompte déjà versé. Il conserve son logo, son branding et les designs de ses produits, qu’il peut utiliser librement, y compris avec un autre fabricant.</p>
               <p><strong>4.5 Paiement en trois temps.</strong> Si le client valide ses produits, il règle une deuxième tranche égale à 50 % du prix de l’offre, diminuée de l’acompte déjà versé. Le solde, soit les 50 % restants, est exigible à la livraison du site.</p>
               <p><strong>4.6 Packs Solo et Design.</strong> Pour le Pack Solo et le Pack Design, le paiement se fait en deux temps : l’acompte, puis le reste du prix de l’offre en une fois, à la réception des produits validés.</p>
-              <p><strong>4.7 Payer sur plusieurs mois.</strong> Pour le Pack Standard et le Pack IA, le client peut choisir la location avec option d’achat (formule « Payer sur plusieurs mois »), sans engagement de durée. Comme à l’achat, la sélection des produits et leurs fichiers INCI sont offerts avant tout paiement. Une fois sa sélection validée, le client règle un acompte de cent quatre-vingt-dix-neuf euros (199 €) TTC pour le Pack Standard, ou de deux cent quatre-vingt-dix-neuf euros (299 €) TTC pour le Pack IA ; il couvre la création du logo, offerte, et du branding, le design, la fabrication et l’envoi des produits. S’il valide ses produits, le client règle le reste de la mise en place à la livraison du site : la mise en place est de quatre cent quatre-vingt-dix-neuf euros (499 €) TTC pour le Pack Standard et de cinq cent quatre-vingt-dix-neuf euros (599 €) TTC pour le Pack IA, acompte déduit, soit trois cents euros (300 €) TTC dans les deux cas. Le loyer mensuel, abonnement compris, court ensuite à compter de la livraison du site : cent quatre-vingt-dix-neuf euros (199 €) TTC au minimum, pour le Pack Standard comme pour le Pack IA. Le client peut verser davantage chaque mois, ou régler le solde à tout moment. Le site lui appartient dès que le total de ses paiements atteint le prix de l’offre. S’il arrête avant, le site est désactivé, les sommes versées restent acquises et aucune autre somme n’est due ; il conserve son logo, sa charte graphique et les designs de son packaging. Cette formule n’existe pas pour le Pack Design, qui ne comprend pas de site.</p>
-              <p><strong>4.8 Produit supplémentaire.</strong> Chaque produit ajouté au-delà du nombre prévu par le pack est facturé 39 € TTC, en paiement unique, pour son design.</p>
+              <p><strong>4.7 Payer sur plusieurs mois.</strong> Pour le Pack Standard et le Pack IA, le client peut choisir la location avec option d’achat (formule « Payer sur plusieurs mois »), sans engagement de durée. Comme à l’achat, la sélection des produits et leurs fichiers INCI sont offerts avant tout paiement. Une fois sa sélection validée, le client règle un acompte ; il couvre la création du logo, offerte, et du branding, le design, la fabrication et l’envoi des produits. S’il valide ses produits, le client règle le reste de la mise en place, acompte déduit, à la livraison du site. Le loyer mensuel, abonnement compris, court ensuite à compter de la livraison du site ; son montant minimum figure dans le contrat signé. Le client peut verser davantage chaque mois, ou régler le solde à tout moment. Le site lui appartient dès que le total de ses paiements atteint le prix de l’offre. S’il arrête avant, le site est désactivé, les sommes versées restent acquises et aucune autre somme n’est due ; il conserve son logo, sa charte graphique et les designs de son packaging. Cette formule n’existe pas pour le Pack Design, qui ne comprend pas de site.</p>
+              <p><strong>4.8 Produit supplémentaire.</strong> Chaque produit ajouté au-delà du nombre prévu par le pack est facturé en supplément, en paiement unique, pour son design, au prix indiqué dans le devis ou le contrat signé.</p>
               <p><strong>4.9 Logo offert.</strong> La création du logo est offerte : elle n’entre pas dans le prix des offres. Le client qui fournit son propre logo ne bénéficie donc d’aucune réduction de prix.</p>
               <p><strong>4.10 Retard de paiement.</strong> Tout retard de paiement entraîne de plein droit des pénalités de retard au taux légal en vigueur.</p>
             </>
