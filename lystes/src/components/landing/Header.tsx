@@ -102,6 +102,11 @@ export function BasculeCible({ light, dans = "entete" }: { light: boolean; dans?
 const MENU_BIOLYSTES = [
   /* /a-propos : lystes.ai/entreprise reprise pour Biolystes (14/10/2026),
      à la place d'« Entreprise » dans le menu de lystes.ai. */
+  /* /agents-ia (14/10/2026, JP) : aussi dans le menu, en plus de la bascule
+     à côté du logo. Le menu du téléphone l’a déjà par la bascule. */
+  { to: "/agents-ia", libelle: "Agents IA" },
+  /* /innovation (14/10/2026, JP) : « Toujours plus d’innovation ». */
+  { to: "/innovation", libelle: "Innovation" },
   { to: "/a-propos", libelle: "À propos" },
   { to: "/faq", libelle: "Questions fréquentes" },
 ];
@@ -177,7 +182,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
           </div>
 
           {!minimal && (
-            <div className="hidden lg:flex items-center gap-4">
+            <div className="hidden xl:flex items-center gap-4">
               {/* Une entrée de plus avec « Lab » (12/10/2026) : sous 1280 px, les
                   pastilles se resserrent pour que l'en-tête tienne sur une
                   ligne à 1024, accueil compris (marges plus larges). */}
@@ -238,7 +243,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
           {/* Mobile : bouton S'inscrire + burger. Connectée, la marchande voit
               son avatar, comme sur ordinateur : « S'inscrire » lui faisait
               croire qu'elle n'avait plus de compte. */}
-          <div className="lg:hidden flex items-center gap-2">
+          <div className="xl:hidden flex items-center gap-2">
             {connecte ? (
               <HeaderProfileMenu light={light} />
             ) : (
@@ -292,7 +297,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
 
       {/* ===== Panneau mobile ===== */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-[99999999]">
+        <div className="xl:hidden fixed inset-0 z-[99999999]">
           <div className="absolute inset-0 bg-[#0c0c0c]/60 backdrop-blur-2xl" />
           <button
             className="absolute top-[17px] right-4 z-10 w-[30px] h-[30px] flex items-center justify-center rounded-full bg-white/10 text-white/90 hover:bg-white/20 transition-colors"
@@ -312,7 +317,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
             <Link to="/agents-ia" replace={false} onClick={() => setMobileMenuOpen(false)} className="block border-b border-white/14 py-4 px-1.5 text-[16px] font-medium">
               Agents IA
             </Link>
-            {MENU_BIOLYSTES.map((l) => (
+            {MENU_BIOLYSTES.filter((l) => l.to !== "/agents-ia").map((l) => (
               <LienSite key={l.to} to={l.to} onClick={() => setMobileMenuOpen(false)} className="block border-b border-white/14 py-4 px-1.5 text-[16px] font-medium">
                 {l.libelle}
               </LienSite>

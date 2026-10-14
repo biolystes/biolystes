@@ -19,6 +19,9 @@ import BioGammes from "@lystes/components/bio/BioGammes";
 import BioFaq from "@lystes/components/bio/BioFaq";
 import VisionEtagesBloc from "@lystes/features/solutions/VisionEtagesBloc";
 import BlocsAccueilSecteur from "@lystes/features/solutions/BlocsAccueilSecteur";
+/* biolystes.com (14/10/2026, JP) : la section « Toujours plus d’innovation »,
+   vers /innovation. Hors de lystes/ (src/components/innovation). */
+import AppelInnovation from "@/components/innovation/AppelInnovation";
 import { Header } from "@lystes/components/landing/Header";
 import { Footer } from "@lystes/components/landing/Footer";
 import { useSansMotSeul } from "@lystes/hooks/useSansMotSeul";
@@ -947,6 +950,9 @@ export default function DecouvertePage() {
 
       {/* ═══ LES BLOCS DE L’ACCUEIL, EN COSMÉTIQUE (JP, 12/10/2026) ═══ */}
       <BlocsAccueilSecteur secteur="cosmetique" />
+
+      {/* ═══ TOUJOURS PLUS D’INNOVATION (biolystes.com, JP, 14/10/2026) ═══ */}
+      <AppelInnovation />
 
       {/* ═══ QUESTIONS FRÉQUENTES ═══ */}
       <section id="section-faq" ref={setRef("faq")} className="py-12 md:py-16 bg-background">
