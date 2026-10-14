@@ -182,7 +182,7 @@ const BIO_HERO = (onProjet: (projet: string) => void): HeroVariante => ({
      blanc. Plus sombre à gauche, là où se trouve le texte. */
   voile: "linear-gradient(100deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.40) 45%, rgba(0,0,0,.12) 100%)",
   voileMobile: "linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 50%, rgba(0,0,0,.18) 100%)",
-  cta: { label: "Découvrez notre catalogue", labelCourt: "Découvrez notre catalogue", href: CATALOGUE_URL, externe: false },
+  cta: { label: "Découvrez notre catalogue", labelCourt: "Catalogue", href: CATALOGUE_URL, externe: false },
   /* 13/10/2026 (JP) : un champ de projet, plus une recherche de produits.
      Le texte part au conseiller de sélection, dans l’orbital du widget. */
   champ: {
