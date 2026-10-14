@@ -6,7 +6,8 @@ import { FaceMeshScanner } from "@lystes/features/landing-particuliers/component
 import diagnosticFace from "@lystes/features/landing-particuliers/pages/diagnostic-agent/assets/diagnostic-face.jpg";
 import { demanderMaillage } from "@lystes/lib/mediapipe-sur";
 import SafeVideo from "@lystes/components/bio/SafeVideo";
-import { CarrouselLieux, CSS_CARROUSEL_LIEUX } from "./CarrouselLieux";
+import { CSS_CARROUSEL_LIEUX } from "./CarrouselLieux";
+import { ChevronsCarrousel } from "./ChevronsCarrousel";
 import { CarteProtection } from "@lystes/components/bio/ResponsabiliteSection";
 import { ENTETE_BIO, ONGLETS_BIO, type EtapeBio, type MediaEtape } from "./vision/etapesBio";
 
@@ -1513,16 +1514,25 @@ function PointsCarrousel({ points, icones }: { points: readonly string[]; icones
         if (Math.abs(d) > 30) setI((v) => (v + (d < 0 ? 1 : -1) + n) % n);
       }}>
       <style>{CSS_CARROUSEL_LIEUX}</style>
-      <CarrouselLieux
-        index={i}
-        setIndex={(f) => setI(f)}
-        libellePrecedent="Point précédent"
-        libelleSuivant="Point suivant"
-        elements={points.map((p, k) => {
-          const Icone = icones[k];
-          return { key: p, contenu: <>{Icone && <Icone className="lyh-btn-logo" strokeWidth={1.6} aria-hidden="true" />}<span>{p}</span></> };
-        })}
-      />
+      {/* Un point à la fois, centré sur la page, sans le début du suivant ;
+          les flèches sont posées à droite du cadre, hors du centrage
+          (JP, 14/10/2026). */}
+      <div className="lyv-pc-cadre">
+        <div className="lyv-pc-scene" aria-live="polite">
+          <div className="lyv-pc-piste" style={{ transform: `translateX(${-i * 100}%)` }}>
+            {points.map((p, k) => {
+              const Icone = icones[k];
+              return (
+                <span key={p} className="lyv-pc-el" aria-hidden={k !== i}>
+                  <span className="lyh-lien-shopify">{Icone && <Icone className="lyh-btn-logo" strokeWidth={1.6} aria-hidden="true" />}<span>{p}</span></span>
+                </span>
+              );
+            })}
+          </div>
+        </div>
+        <ChevronsCarrousel className="lyv-pc-chevs" libellePrecedent="Point précédent" libelleSuivant="Point suivant"
+          precedent={() => setI((v) => (v - 1 + n) % n)} suivant={() => setI((v) => (v + 1) % n)} />
+      </div>
     </div>
   );
 }
@@ -2608,17 +2618,25 @@ const CSS = `
   .lyv-inci-debut{ display:none; }
   .lyv-inci-points{ display:inline; }
 }
-/* Les trois points de /bio : le carrousel de la bannière (CarrouselLieux),
-   centré sous le paragraphe, en encre sur le blanc. La ligne fait la largeur
-   du plus long point plus les flèches : un seul point se voit à la fois. */
+/* Les trois points de /bio : un seul à la fois, centré sous le paragraphe,
+   en encre sur le blanc ; les flèches à droite du cadre, hors du centrage.
+   Le cadre garde de chaque côté la place des flèches, le texte reste au
+   milieu de la page. */
 .lyv-pc{ display:flex; justify-content:center; margin:14px auto 0; max-width:780px; touch-action:pan-y; }
-.lyv-pc .lyh-install-row{ width:420px; max-width:100%; margin-top:0; }
+.lyv-pc-cadre{ position:relative; width:440px; max-width:calc(100% - 112px); }
+.lyv-pc-scene{ overflow:hidden; }
+.lyv-pc-piste{ display:flex; transition:transform .35s cubic-bezier(.22,1,.36,1); }
+.lyv-pc-el{ flex:0 0 100%; min-width:0; display:flex; justify-content:center; }
+/* Le texte peut passer sur deux lignes (téléphone) : l'icône reste collée
+   au premier mot au lieu de rester seule à gauche. */
+.lyv-pc-el .lyh-lien-shopify{ display:block; white-space:normal; text-align:center; text-wrap:balance; line-height:1.3; text-decoration:none; }
+.lyv-pc-el .lyh-btn-logo{ display:inline-block; vertical-align:-3px; margin-right:7px; }
+.lyv-pc-chevs{ position:absolute; left:100%; top:50%; transform:translateY(-50%); margin-left:12px; }
 .lyv-pc .lyh-lien-shopify{ color:#000; font-size:13px; }
-.lyv-pc .lyh-install-track{ gap:40px; }
 .lyv-pc .lyh-install-chev{ color:#000; opacity:.55; }
 .lyv-pc .lyh-install-chev:hover{ opacity:1; }
 .lyv-pc .lyh-install-chev:focus-visible{ outline:2px solid #000; outline-offset:2px; border-radius:4px; }
-@media (max-width:420px){ .lyv-pc .lyh-install-row{ width:100%; gap:4px; } .lyv-pc .lyh-lien-shopify{ font-size:11px; gap:6px; } .lyv-pc .lyh-install-chevs{ gap:0; } .lyv-pc .lyh-install-chev{ width:18px; } }
+@media (max-width:520px){ .lyv-pc-cadre{ max-width:calc(100% - 88px); } .lyv-pc .lyh-lien-shopify{ font-size:11px; } .lyv-pc-el .lyh-btn-logo{ width:14px; height:14px; margin-right:5px; vertical-align:-2px; } .lyv-pc .lyh-install-chevs{ gap:0; margin-left:6px; } .lyv-pc .lyh-install-chev{ width:18px; } }
 /* La fiche de démonstration : son propre format (1286 × 1290), sans le
    recadrage des photos. */
 .lyv-media.lyv-media-fiche{ aspect-ratio:auto; }
