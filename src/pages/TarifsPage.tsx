@@ -49,7 +49,7 @@
 import { useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Helmet } from "react-helmet-async";
 import {
-  BadgePercent, Check, ChevronLeft, ChevronRight, CreditCard, HandCoins, Heart, KeyRound, PackageCheck,
+  ArrowUpRight, BadgePercent, Check, ChevronLeft, ChevronRight, CreditCard, HandCoins, Heart, KeyRound, PackageCheck,
   Receipt, ShieldCheck, ShoppingBag, Store, Tag, Truck, Wallet, type LucideIcon,
 } from "lucide-react";
 import { Bande, BoutonRdv, Entete, RondIcone } from "./pied/elements";
@@ -70,6 +70,7 @@ const ht = (ttc: number) => Math.round((ttc / 1.2) * 100) / 100;
 
 type Etape = { icone: LucideIcon; quand: string; montant: number | null; ligne: string; protege?: boolean; minimum?: boolean };
 type Offre = {
+  slug: string; comprend: string[];
   cle: string; nom: string; contenu: string; total: number; totalTitre: string;
   mensuel: number; mensuelTitre: string; mensuelTexte: string; etapes: Etape[];
 };
@@ -83,29 +84,44 @@ const PLAISENT = (montant: number, solde = false): Etape => ({
 });
 const SOLDE = (montant: number): Etape => ({ icone: Store, quand: "Payé à la livraison", montant, ligne: "Le solde, à la livraison de votre boutique." });
 
+/* Ce que comprend chaque pack : copie mot pour mot du champ `features` de
+   src/data/packs.ts de biolystes.pro (main du 14/10/2026, commit 1328d01),
+   sans les lignes chiffrées, comme sur biolystes.pro/offre/<slug>
+   (OffrePage.tsx). À resynchroniser si packs.ts change. */
+const COMPREND: Record<string, string[]> = {
+  design: ["4 produits personnalisés", "Création de logo", "Charte graphique", "Design packaging", "Photos IA hyperréalistes", "Envoi de vos produits finis sous 10 jours ouvrés", "Sans site e-commerce", "Rupture possible à réception (vous gardez logo, charte, packaging)"],
+  solo: ["1 design de produit personnalisé", "Logo + charte + packaging", "Photos IA + contenu textuel", "Site e-commerce", "Automatisation livraison", "Zéro stock minimum"],
+  duo: ["2 designs de produits personnalisés", "Logo + charte + packaging", "Photos IA + contenu textuel", "Site e-commerce", "Support prioritaire", "Zéro stock minimum"],
+  standard: ["4 designs de produits personnalisés", "Logo + charte + packaging", "Site e-commerce complet + SEO", "Automatisation livraison", "Contenu textuel + Photographie IA", "Expert produit dédié", "CRO standard"],
+  ia: ["8 designs de produits personnalisés", "Tout le Pack Standard", "Diagnostic Intelligent par IA", "Recommandations produits par IA", "UGC IA ultraréaliste", "SEO IA + Photo IA avancée", "Marketing IA"],
+  "standard-location": ["Tout le Pack Standard (site + design 4 produits)", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (1 499 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
+  "ia-location": ["Tout le Pack IA (8 designs + UGC IA + diagnostic + marketing)", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (2 999 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
+};
+const OFFRE_URL = "https://biolystes.pro/offre/";
+
 const achat = (cle: string, nom: string, contenu: string, total: number, abonnement: number, abonnementTexte: string, etapes: Etape[]): Offre => ({
-  cle, nom, contenu, total, totalTitre: "Total du " + nom, etapes,
+  slug: cle, comprend: COMPREND[cle], cle, nom, contenu, total, totalTitre: "Total du " + nom, etapes,
   mensuel: abonnement, mensuelTitre: "Puis l’abonnement, par mois", mensuelTexte: abonnementTexte,
 });
 
 /* Packs achetés, dans l’ordre de JP. Source : packs.ts (PACKS_AVEC_SITE). */
 const ACHATS: Offre[] = [
-  achat("design", "Pack Design", "4 produits, sans boutique", 599, 39, "Accès à tout notre catalogue, sans minimum de commande : vous commandez le produit que vous voulez, quand vous voulez. Un produit pas encore designé : 39 € une fois.",
+  achat("design", "Pack Design", "4 produits, design seul, sans site", 599, 39, "Accès à tout notre catalogue, sans minimum de commande : vous commandez le produit que vous voulez, quand vous voulez. Un produit pas encore designé : 39 € une fois.",
     [ACOMPTE(199), RECUS, PLAISENT(400, true)]),
-  achat("solo", "Pack Solo", "1 produit et votre boutique", 499, 49, "Dès la mise en ligne. Ce que ça vous donne : hébergement, support, logistique et sécurité de votre boutique, sans minimum de commande.",
+  achat("solo", "Pack Solo", "1 design + site e-commerce", 499, 49, "Dès la mise en ligne. Ce que ça vous donne : hébergement, support, logistique et sécurité de votre boutique, sans minimum de commande.",
     [ACOMPTE(199), RECUS, PLAISENT(300, true)]),
-  achat("duo", "Pack Duo", "2 produits et votre boutique", 999, 79, "Dès la mise en ligne. Ce que ça vous donne : hébergement, support prioritaire et logistique, sans minimum de commande.",
+  achat("duo", "Pack Duo", "2 designs + site e-commerce", 999, 79, "Dès la mise en ligne. Ce que ça vous donne : hébergement, support prioritaire et logistique, sans minimum de commande.",
     [ACOMPTE(199), RECUS, PLAISENT(301), SOLDE(499)]),
-  achat("standard", "Pack Standard", "4 produits, boutique complète, expert dédié", 1499, 99, "Dès la mise en ligne. Ce que ça vous donne : hébergement, livraisons, référencement, support et sécurité, sans minimum de commande.",
+  achat("standard", "Pack Standard", "4 designs + site complet + expert dédié", 1499, 99, "Dès la mise en ligne. Ce que ça vous donne : hébergement, livraisons, référencement, support et sécurité, sans minimum de commande.",
     [ACOMPTE(199), RECUS, PLAISENT(551), SOLDE(749)]),
-  achat("ia", "Pack IA", "8 produits, boutique, diagnostic et contenus IA", 2999, 99, "Dès la mise en ligne. Ce que ça vous donne : tout le Standard, plus diagnostic IA, contenus UGC IA et marketing, sans minimum de commande.",
+  achat("ia", "Pack IA", "8 designs, UGC IA, diagnostic, marketing", 2999, 99, "Dès la mise en ligne. Ce que ça vous donne : tout le Standard, plus diagnostic IA, contenus UGC IA et marketing, sans minimum de commande.",
     [ACOMPTE(299), RECUS, PLAISENT(1201), SOLDE(1499)]),
 ];
 
 /* Location. Source : packs.ts (PACKS_LOCATION) : mise en place, puis un
    loyer ; le site est acquis au prix du pack acheté. */
 const location = (cle: string, nom: string, contenu: string, miseEnPlace: number, loyer: number, acquis: number): Offre => ({
-  cle, nom, contenu, total: miseEnPlace, totalTitre: "Mise en place", etapes: [
+  slug: cle + "-location", comprend: COMPREND[cle + "-location"], cle, nom, contenu, total: miseEnPlace, totalTitre: "Mise en place", etapes: [
     { icone: KeyRound, quand: "Mise en place", montant: miseEnPlace, ligne: "Pour lancer votre projet." },
     { icone: Receipt, quand: "Puis chaque mois", montant: loyer, minimum: true, ligne: "Vous pouvez verser plus chaque mois, ou solder quand vous voulez, pour que le site soit à vous plus vite." },
     { icone: Store, quand: "Le site est à vous", montant: acquis, ligne: "Une fois ce montant payé au total.", protege: true },
@@ -113,8 +129,8 @@ const location = (cle: string, nom: string, contenu: string, miseEnPlace: number
   mensuel: loyer, mensuelTitre: "Par mois", mensuelTexte: "",
 });
 const LOCATIONS: Offre[] = [
-  location("standard", "Pack Standard", "tout le Standard, payé sur plusieurs mois", 499, 199, 1499),
-  location("ia", "Pack IA", "tout le Pack IA, payé sur plusieurs mois", 599, 199, 2999),
+  location("standard", "Pack Standard", "4 designs + site complet + expert dédié", 499, 199, 1499),
+  location("ia", "Pack IA", "8 designs, UGC IA, diagnostic, marketing", 599, 199, 2999),
 ];
 
 /* Une valeur courte par carte, une phrase dessous. */
@@ -207,7 +223,7 @@ function Choix<T extends string>({ label, options, valeur, onChange, grand = fal
           <button key={o.cle} ref={(el) => { refs.current[i] = el; }} type="button" role="radio" aria-checked={actif}
             tabIndex={actif ? 0 : -1} onClick={() => onChange(o.cle)} onKeyDown={(e) => clavier(e, i)}
             className={"inline-flex items-center justify-center gap-2 rounded-full border font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 " +
-              (grand ? "w-full sm:w-auto h-14 px-7 text-[1.0625rem] " : petit ? "h-10 px-3.5 sm:px-5 text-[0.875rem] sm:text-[0.9375rem] " : "h-12 px-6 text-[1rem] ") +
+              (grand ? "w-full sm:w-auto h-14 px-7 text-[1.0625rem] " : petit ? "h-10 px-3.5 sm:px-5 text-[0.875rem] sm:text-[0.9375rem] " : "w-full sm:w-auto h-12 px-6 text-[1rem] ") +
               (actif ? "bg-foreground text-background border-foreground" : "bg-background text-foreground border-foreground/20 hover:border-foreground")}>
             {Icone && <Icone className="h-5 w-5" strokeWidth={1.5} />}
             {o.nom}
@@ -327,6 +343,23 @@ export default function TarifsPage() {
             {offre.mensuelTexte && <p className="mt-2 text-[0.9375rem] text-foreground/80 text-pretty">{offre.mensuelTexte}</p>}
           </div>
         </div>}
+
+        {/* Ce que comprend le pack choisi (mêmes mots que biolystes.pro/offre/<slug>). */}
+        <div className="max-w-5xl mx-auto mt-4 rounded-2xl border border-border p-6 md:p-8">
+          <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Ce que comprend le {offre.nom}</p>
+          <ul className="mt-4 grid sm:grid-cols-2 gap-x-8 gap-y-2.5">
+            {offre.comprend.map((f) => (
+              <li key={f} className="flex items-start gap-2.5 text-[0.9375rem] text-foreground/80 leading-snug">
+                <Check className="h-4 w-4 mt-0.5 shrink-0 text-foreground" strokeWidth={2} />
+                <span className="text-pretty">{f}</span>
+              </li>
+            ))}
+          </ul>
+          <a href={OFFRE_URL + offre.slug} target="_blank" rel="noopener noreferrer"
+            className="mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
+            Voir le détail de l’offre <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
+          </a>
+        </div>
       </section>
 
       {/* ═══ RÉASSURANCE : LES CARROUSELS DE BIOLYSTES.PRO/RDV ═══ */}
