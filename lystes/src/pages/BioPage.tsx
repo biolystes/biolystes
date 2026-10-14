@@ -974,7 +974,7 @@ export default function DecouvertePage() {
       </section>
 
       {/* ═══ PIED DE PAGE ═══ : celui de l’accueil (JP, 12/10/2026). */}
-      <Footer />
+      <Footer marque="biolystes" />
     </div>
   );
 }

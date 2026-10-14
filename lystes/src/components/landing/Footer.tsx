@@ -12,7 +12,9 @@ import { ArrowRight, Instagram, Youtube } from "lucide-react";
  * Un lien sans `key` est un libellé qui ne se traduit dans aucune langue :
  * nom propre ou sigle international.
  */
-type FooterLink = { key?: string; fr: string; to: string; external?: boolean };
+/* `to` absent : simple texte (une adresse). Une ancre (#…), un mailto: ou un
+   lien externe partent en <a> ; le reste en <Link>. */
+type FooterLink = { key?: string; fr: string; to?: string; external?: boolean };
 type FooterColumn = { key: string; fr: string; links: FooterLink[] };
 
 const columns: FooterColumn[] = [
@@ -94,6 +96,52 @@ const columns: FooterColumn[] = [
   },
 ];
 
+/* Le pied de page de Biolystes (JP, 14/10/2026 : « on n'a plus accès aux
+   pages, conditions générales ») : même gabarit, mais les liens de Biolystes
+   au lieu de ceux de Lystes. Les pages propres à biolystes.com y sont en
+   adresse entière, la page /bio étant aussi servie par lystes.ai ; les liens
+   légaux restent /legal, /privacy, /terms, que biolystes.com traduit vers ses
+   propres pages (lib/lien-lystes.tsx). */
+const BIOLYSTES = "https://www.biolystes.com";
+const colonnesBiolystes: FooterColumn[] = [
+  {
+    key: "footer.bio.marque", fr: "Biolystes",
+    links: [
+      { fr: "Comment ça marche", to: "#section-comprend" },
+      { fr: "Nos engagements", to: "#section-qualite" },
+      { fr: "La livraison", to: "#section-livraison" },
+      { fr: "Le catalogue", to: "#section-catalogue" },
+      { fr: "Questions fréquentes", to: "#section-faq" },
+    ],
+  },
+  {
+    key: "footer.bio.lancer", fr: "Se lancer",
+    links: [
+      { fr: "S’inscrire", to: "https://lystes.ai/biolystes/inscription", external: true },
+      { fr: "Prendre rendez-vous", to: "https://biolystes.pro/rdv", external: true },
+      { fr: "Pourquoi cette offre", to: BIOLYSTES + "/pourquoi-cette-offre", external: true },
+      { fr: "Notre étude", to: BIOLYSTES + "/etudes", external: true },
+      { fr: "Actus", to: BIOLYSTES + "/blog", external: true },
+    ],
+  },
+  {
+    key: "footer.bio.contact", fr: "Contact",
+    links: [
+      { fr: "hello@biolystes.com", to: "mailto:hello@biolystes.com" },
+      { fr: "6 avenue Émile Deschanel, 75007 Paris" },
+      { fr: "Instagram", to: "https://instagram.com/biolystes", external: true },
+    ],
+  },
+  {
+    key: "footer.bio.legal", fr: "Légal",
+    links: [
+      { fr: "Mentions légales", to: "/legal" },
+      { fr: "Politique de confidentialité", to: "/privacy" },
+      { fr: "CGV", to: "/terms" },
+    ],
+  },
+];
+
 // Réseaux sociaux réels. Ajoute LinkedIn / X ici quand tu as les URLs.
 const socials = [
   { label: "Instagram", href: "https://instagram.com/biolystes", Icon: Instagram },
@@ -103,8 +151,10 @@ const socials = [
 const LOGO_URL =
   "https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/logo/lystes.PNG";
 
-export function Footer() {
+export function Footer({ marque = "lystes" }: { marque?: "lystes" | "biolystes" } = {}) {
   const { t } = useTranslation();
+  const bio = marque === "biolystes";
+  const colonnes = bio ? colonnesBiolystes : columns;
   const [email, setEmail] = useState("");
 
   const handleSubscribe = (e: FormEvent) => {
@@ -112,7 +162,7 @@ export function Footer() {
     if (!email) return;
     // Sans backend newsletter pour l'instant : on ouvre un email pré-rempli.
     // À rebrancher sur Brevo plus tard.
-    window.location.href = `mailto:contact@lystes.ai?subject=${encodeURIComponent(
+    window.location.href = `mailto:${bio ? "hello@biolystes.com" : "contact@lystes.ai"}?subject=${encodeURIComponent(
       "Inscription newsletter"
     )}&body=${encodeURIComponent(`Merci de m'inscrire à la newsletter : ${email}`)}`;
   };
@@ -132,15 +182,17 @@ export function Footer() {
               
             </Link>
             <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
-              {t(
-                "footer.baseline",
-                "Une équipe d’agents IA pour chaque produit. Conseil, création, marketing et data, à chaque point de contact.",
-              )}
+              {bio
+                ? "Votre marque de cosmétiques bio et véganes, sans stock, en ligne en 10 jours."
+                : t(
+                  "footer.baseline",
+                  "Une équipe d’agents IA pour chaque produit. Conseil, création, marketing et data, à chaque point de contact.",
+                )}
             </p>
 
             <form onSubmit={handleSubscribe} className="mt-7">
               <label htmlFor="footer-newsletter" className="block text-sm font-medium mb-2">
-                {t("footer.newsletterLabel", "Recevez nos nouveautés")}
+                {bio ? "Recevez nos nouveautés" : t("footer.newsletterLabel", "Recevez nos nouveautés")}
               </label>
               <div className="flex items-center gap-2 border-b border-border focus-within:border-foreground transition-colors py-1">
                 <input
@@ -149,7 +201,7 @@ export function Footer() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder={t("footer.newsletterPlaceholder", "Votre email")}
+                  placeholder={bio ? "Votre e-mail" : t("footer.newsletterPlaceholder", "Votre email")}
                   className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
                 />
                 <button
@@ -163,7 +215,8 @@ export function Footer() {
             </form>
 
             <div className="flex items-center gap-4 mt-7">
-              {socials.map(({ label, href, Icon }) => (
+              {/* Biolystes : Instagram seulement (la chaîne YouTube est celle de Lystes). */}
+              {socials.filter((r) => !bio || r.label === "Instagram").map(({ label, href, Icon }) => (
                 <a
                   key={label}
                   href={href}
@@ -180,24 +233,26 @@ export function Footer() {
 
           {/* Colonnes de liens (50%) — Confiance plus large pour "Traitement des données" */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-x-6 gap-y-10 lg:gap-x-4 xl:gap-x-5 min-w-0">
-            {columns.map((col) => {
-              const titre = t(col.key, col.fr);
+            {colonnes.map((col) => {
+              const titre = bio ? col.fr : t(col.key, col.fr);
               return (
                 <nav key={col.key} aria-label={titre} className="min-w-0">
                   <h3 className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground mb-4 leading-snug">
                     {titre}
                   </h3>
                   <ul className="space-y-2.5">
-                    {col.links.map((link) => (
-                      <li key={link.to + link.fr}>
-                        <Link
-                          to={link.to}
-                          className="block text-sm leading-snug text-muted-foreground hover:text-foreground transition-colors break-words hyphens-auto"
-                        >
-                          {link.key ? t(link.key, link.fr) : link.fr}
-                        </Link>
-                      </li>
-                    ))}
+                    {col.links.map((link) => {
+                      const cl = "block text-sm leading-snug text-muted-foreground hover:text-foreground transition-colors break-words hyphens-auto";
+                      const libelle = link.key ? t(link.key, link.fr) : link.fr;
+                      return (
+                        <li key={(link.to ?? "") + link.fr}>
+                          {!link.to ? <span className={cl}>{libelle}</span>
+                            : bio && (link.external || link.to.startsWith("#") || link.to.startsWith("mailto:"))
+                            ? <a href={link.to} className={cl} {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{libelle}</a>
+                            : <Link to={link.to} className={cl}>{libelle}</Link>}
+                        </li>
+                      );
+                    })}
                   </ul>
                 </nav>
               );
@@ -210,10 +265,12 @@ export function Footer() {
               que personne ait à y penser. Elle disait 2024 dans les 14
               fichiers de langue, c'est exactement ce qu'on évite. */}
           <p>
-            {t("footer.copyright", {
-              year: new Date().getFullYear(),
-              defaultValue: "© {{year}} Lystes AI. Tous droits réservés.",
-            })}
+            {bio
+              ? `© ${new Date().getFullYear()} Biolystes. Tous droits réservés.`
+              : t("footer.copyright", {
+                year: new Date().getFullYear(),
+                defaultValue: "© {{year}} Lystes AI. Tous droits réservés.",
+              })}
           </p>
           {/* Cette ligne pointait aussi vers /security, qui est déjà dans la
               colonne « Confiance & légal » : deux entrées pour une destination.
@@ -221,10 +278,12 @@ export function Footer() {
               reste donc en texte. La navigation vers la page sécurité passe par
               la colonne. */}
           <p>
-            {t(
-              "footer.certifications",
-              "Infrastructure certifiée SOC 2 Type 2 et ISO 27001 · Conforme RGPD",
-            )}
+            {bio
+              ? "Certifié COSMOS et ECOCERT · Conforme au règlement CE 1223/2009"
+              : t(
+                "footer.certifications",
+                "Infrastructure certifiée SOC 2 Type 2 et ISO 27001 · Conforme RGPD",
+              )}
           </p>
         </div>
       </div>
