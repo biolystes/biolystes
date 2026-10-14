@@ -18,7 +18,7 @@ import path from "node:path";
 import { createElement } from "react";
 import { describe, expect, it } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { NOMBRE_PRODUITS_CATALOGUE, PRODUCTS, estNouveau } from "@/data/catalogue-pro/products";
+import { CATEGORIES, NOMBRE_PRODUITS_COMMANDABLES, PRODUCTS, estCommandable, estNouveau } from "@/data/catalogue-pro/products";
 import imagesApprouvees from "@/data/catalogue-pro/images-approuvees.json";
 import source from "@/data/catalogue-pro/source.json";
 import { citeLeFournisseur } from "@/lib/fournisseur-masque";
@@ -71,8 +71,13 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
   it("la page affiche tous les produits, le prix HT et l'INCI, sans prix de packs", () => {
     const { container } = render(createElement(CatalogPage));
     expect(container.querySelectorAll("[data-produit]").length).toBe(PRODUCTS.length);
-    expect(screen.getByTestId("nombre-produits").textContent).toBe(`${PRODUCTS.length} produits`);
-    expect(screen.getByTestId("nombre-catalogue").textContent).toBe(`${NOMBRE_PRODUITS_CATALOGUE} produits`);
+    // Un seul chiffre : en-tête = pastille « Tous les produits » = compteur de liste,
+    // les produits commandables, compléments alimentaires compris, retirés exclus.
+    const commandables = PRODUCTS.filter((p) => estCommandable(p)).length;
+    expect(NOMBRE_PRODUITS_COMMANDABLES).toBe(commandables);
+    expect(screen.getByTestId("nombre-catalogue").textContent).toBe(`${commandables} produits`);
+    expect(container.querySelector('[data-compteur="pastille-all"]')?.textContent).toBe(`(${commandables})`);
+    expect(screen.getByTestId("nombre-produits").textContent).toBe(`${commandables} produits`);
     const texte = container.textContent ?? "";
     expect(texte).toMatch(/HT/);
     for (const interdit of [/599\s*€/, /1[\s\u00a0\u202f]?499\s*€/, /2[\s\u00a0\u202f]?999\s*€/, /Nos Offres/i, /Pack (Design|Standard|IA)/]) {
@@ -95,5 +100,26 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
     expect(fiche.textContent).toContain("Composition INCI");
     expect(fiche.textContent).toContain(avecInci.inci.slice(0, 40));
     expect(screen.getByTestId("prix-ht").textContent).toContain(avecInci.prix_ht!.toFixed(2).replace(".", ","));
+  });
+
+  it("chaque pastille de catégorie donne le nombre du compteur de liste une fois ouverte", () => {
+    const { container } = render(createElement(CatalogPage));
+    for (const cat of CATEGORIES) {
+      const pastille = container.querySelector(`[data-compteur="pastille-${cat.id}"]`)!;
+      const attendu = pastille.textContent!.replace(/\D/g, "");
+      fireEvent.click(pastille.closest("button")!);
+      expect(screen.getByTestId("nombre-produits").textContent!.replace(/\D/g, ""), cat.id).toBe(attendu);
+    }
+  });
+
+  it("les produits retirés restent visibles, en fin de liste, marqués non commandables", () => {
+    const { container } = render(createElement(CatalogPage));
+    const retires = PRODUCTS.filter((p) => p.status === "retired").map((p) => p.slug);
+    expect(retires.length).toBeGreaterThan(0);
+    const fiches = [...container.querySelectorAll("[data-produit]")];
+    const fin = fiches.slice(-retires.length);
+    expect(fin.map((f) => f.getAttribute("data-produit")).sort()).toEqual([...retires].sort());
+    for (const f of fin) expect(f.textContent).toContain("Non commandable");
+    expect(fiches.filter((f) => f.textContent!.includes("Non commandable")).length).toBe(retires.length);
   });
 });

@@ -1,13 +1,13 @@
 {
   "depot": "biolystes/commandcenterbiolystes",
-  "commit": "ca288fdf40cb58b3064baddac859b3a88236aa76",
+  "commit": "757f7f9b8a894147b628dea8cc400ef8881e260d",
   "fichier": "src/data/products.ts",
-  "sha256": "337276ce0950bf39e659ac3dcde09955f5c6ecf8245f5eee97914790ec23ab17",
+  "sha256": "9a05de1b822cac9c90df96887c29f3041a08ce4c341faa47867a78355747fbe0",
   "nombre": 298,
   "codes_sha256": "287fe409fb02b7175d159198b48ee66bb5ac783f89451165b6e1fb8768f161a7",
   "carte_images_sha256": "e8871c9b249e22efecde7929a85c62945379f1c22364151ffce070864c7ea084",
   "images_approuvees": 175,
   "images_sha256": "47a3005fa9ed34ea09eab64ffad51ccdffd82b4b1292f17da495eaafa6b20ef0",
   "composant": "src/pages/CataloguePage.tsx",
-  "composant_sha256": "6026c63519610fe78c927cd873e0c3adec7e7a515e75d7f0565a3b41a86bf551"
+  "composant_sha256": "cbfa815abffb119f12ea38a36db83dc760138e385265764b336473c5e500011e"
 }

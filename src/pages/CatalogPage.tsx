@@ -29,6 +29,13 @@
    NOMBRE_PRODUITS_CATALOGUE (fiches cosmétiques en ligne), photo refusée au
    contrôle (image_a_refaire) remplacée par « Image à venir ».
 
+   Repris de la PR #41 de biolystes.pro : un seul chiffre. L'en-tête, la
+   pastille « Tous les produits » et le compteur de liste donnent le même
+   nombre, NOMBRE_PRODUITS_COMMANDABLES (compléments alimentaires compris) ;
+   chaque catégorie suit la même règle (compterCommandables). Les produits
+   retirés restent visibles, en fin de liste (ordreCatalogue), marqués
+   « Non commandable », et ne sont comptés nulle part.
+
    Le nom du laboratoire ne figure nulle part : les adresses d'images passent
    par citeLeFournisseur (src/lib/fournisseur-masque.ts). */
 import { useMemo, useState } from "react";
@@ -37,7 +44,7 @@ import { citeLeFournisseur } from "@/lib/fournisseur-masque";
 import { sansMotSeul } from "@/lib/sans-mot-seul";
 import {
   PRODUCTS, CATEGORIES, MENTION_IMAGE_A_VENIR, MENTION_RETIRE, MENTION_NOUVEAU,
-  NOMBRE_PRODUITS_CATALOGUE, estNouveau, nouveautesDabord,
+  NOMBRE_PRODUITS_COMMANDABLES, estNouveau, ordreCatalogue, compterCommandables,
 } from "@/data/catalogue-pro/products";
 import cleanImageEntries from "@/data/catalogue-pro/clean-image-map.json";
 import imagesApprouvees from "@/data/catalogue-pro/images-approuvees.json";
@@ -102,9 +109,9 @@ export default function CatalogPage() {
 
   const nombreNouveautes = useMemo(() => PRODUCTS.filter((p) => estNouveau(p)).length, []);
 
-  // Nouveautés en tête par défaut, dans « Tous les produits » comme dans chaque catégorie.
+  // Nouveautés en tête par défaut, produits retirés en fin de liste, dans « Tous les produits » comme dans chaque catégorie.
   const filtered = useMemo(() => {
-    return nouveautesDabord(PRODUCTS.filter((p) => {
+    return ordreCatalogue(PRODUCTS.filter((p) => {
       const matchCat =
         activeCategory === "all" ||
         (activeCategory === ID_NOUVEAUTES ? estNouveau(p) : p.categorie === activeCategory);
@@ -115,6 +122,9 @@ export default function CatalogPage() {
       return matchCat && matchSearch;
     }));
   }, [search, activeCategory]);
+
+  // Un seul nombre de produits sur la page : les commandables (compléments compris, retirés exclus).
+  const nombreAffiche = compterCommandables(filtered);
 
   const toggleFav = (slug: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -134,7 +144,7 @@ export default function CatalogPage() {
           surtitre="Catalogue"
           noir="Vos produits"
           gris="en marque blanche."
-          texte={<><span className="whitespace-nowrap" data-testid="nombre-catalogue">{NOMBRE_PRODUITS_CATALOGUE} produits</span>, dont <span className="whitespace-nowrap">{nombreNouveautes} nouveautés</span>, avec leur prix hors taxes et leur composition INCI.</>}
+          texte={<><span className="whitespace-nowrap" data-testid="nombre-catalogue">{NOMBRE_PRODUITS_COMMANDABLES} produits</span>, dont <span className="whitespace-nowrap">{nombreNouveautes} nouveautés</span>, avec leur prix hors taxes et leur composition INCI.</>}
           className="pb-4 md:pb-6"
         />
 
@@ -160,7 +170,7 @@ export default function CatalogPage() {
                 style={activeCategory === ID_NOUVEAUTES ? undefined : { background: "#f3f4f5" }}
               >
                 Nouveautés
-                <span className="ml-1.5 opacity-60 text-xs">({nombreNouveautes})</span>
+                <span className="ml-1.5 opacity-60 text-xs" data-compteur={`pastille-${ID_NOUVEAUTES}`}>({nombreNouveautes})</span>
               </button>
             )}
             {CATEGORIES.map((cat) => (
@@ -173,15 +183,15 @@ export default function CatalogPage() {
                 style={activeCategory === cat.id ? undefined : { background: "#f3f4f5" }}
               >
                 {cat.label}
-                <span className="ml-1.5 opacity-60 text-xs">
-                  ({cat.id === "all" ? PRODUCTS.length : PRODUCTS.filter((p) => p.categorie === cat.id).length})
+                <span className="ml-1.5 opacity-60 text-xs" data-compteur={`pastille-${cat.id}`}>
+                  ({cat.id === "all" ? NOMBRE_PRODUITS_COMMANDABLES : compterCommandables(PRODUCTS.filter((p) => p.categorie === cat.id))})
                 </span>
               </button>
             ))}
           </div>
         </div>
 
-        <p className="text-xs text-muted-foreground" data-testid="nombre-produits">{filtered.length} produit{filtered.length > 1 ? "s" : ""}</p>
+        <p className="text-xs text-muted-foreground" data-testid="nombre-produits">{nombreAffiche} produit{nombreAffiche > 1 ? "s" : ""}</p>
 
         <div className="catalogue-products-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {filtered.map((product) => (
@@ -313,7 +323,7 @@ export default function CatalogPage() {
                       {product.prix_ht.toFixed(2).replace(".", ",")} € <span className="text-[9px] font-normal">HT</span>
                     </span>
                   ) : (
-                    <span className="text-[10px] leading-tight text-muted-foreground">{product.status === "retired" ? MENTION_RETIRE : ""}</span>
+                    <span className="text-[10px] leading-tight text-muted-foreground">{product.status === "retired" ? "Non commandable" : ""}</span>
                   )}
                   <span className="px-[9px] py-[3px] rounded-full text-[8px] font-bold uppercase tracking-[0.4px] whitespace-nowrap" style={{ background: "rgb(29,29,31)", color: "#ffffff" }}>
                     {LABEL_CATEGORIE[product.categorie] || product.categorie}
