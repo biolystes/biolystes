@@ -73,7 +73,6 @@ const CERT_LOGOS = [
   "https://biolystes.com/assets/cert-5-Dz4uvPKn.png",
   "https://biolystes.com/assets/cert-6-BlNS_xEK.png",
   "https://biolystes.com/assets/cert-7-DzjdONfT.png",
-  "https://biolystes.com/assets/cert-8-cGIAjr2V.png",
   ];
 
 
@@ -132,7 +131,7 @@ export default function DiagnosticComparisonSection({ hideStats = false }: { hid
       <div className="max-w-4xl mx-auto px-6 text-center pt-36 pb-0 md:pt-24 md:pb-0">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
           className="flex items-center justify-center gap-3 mb-4">
-          <span className="bg-foreground text-primary-foreground text-[8px] font-semibold tracking-[0.8px] uppercase px-5 py-2 rounded-full">En 10 jours</span>
+          <span className="bg-foreground text-primary-foreground text-[8px] font-semibold tracking-[0.8px] uppercase px-5 py-2 rounded-full">En 10 jours ouvrés</span>
           <span className="text-[8px] text-foreground font-medium tracking-[0.8px] uppercase">Profitez de plus de 18 ans d'expérience</span>
         </motion.div>
         <motion.h1 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
@@ -168,7 +167,7 @@ export default function DiagnosticComparisonSection({ hideStats = false }: { hid
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4}
           className="flex items-center justify-center gap-6 flex-wrap mt-12 mb-2">
           <span className="flex items-center gap-2 text-sm text-foreground"><Leaf className="h-4 w-4" strokeWidth={1.5} />Certifié Bio &amp; Végan</span>
-          <span className="flex items-center gap-2 text-sm text-foreground"><Shield className="h-4 w-4" strokeWidth={1.5} />Conformité COSMOS/ECOCERT/FDA</span>
+          <span className="flex items-center gap-2 text-sm text-foreground"><Shield className="h-4 w-4" strokeWidth={1.5} />Conforme au règlement CE 1223/2009</span>
           <span className="flex items-center gap-2 text-sm text-foreground"><Zap className="h-4 w-4" strokeWidth={1.5} />Lancement Rapide</span>
         </motion.div>
         <div className="overflow-hidden py-4 mt-2">
@@ -205,7 +204,7 @@ export default function DiagnosticComparisonSection({ hideStats = false }: { hid
               { icon: BadgeCheck, title: "Certifié Bio & Végan", desc: "Formulations naturelles certifiées par des organismes indépendants." },
               { icon: Leaf, title: "ECOCERT / COSMOS", desc: "Standards écologiques européens et internationaux respectés." },
               { icon: FileCheck2, title: "Enregistré CPNP", desc: "Conformité totale aux normes européennes et britanniques." },
-              { icon: Award, title: "ISO 22716 / FDA", desc: "Bonnes pratiques de fabrication, marché US inclus." },
+              { icon: Award, title: "ISO 22716", desc: "Bonnes pratiques de fabrication cosmétique." },
               { icon: Rabbit, title: "Non testé sur animaux", desc: "Aucune expérimentation animale à aucun stade." },
               { icon: Package, title: "Packaging recyclable", desc: "Emballages conçus pour être 100% recyclables." },
             ].map((item, i) => (
@@ -534,7 +533,7 @@ function ExperienceSection() {
 }
 
 const PROCESS_STEPS = [
-  { label: "ÉTAPE 1", title: "Sélection de Produits", desc: "Choisissez parmi notre catalogue de produits certifiés bio, végans, conformes UE/FDA, prêts à être étiquetés avec votre marque.", img: "https://lystes.ai/__l5e/assets-v1/f1a046b0-ea2a-40a1-a6cf-019127384607/clea-eye-cream.png" },
+  { label: "ÉTAPE 1", title: "Sélection de Produits", desc: "Choisissez parmi notre catalogue de produits certifiés bio, végans, conformes au règlement européen, prêts à être étiquetés avec votre marque.", img: "https://lystes.ai/__l5e/assets-v1/f1a046b0-ea2a-40a1-a6cf-019127384607/clea-eye-cream.png" },
   { label: "ÉTAPE 2", title: "Design Packaging Personnalisé", desc: "Vous nous fournissez votre logo et inspirations. Nous créons une identité visuelle unique avec des étiquettes et packagings professionnels pour votre marque.", img: "https://biolystes.com/assets/kaniwa-1-BZ624Hyw.jpg" },
   { label: "ÉTAPE 3", title: "Envoi des échantillons", desc: "Commandez vos échantillons pour découvrir et valider nos produits. C'est le moyen idéal de tester sans risque avant de lancer votre marque en toute confiance.", img: "https://biolystes.com/assets/envoi-echantillons-step-BPqAdt9s.png" },
   { label: "ÉTAPE 4", title: "Photos Packshots et Ambiance", desc: "Nous réalisons un set complet de photos haute qualité (packshots produits, images d'ambiance) pour sublimer votre site et vos campagnes marketing.", img: "https://biolystes.com/assets/sevmylook-20-XhIM2aCJ.jpg" },
@@ -553,7 +552,7 @@ function ProcessSection() {
         <div className="max-w-5xl mx-auto px-6 py-24 md:py-32">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-light tracking-tight max-w-2xl mx-auto text-balance mx-auto" style={{ color: cream }}>
-              Comment fonctionne la mise en place de votre marque en 10-15 jours ?
+              Comment fonctionne la mise en place de votre marque en 10 jours ouvrés ?
             </h2>
             <p className="mt-4 max-w-xl mx-auto" style={{ color: "rgba(255, 255, 255, 0.667)" }}>
               Suivez notre processus simplifié, de la conception à l'automatisation.
@@ -843,7 +842,7 @@ function ReassortSection() {
             Réassort Sans Minimum<br />Vous êtes un institut ? un centre médical ? un salon de coiffure ?
           </h2>
           <p className="text-foreground mt-4 max-w-xl mx-auto leading-relaxed text-sm">
-            Pas besoin de minimum de stock pour vos points de vente physiques. Commandez 1, 10 ou 1000 produits selon vos besoins réels. Livré dans votre établissement en moins de 15 jours.
+            Pas besoin de minimum de stock pour vos points de vente physiques. Commandez 1, 10 ou 1000 produits selon vos besoins réels. Livré dans votre établissement en 6 à 7 jours.
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-6 max-w-2xl mx-auto mb-12">
@@ -930,7 +929,7 @@ const CONSTAT_CARDS = [
   { icon: FlaskConical, title: "La fabrication", desc: "Trouver la bonne formule, le bon dosage, le bon équilibre. Certains de nos clients avaient passé huit mois, un an, parfois des années en allers-retours avec des laboratoires, sans jamais réussir à finaliser un seul produit." },
   { icon: Users, title: "La chaîne de prestataires", desc: "Il ne suffit pas de trouver un bon laboratoire. Il faut aussi le bon designer, le bon photographe, le bon développeur. Si un seul maillon est faible, c'est toute votre image de marque qui en souffre." },
   { icon: Timer, title: "La procrastination", desc: "Des projets qui restent à l'état d'idée pendant des mois, parce que la complexité du parcours pousse à toujours remettre à demain." },
-  { icon: Award, title: "Les certifications", desc: "COSMOS, ECOCERT, FDA, CPNP, ISO 22716, packaging recyclable, sans parabènes, sans silicones, sans microplastiques. Cocher toutes ces cases par vous-même, ça prend des années." },
+  { icon: Award, title: "Les certifications", desc: "COSMOS, ECOCERT, CPNP, ISO 22716, packaging recyclable, sans parabènes, sans silicones, sans microplastiques. Cocher toutes ces cases par vous-même, ça prend des années." },
   { icon: Eye, title: "Le manque de recul", desc: "Chaque nouvelle formulation demande du temps pour être affinée. C'est un investissement en temps que la plupart des créateurs n'ont tout simplement pas." },
   ];
 

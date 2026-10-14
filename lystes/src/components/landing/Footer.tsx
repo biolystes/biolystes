@@ -185,7 +185,7 @@ export function Footer({ marque = "lystes" }: { marque?: "lystes" | "biolystes" 
             </Link>
             <p className="text-sm text-muted-foreground mt-4 leading-relaxed">
               {bio
-                ? "Votre marque de cosmétiques bio et véganes, sans stock, en ligne en 10 jours."
+                ? "Votre marque de cosmétiques bio et véganes, sans stock, en ligne en 10 jours ouvrés."
                 : t(
                   "footer.baseline",
                   "Une équipe d’agents IA pour chaque produit. Conseil, création, marketing et data, à chaque point de contact.",

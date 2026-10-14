@@ -104,7 +104,7 @@ function CosmetiqueTab() {
             </h3>
             <p className="text-sm mb-8 text-muted-foreground leading-relaxed">ou 3× 49€ — Validez la qualité avant de vous lancer</p>
             <div className="flex flex-col mb-8">
-              {["4 produits échantillons", "Accompagnement personnalisé dans la sélection par nos experts", "Étiquetage standard conforme Biolystes", "Certifié Bio & Végan / COSMOS / ECOCERT / FDA", "Livraison incluse sous 7 à 8 jours"].map((t, i) => <CheckItem key={i} text={t} />)}
+              {["4 produits échantillons", "Accompagnement personnalisé dans la sélection par nos experts", "Étiquetage standard conforme Biolystes", "Certifié Bio & Végan / COSMOS / ECOCERT", "Livraison incluse sous 7 à 8 jours"].map((t, i) => <CheckItem key={i} text={t} />)}
             </div>
             <a href={RDV_URL} target="_blank" rel="noopener noreferrer"
               className="block w-full py-4 text-center no-underline text-[11px] font-extrabold tracking-[1.5px] uppercase rounded-xl bg-foreground text-background border-2 border-foreground hover:opacity-90 transition-opacity mt-auto">

@@ -36,9 +36,8 @@ import cert4 from "@/assets/cert-4.png";
 import cert5 from "@/assets/cert-5.png";
 import cert6 from "@/assets/cert-6.png";
 import cert7 from "@/assets/cert-7.png";
-import cert8 from "@/assets/cert-8.png";
 
-const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7, cert8];
+const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -83,7 +82,7 @@ const obstacles = [
   },
   {
     title: "Les certifications",
-    text: "COSMOS, ECOCERT, FDA, CPNP, ISO 22716, packaging recyclable, sans parabènes, sans silicones, sans microplastiques. Cocher toutes ces cases par vous-même, ça prend des années.",
+    text: "COSMOS, ECOCERT, CPNP, ISO 22716, packaging recyclable, sans parabènes, sans silicones, sans microplastiques. Cocher toutes ces cases par vous-même, ça prend des années.",
   },
   {
     title: "Le manque de recul",
@@ -139,14 +138,14 @@ const eliminates = [
 ];
 
 const provides = [
-  "Meilleurs laboratoires européens, certifiés Bio, Végan, COSMOS, ECOCERT, FDA",
+  "Meilleurs laboratoires européens, certifiés Bio, Végan, COSMOS, ECOCERT",
   "Packaging 100 % recyclable",
   "Zéro stock, pas de minimum de commande",
   "Livraison directe au client final",
   "Site e-commerce inclus dans les packs avec site",
   "Création de logo et packaging inclus",
   "Photos générées par IA, hyperréalistes",
-  "Lancement rapide en 15 jours",
+  "Mise en ligne en 10 jours ouvrés",
 ];
 
 
@@ -375,7 +374,7 @@ export default function ConceptPage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}
             className="flex items-center justify-center gap-3 mb-8">
             <span className="bg-foreground text-primary-foreground text-xs font-semibold tracking-[0.15em] uppercase px-5 py-2 rounded-full">
-              En 10 jours
+              En 10 jours ouvrés
             </span>
             <span className="text-muted-foreground text-sm tracking-wide">
               Profitez de plus de 18 ans d'expérience
@@ -403,7 +402,7 @@ export default function ConceptPage() {
               <CheckCircle2 className="h-4 w-4" /> Certifié Bio & Végan
             </span>
             <span className="flex items-center gap-1.5">
-              <CheckCircle2 className="h-4 w-4" /> Conformité COSMOS/ECOCERT/FDA
+              <CheckCircle2 className="h-4 w-4" /> Conforme au règlement CE 1223/2009
             </span>
             <span className="flex items-center gap-1.5">
               <Rocket className="h-4 w-4" /> Lancement Rapide
@@ -454,7 +453,7 @@ export default function ConceptPage() {
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
               className="prose prose-lg max-w-none text-muted-foreground leading-relaxed space-y-6">
               <p>
-                Forts de 18 ans d'expérience dans l'e-commerce et la beauté, nous avons déjà accompagné plus de 100 marques grâce à une solution clé en main pour lancer la vôtre en seulement 10 à 15 jours.
+                Forts de 18 ans d'expérience dans l'e-commerce et la beauté, nous avons déjà accompagné plus de 100 marques grâce à une solution clé en main pour lancer la vôtre en 10 jours ouvrés.
               </p>
               <p>
                 Zéro stock, zéro risque. Votre client commande, notre réseau de laboratoires français et européens d'excellence fabrique le produit à la demande, et nous l'expédions directement chez lui, sous votre nom. Aucun minimum de commande.
@@ -468,7 +467,7 @@ export default function ConceptPage() {
               {[
                 { icon: FlaskConical, label: "Laboratoires certifiés", sub: "Français et européens" },
                 { icon: Truck, label: "Zéro stock", sub: "Aucun minimum de commande" },
-                { icon: Globe, label: "10 à 15 jours", sub: "Pour lancer votre marque" },
+                { icon: Globe, label: "10 jours ouvrés", sub: "Pour lancer votre marque" },
               ].map((item) => (
                 <div key={item.label} className="p-6 rounded-2xl bg-background">
                   <item.icon className="h-5 w-5 text-foreground mb-4" />
@@ -896,7 +895,6 @@ export default function ConceptPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
             { icon: FileCheck2, title: "Enregistrement CPNP", desc: "Produits enregistrés, conformes aux normes EU & UK." },
-            { icon: BadgeCheck, title: "Conformité FDA", desc: "Formulations conformes pour le marché américain." },
             { icon: Leaf, title: "Certification ECOCERT", desc: "Répond aux standards écologiques UE, UK & USA." },
             { icon: Award, title: "Certification ISO 22716", desc: "Bonnes pratiques de fabrication garanties." },
             { icon: Rabbit, title: "Non Testés sur Animaux", desc: "Aucune expérimentation animale à aucun stade." },

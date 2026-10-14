@@ -61,9 +61,8 @@ import cert4 from "@lystes/assets/bio/cert-4.png";
 import cert5 from "@lystes/assets/bio/cert-5.png";
 import cert6 from "@lystes/assets/bio/cert-6.png";
 import cert7 from "@lystes/assets/bio/cert-7.png";
-import cert8 from "@lystes/assets/bio/cert-8.png";
 
-const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7, cert8];
+const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7];
 
 /* Réencodées le 14/10/2026 (JP : « ces vidéos restent noires longtemps ») :
    H.264 480 px sans son, 10 s au plus, chacune avec son affiche, au lieu de
@@ -164,7 +163,7 @@ const BIO_HERO = (onProjet: (projet: string) => void): HeroVariante => ({
   aria: "Lancez votre marque cosmétique bio et végane",
   classe: "lyh--bio",
   /* 13/10/2026 (JP, capture de référence) : surtitre court. */
-  eyebrow: "Mise en place en 10 jours",
+  eyebrow: "Mise en place en 10 jours ouvrés",
   /* Sans deux-points (JP, 13/10/2026). */
   titre: "Lancez votre marque\ncosmétique bio et végane",
   phrases: [
@@ -199,7 +198,7 @@ const BIO_HERO = (onProjet: (projet: string) => void): HeroVariante => ({
   },
   liens: [
     { label: "Certifié Bio & Végan", href: "#section-qualite", icone: { paths: ["M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z", "M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"] } },
-    { label: "Conformité COSMOS/ECOCERT/FDA", href: "#section-qualite", icone: { paths: ["M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"] } },
+    { label: "Conforme au règlement CE 1223/2009", href: "#section-qualite", icone: { paths: ["M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"] } },
     { label: "Lancement Rapide", href: "#section-comprend", ordiSeulement: true, icone: { paths: ["M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"] } },
   ],
   texte: "Pas de stock à acheter, pas de minimum de commande. On prend tout en charge de A à Z.",
@@ -463,7 +462,7 @@ function StepProgress({ activeStep }: { activeStep: StepKey }) {
    réponse de Biolystes. */
 const OBSTACLES = [
   { icon: Warehouse, titre: "Le stock", probleme: "Jusqu’à 90 % du budget part dans le stock ; il ne reste plus rien pour se faire connaître.", reponse: "aucun stock à acheter." },
-  { icon: FlaskConical, titre: "La fabrication", probleme: "Des mois d’allers-retours avec les laboratoires, parfois sans un seul produit fini.", reponse: "votre gamme en ligne en 10 jours." },
+  { icon: FlaskConical, titre: "La fabrication", probleme: "Des mois d’allers-retours avec les laboratoires, parfois sans un seul produit fini.", reponse: "votre gamme en ligne en 10 jours ouvrés." },
   { icon: Users, titre: "Les prestataires", probleme: "Laboratoire, designer, photographe, développeur : un seul maillon faible suffit.", reponse: "un seul interlocuteur, de la sélection à la boutique." },
   { icon: Award, titre: "Les certifications", probleme: "COSMOS, ECOCERT, CPNP, ISO 22716 : des années pour tout cocher seul.", reponse: "des formules déjà certifiées." },
 ];
@@ -683,7 +682,7 @@ export default function DecouvertePage() {
               { icon: BadgeCheck, title: "Certifié Bio & Végan", desc: "Formulations naturelles certifiées par des organismes indépendants." },
               { icon: Leaf, title: "ECOCERT / COSMOS", desc: "Standards écologiques européens et internationaux respectés." },
               { icon: FileCheck2, title: "Enregistré CPNP", desc: "Conformité totale aux normes européennes et britanniques." },
-              { icon: Award, title: "ISO 22716 / FDA", desc: "Bonnes pratiques de fabrication, marché US inclus." },
+              { icon: Award, title: "ISO 22716", desc: "Bonnes pratiques de fabrication cosmétique." },
               { icon: Rabbit, title: "Non testé sur animaux", desc: "Aucune expérimentation animale à aucun stade." },
               { icon: Package, title: "Packaging recyclable", desc: "Emballages conçus pour être 100% recyclables." },
             ].map((item, i) => (
@@ -875,7 +874,7 @@ export default function DecouvertePage() {
         <div className="max-w-4xl mx-auto px-6">
           <EnteteSection className="mb-10" surtitre="Réassort sans minimum"
             noir="Un institut, un centre médical," gris={"un salon de\u00a0coiffure\u00a0?"}
-            texte="Pas besoin de minimum de stock pour vos points de vente physiques. Commandez 1, 10 ou 1000 produits selon vos besoins réels. Livré dans votre établissement en moins de 15 jours." />
+            texte="Pas besoin de minimum de stock pour vos points de vente physiques. Commandez 1, 10 ou 1000 produits selon vos besoins réels. Livré dans votre établissement en 6 à 7 jours." />
 
           <div className="grid md:grid-cols-3 gap-6 max-w-3xl mx-auto mb-12">
             {[

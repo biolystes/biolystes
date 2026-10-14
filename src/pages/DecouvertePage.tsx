@@ -55,9 +55,8 @@ import cert4 from "@/assets/cert-4.png";
 import cert5 from "@/assets/cert-5.png";
 import cert6 from "@/assets/cert-6.png";
 import cert7 from "@/assets/cert-7.png";
-import cert8 from "@/assets/cert-8.png";
 
-const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7, cert8];
+const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7];
 
 const homeExpVideos = [
   "/videos/exp-1.mp4", "/videos/exp-2.mov", "/videos/exp-3.mov",
@@ -357,7 +356,7 @@ export default function DecouvertePage() {
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}
             className="flex items-center justify-center gap-3 mb-4">
             <span className="bg-foreground text-primary-foreground text-[8px] font-semibold tracking-[0.8px] uppercase px-5 py-2 rounded-full">
-              En 10 jours
+              En 10 jours ouvrés
             </span>
             <span className="text-[8px] text-foreground font-medium tracking-[0.8px] uppercase">
               Profitez de plus de 18 ans d'expérience
@@ -390,7 +389,7 @@ export default function DecouvertePage() {
           className="flex items-center justify-center gap-6 flex-wrap mt-12 mb-2">
           {[
             { icon: Leaf, label: "Certifié Bio & Végan" },
-            { icon: Shield, label: "Conformité COSMOS/ECOCERT/FDA" },
+            { icon: Shield, label: "Conforme au règlement CE 1223/2009" },
             { icon: Zap, label: "Lancement Rapide" },
           ].map((item) => (
             <span key={item.label} className="flex items-center gap-2 text-sm text-foreground">
@@ -450,7 +449,7 @@ export default function DecouvertePage() {
               { icon: BadgeCheck, title: "Certifié Bio & Végan", desc: "Formulations naturelles certifiées par des organismes indépendants." },
               { icon: Leaf, title: "ECOCERT / COSMOS", desc: "Standards écologiques européens et internationaux respectés." },
               { icon: FileCheck2, title: "Enregistré CPNP", desc: "Conformité totale aux normes européennes et britanniques." },
-              { icon: Award, title: "ISO 22716 / FDA", desc: "Bonnes pratiques de fabrication, marché US inclus." },
+              { icon: Award, title: "ISO 22716", desc: "Bonnes pratiques de fabrication cosmétique." },
               { icon: Rabbit, title: "Non testé sur animaux", desc: "Aucune expérimentation animale à aucun stade." },
               { icon: Package, title: "Packaging recyclable", desc: "Emballages conçus pour être 100% recyclables." },
             ].map((item, i) => (
@@ -722,7 +721,7 @@ export default function DecouvertePage() {
               Vous êtes un institut ? un centre médical ? un salon de coiffure ?
             </h2>
             <p className="text-foreground mt-4 max-w-xl mx-auto leading-relaxed text-sm">
-              Pas besoin de minimum de stock pour vos points de vente physiques. Commandez 1, 10 ou 1000 produits selon vos besoins réels. Livré dans votre établissement en moins de 15 jours.
+              Pas besoin de minimum de stock pour vos points de vente physiques. Commandez 1, 10 ou 1000 produits selon vos besoins réels. Livré dans votre établissement en 6 à 7 jours.
             </p>
           </div>
 
@@ -798,7 +797,7 @@ export default function DecouvertePage() {
               {
                 icon: Award,
                 title: "Les certifications",
-                desc: "COSMOS, ECOCERT, FDA, CPNP, ISO 22716, packaging recyclable, sans parabènes, sans silicones, sans microplastiques. Cocher toutes ces cases par vous-même, ça prend des années.",
+                desc: "COSMOS, ECOCERT, CPNP, ISO 22716, packaging recyclable, sans parabènes, sans silicones, sans microplastiques. Cocher toutes ces cases par vous-même, ça prend des années.",
               },
               {
                 icon: Eye,
@@ -882,7 +881,7 @@ export default function DecouvertePage() {
             <div>
               <h6 className="text-xs font-semibold opacity-60 uppercase tracking-widest mb-3">Nos Engagements</h6>
               <ul className="space-y-2 text-xs">
-                {["Ecocert / Cosmos", "Conformité UE 1223/2009", "Conformité FDA", "100% Végan & Cruelty-Free"].map(e => (
+                {["Ecocert / Cosmos", "Conformité UE 1223/2009", "100% Végan & Cruelty-Free"].map(e => (
                   <li key={e} className="flex items-center gap-2 opacity-60">
                     <Check className="h-3 w-3 shrink-0" strokeWidth={2} />
                     {e}

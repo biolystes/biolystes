@@ -6,7 +6,7 @@ export const PROTECTION_ITEMS = [
   { title: "DIP : Dossier d’Information Produit", desc: "Établi et conservé par le laboratoire" },
   { title: "Notification CPNP", desc: "Enregistrement au portail européen inclus" },
   { title: "Cosmétovigilance & allégations", desc: "Surveillance et vérification gérées par le labo" },
-  { title: "Certifications COSMOS / ECOCERT / FDA", desc: "Maintenues et renouvelées par le fabricant" },
+  { title: "Certifications COSMOS / ECOCERT", desc: "Maintenues et renouvelées par le fabricant" },
 ];
 
 /* 13/10/2026 (JP) : les sections « Conformité & Responsabilité » et

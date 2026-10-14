@@ -24,7 +24,7 @@ const QUESTIONS: QuestionAPlat[] = [
   {
     icone: CalendarClock,
     q: "Combien de temps pour lancer ma marque ?",
-    r: "Comptez 10 à 15 jours : sélection des produits, design du packaging, réception des produits, photos, boutique en ligne et logistique.",
+    r: "Comptez 10 jours ouvrés pour la mise en ligne, à partir de votre acompte et de vos éléments (sélection, logo, textes). Le délai est suspendu pendant que nous attendons vos réponses ou vos validations. Il couvre la sélection des produits, le design du packaging, la réception des produits, les photos, la boutique en ligne et la logistique.",
   },
   {
     icone: Truck,

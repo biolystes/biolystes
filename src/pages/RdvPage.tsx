@@ -1,24 +1,21 @@
 import { useEffect } from "react";
 
+/* /rdv affichait une page blanche : le module iClosed ne se chargeait plus
+   (audit du parcours cliente, 14/10/2026). Même règle que les boutons
+   Rendez-vous du site : tout rendez-vous se prend sur biolystes.pro/rdv. */
+const RDV_URL = "https://biolystes.pro/rdv";
+
 export default function RdvPage() {
   useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://app.iclosed.io/assets/widget.js";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      document.body.removeChild(script);
-    };
+    window.location.replace(RDV_URL);
   }, []);
 
   return (
-    <div className="py-8 px-4" style={{ background: "#ffffff", minHeight: "100vh" }}>
-      <div
-        className="iclosed-widget mx-auto"
-        data-url="https://app.iclosed.io/e/biolystes/start"
-        title="Crée ta marque cosmétique bio & végane clé en main"
-        style={{ width: "100%", maxWidth: 900, height: 620 }}
-      />
+    <div className="py-16 px-4 text-center" style={{ background: "#ffffff", minHeight: "60vh" }}>
+      <p className="text-sm text-muted-foreground">
+        Redirection vers la prise de rendez-vous…{" "}
+        <a href={RDV_URL} className="underline">Ouvrir la page</a>
+      </p>
     </div>
   );
 }

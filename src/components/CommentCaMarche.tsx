@@ -14,7 +14,7 @@ const steps = [
   {
     label: "ÉTAPE 1",
     title: "Sélection de Produits",
-    text: "Choisissez parmi notre catalogue de produits certifiés bio, végans, conformes UE/FDA, prêts à être étiquetés avec votre marque.",
+    text: "Choisissez parmi notre catalogue de produits certifiés bio, végans, conformes au règlement européen, prêts à être étiquetés avec votre marque.",
     image: selectionProduitsStep,
     alt: "Sélection de produits",
   },
@@ -84,7 +84,7 @@ export default function CommentCaMarche() {
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-light tracking-tight max-w-3xl mx-auto text-balance" style={{ color: "#ffffff" }}>
-            Comment fonctionne la mise en place de votre marque en 10-15 jours ?
+            Comment fonctionne la mise en place de votre marque en 10 jours ouvrés ?
           </h2>
           <p className="mt-4 max-w-xl mx-auto" style={{ color: "#ffffffaa" }}>
             Suivez notre processus simplifié, de la conception à l'automatisation.

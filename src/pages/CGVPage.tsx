@@ -54,7 +54,6 @@ export default function CGVPage() {
             <>
               <p>Le Prestataire propose les offres suivantes :</p>
               <Groupe titre="A. Biolystes Cosmétique">
-                <Offre nom="Pack Découverte" conditions="produits échantillons personnalisés, accompagnement personnalisé, étiquetage conforme, certifié Bio & Végan / COSMOS / ECOCERT / FDA, livraison incluse. Le montant est déduit de toute Offre Avec Site souscrite dans les 30 jours." />
                 <Offre nom="Pack Agence" conditions="frais de mise en place + abonnement PRO mensuel sans engagement" contenu="Logo, packaging, site e‑commerce, SEO, automatisation livraison, support premium, expert dédié." />
                 <Offre nom="Pack IA" conditions="frais de mise en place + abonnement PRO IA mensuel sans engagement" contenu="Tout le Pack Agence + UGC IA, diagnostic intelligent, recommandations produits par IA, gestion réseaux sociaux." />
               </Groupe>
@@ -134,7 +133,7 @@ export default function CGVPage() {
                 "Assure l'enregistrement au CPNP (portail européen de notification)",
                 "Gère la cosmétovigilance",
                 "Vérifie les allégations produit",
-                "Maintient les certifications COSMOS / ECOCERT / FDA",
+                "Maintient les certifications COSMOS / ECOCERT",
               ]} />
               <p><strong>Vous, en tant que marque, vous êtes le distributeur.</strong> Votre logo apparaît sur le packaging, mais la responsabilité réglementaire du produit en lui-même reste celle du laboratoire fabricant.</p>
               <p><strong>Concernant le contrat :</strong> un cadre contractuel définit clairement les responsabilités de chaque partie avant toute commercialisation. Ce cadre précise les obligations du laboratoire en tant que fabricant et Personne Responsable, et vos obligations en tant que distributeur.</p>

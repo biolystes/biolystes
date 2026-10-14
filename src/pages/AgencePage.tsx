@@ -404,7 +404,7 @@ export default function AgencePage() {
             <div>
               <h6 className="text-xs font-semibold opacity-60 uppercase tracking-widest mb-3">Nos Engagements</h6>
               <ul className="space-y-2 text-xs">
-                {["Ecocert / Cosmos", "Conformité UE 1223/2009", "Conformité FDA", "100% Végan & Cruelty-Free"].map(e => (
+                {["Ecocert / Cosmos", "Conformité UE 1223/2009", "100% Végan & Cruelty-Free"].map(e => (
                   <li key={e} className="flex items-center gap-2 opacity-60">
                     <Check className="h-3 w-3 shrink-0" strokeWidth={2} />
                     {e}

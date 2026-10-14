@@ -394,7 +394,7 @@ export default function AIPage() {
             <div>
               <h6 className="text-xs font-semibold opacity-60 uppercase tracking-widest mb-3">Nos Engagements</h6>
               <ul className="space-y-2 text-xs">
-                {["Ecocert / Cosmos", "Conformité UE 1223/2009", "Conformité FDA", "100% Végan & Cruelty-Free"].map(e => (
+                {["Ecocert / Cosmos", "Conformité UE 1223/2009", "100% Végan & Cruelty-Free"].map(e => (
                   <li key={e} className="flex items-center gap-2 opacity-60">
                     <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
                     {e}

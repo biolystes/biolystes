@@ -225,7 +225,7 @@ export default function PricingPage() {
                 "Logo + packaging (3 propositions de logo)",
                 "Photos IA professionnelles de vos produits",
                 "Accompagnement personnalisé par nos experts",
-                "Certifié Bio & Végan / COSMOS / ECOCERT / FDA",
+                "Certifié Bio & Végan / COSMOS / ECOCERT",
                 "Livraison incluse sous 7 à 8 jours",
               ].map((t, i) => <CheckItem key={i} text={t} />)}
             </div>

@@ -171,7 +171,7 @@ export default function PourquoiBiolystesPage() {
                     </li>
                   ))}
                 </ul>
-                <Texte>C’est aussi un produit à base d’ingrédients 100 % naturels, aux parfums véganes, certifié Bio & Végan avec des formulations validées par des organismes indépendants (ECOCERT / COSMOS), enregistré au CPNP pour la conformité européenne, conforme aux bonnes pratiques de fabrication ISO 22716 et FDA, non testé sur les animaux et conditionné dans un packaging 100 % recyclable.</Texte>
+                <Texte>C’est aussi un produit à base d’ingrédients 100 % naturels, aux parfums véganes, certifié Bio & Végan avec des formulations validées par des organismes indépendants (ECOCERT / COSMOS), enregistré au CPNP pour la conformité européenne, conforme aux bonnes pratiques de fabrication ISO 22716, non testé sur les animaux et conditionné dans un packaging 100 % recyclable.</Texte>
                 <Texte>Le consommateur d’aujourd’hui vérifie les certifications, lit les compositions, compare les labels. Arriver sur le marché sans cocher ces cases, c’est partir avec un désavantage majeur face à des marques qui les cochent toutes.</Texte>
               </Facteur>
               <Facteur titre="Le déséquilibre budgétaire">
@@ -191,7 +191,7 @@ export default function PourquoiBiolystesPage() {
                 <Texte>Il ne suffit pas de trouver un bon laboratoire. Il faut aussi le bon designer pour le packaging, le bon photographe pour les visuels, le bon développeur pour le site e‑commerce, le bon logisticien pour les expéditions. Si un seul maillon est faible, c’est toute l’image de marque qui en souffre. Chaque prestataire impose ses propres contraintes : minimums de commande, délais, tarifs, allers-retours. Le parcours devient un véritable parcours du combattant.</Texte>
               </Facteur>
               <Facteur titre="Les certifications">
-                <Texte>COSMOS, ECOCERT, FDA, CPNP, ISO 22716, packaging recyclable, sans parabènes, sans silicones, sans microplastiques. Cocher toutes ces cases par soi-même, ça prend des années. Et plus on est exigeant sur la qualité (ce qui devrait être le cas de tout créateur sérieux), plus c’est long et coûteux. La réglementation cosmétique européenne (Règlement CE n°1223/2009) est rigoureuse, et c’est une bonne chose pour le consommateur, mais c’est un obstacle de taille pour un entrepreneur isolé.</Texte>
+                <Texte>COSMOS, ECOCERT, CPNP, ISO 22716, packaging recyclable, sans parabènes, sans silicones, sans microplastiques. Cocher toutes ces cases par soi-même, ça prend des années. Et plus on est exigeant sur la qualité (ce qui devrait être le cas de tout créateur sérieux), plus c’est long et coûteux. La réglementation cosmétique européenne (Règlement CE n°1223/2009) est rigoureuse, et c’est une bonne chose pour le consommateur, mais c’est un obstacle de taille pour un entrepreneur isolé.</Texte>
               </Facteur>
             </Categorie>
 
