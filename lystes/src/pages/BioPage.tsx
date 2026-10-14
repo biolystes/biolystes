@@ -319,6 +319,54 @@ function BrandCarousel({ brand }: { brand: typeof portfolioBrands[0] }) {
   );
 }
 
+function SalonSlides() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center" });
+  const [selected, setSelected] = useState(0);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => setSelected(emblaApi.selectedScrollSnap());
+    onSelect();
+    emblaApi.on("select", onSelect);
+    emblaApi.on("reInit", onSelect);
+    return () => {
+      emblaApi.off("select", onSelect);
+      emblaApi.off("reInit", onSelect);
+    };
+  }, [emblaApi]);
+
+  return (
+    <div role="region" aria-roledescription="carrousel" aria-label="Salon et cosmétiques en marque blanche">
+      <div ref={emblaRef} className="overflow-hidden -mx-16">
+        <div className="flex touch-pan-y">
+          {[0, 1].map((slide) => (
+            <div key={slide} role="group" aria-roledescription="diapositive" aria-label={`${slide + 1} sur 2`} className="min-w-0 shrink-0 grow-0 basis-full px-16 py-4">
+              <div className="relative max-w-[944px] mx-auto">
+                <div className="bg-secondary rounded-xl p-6 md:p-10">
+                  <img src={salonCoiffure} alt="Salon de coiffure équipé de cosmétiques en marque blanche" className="w-full rounded-lg" loading="lazy" />
+                </div>
+                <div className="hidden md:block absolute -left-16 bottom-20 max-w-[220px] shadow-lg rounded-xl overflow-hidden rotate-[-3deg] p-3 bg-primary">
+                  <SafeVideo src="/videos/salon-235th.mp4" className="w-full rounded-xl object-cover aspect-[3/4]" lazy />
+                </div>
+                <ProductImageCycler />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex items-center justify-center gap-4 mt-4">
+        <Button variant="default" size="icon" className="rounded-full" aria-label="Diapositive précédente du salon" onClick={() => emblaApi?.scrollPrev()}>
+          <ChevronLeft className="h-5 w-5" />
+        </Button>
+        <span className="text-sm tabular-nums text-foreground" aria-live="polite">{selected + 1} / 2</span>
+        <Button variant="default" size="icon" className="rounded-full" aria-label="Diapositive suivante du salon" onClick={() => emblaApi?.scrollNext()}>
+          <ChevronRight className="h-5 w-5" />
+        </Button>
+      </div>
+    </div>
+  );
+}
+
 function StepProgress({ activeStep }: { activeStep: StepKey }) {
   const activeIdx = steps.findIndex(s => s.key === activeStep);
 
@@ -797,19 +845,7 @@ export default function DecouvertePage() {
             ))}
           </div>
 
-          <div className="relative max-w-[944px] mx-auto">
-            <div className="bg-secondary rounded-xl p-6 md:p-10">
-              <img src={salonCoiffure} alt="Salon de coiffure équipé de cosmétiques en marque blanche" className="w-full rounded-lg" loading="lazy" />
-            </div>
-            <div className="hidden md:block absolute -left-16 bottom-20 max-w-[220px] shadow-lg rounded-xl overflow-hidden rotate-[-3deg] p-3" style={{ backgroundColor: '#2f5955' }}>
-              <SafeVideo
-                src="/videos/salon-235th.mp4"
-                className="w-full rounded-xl object-cover aspect-[3/4]"
-                lazy
-              />
-            </div>
-            <ProductImageCycler />
-          </div>
+          <SalonSlides />
         </div>
       </section>
 
