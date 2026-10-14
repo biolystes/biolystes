@@ -11,13 +11,18 @@ const fadeUp = {
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } }),
 };
 
-export default function EnteteSection({ surtitre, noir, gris, texte, className = "" }: {
+export default function EnteteSection({ surtitre, noir, gris, texte, className = "", aLaLigne = true }: {
   surtitre: string;
   /* Le début du titre, en noir, puis la fin, en gris. */
   noir: string;
   gris: string;
-  texte: string;
+  texte?: string;
   className?: string;
+  /* Sur ordinateur, la partie grise sur sa propre ligne (JP, 14/10/2026 :
+     « de la beauté » en haut, « ont donné naissance à Biolystes » en bas).
+     À couper quand la partie grise ne tient pas sur une ligne. Au téléphone,
+     la coupure « pretty » reste. */
+  aLaLigne?: boolean;
 }) {
   return (
     <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className={"space-y-4 text-center " + className}>
@@ -25,12 +30,14 @@ export default function EnteteSection({ surtitre, noir, gris, texte, className =
         {surtitre}
       </motion.p>
       <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl !font-light tracking-tight mx-auto text-foreground leading-relaxed"
-        style={{ maxWidth: "min(640px, 22em)", textWrap: "pretty" }}>
-        {noir} <span className="text-muted-foreground">{gris}</span>
+        style={{ maxWidth: "min(100%, 18em)", textWrap: "pretty" }}>
+        {noir} <span className={"text-muted-foreground" + (aLaLigne ? " md:block" : "")}>{gris}</span>
       </motion.h2>
-      <motion.p variants={fadeUp} custom={2} className="text-foreground max-w-xl mx-auto leading-relaxed">
-        {texte}
-      </motion.p>
+      {texte && (
+        <motion.p variants={fadeUp} custom={2} className="text-foreground max-w-xl mx-auto leading-relaxed text-pretty">
+          {texte}
+        </motion.p>
+      )}
     </motion.div>
   );
 }

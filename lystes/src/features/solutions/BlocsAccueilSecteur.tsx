@@ -41,6 +41,8 @@ type Reglage = {
   createurs: string;
   /** Blocs retirés de la page en entier. */
   blocsRetires?: ("bento" | "data" | "organigramme")[];
+  /** Les titres des blocs au format de l'en-tête commun de /bio. */
+  enteteCommun?: boolean;
   /** Le lien de chaque carte (« En savoir plus » de l'accueil) remplacé. */
   lienCartes?: { libelle: string; href: string };
 };
@@ -61,6 +63,8 @@ const REGLAGES: Record<Secteur, Reglage> = {
        l'inscription de l'espace client (adresse entière : la page est aussi
        servie par biolystes.com). */
     lienCartes: { libelle: "S’inscrire", href: "https://lystes.ai/biolystes/inscription" },
+    /* 14/10/2026 (JP, « uniformise tout ») : mêmes titres que le reste de /bio. */
+    enteteCommun: true,
   },
   /* /crea : l'essayage virtuel a toute sa place ; le diagnostic beauté (un
      visage) et l'événementiel partent. Séries Lookbook et Fashion, créateurs
@@ -152,6 +156,15 @@ export default function BlocsAccueilSecteur({ secteur }: { secteur: Secteur }) {
         .blocs-secteur h2, .blocs-secteur h3, .blocs-secteur h4 { text-wrap: balance; }
         .blocs-secteur .cartes6 h4 { font-size: 15px; }
       `}</style>
+      {/* En-tête commun de /bio : le titre du carrousel des équipes reprend la
+          taille, la graisse et la description des autres blocs. */}
+      {reglage.enteteCommun && <style>{`
+        .blocs-secteur #agents-biolystes > .reveal h2 { font-size: 24px !important; font-weight: 300 !important;
+          line-height: 1.375 !important; letter-spacing: -0.025em !important; max-width: min(100%, 18em); margin: 0 auto; text-wrap: pretty; }
+        @media (min-width: 1024px) { .blocs-secteur #agents-biolystes > .reveal h2 { font-size: 32px !important; } }
+        .blocs-secteur #agents-biolystes > .reveal p { font-size: 16px !important; line-height: 1.625 !important;
+          color: hsl(var(--foreground)) !important; max-width: 36rem !important; }
+      `}</style>}
       {/* 1. Le bento « Vendez davantage… » */}
       {!retire("bento") && (
         <div className="biolystes-ai-scope px-4 sm:px-6 lg:px-0">
@@ -169,7 +182,7 @@ export default function BlocsAccueilSecteur({ secteur }: { secteur: Secteur }) {
       {/* 3. Le carrousel « De combien augmenterait… » */}
       <div dangerouslySetInnerHTML={{ __html: blocs.bande }} />
       {/* 4. Les créateurs, sur le secteur de la page */}
-      <HomeCreatorsGallery sansGeneration secteur={reglage.createurs} />
+      <HomeCreatorsGallery sansGeneration secteur={reglage.createurs} langue={lang} enteteCommun={reglage.enteteCommun} />
       {/* 5. L'organigramme */}
       {!retire("organigramme") && <Hierarchy className="pt-10 md:pt-14" />}
 

@@ -17,17 +17,21 @@ export default function FaqAPlat({
   questions,
   surtitre = "Questions fréquentes",
   titre,
+  gris,
 }: {
   questions: QuestionAPlat[];
   surtitre?: string;
   titre: string;
+  /* La fin du titre, en gris (en-tête commun de /bio, 14/10/2026). */
+  gris?: string;
 }) {
   return (
     <div className="max-w-5xl mx-auto px-6">
       <div className="space-y-4 mb-12 text-center">
         <p className="text-xs tracking-[0.3em] uppercase text-foreground">{surtitre}</p>
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed text-balance">
-          {titre}
+        <h2 className="text-2xl md:text-3xl lg:text-4xl !font-light tracking-tight mx-auto text-foreground leading-relaxed"
+          style={{ maxWidth: "min(100%, 18em)", textWrap: "pretty" }}>
+          {titre}{gris && <> <span className="text-muted-foreground md:block">{gris}</span></>}
         </h2>
       </div>
       <div className="grid md:grid-cols-2 gap-4">
