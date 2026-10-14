@@ -39,6 +39,10 @@ type Reglage = {
   essayages: boolean;
   /** Secteur de /creator. */
   createurs: string;
+  /** Blocs retirés de la page en entier. */
+  blocsRetires?: ("bento" | "data" | "organigramme")[];
+  /** Le lien de chaque carte (« En savoir plus » de l'accueil) remplacé. */
+  lienCartes?: { libelle: string; href: string };
 };
 
 const REGLAGES: Record<Secteur, Reglage> = {
@@ -50,6 +54,13 @@ const REGLAGES: Record<Secteur, Reglage> = {
     ugc: "u1",
     essayages: false,
     createurs: "cosmetique",
+    /* 14/10/2026 (JP) : le bento « Vendez davantage… », Data intelligent et
+       « Combien d'agents IA composeront… » retirés de biolystes.com. */
+    blocsRetires: ["bento", "data", "organigramme"],
+    /* 14/10/2026 (JP) : « En savoir plus » devient « S'inscrire », vers
+       l'inscription de l'espace client (adresse entière : la page est aussi
+       servie par biolystes.com). */
+    lienCartes: { libelle: "S’inscrire", href: "https://lystes.ai/biolystes/inscription" },
   },
   /* /crea : l'essayage virtuel a toute sa place ; le diagnostic beauté (un
      visage) et l'événementiel partent. Séries Lookbook et Fashion, créateurs
@@ -98,6 +109,13 @@ function extraire(lang: string, reglage: Reglage) {
     for (const pf of Array.from(bande.querySelectorAll(".wf-portfolio"))) {
       garderSerie(pf, pf.classList.contains("pf-2") ? reglage.ugc : reglage.photographes);
     }
+    if (reglage.lienCartes) {
+      for (const a of Array.from(bande.querySelectorAll<HTMLAnchorElement>(".cartes6 > div > a[href]"))) {
+        a.setAttribute("href", reglage.lienCartes.href);
+        const texte = Array.from(a.childNodes).find((n) => n.nodeType === Node.TEXT_NODE && n.textContent?.trim());
+        if (texte) texte.textContent = reglage.lienCartes.libelle + " ";
+      }
+    }
   }
   return { style, bento: bento?.outerHTML ?? "", bande: bande?.outerHTML ?? "" };
 }
@@ -105,6 +123,7 @@ function extraire(lang: string, reglage: Reglage) {
 export default function BlocsAccueilSecteur({ secteur }: { secteur: Secteur }) {
   const lang = "fr";
   const reglage = REGLAGES[secteur];
+  const retire = (bloc: "bento" | "data" | "organigramme") => reglage.blocsRetires?.includes(bloc) ?? false;
   const blocs = useMemo(() => extraire(lang, reglage), [reglage]);
   const racine = useRef<HTMLDivElement>(null);
   const [slots, setSlots] = useState<Record<string, HTMLElement | null>>({});
@@ -134,21 +153,25 @@ export default function BlocsAccueilSecteur({ secteur }: { secteur: Secteur }) {
         .blocs-secteur .cartes6 h4 { font-size: 15px; }
       `}</style>
       {/* 1. Le bento « Vendez davantage… » */}
-      <div className="biolystes-ai-scope px-4 sm:px-6 lg:px-0">
-        <div className="wrap" dangerouslySetInnerHTML={{ __html: blocs.bento }} />
-      </div>
-      {/* 2. Data intelligent */}
-      <div className="biolystes-ai-scope px-4 sm:px-6 lg:px-0">
-        <div className="wrap" style={{ margin: "44px auto" }}>
-          <DataIntelligentBanner lang={lang} essayages={reglage.essayages} />
+      {!retire("bento") && (
+        <div className="biolystes-ai-scope px-4 sm:px-6 lg:px-0">
+          <div className="wrap" dangerouslySetInnerHTML={{ __html: blocs.bento }} />
         </div>
-      </div>
+      )}
+      {/* 2. Data intelligent */}
+      {!retire("data") && (
+        <div className="biolystes-ai-scope px-4 sm:px-6 lg:px-0">
+          <div className="wrap" style={{ margin: "44px auto" }}>
+            <DataIntelligentBanner lang={lang} essayages={reglage.essayages} />
+          </div>
+        </div>
+      )}
       {/* 3. Le carrousel « De combien augmenterait… » */}
       <div dangerouslySetInnerHTML={{ __html: blocs.bande }} />
       {/* 4. Les créateurs, sur le secteur de la page */}
       <HomeCreatorsGallery sansGeneration secteur={reglage.createurs} />
       {/* 5. L'organigramme */}
-      <Hierarchy className="pt-10 md:pt-14" />
+      {!retire("organigramme") && <Hierarchy className="pt-10 md:pt-14" />}
 
       {/* biolystes.com : pas de bouton « Appeler Cléa », le seul appel à
           l’action de la page est le rendez-vous. */}

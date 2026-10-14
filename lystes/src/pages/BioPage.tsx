@@ -12,6 +12,7 @@ import {
   AlertTriangle, Warehouse, Users, Eye, Timer, ChevronLeft, ChevronRight,
 } from "lucide-react";
 import InstaFeedSection from "@lystes/components/bio/InstaFeedSection";
+import EnteteSection from "@lystes/components/bio/EnteteSection";
 import WirtzkinSection from "@lystes/components/bio/WirtzkinSection";
 import HomeHeroVideo, { NB, type HeroVariante, type MsgFil } from "@lystes/features/solutions/HomeHeroVideo";
 import BioGammes from "@lystes/components/bio/BioGammes";
@@ -532,15 +533,9 @@ export default function DecouvertePage() {
       {/* ═══ 3. LA QUALITÉ : NOS ENGAGEMENTS ═══ */}
       <section id="section-qualite" ref={setRef("qualite")} className="py-8 md:py-12">
         <div className="max-w-4xl mx-auto px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-8 text-center">
-            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-foreground">Nos engagements</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed text-balance">
-              <b>Sans achat de stock</b>, des cosmétiques d’excellence, certifiés et responsables
-            </motion.h2>
-            <motion.p variants={fadeUp} custom={2} className="text-foreground max-w-xl mx-auto leading-relaxed">
-              Tous nos produits sont formulés sans parabènes, sans silicones, sans PEG, sans filtres UV chimiques, sans microplastiques et sans colorants artificiels.
-            </motion.p>
-          </motion.div>
+          <EnteteSection className="mb-8" surtitre="Nos engagements"
+            noir="Sans achat de stock," gris={"des cosmétiques d’excellence, certifiés et\u00a0responsables"}
+            texte="Tous nos produits sont formulés sans parabènes, sans silicones, sans PEG, sans filtres UV chimiques, sans microplastiques et sans colorants artificiels." />
 
           {/* Les six photos de JP (12/10/2026), sous le texte des engagements
               depuis le 14/10/2026 (JP), au lieu d'une bande à part. */}
@@ -580,18 +575,9 @@ export default function DecouvertePage() {
           </div>
 
           {/* ═══ FORMULATION PROPRE ═══ */}
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="mt-20 text-center">
-            <motion.p variants={fadeUp} custom={0} className="text-[10px] font-bold tracking-[0.35em] uppercase text-muted-foreground">
-              Formulation propre
-            </motion.p>
-            {/* Titre et largeur de JP (14/10/2026). */}
-            <motion.h3 variants={fadeUp} custom={1} className="mt-4 text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed" style={{ maxWidth: 537 }}>
-              Pourquoi c’est sans risque pour la&nbsp;<span className="text-muted-foreground">santé de vos&nbsp;clients</span>
-            </motion.h3>
-            <motion.p variants={fadeUp} custom={2} className="mt-4 max-w-md mx-auto text-sm text-muted-foreground leading-relaxed">
-              Une liste rigoureuse d’ingrédients que nous n’utilisons jamais, pour préserver les peaux les plus fragiles.
-            </motion.p>
-          </motion.div>
+          <EnteteSection className="mt-20" surtitre="Formulation propre"
+            noir="Pourquoi c’est sans risque pour la" gris={"santé de vos\u00a0clients"}
+            texte="Une liste rigoureuse d’ingrédients que nous n’utilisons jamais, pour préserver les peaux les plus fragiles." />
 
           <div className="mt-10 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
             {[
