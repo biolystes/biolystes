@@ -59,6 +59,8 @@ const PourquoiBiolystesPage = lazy(() => import("./pages/PourquoiBiolystesPage")
 const MentionsLegalesPage = lazy(() => import("./pages/MentionsLegalesPage"));
 const PolitiqueConfidentialitePage = lazy(() => import("./pages/PolitiqueConfidentialitePage"));
 const CGVPage = lazy(() => import("./pages/CGVPage"));
+/* /faq : les questions fréquentes, à plat (14/10/2026). */
+const FaqPage = lazy(() => import("./pages/FaqPage"));
 
 const queryClient = new QueryClient();
 
@@ -96,6 +98,7 @@ function AppRoutes() {
         <Route path="/mentions-legales" element={<Suspense fallback={null}><MentionsLegalesPage /></Suspense>} />
         <Route path="/politique-confidentialite" element={<Suspense fallback={null}><PolitiqueConfidentialitePage /></Suspense>} />
         <Route path="/cgv" element={<Suspense fallback={null}><CGVPage /></Suspense>} />
+        <Route path="/faq" element={<Suspense fallback={null}><FaqPage /></Suspense>} />
       </Route>
       {/* Actus (12/10/2026) : cadre de l’accueil, articles dans src/actus/articles.ts. */}
       <Route path="/blog" element={<Suspense fallback={null}><ActusPage /></Suspense>} />

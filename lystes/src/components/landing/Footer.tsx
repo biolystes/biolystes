@@ -111,7 +111,7 @@ const colonnesBiolystes: FooterColumn[] = [
       { fr: "Nos engagements", to: BIOLYSTES + "/#section-qualite", external: false },
       { fr: "La livraison", to: BIOLYSTES + "/#section-livraison", external: false },
       { fr: "Le catalogue", to: BIOLYSTES + "/#section-catalogue", external: false },
-      { fr: "Questions fréquentes", to: BIOLYSTES + "/#section-faq", external: false },
+      { fr: "Questions fréquentes", to: BIOLYSTES + "/faq", external: false },
     ],
   },
   {
