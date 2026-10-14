@@ -41,9 +41,15 @@
      fois sur la page.
    HT = TTC ÷ 1,2.
 
-   Laissés de côté tant que JP n’a pas tranché (audit du 14/10/2026) : le
-   moment où se paie la mise en place en location (acompte de 199 ou 299 €
-   dans l’espace client), les pourcentages de remise, « le premier mois
+   Montants : src/data/offres.ts, vérifiés par
+   src/test/garde-alignement-offres.test.ts. « Payer sur plusieurs mois »
+   (JP, 14/10/2026 soir) : sélection offerte, acompte à la validation de la
+   sélection, reste de la mise en place (acompte déduit) à la livraison du
+   site, puis la mensualité, abonnement compris. À l’achat, l’abonnement est
+   payant et démarre une fois le solde réglé, site livré.
+
+   Laissés de côté tant que JP n’a pas tranché (audit du 14/10/2026) : les
+   pourcentages de remise, « le premier mois
    offert », le tarif horaire hors forfait, la durée d’engagement de
    l’abonnement, le prix exact de chaque référence. */
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
@@ -53,6 +59,7 @@ import {
   Palette, PenTool, Receipt, ShieldCheck, Store, Tag, Truck, Wallet, type LucideIcon,
 } from "lucide-react";
 import { Bande, BoutonRdv, Entete, RondIcone } from "./pied/elements";
+import { ABONNEMENT_DEMARRE_SITE, PRODUIT_EN_PLUS, packAchat, packPlusieursMois, type PackAchat, type PackPlusieursMois } from "@/data/offres";
 import showcaseAmarsi from "@/assets/showcase-amarsi.jpg";
 import showcasePeau from "@/assets/showcase-peau.jpg";
 import showcase235 from "@/assets/showcase-235.jpg";
@@ -78,7 +85,7 @@ type Offre = {
 };
 
 /* Les étapes de paiement d’un pack acheté. */
-const ACOMPTE = (montant: number): Etape => ({ icone: Wallet, quand: "Payé à la commande", montant, ligne: "L’acompte lance votre projet." });
+const ACOMPTE = (montant: number): Etape => ({ icone: Wallet, quand: "Payé à la validation", montant, ligne: "Une fois votre sélection validée, l’acompte lance votre projet." });
 /* Étape 0 (JP, 14/10/2026, compétence tarifs-biolystes, « Le parcours
    complet ») : la sélection et les fiches INCI sont offertes ; rien à payer
    avant d'avoir validé ses produits. */
@@ -100,8 +107,8 @@ const COMPREND: Record<string, string[]> = {
   duo: ["2 designs de produits personnalisés", "Logo + charte + packaging", "Photos IA + contenu textuel", "Site e-commerce", "Support prioritaire", "Zéro stock minimum"],
   standard: ["4 designs de produits personnalisés", "Logo + charte + packaging", "Site e-commerce complet + SEO", "Automatisation livraison", "Contenu textuel + Photographie IA", "Expert produit dédié", "CRO standard"],
   ia: ["8 designs de produits personnalisés", "Tout le Pack Standard", "Diagnostic Intelligent par IA", "Recommandations produits par IA", "UGC IA ultraréaliste", "SEO IA + Photo IA avancée", "Marketing IA"],
-  "standard-location": ["Tout le Pack Standard (site + design 4 produits)", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (1 499 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
-  "ia-location": ["Tout le Pack IA (8 designs + UGC IA + diagnostic + marketing)", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (2 999 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
+  "standard-location": ["Tout le Pack Standard (site + design 4 produits)", "Abonnement inclus dans la mensualité", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (1 499 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
+  "ia-location": ["Tout le Pack IA (8 designs + UGC IA + diagnostic + marketing)", "Abonnement inclus dans la mensualité", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (2 999 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
 };
 const OFFRE_URL = "https://biolystes.pro/offre/";
 
@@ -115,39 +122,56 @@ const ACOMPTE_COMPREND: { icone: LucideIcon; texte: string }[] = [
   { icone: Camera, texte: "Les photos de vos designs" },
 ];
 
-const achat = (cle: string, nom: string, contenu: string, total: number, abonnement: number, abonnementTexte: string, etapes: Etape[]): Offre => ({
-  slug: cle, comprend: COMPREND[cle], cle, nom, contenu, total, totalTitre: "Total du " + nom, etapes,
-  mensuel: abonnement, mensuelTitre: "Puis l’abonnement, par mois", mensuelTexte: abonnementTexte,
-});
+/* Les étapes d'un pack acheté : sélection offerte, acompte, réception,
+   puis la tranche (ou le reste) s'ils plaisent, et le solde à la livraison
+   du site s'il y en a un. */
+const etapesAchat = (p: PackAchat): Etape[] => [
+  SELECTION, ACOMPTE(p.acompte), RECUS,
+  ...(p.aLivraisonSite === null ? [PLAISENT(p.aReception, true)] : [PLAISENT(p.aReception), SOLDE(p.aLivraisonSite)]),
+];
+const achat = (cle: PackAchat["cle"], nom: string, contenu: string, abonnementTexte: string): Offre => {
+  const p = packAchat(cle);
+  return {
+    slug: cle, comprend: COMPREND[cle], cle, nom, contenu, total: p.prix, totalTitre: "Total du " + nom, etapes: etapesAchat(p),
+    mensuel: p.abonnement, mensuelTitre: "Puis l’abonnement, par mois", mensuelTexte: abonnementTexte,
+  };
+};
 
-/* Packs achetés, dans l’ordre de JP. Source : packs.ts (PACKS_AVEC_SITE). */
+/* Packs achetés, dans l’ordre de JP. Source : packs.ts (PACKS_AVEC_SITE),
+   montants dans src/data/offres.ts. L'abonnement est payant en plus, y
+   compris pour le Standard (JP, 14/10/2026 soir : jamais « inclus » à
+   l'achat). */
 const ACHATS: Offre[] = [
-  achat("design", "Pack Design", "4 produits, design seul, sans site", 599, 39, "Accès à tout notre catalogue, sans minimum de commande : vous commandez le produit que vous voulez, quand vous voulez. Un produit pas encore designé : 39 € une fois.",
-    [SELECTION, ACOMPTE(199), RECUS, PLAISENT(400, true)]),
-  achat("solo", "Pack Solo", "1 design + site e-commerce", 499, 49, "Dès la mise en ligne. Ce que ça vous donne : hébergement, support, logistique et sécurité de votre boutique, sans minimum de commande.",
-    [SELECTION, ACOMPTE(199), RECUS, PLAISENT(300, true)]),
-  achat("duo", "Pack Duo", "2 designs + site e-commerce", 999, 79, "Dès la mise en ligne. Ce que ça vous donne : hébergement, support prioritaire et logistique, sans minimum de commande.",
-    [SELECTION, ACOMPTE(199), RECUS, PLAISENT(301), SOLDE(499)]),
-  achat("standard", "Pack Standard", "4 designs + site complet + expert dédié", 1499, 99, "Dès la mise en ligne. Ce que ça vous donne : hébergement, livraisons, référencement, support et sécurité, sans minimum de commande.",
-    [SELECTION, ACOMPTE(199), RECUS, PLAISENT(551), SOLDE(749)]),
-  achat("ia", "Pack IA", "8 designs, UGC IA, diagnostic, marketing", 2999, 99, "Dès la mise en ligne. Ce que ça vous donne : tout le Standard, plus diagnostic IA, contenus UGC IA et marketing, sans minimum de commande.",
-    [SELECTION, ACOMPTE(299), RECUS, PLAISENT(1201), SOLDE(1499)]),
+  achat("design", "Pack Design", "4 produits, design seul, sans site", "Accès à tout notre catalogue, sans minimum de commande : vous commandez le produit que vous voulez, quand vous voulez. Un produit pas encore designé : 39 € une fois."),
+  achat("solo", "Pack Solo", "1 design + site e-commerce", "Dès la mise en ligne. Ce que ça vous donne : hébergement, support, logistique et sécurité de votre boutique, sans minimum de commande."),
+  achat("duo", "Pack Duo", "2 designs + site e-commerce", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, support prioritaire et logistique, sans minimum de commande."),
+  achat("standard", "Pack Standard", "4 designs + site complet + expert dédié", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, livraisons, référencement, support et sécurité, sans minimum de commande."),
+  achat("ia", "Pack IA", "8 designs, UGC IA, diagnostic, marketing", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : tout le Standard, plus diagnostic IA, contenus UGC IA et marketing, sans minimum de commande."),
 ];
 
-/* Location. Source : packs.ts (PACKS_LOCATION) : mise en place, puis un
-   loyer ; le site est acquis au prix du pack acheté. */
-const location = (cle: string, nom: string, contenu: string, miseEnPlace: number, loyer: number, acquis: number): Offre => ({
-  slug: cle + "-location", comprend: COMPREND[cle + "-location"], cle, nom, contenu, total: miseEnPlace, totalTitre: "Mise en place", etapes: [
-    SELECTION,
-    { icone: KeyRound, quand: "Mise en place", montant: miseEnPlace, ligne: "Pour lancer votre projet." },
-    { icone: Receipt, quand: "Puis chaque mois", montant: loyer, minimum: true, ligne: "Vous pouvez verser plus chaque mois, ou solder quand vous voulez, pour que le site soit à vous plus vite." },
-    { icone: Store, quand: "Le site est à vous", montant: acquis, ligne: "Une fois ce montant payé au total.", protege: true },
-  ],
-  mensuel: loyer, mensuelTitre: "Puis par mois", mensuelTexte: "Vous pouvez verser plus chaque mois, ou solder quand vous voulez, pour que le site soit à vous plus vite.",
-});
+/* Payer sur plusieurs mois (location avec option d'achat au contrat ; le mot
+   ne s'affiche pas). Décision de JP du 14/10/2026 (soir) : même début que
+   l'achat, puis le reste de la mise en place à la livraison du site, puis
+   la mensualité, abonnement compris. Le site est à la cliente une fois le
+   total réglé. */
+const plusieursMois = (cle: PackPlusieursMois["cle"], nom: string, contenu: string): Offre => {
+  const p = packPlusieursMois(cle);
+  return {
+    slug: cle + "-location", comprend: COMPREND[cle + "-location"], cle, nom, contenu,
+    total: p.total, totalTitre: "Total pour que le site soit à vous",
+    etapes: [
+      SELECTION, ACOMPTE(p.acompte), RECUS,
+      { icone: KeyRound, quand: "Payé à la livraison du site", montant: p.resteMiseEnPlace,
+        ligne: "Le reste de la mise en place (" + euros(p.miseEnPlace) + " moins l’acompte), si vous continuez." },
+      { icone: Receipt, quand: "Puis chaque mois, au minimum", montant: p.mensualiteMin, minimum: true, ligne: "Abonnement inclus. Versez plus, ou soldez quand vous voulez." },
+    ],
+    mensuel: p.mensualiteMin, mensuelTitre: "La mensualité, abonnement inclus",
+    mensuelTexte: "Vous pouvez verser plus chaque mois, ou solder quand vous voulez, pour que le site soit à vous plus vite.",
+  };
+};
 const LOCATIONS: Offre[] = [
-  location("standard", "Pack Standard", "4 designs + site complet + expert dédié", 499, 199, 1499),
-  location("ia", "Pack IA", "8 designs, UGC IA, diagnostic, marketing", 599, 199, 2999),
+  plusieursMois("standard", "Pack Standard", "4 designs + site complet + expert dédié"),
+  plusieursMois("ia", "Pack IA", "8 designs, UGC IA, diagnostic, marketing"),
 ];
 
 /* Une valeur courte par carte, une phrase dessous. */
@@ -197,6 +221,8 @@ function PetitRond({ icone: Icone }: { icone: LucideIcon }) {
   );
 }
 
+/* « Au minimum » est dans l’étiquette de l’étape, pas au-dessus du montant :
+   les montants de la frise restent alignés. */
 /* La frise : horizontale dès 1024 px, verticale et centrée en dessous (une
    seule présentation par largeur, jamais d’entre-deux). */
 function Frise({ etapes }: { etapes: Etape[] }) {
@@ -222,9 +248,9 @@ function Frise({ etapes }: { etapes: Etape[] }) {
                 ? <p className="text-[2.25rem] md:text-[2.5rem] leading-none tracking-tight text-foreground" style={{ fontFamily: BRICOLAGE, fontWeight: 400 }}>0&nbsp;€</p>
                 : e.montant === null
                 ? <p className="text-[1.75rem] md:text-[2rem] leading-none tracking-tight text-foreground" style={{ fontFamily: BRICOLAGE, fontWeight: 400 }}>Rien à&nbsp;payer</p>
-                : <Montant ttc={e.montant} minimum={e.minimum} />}
+                : <Montant ttc={e.montant} />}
             </div>
-            <p className="mt-3 text-[0.9375rem] text-foreground/80 leading-snug text-pretty">{e.ligne}</p>
+            <p className="mt-3 text-[0.9375rem] text-foreground/80 leading-snug text-pretty">{colle(e.ligne)}</p>
           </div>
         </li>
       ))}
@@ -407,18 +433,20 @@ export default function TarifsPage() {
             options={LOCATIONS.map((o) => ({ cle: o.cle, nom: o.nom.replace("Pack ", "") }))} />}
           <p className="text-center text-[0.9375rem] text-muted-foreground text-pretty">
             <span className="text-foreground font-semibold">{offre.nom}</span> : {famille === "sans" ? "vos produits à votre marque, sans site" : offre.contenu}.
-            {famille !== "sans" && <span className="block mt-1">Un produit en plus&nbsp;? 39&nbsp;€ TTC par produit, paiement unique, pour son&nbsp;design.</span>}
+            {famille !== "sans" && <span className="block mt-1">Un produit en plus&nbsp;? {euros(PRODUIT_EN_PLUS)} TTC par produit, paiement unique, pour son&nbsp;design.</span>}
           </p>
         </div>
 
         {/* 1. Le prix, en haut, sans défiler (JP, 14/10/2026) : le total du pack
-            et l'acompte demandé ; à côté, l'abonnement. Sur plusieurs mois : la
-            mise en place et la mensualité (à partir de). */}
+            et l'acompte demandé ; à côté, l'abonnement. Sur plusieurs mois : le
+            total pour que le site soit à la cliente, l'acompte et le reste de la
+            mise en place, et la mensualité (à partir de), abonnement compris. */}
         <div className="max-w-5xl mx-auto mt-8 md:mt-10 rounded-2xl bg-secondary p-[1.5rem] md:p-[2rem] grid md:grid-cols-2 gap-6 md:gap-10 items-center">
           <div>
             <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">{offre.totalTitre}</p>
             <div className="mt-3"><Montant ttc={offre.total} /></div>
             {mode === "achat" && <p className="mt-3 text-[0.9375rem] text-foreground font-medium text-pretty">Dont un acompte de {euros(acompte)} TTC, payé à la commande.</p>}
+            {mode === "location" && <p className="mt-3 text-[0.9375rem] text-foreground font-medium text-pretty">Dont un acompte de {euros(acompte)} TTC, puis {euros(offre.etapes[3].montant ?? 0)} TTC à la livraison du&nbsp;site.</p>}
           </div>
           <div className="md:border-l md:border-border md:pl-10">
             <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">{offre.mensuelTitre}</p>
@@ -475,7 +503,10 @@ export default function TarifsPage() {
                 Sans engagement
               </h2>
               <p className="mt-2 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">
-                Vous arrêtez quand vous voulez. Si vous arrêtez avant d’avoir réglé la totalité, le site est simplement désactivé. Vous gardez votre logo, votre charte et votre packaging.
+                Vos produits ne vous plaisent pas à réception&nbsp;? Vous arrêtez là&nbsp;: vous n’avez payé que l’acompte ({euros(acompte)} TTC), et vous gardez votre logo et votre branding.
+              </p>
+              <p className="mt-2 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">
+                Ensuite, vous arrêtez quand vous voulez. Si vous arrêtez avant d’avoir réglé la totalité, le site est simplement désactivé. Vous gardez votre logo, votre charte et votre packaging.
               </p>
             </div>
           </div>
