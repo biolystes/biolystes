@@ -30,16 +30,6 @@ import productBox from "@lystes/assets/bio/product-box.jpg";
 import product235th1 from "@lystes/assets/bio/product-235th-1.jpg";
 import product235th2 from "@lystes/assets/bio/product-235th-2.jpg";
 import product235th3 from "@lystes/assets/bio/product-235th-3.jpg";
-import wirtzkinCentre from "@/assets/wirtzkin-centre.png.asset.json";
-import wirtzkinVideo1 from "@/assets/wirtzkin-1.mp4.asset.json";
-import wirtzkinVideo2 from "@/assets/wirtzkin-2.mp4.asset.json";
-import wirtzkinVideo3 from "@/assets/wirtzkin-3.mp4.asset.json";
-import wirtzkinWebm1 from "@/assets/wirtzkin-1.webm.asset.json";
-import wirtzkinWebm2 from "@/assets/wirtzkin-2.webm.asset.json";
-import wirtzkinWebm3 from "@/assets/wirtzkin-3.webm.asset.json";
-import wirtzkinPoster1 from "@/assets/wirtzkin-1.webp.asset.json";
-import wirtzkinPoster2 from "@/assets/wirtzkin-2.webp.asset.json";
-import wirtzkinPoster3 from "@/assets/wirtzkin-3.webp.asset.json";
 
 // Brand images for portfolio
 import kaniwa1 from "@lystes/assets/bio/kaniwa-1.jpg";
@@ -114,7 +104,22 @@ function HomeExperienceCarousel() {
 const CTA_URL = "https://biolystes.pro/rdv";
 /* JP, 14/10/2026 : les appels à l'action privilégient « S'inscrire »
    (inscription de l'espace client) ; le rendez-vous passe en second. */
-const CATALOGUE_URL = "/catalogue";
+/* JP, 14/10/2026 (retouche Lovable) : l'appel à l'action principal mène au
+   catalogue de biolystes.com ; « Prendre rendez-vous » reste en second. */
+const CATALOGUE_URL = "https://www.biolystes.com/catalogue";
+/* Wirtzkin (JP, 14/10/2026, retouche Lovable sur biolystes.com) : fichiers
+   du projet Lovable de biolystes.com, servis par son adresse. */
+const wirtzkinCentre = { url: "https://www.biolystes.com/__l5e/assets-v1/f10ac6cf-d682-457d-8cdb-8f8e1cc4c042/wirtzkin-centre.png" };
+const wirtzkinVideo1 = { url: "https://www.biolystes.com/__l5e/assets-v1/58968b95-064c-4c70-adac-8b18e4eac4f3/wirtzkin-1.mp4" };
+const wirtzkinVideo2 = { url: "https://www.biolystes.com/__l5e/assets-v1/6ad6b894-b373-460d-800a-84cba70ff815/wirtzkin-2.mp4" };
+const wirtzkinVideo3 = { url: "https://www.biolystes.com/__l5e/assets-v1/ce8365d9-8e97-48aa-93dc-7f502cdf8f0c/wirtzkin-3.mp4" };
+const wirtzkinWebm1 = { url: "https://www.biolystes.com/__l5e/assets-v1/926fb101-9444-48bc-a45f-d0f4fadd3bae/wirtzkin-1.webm" };
+const wirtzkinWebm2 = { url: "https://www.biolystes.com/__l5e/assets-v1/b7d17c03-b640-42b5-92c7-a1af62e56a46/wirtzkin-2.webm" };
+const wirtzkinWebm3 = { url: "https://www.biolystes.com/__l5e/assets-v1/c5d5dc09-e008-4ce4-ba32-beb28be65ec6/wirtzkin-3.webm" };
+const wirtzkinPoster1 = { url: "https://www.biolystes.com/__l5e/assets-v1/026f5d12-35f1-4c51-954d-ce82453990ed/wirtzkin-1.webp" };
+const wirtzkinPoster2 = { url: "https://www.biolystes.com/__l5e/assets-v1/07918ec7-9cd5-41cc-851a-5cd37f582966/wirtzkin-2.webp" };
+const wirtzkinPoster3 = { url: "https://www.biolystes.com/__l5e/assets-v1/3af0b33a-1d5b-4fd6-b30b-970822905fb6/wirtzkin-3.webp" };
+
 
 /* 13/10/2026 (JP) : la conversation animée de l'accueil, reprise telle quelle
    (FilConversation), pour la recherche de produits à partir du concept d'une
@@ -747,7 +752,7 @@ export default function DecouvertePage() {
             texte="Nous avons éliminé les obstacles pour vous permettre de vous concentrer sur l’essentiel : bâtir une marque qui vous ressemble." />
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
             className="mt-10 flex flex-wrap justify-center gap-4">
-            {/* biolystes.com : un seul appel à l'action, l'inscription. */}
+            {/* biolystes.com : un seul appel à l'action, le catalogue. */}
             <a href={CATALOGUE_URL} className="btn-startup">
               <span>Découvrez notre catalogue</span>
               <span className="arrow-circle">
