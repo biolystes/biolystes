@@ -92,6 +92,14 @@ export function BasculeCible({ light, dans = "entete" }: { light: boolean; dans?
   );
 }
 
+/* biolystes.com (14/10/2026, JP : « rajoute les pages sur le site en menu
+   normal ») : les pages du menu principal, en ordinateur comme dans le menu du
+   téléphone. Liens absolus, servis par le cadre des pages du pied de page
+   (src/pages/pied/CadrePied.tsx). /tarifs n'y figure pas, volontairement. */
+const MENU_BIOLYSTES = [
+  { to: "/faq", libelle: "Questions fréquentes" },
+];
+
 export function Header({ minimal = false, overlay = false, topBar }: HeaderProps) {
 
   const { pathname } = useLocation();
@@ -123,6 +131,10 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
     const { data: sub } = supabase.auth.onAuthStateChange((_e, s) => setConnecte(!!s));
     return () => sub.subscription.unsubscribe();
   }, []);
+
+  /* biolystes.com : l'accueil présente « / » à l'en-tête (CommeSurAccueil),
+     la page en cours du menu se lit donc sur la vraie adresse. */
+  const vraiChemin = typeof window !== "undefined" ? window.location.pathname : pathname;
 
   const linkClass = (path: string) =>
     `text-sm font-medium whitespace-nowrap transition-colors px-3 xl:px-4 py-2 rounded-full ${
@@ -167,6 +179,17 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                 {/* biolystes.com (13/10/2026, JP) : ni « Entreprise », ni « Équipes
                     IA », ni « Lab », ni « Tarifs ». La langue reste, cachée par
                     AFFICHER_LANGUE. */}
+                {MENU_BIOLYSTES.map((l) => (
+                  <Link key={l.to} to={l.to} aria-current={vraiChemin === l.to ? "page" : undefined} className={`text-sm font-medium whitespace-nowrap transition-colors px-3 xl:px-4 py-2 rounded-full ${
+                    light
+                      ? "text-white/85 hover:bg-white/10 hover:text-white"
+                      : vraiChemin === l.to
+                        ? "bg-[#f3f4f5] text-foreground"
+                        : "text-foreground/70 hover:text-foreground hover:bg-[#f3f4f5]"
+                  }`}>
+                    {l.libelle}
+                  </Link>
+                ))}
                 {AFFICHER_LANGUE && <HeaderLanguageSelector overlay={light} />}
               </nav>
               {connecte ? (
@@ -283,6 +306,11 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
             <Link to="/agents-ia" replace={false} onClick={() => setMobileMenuOpen(false)} className="block border-b border-white/14 py-4 px-1.5 text-[16px] font-medium">
               Agents IA
             </Link>
+            {MENU_BIOLYSTES.map((l) => (
+              <Link key={l.to} to={l.to} onClick={() => setMobileMenuOpen(false)} className="block border-b border-white/14 py-4 px-1.5 text-[16px] font-medium">
+                {l.libelle}
+              </Link>
+            ))}
             {AFFICHER_LANGUE && (
               <div className="border-b border-white/14 py-3 px-1.5">
                 <HeaderLanguageSelector overlay />

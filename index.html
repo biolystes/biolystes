@@ -8,7 +8,7 @@
          l’appareil sur « / », « /agents-ia », les Actus (/blog) et les pages du pied
          de page (src/pages/pied), 1200 px partout ailleurs, comme avant
          (src/pages/CoquilleLystes.tsx suit la navigation). */
-      if (location.pathname === "/" || /^\/(blog|agents-ia|pourquoi-cette-offre|etudes|mentions-legales|politique-confidentialite|cgv)(\/|$)/.test(location.pathname)) document.querySelector('meta[name="viewport"]').setAttribute("content", "width=device-width, initial-scale=1.0");
+      if (location.pathname === "/" || /^\/(blog|agents-ia|pourquoi-cette-offre|etudes|mentions-legales|politique-confidentialite|cgv|faq)(\/|$)/.test(location.pathname)) document.querySelector('meta[name="viewport"]').setAttribute("content", "width=device-width, initial-scale=1.0");
     </script>
     <!-- TODO: Set the document title to the name of your application -->
     <title>Biolystes - Lancez votre marque cosmétique bio et végane</title>
