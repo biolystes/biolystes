@@ -8,13 +8,13 @@ const fadeUp = {
 };
 
 const features = [
-  "4 produits certifiés bio chez vous en 7 jours",
+  "Vos produits finis à votre marque, chez vous sous 10 jours ouvrés",
   "Création de votre logo",
   "Design packaging",
   "Shooting photo IA de vos produits",
   "Accompagnement dans la sélection des produits",
-  "Certifié Bio & Végan / COSMOS / ECOCERT / FDA",
-  "Livraison incluse sous 7 à 8 jours",
+  "Certifié Bio & Végan / COSMOS / ECOCERT",
+  "Livraison incluse",
 ];
 
 export default function EchantillonsPage() {
@@ -29,12 +29,12 @@ export default function EchantillonsPage() {
             </motion.p>
             <motion.h2 initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
               className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight text-foreground leading-relaxed">
-              Votre meilleure réflexion, testez nos produits <br className="hidden md:block" />
-              avec votre branding, montant déduit si vous passez à l'étape suivante
+              Vos produits finis à votre marque, <br className="hidden md:block" />
+              avant de vous engager
             </motion.h2>
             <motion.p initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
               className="text-sm text-foreground leading-relaxed">
-              4 produits certifiés bio chez vous en 7 jours. Création de votre logo, design packaging et shooting photo IA de vos produits.
+              Votre acompte est déduit de votre offre. Création de votre logo, design packaging et shooting photo IA de vos produits.
             </motion.p>
           </div>
 
@@ -43,13 +43,13 @@ export default function EchantillonsPage() {
               className="mb-8">
               <div className="relative rounded-2xl p-7 md:p-9 flex flex-col border-2 border-foreground">
                 <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-foreground text-background">
-                  Pack découverte
+                  Acompte de lancement
                 </div>
                 <h3 className="text-lg md:text-xl font-extrabold uppercase tracking-tight mb-1 mt-2 text-foreground">
-                  Testez nos produits
+                  Recevez vos produits
                 </h3>
                 <p className="text-sm mb-8 text-foreground leading-relaxed">
-                  Validez la qualité avant de vous lancer — tarif communiqué en rendez-vous
+                  Validez la qualité avant de vous lancer. Tarif communiqué en rendez-vous.
                 </p>
 
                 <div className="flex flex-col mb-8">
@@ -65,7 +65,7 @@ export default function EchantillonsPage() {
                   href="https://biolystes.pro/rdv" target="_blank" rel="noopener noreferrer"
                   className="block w-full py-4 text-center no-underline text-[11px] font-extrabold tracking-[1.5px] uppercase rounded-xl bg-foreground text-background border-2 border-foreground hover:opacity-90 transition-opacity mt-auto"
                 >
-                  Commander mes échantillons
+                  Prendre rendez-vous
                 </a>
               </div>
 
@@ -75,7 +75,7 @@ export default function EchantillonsPage() {
                   <span className="text-[11px] font-bold uppercase tracking-widest text-foreground">Bon à savoir</span>
                 </div>
                 <p className="text-[13px] leading-relaxed text-foreground">
-                  Le montant est déduit de toute Offre Avec Site souscrite dans les 30 jours. Votre test devient un acompte, pas une dépense.
+                  Votre acompte est déduit du total de votre offre.
                 </p>
               </div>
             </motion.div>

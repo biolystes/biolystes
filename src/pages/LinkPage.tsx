@@ -60,7 +60,7 @@ const groups: LinkGroup[] = [
     items: [
       {
         href: "/comment-ca-marche",
-        title: "Comment fonctionne la mise en place de votre marque en 10-15 jours ?",
+        title: "Comment fonctionne la mise en place de votre marque en 10 jours ouvrés ?",
         description: "Les 7 étapes de la sélection produits à l'automatisation.",
       },
       {
