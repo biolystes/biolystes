@@ -63,7 +63,7 @@ const REGLAGES: Record<Secteur, Reglage> = {
     /* 14/10/2026 (JP) : « En savoir plus » devient « S'inscrire », vers
        l'inscription de l'espace client (adresse entière : la page est aussi
        servie par biolystes.com). */
-    lienCartes: { libelle: "Découvrez notre catalogue", href: "/catalogue" },
+    lienCartes: { libelle: "Découvrez notre catalogue", href: "https://www.biolystes.com/catalogue" },
     /* 14/10/2026 (JP, « uniformise tout ») : mêmes titres que le reste de /bio. */
     enteteCommun: true,
   },
@@ -202,7 +202,7 @@ export default function BlocsAccueilSecteur({ secteur }: { secteur: Secteur }) {
       {slots.face && createPortal(<FaceMeshScanner imageUrl={diagnosticFace} />, slots.face)}
       {slots.chat && createPortal(<AnimatedChat />, slots.chat)}
       {slots.titre && createPortal(<HeroRotatingTitle lang={lang} {...getSecondHeroCopy(lang)} />, slots.titre)}
-      {slots.cta && createPortal(<a href="/agents-ia" className="btn-outline"><span>En savoir plus</span><span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span></a>, slots.cta)}
+      {slots.cta && createPortal(<a href="https://www.biolystes.com/agents-ia" className="btn-outline"><span>En savoir plus</span><span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span></a>, slots.cta)}
     </div>
   );
 }
