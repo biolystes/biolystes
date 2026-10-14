@@ -1,13 +1,13 @@
 {
   "depot": "biolystes/commandcenterbiolystes",
-  "commit": "08827ea4b8717683d5724d7ff7ff6fb128b49fc6",
+  "commit": "ca288fdf40cb58b3064baddac859b3a88236aa76",
   "fichier": "src/data/products.ts",
-  "sha256": "6b649f80290c7858ee4096fc87ea544bfd7dcd339c8a0a85bb0a890c3eac2190",
-  "nombre": 251,
-  "codes_sha256": "2d2985cb54ecc3e38d881f55636e1066c661eae2ec1e957a971a9ebf34d737da",
-  "carte_images_sha256": "abeb9a6b12477c996a4532e03c34271c87f81e2a5fec8d14db070e318b158775",
-  "images_approuvees": 99,
-  "images_sha256": "6255aebb464a0d4f8e7df62f6679dab88bc199a8c1af2dba44d5de80df9cbe9f",
+  "sha256": "337276ce0950bf39e659ac3dcde09955f5c6ecf8245f5eee97914790ec23ab17",
+  "nombre": 298,
+  "codes_sha256": "287fe409fb02b7175d159198b48ee66bb5ac783f89451165b6e1fb8768f161a7",
+  "carte_images_sha256": "e8871c9b249e22efecde7929a85c62945379f1c22364151ffce070864c7ea084",
+  "images_approuvees": 175,
+  "images_sha256": "47a3005fa9ed34ea09eab64ffad51ccdffd82b4b1292f17da495eaafa6b20ef0",
   "composant": "src/pages/CataloguePage.tsx",
-  "composant_sha256": "3d56118fd9d0130b5acc37ab9c8299dc3f6a5cdf9d4b453471d0ae614449dd37"
+  "composant_sha256": "6026c63519610fe78c927cd873e0c3adec7e7a515e75d7f0565a3b41a86bf551"
 }

@@ -18,7 +18,7 @@ import path from "node:path";
 import { createElement } from "react";
 import { describe, expect, it } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { PRODUCTS } from "@/data/catalogue-pro/products";
+import { NOMBRE_PRODUITS_CATALOGUE, PRODUCTS, estNouveau } from "@/data/catalogue-pro/products";
 import imagesApprouvees from "@/data/catalogue-pro/images-approuvees.json";
 import source from "@/data/catalogue-pro/source.json";
 import { citeLeFournisseur } from "@/lib/fournisseur-masque";
@@ -72,11 +72,22 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
     const { container } = render(createElement(CatalogPage));
     expect(container.querySelectorAll("[data-produit]").length).toBe(PRODUCTS.length);
     expect(screen.getByTestId("nombre-produits").textContent).toBe(`${PRODUCTS.length} produits`);
+    expect(screen.getByTestId("nombre-catalogue").textContent).toBe(`${NOMBRE_PRODUITS_CATALOGUE} produits`);
     const texte = container.textContent ?? "";
     expect(texte).toMatch(/HT/);
     for (const interdit of [/599\s*€/, /1[\s\u00a0\u202f]?499\s*€/, /2[\s\u00a0\u202f]?999\s*€/, /Nos Offres/i, /Pack (Design|Standard|IA)/]) {
       expect(texte, String(interdit)).not.toMatch(interdit);
     }
+
+    const fiches = [...container.querySelectorAll("[data-produit]")];
+    const nouveautes = PRODUCTS.filter((p) => estNouveau(p));
+    // Badge de 60 jours : passé ce délai, il peut n'y avoir ni nouveauté ni pastille.
+    expect(fiches.slice(0, nouveautes.length).map((f) => f.getAttribute("data-produit")).sort(), "nouveautés en tête").toEqual(nouveautes.map((p) => p.slug).sort());
+    expect(container.querySelectorAll("[data-badge-nouveau]").length).toBe(nouveautes.filter((p) => !p.status).length);
+    const pastille = screen.getAllByRole("button").find((b) => /^Nouveautés/.test(b.textContent ?? ""));
+    expect(pastille?.textContent).toBe(nouveautes.length ? `Nouveautés(${nouveautes.length})` : undefined);
+    expect(texte).toContain("Compléments alimentaires");
+    expect(texte).not.toMatch(/Supplements/);
 
     const avecInci = PRODUCTS.find((p) => p.inci && p.prix_ht != null)!;
     fireEvent.click(container.querySelector(`[data-produit="${avecInci.slug}"]`)!);
