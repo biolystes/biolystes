@@ -6,12 +6,10 @@
    lystes/ECARTS-VOULUS.md). Ce fichier vit hors de lystes/ : la synchro ne
    l’écrase pas.
 
-   Le maillage du visage est celui de l’accueil. Le scanner est déjà posé plus
-   haut dans le carrousel des agents (#diagnostic-facemesh-slot) : une seconde
-   instance de MediaPipe sur la même page reste bloquée sur « Analyse en
-   cours » (vu sur lystes.ai, 10/10/2026). Comme l’encart des étages de
-   lystes.ai (VisionEtages, MiroirVisage), on reflète donc ce scanner image par
-   image ; sans lui, repli sur le composant lui-même. */
+   Le maillage montre un AUTRE visage que le scanner du carrousel des agents
+   (#diagnostic-facemesh-slot) : aucune photo deux fois sur la page (JP,
+   14/10/2026). La section reflétait ce scanner, faute de pouvoir lancer un
+   second MediaPipe. */
 import { useEffect, useRef, useState } from "react";
 import { Link as LienSite } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -19,62 +17,79 @@ import { ArrowRight, CalendarHeart, QrCode, ScanFace, type LucideIcon } from "lu
 import EnteteSection from "@lystes/components/bio/EnteteSection";
 import { FaceMeshScanner } from "@lystes/features/landing-particuliers/components/diagnostic/FaceMeshScanner";
 import { demanderMaillage } from "@lystes/lib/mediapipe-sur";
-import visageDiagnostic from "@/assets/innovation/visage-diagnostic.jpg";
+/* Inès, un des profils de diagnostic de la démo Lystes
+   (public/demo-lystes/diagnostics/profil-03.jpg), absent du reste de l’accueil. */
+import visageAccueil from "@/assets/innovation/visage-accueil.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5 } }),
 };
 
-/* Le visage scanné, reflété depuis le scanner de la page (même code que
-   MiroirVisage de lystes.ai, src/features/solutions/VisionEtages.tsx). */
-function MiroirVisage() {
-  const toile = useRef<HTMLCanvasElement>(null);
-  const [miroir, setMiroir] = useState(true);
+/* Pourquoi un second scanner restait sur « Analyse en cours » (14/10/2026) :
+   l’ancien MediaPipe de jsDelivr (face_mesh.js) n’a qu’un module wasm par
+   page. Deux FaceMesh qui s’initialisent en même temps se heurtent : le
+   second s’arrête sur « Module.arguments has been replaced ». Et
+   FaceMeshScanner tient son script pour chargé dès que la balise existe : le
+   second scanner, monté pendant que le premier charge encore face_mesh.js,
+   trouve window.FaceMesh vide et n’analyse jamais. L’un après l’autre, deux
+   FaceMesh marchent (vérifié dans la page).
+   On monte donc ce scanner quand celui du carrousel a fini son analyse :
+   plus de roue dans son emplacement. Le correctif reste ici, hors de
+   lystes/ que la synchro réécrit. */
+function scannerDuCarrouselOccupe(): boolean {
+  const slot = document.getElementById("diagnostic-facemesh-slot");
+  if (!slot) return false;
+  /* Pas encore monté (portail posé après le rendu des blocs), ou en analyse. */
+  return !slot.querySelector("canvas") || !!slot.querySelector(".animate-spin");
+}
+
+function VisageInnovation() {
+  const cadre = useRef<HTMLDivElement>(null);
+  const [pret, setPret] = useState(false);
   useEffect(() => {
-    demanderMaillage();
-    let id = 0;
-    /* Le scanner du carrousel se monte un peu après cette section (portail
-       posé après le rendu des blocs) : on l’attend jusqu’à 10 s avant le
-       repli, sinon une seconde instance de MediaPipe partait et restait
-       bloquée sur « Analyse en cours » (vu le 14/10/2026). */
-    const debut = performance.now();
-    /* Hors de l’écran, on ne recopie rien : le téléphone ne dessine que ce
-       qu’on voit. */
-    let visible = true;
-    const obs = typeof IntersectionObserver !== "undefined" && toile.current
-      ? new IntersectionObserver(([e]) => { visible = e.isIntersecting; }, { rootMargin: "100px 0px" })
-      : null;
-    if (obs && toile.current) obs.observe(toile.current);
-    const pas = () => {
-      const source = document.querySelector<HTMLCanvasElement>("#diagnostic-facemesh-slot canvas");
-      if (!source) {
-        if (performance.now() - debut < 10000) id = requestAnimationFrame(pas);
-        else setMiroir(false);
-        return;
-      }
-      const c = toile.current;
-      const g = c?.getContext("2d");
-      if (visible && c && g && source.width && source.height) {
-        const w = Math.round(c.clientWidth * window.devicePixelRatio);
-        const h = Math.round(c.clientHeight * window.devicePixelRatio);
-        if (c.width !== w) c.width = w;
-        if (c.height !== h) c.height = h;
-        const k = Math.max(w / source.width, h / source.height);
-        g.clearRect(0, 0, w, h);
-        g.drawImage(source, (w - source.width * k) / 2, (h - source.height * k) / 2, source.width * k, source.height * k);
-      }
-      id = requestAnimationFrame(pas);
+    const el = cadre.current;
+    if (!el) return;
+    let minuterie = 0;
+    let depart = 0;
+    const attendre = () => {
+      /* Au-delà de 20 s (réseau très lent, carrousel absent), on monte quand
+         même : au pire, le repli du scanner. */
+      if (!scannerDuCarrouselOccupe() || performance.now() - depart > 20000) setPret(true);
+      else minuterie = window.setTimeout(attendre, 200);
     };
-    pas();
+    /* MediaPipe ne part qu’à l’approche de la section : le scanner du
+       carrousel, plus haut, est alors appelé à finir le sien d’abord. */
+    const obs = typeof IntersectionObserver !== "undefined"
+      ? new IntersectionObserver((entrees) => {
+          if (!entrees.some((e) => e.isIntersecting)) return;
+          obs?.disconnect();
+          demanderMaillage();
+          depart = performance.now();
+          attendre();
+        }, { rootMargin: "300px 0px" })
+      : null;
+    if (obs) obs.observe(el);
+    else setPret(true);
     return () => {
-      cancelAnimationFrame(id);
       obs?.disconnect();
+      window.clearTimeout(minuterie);
     };
   }, []);
-  return miroir
-    ? <canvas ref={toile} className="block w-full aspect-[4/5] rounded-3xl" aria-label="Diagnostic IA : le visage d’une cliente analysé par le maillage" role="img" />
-    : <FaceMeshScanner imageUrl={visageDiagnostic} />;
+  return (
+    <div ref={cadre} role="img" aria-label="Diagnostic IA : le visage d’une cliente analysé par le maillage">
+      {pret ? (
+        <FaceMeshScanner imageUrl={visageAccueil} />
+      ) : (
+        /* En attendant : la photo assombrie, comme le scanner avant son
+           maillage, à la même taille (photo en 4:5). */
+        <div className="relative w-full aspect-[4/5] rounded-3xl overflow-hidden">
+          <img src={visageAccueil} alt="" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+      )}
+    </div>
+  );
 }
 
 const LIEUX: { icone: LucideIcon; titre: string; texte: string }[] = [
@@ -93,7 +108,7 @@ export default function AppelInnovation() {
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-30px" }} variants={fadeUp} custom={0}
             className="rounded-2xl bg-[#0d0d0d] p-6 lg:p-8 flex items-center justify-center">
             <div className="w-full max-w-[360px]">
-              <MiroirVisage />
+              <VisageInnovation />
             </div>
           </motion.div>
           <div className="flex flex-col gap-4">

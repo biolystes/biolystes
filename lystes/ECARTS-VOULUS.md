@@ -92,7 +92,7 @@ importer.
 | Endroit | Sur lystes.ai | Sur biolystes.com |
 |---|---|---|
 | Accueil, après les blocs des agents IA et des créateurs | rien | section « Toujours plus d'innovation » (`src/components/innovation/AppelInnovation.tsx`) : maillage du visage, trois lieux, « Découvrir nos innovations » vers /innovation (écart 32) |
-| Maillage du visage de cette section | — | reflet image par image du scanner déjà posé dans le carrousel (`#diagnostic-facemesh-slot`), comme `MiroirVisage` de lystes.ai : une seconde instance de MediaPipe reste bloquée sur « Analyse en cours » |
+| Maillage du visage de cette section | — | un AUTRE visage que le carrousel (`src/assets/innovation/visage-accueil.jpg`, profil-03 de `public/demo-lystes/diagnostics`) : aucune photo deux fois sur la page. Son scanner se monte quand celui du carrousel (`#diagnostic-facemesh-slot`) a fini son analyse : deux FaceMesh initialisés en même temps se heurtent dans le module wasm unique de MediaPipe et le second restait sur « Analyse en cours » (14/10/2026) |
 | `lystes/tailwind.config.ts`, content | `lystes/src` | + `src/actus` (écart 23) + `src/components/innovation` |
 | Menu principal (`MENU_BIOLYSTES`) | — | Agents IA, Innovation, À propos, Questions fréquentes ; le menu du téléphone saute « Agents IA », déjà donné par la bascule |
 | Bascule menu d'ordinateur / burger | 1024 px (`lg`) | 1280 px (`xl`) : à 1024 px, quatre entrées faisaient déborder l'en-tête de 40 px (écart 33) |
