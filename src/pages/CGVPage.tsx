@@ -4,6 +4,7 @@
    Alignées le 14/10/2026 sur le contrat de biolystes.pro (articles 7 bis,
    7 ter, 7 quater, 7 quinquies) et sur le modèle de paiement validé par JP
    (compétence tarifs-biolystes) : packs Design, Solo, Duo, Standard, IA ;
+   sélection des produits et fichiers INCI offerts avant tout paiement ;
    acompte 199 € ou 299 € (IA), objet de l’acompte (texte de référence de
    JP) ; trois temps, deux pour Solo et Design ; « Payer sur plusieurs
    mois » à partir de 199 € par mois ; 39 € par produit en plus ; logo
@@ -101,8 +102,9 @@ export default function CGVPage() {
           contenu: (
             <>
               <p><strong>4.1 Prix.</strong> Le prix de chaque offre est communiqué au client lors d’un rendez-vous avec un expert et précisé dans le devis ou le contrat signé. Il est exprimé en euros, toutes taxes comprises. Le montant et la date de chaque paiement figurent dans l’échéancier du contrat et dans l’espace client.</p>
+              <p><strong>4.1 bis Sélection des produits offerte.</strong> Avant tout paiement, le client vérifie que nos produits lui correspondent, seul avec notre outil d’intelligence artificielle ou avec nos experts produits pour une sélection sur mesure. Il reçoit gratuitement sa sélection de produits et leurs fichiers INCI. Aucune somme n’est due tant que le client n’a pas validé sa sélection.</p>
               <p><strong>4.2 Objet de l’acompte.</strong> Avant de s’engager davantage, le client doit pouvoir vérifier que nos produits tiennent leurs promesses. L’acompte lance le projet : le Prestataire crée le logo et le branding du client, réalise le design de ses produits, les fait fabriquer et les lui envoie, avec les photos qui en montrent le design. Le client reçoit ainsi ses produits à sa marque, et c’est seulement à ce moment qu’il décide de poursuivre ou non. Pendant cette première étape, le Prestataire prend à sa charge une grande partie du coût de création des produits.</p>
-              <p><strong>4.3 Montant de l’acompte.</strong> L’acompte est de 199 € TTC, ou de 299 € TTC pour le Pack IA. Il est réglé à la commande et n’est pas remboursable.</p>
+              <p><strong>4.3 Montant de l’acompte.</strong> L’acompte est de 199 € TTC, ou de 299 € TTC pour le Pack IA. Il est réglé à la commande, une fois la sélection des produits validée, et n’est pas remboursable.</p>
               <p><strong>4.4 Si le client ne poursuit pas.</strong> À la réception de ses produits, le client qui ne souhaite pas poursuivre ne doit rien d’autre que l’acompte déjà versé. Il conserve son logo, son branding et les designs de ses produits, qu’il peut utiliser librement, y compris avec un autre fabricant.</p>
               <p><strong>4.5 Paiement en trois temps.</strong> Si le client valide ses produits, il règle une deuxième tranche égale à 50 % du prix de l’offre, diminuée de l’acompte déjà versé. Le solde, soit les 50 % restants, est exigible à la livraison du site.</p>
               <p><strong>4.6 Packs Solo et Design.</strong> Pour le Pack Solo et le Pack Design, le paiement se fait en deux temps : l’acompte, puis le reste du prix de l’offre en une fois, à la réception des produits validés.</p>
