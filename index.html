@@ -94,7 +94,11 @@
            - data-actus-source : les articles du blog, publiés au build dans
              /blog/articles.json (scripts/articles-json.ts) ;
            - data-conseiller="selection" : l'orbital répond avec le conseiller
-             de sélection, sans panier, sans prix, sans appel vocal.
+             de sélection, sans panier, sans prix, sans appel vocal ;
+           - data-rdv-url (widget 3.73.0) : le bouton « Prendre rendez-vous »
+             de la barre du haut de la fenêtre ouvre biolystes.pro/rdv DANS le
+             widget (les rendez-vous restent ceux d'Odile et Juliana), puis le
+             chat pour les questions.
          Inactif tant que l'identifiant de l'agent Biolystes n'est pas collé
          ci-dessous (AGENT_LYSTES). -->
     <script>
@@ -115,7 +119,7 @@
         suivre();
         var s = document.createElement("script");
         s.id = "lystes-product-chat-js";
-        s.src = "https://lystes.ai/woo-product-chat.js?ver=3.65.0";
+        s.src = "https://lystes.ai/woo-product-chat.js?ver=3.73.0";
         s.async = true;
         s.setAttribute("data-agent-id", AGENT_LYSTES);
         s.setAttribute("data-archive-mode", "true");
@@ -123,6 +127,7 @@
         s.setAttribute("data-barre-lien", "/blog");
         s.setAttribute("data-actus-source", "/blog/articles.json");
         s.setAttribute("data-conseiller", "selection");
+        s.setAttribute("data-rdv-url", "https://biolystes.pro/rdv");
         /* La page déclare lang="en" alors que le site est en français. */
         s.setAttribute("data-language", "fr");
         document.body.appendChild(s);
