@@ -103,12 +103,11 @@ function HomeExperienceCarousel() {
   );
 }
 
+/* JP, 14/10/2026 : le bouton catalogue devient partout « Prendre
+   rendez-vous », « et le second bouton s'inscrire ». Bouton plein : le
+   rendez-vous ; bouton à contour : l'inscription de l'espace client. */
 const CTA_URL = "https://biolystes.pro/rdv";
-/* JP, 14/10/2026 : les appels à l'action privilégient « S'inscrire »
-   (inscription de l'espace client) ; le rendez-vous passe en second. */
-/* JP, 14/10/2026 (retouche Lovable) : l'appel à l'action principal mène au
-   catalogue de biolystes.com ; « Prendre rendez-vous » reste en second. */
-const CATALOGUE_URL = "https://www.biolystes.com/catalogue";
+const INSCRIPTION_URL = "https://lystes.ai/biolystes/inscription";
 /* Wirtzkin (JP, 14/10/2026, retouche Lovable sur biolystes.com) : fichiers
    du projet Lovable de biolystes.com, servis par son adresse. */
 const wirtzkinCentre = { url: "https://www.biolystes.com/__l5e/assets-v1/f10ac6cf-d682-457d-8cdb-8f8e1cc4c042/wirtzkin-centre.png" };
@@ -189,7 +188,7 @@ const BIO_HERO = (onProjet: (projet: string) => void): HeroVariante => ({
      blanc. Plus sombre à gauche, là où se trouve le texte. */
   voile: "linear-gradient(100deg, rgba(0,0,0,.62) 0%, rgba(0,0,0,.40) 45%, rgba(0,0,0,.12) 100%)",
   voileMobile: "linear-gradient(to top, rgba(0,0,0,.72) 0%, rgba(0,0,0,.45) 50%, rgba(0,0,0,.18) 100%)",
-  cta: { label: "Découvrez notre catalogue", labelCourt: "Catalogue", href: CATALOGUE_URL, externe: false },
+  cta: { label: "Prendre rendez-vous", labelCourt: "Rendez-vous", href: CTA_URL, externe: true },
   /* 13/10/2026 (JP) : un champ de projet, plus une recherche de produits.
      Le texte part au conseiller de sélection, dans l’orbital du widget. */
   champ: {
@@ -754,9 +753,9 @@ export default function DecouvertePage() {
             texte="Nous avons éliminé les obstacles pour vous permettre de vous concentrer sur l’essentiel : bâtir une marque qui vous ressemble." />
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
             className="mt-10 flex flex-wrap justify-center gap-4">
-            {/* biolystes.com : un seul appel à l'action, le catalogue. */}
-            <a href={CATALOGUE_URL} className="btn-startup">
-              <span>Découvrez notre catalogue</span>
+            {/* biolystes.com : un seul appel à l'action, le rendez-vous. */}
+            <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
+              <span>Prendre rendez-vous</span>
               <span className="arrow-circle">
                 <ArrowRight className="w-3.5 h-3.5" />
               </span>
@@ -858,12 +857,12 @@ export default function DecouvertePage() {
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="mt-12 text-center flex flex-wrap justify-center gap-4">
-            <a href={CATALOGUE_URL} className="btn-startup">
-              <span>Découvrez notre catalogue</span>
+            <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
+              <span>Prendre rendez-vous</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
-            <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-outline">
-              <span>Prendre rendez-vous</span>
+            <a href={INSCRIPTION_URL} target="_blank" rel="noopener noreferrer" className="btn-outline">
+              <span>S’inscrire</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
           </motion.div>
@@ -933,12 +932,12 @@ export default function DecouvertePage() {
           </div>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
             className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href={CATALOGUE_URL} className="btn-startup">
-              <span>Découvrez notre catalogue</span>
+            <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
+              <span>Prendre rendez-vous</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
-            <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-outline">
-              <span>Prendre rendez-vous</span>
+            <a href={INSCRIPTION_URL} target="_blank" rel="noopener noreferrer" className="btn-outline">
+              <span>S’inscrire</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
           </motion.div>
@@ -971,12 +970,12 @@ export default function DecouvertePage() {
 
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={4}
             className="mt-16 flex flex-wrap justify-center gap-4">
-            <a href={CATALOGUE_URL} className="btn-startup">
-              <span>Découvrez notre catalogue</span>
+            <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
+              <span>Prendre rendez-vous</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
-            <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-outline">
-              <span>Prendre rendez-vous</span>
+            <a href={INSCRIPTION_URL} target="_blank" rel="noopener noreferrer" className="btn-outline">
+              <span>S’inscrire</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
           </motion.div>

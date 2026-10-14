@@ -207,26 +207,28 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                 <HeaderProfileMenu light={light} />
               ) : (
                 <>
-                  {/* biolystes.com (13/10/2026, JP) : « S'inscrire » vers l'espace
-                      client, en second ; le rendez-vous reste le bouton principal. */}
+                  {/* biolystes.com (14/10/2026, JP) : « S'inscrire » vers l'espace
+                      client, à contour ; « Prendre rendez-vous » est le bouton
+                      principal, plein, à droite. Plus de bouton catalogue. */}
                   <a
-                    href="https://biolystes.pro/rdv"
+                    href="https://lystes.ai/biolystes/inscription"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`inline-flex items-center h-11 px-5 rounded-full border text-sm font-medium whitespace-nowrap transition ${
                       light ? "border-white/60 text-white hover:bg-white/10" : "border-black/15 text-foreground hover:bg-[#f3f4f5]"
                     }`}
                   >
-                    Prendre rendez-vous
+                    S'inscrire
                   </a>
-                  {/* biolystes.com : un seul appel à l'action, le rendez-vous. */}
                   <a
-                    href="/catalogue"
+                    href="https://biolystes.pro/rdv"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`group inline-flex items-center gap-2 pl-5 pr-1.5 py-1.5 rounded-full text-sm font-medium transition ${
                       light ? "bg-white/20 backdrop-blur-md text-white hover:bg-white/30" : "bg-black text-white hover:opacity-90"
                     }`}
                   >
-                    <span className="whitespace-nowrap">Découvrez notre catalogue</span>
+                    <span className="whitespace-nowrap">Prendre rendez-vous</span>
                     <span
                       className={`flex items-center justify-center w-8 h-8 rounded-full transition-transform group-hover:rotate-45 ${
                         light ? "bg-white text-black" : "bg-white text-black"
@@ -240,33 +242,34 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
             </div>
           )}
 
-          {/* Mobile : bouton S'inscrire + burger. Connectée, la marchande voit
-              son avatar, comme sur ordinateur : « S'inscrire » lui faisait
-              croire qu'elle n'avait plus de compte. */}
+          {/* Mobile (14/10/2026, JP) : « S'inscrire » à contour, puis
+              « Rendez-vous » plein juste avant le burger. Connectée, la
+              marchande voit son avatar, comme sur ordinateur. */}
           <div className="xl:hidden flex items-center gap-2">
             {connecte ? (
               <HeaderProfileMenu light={light} />
             ) : (
               <>
-              {/* biolystes.com (13/10/2026, JP) : « S'inscrire » en second, à
-                  contour. Tient à 375 px ; sous 360 px il ne reste que dans le menu. */}
+              {/* Tient à 375 px ; sous 360 px « S'inscrire » ne reste que dans le menu. */}
               <a
-                href="https://biolystes.pro/rdv"
+                href="https://lystes.ai/biolystes/inscription"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`hidden min-[360px]:inline-flex items-center rounded-full border px-3.5 py-[7px] text-[12.5px] font-medium whitespace-nowrap ${
                   light ? "border-white/60 text-white" : "border-black/15 text-foreground"
                 }`}
               >
-                Rendez-vous
+                S'inscrire
               </a>
               <a
-                href="/catalogue"
-                className={`inline-flex items-center rounded-full px-3.5 py-2 text-[12.5px] font-medium ${
+                href="https://biolystes.pro/rdv"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`inline-flex items-center rounded-full px-3.5 py-2 text-[12.5px] font-medium whitespace-nowrap ${
                   light ? "bg-white text-black" : "bg-black text-white"
                 }`}
               >
-                Catalogue
+                Rendez-vous
               </a>
               </>
             )}
@@ -340,25 +343,27 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                 </Link>
               ) : (
                 <a
-                  href="/catalogue"
+                  href="https://biolystes.pro/rdv"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center justify-center gap-2 h-[46px] rounded-full bg-white text-black text-sm font-medium"
                 >
-                  Découvrez notre catalogue
+                  Prendre rendez-vous
                   <ArrowRight className="w-4 h-4" />
                 </a>
               )}
-              {/* biolystes.com (13/10/2026, JP) : « S'inscrire » sous le rendez-vous,
+              {/* biolystes.com (14/10/2026, JP) : « S'inscrire » sous le rendez-vous,
                   à contour (l'ancienne place de « Connexion »). */}
               {!connecte && (
                 <a
-                  href="https://biolystes.pro/rdv"
+                  href="https://lystes.ai/biolystes/inscription"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center justify-center h-[46px] rounded-full border border-white/45 text-white text-sm font-medium"
                 >
-                  Prendre rendez-vous
+                  S'inscrire
                 </a>
               )}
             </div>

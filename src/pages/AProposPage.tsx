@@ -19,7 +19,7 @@ import "./pied/editorial.css";
 import { useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import VideoAuto from "@lystes/components/VideoAuto";
-import { CATALOGUE_URL, CTA_URL } from "./pied/elements";
+import { CTA_URL, INSCRIPTION_URL } from "./pied/elements";
 
 import kaniwaPackaging from "@/assets/design-packaging-step.jpg";
 
@@ -108,12 +108,12 @@ export default function AProposPage() {
             ligne en 10 jours, sans stock à acheter.
           </p>
           <div className="ed-actions">
-            <a href={CATALOGUE_URL} className="ed-btn">
-              Découvrez notre catalogue
-              <ArrowRight style={{ width: 16, height: 16 }} />
-            </a>
             <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="ed-btn">
               Prendre rendez‑vous
+              <ArrowRight style={{ width: 16, height: 16 }} />
+            </a>
+            <a href={INSCRIPTION_URL} target="_blank" rel="noopener noreferrer" className="ed-btn">
+              S’inscrire
             </a>
           </div>
         </div>
