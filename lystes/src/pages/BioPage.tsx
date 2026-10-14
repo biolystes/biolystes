@@ -541,10 +541,14 @@ export default function DecouvertePage() {
               depuis le 14/10/2026 (JP), au lieu d'une bande à part. */}
           <div className="flex gap-3 mb-10 -mx-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
             {[
-              kaniwa1, pmyrris1, sevmylook1, fralene10, sevmylook3, pmyrris4,
-            ].map((src, i) => (
+              kaniwa1, pmyrris1, sevmylook1, { video: "/videos/diagnostic-peau.mp4" }, sevmylook3, pmyrris4,
+            ].map((media, i) => (
               <div key={i} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden">
-                <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+                {typeof media === "string" ? (
+                  <img src={media} alt="" className="w-full h-full object-cover" loading="lazy" />
+                ) : (
+                  <SafeVideo src={media.video} poster="/videos/diagnostic-peau.webp" className="w-full h-full object-cover" lazy />
+                )}
               </div>
             ))}
           </div>
