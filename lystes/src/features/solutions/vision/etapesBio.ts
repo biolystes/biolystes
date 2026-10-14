@@ -92,17 +92,19 @@ export type OngletBio = {
    (JP, 13/10/2026 : moins de texte). « En moyenne » dans le titre : demandé
    par JP le 13/10. Les « sans » et les certifications des points sont ceux
    que /bio affiche déjà (section « Nos engagements »). */
-/* En-tête de /bio (JP, 14/10/2026) : la douleur n°1 des porteuses de
-   projet, l'argent bloqué dans le stock ; chiffres de biolystes.com/etudes
-   (minimums des laboratoires, 9 projets sur 10 non lancés à 7 mois). */
+/* En-tête de /bio (JP, 14/10/2026, deuxième version) : le chapeau de JP,
+   plus court ; sur téléphone, le même en moins de mots. Le titre porte la
+   promesse (sans stock, 10 jours), le chapeau le problème. */
 export const ENTETE_BIO = {
-  probleme: ["Avant votre première vente, un\u00a0laboratoire vous fait acheter ", "15\u00a0000\u00a0€ de stock", "."] as const,
+  probleme: ["Votre gamme cosmétique, ", "sans stock", " et\u00a0en\u00a010\u00a0jours."] as const,
   texte:
-    "Pour une cosmétique d’excellence certifiée, les laboratoires imposent un minimum de 500 à 1\u00a0000\u00a0flacons par produit. " +
-    "D’après notre étude, 9\u00a0projets sur\u00a010 ne sont toujours pas lancés 7\u00a0mois après. " +
-    "Très souvent aussi, le gros de votre budget part dans le stock, et il ne reste plus de fonds pour vous faire connaître. " +
-    "Enfin, vous perdez près d’un an qui aurait dû servir à bâtir votre crédibilité, indispensable pour vendre. " +
-    "Avec Biolystes, aucun stock à acheter\u00a0: vous testez vos produits avant de valider votre lancement, et votre marque est en\u00a0ligne\u00a0en\u00a010\u00a0jours.",
+    "Pour obtenir une formulation d’excellence, les laboratoires imposent des stocks massifs et des délais de 7 à 9\u00a0mois. " +
+    "Conséquence\u00a0: votre capital reste immobilisé dans le stock au détriment du marketing, et vous perdez une année dans la construction de votre crédibilité. " +
+    "Biolystes supprime ces\u00a0contraintes.",
+  texteCourt:
+    "Les laboratoires imposent des stocks massifs et 7 à 9\u00a0mois de délai. " +
+    "Votre capital dort au lieu de vous faire connaître, et vous perdez une année de crédibilité. " +
+    "Biolystes\u00a0supprime\u00a0ces\u00a0contraintes.",
   /* Une ligne chacun à 375 px, une icône au trait devant ; la réponse au
      titre en premier. */
   icones: [PackageX, FlaskConical, ShieldCheck] as LucideIcon[],
