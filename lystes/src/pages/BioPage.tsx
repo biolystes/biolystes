@@ -8,7 +8,7 @@ import SafeVideo from "@lystes/components/bio/SafeVideo";
 import {
   ArrowRight, Check, FlaskConical, Truck, Globe, Package, Leaf, Award, X,
   Rabbit, FileCheck2, BadgeCheck, ShoppingBag, MessageCircle, HelpCircle,
-  Sparkles, Clock, Shield, Zap,
+  Sparkles, Clock, Zap,
   AlertTriangle, Warehouse, Users, Eye, Timer, ChevronLeft, ChevronRight,
 } from "lucide-react";
 import InstaFeedSection from "@lystes/components/bio/InstaFeedSection";
@@ -360,69 +360,80 @@ function StepProgress({ activeStep }: { activeStep: StepKey }) {
 }
 
 
-/* Les étapes d’une commande. Chaque phrase reprend un texte de la section
-   « La livraison » : rien n’est ajouté. */
-const ETAPES_LIVRAISON = [
-  { icon: ShoppingBag, label: "Commande client", texte: "Votre client passe commande sur votre boutique en ligne." },
-  { icon: FlaskConical, label: "Fabrication", texte: "Le laboratoire fabrique le produit à la demande, sous votre nom." },
-  { icon: Package, label: "Emballage", texte: "Le produit part avec votre packaging, sous votre nom de marque." },
-  { icon: Truck, label: "Expédition", texte: "Le colis est expédié directement chez votre client." },
-  { icon: Check, label: "Livré", texte: "En 6 à 7 jours en mode standard, en 24 à 48 heures en mode express." },
-];
+/* Les deux modes de livraison, chacun avec ses cinq étapes, dans sa carte
+   (JP, 14/10/2026 : « chaque mode a son step », même nombre d'étapes, pour
+   voir d'un coup d'œil que l'express n'a pas de fabrication). Les phrases
+   reprennent les textes de la section ; rien n'est ajouté. */
+/* `differe` : l'étape qui change d'un mode à l'autre, surlignée en
+   pistache comme le titre des étapes. */
+type EtapeLivraison = { icon: typeof Check; label: string; texte: string; differe?: boolean };
+const COMMANDE: EtapeLivraison = { icon: ShoppingBag, label: "Commande client", texte: "Votre client passe commande sur votre boutique en ligne." };
+const EMBALLAGE: EtapeLivraison = { icon: Package, label: "Emballage", texte: "Votre packaging, sous votre nom de marque." };
+const MODES_LIVRAISON = [
+  {
+    icon: Clock, nom: "Mode Standard", delai: "Livraison en 6-7 jours",
+    chapeau: "Fabriqué à la demande. Aucun stock nécessaire.",
+    etapes: [
+      COMMANDE,
+      { icon: FlaskConical, label: "Fabrication", texte: "Le laboratoire fabrique le produit à la demande, sous votre nom.", differe: true },
+      EMBALLAGE,
+      { icon: Truck, label: "Expédition", texte: "Le colis part directement chez votre client." },
+      { icon: Check, label: "Livré", texte: "En 6 à 7 jours." },
+    ],
+  },
+  {
+    icon: Zap, nom: "Mode Express", delai: "Livraison en 24-48h",
+    chapeau: "Votre stock chez notre logisticien, sans minimum de quantité ni MOQ, réapprovisionné en une semaine au rythme de vos ventes.",
+    etapes: [
+      COMMANDE,
+      { icon: Warehouse, label: "Prélevé dans votre stock", texte: "Déjà chez notre logisticien : rien à fabriquer.", differe: true },
+      EMBALLAGE,
+      { icon: Truck, label: "Expédition", texte: "Expédié directement par le logisticien." },
+      { icon: Check, label: "Livré", texte: "En 24 à 48 heures." },
+    ],
+  },
+] as const;
 
-function EtapesLivraison() {
-  const piste = useRef<HTMLDivElement>(null);
-  const [courante, setCourante] = useState(0);
-  const suivre = () => {
-    const el = piste.current;
-    if (!el) return;
-    const carte = el.firstElementChild as HTMLElement | null;
-    const pas = carte ? carte.offsetWidth + 12 : el.clientWidth;
-    setCourante(Math.min(ETAPES_LIVRAISON.length - 1, Math.round(el.scrollLeft / pas)));
-  };
+function ModeLivraison({ mode, i }: { mode: (typeof MODES_LIVRAISON)[number]; i: number }) {
   return (
-    <div className="mt-16">
-      {/* Ordinateur : la frise, ronds alignés sur une même ligne. */}
-      <div className="hidden md:grid grid-cols-5 gap-4">
-        {ETAPES_LIVRAISON.map((item) => (
-          <div key={item.label} className="flex flex-col items-center text-center gap-2">
-            <div className="w-12 h-12 rounded-full bg-foreground text-primary-foreground flex items-center justify-center">
-              <item.icon className="h-5 w-5" strokeWidth={1.5} />
-            </div>
-            <span className="text-xs font-semibold text-foreground">{item.label}</span>
-          </div>
-        ))}
-      </div>
-      {/* Téléphone : une étape par carte, défilement au doigt, la suivante
-          dépasse pour qu’on devine la suite. Pas de lecture automatique. */}
-      <div className="md:hidden">
-        <div
-          ref={piste}
-          onScroll={suivre}
-          className="-mx-4 px-4 scroll-px-4 flex gap-3 overflow-x-auto snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
-          {ETAPES_LIVRAISON.map((item, i) => (
-            <div key={item.label} className="snap-start shrink-0 w-[78%] rounded-2xl bg-background p-5">
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 shrink-0 rounded-full bg-foreground text-primary-foreground flex items-center justify-center">
-                  <item.icon className="h-5 w-5" strokeWidth={1.5} />
-                </div>
-                <div>
-                  <p className="text-[11px] tracking-[0.2em] uppercase text-muted-foreground">Étape {i + 1}</p>
-                  <h3 className="text-base font-semibold text-foreground">{item.label}</h3>
-                </div>
-              </div>
-              <p className="mt-3 text-sm text-foreground leading-relaxed text-pretty">{item.texte}</p>
-            </div>
-          ))}
+    <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUpLivraison} custom={i}
+      className="rounded-2xl bg-background p-6 md:p-8">
+      <div className="flex items-center gap-3">
+        <div className="w-10 h-10 shrink-0 rounded-full bg-foreground text-primary-foreground flex items-center justify-center">
+          <mode.icon className="h-5 w-5" strokeWidth={1.5} />
         </div>
-        <p className="mt-3 text-center text-xs text-muted-foreground" aria-live="polite">
-          {courante + 1} / {ETAPES_LIVRAISON.length}
-        </p>
+        <div>
+          <h3 className="text-base font-semibold text-foreground">{mode.nom}</h3>
+          <p className="text-xs text-foreground">{mode.delai}</p>
+        </div>
       </div>
-    </div>
+      {/* Deux lignes réservées sur ordinateur : les étapes des deux cartes
+          restent alignées rang par rang. */}
+      <p className="mt-4 text-sm text-muted-foreground leading-relaxed text-pretty md:min-h-[2lh]">{mode.chapeau}</p>
+      {/* Les étapes : un rond par étape, le trait descend d'un rond à
+          l'autre, le libellé à droite. */}
+      <ol className="mt-6">
+        {mode.etapes.map((e, k) => (
+          <li key={e.label} className="relative flex gap-4 pb-5 last:pb-0">
+            {k < mode.etapes.length - 1 && <span aria-hidden="true" className="absolute left-[17px] top-9 bottom-0 w-px bg-border" />}
+            <div className="relative w-9 h-9 shrink-0 rounded-full bg-foreground text-primary-foreground flex items-center justify-center">
+              <e.icon className="h-4 w-4" strokeWidth={1.5} />
+            </div>
+            <div className="pt-1.5">
+              <p className="text-sm font-semibold text-foreground leading-snug"><span className={"differe" in e && e.differe ? "rounded bg-[#e1f3c5] px-1.5 -mx-1.5" : undefined}>{e.label}</span></p>
+              <p className="mt-0.5 text-sm text-muted-foreground leading-relaxed text-pretty">{e.texte}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </motion.div>
   );
 }
+
+const fadeUpLivraison = {
+  hidden: { opacity: 0, y: 30 },
+  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } }),
+};
 
 export default function DecouvertePage() {
   /* Aucun mot seul en fin de ligne, nulle part sur la page (JP). */
@@ -658,62 +669,12 @@ export default function DecouvertePage() {
       {/* ═══ 5. LA LIVRAISON ═══ */}
       <section id="section-livraison" ref={setRef("livraison")} className="bg-secondary py-12 md:py-16">
         <div className="max-w-4xl mx-auto px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16">
-            <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-foreground">La livraison</motion.p>
-            <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl text-foreground leading-relaxed text-balance">
-              Comment fonctionne l’expédition de vos commandes ?
-            </motion.h2>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8">
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={0}
-              className="p-8 rounded-2xl border-2 border-foreground">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-foreground text-primary-foreground flex items-center justify-center">
-                  <Clock className="h-5 w-5" strokeWidth={1.5} />
-                </div>
-                <div>
-                  <h3 className="text-base font-semibold text-foreground">Mode Standard</h3>
-                  <p className="text-xs text-foreground">Livraison en 6-7 jours</p>
-                </div>
-              </div>
-              <div className="space-y-4 text-sm text-foreground leading-relaxed">
-                <p>Votre client passe commande sur votre boutique en ligne.</p>
-                <p>Le laboratoire fabrique le produit à la demande, sous votre nom, avec votre packaging.</p>
-                <p>Le colis est expédié directement chez votre client. <strong className="text-foreground">Aucun stock nécessaire.</strong></p>
-              </div>
-            </motion.div>
-
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
-              className="p-8 rounded-2xl border-2 border-foreground">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full bg-foreground text-primary-foreground flex items-center justify-center">
-                  <Zap className="h-5 w-5" strokeWidth={1.5} />
-                </div>
-                <div>
-                  <h3 className="text-base font-semibold text-foreground">Mode Express</h3>
-                  <p className="text-xs text-foreground">Livraison en 24-48h</p>
-                </div>
-              </div>
-              <div className="space-y-4 text-sm text-foreground leading-relaxed">
-                <p>Achetez uniquement le stock nécessaire, sans minimum de quantité ni MOQ, et placez-le chez notre logisticien.</p>
-                <p>Réapprovisionnement en une semaine, au rythme de vos ventes : commandez juste ce qu’il faut, sans risque de surstock.</p>
-                <p>Vos clients reçoivent leur commande <strong className="text-foreground">en 24 à 48 heures,</strong> expédiée directement par le logisticien.</p>
-              </div>
-            </motion.div>
+          <EnteteSection className="mb-10 md:mb-12" surtitre="La livraison"
+            noir="Comment fonctionne l’expédition" gris={"de\u00a0vos commandes\u00a0?"}
+            texte="Deux modes au choix. Chaque colis part sous votre nom : votre client ne voit que votre marque, de l’emballage au bon de livraison." />
+          <div className="grid md:grid-cols-2 gap-4 md:gap-6">
+            {MODES_LIVRAISON.map((mode, i) => <ModeLivraison key={mode.nom} mode={mode} i={i} />)}
           </div>
-
-          {/* Les cinq étapes : frise sur ordinateur, carrousel sur téléphone
-              (JP, 12/10/2026 : « tu fais un carrousel »). */}
-          <EtapesLivraison />
-
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={3}
-            className="mt-12 p-6 rounded-xl bg-background border border-border text-center">
-            <Shield className="h-5 w-5 text-foreground mx-auto mb-3" strokeWidth={1.5} />
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-lg mx-auto">
-              Chaque commande est expédiée <strong className="text-foreground">sous votre nom de marque</strong>. Votre client ne voit que votre marque, de l’emballage au bon de livraison.
-            </p>
-          </motion.div>
         </div>
       </section>
 
