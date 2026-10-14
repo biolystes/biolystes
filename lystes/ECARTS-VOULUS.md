@@ -33,6 +33,29 @@ comme les autres boutons de rendez-vous de la page.
 Gardés tels quels : liens de navigation (menus, pied de page), champ de projet
 de la bannière (« Décrivez votre projet… », ouvre l'orbital du widget), champ newsletter du pied de page.
 
+## Aucun prix en ligne (JP, 12/10/2026, PR biolystes 3)
+
+Les traductions recopiées (`lystes/src/i18n/locales/<langue>.json`) embarquent
+des prix d'offres dans le JS de biolystes.com, même non affichés. `sans_prix.py`
+les retire dans les 14 langues, seulement dans la copie biolystes, et `sync.py`
+le relance après `ecarts_voulus.py`. Il s'arrête en nommant la clé si lystes.ai
+la déplace.
+
+| Clé | Sur /bio (fr) | Sur biolystes.com |
+|---|---|---|
+| `landing.pricing.*.price`, `.period` | 99 €, 290 € + 49 €/mois, 499 €, 799 € | vide |
+| `landing.pricing.*.features` | « Setup from €290, then €49/month » | ligne retirée |
+| `landingNew.faq.questions[].answer` | « … à partir de 49,99 € HT/mois … » | phrase chiffrée retirée |
+| `productAgentPage.s133` | Pack Duo à 999 € | Pack Duo |
+| `productAgentPage.s135` à `s138` | 11 001 € (‑92 %) et 301 €/mois de charges récurrentes évitées | ‑92 % |
+
+Fiche de démonstration de l'onglet E-commerce (`public/demo-eclose/eclose.js`, en iframe) :
+la ligne « 45 € » est retirée sur biolystes.com par `ecarts_voulus.py` (JP, 13/10/2026) ;
+lystes.ai garde sa fiche telle quelle.
+
+Laissés : prix de démonstration (produits fictifs, CA des maquettes), capital
+social des mentions légales, seuils du programme d'affiliation.
+
 ## En-tête sans menus (JP, 13/10/2026, PR biolystes 10)
 
 | Endroit | Sur /bio | Sur biolystes.com |
@@ -79,3 +102,36 @@ rechargement.
 | Galerie des créateurs | panneau « Téléchargez votre image produit » | masqué (`sansGeneration`), comme sur l'accueil |
 | Bas de page | « Sans engagement / résiliable à tout moment », « Sans engagement · Configuration guidée » | retirés (arguments d'abonnement) |
 | Cartes | « En savoir plus » vers lystes.ai/solutions | gardés (navigation) |
+
+## Thème des pages Actus (JP, 13/10/2026, PR biolystes 14)
+
+`sync.py` recopie `tailwind.config.ts` de lystes.ai dans `lystes/tailwind.config.ts`
+avec le seul `content` `./lystes/src/**`. Les pages Actus (`src/actus`) s'affichent
+sous `.lystes-racine` : sans elles dans ce `content`, leurs classes ne sortent pas
+de ce thème et ne s'appliquent pas. Écart 23 de `ecarts_voulus.py`.
+
+| Endroit | Copie brute de sync.py | Sur biolystes.com |
+|---|---|---|
+| `content` de `lystes/tailwind.config.ts` | `["./lystes/src/**/*.{ts,tsx,html}"]` | `["./lystes/src/**/*.{ts,tsx,html}", "./src/actus/**/*.{ts,tsx}"]` |
+| Commentaire de tête | « Ne sert qu'aux fichiers de lystes/ » | mentionne aussi les pages Actus et le défaut de /blog qu'il évite |
+
+## Bouton « S'inscrire » vers l'espace client (JP, 13/10/2026)
+
+« S'inscrire » mène à l'inscription de l'espace client Biolystes,
+https://lystes.ai/biolystes/inscription (petal PR 397), ouverte dans un nouvel
+onglet comme le rendez-vous. Bouton secondaire à contour ; « Prendre
+rendez-vous » reste le bouton principal. Écart 25 de `ecarts_voulus.py`, passé
+après les écarts 2, 3 et 4 dont il reprend le texte d'arrivée. Visiteuse
+connectée : rien ne change, elle voit son avatar.
+
+| Endroit | Sur /bio | Sur biolystes.com |
+|---|---|---|
+| En-tête ordinateur | Connexion + S'inscrire en 5 min | S'inscrire (contour) + Prendre rendez-vous |
+| En-tête téléphone | S'inscrire | S'inscrire (contour, à partir de 360 px) + Rendez-vous |
+| Menu du téléphone | S'inscrire en 5 min + Connexion | Prendre rendez-vous + S'inscrire (contour, l'ancienne place de « Connexion ») |
+
+Gardé tel quel : le champ de projet de la bannière, qui ouvre l'orbital.
+
+`ecarts_voulus.py` vise `~/.worktrees/biolystes-bio` par défaut ; un autre
+worktree se passe dans `BIOLYSTES_CIB` :
+`BIOLYSTES_CIB=~/.worktrees/<nom> python3 ecarts_voulus.py`.
