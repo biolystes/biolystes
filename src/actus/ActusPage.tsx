@@ -2,8 +2,10 @@
    (noir, blanc, gris #f3f4f5, aucun beige). */
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
+import EnteteSection from "@lystes/components/bio/EnteteSection";
 import CadreActus, { BoutonRdv } from "./CadreActus";
-import { articles, dateLisible, typo, type Article } from "./articles";
+import { dateLisible, typo, type Article } from "./articles";
+import { useActus } from "./magazine";
 
 function lien(a: Article) {
   return a.url ?? `/blog/${a.slug}`;
@@ -32,7 +34,10 @@ function Vignette({ a, grande = false }: { a: Article; grande?: boolean }) {
 }
 
 export default function ActusPage() {
-  const [une, ...suite] = [...articles].sort((x, y) => (x.date < y.date ? 1 : x.date > y.date ? -1 : 0));
+  /* Articles en dur (articles.ts) et actus publiées dans le Magazine de
+     lystes.ai (magazine.ts), déjà triés du plus récent au plus ancien. */
+  const { actus } = useActus();
+  const [une, ...suite] = actus;
 
   return (
     <CadreActus>
@@ -45,18 +50,20 @@ export default function ActusPage() {
           "@type": "Blog",
           name: "Actus Biolystes",
           url: "https://biolystes.com/blog",
-          blogPost: articles.map((a) => ({ "@type": "BlogPosting", headline: a.titre, url: `https://biolystes.com${lien(a)}`, datePublished: a.date })),
+          blogPost: actus.map((a) => ({ "@type": "BlogPosting", headline: a.titre, url: `https://biolystes.com${lien(a)}`, datePublished: a.date })),
         }}
       />
 
-      <section className="mx-auto max-w-5xl px-6 pb-10 pt-12 text-center md:pb-14 md:pt-20">
-        <p className="text-xs uppercase tracking-[0.3em] text-[#1d1d1f]">Actus</p>
-        <h1 className="mx-auto mt-4 max-w-3xl text-3xl font-light leading-tight tracking-tight text-[#1d1d1f] [text-wrap:balance] md:text-5xl">
-          Les actualités de Biolystes
-        </h1>
-        <p className="mx-auto mt-5 max-w-xl leading-relaxed text-[#424245] [text-wrap:pretty]">
-          {typo("Notre modèle, nos produits, le réglementaire et tout ce qu’il faut savoir pour lancer sa marque cosmétique bio et végane.")}
-        </p>
+      {/* En-tête de section de l’accueil (EnteteSection, JP 14/10/2026) : sur-titre,
+          titre encre puis gris, description. Le h1 reste pour les moteurs. */}
+      <section className="mx-auto max-w-5xl px-6 pb-10 pt-12 md:pb-14 md:pt-20">
+        <h1 className="sr-only">Les actualités de Biolystes</h1>
+        <EnteteSection
+          surtitre="Actus"
+          noir="Les actualités de Biolystes,"
+          gris={typo("pour lancer sa marque cosmétique")}
+          texte={typo("Notre modèle, nos produits bio et véganes, le réglementaire et tout ce qu’il faut savoir avant de se lancer.")}
+        />
       </section>
 
       <section className="mx-auto max-w-5xl px-6">
@@ -88,12 +95,12 @@ export default function ActusPage() {
       </section>
 
       <section className="bg-[#f3f4f5] py-12 md:py-16">
-        <div className="mx-auto max-w-5xl px-6 text-center">
-          <p className="text-xs uppercase tracking-[0.3em] text-[#1d1d1f]">Passez à l’action</p>
-          <h2 className="mt-4 text-2xl font-light leading-relaxed tracking-tight text-[#1d1d1f] [text-wrap:balance] md:text-4xl">{typo("Prêt à lancer votre marque ?")}</h2>
-          <p className="mx-auto mt-4 max-w-xl leading-relaxed text-[#1d1d1f] [text-wrap:pretty]">
-            {typo("Prenez rendez-vous avec un expert pour composer votre gamme.")}
-          </p>
+        <div className="mx-auto max-w-5xl px-6">
+          <EnteteSection
+            surtitre="Passez à l’action"
+            noir={typo("Prêt à lancer votre marque ?")}
+            gris={typo("Un expert compose votre gamme.")}
+          />
           <div className="mt-10 flex justify-center"><BoutonRdv /></div>
         </div>
       </section>

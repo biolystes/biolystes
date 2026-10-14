@@ -45,7 +45,7 @@ export default function CadreActus({ children }: { children: ReactNode }) {
               <Header />
             </CommeSurAccueil>
             <main className="pt-[72px]">{children}</main>
-            <Footer />
+            <Footer marque="biolystes" />
           </div>
         </AccountProvider>
       </TooltipProvider>

@@ -5,7 +5,8 @@ import { Fragment, type ReactNode } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import SEO from "@/components/SEO";
 import CadreActus, { BoutonRdv } from "./CadreActus";
-import { articleParSlug, articlesDuGabarit, dateLisible, typo, type Bloc } from "./articles";
+import { dateLisible, typo, type Bloc } from "./articles";
+import { useActus } from "./magazine";
 
 /* **gras** seulement. */
 function riche(texte: string): ReactNode {
@@ -87,11 +88,17 @@ function Rendu({ bloc }: { bloc: Bloc }) {
 
 export default function ArticlePage() {
   const { slug } = useParams();
-  const a = articleParSlug(slug);
-  if (!a) return <Navigate to="/blog" replace />;
+  /* Les articles en dur et ceux du Magazine de lystes.ai (magazine.ts). Un
+     article en dur s’affiche tout de suite ; pour une actu du Magazine, la
+     page attend la lecture avant de renvoyer vers /blog. */
+  const { actus, pret } = useActus();
+  const duGabarit = actus.filter((x) => !x.url);
+  const a = duGabarit.find((x) => x.slug === slug);
+  if (!a) return pret ? <Navigate to="/blog" replace /> : <CadreActus><div className="min-h-[70vh]" /></CadreActus>;
 
-  const autres = articlesDuGabarit.filter((x) => x.slug !== a.slug).slice(0, 3);
+  const autres = duGabarit.filter((x) => x.slug !== a.slug).slice(0, 3);
   const adresse = `https://biolystes.com/blog/${a.slug}`;
+  const image = a.image.startsWith("http") ? a.image : `https://biolystes.com${a.image}`;
 
   return (
     <CadreActus>
@@ -100,7 +107,7 @@ export default function ArticlePage() {
         description={a.description}
         path={`/blog/${a.slug}`}
         type="article"
-        image={a.image.startsWith("http") ? a.image : `https://biolystes.com${a.image}`}
+        image={image}
         jsonLd={{
           "@context": "https://schema.org",
           "@type": "BlogPosting",
@@ -108,7 +115,7 @@ export default function ArticlePage() {
           description: a.description,
           datePublished: a.date,
           mainEntityOfPage: adresse,
-          image: `https://biolystes.com${a.image}`,
+          image,
           author: { "@type": "Organization", name: "Biolystes" },
           publisher: { "@type": "Organization", name: "Biolystes", url: "https://biolystes.com" },
         }}
