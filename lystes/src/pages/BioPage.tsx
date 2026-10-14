@@ -30,6 +30,16 @@ import productBox from "@lystes/assets/bio/product-box.jpg";
 import product235th1 from "@lystes/assets/bio/product-235th-1.jpg";
 import product235th2 from "@lystes/assets/bio/product-235th-2.jpg";
 import product235th3 from "@lystes/assets/bio/product-235th-3.jpg";
+import wirtzkinCentre from "@/assets/wirtzkin-centre.png.asset.json";
+import wirtzkinVideo1 from "@/assets/wirtzkin-1.mp4.asset.json";
+import wirtzkinVideo2 from "@/assets/wirtzkin-2.mp4.asset.json";
+import wirtzkinVideo3 from "@/assets/wirtzkin-3.mp4.asset.json";
+import wirtzkinWebm1 from "@/assets/wirtzkin-1.webm.asset.json";
+import wirtzkinWebm2 from "@/assets/wirtzkin-2.webm.asset.json";
+import wirtzkinWebm3 from "@/assets/wirtzkin-3.webm.asset.json";
+import wirtzkinPoster1 from "@/assets/wirtzkin-1.webp.asset.json";
+import wirtzkinPoster2 from "@/assets/wirtzkin-2.webp.asset.json";
+import wirtzkinPoster3 from "@/assets/wirtzkin-3.webp.asset.json";
 
 // Brand images for portfolio
 import kaniwa1 from "@lystes/assets/bio/kaniwa-1.jpg";
@@ -320,6 +330,14 @@ function BrandCarousel({ brand }: { brand: typeof portfolioBrands[0] }) {
 }
 
 function SalonSlides() {
+  const slides = [
+    { image: salonCoiffure, alt: "Salon de coiffure équipé de cosmétiques en marque blanche", videos: [] },
+    { image: wirtzkinCentre.url, alt: "Façade du centre médical esthétique Wirtzkin", videos: [
+      { src: wirtzkinVideo1.url, fallback: wirtzkinWebm1.url, poster: wirtzkinPoster1.url, title: "Présentation clinique Wirtzkin" },
+      { src: wirtzkinVideo2.url, fallback: wirtzkinWebm2.url, poster: wirtzkinPoster2.url, title: "Produits Wirtzkin par Biolystes" },
+      { src: wirtzkinVideo3.url, fallback: wirtzkinWebm3.url, poster: wirtzkinPoster3.url, title: "Wirtzkin en situation" },
+    ] },
+  ];
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center" });
   const [selected, setSelected] = useState(0);
 
@@ -339,16 +357,31 @@ function SalonSlides() {
     <div role="region" aria-roledescription="carrousel" aria-label="Salon et cosmétiques en marque blanche">
       <div ref={emblaRef} className="overflow-hidden -mx-16">
         <div className="flex touch-pan-y">
-          {[0, 1].map((slide) => (
-            <div key={slide} role="group" aria-roledescription="diapositive" aria-label={`${slide + 1} sur 2`} className="min-w-0 shrink-0 grow-0 basis-full px-16 py-4">
+          {slides.map((slide, index) => (
+            <div key={slide.image} role="group" aria-roledescription="diapositive" aria-label={`${index + 1} sur 2`} className="min-w-0 shrink-0 grow-0 basis-full px-16 py-4">
               <div className="relative max-w-[944px] mx-auto">
                 <div className="bg-secondary rounded-xl p-6 md:p-10">
-                  <img src={salonCoiffure} alt="Salon de coiffure équipé de cosmétiques en marque blanche" className="w-full rounded-lg" loading="lazy" />
+                  <img src={slide.image} alt={slide.alt} className="w-full rounded-lg aspect-[3/2] object-cover" loading="lazy" />
                 </div>
-                <div className="hidden md:block absolute -left-16 bottom-20 w-[220px] shadow-lg rounded-xl overflow-hidden rotate-[-3deg] p-3 bg-primary">
-                  <SafeVideo src="/videos/salon-235th.mp4" className="w-full rounded-xl object-cover aspect-[3/4]" lazy />
-                </div>
-                <ProductImageCycler />
+                {slide.videos.length === 0 ? (
+                  <>
+                    <div className="hidden md:block absolute -left-16 bottom-20 w-[220px] shadow-lg rounded-xl overflow-hidden rotate-[-3deg] p-3 bg-primary">
+                      <SafeVideo src="/videos/salon-235th.mp4" className="w-full rounded-xl object-cover aspect-[3/4]" lazy />
+                    </div>
+                    <ProductImageCycler />
+                  </>
+                ) : (
+                  <div className="flex justify-center gap-3 mt-4 md:mt-0">
+                    {slide.videos.map((video, videoIndex) => (
+                      <div key={video.src} aria-label={video.title} className={`w-[28%] md:w-[155px] shadow-lg rounded-xl overflow-hidden p-2 bg-primary md:absolute ${videoIndex === 0 ? "md:-left-12 md:bottom-16 md:rotate-[-3deg]" : videoIndex === 1 ? "md:-right-12 md:top-6 md:rotate-[3deg]" : "md:-right-8 md:bottom-4 md:rotate-[-3deg]"}`}>
+                        <video poster={video.poster} aria-label={video.title} autoPlay muted loop playsInline preload="metadata" className="w-full rounded-lg object-cover aspect-[3/4]">
+                          <source src={video.src} type="video/mp4" />
+                          <source src={video.fallback} type="video/webm" />
+                        </video>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           ))}
