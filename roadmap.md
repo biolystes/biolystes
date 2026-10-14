@@ -1,0 +1,3 @@
+- [ ] Remplacer la photo Fralène par la vidéo de diagnostic dans les engagements.
+- [ ] Déplacer la photo Kaniwa immédiatement après cette vidéo.
+- [ ] Vérifier la lecture et l’ordre des médias.
