@@ -441,9 +441,13 @@ export default function TarifsPage() {
               <p className="mt-4 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">
                 Avant de vous engager vraiment, vous devez vérifier que nos produits tiennent leurs promesses. Avec l’acompte, nous créons votre logo et votre branding, nous fabriquons vos produits et nous vous les envoyons. Vous les recevez à votre marque, et c’est seulement là que vous décidez de continuer avec nous, ou non.
               </p>
-              <p className="mt-5 rounded-xl bg-[#e1f3c5] p-[1.5rem] md:p-[2rem] text-[1rem] md:text-[1.0625rem] text-foreground leading-relaxed text-pretty" style={{ fontFamily: BRICOLAGE }}>
-                Pendant cette première étape, nous prenons à notre charge une grande partie de la création de vos produits. Nous le faisons parce que nous sommes sûrs de leur qualité.
-              </p>
+              <div className="mt-5 rounded-xl bg-[#e1f3c5] p-[1.5rem] md:p-[2rem]">
+                <p className="text-[1rem] md:text-[1.0625rem] text-foreground leading-relaxed text-pretty" style={{ fontFamily: BRICOLAGE }}>
+                  Pendant cette première étape, nous prenons à notre charge une grande partie de la création de vos produits. Nous le faisons parce que nous sommes sûrs de leur qualité.
+                </p>
+                {/* Le rendez-vous, dans l'encadré vert (JP, 14/10/2026). */}
+                <BoutonRdv className="mt-5 !justify-start" />
+              </div>
             </div>
             <div className="lg:border-l lg:border-border lg:pl-12">
               <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Ce que comprend l’acompte</p>
@@ -483,9 +487,9 @@ export default function TarifsPage() {
           <Frise etapes={offre.etapes} />
         </div>
 
-        {/* Le rendez-vous, juste après le parcours (JP, 14/10/2026) : la cliente
-            vient de voir qu'elle ne paie rien avant d'avoir validé sa sélection. */}
-        <BoutonRdv className="mt-10 md:mt-12" />
+        {/* Le rendez-vous : en achat, il est dans l'encadré vert de « Pourquoi un
+            acompte ? » (JP, 14/10/2026) ; sur plusieurs mois, sous la frise. */}
+        {mode === "location" && <BoutonRdv className="mt-10 md:mt-12" />}
 
 
         {/* Ce que comprend le pack choisi (mêmes mots que biolystes.pro/offre/<slug>). */}
