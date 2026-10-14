@@ -11,6 +11,7 @@ import { AnimatedChat } from "@lystes/features/landing-particuliers/pages/pro-of
 import { FaceMeshScanner } from "@lystes/features/landing-particuliers/components/diagnostic/FaceMeshScanner";
 import diagnosticFace from "@lystes/features/landing-particuliers/pages/diagnostic-agent/assets/diagnostic-face.jpg";
 import { getHomeLocale } from "@lystes/i18n/home-locale";
+import { ArrowRight } from "lucide-react";
 
 /**
  * Les blocs de l'accueil montés sur une page de marque blanche, filtrés sur
@@ -121,6 +122,15 @@ function extraire(lang: string, reglage: Reglage) {
       }
     }
   }
+  /* 14/10/2026 (JP) : l'appel à l'action « En savoir plus » vers la page des
+     agents IA, monté sous la description du bandeau. */
+  const desc = bande?.querySelector("#agents-biolystes > .reveal > p");
+  if (desc) {
+    const cta = doc.createElement("div");
+    cta.id = "agents-cta-slot";
+    cta.setAttribute("style", "display:flex;justify-content:center;margin-top:28px");
+    desc.insertAdjacentElement("afterend", cta);
+  }
   return { style, bento: bento?.outerHTML ?? "", bande: bande?.outerHTML ?? "" };
 }
 
@@ -141,6 +151,7 @@ export default function BlocsAccueilSecteur({ secteur }: { secteur: Secteur }) {
       face: q("diagnostic-facemesh-slot"),
       chat: q("conseillers-chat-slot"),
       titre: q("hero-title-slot-2"),
+      cta: q("agents-cta-slot"),
     });
   }, [blocs]);
 
@@ -161,7 +172,7 @@ export default function BlocsAccueilSecteur({ secteur }: { secteur: Secteur }) {
       {reglage.enteteCommun && <style>{`
         .blocs-secteur #agents-biolystes > .reveal h2 { font-size: 24px !important; font-weight: 300 !important;
           line-height: 1.375 !important; letter-spacing: -0.025em !important; max-width: min(100%, 18em); margin: 0 auto; text-wrap: pretty; }
-        @media (min-width: 1024px) { .blocs-secteur #agents-biolystes > .reveal h2 { font-size: 32px !important; } }
+        @media (min-width: 1024px) { .blocs-secteur #agents-biolystes > .reveal h2 { font-size: 36px !important; } }
         .blocs-secteur #agents-biolystes > .reveal p { font-size: 16px !important; line-height: 1.625 !important;
           color: hsl(var(--foreground)) !important; max-width: 36rem !important; }
       `}</style>}
@@ -191,6 +202,7 @@ export default function BlocsAccueilSecteur({ secteur }: { secteur: Secteur }) {
       {slots.face && createPortal(<FaceMeshScanner imageUrl={diagnosticFace} />, slots.face)}
       {slots.chat && createPortal(<AnimatedChat />, slots.chat)}
       {slots.titre && createPortal(<HeroRotatingTitle lang={lang} {...getSecondHeroCopy(lang)} />, slots.titre)}
+      {slots.cta && createPortal(<a href="/agents-ia" className="btn-outline"><span>En savoir plus</span><span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span></a>, slots.cta)}
     </div>
   );
 }
