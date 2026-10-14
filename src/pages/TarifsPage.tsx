@@ -143,7 +143,7 @@ const location = (cle: string, nom: string, contenu: string, miseEnPlace: number
     { icone: Receipt, quand: "Puis chaque mois", montant: loyer, minimum: true, ligne: "Vous pouvez verser plus chaque mois, ou solder quand vous voulez, pour que le site soit à vous plus vite." },
     { icone: Store, quand: "Le site est à vous", montant: acquis, ligne: "Une fois ce montant payé au total.", protege: true },
   ],
-  mensuel: loyer, mensuelTitre: "Par mois", mensuelTexte: "",
+  mensuel: loyer, mensuelTitre: "Puis par mois", mensuelTexte: "Vous pouvez verser plus chaque mois, ou solder quand vous voulez, pour que le site soit à vous plus vite.",
 });
 const LOCATIONS: Offre[] = [
   location("standard", "Pack Standard", "4 designs + site complet + expert dédié", 499, 199, 1499),
@@ -411,18 +411,26 @@ export default function TarifsPage() {
           </p>
         </div>
 
-        <div className="max-w-5xl mx-auto mt-10 md:mt-12">
-          <Frise etapes={offre.etapes} />
+        {/* 1. Le prix, en haut, sans défiler (JP, 14/10/2026) : le total du pack
+            et l'acompte demandé ; à côté, l'abonnement. Sur plusieurs mois : la
+            mise en place et la mensualité (à partir de). */}
+        <div className="max-w-5xl mx-auto mt-8 md:mt-10 rounded-2xl bg-secondary p-[1.5rem] md:p-[2rem] grid md:grid-cols-2 gap-6 md:gap-10 items-center">
+          <div>
+            <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">{offre.totalTitre}</p>
+            <div className="mt-3"><Montant ttc={offre.total} /></div>
+            {mode === "achat" && <p className="mt-3 text-[0.9375rem] text-foreground font-medium text-pretty">Dont un acompte de {euros(acompte)} TTC, payé à la commande.</p>}
+          </div>
+          <div className="md:border-l md:border-border md:pl-10">
+            <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">{offre.mensuelTitre}</p>
+            <div className="mt-3"><Montant ttc={offre.mensuel} petit minimum={mode === "location"} /></div>
+            {offre.mensuelTexte && <p className="mt-2 text-[0.9375rem] text-foreground/80 text-pretty">{offre.mensuelTexte}</p>}
+          </div>
         </div>
 
-        {/* Le rendez-vous, juste après le parcours (JP, 14/10/2026) : la cliente
-            vient de voir qu'elle ne paie rien avant d'avoir validé sa sélection. */}
-        <BoutonRdv className="mt-10 md:mt-12" />
-
-        {/* Pourquoi un acompte (achat) : texte de JP, mot pour mot (compétence
+        {/* 2. Pourquoi un acompte (achat) : texte de JP, mot pour mot (compétence
             tarifs-biolystes, « Pourquoi l'acompte », 14/10/2026). */}
         {mode === "achat" ? (
-          <div className="max-w-5xl mx-auto mt-10 md:mt-12 rounded-2xl border border-foreground p-[1.5rem] md:p-[2rem] grid lg:grid-cols-2 gap-8 lg:gap-12">
+          <div className="max-w-5xl mx-auto mt-4 rounded-2xl border border-foreground p-[1.5rem] md:p-[2rem] grid lg:grid-cols-2 gap-8 lg:gap-12">
             <div>
               <div className="flex items-center gap-3">
                 <RondIcone icone={ShieldCheck} />
@@ -456,7 +464,7 @@ export default function TarifsPage() {
             </div>
           </div>
         ) : (
-          <div className="max-w-5xl mx-auto mt-10 md:mt-12 rounded-2xl border border-foreground p-[1.5rem] md:p-[2rem] flex items-start gap-4">
+          <div className="max-w-5xl mx-auto mt-4 rounded-2xl border border-foreground p-[1.5rem] md:p-[2rem] flex items-start gap-4">
             <RondIcone icone={KeyRound} />
             <div className="min-w-0">
               <h2 className="text-[1.125rem] md:text-[1.25rem] !font-semibold text-foreground leading-snug text-pretty" style={{ fontFamily: BRICOLAGE, textTransform: "none" }}>
@@ -469,18 +477,16 @@ export default function TarifsPage() {
           </div>
         )}
 
-        {/* Le total et l’abonnement du pack acheté (en location, la frise dit déjà tout). */}
-        {mode === "achat" && <div className="max-w-5xl mx-auto mt-4 rounded-2xl bg-secondary p-[1.5rem] md:p-[2rem] grid md:grid-cols-2 gap-6 md:gap-10 items-center">
-          <div>
-            <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">{offre.totalTitre}</p>
-            <div className="mt-3"><Montant ttc={offre.total} /></div>
-          </div>
-          <div className="md:border-l md:border-border md:pl-10">
-            <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">{offre.mensuelTitre}</p>
-            <div className="mt-3"><Montant ttc={offre.mensuel} petit /></div>
-            {offre.mensuelTexte && <p className="mt-2 text-[0.9375rem] text-foreground/80 text-pretty">{offre.mensuelTexte}</p>}
-          </div>
-        </div>}
+        {/* 3. Seulement ensuite, les modalités de paiement : la frise. */}
+        <p className="max-w-5xl mx-auto mt-12 md:mt-16 text-center text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Comment se passe le paiement</p>
+        <div className="max-w-5xl mx-auto mt-8 md:mt-10">
+          <Frise etapes={offre.etapes} />
+        </div>
+
+        {/* Le rendez-vous, juste après le parcours (JP, 14/10/2026) : la cliente
+            vient de voir qu'elle ne paie rien avant d'avoir validé sa sélection. */}
+        <BoutonRdv className="mt-10 md:mt-12" />
+
 
         {/* Ce que comprend le pack choisi (mêmes mots que biolystes.pro/offre/<slug>). */}
         <div className="max-w-5xl mx-auto mt-4 rounded-2xl border border-border p-[1.5rem] md:p-[2rem]">
