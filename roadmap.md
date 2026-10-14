@@ -1,4 +1,4 @@
-- [ ] Remplacer la photo Fralène par la vidéo de diagnostic dans les engagements.
-- [ ] Déplacer la photo Kaniwa immédiatement après cette vidéo.
-- [ ] Retirer les photos sevmylook-3 et pmyrris-4 de cette bande.
-- [ ] Vérifier la lecture et l’ordre des médias.
+- [x] Remplacer la photo Fralène par la vidéo de diagnostic dans les engagements.
+- [x] Déplacer la photo Kaniwa immédiatement après cette vidéo.
+- [x] Retirer les photos sevmylook-3 et pmyrris-4 de cette bande.
+- [x] Vérifier la lecture et l’ordre des médias.
