@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "@lystes/lib/lien-lystes";
+/* Le menu de Biolystes mène aux pages de biolystes.com : le lien du routeur,
+   pas celui de lien-lystes, qui enverrait « /faq » vers lystes.ai. */
+import { Link as LienSite } from "react-router-dom";
 import { ArrowRight, ArrowUpRight, ChevronDown, X, Sparkles, FlaskConical } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { supabase } from "@lystes/integrations/supabase/client";
@@ -180,7 +183,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                     IA », ni « Lab », ni « Tarifs ». La langue reste, cachée par
                     AFFICHER_LANGUE. */}
                 {MENU_BIOLYSTES.map((l) => (
-                  <Link key={l.to} to={l.to} aria-current={vraiChemin === l.to ? "page" : undefined} className={`text-sm font-medium whitespace-nowrap transition-colors px-3 xl:px-4 py-2 rounded-full ${
+                  <LienSite key={l.to} to={l.to} aria-current={vraiChemin === l.to ? "page" : undefined} className={`text-sm font-medium whitespace-nowrap transition-colors px-3 xl:px-4 py-2 rounded-full ${
                     light
                       ? "text-white/85 hover:bg-white/10 hover:text-white"
                       : vraiChemin === l.to
@@ -188,7 +191,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                         : "text-foreground/70 hover:text-foreground hover:bg-[#f3f4f5]"
                   }`}>
                     {l.libelle}
-                  </Link>
+                  </LienSite>
                 ))}
                 {AFFICHER_LANGUE && <HeaderLanguageSelector overlay={light} />}
               </nav>
@@ -307,9 +310,9 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
               Agents IA
             </Link>
             {MENU_BIOLYSTES.map((l) => (
-              <Link key={l.to} to={l.to} onClick={() => setMobileMenuOpen(false)} className="block border-b border-white/14 py-4 px-1.5 text-[16px] font-medium">
+              <LienSite key={l.to} to={l.to} onClick={() => setMobileMenuOpen(false)} className="block border-b border-white/14 py-4 px-1.5 text-[16px] font-medium">
                 {l.libelle}
-              </Link>
+              </LienSite>
             ))}
             {AFFICHER_LANGUE && (
               <div className="border-b border-white/14 py-3 px-1.5">
