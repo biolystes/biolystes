@@ -21,6 +21,10 @@ const SUR_BIOLYSTES: Record<string, string> = {
   "/legal": "/mentions-legales",
   "/privacy": "/politique-confidentialite",
   "/terms": "/cgv",
+  /* Pages du menu principal de biolystes.com (14/10/2026) : sans elles ici,
+     le menu menait à lystes.ai/faq et lystes.ai/a-propos. */
+  "/faq": "/faq",
+  "/a-propos": "/a-propos",
 };
 
 /** Adresse finale d’un lien interne de lystes.ai : chemin local sur

@@ -107,6 +107,8 @@ const colonnesBiolystes: FooterColumn[] = [
   {
     key: "footer.bio.marque", fr: "Biolystes",
     links: [
+      /* Comme « À propos » en tête de la colonne Entreprise de lystes.ai. */
+      { fr: "À propos", to: BIOLYSTES + "/a-propos", external: false },
       { fr: "Comment ça marche", to: BIOLYSTES + "/#section-comprend", external: false },
       { fr: "Nos engagements", to: BIOLYSTES + "/#section-qualite", external: false },
       { fr: "La livraison", to: BIOLYSTES + "/#section-livraison", external: false },

@@ -100,6 +100,9 @@ export function BasculeCible({ light, dans = "entete" }: { light: boolean; dans?
    téléphone. Liens absolus, servis par le cadre des pages du pied de page
    (src/pages/pied/CadrePied.tsx). /tarifs n'y figure pas, volontairement. */
 const MENU_BIOLYSTES = [
+  /* /a-propos : lystes.ai/entreprise reprise pour Biolystes (14/10/2026),
+     à la place d'« Entreprise » dans le menu de lystes.ai. */
+  { to: "/a-propos", libelle: "À propos" },
   { to: "/faq", libelle: "Questions fréquentes" },
 ];
 

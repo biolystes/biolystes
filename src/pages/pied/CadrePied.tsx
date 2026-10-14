@@ -10,7 +10,11 @@
 
    `.pied-page` porte les classes de ces pages (pied.css, tailwind.config.ts
    à côté), sur <main> seulement ; `.bio-scope` reprend les réglages de
-   l’accueil (boutons, gras). */
+   l’accueil (boutons, gras).
+
+   /a-propos (src/pages/AProposPage.tsx) ouvre sur une vidéo sombre, comme
+   lystes.ai/entreprise : l’en-tête s’y pose en version claire (`overlay`)
+   et la page commence tout en haut, sans la marge de l’en-tête. */
 import "@lystes/index.css";
 import "@lystes/i18n/config";
 import "./pied.css";
@@ -27,6 +31,7 @@ const LARGEUR_TELEPHONE = "width=device-width, initial-scale=1.0";
 
 export default function CadrePied() {
   const { pathname, hash } = useLocation();
+  const surVideo = pathname === "/a-propos";
   /* D’une page à l’autre, on repart du haut ; un lien de sommaire (#…)
      garde sa cible. */
   useEffect(() => {
@@ -54,12 +59,12 @@ export default function CadrePied() {
         <AccountProvider>
           <div className="bio-scope min-h-screen bg-background text-foreground overflow-x-hidden">
             <CommeSurAccueil>
-              <Header />
+              <Header overlay={surVideo} />
             </CommeSurAccueil>
             {/* `.pied-page` sur <main> seulement : posée plus haut, ses classes
                 (plus prioritaires) écraseraient celles de l’en-tête et du pied
                 de page (« hidden » contre « lg:flex »). */}
-            <main className="pied-page" style={{ paddingTop: 72 }}>
+            <main className="pied-page" style={{ paddingTop: surVideo ? 0 : 72 }}>
               <Outlet />
             </main>
             <Footer marque="biolystes" />

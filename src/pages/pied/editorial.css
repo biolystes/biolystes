@@ -1,0 +1,197 @@
+/* Style de la page /a-propos, recopié de lystes.ai/entreprise
+   (petal-diagnostics, src/features/marketing/editorial.css) : hero vidéo plein
+   cadre, bandeau de chiffres bleu, deux colonnes, galerie horizontale.
+   Seules les règles dont la page se sert sont reprises ; valeurs inchangées.
+
+   Hors du dossier lystes/ : sync.py le recopie depuis lystes.ai et
+   effacerait tout ajout. Dans src/pages/pied/ : postcss.config.js cantonne
+   ces feuilles à `.lystes-racine`, comme celles de lystes/ (ailleurs dans
+   src/, elles s'arrêteraient à `.lystes-racine` et ne s'appliqueraient pas).
+   Tout est confiné sous .editorial. */
+
+.editorial {
+  --ed-neon: #cdfe00;
+  --ed-blue: #0057f3;
+  --ed-lightblue: #6acde3;
+  --ed-darkblue: #09102b;
+  --ed-black: #0a0a0a;
+}
+
+.editorial .ed-wrap {
+  width: 100%;
+  max-width: 1400px;
+  margin-inline: auto;
+  padding-inline: 24px;
+}
+
+/* ── Titres ──────────────────────────────────────────────────────────── */
+.editorial .ed-serif {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 45px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-transform: none;
+  text-wrap: balance;
+}
+.editorial .ed-serif em,
+.editorial .ed-serif i {
+  font-style: italic;
+}
+.editorial .ed-neon-text { color: var(--ed-neon); }
+.editorial .ed-lead {
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.25rem);
+  line-height: 1.6;
+  margin: 1.5rem 0 0;
+  max-width: 46rem;
+  text-wrap: pretty;
+}
+
+/* ── Hero vidéo ──────────────────────────────────────────────────────── */
+.editorial .ed-hero {
+  position: relative;
+  min-height: min(88vh, 760px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #111;
+}
+.editorial .ed-hero video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.editorial .ed-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.05) 45%, rgba(0, 0, 0, 0.35) 100%);
+}
+.editorial .ed-hero-in {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  color: #fff;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.25rem;
+}
+@media (min-width: 900px) {
+  .editorial .ed-hero-in { grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+}
+
+/* ── Bandeau de chiffres ─────────────────────────────────────────────── */
+.editorial .ed-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--ed-lightblue);
+}
+@media (min-width: 900px) {
+  .editorial .ed-stats { grid-template-columns: repeat(3, 1fr); }
+}
+/* JP, 14/10/2026 (petal PR 431) : jamais de case vide. En deux colonnes, un
+   dernier chiffre seul prend toute la largeur ; en trois colonnes, il
+   s'étale sur la ligne. */
+@media (max-width: 899px) {
+  .editorial .ed-stat:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
+@media (min-width: 900px) {
+  .editorial .ed-stat:last-child:nth-child(3n + 1) { grid-column: 1 / -1; }
+  .editorial .ed-stat:last-child:nth-child(3n + 2) { grid-column: span 2; }
+}
+.editorial .ed-stat {
+  background: var(--ed-blue);
+  color: var(--ed-lightblue);
+  padding: 2.5rem 2rem;
+  min-height: 18rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+@media (min-width: 900px) {
+  .editorial .ed-stat { padding: 4rem 3.5rem; min-height: 26rem; }
+}
+.editorial .ed-stat-n {
+  font-size: clamp(2.4rem, 1.4rem + 2.6vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: #eaf6ff;
+  margin: 0;
+}
+.editorial .ed-stat-l { font-size: 0.9rem; line-height: 1.5; margin: 2rem 0 0; text-wrap: balance; }
+
+/* ── Section deux colonnes ───────────────────────────────────────────── */
+/* Paragraphe court à côté d'un titre : lignes équilibrées, jamais deux mots
+   seuls sur la dernière (à 1440 px, « chaque marque. » restait seul). */
+.editorial .ed-two .ed-lead { text-wrap: balance; }
+.editorial .ed-section { padding-block: clamp(4rem, 2rem + 6vw, 8rem); }
+.editorial .ed-two {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 900px) {
+  .editorial .ed-two { grid-template-columns: 1fr 1.35fr; gap: 3rem; }
+}
+
+/* ── Galerie horizontale ─────────────────────────────────────────────── */
+.editorial .ed-gallery-sticky { position: relative; }
+.editorial .ed-gallery-pin {
+  display: flex;
+  align-items: center;
+  overflow-x: auto;
+  padding-block: clamp(2rem, 1rem + 3vw, 4rem);
+  scrollbar-width: none;
+}
+.editorial .ed-gallery-pin::-webkit-scrollbar { display: none; }
+.editorial .ed-gallery-track {
+  display: flex;
+  gap: 1.5rem;
+  padding-inline: 24px;
+}
+.editorial .ed-gallery-track img {
+  height: 62vh;
+  width: auto;
+  max-width: none;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+@media (max-width: 899px) {
+  .editorial .ed-gallery-pin { padding-block: 2rem; }
+  .editorial .ed-gallery-track img { height: 46vh; }
+}
+
+/* ── Boutons ─────────────────────────────────────────────────────────── */
+.editorial .ed-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding: 0.85rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.2s, color 0.2s;
+}
+.editorial .ed-btn:hover { background: var(--ed-black); color: #fff; }
+
+/* Les deux boutons du bas : la marge est portée par la rangée, pas par
+   chaque bouton. Sur lystes.ai, la marge propre à chaque bouton creusait un
+   grand vide entre eux une fois passés l'un sous l'autre au téléphone. */
+.editorial .ed-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.editorial .ed-actions .ed-btn { margin-top: 0; }

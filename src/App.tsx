@@ -61,6 +61,8 @@ const PolitiqueConfidentialitePage = lazy(() => import("./pages/PolitiqueConfide
 const CGVPage = lazy(() => import("./pages/CGVPage"));
 /* /faq : les questions fréquentes, à plat (14/10/2026). */
 const FaqPage = lazy(() => import("./pages/FaqPage"));
+/* /a-propos : la page Entreprise de lystes.ai reprise pour Biolystes (14/10/2026). */
+const AProposPage = lazy(() => import("./pages/AProposPage"));
 
 const queryClient = new QueryClient();
 
@@ -99,6 +101,7 @@ function AppRoutes() {
         <Route path="/politique-confidentialite" element={<Suspense fallback={null}><PolitiqueConfidentialitePage /></Suspense>} />
         <Route path="/cgv" element={<Suspense fallback={null}><CGVPage /></Suspense>} />
         <Route path="/faq" element={<Suspense fallback={null}><FaqPage /></Suspense>} />
+        <Route path="/a-propos" element={<Suspense fallback={null}><AProposPage /></Suspense>} />
       </Route>
       {/* Actus (12/10/2026) : cadre de l’accueil, articles dans src/actus/articles.ts. */}
       <Route path="/blog" element={<Suspense fallback={null}><ActusPage /></Suspense>} />
