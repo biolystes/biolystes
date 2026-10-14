@@ -545,18 +545,8 @@ function ProductSkeleton() {
 export default function CatalogPage() {
   const isMobile = useIsMobile();
 
-  // Set dynamic viewport for mobile
-  useEffect(() => {
-    const viewport = document.querySelector('meta[name="viewport"]');
-    if (viewport) {
-      viewport.setAttribute("content", "width=device-width, initial-scale=1");
-    }
-    return () => {
-      if (viewport) {
-        viewport.setAttribute("content", "width=1200");
-      }
-    };
-  }, []);
+  // Largeur du téléphone : posée dès l’écran du mot de passe par
+  // src/components/CatalogPasswordGate.tsx (et index.html au chargement).
 
   const [allProducts, setAllProducts] = useState<WCProduct[]>([]);
   const [allCategories, setAllCategories] = useState<WCCategory[]>([]);
