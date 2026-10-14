@@ -232,6 +232,34 @@ function ProductImageCycler() {
     </div>
   );
 }
+type SlideVideo = { src: string; fallback: string; poster: string; title: string };
+
+function VideoCycler({ videos }: { videos: SlideVideo[] }) {
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    const timer = setInterval(() => setIdx((p) => (p + 1) % videos.length), 5000);
+    return () => clearInterval(timer);
+  }, [videos.length]);
+  return (
+    <div className="mx-auto mt-4 w-[220px] md:mt-0 md:absolute md:-right-16 md:bottom-20 bg-secondary rounded-xl p-3 shadow-lg">
+      <div className="overflow-hidden rounded-lg">
+        <motion.div className="flex" animate={{ x: `-${idx * 100}%` }} transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}>
+          {videos.map((video) => (
+            <video key={video.src} poster={video.poster} aria-label={video.title} autoPlay muted loop playsInline preload="metadata" className="w-full flex-shrink-0 object-cover aspect-[3/4]">
+              <source src={video.src} type="video/mp4" />
+              <source src={video.fallback} type="video/webm" />
+            </video>
+          ))}
+        </motion.div>
+      </div>
+      <div className="flex justify-center gap-1.5 mt-2">
+        {videos.map((video, i) => (
+          <button key={video.src} aria-label={`Vidéo ${i + 1}`} onClick={() => setIdx(i)} className={`w-1.5 h-1.5 rounded-full transition-all ${i === idx ? "bg-foreground w-4" : "bg-muted-foreground/30"}`} />
+        ))}
+      </div>
+    </div>
+  );
+}
 
 
   const fadeUp = {
@@ -371,16 +399,7 @@ function SalonSlides() {
                     <ProductImageCycler />
                   </>
                 ) : (
-                  <div className="flex justify-center gap-3 mt-4 md:mt-0">
-                    {slide.videos.map((video, videoIndex) => (
-                      <div key={video.src} aria-label={video.title} className={`w-[28%] md:w-[155px] shadow-lg rounded-xl overflow-hidden p-2 bg-primary md:absolute ${videoIndex === 0 ? "md:-left-12 md:bottom-16 md:rotate-[-3deg]" : videoIndex === 1 ? "md:-right-12 md:top-6 md:rotate-[3deg]" : "md:-right-8 md:bottom-4 md:rotate-[-3deg]"}`}>
-                        <video poster={video.poster} aria-label={video.title} autoPlay muted loop playsInline preload="metadata" className="w-full rounded-lg object-cover aspect-[3/4]">
-                          <source src={video.src} type="video/mp4" />
-                          <source src={video.fallback} type="video/webm" />
-                        </video>
-                      </div>
-                    ))}
-                  </div>
+                  <VideoCycler videos={slide.videos} />
                 )}
               </div>
             </div>
