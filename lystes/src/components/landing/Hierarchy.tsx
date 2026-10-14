@@ -32,19 +32,6 @@ export function Hierarchy({ className }: { className?: string }) {
       `}</style>
       <div className="max-w-[1280px] mx-auto px-5 md:px-[clamp(20px,5vw,80px)]">
         <div className="text-center max-w-5xl mx-auto px-3 sm:px-6 pt-24 md:pt-40 pb-4 md:pb-6" style={{ paddingBottom: 0 }}>
-          <video
-            className="cost-loop"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            aria-hidden="true"
-            style={{ margin: "0 auto", position: "relative", width: 100, height: "100%", objectFit: "contain", background: "transparent" }}
-          >
-            <source src="https://lystes.ai/__l5e/assets-v1/8d11cd50-0ca9-455b-819a-60177d01ff1e/cost-loop-optimized.webm" type="video/webm" />
-            <source src="https://lystes.ai/__l5e/assets-v1/9ef01efe-a334-4b75-8b29-c32ed4ca1e3f/cost-loop-optimized.mp4" type="video/mp4" />
-          </video>
           <p className="text-[10px] font-bold tracking-[2.5px] text-neutral-500 mb-5">
             {t("UNE ÉQUIPE POUR CHAQUE PRODUIT")}
           </p>

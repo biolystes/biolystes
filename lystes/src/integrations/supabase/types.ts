@@ -6631,6 +6631,7 @@ export type Database = {
       }
       catalogue_labo: {
         Row: {
+          a_revoir: boolean | null
           accroche: string | null
           actif: boolean
           atouts: string | null
@@ -6638,22 +6639,40 @@ export type Database = {
           categorie: string | null
           certification: string | null
           code: string
+          code_interne: string | null
           contenance: number | null
           description: string | null
           etiquettes: string[] | null
+          image_essais: number
+          image_maj_le: string | null
+          image_propre: string | null
+          image_verdict: string | null
           inci: string | null
           inci_legende: string | null
           maj_le: string
           mode_emploi: string | null
+          mots_anglais: Json | null
           naturel_pct: number | null
+          nouveau_labo: boolean
+          nouveau_le: string
           parfum: string | null
+          pays_exclus: string[]
+          photos_origine: string[]
+          proposable: boolean
           retire_le: string | null
+          statut_image: string
+          statut_texte: string
+          textes_en: Json | null
+          textes_fr: Json | null
+          textes_source_empreinte: string | null
           titre: string
           titre_en: string | null
+          type_labo: string | null
           unite: string | null
           vu_le: string
         }
         Insert: {
+          a_revoir?: boolean | null
           accroche?: string | null
           actif?: boolean
           atouts?: string | null
@@ -6661,22 +6680,40 @@ export type Database = {
           categorie?: string | null
           certification?: string | null
           code: string
+          code_interne?: string | null
           contenance?: number | null
           description?: string | null
           etiquettes?: string[] | null
+          image_essais?: number
+          image_maj_le?: string | null
+          image_propre?: string | null
+          image_verdict?: string | null
           inci?: string | null
           inci_legende?: string | null
           maj_le?: string
           mode_emploi?: string | null
+          mots_anglais?: Json | null
           naturel_pct?: number | null
+          nouveau_labo?: boolean
+          nouveau_le?: string
           parfum?: string | null
+          pays_exclus?: string[]
+          photos_origine?: string[]
+          proposable?: boolean
           retire_le?: string | null
+          statut_image?: string
+          statut_texte?: string
+          textes_en?: Json | null
+          textes_fr?: Json | null
+          textes_source_empreinte?: string | null
           titre: string
           titre_en?: string | null
+          type_labo?: string | null
           unite?: string | null
           vu_le?: string
         }
         Update: {
+          a_revoir?: boolean | null
           accroche?: string | null
           actif?: boolean
           atouts?: string | null
@@ -6684,20 +6721,148 @@ export type Database = {
           categorie?: string | null
           certification?: string | null
           code?: string
+          code_interne?: string | null
           contenance?: number | null
           description?: string | null
           etiquettes?: string[] | null
+          image_essais?: number
+          image_maj_le?: string | null
+          image_propre?: string | null
+          image_verdict?: string | null
           inci?: string | null
           inci_legende?: string | null
           maj_le?: string
           mode_emploi?: string | null
+          mots_anglais?: Json | null
           naturel_pct?: number | null
+          nouveau_labo?: boolean
+          nouveau_le?: string
           parfum?: string | null
+          pays_exclus?: string[]
+          photos_origine?: string[]
+          proposable?: boolean
           retire_le?: string | null
+          statut_image?: string
+          statut_texte?: string
+          textes_en?: Json | null
+          textes_fr?: Json | null
+          textes_source_empreinte?: string | null
           titre?: string
           titre_en?: string | null
+          type_labo?: string | null
           unite?: string | null
           vu_le?: string
+        }
+        Relationships: []
+      }
+      catalogue_labo_passages: {
+        Row: {
+          attendus: number
+          date: string
+          debut_le: string | null
+          duree_ms: number | null
+          erreurs: Json
+          fin_le: string | null
+          hors_plan: string[]
+          id: number
+          manquants: string[]
+          moissonnes: number
+          nouveaux: string[]
+          reprises: string[]
+          retires: string[]
+          retrait_suspendu: boolean
+        }
+        Insert: {
+          attendus: number
+          date?: string
+          debut_le?: string | null
+          duree_ms?: number | null
+          erreurs?: Json
+          fin_le?: string | null
+          hors_plan?: string[]
+          id?: number
+          manquants?: string[]
+          moissonnes: number
+          nouveaux?: string[]
+          reprises?: string[]
+          retires?: string[]
+          retrait_suspendu?: boolean
+        }
+        Update: {
+          attendus?: number
+          date?: string
+          debut_le?: string | null
+          duree_ms?: number | null
+          erreurs?: Json
+          fin_le?: string | null
+          hors_plan?: string[]
+          id?: number
+          manquants?: string[]
+          moissonnes?: number
+          nouveaux?: string[]
+          reprises?: string[]
+          retires?: string[]
+          retrait_suspendu?: boolean
+        }
+        Relationships: []
+      }
+      catalogue_labo_prix: {
+        Row: {
+          code: string
+          maj_le: string
+          prix_public_ttc: number
+        }
+        Insert: {
+          code: string
+          maj_le?: string
+          prix_public_ttc: number
+        }
+        Update: {
+          code?: string
+          maj_le?: string
+          prix_public_ttc?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "catalogue_labo_prix_code_fkey"
+            columns: ["code"]
+            isOneToOne: true
+            referencedRelation: "catalogue_labo"
+            referencedColumns: ["code"]
+          },
+          {
+            foreignKeyName: "catalogue_labo_prix_code_fkey"
+            columns: ["code"]
+            isOneToOne: true
+            referencedRelation: "catalogue_labo_a_revoir"
+            referencedColumns: ["code"]
+          },
+        ]
+      }
+      catalogue_labo_traductions: {
+        Row: {
+          champ: string
+          cree_le: string
+          empreinte: string
+          modele: string | null
+          source: string
+          traduction: string
+        }
+        Insert: {
+          champ: string
+          cree_le?: string
+          empreinte: string
+          modele?: string | null
+          source: string
+          traduction: string
+        }
+        Update: {
+          champ?: string
+          cree_le?: string
+          empreinte?: string
+          modele?: string | null
+          source?: string
+          traduction?: string
         }
         Relationships: []
       }
@@ -8500,10 +8665,14 @@ export type Database = {
       ccx_client_lab_orders: {
         Row: {
           account_id: string | null
+          adresse: Json | null
           created_at: string
+          expediee_le: string | null
           id: string
           items: Json
+          livree_le: string | null
           notes: string | null
+          numero_suivi: string | null
           order_number: string
           paid_at: string | null
           status: string
@@ -8511,16 +8680,22 @@ export type Database = {
           stripe_session_id: string | null
           total_ht: number
           total_ttc: number
+          transporteur: string | null
           tva_rate: number
+          type: string | null
           updated_at: string
           user_id: string
         }
         Insert: {
           account_id?: string | null
+          adresse?: Json | null
           created_at?: string
+          expediee_le?: string | null
           id?: string
           items?: Json
+          livree_le?: string | null
           notes?: string | null
+          numero_suivi?: string | null
           order_number: string
           paid_at?: string | null
           status: string
@@ -8528,16 +8703,22 @@ export type Database = {
           stripe_session_id?: string | null
           total_ht?: number
           total_ttc?: number
+          transporteur?: string | null
           tva_rate?: number
+          type?: string | null
           updated_at?: string
           user_id: string
         }
         Update: {
           account_id?: string | null
+          adresse?: Json | null
           created_at?: string
+          expediee_le?: string | null
           id?: string
           items?: Json
+          livree_le?: string | null
           notes?: string | null
+          numero_suivi?: string | null
           order_number?: string
           paid_at?: string | null
           status?: string
@@ -8545,7 +8726,9 @@ export type Database = {
           stripe_session_id?: string | null
           total_ht?: number
           total_ttc?: number
+          transporteur?: string | null
           tva_rate?: number
+          type?: string | null
           updated_at?: string
           user_id?: string
         }
@@ -17312,6 +17495,299 @@ export type Database = {
           profil_id?: string
           recrute_le?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      espace_briefs: {
+        Row: {
+          account_id: string
+          booking_id: string | null
+          cliente_id: string
+          cree_le: string
+          id: string
+          origine: Json
+          reponses: Json
+          version: number
+        }
+        Insert: {
+          account_id: string
+          booking_id?: string | null
+          cliente_id: string
+          cree_le?: string
+          id?: string
+          origine?: Json
+          reponses: Json
+          version?: number
+        }
+        Update: {
+          account_id?: string
+          booking_id?: string | null
+          cliente_id?: string
+          cree_le?: string
+          id?: string
+          origine?: Json
+          reponses?: Json
+          version?: number
+        }
+        Relationships: []
+      }
+      espace_clientes: {
+        Row: {
+          account_id: string
+          cliente_id: string
+          cree_le: string
+          email: string
+          formule: number | null
+          lead_id: string | null
+          maj_le: string
+          marque: string | null
+          prenom: string | null
+        }
+        Insert: {
+          account_id: string
+          cliente_id: string
+          cree_le?: string
+          email: string
+          formule?: number | null
+          lead_id?: string | null
+          maj_le?: string
+          marque?: string | null
+          prenom?: string | null
+        }
+        Update: {
+          account_id?: string
+          cliente_id?: string
+          cree_le?: string
+          email?: string
+          formule?: number | null
+          lead_id?: string | null
+          maj_le?: string
+          marque?: string | null
+          prenom?: string | null
+        }
+        Relationships: []
+      }
+      espace_conversations: {
+        Row: {
+          account_id: string
+          cliente_id: string | null
+          cree_le: string
+          id: string
+          maj_le: string
+          resume: string | null
+          resume_brief: Json
+          selection_proposee: string[]
+          titre: string | null
+          visiteur_id: string | null
+        }
+        Insert: {
+          account_id: string
+          cliente_id?: string | null
+          cree_le?: string
+          id?: string
+          maj_le?: string
+          resume?: string | null
+          resume_brief?: Json
+          selection_proposee?: string[]
+          titre?: string | null
+          visiteur_id?: string | null
+        }
+        Update: {
+          account_id?: string
+          cliente_id?: string | null
+          cree_le?: string
+          id?: string
+          maj_le?: string
+          resume?: string | null
+          resume_brief?: Json
+          selection_proposee?: string[]
+          titre?: string | null
+          visiteur_id?: string | null
+        }
+        Relationships: []
+      }
+      espace_demandes: {
+        Row: {
+          account_id: string
+          cliente_id: string | null
+          conversation_id: string | null
+          cree_le: string
+          id: string
+          jeton_empreinte: string | null
+          jeton_expire_le: string | null
+          jeton_utilise_le: string | null
+          langue: string | null
+          page: string | null
+          texte: string
+          visiteur_id: string
+        }
+        Insert: {
+          account_id: string
+          cliente_id?: string | null
+          conversation_id?: string | null
+          cree_le?: string
+          id?: string
+          jeton_empreinte?: string | null
+          jeton_expire_le?: string | null
+          jeton_utilise_le?: string | null
+          langue?: string | null
+          page?: string | null
+          texte: string
+          visiteur_id: string
+        }
+        Update: {
+          account_id?: string
+          cliente_id?: string | null
+          conversation_id?: string | null
+          cree_le?: string
+          id?: string
+          jeton_empreinte?: string | null
+          jeton_expire_le?: string | null
+          jeton_utilise_le?: string | null
+          langue?: string | null
+          page?: string | null
+          texte?: string
+          visiteur_id?: string
+        }
+        Relationships: []
+      }
+      espace_evenements: {
+        Row: {
+          account_id: string
+          cliente_id: string | null
+          cree_le: string
+          donnees: Json
+          id: string
+          lead_id: string | null
+          type: string
+          visiteur_id: string | null
+        }
+        Insert: {
+          account_id: string
+          cliente_id?: string | null
+          cree_le?: string
+          donnees?: Json
+          id?: string
+          lead_id?: string | null
+          type: string
+          visiteur_id?: string | null
+        }
+        Update: {
+          account_id?: string
+          cliente_id?: string | null
+          cree_le?: string
+          donnees?: Json
+          id?: string
+          lead_id?: string | null
+          type?: string
+          visiteur_id?: string | null
+        }
+        Relationships: []
+      }
+      espace_fichiers: {
+        Row: {
+          account_id: string
+          chemin: string
+          cliente_id: string
+          cree_le: string
+          depose_par: string | null
+          dossier: string
+          id: string
+          nom: string
+          taille: number | null
+        }
+        Insert: {
+          account_id: string
+          chemin: string
+          cliente_id: string
+          cree_le?: string
+          depose_par?: string | null
+          dossier: string
+          id?: string
+          nom: string
+          taille?: number | null
+        }
+        Update: {
+          account_id?: string
+          chemin?: string
+          cliente_id?: string
+          cree_le?: string
+          depose_par?: string | null
+          dossier?: string
+          id?: string
+          nom?: string
+          taille?: number | null
+        }
+        Relationships: []
+      }
+      espace_messages: {
+        Row: {
+          cartes: Json
+          contenu: string
+          conversation_id: string
+          cree_le: string
+          id: string
+          jetons_cache: number | null
+          jetons_entree: number | null
+          jetons_sortie: number | null
+          modele: string | null
+          role: string
+        }
+        Insert: {
+          cartes?: Json
+          contenu: string
+          conversation_id: string
+          cree_le?: string
+          id?: string
+          jetons_cache?: number | null
+          jetons_entree?: number | null
+          jetons_sortie?: number | null
+          modele?: string | null
+          role: string
+        }
+        Update: {
+          cartes?: Json
+          contenu?: string
+          conversation_id?: string
+          cree_le?: string
+          id?: string
+          jetons_cache?: number | null
+          jetons_entree?: number | null
+          jetons_sortie?: number | null
+          modele?: string | null
+          role?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "espace_messages_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "espace_conversations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      espace_relances: {
+        Row: {
+          account_id: string
+          actif: boolean
+          modifie_le: string | null
+          modifie_par: string | null
+          type: string
+        }
+        Insert: {
+          account_id: string
+          actif?: boolean
+          modifie_le?: string | null
+          modifie_par?: string | null
+          type: string
+        }
+        Update: {
+          account_id?: string
+          actif?: boolean
+          modifie_le?: string | null
+          modifie_par?: string | null
+          type?: string
         }
         Relationships: []
       }
@@ -33927,6 +34403,45 @@ export type Database = {
           },
         ]
       }
+      catalogue_labo_a_revoir: {
+        Row: {
+          categorie: string | null
+          code: string | null
+          code_interne: string | null
+          image_verdict: string | null
+          maj_le: string | null
+          motif: string | null
+          mots_anglais: Json | null
+          statut_image: string | null
+          statut_texte: string | null
+          titre: string | null
+        }
+        Insert: {
+          categorie?: string | null
+          code?: string | null
+          code_interne?: string | null
+          image_verdict?: string | null
+          maj_le?: string | null
+          motif?: never
+          mots_anglais?: Json | null
+          statut_image?: string | null
+          statut_texte?: string | null
+          titre?: string | null
+        }
+        Update: {
+          categorie?: string | null
+          code?: string | null
+          code_interne?: string | null
+          image_verdict?: string | null
+          maj_le?: string | null
+          motif?: never
+          mots_anglais?: Json | null
+          statut_image?: string | null
+          statut_texte?: string | null
+          titre?: string | null
+        }
+        Relationships: []
+      }
       catalogue_unifie: {
         Row: {
           account_id: string | null
@@ -34151,6 +34666,30 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      espace_parcours: {
+        Row: {
+          account_id: string | null
+          brief_le: string | null
+          cliente_id: string | null
+          email: string | null
+          etape: string | null
+          etape_le: string | null
+          expediee_le: string | null
+          formule: number | null
+          inscrite_le: string | null
+          lead_id: string | null
+          livree_le: string | null
+          marque: string | null
+          paye_cents: number | null
+          paye_le: string | null
+          prenom: string | null
+          rdv_honore_le: string | null
+          rdv_pris_le: string | null
+          selection_le: string | null
+          signee_le: string | null
+        }
+        Relationships: []
       }
       journalistes_boutiques_eligibles: {
         Row: {
@@ -35106,6 +35645,12 @@ export type Database = {
         Args: { payload: Json; queue_name: string }
         Returns: number
       }
+      espace_est_admin: { Args: { p_compte: string }; Returns: boolean }
+      espace_est_cliente: { Args: { p_compte: string }; Returns: boolean }
+      espace_est_equipe: { Args: { p_compte: string }; Returns: boolean }
+      espace_fichier_compte: { Args: { p_nom: string }; Returns: string }
+      espace_fichier_deposable: { Args: { p_nom: string }; Returns: boolean }
+      espace_fichier_lisible: { Args: { p_nom: string }; Returns: boolean }
       essai_conseiller_etat: {
         Args: { _account_id: string }
         Returns: {

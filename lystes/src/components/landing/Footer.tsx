@@ -107,11 +107,11 @@ const colonnesBiolystes: FooterColumn[] = [
   {
     key: "footer.bio.marque", fr: "Biolystes",
     links: [
-      { fr: "Comment ça marche", to: "#section-comprend" },
-      { fr: "Nos engagements", to: "#section-qualite" },
-      { fr: "La livraison", to: "#section-livraison" },
-      { fr: "Le catalogue", to: "#section-catalogue" },
-      { fr: "Questions fréquentes", to: "#section-faq" },
+      { fr: "Comment ça marche", to: BIOLYSTES + "/#section-comprend", external: false },
+      { fr: "Nos engagements", to: BIOLYSTES + "/#section-qualite", external: false },
+      { fr: "La livraison", to: BIOLYSTES + "/#section-livraison", external: false },
+      { fr: "Le catalogue", to: BIOLYSTES + "/#section-catalogue", external: false },
+      { fr: "Questions fréquentes", to: BIOLYSTES + "/#section-faq", external: false },
     ],
   },
   {
@@ -242,12 +242,13 @@ export function Footer({ marque = "lystes" }: { marque?: "lystes" | "biolystes" 
                   </h3>
                   <ul className="space-y-2.5">
                     {col.links.map((link) => {
-                      const cl = "block text-sm leading-snug text-muted-foreground hover:text-foreground transition-colors break-words hyphens-auto";
+                      /* Biolystes : pas de coupure de mot (« Descha-nel »), JP 14/10/2026. */
+                      const cl = "block text-sm leading-snug text-muted-foreground hover:text-foreground transition-colors " + (bio ? "" : "break-words hyphens-auto");
                       const libelle = link.key ? t(link.key, link.fr) : link.fr;
                       return (
                         <li key={(link.to ?? "") + link.fr}>
                           {!link.to ? <span className={cl}>{libelle}</span>
-                            : bio && (link.external || link.to.startsWith("#") || link.to.startsWith("mailto:"))
+                            : bio && (link.external || link.to.startsWith("#") || link.to.startsWith("http") || link.to.startsWith("mailto:"))
                             ? <a href={link.to} className={cl} {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}>{libelle}</a>
                             : <Link to={link.to} className={cl}>{libelle}</Link>}
                         </li>
