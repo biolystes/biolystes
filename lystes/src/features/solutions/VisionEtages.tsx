@@ -217,8 +217,6 @@ type Onglet = {
   benefices: readonly (readonly [LucideIcon, string])[];
   probleme: readonly [string, string, string];
   reponse: string;
-  /* Le chapeau sur téléphone, quand il doit être plus court. */
-  reponseCourte?: string;
   /* La liste sous le chapeau, quand il finit par « qui : ». */
   points?: readonly string[];
   /* /bio : une icône par point ; les points passent en carrousel d'une ligne. */
@@ -293,7 +291,6 @@ const ONGLETS_BIO_VUE: Onglet[] = ONGLETS_BIO.map((o) => ({
   ...o,
   probleme: ENTETE_BIO.probleme,
   reponse: ENTETE_BIO.texte,
-  reponseCourte: ENTETE_BIO.texteCourt,
   points: ENTETE_BIO.points,
   icones: ENTETE_BIO.icones,
   chapeau: "",
@@ -2104,9 +2101,7 @@ export default function VisionEtages({ secteur = "ecommerce", tete, scene, texte
           <h2 className="lyv-titre" aria-live="polite">
             {courant.probleme[0]}<span className="lyv-elu">{courant.probleme[1]}</span>{courant.probleme[2]}
           </h2>
-          <p className="lyv-chapeau">{courant.reponseCourte
-            ? <><span className="lyv-chapeau-long">{courant.reponse}</span><span className="lyv-chapeau-court">{courant.reponseCourte}</span></>
-            : courant.reponse}</p>
+          <p className="lyv-chapeau">{courant.reponse}</p>
           {courant.points && courant.icones ? (
             <PointsCarrousel points={courant.points} icones={courant.icones} />
           ) : courant.points && (
@@ -2628,8 +2623,6 @@ const CSS = `
    Le cadre garde de chaque côté la place des flèches, le texte reste au
    milieu de la page. */
 .lyv-pc{ display:flex; justify-content:center; margin:14px auto 0; max-width:780px; touch-action:pan-y; }
-.lyv-chapeau-court{ display:none; }
-@media (max-width:720px){ .lyv-chapeau-long{ display:none; } .lyv-chapeau-court{ display:inline; } }
 .lyv-pc-cadre{ position:relative; width:440px; max-width:calc(100% - 112px); }
 .lyv-pc-scene{ overflow:hidden; }
 .lyv-pc-piste{ display:flex; transition:transform .35s cubic-bezier(.22,1,.36,1); }

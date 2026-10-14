@@ -93,18 +93,15 @@ export type OngletBio = {
    par JP le 13/10. Les « sans » et les certifications des points sont ceux
    que /bio affiche déjà (section « Nos engagements »). */
 /* En-tête de /bio (JP, 14/10/2026, deuxième version) : le chapeau de JP,
-   plus court ; sur téléphone, le même en moins de mots. Le titre porte la
-   promesse (sans stock, 10 jours), le chapeau le problème. */
+   un seul texte partout ; « Biolystes » collé au mot d'avant, pour que la
+   dernière phrase ne commence jamais une ligne. Le titre
+   porte la promesse (sans stock, 10 jours), le chapeau le problème. */
 export const ENTETE_BIO = {
   probleme: ["Votre gamme cosmétique, ", "sans stock", " et\u00a0en\u00a010\u00a0jours."] as const,
   texte:
     "Pour obtenir une formulation d’excellence, les laboratoires imposent des stocks massifs et des délais de 7 à 9\u00a0mois. " +
-    "Conséquence\u00a0: votre capital reste immobilisé dans le stock au détriment du marketing, et vous perdez une année dans la construction de votre crédibilité. " +
+    "Conséquence\u00a0: votre capital reste immobilisé dans le stock au détriment du marketing, et vous perdez une année dans la construction de votre crédibilité.\u00a0" +
     "Biolystes supprime ces\u00a0contraintes.",
-  texteCourt:
-    "Les laboratoires imposent des stocks massifs et 7 à 9\u00a0mois de délai. " +
-    "Votre capital dort au lieu de vous faire connaître, et vous perdez une année de crédibilité. " +
-    "Biolystes\u00a0supprime\u00a0ces\u00a0contraintes.",
   /* Une ligne chacun à 375 px, une icône au trait devant ; la réponse au
      titre en premier. */
   icones: [PackageX, FlaskConical, ShieldCheck] as LucideIcon[],
