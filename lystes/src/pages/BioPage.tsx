@@ -584,8 +584,9 @@ export default function DecouvertePage() {
             <motion.p variants={fadeUp} custom={0} className="text-[10px] font-bold tracking-[0.35em] uppercase text-muted-foreground">
               Formulation propre
             </motion.p>
-            <motion.h3 variants={fadeUp} custom={1} className="mt-4 text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed">
-              Pourquoi c’est sans risque pour votre <span className="text-muted-foreground">santé</span>
+            {/* Titre et largeur de JP (14/10/2026). */}
+            <motion.h3 variants={fadeUp} custom={1} className="mt-4 text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed" style={{ maxWidth: 537 }}>
+              Pourquoi c’est sans risque pour la&nbsp;<span className="text-muted-foreground">santé de vos&nbsp;clients</span>
             </motion.h3>
             <motion.p variants={fadeUp} custom={2} className="mt-4 max-w-md mx-auto text-sm text-muted-foreground leading-relaxed">
               Une liste rigoureuse d’ingrédients que nous n’utilisons jamais, pour préserver les peaux les plus fragiles.
@@ -603,7 +604,9 @@ export default function DecouvertePage() {
                   <X className="h-3 w-3 text-background" strokeWidth={3} />
                 </div>
                 <p className="mt-3 text-[9px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Sans</p>
-                <p className="mt-1 text-[10px] font-semibold tracking-[0.06em] uppercase text-foreground leading-snug">{item}</p>
+                {/* 6 px et coupure « pretty » (JP, 14/10/2026) : « Microplastiques »
+                    et « Colorants artificiels » débordaient de leur carte. */}
+                <p className="mt-1 text-[6px] font-semibold tracking-[0.06em] uppercase text-foreground leading-snug" style={{ textWrap: "pretty" }}>{item}</p>
               </motion.div>
             ))}
           </div>
