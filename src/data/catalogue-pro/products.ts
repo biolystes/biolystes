@@ -67,6 +67,21 @@ export function margePourcent(prixAchatHT: number | null | undefined, prixVenteT
 export function estCommandable(p: Pick<Product, "status" | "prix_ht">): boolean {
   return p.status !== "retired" && p.prix_ht != null;
 }
+
+/**
+ * Le seul nombre de produits affiché au catalogue : en-tête, pastille de chaque
+ * catégorie et compteur de liste comptent les produits commandables, compléments
+ * alimentaires compris. Les produits retirés restent visibles mais ne comptent nulle part.
+ */
+export function compterCommandables(liste: readonly Pick<Product, "status" | "prix_ht">[]): number {
+  return liste.filter((p) => estCommandable(p)).length;
+}
+
+/** Ordre d'affichage du catalogue : nouveautés en tête, produits retirés en fin de liste. */
+export function ordreCatalogue<T extends Pick<Product, "date_arrivee" | "status">>(liste: readonly T[], aujourdhui: Date = new Date()): T[] {
+  const ordre = nouveautesDabord(liste, aujourdhui);
+  return [...ordre.filter((p) => p.status !== "retired"), ...ordre.filter((p) => p.status === "retired")];
+}
 export const CATEGORIES = [
   { id: "all", label: "Tous les produits" },
   { id: "soins-du-visage", label: "Soins Visage" },
@@ -6838,8 +6853,8 @@ export const PRODUCTS: Product[] = [
   }
 ];
 
-/** Produits que les clientes voient au catalogue (affiché dans les textes d'accueil). */
+/** Produits commandables, compléments alimentaires compris : le nombre affiché partout (en-tête du catalogue, textes d'accueil). */
 export const NOMBRE_PRODUITS_COMMANDABLES = PRODUCTS.filter((p) => estCommandable(p)).length;
 
-/** Fiches cosmétiques en ligne (coffrets compris, compléments alimentaires et produits retirés exclus) : le compteur du catalogue. */
+/** Fiches cosmétiques en ligne (coffrets compris, compléments alimentaires et produits retirés exclus) : rapprochement avec la moisson du fournisseur, jamais affiché. */
 export const NOMBRE_PRODUITS_CATALOGUE = PRODUCTS.filter((p) => p.categorie !== "supplements" && p.status !== "retired").length;
