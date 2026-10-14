@@ -187,14 +187,12 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                   </a>
                   {/* biolystes.com : un seul appel à l'action, le rendez-vous. */}
                   <a
-                    href="https://lystes.ai/biolystes/inscription"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href="/catalogue"
                     className={`group inline-flex items-center gap-2 pl-5 pr-1.5 py-1.5 rounded-full text-sm font-medium transition ${
                       light ? "bg-white/20 backdrop-blur-md text-white hover:bg-white/30" : "bg-black text-white hover:opacity-90"
                     }`}
                   >
-                    <span className="whitespace-nowrap">S'inscrire</span>
+                    <span className="whitespace-nowrap">Découvrez notre catalogue</span>
                     <span
                       className={`flex items-center justify-center w-8 h-8 rounded-full transition-transform group-hover:rotate-45 ${
                         light ? "bg-white text-black" : "bg-white text-black"
@@ -229,14 +227,12 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                 Rendez-vous
               </a>
               <a
-                href="https://lystes.ai/biolystes/inscription"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="/catalogue"
                 className={`inline-flex items-center rounded-full px-3.5 py-2 text-[12.5px] font-medium ${
                   light ? "bg-white text-black" : "bg-black text-white"
                 }`}
               >
-                S'inscrire
+                Catalogue
               </a>
               </>
             )}
@@ -305,13 +301,11 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                 </Link>
               ) : (
                 <a
-                  href="https://lystes.ai/biolystes/inscription"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="/catalogue"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center justify-center gap-2 h-[46px] rounded-full bg-white text-black text-sm font-medium"
                 >
-                  S'inscrire
+                  Découvrez notre catalogue
                   <ArrowRight className="w-4 h-4" />
                 </a>
               )}

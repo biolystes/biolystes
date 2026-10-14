@@ -62,7 +62,7 @@ const REGLAGES: Record<Secteur, Reglage> = {
     /* 14/10/2026 (JP) : « En savoir plus » devient « S'inscrire », vers
        l'inscription de l'espace client (adresse entière : la page est aussi
        servie par biolystes.com). */
-    lienCartes: { libelle: "S’inscrire", href: "https://lystes.ai/biolystes/inscription" },
+    lienCartes: { libelle: "Découvrez notre catalogue", href: "/catalogue" },
     /* 14/10/2026 (JP, « uniformise tout ») : mêmes titres que le reste de /bio. */
     enteteCommun: true,
   },
