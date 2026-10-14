@@ -609,7 +609,8 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
   .lyh.lyh--bio .lyh-titre{ display:inline; text-wrap:wrap; }
   .lyh.lyh--bio .lyh-br{ display:inline; }
   .lyh.lyh--bio .lyh-titre > span, .lyh.lyh--bio .lyh-it{ white-space:nowrap; }
-  .lyh.lyh--bio .lyh-lien-shopify{ font-size:clamp(12px, 3.35vw, 14px); gap:7px; }
+  /* 14/10/2026 (JP) : le carrousel du hero en 10 px sur téléphone. */
+  .lyh.lyh--bio .lyh-lien-shopify{ font-size:10px; gap:7px; }
   .lyh.lyh--bio .lyh-btn-logo{ width:14px; height:14px; }
   .lyh.lyh--bio .lyh-offre{ font-size:clamp(11px, 2.95vw, 12.5px); line-height:1.5; }
   .lyh.lyh--bio .lyh-offre-br{ display:inline; }
@@ -870,9 +871,11 @@ const CSS = `
    actus ») ; le texte de la bannière garde toute la hauteur du fil plus un
    écart au-dessus, et une bulle qui sort par le haut s'efface avant
    d'approcher le texte. */
+/* 14/10/2026 (JP) : le bas restait vide ; le fil descend à 76 px du bas,
+   juste au-dessus de la pilule du widget (63 px), et le texte le suit. */
 @media (max-width:720px){
-  .lyh--fil .lyh-inner{ padding-bottom:396px !important; }
-  .lyh--fil .lyh-chat{ bottom:110px; height:260px;
+  .lyh--fil .lyh-inner{ padding-bottom:362px !important; }
+  .lyh--fil .lyh-chat{ bottom:76px; height:260px;
     -webkit-mask-image:linear-gradient(to bottom, transparent 0%, transparent 10%, rgba(0,0,0,.4) 22%, #000 40%);
     mask-image:linear-gradient(to bottom, transparent 0%, transparent 10%, rgba(0,0,0,.4) 22%, #000 40%); }
 }
