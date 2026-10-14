@@ -60,10 +60,9 @@ const REGLAGES: Record<Secteur, Reglage> = {
     /* 14/10/2026 (JP) : le bento « Vendez davantage… », Data intelligent et
        « Combien d'agents IA composeront… » retirés de biolystes.com. */
     blocsRetires: ["bento", "data", "organigramme"],
-    /* 14/10/2026 (JP) : « En savoir plus » devient « S'inscrire », vers
-       l'inscription de l'espace client (adresse entière : la page est aussi
-       servie par biolystes.com). */
-    lienCartes: { libelle: "Découvrez notre catalogue", href: "https://www.biolystes.com/catalogue" },
+    /* 14/10/2026 (JP) : le lien des cartes devient « Prendre rendez-vous »,
+       vers la prise de rendez-vous (nouvel onglet). */
+    lienCartes: { libelle: "Prendre rendez-vous", href: "https://biolystes.pro/rdv" },
     /* 14/10/2026 (JP, « uniformise tout ») : mêmes titres que le reste de /bio. */
     enteteCommun: true,
   },
@@ -117,6 +116,10 @@ function extraire(lang: string, reglage: Reglage) {
     if (reglage.lienCartes) {
       for (const a of Array.from(bande.querySelectorAll<HTMLAnchorElement>(".cartes6 > div > a[href]"))) {
         a.setAttribute("href", reglage.lienCartes.href);
+        if (/^https?:/.test(reglage.lienCartes.href)) {
+          a.setAttribute("target", "_blank");
+          a.setAttribute("rel", "noopener noreferrer");
+        }
         const texte = Array.from(a.childNodes).find((n) => n.nodeType === Node.TEXT_NODE && n.textContent?.trim());
         if (texte) texte.textContent = reglage.lienCartes.libelle + " ";
       }

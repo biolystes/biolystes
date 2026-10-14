@@ -11,7 +11,8 @@ import type { ReactNode } from "react";
 import { ArrowRight, Check, type LucideIcon } from "lucide-react";
 
 export const CTA_URL = "https://biolystes.pro/rdv";
-export const CATALOGUE_URL = "https://www.biolystes.com/catalogue";
+/* Inscription de l’espace client (JP, 14/10/2026 : « le second bouton s’inscrire »). */
+export const INSCRIPTION_URL = "https://lystes.ai/biolystes/inscription";
 
 /* L’en-tête de section de l’accueil (lystes/src/components/bio/EnteteSection.tsx) :
    sur-titre espacé, titre léger dont la fin passe en gris, description noire.
@@ -101,17 +102,17 @@ function Fleche() {
   );
 }
 
-/* Les deux boutons du bas de l’accueil : catalogue (plein) et rendez-vous
+/* Les deux boutons du bas de l’accueil : rendez-vous (plein) et inscription
    (contour). */
 export function BoutonsAction({ className = "" }: { className?: string }) {
   return (
     <div className={"flex flex-wrap justify-center gap-4 " + className}>
-      <a href={CATALOGUE_URL} className="btn-startup">
-        <span>Découvrez notre catalogue</span>
+      <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-startup">
+        <span>Prendre rendez-vous</span>
         <Fleche />
       </a>
-      <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="btn-outline">
-        <span>Prendre rendez-vous</span>
+      <a href={INSCRIPTION_URL} target="_blank" rel="noopener noreferrer" className="btn-outline">
+        <span>S’inscrire</span>
         <Fleche />
       </a>
     </div>
