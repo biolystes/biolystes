@@ -64,15 +64,11 @@ import cert8 from "@lystes/assets/bio/cert-8.png";
 
 const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7, cert8];
 
-const homeExpVideos = [
-  "/videos/exp-1.mp4", "/videos/exp-2.mov", "/videos/exp-3.mov",
-  "/videos/exp-9.mp4", "/videos/exp-11.mp4", "/videos/exp-12.mp4",
-  "/videos/exp-4.mov", "/videos/exp-5.mov",
-  "/videos/exp-42.mov", "/videos/exp-43.mov",
-  "/videos/exp-44.mp4", "/videos/exp-45.mov", "/videos/exp-46.mov",
-  "/videos/exp-48.mp4",
-  "/videos/exp-49.mov", "/videos/exp-50.mov", "/videos/exp-51.mov", "/videos/exp-52.mov",
-];
+/* Réencodées le 14/10/2026 (JP : « ces vidéos restent noires longtemps ») :
+   H.264 480 px sans son, 10 s au plus, chacune avec son affiche, au lieu de
+   .mov HEVC jusqu'à 10 Mo. exp-52 retirée : c'était exp-43 en double. */
+const homeExpVideos = [1, 2, 3, 9, 11, 12, 4, 5, 42, 43, 44, 45, 46, 48, 49, 50, 51]
+  .map((n) => ({ src: `/videos/bio-exp/exp-${n}.mp4`, affiche: `/videos/bio-exp/exp-${n}.webp` }));
 
 function HomeExperienceCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: true, dragFree: true, slidesToScroll: 2 });
@@ -87,9 +83,9 @@ function HomeExperienceCarousel() {
     <div className="w-full overflow-hidden mb-16 relative">
       <div className="overflow-hidden" ref={emblaRef}>
         <div className="flex gap-4">
-          {homeExpVideos.map((src, i) => (
-            <div key={i} className="flex-shrink-0 w-[200px] md:w-[240px] aspect-[9/16] rounded-2xl overflow-hidden bg-black">
-              <SafeVideo src={src} className="w-full h-full object-cover" lazy />
+          {homeExpVideos.map(({ src, affiche }) => (
+            <div key={src} className="flex-shrink-0 w-[200px] md:w-[240px] aspect-[9/16] rounded-2xl overflow-hidden bg-neutral-100">
+              <SafeVideo src={src} poster={affiche} className="w-full h-full object-cover" lazy />
             </div>
           ))}
         </div>

@@ -96,7 +96,7 @@ export const ENTETE_BIO = {
   probleme: ["Lancer une gamme cosmétique prend en moyenne ", "près d’un an", "."] as const,
   texte:
     "Le temps perdu ne se rattrape jamais. Pendant ces 12 mois d’attente, vous ne bâtissez rien\u00a0: ni\u00a0réputation, ni\u00a0communauté, ni\u00a0preuve sociale. " +
-    "Le plus grand handicap d’une jeune marque est son manque d’antériorité. " +
+    "Le plus grand handicap d’une jeune marque est son manque d’antériorité. Lorsque vous vous lancez enfin, les débuts sont laborieux faute d’historique, ce qui freine considérablement votre progression. " +
     "Avec Biolystes, changez la donne\u00a0: votre marque est opérationnelle en seulement 10\u00a0jours.",
   /* Une ligne chacun à 375 px, une icône au trait devant. */
   icones: [Leaf, ShieldCheck, PackageX] as LucideIcon[],
@@ -145,6 +145,7 @@ const FICHE_INCI: MediaEtape = {
 };
 
 const PHOTO = (src: string, legende: readonly [string, string], position?: string): MediaEtape => ({ type: "image", src, legende, position });
+const VIDEO = (src: string, affiche: string, legende: readonly [string, string]): MediaEtape => ({ type: "video", src, affiche, legende });
 
 export const ONGLETS_BIO: OngletBio[] = [
   {
@@ -225,11 +226,12 @@ export const ONGLETS_BIO: OngletBio[] = [
         /* Les colis reçus par nos clientes (JP, 13/10/2026), au même
            réglage que le packaging. Seuls les visuels nets : photos de
            /biolystes/rdv (Amarsi, 235th, Jolie Peau) et le colis Éclose
-           recadré, tous en 3:4 sans couper le produit. Les vidéos Sevmylook
-           et Wirtzkin (480 px, molles) sont retirées. La marque est écrite
-           sur chaque photo. */
+           recadré, tous en 3:4 sans couper le produit. La marque est écrite
+           sur chaque photo. Le colis Sevmylook de biolystes.pro/rdv revient
+           en vidéo (JP, 14/10/2026), recadré en 3:4, 22 s, avec son affiche. */
         media: { type: "diapos", src: "", trio: true, intervalle: 3000, legende: ["Les colis reçus", " par nos clientes"], diapos: [
           PHOTO("/bio-colis/eclose-colis-45.webp", ["Éclose Paris", ""], "50% 50%"),
+          VIDEO("/bio-colis/sevmylook-colis.mp4", "/bio-colis/sevmylook-colis.webp", ["Sevmylook", ""]),
           PHOTO("/bio-colis/amarsi-colis.webp", ["Amarsi", ""], "50% 50%"),
           PHOTO("/bio-colis/235th-colis-45.webp", ["235th", ""], "50% 50%"),
           PHOTO("/bio-colis/jolie-peau-colis.webp", ["Jolie Peau", ""], "50% 50%"),

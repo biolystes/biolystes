@@ -121,13 +121,17 @@ export default function SafeVideo({
     );
   }
 
+  /* Avant le téléchargement, l'affiche tient la place : plus de carré noir
+     (JP, 14/10/2026). Sans affiche, un gris clair. */
   if (!shouldLoad) {
     return (
       <div
         ref={containerRef}
-        className={`bg-neutral-900 ${className}`}
+        className={`bg-neutral-100 ${className}`}
         onClick={onClick}
-      />
+      >
+        {poster && <img src={poster} alt="" className="w-full h-full object-cover" decoding="async" />}
+      </div>
     );
   }
 

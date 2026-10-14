@@ -173,6 +173,18 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                 <HeaderProfileMenu light={light} />
               ) : (
                 <>
+                  {/* biolystes.com (13/10/2026, JP) : « S'inscrire » vers l'espace
+                      client, en second ; le rendez-vous reste le bouton principal. */}
+                  <a
+                    href="https://lystes.ai/biolystes/inscription"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`inline-flex items-center h-11 px-5 rounded-full border text-sm font-medium whitespace-nowrap transition ${
+                      light ? "border-white/60 text-white hover:bg-white/10" : "border-black/15 text-foreground hover:bg-[#f3f4f5]"
+                    }`}
+                  >
+                    S'inscrire
+                  </a>
                   {/* biolystes.com : un seul appel à l'action, le rendez-vous. */}
                   <a
                     href="https://biolystes.pro/rdv"
@@ -203,6 +215,19 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
             {connecte ? (
               <HeaderProfileMenu light={light} />
             ) : (
+              <>
+              {/* biolystes.com (13/10/2026, JP) : « S'inscrire » en second, à
+                  contour. Tient à 375 px ; sous 360 px il ne reste que dans le menu. */}
+              <a
+                href="https://lystes.ai/biolystes/inscription"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`hidden min-[360px]:inline-flex items-center rounded-full border px-3.5 py-[7px] text-[12.5px] font-medium whitespace-nowrap ${
+                  light ? "border-white/60 text-white" : "border-black/15 text-foreground"
+                }`}
+              >
+                S'inscrire
+              </a>
               <a
                 href="https://biolystes.pro/rdv"
                 target="_blank"
@@ -213,6 +238,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
               >
                 Rendez-vous
               </a>
+              </>
             )}
             <button
               className={`w-10 h-10 flex items-center justify-center rounded-full ${
@@ -287,6 +313,19 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                 >
                   Prendre rendez-vous
                   <ArrowRight className="w-4 h-4" />
+                </a>
+              )}
+              {/* biolystes.com (13/10/2026, JP) : « S'inscrire » sous le rendez-vous,
+                  à contour (l'ancienne place de « Connexion »). */}
+              {!connecte && (
+                <a
+                  href="https://lystes.ai/biolystes/inscription"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center justify-center h-[46px] rounded-full border border-white/45 text-white text-sm font-medium"
+                >
+                  S'inscrire
                 </a>
               )}
             </div>
