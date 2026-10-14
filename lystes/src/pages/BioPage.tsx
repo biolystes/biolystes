@@ -44,6 +44,7 @@ import kaniwaUgc6 from "@lystes/assets/bio/kaniwa-ugc-6.jpg";
 import fralene3 from "@lystes/assets/bio/fralene-3.jpg";
 import fralene10 from "@lystes/assets/bio/fralene-10.jpg";
 import diagnosticVideo from "@/assets/diagnostic-peau.mp4.asset.json";
+import diagnosticWebm from "@/assets/diagnostic-peau.webm.asset.json";
 import diagnosticPoster from "@/assets/diagnostic-peau.webp.asset.json";
 import fraleneExt1 from "@lystes/assets/bio/fralene-ext-1.jpg";
 import sevmylook1 from "@lystes/assets/bio/sevmylook-1.jpg";
@@ -549,7 +550,10 @@ export default function DecouvertePage() {
                 {typeof media === "string" ? (
                   <img src={media} alt="" className="w-full h-full object-cover" loading="lazy" />
                 ) : (
-                  <video src={media.video} poster={diagnosticPoster.url} className="w-full h-full object-cover" autoPlay muted loop playsInline preload="metadata" />
+                  <video poster={diagnosticPoster.url} className="w-full h-full object-cover" autoPlay muted loop playsInline preload="metadata">
+                    <source src={media.video} type="video/mp4" />
+                    <source src={diagnosticWebm.url} type="video/webm" />
+                  </video>
                 )}
               </div>
             ))}
