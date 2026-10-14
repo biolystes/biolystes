@@ -539,17 +539,17 @@ export default function DecouvertePage() {
             noir="Sans achat de stock," gris={"des cosmétiques d’excellence, certifiés et\u00a0responsables"}
             texte="Tous nos produits sont formulés sans parabènes, sans silicones, sans PEG, sans filtres UV chimiques, sans microplastiques et sans colorants artificiels." />
 
-          {/* Les six photos de JP (12/10/2026), sous le texte des engagements
+          {/* Les médias de JP (12/10/2026), sous le texte des engagements
               depuis le 14/10/2026 (JP), au lieu d'une bande à part. */}
           <div className="flex gap-3 mb-10 -mx-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
             {[
-              pmyrris1, sevmylook1, { video: diagnosticVideo.url }, kaniwa1, sevmylook3, pmyrris4,
+              pmyrris1, sevmylook1, { video: diagnosticVideo.url }, kaniwa1,
             ].map((media, i) => (
               <div key={i} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden">
                 {typeof media === "string" ? (
                   <img src={media} alt="" className="w-full h-full object-cover" loading="lazy" />
                 ) : (
-                  <SafeVideo src={media.video} poster={diagnosticPoster.url} className="w-full h-full object-cover" lazy />
+                  <video src={media.video} poster={diagnosticPoster.url} className="w-full h-full object-cover" autoPlay muted loop playsInline preload="metadata" />
                 )}
               </div>
             ))}
