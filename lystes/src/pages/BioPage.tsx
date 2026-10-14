@@ -391,16 +391,7 @@ function SalonSlides() {
                 <div className="bg-secondary rounded-xl p-6 md:p-10">
                   <img src={slide.image} alt={slide.alt} className="w-full rounded-lg aspect-[3/2] object-cover" loading="lazy" />
                 </div>
-                {slide.videos.length === 0 ? (
-                  <>
-                    <div className="hidden md:block absolute -left-16 bottom-20 w-[220px] shadow-lg rounded-xl overflow-hidden rotate-[-3deg] p-3 bg-primary">
-                      <SafeVideo src="/videos/salon-235th.mp4" className="w-full rounded-xl object-cover aspect-[3/4]" lazy />
-                    </div>
-                    <ProductImageCycler />
-                  </>
-                ) : (
-                  <VideoCycler videos={slide.videos} />
-                )}
+                {slide.videos.length === 0 ? <ProductImageCycler /> : <VideoCycler videos={slide.videos} />}
               </div>
             </div>
           ))}
