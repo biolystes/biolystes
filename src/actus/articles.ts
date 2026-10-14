@@ -25,16 +25,16 @@ import imgCoffrets from "@/assets/coffrets-article.png";
 import imgPresse from "@/assets/marie-claire-logo.jpg";
 import imgLancer15 from "@/assets/lancer-marque-article.png";
 import imgBiais from "@/assets/biais-actif-article.jpg";
-import imgSansStock from "@lystes/assets/bio/product-235th-3.jpg";
-import imgMarqueBlanche from "@lystes/assets/bio/sevmylook-1.jpg";
-import imgReglementaire from "@lystes/assets/bio/product-box.jpg";
-import imgCertifications from "@lystes/assets/bio/kaniwa-7.jpg";
+import imgSansStock from "@/assets/product-235th-3.jpg";
+import imgMarqueBlanche from "@/assets/sevmylook-1.jpg";
+import imgReglementaire from "@/assets/product-box.jpg";
+import imgCertifications from "@/assets/kaniwa-7.jpg";
 /* Copie propre au site (src/assets) : le dossier lystes/ est resynchronisé et
    ne contient pas toujours cette image. */
 import imgLivraison from "@/assets/logistique-step.jpg";
-import imgDixJours from "@lystes/assets/bio/ecommerce-step.png";
-import imgEquipesIA from "@lystes/assets/bio/kaniwa-ugc-4.jpg";
-import imgInstituts from "@lystes/assets/bio/salon-coiffure.webp";
+import imgDixJours from "@/assets/ecommerce-step.png";
+import imgEquipesIA from "@/assets/kaniwa-ugc-4.jpg";
+import imgInstituts from "@/assets/salon-coiffure.webp";
 /* Portrait du cabinet, repris du panneau « Fiscal et comptable » de lystes.ai
    (petal-diagnostics, src/assets/cabinet/hr-associes-portrait.avif), recadré en 4:3. */
 import imgHrAssocies from "@/assets/hr-associes-partenariat.jpg";
