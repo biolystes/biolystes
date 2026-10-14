@@ -63,6 +63,8 @@ const CGVPage = lazy(() => import("./pages/CGVPage"));
 const FaqPage = lazy(() => import("./pages/FaqPage"));
 /* /a-propos : la page Entreprise de lystes.ai reprise pour Biolystes (14/10/2026). */
 const AProposPage = lazy(() => import("./pages/AProposPage"));
+/* /tarifs (14/10/2026) : la page des prix, liée nulle part et non indexée. */
+const TarifsPage = lazy(() => import("./pages/TarifsPage"));
 
 const queryClient = new QueryClient();
 
@@ -93,7 +95,6 @@ function AppRoutes() {
       <Route path="/ai" element={<Layout><AIPage /></Layout>} />
       <Route path="/agence" element={<Layout><AgencePage /></Layout>} />
       <Route path="/pricing" element={<Navigate to="/rdv" replace />} />
-      <Route path="/tarifs" element={<Navigate to="/rdv" replace />} />
       <Route element={<Suspense fallback={null}><CadrePied /></Suspense>}>
         <Route path="/pourquoi-cette-offre" element={<Suspense fallback={null}><PourquoiCetteOffrePage /></Suspense>} />
         <Route path="/etudes" element={<Suspense fallback={null}><PourquoiBiolystesPage /></Suspense>} />
@@ -102,6 +103,7 @@ function AppRoutes() {
         <Route path="/cgv" element={<Suspense fallback={null}><CGVPage /></Suspense>} />
         <Route path="/faq" element={<Suspense fallback={null}><FaqPage /></Suspense>} />
         <Route path="/a-propos" element={<Suspense fallback={null}><AProposPage /></Suspense>} />
+        <Route path="/tarifs" element={<Suspense fallback={null}><TarifsPage /></Suspense>} />
       </Route>
       {/* Actus (12/10/2026) : cadre de l’accueil, articles dans src/actus/articles.ts. */}
       <Route path="/blog" element={<Suspense fallback={null}><ActusPage /></Suspense>} />
