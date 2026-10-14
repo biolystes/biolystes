@@ -402,10 +402,13 @@ export default function TarifsPage() {
   /* La location n'existe qu'avec une boutique en ligne (JP). */
   const [modeBoutique, setModeBoutique] = useState<"achat" | "location">("achat");
   const [cleBoutique, setCleBoutique] = useState("standard");
-  const [cleLocation, setCleLocation] = useState("standard");
-  const mode = famille === "boutique" && modeBoutique === "location" ? "location" : "achat";
+  /* Le paiement sur plusieurs mois n'existe que pour les packs qui ont une
+     formule sur plusieurs mois (Standard, IA) : ailleurs, ses onglets
+     n'apparaissent pas et le paiement se fait en une fois. */
+  const avecMois = famille === "boutique" && LOCATIONS.some((o) => o.cle === cleBoutique);
+  const mode = avecMois && modeBoutique === "location" ? "location" : "achat";
   const offre = famille === "sans" ? SANS_BOUTIQUE
-    : mode === "location" ? LOCATIONS.find((o) => o.cle === cleLocation) ?? LOCATIONS[0]
+    : mode === "location" ? LOCATIONS.find((o) => o.cle === cleBoutique) ?? LOCATIONS[0]
     : AVEC_BOUTIQUE.find((o) => o.cle === cleBoutique) ?? AVEC_BOUTIQUE[0];
   const acompte = offre.etapes[1].montant ?? 0;
 
@@ -424,24 +427,29 @@ export default function TarifsPage() {
         <div className="max-w-5xl mx-auto mt-8 md:mt-10 space-y-4">
           <Onglets label="Votre formule" niveau={1} valeur={famille} onChange={(v) => setFamille(v as Famille)}
             options={[{ cle: "boutique", nom: "Avec boutique en ligne" }, { cle: "sans", nom: "Sans boutique en ligne" }]} />
-          {famille === "boutique" && <Onglets label="Comment payer" niveau={2} valeur={modeBoutique} onChange={(v) => setModeBoutique(v as "achat" | "location")}
-            options={[{ cle: "achat", nom: LIBELLES_MODE.achat }, { cle: "location", nom: LIBELLES_MODE.location }]} />}
           {famille === "boutique" && <p className="text-center text-[0.9375rem] text-foreground/80 text-pretty">{SOUS_TITRES_MODE[mode]}</p>}
-          {famille === "boutique" && mode === "achat" && <Onglets label="Votre pack" niveau={3} valeur={cleBoutique} onChange={setCleBoutique}
+          {famille === "boutique" && <Onglets label="Votre pack" niveau={3} valeur={cleBoutique} onChange={setCleBoutique}
             options={AVEC_BOUTIQUE.map((o) => ({ cle: o.cle, nom: o.nom.replace("Pack ", "") }))} />}
-          {mode === "location" && <Onglets label="Votre pack, payé sur plusieurs mois" niveau={3} valeur={cleLocation} onChange={setCleLocation}
-            options={LOCATIONS.map((o) => ({ cle: o.cle, nom: o.nom.replace("Pack ", "") }))} />}
           <p className="text-center text-[0.9375rem] text-muted-foreground text-pretty">
             <span className="text-foreground font-semibold">{offre.nom}</span> : {famille === "sans" ? "vos produits à votre marque, sans site" : offre.contenu}.
             {famille !== "sans" && <span className="block mt-1">Un produit en plus&nbsp;? {euros(PRODUIT_EN_PLUS)} TTC par produit, paiement unique, pour son&nbsp;design.</span>}
           </p>
         </div>
 
+        {/* Le mode de paiement, juste au-dessus du prix (JP, 14/10/2026 : moins
+            d'onglets empilés en haut). Seulement pour Standard et IA. */}
+        {avecMois && (
+          <div className="max-w-5xl mx-auto mt-7 md:mt-8">
+            <Onglets label="Comment payer" niveau={2} valeur={modeBoutique} onChange={(v) => setModeBoutique(v as "achat" | "location")}
+              options={[{ cle: "achat", nom: LIBELLES_MODE.achat }, { cle: "location", nom: LIBELLES_MODE.location }]} />
+          </div>
+        )}
+
         {/* 1. Le prix, en haut, sans défiler (JP, 14/10/2026) : le total du pack
             et l'acompte demandé ; à côté, l'abonnement. Sur plusieurs mois : le
             total pour que le site soit à la cliente, l'acompte et le reste de la
             mise en place, et la mensualité (à partir de), abonnement compris. */}
-        <div className="max-w-5xl mx-auto mt-8 md:mt-10 rounded-2xl bg-secondary p-[1.5rem] md:p-[2rem] grid md:grid-cols-2 gap-6 md:gap-10 items-center">
+        <div className={"max-w-5xl mx-auto rounded-2xl bg-secondary " + (avecMois ? "mt-5 md:mt-6" : "mt-8 md:mt-10") + " p-[1.5rem] md:p-[2rem] grid md:grid-cols-2 gap-6 md:gap-10 items-center"}>
           <div>
             <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">{offre.totalTitre}</p>
             <div className="mt-3"><Montant ttc={offre.total} /></div>
