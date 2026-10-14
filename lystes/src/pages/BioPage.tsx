@@ -756,8 +756,8 @@ export default function DecouvertePage() {
             { num: "3", title: ["Un réseau d’experts", "pour vous développer"], desc: "Accédez à nos partenaires experts pour accélérer votre croissance sans multiplier les prestataires." },
           ].map((item) => (
             <div key={item.num} className="px-8 py-10 md:py-8">
-              <span className="text-4xl text-foreground" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 100 }}>{item.num}</span>
-              <h3 className="text-base font-black uppercase tracking-wide text-foreground mt-3 mb-3">
+              <span className="text-4xl text-foreground" style={{ fontFamily: "'Instrument Serif', serif", fontWeight: 100, borderRadius: 888, background: "#f5f5f5", padding: 14, display: "inline-block" }}>{item.num}</span>
+              <h3 className="text-base text-foreground mt-3 mb-3" style={{ fontFamily: "'Bricolage Grotesque', 'Inter', sans-serif", fontWeight: 600, textTransform: "none", lineHeight: "21px" }}>
                 {item.title.map((ligne) => <span key={ligne} className="block whitespace-nowrap">{ligne}</span>)}
               </h3>
               <p className="text-sm text-foreground leading-relaxed text-pretty">{item.desc}</p>
