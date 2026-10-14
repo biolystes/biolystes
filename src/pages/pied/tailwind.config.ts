@@ -1,5 +1,6 @@
 /* Thème des pages du pied de page (14/10/2026) : /pourquoi-cette-offre,
-   /etudes, /mentions-legales, /politique-confidentialite, /cgv, /faq.
+   /etudes, /mentions-legales, /politique-confidentialite, /cgv, /faq,
+   /a-propos.
 
    Elles s’affichent comme l’accueil, sous `.lystes-racine` (thème de
    lystes.ai). Leurs classes doivent donc sortir du thème de lystes.ai, pas
@@ -25,5 +26,6 @@ export default {
     "./src/pages/PolitiqueConfidentialitePage.tsx",
     "./src/pages/CGVPage.tsx",
     "./src/pages/FaqPage.tsx",
+    "./src/pages/AProposPage.tsx",
   ],
 } satisfies Config;
