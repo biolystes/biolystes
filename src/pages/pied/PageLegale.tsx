@@ -4,7 +4,9 @@
 
    En haut, l’en-tête de section de l’accueil ; puis un sommaire à plat (pas
    de menu repliable) ; puis les articles sur une colonne de lecture de
-   720 px, 16 px, interligne 1,75. */
+   720 px, 16 px, interligne 1,75. Titres d’article à 20 px sous 400 px de
+   large : « responsabilités réglementaires » tient alors dans la colonne de
+   320 px sans toucher le bord (JP, 14/10/2026 : 16 px de marge partout). */
 import type { ReactNode } from "react";
 import { Entete } from "./elements";
 
@@ -46,7 +48,7 @@ export default function PageLegale({ noir, gris, miseAJour, articles }: {
             {articles.map((a) => (
               <article key={a.id} id={a.id} className="scroll-mt-28">
                 {a.numero && <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-2">{a.numero}</p>}
-                <h2 className="text-[1.375rem] md:text-[1.625rem] !font-normal tracking-tight text-foreground leading-snug text-pretty"
+                <h2 className="text-[1.25rem] min-[400px]:text-[1.375rem] md:text-[1.625rem] !font-normal tracking-tight text-foreground leading-snug text-pretty"
                   style={{ fontFamily: "'Bricolage Grotesque', 'Inter', sans-serif" }}>
                   {a.titre}
                 </h2>

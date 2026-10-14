@@ -27,7 +27,6 @@ import AIPage from "./pages/AIPage";
 import AgencePage from "./pages/AgencePage";
 import RdvPage from "./pages/RdvPage";
 import CommentCaMarchePage from "./pages/CommentCaMarchePage";
-import LivraisonPage from "./pages/LivraisonPage";
 import EquipeIAPage from "./pages/EquipeIAPage";
 import ResponsabilitePage from "./pages/ResponsabilitePage";
 import GlowlyPage from "./pages/GlowlyPage";
@@ -65,6 +64,7 @@ const FaqPage = lazy(() => import("./pages/FaqPage"));
 const AProposPage = lazy(() => import("./pages/AProposPage"));
 /* /tarifs (14/10/2026) : la page des prix, liée nulle part et non indexée. */
 const TarifsPage = lazy(() => import("./pages/TarifsPage"));
+const LivraisonPage = lazy(() => import("./pages/LivraisonPage"));
 
 const queryClient = new QueryClient();
 
@@ -104,6 +104,7 @@ function AppRoutes() {
         <Route path="/faq" element={<Suspense fallback={null}><FaqPage /></Suspense>} />
         <Route path="/a-propos" element={<Suspense fallback={null}><AProposPage /></Suspense>} />
         <Route path="/tarifs" element={<Suspense fallback={null}><TarifsPage /></Suspense>} />
+        <Route path="/livraison" element={<Suspense fallback={null}><LivraisonPage /></Suspense>} />
       </Route>
       {/* Actus (12/10/2026) : cadre de l’accueil, articles dans src/actus/articles.ts. */}
       <Route path="/blog" element={<Suspense fallback={null}><ActusPage /></Suspense>} />
@@ -111,7 +112,6 @@ function AppRoutes() {
       <Route path="/blog/:slug" element={<Suspense fallback={null}><ArticlePage /></Suspense>} />
       <Route path="/rdv" element={<Layout><RdvPage /></Layout>} />
       <Route path="/comment-ca-marche" element={<Layout><CommentCaMarchePage /></Layout>} />
-      <Route path="/livraison" element={<Layout><LivraisonPage /></Layout>} />
       <Route path="/equipe-ia" element={<Layout><EquipeIAPage /></Layout>} />
       <Route path="/responsabilite" element={<Layout><ResponsabilitePage /></Layout>} />
       <Route path="/glowly" element={<Layout><GlowlyPage /></Layout>} />
