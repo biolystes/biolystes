@@ -28,5 +28,6 @@ export default {
     "./src/pages/FaqPage.tsx",
     "./src/pages/AProposPage.tsx",
     "./src/pages/TarifsPage.tsx",
+    "./src/pages/InnovationPage.tsx",
   ],
 } satisfies Config;

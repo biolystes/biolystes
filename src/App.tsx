@@ -65,6 +65,8 @@ const AProposPage = lazy(() => import("./pages/AProposPage"));
 /* /tarifs (14/10/2026) : la page des prix, liée nulle part et non indexée. */
 const TarifsPage = lazy(() => import("./pages/TarifsPage"));
 const LivraisonPage = lazy(() => import("./pages/LivraisonPage"));
+/* /innovation (14/10/2026) : « Toujours plus d’innovation », dans le menu principal. */
+const InnovationPage = lazy(() => import("./pages/InnovationPage"));
 
 const queryClient = new QueryClient();
 
@@ -105,6 +107,7 @@ function AppRoutes() {
         <Route path="/a-propos" element={<Suspense fallback={null}><AProposPage /></Suspense>} />
         <Route path="/tarifs" element={<Suspense fallback={null}><TarifsPage /></Suspense>} />
         <Route path="/livraison" element={<Suspense fallback={null}><LivraisonPage /></Suspense>} />
+        <Route path="/innovation" element={<Suspense fallback={null}><InnovationPage /></Suspense>} />
       </Route>
       {/* Actus (12/10/2026) : cadre de l’accueil, articles dans src/actus/articles.ts. */}
       <Route path="/blog" element={<Suspense fallback={null}><ActusPage /></Suspense>} />

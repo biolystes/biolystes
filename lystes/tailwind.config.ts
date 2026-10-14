@@ -9,7 +9,7 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./lystes/src/**/*.{ts,tsx,html}", "./src/actus/**/*.{ts,tsx}"],
+  content: ["./lystes/src/**/*.{ts,tsx,html}", "./src/actus/**/*.{ts,tsx}", "./src/components/innovation/**/*.{ts,tsx}"],
   prefix: "",
   theme: {
     container: {

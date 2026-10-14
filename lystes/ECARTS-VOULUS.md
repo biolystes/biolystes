@@ -79,3 +79,24 @@ rechargement.
 | Galerie des créateurs | panneau « Téléchargez votre image produit » | masqué (`sansGeneration`), comme sur l'accueil |
 | Bas de page | « Sans engagement / résiliable à tout moment », « Sans engagement · Configuration guidée » | retirés (arguments d'abonnement) |
 | Cartes | « En savoir plus » vers lystes.ai/solutions | gardés (navigation) |
+
+## Innovation : page /innovation, section de l'accueil, menu (JP, 14/10/2026)
+
+`/innovation` (`src/pages/InnovationPage.tsx`, cadre des pages du pied de page)
+reprend ce que montre lystes.ai/cosmetique, pour Biolystes. Elle vit hors de
+`lystes/` ; les composants de lystes.ai qu'elle emploie (`FaceMeshScanner`,
+`SafeVideo`, `EnteteSection`, `lib/mediapipe-sur`) sont dans
+`RACINES_BIOLYSTES` de `sync.py` : ils restent copiés même si /bio cesse de les
+importer.
+
+| Endroit | Sur lystes.ai | Sur biolystes.com |
+|---|---|---|
+| Accueil, après les blocs des agents IA et des créateurs | rien | section « Toujours plus d'innovation » (`src/components/innovation/AppelInnovation.tsx`) : maillage du visage, trois lieux, « Découvrir nos innovations » vers /innovation (écart 32) |
+| Maillage du visage de cette section | — | reflet image par image du scanner déjà posé dans le carrousel (`#diagnostic-facemesh-slot`), comme `MiroirVisage` de lystes.ai : une seconde instance de MediaPipe reste bloquée sur « Analyse en cours » |
+| `lystes/tailwind.config.ts`, content | `lystes/src` | + `src/actus` (écart 23) + `src/components/innovation` |
+| Menu principal (`MENU_BIOLYSTES`) | — | Agents IA, Innovation, À propos, Questions fréquentes ; le menu du téléphone saute « Agents IA », déjà donné par la bascule |
+| Bascule menu d'ordinateur / burger | 1024 px (`lg`) | 1280 px (`xl`) : à 1024 px, quatre entrées faisaient déborder l'en-tête de 40 px (écart 33) |
+
+Retirés de /innovation faute de source : les repères chiffrés de /cosmetique
+(×3,1, ×4,1, +72 %, ×6,2, +48 %) et les barres « sans l'IA / avec l'IA »
+(3,02 % / 6,76 %, 4 % / 31 %). Aucun prix.

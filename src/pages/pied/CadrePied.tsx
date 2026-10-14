@@ -1,7 +1,7 @@
 /* Le cadre des pages liées depuis le pied de page (JP, 14/10/2026 : « le
    même design que la nouvelle page d’accueil ») : /pourquoi-cette-offre,
    /etudes, /mentions-legales, /politique-confidentialite, /cgv, /faq,
-   /a-propos, /tarifs, /livraison.
+   /a-propos, /tarifs, /livraison, /innovation.
 
    Mêmes réglages que l’accueil (src/pages/CoquilleLystes.tsx) : thème de
    lystes.ai cantonné à `.lystes-racine` posée sur <body>, largeur du
