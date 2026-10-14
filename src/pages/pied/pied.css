@@ -1,0 +1,12 @@
+/* Classes des pages du pied de page, compilées avec le thème de lystes.ai
+   (voir tailwind.config.ts à côté). La base et les composants (.btn-startup,
+   .btn-outline, polices) viennent déjà de lystes/src/index.css. */
+@config "./tailwind.config.ts";
+@tailwind utilities;
+
+/* Pied de page de l’accueil (lystes/, recopié tel quel) : ses liens portent
+   `hyphens-auto`, et Chrome coupait « Descha-nel » dans l’adresse. Sur ces
+   pages, aucun mot coupé par un tiret. */
+.pied-page ~ .lystes-footer .hyphens-auto {
+  hyphens: manual;
+}

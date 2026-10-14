@@ -28,7 +28,9 @@ const cantonnerLystes = () => ({
   Once(root) {
     const fichier = root.source?.input?.file || "";
     if (/node_modules/.test(fichier)) return;
-    const deLystes = /[\\/]lystes[\\/]/.test(fichier);
+    /* src/pages/pied : pages du pied de page affichées comme l'accueil
+       (14/10/2026), leur feuille suit la même règle que celles de lystes/. */
+    const deLystes = /[\\/]lystes[\\/]/.test(fichier) ||/[\\/]src[\\/]pages[\\/]pied[\\/]/.test(fichier);
     root.walkRules((regle) => {
       if (dansKeyframes(regle)) return;
       if (deLystes) {

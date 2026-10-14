@@ -22,14 +22,9 @@ import AdminDashboardPage from "./pages/AdminDashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 import NotFound from "./pages/NotFound";
-import MentionsLegalesPage from "./pages/MentionsLegalesPage";
-import PolitiqueConfidentialitePage from "./pages/PolitiqueConfidentialitePage";
-import CGVPage from "./pages/CGVPage";
 import OnboardingPage from "./pages/OnboardingPage";
 import AIPage from "./pages/AIPage";
 import AgencePage from "./pages/AgencePage";
-import PourquoiBiolystesPage from "./pages/PourquoiBiolystesPage";
-import PourquoiCetteOffrePage from "./pages/PourquoiCetteOffrePage";
 import RdvPage from "./pages/RdvPage";
 import CommentCaMarchePage from "./pages/CommentCaMarchePage";
 import LivraisonPage from "./pages/LivraisonPage";
@@ -55,6 +50,15 @@ const AgentsIaPage = lazy(() => import("./pages/AgentsIaPage"));
 /* La partie Actus vit dans le même cadre que l’accueil (thème de lystes.ai). */
 const ActusPage = lazy(() => import("./actus/ActusPage"));
 const ArticlePage = lazy(() => import("./actus/ArticlePage"));
+/* Les pages liées depuis le pied de page (14/10/2026) : même en-tête, même
+   pied de page et même thème que l’accueil, dans un cadre commun
+   (src/pages/pied/CadrePied.tsx). Chargées à part, comme l’accueil. */
+const CadrePied = lazy(() => import("./pages/pied/CadrePied"));
+const PourquoiCetteOffrePage = lazy(() => import("./pages/PourquoiCetteOffrePage"));
+const PourquoiBiolystesPage = lazy(() => import("./pages/PourquoiBiolystesPage"));
+const MentionsLegalesPage = lazy(() => import("./pages/MentionsLegalesPage"));
+const PolitiqueConfidentialitePage = lazy(() => import("./pages/PolitiqueConfidentialitePage"));
+const CGVPage = lazy(() => import("./pages/CGVPage"));
 
 const queryClient = new QueryClient();
 
@@ -86,8 +90,13 @@ function AppRoutes() {
       <Route path="/agence" element={<Layout><AgencePage /></Layout>} />
       <Route path="/pricing" element={<Navigate to="/rdv" replace />} />
       <Route path="/tarifs" element={<Navigate to="/rdv" replace />} />
-      <Route path="/etudes" element={<Layout><PourquoiBiolystesPage /></Layout>} />
-      <Route path="/pourquoi-cette-offre" element={<Layout><PourquoiCetteOffrePage /></Layout>} />
+      <Route element={<Suspense fallback={null}><CadrePied /></Suspense>}>
+        <Route path="/pourquoi-cette-offre" element={<Suspense fallback={null}><PourquoiCetteOffrePage /></Suspense>} />
+        <Route path="/etudes" element={<Suspense fallback={null}><PourquoiBiolystesPage /></Suspense>} />
+        <Route path="/mentions-legales" element={<Suspense fallback={null}><MentionsLegalesPage /></Suspense>} />
+        <Route path="/politique-confidentialite" element={<Suspense fallback={null}><PolitiqueConfidentialitePage /></Suspense>} />
+        <Route path="/cgv" element={<Suspense fallback={null}><CGVPage /></Suspense>} />
+      </Route>
       {/* Actus (12/10/2026) : cadre de l’accueil, articles dans src/actus/articles.ts. */}
       <Route path="/blog" element={<Suspense fallback={null}><ActusPage /></Suspense>} />
       <Route path="/actus" element={<Navigate to="/blog" replace />} />
@@ -104,9 +113,6 @@ function AppRoutes() {
       <Route path="/wirtzkin" element={<Layout><WirtzkinPage /></Layout>} />
       <Route path="/echantillons" element={<Layout><EchantillonsPage /></Layout>} />
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
-      <Route path="/mentions-legales" element={<Layout><MentionsLegalesPage /></Layout>} />
-      <Route path="/politique-confidentialite" element={<Layout><PolitiqueConfidentialitePage /></Layout>} />
-      <Route path="/cgv" element={<Layout><CGVPage /></Layout>} />
 
       {/* Auth */}
       <Route path="/login" element={<LoginPage />} />
