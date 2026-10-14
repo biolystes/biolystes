@@ -34,6 +34,9 @@ import wirtzkinCentre from "@/assets/wirtzkin-centre.png.asset.json";
 import wirtzkinVideo1 from "@/assets/wirtzkin-1.mp4.asset.json";
 import wirtzkinVideo2 from "@/assets/wirtzkin-2.mp4.asset.json";
 import wirtzkinVideo3 from "@/assets/wirtzkin-3.mp4.asset.json";
+import wirtzkinWebm1 from "@/assets/wirtzkin-1.webm.asset.json";
+import wirtzkinWebm2 from "@/assets/wirtzkin-2.webm.asset.json";
+import wirtzkinWebm3 from "@/assets/wirtzkin-3.webm.asset.json";
 import wirtzkinPoster1 from "@/assets/wirtzkin-1.webp.asset.json";
 import wirtzkinPoster2 from "@/assets/wirtzkin-2.webp.asset.json";
 import wirtzkinPoster3 from "@/assets/wirtzkin-3.webp.asset.json";
@@ -330,9 +333,9 @@ function SalonSlides() {
   const slides = [
     { image: salonCoiffure, alt: "Salon de coiffure équipé de cosmétiques en marque blanche", videos: [] },
     { image: wirtzkinCentre.url, alt: "Façade du centre médical esthétique Wirtzkin", videos: [
-      { src: wirtzkinVideo1.url, poster: wirtzkinPoster1.url, title: "Présentation clinique Wirtzkin" },
-      { src: wirtzkinVideo2.url, poster: wirtzkinPoster2.url, title: "Produits Wirtzkin par Biolystes" },
-      { src: wirtzkinVideo3.url, poster: wirtzkinPoster3.url, title: "Wirtzkin en situation" },
+      { src: wirtzkinVideo1.url, fallback: wirtzkinWebm1.url, poster: wirtzkinPoster1.url, title: "Présentation clinique Wirtzkin" },
+      { src: wirtzkinVideo2.url, fallback: wirtzkinWebm2.url, poster: wirtzkinPoster2.url, title: "Produits Wirtzkin par Biolystes" },
+      { src: wirtzkinVideo3.url, fallback: wirtzkinWebm3.url, poster: wirtzkinPoster3.url, title: "Wirtzkin en situation" },
     ] },
   ];
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: "center" });
@@ -371,7 +374,10 @@ function SalonSlides() {
                   <div className="flex justify-center gap-3 mt-4 md:mt-0">
                     {slide.videos.map((video, videoIndex) => (
                       <div key={video.src} aria-label={video.title} className={`w-[28%] md:w-[155px] shadow-lg rounded-xl overflow-hidden p-2 bg-primary md:absolute ${videoIndex === 0 ? "md:-left-12 md:bottom-16 md:rotate-[-3deg]" : videoIndex === 1 ? "md:-right-12 md:top-6 md:rotate-[3deg]" : "md:-right-8 md:bottom-4 md:rotate-[-3deg]"}`}>
-                        <video src={video.src} poster={video.poster} aria-label={video.title} autoPlay muted loop playsInline preload="metadata" className="w-full rounded-lg object-cover aspect-[3/4]" />
+                        <video poster={video.poster} aria-label={video.title} autoPlay muted loop playsInline preload="metadata" className="w-full rounded-lg object-cover aspect-[3/4]">
+                          <source src={video.src} type="video/mp4" />
+                          <source src={video.fallback} type="video/webm" />
+                        </video>
                       </div>
                     ))}
                   </div>
