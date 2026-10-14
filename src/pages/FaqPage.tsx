@@ -12,8 +12,11 @@
      d’aide du laboratoire relu le 13/10/2026, section livraison de
      l’accueil (Europe et continent américain en Standard, monde entier en
      Express, JP 14/10/2026). Les points que les sources contredisent
-     (durée d’engagement, nombre exact d’allers-retours, location, Shopify)
-     ne sont pas tranchés ici : la page n’en parle pas ou reste générale.
+     (durée d’engagement, nombre exact d’allers-retours, Shopify) ne sont
+     pas tranchés ici : la page n’en parle pas ou reste générale.
+   - payer sur plusieurs mois et départ de l’abonnement : décisions de JP du
+     14/10/2026 (soir), compétence tarifs-biolystes ; mêmes mots que /tarifs
+     et les CGV (articles 3 et 4.7), sans montant.
 
    Les questions sont aussi publiées en données structurées FAQPage. */
 import {
@@ -199,7 +202,12 @@ const THEMES: Theme[] = [
       {
         icone: Clock,
         q: "Que comprend l’abonnement ?",
-        r: "L’hébergement, la maintenance, la sécurité, le support, le référencement, l’automatisation des livraisons et, selon votre formule, les outils IA. Il démarre à la mise en ligne de votre boutique.",
+        r: "L’hébergement, la maintenance, la sécurité, le support, le référencement, l’automatisation des livraisons et, selon votre formule, les outils IA. Si vous payez en une fois, il s’ajoute au prix du pack et démarre à la livraison de votre site, une fois le solde réglé. Si vous payez sur plusieurs mois, il est compris dans votre mensualité.",
+      },
+      {
+        icone: Wallet,
+        q: "Puis-je payer sur plusieurs mois ?",
+        r: "Oui, avec les packs Standard et IA. Votre sélection de produits est offerte. Vous réglez l’acompte une fois votre sélection validée, puis le reste de la mise en place à la livraison de votre site. Ensuite, une mensualité minimum, abonnement compris : vous pouvez verser plus ou solder quand vous voulez. Le site est à vous une fois le total réglé. Si vous arrêtez avant, il est désactivé, et vous gardez votre logo, votre charte et votre packaging.",
       },
       {
         icone: ShoppingBag,

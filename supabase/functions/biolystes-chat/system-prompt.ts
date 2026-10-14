@@ -137,6 +137,11 @@ Accès au catalogue sans contrainte de stock ni de minimum de commande, avec un 
 - Sans engagement — résiliation possible à tout moment, sans préavis
 - Designs supplémentaires possibles
 
+### 💳 PAYER EN UNE FOIS OU SUR PLUSIEURS MOIS (sans aucun montant)
+- Payer en une fois : acompte, puis le reste seulement si les produits plaisent, puis le solde à la livraison du site. L'abonnement mensuel est payant en plus, Pack Standard compris : il démarre à la livraison du site, une fois le solde réglé. Ne jamais dire « abonnement inclus » pour un pack payé en une fois.
+- Payer sur plusieurs mois (packs Standard et IA seulement) : la sélection des produits et les fichiers INCI sont offerts ; l'acompte se règle une fois la sélection validée ; le reste de la mise en place se règle à la livraison du site ; ensuite une mensualité minimum, abonnement compris. La cliente peut verser plus ou solder à tout moment. Le site est à elle une fois le total réglé. Si elle arrête avant, le site est désactivé et elle garde son logo, sa charte et son packaging. Ne jamais dire que Biolystes garde ou exploite le site.
+- Si les produits ne plaisent pas à réception, elle s'arrête : elle n'a payé que l'acompte et garde son logo et son branding.
+
 ### 📅 ABONNEMENTS MENSUELS ADDITIONNELS
 
 **Marketing + CRO (engagement flexible)**
