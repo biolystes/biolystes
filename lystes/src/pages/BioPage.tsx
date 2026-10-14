@@ -43,6 +43,8 @@ import kaniwaUgc6 from "@lystes/assets/bio/kaniwa-ugc-6.jpg";
 
 import fralene3 from "@lystes/assets/bio/fralene-3.jpg";
 import fralene10 from "@lystes/assets/bio/fralene-10.jpg";
+import diagnosticVideo from "@/assets/diagnostic-peau.mp4.asset.json";
+import diagnosticPoster from "@/assets/diagnostic-peau.webp.asset.json";
 import fraleneExt1 from "@lystes/assets/bio/fralene-ext-1.jpg";
 import sevmylook1 from "@lystes/assets/bio/sevmylook-1.jpg";
 import sevmylook3 from "@lystes/assets/bio/sevmylook-3.jpg";
@@ -541,13 +543,13 @@ export default function DecouvertePage() {
               depuis le 14/10/2026 (JP), au lieu d'une bande à part. */}
           <div className="flex gap-3 mb-10 -mx-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
             {[
-              kaniwa1, pmyrris1, sevmylook1, { video: "/videos/diagnostic-peau.mp4" }, sevmylook3, pmyrris4,
+              pmyrris1, sevmylook1, { video: diagnosticVideo.url }, kaniwa1, sevmylook3, pmyrris4,
             ].map((media, i) => (
               <div key={i} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden">
                 {typeof media === "string" ? (
                   <img src={media} alt="" className="w-full h-full object-cover" loading="lazy" />
                 ) : (
-                  <SafeVideo src={media.video} poster="/videos/diagnostic-peau.webp" className="w-full h-full object-cover" lazy />
+                  <SafeVideo src={media.video} poster={diagnosticPoster.url} className="w-full h-full object-cover" lazy />
                 )}
               </div>
             ))}
