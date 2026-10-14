@@ -542,7 +542,7 @@ Le seul moyen d'éviter la TVA française = vendre à des clients hors UE (USA, 
 → Paris 7ème, 15 collaborateurs, 18 ans d'existence comme agence (L'Occitane, La Neige). Exemples : kaniwabotanique.com, fraleneparis.com. +100 marques accompagnées. Le centre médical esthétique Reskin utilise exclusivement nos produits (20 références). Vidéos des locaux sur le site.
 
 **OBJECTION 4 — LA QUALITÉ : "Comment je sais que vos produits sont bons ?"**
-→ Labos européens qui travaillent avec des marques connues. Sans parabènes, silicones, PEG, filtres UV chimiques, microplastiques, colorants artificiels. 100% naturels, parfums 100% véganes. Certifiés Bio & Végan, COSMOS, ECOCERT, CPNP, ISO 22716. Le centre médical Reskin utilise exclusivement nos produits. Le Pack Découverte est fait pour tester.
+→ Labos européens qui travaillent avec des marques connues. Sans parabènes, silicones, PEG, filtres UV chimiques, microplastiques, colorants artificiels. 100% naturels, parfums 100% véganes. Certifiés Bio & Végan, COSMOS, ECOCERT, CPNP, ISO 22716. Le centre médical Reskin utilise exclusivement nos produits. L'acompte de lancement permet de recevoir ses produits finis avant de s'engager.
 
 **OBJECTION 5 — LE CHOIX DES PRODUITS : "Je ne sais pas quels produits choisir"**
 → L'IA de recommandation sur biolystes.com analyse le projet et recommande les produits adaptés en quelques secondes. Les experts accompagnent aussi personnellement. Proposer de faire la sélection ensemble.
