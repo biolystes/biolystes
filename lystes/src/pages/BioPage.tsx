@@ -43,6 +43,9 @@ import kaniwaUgc6 from "@lystes/assets/bio/kaniwa-ugc-6.jpg";
 
 import fralene3 from "@lystes/assets/bio/fralene-3.jpg";
 import fralene10 from "@lystes/assets/bio/fralene-10.jpg";
+import diagnosticVideo from "@/assets/diagnostic-peau.mp4.asset.json";
+import diagnosticWebm from "@/assets/diagnostic-peau.webm.asset.json";
+import diagnosticPoster from "@/assets/diagnostic-peau.webp.asset.json";
 import fraleneExt1 from "@lystes/assets/bio/fralene-ext-1.jpg";
 import sevmylook1 from "@lystes/assets/bio/sevmylook-1.jpg";
 import sevmylook3 from "@lystes/assets/bio/sevmylook-3.jpg";
@@ -537,14 +540,21 @@ export default function DecouvertePage() {
             noir="Sans achat de stock," gris={"des cosmétiques d’excellence, certifiés et\u00a0responsables"}
             texte="Tous nos produits sont formulés sans parabènes, sans silicones, sans PEG, sans filtres UV chimiques, sans microplastiques et sans colorants artificiels." />
 
-          {/* Les six photos de JP (12/10/2026), sous le texte des engagements
+          {/* Les médias de JP (12/10/2026), sous le texte des engagements
               depuis le 14/10/2026 (JP), au lieu d'une bande à part. */}
           <div className="flex gap-3 mb-10 -mx-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
             {[
-              kaniwa1, pmyrris1, sevmylook1, fralene10, sevmylook3, pmyrris4,
-            ].map((src, i) => (
+              pmyrris1, sevmylook1, { video: diagnosticVideo.url }, kaniwa1,
+            ].map((media, i) => (
               <div key={i} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden">
-                <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+                {typeof media === "string" ? (
+                  <img src={media} alt="" className="w-full h-full object-cover" loading="lazy" />
+                ) : (
+                  <video poster={diagnosticPoster.url} className="w-full h-full object-cover" autoPlay muted loop playsInline preload="metadata">
+                    <source src={media.video} type="video/mp4" />
+                    <source src={diagnosticWebm.url} type="video/webm" />
+                  </video>
+                )}
               </div>
             ))}
           </div>
