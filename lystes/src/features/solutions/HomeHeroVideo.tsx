@@ -39,6 +39,7 @@ type LieuInstall = {
   defaut: string;
   href: string;
   logo: "shopify" | "woo" | { paths: string[]; circles?: [number, number, number][] };
+  ordiSeulement?: boolean;
 };
 
 const LIEUX_INSTALL: LieuInstall[] = [
@@ -227,7 +228,7 @@ export type HeroVariante = {
     onSubmit: (valeur: string) => void;
   };
   /** Petite ligne de liens sous les boutons. */
-  liens?: { label: string; href: string; icone: { paths: string[]; circles?: [number, number, number][] } }[];
+  liens?: { label: string; href: string; icone: { paths: string[]; circles?: [number, number, number][] }; ordiSeulement?: boolean }[];
   /** Phrase sous les boutons. */
   texte?: string;
 };
@@ -452,7 +453,7 @@ export default function HomeHeroVideo({ variante }: { variante?: HeroVariante } 
      domicile, événements) — ce n'est pas un interrupteur qui ouvre un bloc. */
   const [installIdx, setInstallIdx] = useState(0);
   const lieux: LieuInstall[] = variante
-    ? (variante.liens ?? []).map((l) => ({ key: l.label, defaut: l.label, href: l.href, logo: l.icone }))
+    ? (variante.liens ?? []).map((l) => ({ key: l.label, defaut: l.label, href: l.href, logo: l.icone, ordiSeulement: l.ordiSeulement }))
     : []; /* biolystes.com : pas de « Installer sur… » (inscription lystes.ai). */
   const nbLieux = lieux.length;
   /* La ligne épouse la largeur réelle du champ « Tester gratuitement » au
@@ -598,7 +599,7 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
   .lyh.lyh--variante .lyh-btns:not(.lyh-btns--seul) .lyh-btn-black{ padding-left:16px; gap:8px; }
   .lyh.lyh--variante .lyh-btn-outline.lyh-field{ padding-left:11px; gap:4px; }
   .lyh.lyh--variante .lyh-input{ font-size:12px; }
-  .lyh.lyh--variante .lyh-arrow.lyh-submit{ padding:0 8px; font-size:11px; }
+  .lyh.lyh--variante .lyh-arrow.lyh-submit{ padding:0 14px; font-size:9px; }
 }
 /* 13/10/2026 (JP, capture de référence à 375 px), /bio seulement : titre
    sur 3 lignes fixes (« Lancez votre marque » / « cosmétique bio et
@@ -797,6 +798,7 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
           elements={lieux.map((lieu) => ({
             key: lieu.key,
             href: lieu.href,
+            ordiSeulement: lieu.ordiSeulement,
             contenu: (
               <>
                 {lieu.logo === "shopify" && <img src={shopifyLogo} alt="" className="lyh-btn-logo" />}
@@ -871,11 +873,16 @@ const CSS = `
    actus ») ; le texte de la bannière garde toute la hauteur du fil plus un
    écart au-dessus, et une bulle qui sort par le haut s'efface avant
    d'approcher le texte. */
-/* 14/10/2026 (JP) : le bas restait vide ; le fil descend à 76 px du bas,
-   juste au-dessus de la pilule du widget (63 px), et le texte le suit. */
+/* 14/10/2026 (JP, deux passes) : le bas restait vide. Le fil, ramené à
+   220 px, descend à 20 px du bas ; à 72 px quand la pilule du widget
+   (« Voir nos dernières actus », 63 px) est sur la page. Le texte le suit à
+   12 px, et le lien marqué « ordi seulement » disparaît. */
 @media (max-width:720px){
-  .lyh--fil .lyh-inner{ padding-bottom:362px !important; }
-  .lyh--fil .lyh-chat{ bottom:76px; height:260px;
+  .lyh-ordi-seulement{ display:none !important; }
+  .lyh--fil .lyh-inner{ padding-bottom:252px !important; }
+  body:has(#lystes-widget-btn) .lyh--fil .lyh-inner{ padding-bottom:304px !important; }
+  body:has(#lystes-widget-btn) .lyh--fil .lyh-chat{ bottom:72px; }
+  .lyh--fil .lyh-chat{ bottom:20px; height:220px;
     -webkit-mask-image:linear-gradient(to bottom, transparent 0%, transparent 10%, rgba(0,0,0,.4) 22%, #000 40%);
     mask-image:linear-gradient(to bottom, transparent 0%, transparent 10%, rgba(0,0,0,.4) 22%, #000 40%); }
 }

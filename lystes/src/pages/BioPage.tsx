@@ -181,7 +181,7 @@ const BIO_HERO = (onProjet: (projet: string) => void): HeroVariante => ({
   liens: [
     { label: "Certifié Bio & Végan", href: "#section-qualite", icone: { paths: ["M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z", "M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"] } },
     { label: "Conformité COSMOS/ECOCERT/FDA", href: "#section-qualite", icone: { paths: ["M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"] } },
-    { label: "Lancement Rapide", href: "#section-comprend", icone: { paths: ["M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"] } },
+    { label: "Lancement Rapide", href: "#section-comprend", ordiSeulement: true, icone: { paths: ["M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"] } },
   ],
   texte: "Pas de stock à acheter, pas de minimum de commande. On prend tout en charge de A à Z.",
 });
@@ -520,27 +520,19 @@ export default function DecouvertePage() {
 
       </section>
 
-      {/* ═══ PORTFOLIO IMAGES MARQUEE ═══ */}
-      {/* Version de JP (12/10/2026) : la bande n’est plus pleine largeur, elle
-          suit le conteneur max-w-4xl, avec ces six photos. */}
-      <section className="overflow-hidden py-3 bg-background">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="flex gap-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
-            {[
-              kaniwa1, pmyrris1, sevmylook1, fralene10, sevmylook3, pmyrris4,
-            ].map((src, i) => (
-              <div key={i} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden">
-                <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* ═══ 4. JE COMPRENDS : LES ÉTAPES DE CRÉATION DE MARQUE ═══
+          13/10/2026 (JP) : remplace « Comment ça marche ». Le gabarit des
+          étages de l’accueil (VisionEtages), seul le contenu change
+          (vision/etapesBio.ts). 14/10/2026 (JP) : remonté juste sous la
+          bande des logos de certification. */}
+      <section id="section-comprend" ref={setRef("comprend")} className="pt-12 md:pt-16 bg-background px-4 sm:px-6 lg:px-0">
+        <VisionEtagesBloc secteur="bio" />
       </section>
 
       {/* ═══ 3. LA QUALITÉ : NOS ENGAGEMENTS ═══ */}
       <section id="section-qualite" ref={setRef("qualite")} className="py-8 md:py-12">
         <div className="max-w-4xl mx-auto px-6">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16 text-center">
+          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-8 text-center">
             <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-foreground">Nos engagements</motion.p>
             <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed text-balance">
               <b>Sans achat de stock</b>, des cosmétiques d’excellence, certifiés et responsables
@@ -549,6 +541,18 @@ export default function DecouvertePage() {
               Tous nos produits sont formulés sans parabènes, sans silicones, sans PEG, sans filtres UV chimiques, sans microplastiques et sans colorants artificiels.
             </motion.p>
           </motion.div>
+
+          {/* Les six photos de JP (12/10/2026), sous le texte des engagements
+              depuis le 14/10/2026 (JP), au lieu d'une bande à part. */}
+          <div className="flex gap-3 mb-10 -mx-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
+            {[
+              kaniwa1, pmyrris1, sevmylook1, fralene10, sevmylook3, pmyrris4,
+            ].map((src, i) => (
+              <div key={i} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden">
+                <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+              </div>
+            ))}
+          </div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {[
@@ -660,14 +664,6 @@ export default function DecouvertePage() {
           ))}
         </motion.div>
 
-      </section>
-
-      {/* ═══ 4. JE COMPRENDS : LES ÉTAPES DE CRÉATION DE MARQUE ═══
-          13/10/2026 (JP) : remplace « Comment ça marche ». Le gabarit des
-          étages de l’accueil (VisionEtages), seul le contenu change
-          (vision/etapesBio.ts). */}
-      <section id="section-comprend" ref={setRef("comprend")} className="pt-12 md:pt-16 bg-background px-4 sm:px-6 lg:px-0">
-        <VisionEtagesBloc secteur="bio" />
       </section>
 
       {/* ═══ 5. LA LIVRAISON ═══ */}
