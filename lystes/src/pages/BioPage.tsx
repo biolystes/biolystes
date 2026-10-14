@@ -372,10 +372,12 @@ const EMBALLAGE: EtapeLivraison = { icon: Package, label: "Emballage", texte: "V
 const MODES_LIVRAISON = [
   {
     icon: Clock, nom: "Mode Standard", delai: "Livraison en 6-7 jours",
-    chapeau: "Fabriqué à la demande. Aucun stock nécessaire.",
+    /* JP, 14/10/2026 : plus de souplesse, aucune trésorerie sortie pour du
+       stock ; livré surtout en Europe et sur le continent américain. */
+    chapeau: "Plus de souplesse : fabriqué à la demande, sans aucune trésorerie engagée dans du stock. Livré en Europe et sur le continent américain.",
     etapes: [
       COMMANDE,
-      { icon: FlaskConical, label: "Fabrication", texte: "Le laboratoire fabrique le produit à la demande, sous votre nom.", differe: true },
+      { icon: FlaskConical, label: "Fabrication", texte: "Le laboratoire fabrique à la demande, sous votre nom.", differe: true },
       EMBALLAGE,
       { icon: Truck, label: "Expédition", texte: "Le colis part directement chez votre client." },
       { icon: Check, label: "Livré", texte: "En 6 à 7 jours." },
@@ -383,11 +385,13 @@ const MODES_LIVRAISON = [
   },
   {
     icon: Zap, nom: "Mode Express", delai: "Livraison en 24-48h",
-    chapeau: "Votre stock chez notre logisticien, sans minimum de quantité ni MOQ, réapprovisionné en une semaine au rythme de vos ventes.",
+    /* JP, 14/10/2026 : l'avantage de l'express, mêler d'autres produits aux
+       nôtres et personnaliser plus librement le packaging ; livré partout. */
+    chapeau: "Votre stock chez notre logisticien : mêlez d’autres produits aux nôtres et personnalisez plus librement votre packaging. Livré dans le monde entier.",
     etapes: [
       COMMANDE,
-      { icon: Warehouse, label: "Prélevé dans votre stock", texte: "Déjà chez notre logisticien : rien à fabriquer.", differe: true },
-      EMBALLAGE,
+      { icon: Warehouse, label: "Prélevé dans votre stock", texte: "Nos produits et les vôtres, déjà chez le logisticien.", differe: true },
+      { icon: Package, label: "Emballage", texte: "Votre packaging, personnalisé plus librement." },
       { icon: Truck, label: "Expédition", texte: "Expédié directement par le logisticien." },
       { icon: Check, label: "Livré", texte: "En 24 à 48 heures." },
     ],
@@ -407,9 +411,9 @@ function ModeLivraison({ mode, i }: { mode: (typeof MODES_LIVRAISON)[number]; i:
           <p className="text-xs text-foreground">{mode.delai}</p>
         </div>
       </div>
-      {/* Deux lignes réservées sur ordinateur : les étapes des deux cartes
+      {/* Trois lignes réservées sur ordinateur : les étapes des deux cartes
           restent alignées rang par rang. */}
-      <p className="mt-4 text-sm text-muted-foreground leading-relaxed text-pretty md:min-h-[2lh]">{mode.chapeau}</p>
+      <p className="mt-4 text-sm text-muted-foreground leading-relaxed text-pretty md:min-h-[3lh]">{mode.chapeau}</p>
       {/* Les étapes : un rond par étape, le trait descend d'un rond à
           l'autre, le libellé à droite. */}
       <ol className="mt-6">
