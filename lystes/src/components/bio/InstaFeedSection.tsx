@@ -1,15 +1,11 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
+import EnteteSection from "./EnteteSection";
 import insta1 from "@lystes/assets/bio/insta-1.jpg";
 import insta2 from "@lystes/assets/bio/insta-2.jpg";
 import insta3 from "@lystes/assets/bio/insta-3.jpg";
 import insta4 from "@lystes/assets/bio/insta-4.jpg";
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: (i: number) => ({ opacity: 1, y: 0, transition: { delay: i * 0.08, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] } }),
-};
 
 const posts = [
   {
@@ -39,17 +35,9 @@ export default function InstaFeedSection() {
 
   return (
     <div className="w-full">
-      <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} className="space-y-4 mb-16 text-center">
-        <motion.p variants={fadeUp} custom={0} className="text-xs tracking-[0.3em] uppercase text-foreground">
-          Retour client
-        </motion.p>
-        <motion.h2 variants={fadeUp} custom={1} className="text-2xl md:text-3xl lg:text-4xl font-light tracking-tight max-w-3xl mx-auto text-foreground leading-relaxed">
-          <b>Avis d’une de nos clientes</b> sur sa sélection de produits
-        </motion.h2>
-        <motion.p variants={fadeUp} custom={2} className="text-foreground max-w-xl mx-auto leading-relaxed">
-          Sev Formal, beauty expert internationale basée entre Miami et Paris, nous fait un retour sur les atouts des produits qu’elle a sélectionnés pour sa marque.
-        </motion.p>
-      </motion.div>
+      <EnteteSection className="mb-16" surtitre="Retour client"
+        noir="Avis d’une de nos clientes" gris={"sur sa sélection de\u00a0produits"}
+        texte="Sev Formal, beauty expert internationale basée entre Miami et Paris, nous fait un retour sur les atouts des produits qu’elle a sélectionnés pour sa marque." />
 
       <div className="overflow-hidden -mx-6">
         <motion.div
