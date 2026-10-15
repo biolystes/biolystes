@@ -55,7 +55,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Helmet } from "react-helmet-async";
 import {
-  ArrowUpRight, BadgePercent, Camera, Check, ChevronLeft, ChevronRight, ClipboardCheck, CreditCard, FlaskConical, HandCoins, Heart, KeyRound, PackageCheck,
+  ArrowUpRight, BadgePercent, Camera, Check, ChevronLeft, ChevronRight, ClipboardCheck, CreditCard, FlaskConical, HandCoins, Heart, Instagram, KeyRound, PackageCheck,
   Palette, PenTool, Receipt, ShieldCheck, Store, Tag, Truck, Wallet, type LucideIcon,
 } from "lucide-react";
 import VisionEtagesBloc from "@lystes/features/solutions/VisionEtagesBloc";
@@ -64,7 +64,6 @@ import { ABONNEMENT_DEMARRE_SITE, PRODUIT_EN_PLUS, packAchat, packPlusieursMois,
 import showcaseAmarsi from "@/assets/showcase-amarsi.jpg";
 import showcasePeau from "@/assets/showcase-peau.jpg";
 import showcase235 from "@/assets/showcase-235.jpg";
-import feedInstagramEclose from "@/assets/feed-instagram-eclose.jpg";
 
 const BRICOLAGE = "'Bricolage Grotesque', 'Inter', sans-serif";
 const INSECABLE = "\u00a0";
@@ -376,11 +375,18 @@ function ApercuSite() {
     <div className="space-y-4 h-full flex flex-col">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
         <p className="text-[1.0625rem] font-semibold text-foreground" style={{ fontFamily: BRICOLAGE }}>Le dernier site lancé : Éclose Paris</p>
-        <a href={ECLOSE_URL} target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
-          Voir le site <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
-        </a>
+        <span className="flex items-center gap-5">
+          <a href={ECLOSE_URL} target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
+            Voir le site <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
+          </a>
+          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
+            Voir Instagram <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
+          </a>
+        </span>
       </div>
+
       {telephone ? (
         <div className="mx-auto w-[260px] rounded-[2.25rem] border-[7px] border-foreground bg-foreground overflow-hidden">
           <div ref={cadre} className="relative w-full overflow-hidden rounded-[1.75rem] bg-background" style={{ aspectRatio: `${ecran.w} / ${ecran.h}` }}>
@@ -389,38 +395,22 @@ function ApercuSite() {
         </div>
       ) : (
         <div className="rounded-2xl border border-border bg-background overflow-hidden">
-          <div className="flex items-center gap-3 px-4 h-9 border-b border-border">
+          <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 h-9 border-b border-border">
             <span className="flex gap-1.5" aria-hidden="true">
               <span className="w-2.5 h-2.5 rounded-full bg-border" /><span className="w-2.5 h-2.5 rounded-full bg-border" /><span className="w-2.5 h-2.5 rounded-full bg-border" />
             </span>
-            <span className="mx-auto text-[0.75rem] text-muted-foreground">ecloseparis.com</span>
+            <span className="text-center text-[0.75rem] text-muted-foreground">ecloseparis.com</span>
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-[0.75rem] text-muted-foreground hover:text-foreground">
+              <Instagram className="h-3.5 w-3.5" strokeWidth={1.75} /> @Éclose Paris
+            </a>
           </div>
+
           <div ref={cadre} className="relative w-full overflow-hidden" style={{ aspectRatio: `${ecran.w} / ${ecran.h}` }}>
             {iframe}
           </div>
         </div>
       )}
-    </div>
-  );
-}
-
-/* Le fil Instagram de la marque, à droite de l'aperçu du site (JP, 15/10/2026),
-   dans la même présentation que la carte du site : un titre et un lien
-   « Voir l'Instagram », et la capture du fil (déjà la grille complète),
-   sans duplication. */
-function FilInstagram() {
-  return (
-    <div className="space-y-4 h-full flex flex-col">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <p className="text-[1.0625rem] font-semibold text-foreground" style={{ fontFamily: BRICOLAGE }}>Le fil Instagram d'Éclose Paris</p>
-        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
-          Voir l'Instagram <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
-        </a>
-      </div>
-      <div className="flex-1 min-h-0 rounded-2xl border border-border bg-background overflow-hidden flex items-start justify-center">
-        <img src={feedInstagramEclose} alt="Publications Instagram d'Éclose Paris" className="w-full block" loading="lazy" />
-      </div>
     </div>
   );
 }
@@ -603,15 +593,10 @@ export default function TarifsPage() {
       <Bande gris>
         <div className="max-w-[1072px] mx-auto px-[1.25rem] md:px-[1.5rem] space-y-10">
           <Entete surtitre="Ils nous font confiance" noir="Des marques bien réelles," gris="déjà lancées." />
-          {/* Aperçu du site à gauche, fil Instagram à droite (JP, 15/10/2026). */}
-          <div className="grid gap-6 md:grid-cols-[minmax(0,1fr),minmax(0,300px)] items-stretch">
-            <div className="order-2 md:order-1 min-w-0">
-              <ApercuSite />
-            </div>
-            <div className="order-1 md:order-2 min-w-0">
-              <FilInstagram />
-            </div>
-          </div>
+          {/* Le site lancé, en grand : le fil Instagram ne forme plus une
+              carte à côté, il est devenu un simple lien (JP, 15/10/2026). */}
+          <ApercuSite />
+
           <Carrousel titre="Ils ont lancé leur marque avec nous">
             {SHOWCASE_ITEMS.map((item) => (
               <div key={item.src} className="snap-start flex-shrink-0 w-[200px] h-[260px] rounded-xl overflow-hidden bg-muted">
