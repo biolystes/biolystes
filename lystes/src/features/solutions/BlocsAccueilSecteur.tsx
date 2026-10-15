@@ -44,6 +44,8 @@ type Reglage = {
   blocsRetires?: ("bento" | "data" | "organigramme")[];
   /** Les titres des blocs au format de l'en-tête commun de /bio. */
   enteteCommun?: boolean;
+  /** La ligne de secteurs de la fenêtre des créateurs est recadrée. */
+  sansOnglets?: boolean;
   /** Le lien de chaque carte (« En savoir plus » de l'accueil) remplacé. */
   lienCartes?: { libelle: string; href: string };
 };
@@ -65,6 +67,9 @@ const REGLAGES: Record<Secteur, Reglage> = {
     lienCartes: { libelle: "Prendre rendez-vous", href: "https://biolystes.pro/rdv" },
     /* 14/10/2026 (JP, « uniformise tout ») : mêmes titres que le reste de /bio. */
     enteteCommun: true,
+    /* 15/10/2026 (JP, « enlève Fashion en page d'accueil ») : la ligne de
+       secteurs de la fenêtre des créateurs est masquée sur biolystes.com. */
+    sansOnglets: true,
   },
   /* /crea : l'essayage virtuel a toute sa place ; le diagnostic beauté (un
      visage) et l'événementiel partent. Séries Lookbook et Fashion, créateurs
@@ -196,7 +201,7 @@ export default function BlocsAccueilSecteur({ secteur }: { secteur: Secteur }) {
       {/* 3. Le carrousel « De combien augmenterait… » */}
       <div dangerouslySetInnerHTML={{ __html: blocs.bande }} />
       {/* 4. Les créateurs, sur le secteur de la page */}
-      <HomeCreatorsGallery sansGeneration secteur={reglage.createurs} langue={lang} enteteCommun={reglage.enteteCommun} />
+      <HomeCreatorsGallery sansGeneration secteur={reglage.createurs} langue={lang} enteteCommun={reglage.enteteCommun} sansOnglets={reglage.sansOnglets} />
       {/* 5. L'organigramme */}
       {!retire("organigramme") && <Hierarchy className="pt-10 md:pt-14" />}
 
