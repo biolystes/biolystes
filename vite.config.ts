@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   /* /blog/articles.json, lu par la fenêtre « L’actualité » du widget Lystes. */
-  plugins: [react(), articlesJsonVite(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), mcpPlugin(), articlesJsonVite(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     dedupe: ["react", "react-dom", "react/jsx-runtime"],
     alias: {
