@@ -552,6 +552,12 @@ export default function TarifsPage() {
               <p className="mt-2 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">
                 Vous vous arrêtez là, sans rien payer de plus ({euros(acompte)} TTC d’acompte au total), et vous gardez votre logo et votre branding.
               </p>
+              {/* Aperçu de ce que la cliente va recevoir (JP, 15/10/2026) : une vidéo
+                  au format des cartes des carrousels showcase de la page. */}
+              <p className="mt-6 text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Un aperçu de ce que vous recevez</p>
+              <div className="mt-3 w-[200px] h-[260px] rounded-xl overflow-hidden bg-muted">
+                <video src="/videos/showcase-2.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+              </div>
             </div>
           </div>
         ) : (
