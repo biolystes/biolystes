@@ -71,13 +71,3 @@ qui suit n’a été vérifié par un juriste. Chaque point cite la phrase publi
 - Avis clients (article Équipes IA, « une page d’avis par produit ») : règles
   de transparence des avis en ligne (article L. 111-7-2 du Code de la
   consommation).
-
-## 8. Partenariat SB2L (article « Biolystes s’associe à SB2L Logistique »)
-
-- Phrases publiées : « tarifs de livraison 50 % moins élevés » ; « la zone de
-  livraison s’agrandit : vos produits partent désormais vers le monde entier ».
-- À vérifier : la justification du comparatif « 50 % » (comparé à quoi : tarifs
-  antérieurs, tarifs du marché ? pratiques commerciales comparatives) et la
-  portée exacte de « monde entier » (destinations réellement desservies,
-  exclusions éventuelles).
-- Usage du nom SB2L et de la photo de son équipe : accord écrit du partenaire.
