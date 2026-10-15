@@ -5,7 +5,6 @@
    suivante. Couleurs de la marque : noir #121212, crème #f5f4df — jamais de blanc pur. */
 import { useState } from "react";
 import { ArrowUpRight, X } from "lucide-react";
-import bannierePhoto from "@/assets/banniere-nouveau-site.jpg";
 
 const CLE_SESSION = "nouveau_site_banniere_fermee";
 
@@ -38,19 +37,24 @@ export default function NouveauSiteBanner() {
       className="relative overflow-hidden rounded-[28px]"
       style={{ background: NOIR }}
     >
-      {/* Photo : pleine largeur sur téléphone, moitié droite sur ordinateur.
-          L'absence de padding sur la carte évite que l'image, absolutely
+      {/* Vidéo du hero de la page d'accueil (choix de JP, 15/10/2026) :
+          pleine largeur sur téléphone, moitié droite sur ordinateur.
+          L'absence de padding sur la carte évite que la vidéo, absolutely
           positionnée, ne soit décalée sous le remplissage et ne laisse une
           bande noire en haut. */}
-      <img
-        src={bannierePhoto}
-        alt="Portrait d'une cliente au naturel, peau nue, éclairage doux"
-        loading="lazy"
-        width={1024}
-        height={1024}
+      <video
+        poster="/hero-poster.webp"
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden="true"
         className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center opacity-40 sm:w-2/3 sm:opacity-100"
-      />
-      {/* Dégradé qui noie la photo dans le noir pour garder le texte lisible. */}
+      >
+        <source src="/videos/banniere-nouveau-site.mp4" type="video/mp4" />
+        <source src="/videos/banniere-nouveau-site.webm" type="video/webm" />
+      </video>
+      {/* Dégradé qui noie la vidéo dans le noir pour garder le texte lisible. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#121212] via-[#121212]/90 to-[#121212]/30 sm:via-[#121212]/70 sm:to-transparent"
