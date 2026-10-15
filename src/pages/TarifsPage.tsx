@@ -551,6 +551,14 @@ export default function TarifsPage() {
         </div>
       </section>
 
+      {/* ═══ COMMENT ÇA FONCTIONNE : LES ÉTAPES ═══
+          Le bloc des étapes de l'accueil (VisionEtagesBloc secteur="bio") :
+          les onglets Sélection → Assurance, la scène par étape et le
+          carrousel de sélection. Il porte ses propres styles et son titre. */}
+      <section className="bg-background pb-12 md:pb-16">
+        <VisionEtagesBloc secteur="bio" />
+      </section>
+
       {/* ═══ CE QUE NOTRE SUITE IA FAIT POUR VOS VENTES ═══
           Le bloc des étages de /agents-ia (VisionEtagesBloc) : les onglets
           Vos produits → Vos équipes, les visites et la fiche de démonstration.
