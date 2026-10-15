@@ -10,3 +10,14 @@
 .pied-page ~ .lystes-footer .hyphens-auto {
   hyphens: manual;
 }
+
+/* Le bloc du choix (onglets et phrase) sur les pages du pied de page (JP,
+   15/10/2026) : chaque élément reste sous 684 px, centré, espacé de 8 px —
+   la page prend moins de hauteur. */
+:where(.lystes-racine) .pied-page :is(.space-y-4 > :not([hidden]) ~ :not([hidden])) {
+  --tw-space-y-reverse: 0;
+  margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+  margin-bottom: calc(1rem * var(--tw-space-y-reverse));
+  max-width: 684px;
+  margin: 8px auto;
+}
