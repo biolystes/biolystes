@@ -63,7 +63,7 @@ export default function NouveauSiteBanner() {
         >
           biolystes.com est en&nbsp;ligne
         </h2>
-        <p className="mt-3 text-sm md:text-base" style={{ color: `${CREME}b3` }}>
+        <p className="mt-3 text-sm md:text-base" style={{ color: `${CREME}d9` }}>
           Nouveau site est en ligne.
         </p>
         <a
