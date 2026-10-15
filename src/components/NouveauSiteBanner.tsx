@@ -54,7 +54,7 @@ export default function NouveauSiteBanner() {
         <source src="/videos/banniere-nouveau-site.mp4" type="video/mp4" />
         <source src="/videos/banniere-nouveau-site.webm" type="video/webm" />
       </video>
-      {/* Dégradé qui noie la photo dans le noir pour garder le texte lisible. */}
+      {/* Dégradé qui noie la vidéo dans le noir pour garder le texte lisible. */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#121212] via-[#121212]/90 to-[#121212]/30 sm:via-[#121212]/70 sm:to-transparent"
