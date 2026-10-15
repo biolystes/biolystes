@@ -16,6 +16,7 @@ export function HomeCreatorsGallery({
   secteur = "cosmetique",
   langue,
   enteteCommun = false,
+  sansOnglets = false,
 }: {
   sansGeneration?: boolean;
   secteur?: string;
@@ -23,10 +24,13 @@ export function HomeCreatorsGallery({
   langue?: string;
   /* L'en-tête commun des blocs de /bio (14/10/2026) au lieu du grand titre. */
   enteteCommun?: boolean;
+  /** Recadre la ligne de secteurs de la fenêtre intégrée (15/10/2026). */
+  sansOnglets?: boolean;
 } = {}) {
   const { i18n } = useTranslation();
   const lang = langue ?? (i18n.language || "fr").substring(0, 2).toLowerCase();
   const t = getJsxT("home-blocks", lang);
+  const src = `https://lystes.ai/creator?embed=1&sector=${encodeURIComponent(secteur)}&lang=${encodeURIComponent(lang)}${sansGeneration ? "&generation=0" : ""}`;
 
   return (
     <section className="w-full bg-[#F4F4F5]">
@@ -49,12 +53,27 @@ export function HomeCreatorsGallery({
         </p>
       </div>
       )}
-      <iframe
-        src={`https://lystes.ai/creator?embed=1&sector=${encodeURIComponent(secteur)}&lang=${encodeURIComponent(lang)}${sansGeneration ? "&generation=0" : ""}`}
-        title={t("Créateurs de contenu IA")}
-        loading="lazy"
-        className="block h-[82dvh] md:h-[88dvh] w-full border-0"
-      />
+      {/* 15/10/2026 (JP, « enlève Fashion en page d’accueil ») : la ligne de
+          secteurs de la fenêtre intégrée (Cosmétique, Fashion, Sport,
+          Bien-être) est recadrée, la galerie gardant sa hauteur. Le fond du
+          cadre (crème) est celui de la fenêtre elle-même : aucune couture. */}
+      {sansOnglets ? (
+        <div className="h-[calc(82dvh-64px)] md:h-[calc(88dvh-96px)] w-full overflow-hidden">
+          <iframe
+            src={src}
+            title={t("Créateurs de contenu IA")}
+            loading="lazy"
+            className="block h-[82dvh] md:h-[88dvh] w-full border-0 -mt-16 md:-mt-24"
+          />
+        </div>
+      ) : (
+        <iframe
+          src={src}
+          title={t("Créateurs de contenu IA")}
+          loading="lazy"
+          className="block h-[82dvh] md:h-[88dvh] w-full border-0"
+        />
+      )}
     </section>
   );
 }
