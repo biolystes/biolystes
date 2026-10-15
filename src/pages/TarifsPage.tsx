@@ -339,16 +339,12 @@ const SANS_BOUTIQUE = ACHATS.find((o) => o.cle === "design") as Offre;
 /* Le dernier site lancé, vu en vrai (JP, 14/10/2026) : ecloseparis.com en
    iframe (le site ne l'interdit pas : ni X-Frame-Options, ni
    frame-ancestors, vérifié le 14/10/2026), réduit à la largeur du cadre.
-   15/10/2026 (JP) : le fil Instagram de la marque s'affiche à gauche de
-   l'aperçu ; le cadre devient plus étroit et plus haut, et ne montre qu'une
-   partie du site (recadrage horizontal centré).
+   15/10/2026 : retour aux proportions d'origine — le site entier visible,
+   le fil Instagram passe à droite dans une carte de même style.
    Ordinateur : écran 1440 × 900 dans une fenêtre de navigateur ; téléphone :
    écran 390 × 844 dans un cadre de téléphone. Une seule iframe chargée. */
 const ECLOSE_URL = "https://ecloseparis.com";
-/* Part de la largeur du site visible dans le cadre (le reste est recadré,
-   centré). L'iframe garde la même échelle verticale : le cadre est plus haut
-   que son contenu proportionnel. */
-const PARTIE_VISIBLE = 0.75;
+const INSTAGRAM_URL = "https://www.instagram.com/ecloseparis/";
 /* L'iframe est plus haute que le cadre : le bandeau de cookies et le bouton
    de conseil du site, fixés en bas de sa fenêtre, tombent hors du cadre. */
 const MARGE_CACHEE = 420;
