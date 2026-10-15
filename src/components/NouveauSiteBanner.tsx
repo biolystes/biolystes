@@ -43,7 +43,6 @@ export default function NouveauSiteBanner() {
           positionnée, ne soit décalée sous le remplissage et ne laisse une
           bande noire en haut. */}
       <video
-        src="/videos/banniere-nouveau-site.mp4"
         poster="/hero-poster.webp"
         autoPlay
         muted
@@ -51,7 +50,10 @@ export default function NouveauSiteBanner() {
         playsInline
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center opacity-40 sm:w-2/3 sm:opacity-100"
-      />
+      >
+        <source src="/videos/banniere-nouveau-site.mp4" type="video/mp4" />
+        <source src="/videos/banniere-nouveau-site.webm" type="video/webm" />
+      </video>
       {/* Dégradé qui noie la photo dans le noir pour garder le texte lisible. */}
       <div
         aria-hidden="true"
