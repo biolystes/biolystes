@@ -605,7 +605,15 @@ export default function TarifsPage() {
       <Bande gris>
         <div className="max-w-[1072px] mx-auto px-[1.25rem] md:px-[1.5rem] space-y-10">
           <Entete surtitre="Ils nous font confiance" noir="Des marques bien réelles," gris="déjà lancées." />
-          <ApercuSite />
+          {/* Fil Instagram à gauche, aperçu du site à droite (JP, 15/10/2026). */}
+          <div className="grid gap-6 md:grid-cols-[minmax(0,300px),minmax(0,1fr)] items-stretch">
+            <div className="order-2 md:order-1 min-w-0">
+              <FilInstagram />
+            </div>
+            <div className="order-1 md:order-2 min-w-0">
+              <ApercuSite />
+            </div>
+          </div>
           <Carrousel titre="Ils ont lancé leur marque avec nous">
             {SHOWCASE_ITEMS.map((item) => (
               <div key={item.src} className="snap-start flex-shrink-0 w-[200px] h-[260px] rounded-xl overflow-hidden bg-muted">
