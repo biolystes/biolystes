@@ -1,0 +1,111 @@
+{
+  "version": 1,
+  "sdk_version": "3.1.0",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "biolystes",
+      "version": "0.1.0",
+      "title": "Biolystes"
+    },
+    "tools": [
+      {
+        "name": "create_product_selection",
+        "title": "Créer un lien de sélection de produits",
+        "description": "Crée une sélection de produits Biolystes et renvoie le lien public de partage (https://biolystes.com/selection/<id>). Aucun prix n'est exposé.",
+        "annotations": {
+          "readOnlyHint": false,
+          "idempotentHint": false,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 120,
+              "description": "Titre de la sélection, ex. « Sélection pour Aurélia »."
+            },
+            "products": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "Identifiant produit du catalogue."
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1,
+                    "description": "Nom du produit."
+                  },
+                  "image": {
+                    "type": "string",
+                    "description": "URL de l'image produit."
+                  },
+                  "permalink": {
+                    "type": "string",
+                    "description": "Lien produit d'origine."
+                  },
+                  "categories": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "Catégories du produit."
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ],
+                "additionalProperties": false
+              },
+              "minItems": 1,
+              "maxItems": 50,
+              "description": "Produits de la sélection."
+            }
+          },
+          "required": [
+            "title",
+            "products"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_product_selection",
+        "title": "Lire une sélection de produits",
+        "description": "Récupère le contenu d'une sélection Biolystes à partir de son identifiant (la fin du lien /selection/<id>).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Identifiant UUID de la sélection."
+            }
+          },
+          "required": [
+            "id"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
+import { mcpPlugin } from "@lovable.dev/mcp-js/stacks/supabase/vite";
 import { articlesJsonVite } from "./scripts/articles-json";
 
 // https://vitejs.dev/config/
@@ -14,7 +15,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   /* /blog/articles.json, lu par la fenêtre « L’actualité » du widget Lystes. */
-  plugins: [react(), articlesJsonVite(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react(), mcpPlugin(), articlesJsonVite(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     dedupe: ["react", "react-dom", "react/jsx-runtime"],
     alias: {
