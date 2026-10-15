@@ -550,6 +550,18 @@ export default function TarifsPage() {
         </div>
       </section>
 
+      {/* ═══ CE QUE NOTRE SUITE IA FAIT POUR VOS VENTES ═══
+          Le bloc des étages de /agents-ia (VisionEtagesBloc) : les onglets
+          Vos produits → Vos équipes, les visites et la fiche de démonstration.
+          Il porte ses propres styles : rien à ajouter à la page. */}
+      <section className="bg-background pb-12 md:pb-16">
+        <div className="max-w-[1072px] mx-auto px-[1.25rem] md:px-[1.5rem] pt-12 md:pt-16">
+          <Entete surtitre="Notre suite IA" noir="Ce que nos équipes IA font" gris="pour vos ventes." />
+        </div>
+        <VisionEtagesBloc />
+      </section>
+
+
       {/* ═══ RÉASSURANCE : LES CARROUSELS DE BIOLYSTES.PRO/RDV ═══ */}
       <Bande gris>
         <div className="max-w-[1072px] mx-auto px-[1.25rem] md:px-[1.5rem] space-y-10">
