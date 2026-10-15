@@ -546,17 +546,25 @@ export default function TarifsPage() {
                   </li>
                 ))}
               </ul>
-              {/* Le logo est offert (JP, 14/10/2026) : coupe court aux « j'ai déjà mon logo ». */}
-              <p className="mt-4 text-[0.9375rem] text-foreground font-medium text-pretty">Le logo est offert : il n’est pas compté dans le prix.</p>
-              <p className="mt-6 text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Si les produits ne vous conviennent pas</p>
-              <p className="mt-2 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">
-                Vous vous arrêtez là, sans rien payer de plus ({euros(acompte)} TTC d’acompte au total), et vous gardez votre logo et votre branding.
-              </p>
-              {/* Aperçu de ce que la cliente va recevoir (JP, 15/10/2026) : une vidéo
-                  au format des cartes des carrousels showcase de la page. */}
-              <p className="mt-6 text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Un aperçu de ce que vous recevez</p>
-              <div className="mt-3 w-[200px] h-[260px] rounded-xl overflow-hidden bg-muted">
-                <video src="/videos/showcase-2.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+              {/* Aperçu de ce que la cliente va recevoir (JP, 15/10/2026) : la vidéo
+                  au format des cartes showcase à gauche, le texte à sa droite — la
+                  colonne prend moins de hauteur (JP, 15/10/2026 : « le texte à
+                  droite, pour ne pas prendre trop de place en hauteur »). */}
+              <div className="mt-6 flex flex-wrap items-start gap-x-8 gap-y-5">
+                <div className="shrink-0">
+                  <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Un aperçu de ce que vous recevez</p>
+                  <div className="mt-3 w-[200px] h-[260px] rounded-xl overflow-hidden bg-muted">
+                    <video src="/videos/showcase-2.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                  </div>
+                </div>
+                <div className="min-w-0 flex-1">
+                  {/* Le logo est offert (JP, 14/10/2026) : coupe court aux « j'ai déjà mon logo ». */}
+                  <p className="text-[0.9375rem] text-foreground font-medium text-pretty">Le logo est offert : il n’est pas compté dans le prix.</p>
+                  <p className="mt-5 text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Si les produits ne vous conviennent pas</p>
+                  <p className="mt-2 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">
+                    Vous vous arrêtez là, sans rien payer de plus ({euros(acompte)} TTC d’acompte au total), et vous gardez votre logo et votre branding.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
