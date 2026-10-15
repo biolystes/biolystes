@@ -35,17 +35,20 @@ export default function NouveauSiteBanner() {
   return (
     <aside
       aria-label="Nouveau site Biolystes"
-      className="relative overflow-hidden rounded-[28px] px-6 py-8 md:px-12 md:py-12"
+      className="relative overflow-hidden rounded-[28px]"
       style={{ background: NOIR }}
     >
-      {/* Photo : pleine largeur sur téléphone, moitié droite sur ordinateur. */}
+      {/* Photo : pleine largeur sur téléphone, moitié droite sur ordinateur.
+          L'absence de padding sur la carte évite que l'image, absolutely
+          positionnée, ne soit décalée sous le remplissage et ne laisse une
+          bande noire en haut. */}
       <img
         src={bannierePhoto}
         alt="Portrait d'une cliente au naturel, peau nue, éclairage doux"
         loading="lazy"
         width={1024}
         height={1024}
-        className="pointer-events-none absolute inset-y-0 right-0 h-full w-full object-cover object-center opacity-40 sm:w-2/3 sm:opacity-100"
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover object-center opacity-40 sm:w-2/3 sm:opacity-100"
       />
       {/* Dégradé qui noie la photo dans le noir pour garder le texte lisible. */}
       <div
@@ -53,7 +56,7 @@ export default function NouveauSiteBanner() {
         className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#121212] via-[#121212]/90 to-[#121212]/30 sm:via-[#121212]/70 sm:to-transparent"
       />
 
-      <div className="relative max-w-xl">
+      <div className="relative max-w-xl px-6 py-8 md:px-12 md:py-12">
         <h2
           className="text-2xl font-semibold leading-tight md:text-[28px]"
           style={{ color: CREME }}
