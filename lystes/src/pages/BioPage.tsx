@@ -23,6 +23,7 @@ import BlocsAccueilSecteur from "@lystes/features/solutions/BlocsAccueilSecteur"
    vers /innovation. Hors de lystes/ (src/components/innovation). */
 import AppelInnovation from "@/components/innovation/AppelInnovation";
 import { Header } from "@lystes/components/landing/Header";
+import { TopBar } from "@lystes/components/landing/TopBar";
 import { Footer } from "@lystes/components/landing/Footer";
 import { useSansMotSeul } from "@lystes/hooks/useSansMotSeul";
 import { CommeSurAccueil } from "@lystes/features/solutions/CommeSurAccueil";
@@ -615,11 +616,12 @@ export default function DecouvertePage() {
 
   return (
     <div className="bio-scope min-h-screen bg-background overflow-x-hidden">
-      {/* En-tête de l’accueil, transparent sur la vidéo (JP, 12/10/2026),
-          sans le bandeau vert « Démo ». Il lit « / » pour prendre la même
-          forme que sur l’accueil. */}
+      {/* En-tête de l’accueil, transparent sur la vidéo (JP, 12/10/2026).
+          Il lit « / » pour prendre la même forme que sur l’accueil.
+          biolystes.com (JP, 15/10/2026) : bandeau vert « Démo : ajoutez
+          lystes.ai/ » au-dessus, le même que sur l’accueil de lystes.ai. */}
       <CommeSurAccueil>
-        <Header overlay />
+        <Header overlay topBar={<TopBar />} />
       </CommeSurAccueil>
 
       {/* ═══ 1. JE DÉCOUVRE ═══ */}

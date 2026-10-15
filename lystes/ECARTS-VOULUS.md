@@ -74,7 +74,7 @@ rechargement.
 
 | Endroit | Sur lystes.ai | Sur biolystes.com |
 |---|---|---|
-| Au-dessus de l'en-tête | bandeau vert « Démo : ajoutez lystes.ai/… » | retiré (pistache réservé au pied de page) |
+| Au-dessus de l'en-tête | bandeau vert « Démo : ajoutez lystes.ai/… » | gardé depuis le 15/10/2026 (voir plus bas) |
 | Bannière | champ « Lien d'une fiche produit / Tester gratuitement » | retiré ; seul « Prendre rendez-vous » reste |
 | Galerie des créateurs | panneau « Téléchargez votre image produit » | masqué (`sansGeneration`), comme sur l'accueil |
 | Bas de page | « Sans engagement / résiliable à tout moment », « Sans engagement · Configuration guidée » | retirés (arguments d'abonnement) |
@@ -100,3 +100,19 @@ importer.
 Retirés de /innovation faute de source : les repères chiffrés de /cosmetique
 (×3,1, ×4,1, +72 %, ×6,2, +48 %) et les barres « sans l'IA / avec l'IA »
 (3,02 % / 6,76 %, 4 % / 31 %). Aucun prix.
+
+## Bandeau vert « Démo » au-dessus de l'en-tête (JP, 15/10/2026)
+
+JP : « la même top bar » que sur lystes.ai. Le composant est celui de
+petal-diagnostics, `src/components/landing/TopBar.tsx`, déjà copié tel quel dans
+`lystes/src/components/landing/TopBar.tsx`. Il remplace la décision du
+13/10/2026 (bandeau retiré, pistache réservé au pied de page).
+
+| Endroit | Sur lystes.ai | Sur biolystes.com |
+|---|---|---|
+| `/agents-ia` (HomeVisionPage) | bandeau | bandeau, comme lystes.ai : l'écart 19 de `ecarts_voulus.py` est levé |
+| Accueil `/` (BioPage) | /bio : pas de bandeau | bandeau, `<Header overlay topBar={<TopBar />} />` (écart 19 bis) |
+
+| Bandeau au téléphone | `px-2` (8 px du bord), « produit. » seul en 2e ligne à 375 px | `px-4` (16 px) et `[text-wrap:balance]` (écart 19 ter) |
+
+Le bouton « Copier » copie `lystes.ai/`, comme sur lystes.ai.

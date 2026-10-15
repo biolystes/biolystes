@@ -42,7 +42,10 @@ export function TopBar() {
 
   return (
     <div className="text-neutral-950" style={{ background: "#e1f3c5" }}>
-      <div className="mx-auto flex max-w-7xl items-center justify-center gap-1.5 px-2 py-2 sm:gap-3 sm:px-6 lg:px-8">
+      {/* biolystes.com (JP, 15/10/2026) : 16 px de marge au téléphone (px-4 au
+          lieu de px-2) et deux lignes équilibrées, sans « produit. » seul en
+          fin de ligne à 375 px. Écart 19 ter de ecarts_voulus.py. */}
+      <div className="mx-auto flex max-w-7xl items-center justify-center gap-1.5 px-4 py-2 sm:gap-3 sm:px-6 lg:px-8">
         {/* Le texte se replie sur deux lignes au besoin au lieu de déborder
             sous le bouton Copier : mesuré à 375 px, 306 px de texte pour 294
             disponibles. Plus de tiret long devant la consigne : deux-points. */}
@@ -51,7 +54,7 @@ export function TopBar() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-neutral-950 opacity-75" />
             <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-neutral-950 sm:h-2 sm:w-2" />
           </span>
-          <span className="min-w-0">
+          <span className="min-w-0 [text-wrap:balance]">
             <span className="font-semibold">{t("Démo")}{deuxPoints}</span>{" "}
             <span className="text-neutral-950/90">{t("Ajoutez « lystes.ai/ » au début de l’URL d’un produit.")}</span>
           </span>
