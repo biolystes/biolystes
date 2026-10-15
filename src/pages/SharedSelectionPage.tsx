@@ -182,7 +182,7 @@ function ProductPanel({
           )}
 
           {/* Price tiers */}
-          {price > 0 && (
+          {false && price > 0 && (
             <div style={{ background: C.bg, borderRadius: 12, padding: "16px" }}>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 12 }}>
                 <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: "1px", textTransform: "uppercase", color: C.muted }}>Prix de vente conseillé</span>
@@ -198,7 +198,7 @@ function ProductPanel({
           )}
 
           {/* Catalogue price */}
-          {price > 0 && (
+          {false && price > 0 && (
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
               <span style={{ fontSize: 22, fontWeight: 700, color: "#1d1d1f" }}>{Math.round(price)}€ <span style={{ fontSize: 12, fontWeight: 400, color: C.muted }}>TTC</span></span>
             </div>
@@ -321,7 +321,7 @@ export default function SharedSelectionPage() {
             {selection.title}
           </h1>
           <p style={{ fontSize: 13, color: "#86868b" }}>
-            {selection.products.length} produit{selection.products.length > 1 ? "s" : ""} · Coût catalogue total : <strong style={{ color: "#1d1d1f" }}>{total.toFixed(2)}€</strong>
+            {selection.products.length} produit{selection.products.length > 1 ? "s" : ""} · Tarifs communiqués sur devis
           </p>
         </motion.div>
       </div>
@@ -358,7 +358,7 @@ export default function SharedSelectionPage() {
                       {product.name}
                     </h3>
                   </div>
-                  {price > 0 && (
+                  {false && price > 0 && (
                     <div style={{ background: "#f3f4f5", borderRadius: 10, padding: "10px 12px" }}>
                       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
                         <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: ".8px", textTransform: "uppercase", color: "#86868b" }}>Prix conseillé</span>
