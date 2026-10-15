@@ -546,25 +546,25 @@ export default function TarifsPage() {
                   </li>
                 ))}
               </ul>
-              {/* Aperçu de ce que la cliente va recevoir (JP, 15/10/2026) : la vidéo
-                  au format des cartes showcase. Les textes (« Le logo est offert »,
-                  « Si les produits ne vous conviennent pas ») passent en dessous,
-                  pleine largeur (JP, 15/10/2026) — plus de double titre à côté
-                  de la vidéo. */}
+              {/* Aperçu (JP, 15/10/2026) : vidéo à gauche, texte « Si les produits ne
+                  vous conviennent pas » à droite de la vidéo. Seul « Le logo est offert »
+                  passe en dessous, en pleine largeur. */}
               <p className="mt-6 text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Un aperçu de ce que vous recevez</p>
-              <div className="mt-3 w-[200px] h-[260px] rounded-xl overflow-hidden bg-muted">
-                <video src="/videos/showcase-2.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+              <div className="mt-3 grid grid-cols-[200px_minmax(0,1fr)] gap-5 items-start">
+                <div className="w-[200px] h-[260px] rounded-xl overflow-hidden bg-muted">
+                  <video src="/videos/showcase-2.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                </div>
+                <div>
+                  <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Si les produits ne vous conviennent pas</p>
+                  <p className="mt-2 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">
+                    Vous vous arrêtez là, sans rien payer de plus ({euros(acompte)} TTC d’acompte au total), et vous gardez votre logo et votre branding.
+                  </p>
+                </div>
               </div>
             </div>
-            {/* « Le logo est offert » puis « Si les produits ne vous conviennent pas » :
-                pleine largeur, en bas de la vidéo et de la colonne de droite (JP, 15/10/2026). */}
+            {/* Le logo est offert (JP, 14/10/2026) : seul texte en pleine largeur, en bas du bloc. */}
             <div className="lg:col-span-2">
-              {/* Le logo est offert (JP, 14/10/2026) : coupe court aux « j'ai déjà mon logo ». */}
               <p className="text-[0.9375rem] text-foreground font-medium text-pretty">Le logo est offert : il n’est pas compté dans le prix.</p>
-              <p className="mt-5 text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Si les produits ne vous conviennent pas</p>
-              <p className="mt-2 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">
-                Vous vous arrêtez là, sans rien payer de plus ({euros(acompte)} TTC d’acompte au total), et vous gardez votre logo et votre branding.
-              </p>
             </div>
           </div>
         ) : (
