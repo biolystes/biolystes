@@ -373,11 +373,11 @@ function ApercuSite() {
   const echelle = largeur ? largeur / (ecran.w * (telephone ? 1 : PARTIE_VISIBLE)) : 0;
   const iframe = (
     <iframe src={ECLOSE_URL} title="Éclose Paris, le site" loading="lazy" tabIndex={-1} aria-hidden="true"
-      className="absolute top-0 left-0 border-0 pointer-events-none origin-top-left"
-      style={{ width: ecran.w, height: ecran.h + MARGE_CACHEE, transform: `scale(${echelle})`, visibility: echelle ? "visible" : "hidden" }} />
+      className="absolute top-0 border-0 pointer-events-none origin-top-left"
+      style={{ left: telephone ? 0 : `${-(ecran.w * echelle - largeur) / 2}px`, width: ecran.w, height: ecran.h + MARGE_CACHEE, transform: `scale(${echelle})`, visibility: echelle ? "visible" : "hidden" }} />
   );
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 h-full flex flex-col">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
         <p className="text-[1.0625rem] font-semibold text-foreground" style={{ fontFamily: BRICOLAGE }}>Le dernier site lancé : Éclose Paris</p>
         <a href={ECLOSE_URL} target="_blank" rel="noopener noreferrer"
@@ -399,11 +399,30 @@ function ApercuSite() {
             </span>
             <span className="mx-auto text-[0.75rem] text-muted-foreground">ecloseparis.com</span>
           </div>
-          <div ref={cadre} className="relative w-full overflow-hidden" style={{ aspectRatio: `${ecran.w} / ${ecran.h}` }}>
+          <div ref={cadre} className="relative w-full overflow-hidden" style={{ aspectRatio: `${ecran.w * PARTIE_VISIBLE} / ${ecran.h}` }}>
             {iframe}
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+/* Le fil Instagram de la marque, à gauche de l'aperçu du site (JP, 15/10/2026) :
+   sa grille de publications, défilée en boucle comme un vrai fil. */
+function FilInstagram() {
+  return (
+    <div className="flex flex-col h-full rounded-2xl border border-border bg-background overflow-hidden">
+      <div className="flex items-center gap-2 px-4 h-9 border-b border-border shrink-0">
+        <Instagram className="h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.75} />
+        <span className="text-[0.75rem] text-muted-foreground">Éclose Paris sur Instagram</span>
+      </div>
+      <div className="relative flex-1 min-h-[420px] overflow-hidden">
+        <div className="defile-feed">
+          <img src={feedInstagramEclose} alt="Publications Instagram d'Éclose Paris" className="w-full block" loading="lazy" />
+          <img src={feedInstagramEclose} alt="" aria-hidden="true" className="w-full block" loading="lazy" />
+        </div>
+      </div>
     </div>
   );
 }
