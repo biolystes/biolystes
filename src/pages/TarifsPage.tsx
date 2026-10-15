@@ -52,7 +52,7 @@
    pourcentages de remise, « le premier mois
    offert », le tarif horaire hors forfait, la durée d’engagement de
    l’abonnement, le prix exact de chaque référence. */
-import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 import { Helmet } from "react-helmet-async";
 import {
   ArrowUpRight, BadgePercent, Camera, Check, ChevronLeft, ChevronRight, ClipboardCheck, CreditCard, FlaskConical, HandCoins, Heart, Instagram, KeyRound, PackageCheck,
