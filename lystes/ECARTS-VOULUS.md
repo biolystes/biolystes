@@ -79,6 +79,7 @@ rechargement.
 | Galerie des créateurs | panneau « Téléchargez votre image produit » | masqué (`sansGeneration`), comme sur l'accueil |
 | Bas de page | « Sans engagement / résiliable à tout moment », « Sans engagement · Configuration guidée » | retirés (arguments d'abonnement) |
 | Cartes | « En savoir plus » vers lystes.ai/solutions | gardés (navigation) |
+| Cartes équipes (/agents-ia) | essayage virtuel ; portfolio photo multi-secteurs | carte d’essayage retirée ; portfolio limité aux trois photos de produits cosmétiques Cléa, sans onglets mode, lifestyle, studio ni food (16/10/2026) |
 
 ## Innovation : page /innovation, section de l'accueil, menu (JP, 14/10/2026)
 

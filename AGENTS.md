@@ -5,3 +5,4 @@
 - Keep additional-product eligibility in `src/data/offres.ts` and test it independently of presentation, so pack descriptions cannot drift from the rule.
 - Keep the embedded creators gallery's sector row off biolystes.com's home page through the `sansOnglets` flag on `HomeCreatorsGallery` (set in the cosmetique entry of `BlocsAccueilSecteur`), so sector names coming from the embedded view cannot appear on the home page; re-apply it after `lystes/` is resynced.
 - Keep /agents-ia's creators gallery in « équipes IA » mode via the `equipes` flag on `HomeCreatorsGallery` (AgentsVisionRawPage), so it shows lystes.ai's AI teams rather than plain creators; re-apply it after `lystes/` is resynced.
+- Keep the Biolystes Agents IA team-card adaptations in its local vision template (cosmetic photography only, no try-on card), so the imported general-purpose Lystes content cannot reintroduce unrelated examples; re-apply after resync.
