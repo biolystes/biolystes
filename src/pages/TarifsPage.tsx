@@ -55,7 +55,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Helmet } from "react-helmet-async";
 import {
-  ArrowUpRight, BadgePercent, Camera, Check, ChevronLeft, ChevronRight, ClipboardCheck, CreditCard, FlaskConical, HandCoins, Heart, KeyRound, PackageCheck,
+  ArrowUpRight, BadgePercent, Camera, Check, ChevronLeft, ChevronRight, ClipboardCheck, CreditCard, FlaskConical, HandCoins, Heart, Instagram, KeyRound, PackageCheck,
   Palette, PenTool, Receipt, ShieldCheck, Store, Tag, Truck, Wallet, type LucideIcon,
 } from "lucide-react";
 import VisionEtagesBloc from "@lystes/features/solutions/VisionEtagesBloc";
@@ -64,6 +64,7 @@ import { ABONNEMENT_DEMARRE_SITE, PRODUIT_EN_PLUS, packAchat, packPlusieursMois,
 import showcaseAmarsi from "@/assets/showcase-amarsi.jpg";
 import showcasePeau from "@/assets/showcase-peau.jpg";
 import showcase235 from "@/assets/showcase-235.jpg";
+import feedInstagramEclose from "@/assets/feed-instagram-eclose.jpg";
 
 const BRICOLAGE = "'Bricolage Grotesque', 'Inter', sans-serif";
 const INSECABLE = "\u00a0";
