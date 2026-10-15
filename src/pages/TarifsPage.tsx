@@ -404,17 +404,10 @@ function ApercuSite() {
               <span className="w-2.5 h-2.5 rounded-full bg-border" /><span className="w-2.5 h-2.5 rounded-full bg-border" /><span className="w-2.5 h-2.5 rounded-full bg-border" />
             </span>
             <span className="text-center text-[0.75rem] text-muted-foreground">ecloseparis.com</span>
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-[0.75rem] text-muted-foreground hover:text-foreground">
-              <Instagram className="h-3.5 w-3.5" strokeWidth={1.75} /> @Éclose Paris
-            </a>
+            <span className="w-[42px]" aria-hidden="true" />
           </div>
-
           <div ref={cadre} className="relative flex-1 w-full overflow-hidden">
-            <div className="defile-feed absolute top-0 left-0 w-full will-change-transform"
-              style={{ "--defile-distance": `${distance}px`, animation: "defile-feed 45s linear infinite" } as CSSProperties}>
-              {iframe}
-            </div>
+            {iframe}
           </div>
         </div>
       )}
@@ -422,10 +415,10 @@ function ApercuSite() {
   );
 }
 
-/* Le fil Instagram d'Éclose Paris, à droite du site : la capture du fil
-   défile en boucle avec le même moteur (.defile-feed) que l'aperçu du site,
-   à la même hauteur. Les deux images identiques font la boucle sans couture :
-   la seconde est cachée aux lecteurs d'écran. */
+/* Le fil Instagram d'Éclose Paris, à droite du site, fixe (pas de défilement).
+   Sa barre du haut a la même hauteur que la barre ecloseparis.com du site,
+   avec l'icône Instagram et @Éclose Paris, pour que les deux cartes soient
+   alignées. */
 function FilInstagram() {
   return (
     <div className="flex flex-col min-w-0 space-y-4 h-full">
@@ -436,12 +429,14 @@ function FilInstagram() {
           Voir Instagram <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
         </a>
       </div>
-      <div className="h-[560px] rounded-2xl border border-border bg-background overflow-hidden">
-        <div className="defile-feed will-change-transform"
-          style={{ "--defile-distance": "calc(100% / 3)", animation: "defile-feed 45s linear infinite" } as CSSProperties}>
-          <img src={feedInstagramEclose} alt="Publications Instagram d'Éclose Paris" className="block w-full" loading="lazy" />
-          <img src={feedInstagramEclose} alt="" aria-hidden="true" className="block w-full" loading="lazy" />
-          <img src={feedInstagramEclose} alt="" aria-hidden="true" className="block w-full" loading="lazy" />
+      <div className="flex flex-col h-[560px] rounded-2xl border border-border bg-background overflow-hidden">
+        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
+          className="flex items-center justify-center gap-1.5 px-4 h-9 border-b border-border shrink-0 text-[0.75rem] text-muted-foreground hover:text-foreground">
+          <Instagram className="h-3.5 w-3.5" strokeWidth={1.75} /> @Éclose Paris
+        </a>
+        <div className="relative flex-1 w-full overflow-hidden">
+          <img src={feedInstagramEclose} alt="Publications Instagram d'Éclose Paris"
+            className="absolute inset-0 h-full w-full object-cover object-top" />
         </div>
       </div>
     </div>
