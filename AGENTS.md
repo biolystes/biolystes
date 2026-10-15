@@ -4,3 +4,4 @@
 - Keep BioPage's SalonSlides on Embla with a shared data-driven slide template, so each slide can have distinct central and side media without duplicating its layout.
 - Keep additional-product eligibility in `src/data/offres.ts` and test it independently of presentation, so pack descriptions cannot drift from the rule.
 - Keep the embedded creators gallery's sector row off biolystes.com's home page through the `sansOnglets` flag on `HomeCreatorsGallery` (set in the cosmetique entry of `BlocsAccueilSecteur`), so sector names coming from the embedded view cannot appear on the home page; re-apply it after `lystes/` is resynced.
+- Keep /agents-ia's creators gallery in « équipes IA » mode via the `equipes` flag on `HomeCreatorsGallery` (AgentsVisionRawPage), so it shows lystes.ai's AI teams rather than plain creators; re-apply it after `lystes/` is resynced.

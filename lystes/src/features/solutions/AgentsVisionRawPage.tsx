@@ -364,7 +364,7 @@ export default function AgentsVisionRawPage() {
       </Helmet>
       <div dangerouslySetInnerHTML={{ __html: beforeHtml }} />
       {/* biolystes.com : sans le panneau de création, comme sur l’accueil. */}
-      {isHomeRoute && <HomeCreatorsGallery sansGeneration />}
+      {isHomeRoute && <HomeCreatorsGallery sansGeneration equipes sansOnglets />}
       <Hierarchy className="pt-10 md:pt-14" />
       <div dangerouslySetInnerHTML={{ __html: afterHierarchyHtml }} />
       {chatSlot && createPortal(<AnimatedChat />, chatSlot)}
