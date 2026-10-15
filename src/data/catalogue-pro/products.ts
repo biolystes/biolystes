@@ -18,19 +18,47 @@ export interface Product {
   code?: string;
   /** Arrivée au catalogue (AAAA-MM-JJ) : le produit porte le badge « Nouveau » pendant JOURS_NOUVEAUTE jours. */
   date_arrivee?: string;
+  /**
+   * Statut de la fiche chez le laboratoire, recopié de la moisson par
+   * scripts/statuts-moisson.mjs, jamais saisi à la main. Seul « actif » est
+   * commandable ; les compléments alimentaires (sans code) n'en ont pas.
+   */
+  statut_labo?: StatutLabo;
 }
+
+/** resume.statut de la moisson du laboratoire. */
+export type StatutLabo = "actif" | "COMING_SOON" | "OUT_OF_STOCK";
 
 /** prix_ht est un prix hors taxes : prix catalogue TTC du fournisseur ÷ 1,2, au centime (mise à jour du 14/10/2026). */
 export const MENTION_RETIRE = "Retiré chez le fournisseur";
 export const MENTION_IMAGE_A_VENIR = "Image à venir";
 export const MENTION_NOUVEAU = "Nouveau";
+/** Badge d'un produit pas encore sorti (COMING_SOON) ou en rupture (OUT_OF_STOCK) chez le laboratoire. */
+export const MENTION_STATUT_LABO: Record<Exclude<StatutLabo, "actif">, string> = {
+  COMING_SOON: "Bientôt disponible",
+  OUT_OF_STOCK: "Rupture",
+};
+
+/** Vrai si le laboratoire ne livre pas le produit aujourd'hui : pas encore sorti ou en rupture. */
+export function estIndisponible(p: Pick<Product, "statut_labo">): boolean {
+  return p.statut_labo != null && p.statut_labo !== "actif";
+}
+
+/** Badge du statut chez le laboratoire, ou null si le produit est disponible. */
+export function mentionStatutLabo(p: Pick<Product, "statut_labo">): string | null {
+  return estIndisponible(p) ? MENTION_STATUT_LABO[p.statut_labo as Exclude<StatutLabo, "actif">] : null;
+}
 
 /** Durée pendant laquelle un produit arrivé au catalogue porte le badge « Nouveau ». */
 export const JOURS_NOUVEAUTE = 60;
 
-/** Vrai si le produit est arrivé au catalogue depuis moins de JOURS_NOUVEAUTE jours. */
-export function estNouveau(p: Pick<Product, "date_arrivee" | "status">, aujourdhui: Date = new Date()): boolean {
-  if (!p.date_arrivee || p.status === "retired") return false;
+/**
+ * Vrai si le produit est arrivé au catalogue depuis moins de JOURS_NOUVEAUTE jours.
+ * Le badge « Nouveau » est réservé aux produits actifs : jamais sur un produit
+ * pas encore sorti, en rupture ou retiré.
+ */
+export function estNouveau(p: Pick<Product, "date_arrivee" | "status" | "statut_labo">, aujourdhui: Date = new Date()): boolean {
+  if (!p.date_arrivee || p.status === "retired" || estIndisponible(p)) return false;
   const arrivee = new Date(`${p.date_arrivee}T00:00:00`);
   if (Number.isNaN(arrivee.getTime())) return false;
   const jours = (aujourdhui.getTime() - arrivee.getTime()) / 86_400_000;
@@ -41,7 +69,7 @@ export function estNouveau(p: Pick<Product, "date_arrivee" | "status">, aujourdh
  * Ordre d'affichage par défaut : les nouveautés d'abord, de la plus récente à la plus
  * ancienne, puis le reste dans l'ordre du catalogue (tri stable).
  */
-export function nouveautesDabord<T extends Pick<Product, "date_arrivee" | "status">>(liste: readonly T[], aujourdhui: Date = new Date()): T[] {
+export function nouveautesDabord<T extends Pick<Product, "date_arrivee" | "status" | "statut_labo">>(liste: readonly T[], aujourdhui: Date = new Date()): T[] {
   return liste
     .map((p, i) => ({ p, i, n: estNouveau(p, aujourdhui) }))
     .sort((a, b) => {
@@ -63,9 +91,9 @@ export function margePourcent(prixAchatHT: number | null | undefined, prixVenteT
   return Math.round(((venteHT - prixAchatHT) / venteHT) * 100);
 }
 
-/** Un produit qu'une cliente peut sélectionner ou commander. */
-export function estCommandable(p: Pick<Product, "status" | "prix_ht">): boolean {
-  return p.status !== "retired" && p.prix_ht != null;
+/** Un produit qu'une cliente peut sélectionner ou commander : ni retiré, ni pas encore sorti, ni en rupture. */
+export function estCommandable(p: Pick<Product, "status" | "prix_ht" | "statut_labo">): boolean {
+  return p.status !== "retired" && p.prix_ht != null && !estIndisponible(p);
 }
 
 /**
@@ -73,14 +101,20 @@ export function estCommandable(p: Pick<Product, "status" | "prix_ht">): boolean 
  * catégorie et compteur de liste comptent les produits commandables, compléments
  * alimentaires compris. Les produits retirés restent visibles mais ne comptent nulle part.
  */
-export function compterCommandables(liste: readonly Pick<Product, "status" | "prix_ht">[]): number {
+export function compterCommandables(liste: readonly Pick<Product, "status" | "prix_ht" | "statut_labo">[]): number {
   return liste.filter((p) => estCommandable(p)).length;
 }
 
-/** Ordre d'affichage du catalogue : nouveautés en tête, produits retirés en fin de liste. */
-export function ordreCatalogue<T extends Pick<Product, "date_arrivee" | "status">>(liste: readonly T[], aujourdhui: Date = new Date()): T[] {
-  const ordre = nouveautesDabord(liste, aujourdhui);
-  return [...ordre.filter((p) => p.status !== "retired"), ...ordre.filter((p) => p.status === "retired")];
+/**
+ * Ordre d'affichage du catalogue : les produits disponibles (nouveautés en tête),
+ * puis ceux qui ne sont pas encore sortis, puis les ruptures, puis les produits retirés.
+ */
+export function ordreCatalogue<T extends Pick<Product, "date_arrivee" | "status" | "statut_labo">>(liste: readonly T[], aujourdhui: Date = new Date()): T[] {
+  const rang = (p: T) => (p.status === "retired" ? 3 : p.statut_labo === "OUT_OF_STOCK" ? 2 : p.statut_labo === "COMING_SOON" ? 1 : 0);
+  return nouveautesDabord(liste, aujourdhui)
+    .map((p, i) => ({ p, i }))
+    .sort((a, b) => rang(a.p) - rang(b.p) || a.i - b.i)
+    .map((x) => x.p);
 }
 export const CATEGORIES = [
   { id: "all", label: "Tous les produits" },
@@ -95,6 +129,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "patchs-hydrogel-anti-age-pour-les-yeux-7-pieces",
     "code": "S0137-7",
+    "statut_labo": "actif",
     "nom": "Patchs anti-âge pour les yeux à base d'hydrogel",
     "categorie": "soins-du-visage",
     "volume": "7 g",
@@ -113,6 +148,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "les-yeux-7-pieces-2AuDU",
     "code": "S0135-7",
+    "statut_labo": "actif",
     "nom": "Patchs hydrogel énergisants pour les yeux à la caféine et à la vitamine C",
     "categorie": "soins-du-visage",
     "volume": "7 g",
@@ -131,6 +167,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "Anti-les-yeux-7-pieces-2AuDU-BTCtq",
     "code": "S0136-7",
+    "statut_labo": "actif",
     "nom": "Patchs pour les yeux anti-fatigue à l'hydrogel",
     "categorie": "soins-du-visage",
     "volume": "7 g",
@@ -149,6 +186,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "coffret-decouverte-de-3-bombes-de-bain-senteurs-chaudes-et-boisees",
     "code": "S0178",
+    "statut_labo": "COMING_SOON",
     "nom": "Coffret découverte de 3 bombes de bain, senteurs chaudes et boisées",
     "categorie": "soins-du-corps",
     "volume": "375 g",
@@ -170,6 +208,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "coffret-decouverte-de-3-bombes-de-bain-cozy-fresh",
     "code": "S0177",
+    "statut_labo": "COMING_SOON",
     "nom": "Coffret découverte de 3 bombes de bain, Cozy & Fresh",
     "categorie": "soins-du-corps",
     "volume": "125 g",
@@ -191,6 +230,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "bombe-de-bain-neroli-et-orange",
     "code": "S0157",
+    "statut_labo": "COMING_SOON",
     "nom": "Bombe de bain, néroli et orange",
     "categorie": "soins-du-corps",
     "volume": "125 g",
@@ -211,6 +251,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "bombe-de-bain-bergamote-et-pin",
     "code": "S0155",
+    "statut_labo": "COMING_SOON",
     "nom": "Bombe de bain, bergamote et pin",
     "categorie": "soins-du-corps",
     "volume": "125 g",
@@ -231,6 +272,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "bombe-de-bain-vanille-et-cannelle",
     "code": "S0156",
+    "statut_labo": "COMING_SOON",
     "nom": "Bombe de bain, vanille et cannelle",
     "categorie": "soins-du-corps",
     "volume": "125 g",
@@ -251,6 +293,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "bombe-de-bain-eucalyptus-et-menthe-sauvage",
     "code": "S0154",
+    "statut_labo": "COMING_SOON",
     "nom": "Bombe de bain, eucalyptus et menthe sauvage",
     "categorie": "soins-du-corps",
     "volume": "125 g",
@@ -271,6 +314,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "sel-de-bain-mineral-a-l-ecorce-d-orange-et-a-la-vanille-douce",
     "code": "S0151",
+    "statut_labo": "COMING_SOON",
     "nom": "Sel de bain minéral à l'écorce d'orange et à la vanille douce",
     "categorie": "soins-du-corps",
     "volume": "500 g",
@@ -291,6 +335,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "sels-de-bain-au-magnesium-et-a-la-lavande",
     "code": "S0153",
+    "statut_labo": "COMING_SOON",
     "nom": "Sels de bain au magnésium et à la lavande",
     "categorie": "soins-du-corps",
     "volume": "500 g",
@@ -311,6 +356,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "sels-de-bain-mineraux-au-santal-et-au-patchouli",
     "code": "S0152",
+    "statut_labo": "COMING_SOON",
     "nom": "Sels de bain minéraux au santal et au patchouli",
     "categorie": "soins-du-corps",
     "volume": "500 g",
@@ -331,6 +377,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "sels-de-bain-mineraux-cremeux-a-la-noix-de-coco-et-a-l-ambre-chaud",
     "code": "S0150",
+    "statut_labo": "COMING_SOON",
     "nom": "Sels de bain minéraux crémeux à la noix de coco et à l'ambre chaud",
     "categorie": "soins-du-corps",
     "volume": "500 g",
@@ -352,6 +399,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "brume-texturisante-anti-frisottis-pour-cheveux-boucles",
     "code": "S0142",
+    "statut_labo": "actif",
     "nom": "Brume texturisante anti-frisottis pour cheveux bouclés",
     "categorie": "soins-du-cheveu",
     "volume": "125 ml",
@@ -370,6 +418,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-a-0-3-de-pdrn-issu-de-spicules-et-de-centella-asiatica",
     "code": "S0132",
+    "statut_labo": "COMING_SOON",
     "nom": "Sérum à 0,3 % de PDRN issu de spicules et de centella asiatica",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -391,6 +440,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "soin-3-en-1-pour-cheveux-boucles",
     "code": "S0141",
+    "statut_labo": "actif",
     "nom": "Soin 3 en 1 pour cheveux bouclés",
     "categorie": "soins-du-cheveu",
     "volume": "200 ml",
@@ -409,6 +459,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "shampoing-pour-cheveux-boucles",
     "code": "S0140",
+    "statut_labo": "actif",
     "nom": "Shampoing pour cheveux bouclés",
     "categorie": "soins-du-cheveu",
     "volume": "390 ml",
@@ -427,6 +478,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-a-la-vitamine-c-sachet-d-essai",
     "code": "SC5857",
+    "statut_labo": "COMING_SOON",
     "nom": "Sérum à la vitamine C (sachet d'essai)",
     "categorie": "soins-du-visage",
     "volume": "2 ml",
@@ -449,6 +501,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "shampooing-volumateur-a-la-keratine-sachet-d-essai",
     "code": "SC0017",
+    "statut_labo": "COMING_SOON",
     "nom": "Shampooing volumateur à la kératine (sachet d'essai)",
     "categorie": "soins-du-cheveu",
     "volume": "5 ml",
@@ -473,6 +526,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "apres-shampooing-volumateur-a-la-keratine-sachet-d-essai",
     "code": "SC0018",
+    "statut_labo": "COMING_SOON",
     "nom": "Après-shampooing volumateur à la kératine (sachet d'essai)",
     "categorie": "soins-du-cheveu",
     "volume": "5 ml",
@@ -497,6 +551,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "masque-capillaire-reparateur-intensif-a-la-keratine-sachet-d-essai",
     "code": "SC0091",
+    "statut_labo": "COMING_SOON",
     "nom": "Masque capillaire réparateur intensif à la kératine (sachet d'essai)",
     "categorie": "soins-du-cheveu",
     "volume": "5 ml",
@@ -521,6 +576,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-perfecteur-de-pigment-sachet-d-essai",
     "code": "SC5876",
+    "statut_labo": "COMING_SOON",
     "nom": "Sérum perfecteur de pigment (sachet d'essai)",
     "categorie": "soins-du-visage",
     "volume": "2 ml",
@@ -545,6 +601,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-de-nuit-ceramide-barrier-sachet-d-essai",
     "code": "SC5923",
+    "statut_labo": "COMING_SOON",
     "nom": "Crème de nuit Ceramide Barrier (sachet d'essai)",
     "categorie": "soins-du-visage",
     "volume": "2 ml",
@@ -568,6 +625,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-peptide-ageless-jour-et-nuit-sachet-d-essai",
     "code": "SC0024",
+    "statut_labo": "COMING_SOON",
     "nom": "Crème Peptide Ageless Jour et Nuit (sachet d'essai)",
     "categorie": "soins-du-visage",
     "volume": "2 ml",
@@ -592,6 +650,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-anti-age-aux-peptides-sachet-d-essai",
     "code": "SC5848",
+    "statut_labo": "COMING_SOON",
     "nom": "Sérum anti-âge aux peptides (sachet d'essai)",
     "categorie": "soins-du-visage",
     "volume": "2 ml",
@@ -616,6 +675,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-collagene-boost-sachet-d-essai",
     "code": "SC5879",
+    "statut_labo": "COMING_SOON",
     "nom": "Sérum Collagène Boost (sachet d'essai)",
     "categorie": "soins-du-visage",
     "volume": "2 ml",
@@ -639,6 +699,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "nettoyant-a-base-d-huile-et-de-lait-pour-peaux-sensibles-sachet-d-essai",
     "code": "SC5924",
+    "statut_labo": "COMING_SOON",
     "nom": "Nettoyant à base d'huile et de lait pour peaux sensibles (sachet d'essai)",
     "categorie": "soins-du-visage",
     "volume": "2 ml",
@@ -663,6 +724,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "masque-pour-les-levres-a-l-hydrogel-hyaluronique",
     "code": "S0138-7",
+    "statut_labo": "COMING_SOON",
     "nom": "Masque pour les lèvres à l'hydrogel hyaluronique",
     "categorie": "soins-du-visage",
     "volume": "7 g",
@@ -684,6 +746,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "coffret-cadeau-aux-peptides-anti-age",
     "code": "S0143",
+    "statut_labo": "actif",
     "nom": "Coffret cadeau aux peptides anti-âge",
     "categorie": "collection-box",
     "volume": "95 ml",
@@ -707,6 +770,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "kit-de-manucure-et-pedicure-pour-salon-de-beaute",
     "code": "S0139",
+    "statut_labo": "actif",
     "nom": "Kit de manucure et pédicure pour salon de beauté",
     "categorie": "collection-box",
     "volume": "",
@@ -730,6 +794,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-lavant-pour-bebe",
     "code": "S0088",
+    "statut_labo": "actif",
     "nom": "Gel lavant pour bébé",
     "categorie": "soins-du-corps",
     "volume": "390 ml",
@@ -760,6 +825,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "huile-corporelle-omega-6-9-pour-une-peau-eclatante",
     "code": "S0069",
+    "statut_labo": "actif",
     "nom": "Huile corporelle Omega 6-9 pour une peau éclatante",
     "categorie": "soins-du-corps",
     "volume": "145 ml",
@@ -789,6 +855,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "volcan-islandais-exfoliant-aha-pour-le-visage-et-le-corps",
     "code": "S0023",
+    "statut_labo": "actif",
     "nom": "Volcan islandais Exfoliant pour le visage et le corps",
     "categorie": "soins-du-corps",
     "volume": "170 ml",
@@ -817,6 +884,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "exfoliant-eclaircissant-pour-le-visage-et-le-corps-a-l-acide-kojique",
     "code": "S0022",
+    "statut_labo": "actif",
     "nom": "Exfoliant éclaircissant pour le visage et le corps à l'acide kojique",
     "categorie": "soins-du-corps",
     "volume": "150 ml",
@@ -846,6 +914,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "bougie-en-cire-de-soja-mousse",
     "code": "S0105",
+    "statut_labo": "actif",
     "nom": "Bougie en cire de soja, Mousse",
     "categorie": "soins-du-corps",
     "volume": "100 ml",
@@ -871,6 +940,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "bougie-en-cire-de-soja-fleur-sauvage",
     "code": "S0106",
+    "statut_labo": "actif",
     "nom": "Bougie en cire de soja, Fleur sauvage",
     "categorie": "soins-du-corps",
     "volume": "100 ml",
@@ -896,6 +966,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "bougie-en-cire-de-soja-lavande",
     "code": "S0104",
+    "statut_labo": "actif",
     "nom": "Bougie en cire de soja, Lavande",
     "categorie": "soins-du-corps",
     "volume": "100 ml",
@@ -921,6 +992,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "bougie-en-cire-de-soja-bruyere",
     "code": "S0103",
+    "statut_labo": "actif",
     "nom": "Bougie en cire de soja, Bruyère",
     "categorie": "soins-du-corps",
     "volume": "100 ml",
@@ -946,6 +1018,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "mousse-lavante-pour-bebe",
     "code": "S0089",
+    "statut_labo": "actif",
     "nom": "Mousse lavante pour bébé",
     "categorie": "soins-du-corps",
     "volume": "150 ml",
@@ -976,6 +1049,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "lotion-pour-le-corps-bebe",
     "code": "S0090",
+    "statut_labo": "actif",
     "nom": "Lotion pour le corps bébé",
     "categorie": "soins-du-corps",
     "volume": "190 ml",
@@ -1006,6 +1080,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-pour-le-corps-pour-peaux-sensibles",
     "code": "A5940",
+    "statut_labo": "actif",
     "nom": "Crème pour le corps pour peaux sensibles",
     "categorie": "soins-du-corps",
     "volume": "190 ml",
@@ -1035,6 +1110,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-pour-le-corps-a-luree-pour-peaux-rugueuses-2",
     "code": "A5937-G",
+    "statut_labo": "actif",
     "nom": "Crème pour le corps 5% urée + 2% panthénol",
     "categorie": "soins-du-corps",
     "volume": "280 ml",
@@ -1060,6 +1136,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-pour-le-corps-a-luree-pour-peaux-rugueuses",
     "code": "A5937-A",
+    "statut_labo": "actif",
     "nom": "Crème pour le corps 5% urée + 2% panthénol",
     "categorie": "soins-du-corps",
     "volume": "280 ml",
@@ -1085,6 +1162,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-corporel-silk-skin-ambre-boise-et-cuir",
     "code": "A5872",
+    "statut_labo": "actif",
     "nom": "Sérum corporel Silk Skin, ambre boisé et cuir",
     "categorie": "soins-du-corps",
     "volume": "270 ml",
@@ -1114,6 +1192,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-corporel-silk-skin-epices-et-bois-de-santal",
     "code": "A5870",
+    "statut_labo": "actif",
     "nom": "Sérum corporel Silk Skin, épices et bois de santal",
     "categorie": "soins-du-corps",
     "volume": "270 ml",
@@ -1143,6 +1222,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-pour-les-mains-silk-skin-epices-et-bois-de-santal",
     "code": "A5869",
+    "statut_labo": "actif",
     "nom": "Crème pour les mains Silk Skin, épices et bois de santal",
     "categorie": "soins-du-corps",
     "volume": "270 ml",
@@ -1173,6 +1253,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-pour-les-mains-silk-skin-ambre-boise-et-cuir",
     "code": "A5867",
+    "statut_labo": "actif",
     "nom": "Crème pour les mains Silk Skin, ambre boisé et cuir",
     "categorie": "soins-du-corps",
     "volume": "270 ml",
@@ -1202,6 +1283,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-lavant-mains-corps-pamplemousse-6",
     "code": "A5821-G",
+    "statut_labo": "actif",
     "nom": "Gel lavant mains & corps, pamplemousse",
     "categorie": "soins-du-corps",
     "volume": "490 ml",
@@ -1232,6 +1314,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-lavant-mains-corps-pamplemousse-5",
     "code": "A5821-A",
+    "statut_labo": "actif",
     "nom": "Gel lavant mains & corps, pamplemousse",
     "categorie": "soins-du-corps",
     "volume": "490 ml",
@@ -1292,6 +1375,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-lavant-mains-corps-cedre-menthe-poivree-2",
     "code": "A5855-A",
+    "statut_labo": "actif",
     "nom": "Gel lavant mains & corps, CÈDRE & MENTHE POIVRÉE",
     "categorie": "soins-du-corps",
     "volume": "490 ml",
@@ -1322,6 +1406,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-lavant-mains-corps-cardamone-gingembre-2",
     "code": "A5856-A",
+    "statut_labo": "actif",
     "nom": "Gel lavant mains & corps, CARDAMONE & GINGEMBRE",
     "categorie": "soins-du-corps",
     "volume": "490 ml",
@@ -1352,6 +1437,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "hand-body-wash-patchouli-amber-vanilla-4",
     "code": "A5854-A",
+    "statut_labo": "actif",
     "nom": "Hand & Body Wash, Patchouli & Amber Vanilla",
     "categorie": "soins-du-corps",
     "volume": "490 ml",
@@ -1382,6 +1468,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-lavant-mains-corps-cardamone-gingembre",
     "code": "A5856-G",
+    "statut_labo": "actif",
     "nom": "Gel lavant mains & corps, CARDAMONE & GINGEMBRE",
     "categorie": "soins-du-corps",
     "volume": "490 ml",
@@ -1412,6 +1499,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-lavant-mains-corps-cedre-menthe-poivree",
     "code": "A5855-G",
+    "statut_labo": "actif",
     "nom": "Gel lavant mains & corps, CÈDRE & MENTHE POIVRÉE",
     "categorie": "soins-du-corps",
     "volume": "490 ml",
@@ -1442,6 +1530,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-lavant-mains-corps-ambre-patchouli",
     "code": "A5854-G",
+    "statut_labo": "actif",
     "nom": "Gel lavant mains & corps, Ambre & Patchouli",
     "categorie": "soins-du-corps",
     "volume": "490 ml",
@@ -1472,6 +1561,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "nettoyant-2-en-1-pour-les-cheveux-et-le-corps-pour-les-hommes",
     "code": "A5931",
+    "statut_labo": "actif",
     "nom": "Nettoyant 2 en 1 pour les cheveux et le corps pour les hommes",
     "categorie": "soins-du-corps",
     "volume": "490 ml",
@@ -1500,6 +1590,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "nettoyant-peaux-sensibles-visage-corps-4",
     "code": "A9945-390",
+    "statut_labo": "actif",
     "nom": "Nettoyant peaux sensibles visage & corps",
     "categorie": "soins-du-corps",
     "volume": "390 ml",
@@ -1531,6 +1622,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "shampooing-doux-pour-bebe",
     "code": "S0087",
+    "statut_labo": "actif",
     "nom": "Shampooing doux pour bébé",
     "categorie": "soins-du-cheveu",
     "volume": "400 ml",
@@ -1561,6 +1653,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "masque-capillaire-a-la-keratine",
     "code": "S0091",
+    "statut_labo": "actif",
     "nom": "Masque capillaire réparateur intensif à la kératine",
     "categorie": "soins-du-cheveu",
     "volume": "170 ml",
@@ -1588,6 +1681,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "exfoliant-pour-cuir-chevelu-deep-cleanse-romarin-et-menthe",
     "code": "A5874",
+    "statut_labo": "actif",
     "nom": "Exfoliant pour cuir chevelu Deep Cleanse, romarin et menthe",
     "categorie": "soins-du-cheveu",
     "volume": "170 ml",
@@ -1615,6 +1709,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "shampooing-volumateur-a-la-keratine",
     "code": "S0017",
+    "statut_labo": "actif",
     "nom": "Shampooing volumateur à la kératine",
     "categorie": "soins-du-cheveu",
     "volume": "390 ml",
@@ -1643,6 +1738,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "apres-shampooing-volumateur-a-la-keratine",
     "code": "S0018",
+    "statut_labo": "actif",
     "nom": "Après-shampooing volumateur à la kératine",
     "categorie": "soins-du-cheveu",
     "volume": "390 ml",
@@ -1670,6 +1766,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "apres-shampooing-smoky-green-vetiver",
     "code": "A5918",
+    "statut_labo": "actif",
     "nom": "Après-shampooing, Smoky Green Vetiver",
     "categorie": "soins-du-cheveu",
     "volume": "370 ml",
@@ -1695,6 +1792,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "shampooing-smoky-green-vetiver",
     "code": "A5917",
+    "statut_labo": "actif",
     "nom": "Shampooing, Smoky Green Vetiver",
     "categorie": "soins-du-cheveu",
     "volume": "400 ml",
@@ -1720,6 +1818,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "apres-shampooing-citrus-cocktail",
     "code": "A5916",
+    "statut_labo": "actif",
     "nom": "Après-shampooing, Citrus Cocktail",
     "categorie": "soins-du-cheveu",
     "volume": "370 ml",
@@ -1774,6 +1873,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "moisturising-conditioner",
     "code": "A5827",
+    "statut_labo": "actif",
     "nom": "Moisturising Conditioner",
     "categorie": "soins-du-cheveu",
     "volume": "290 ml",
@@ -1802,6 +1902,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "shampooing-hydratant",
     "code": "A5826",
+    "statut_labo": "actif",
     "nom": "Shampooing hydratant",
     "categorie": "soins-du-cheveu",
     "volume": "290 ml",
@@ -1831,6 +1932,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-hydratante-alternative-au-retinol",
     "code": "S0045",
+    "statut_labo": "actif",
     "nom": "Crème hydratante alternative au rétinol",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -1859,6 +1961,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "protection-solaire-spf50-stick-avec-teinte",
     "code": "S0007",
+    "statut_labo": "actif",
     "nom": "Protection solaire SPF50 Stick, avec teinte",
     "categorie": "soins-du-visage",
     "volume": "12 g",
@@ -1887,6 +1990,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "nettoyant-visage-eclat-radieux",
     "code": "S0102",
+    "statut_labo": "actif",
     "nom": "Nettoyant visage éclat radieux",
     "categorie": "soins-du-visage",
     "volume": "145 ml",
@@ -1916,6 +2020,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-de-nuit-pour-peaux-sensibles-sans-parfum",
     "code": "S0095",
+    "statut_labo": "actif",
     "nom": "Crème de nuit pour peaux sensibles, sans parfum",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -1945,6 +2050,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "masque-a-l-argile-pour-les-pores-et-les-points-noirs",
     "code": "S0092",
+    "statut_labo": "actif",
     "nom": "Masque à l'argile pour les pores et les points noirs",
     "categorie": "soins-du-visage",
     "volume": "90 ml",
@@ -1974,6 +2080,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "brume-visage-prebiotique-microbiome",
     "code": "A5932",
+    "statut_labo": "actif",
     "nom": "Brume Visage Prébiotique Microbiome",
     "categorie": "soins-du-visage",
     "volume": "100 ml",
@@ -2003,6 +2110,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "protection-solaire-spf50-stick-sans-teinte",
     "code": "S0016",
+    "statut_labo": "actif",
     "nom": "Protection solaire SPF50 Stick, sans teinte",
     "categorie": "soins-du-visage",
     "volume": "12 g",
@@ -2031,6 +2139,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "retinol-alternative-serum",
     "code": "S0046",
+    "statut_labo": "actif",
     "nom": "Sérum alternatif au rétinol",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -2059,6 +2168,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-contour-des-yeux-alternatif-au-retinol",
     "code": "S0044",
+    "statut_labo": "actif",
     "nom": "Sérum contour des yeux alternatif au rétinol",
     "categorie": "soins-du-visage",
     "volume": "15 ml",
@@ -2086,6 +2196,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "soin-cible-contre-les-taches-brunes-a-l-acide-kojique",
     "code": "S0020",
+    "statut_labo": "actif",
     "nom": "Soin ciblé contre les taches brunes, 1 % d'acide kojique",
     "categorie": "soins-du-visage",
     "volume": "15 ml",
@@ -2114,6 +2225,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-pour-le-visage-anti-taches-brunes-a-l-acide-kojique",
     "code": "S0021",
+    "statut_labo": "actif",
     "nom": "Crème pour le visage anti-taches brunes à l'acide kojique",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -2142,6 +2254,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "demaquillant-biphasic",
     "code": "A5933",
+    "statut_labo": "actif",
     "nom": "Démaquillant BiPhasic, sans parfum",
     "categorie": "soins-du-visage",
     "volume": "100 ml",
@@ -2173,6 +2286,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-hydratante-pour-peaux-sensibles",
     "code": "S0001",
+    "statut_labo": "actif",
     "nom": "Crème hydratante pour peaux sensibles, sans parfum",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -2205,6 +2319,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-de-jour-anti-age-4",
     "code": "A5809-15",
+    "statut_labo": "actif",
     "nom": "Crème de jour anti-âge",
     "categorie": "soins-du-visage",
     "volume": "15 ml",
@@ -2235,6 +2350,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-perfecteur-de-pigment",
     "code": "A5876",
+    "statut_labo": "actif",
     "nom": "Sérum perfecteur de pigment",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -2265,6 +2381,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "exfoliant-liquide-a-lacide-glycolique",
     "code": "A5865",
+    "statut_labo": "actif",
     "nom": "Tonique exfoliant à l'acide glycolique",
     "categorie": "soins-du-visage",
     "volume": "250 ml",
@@ -2290,6 +2407,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-de-jour-hydratante-3",
     "code": "A5807-15",
+    "statut_labo": "actif",
     "nom": "Crème de jour hydratante",
     "categorie": "soins-du-visage",
     "volume": "15 ml",
@@ -2320,6 +2438,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "nettoyant-a-base-dhuile-et-de-lait-pour-peaux-sensibles",
     "code": "A5924",
+    "statut_labo": "actif",
     "nom": "Nettoyant à base d'huile et de lait pour peaux sensibles",
     "categorie": "soins-du-visage",
     "volume": "150 ml",
@@ -2350,6 +2469,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-visage-au-zinc-sans-huile-pour-hommes",
     "code": "A5930",
+    "statut_labo": "actif",
     "nom": "Gel visage au zinc sans huile pour hommes",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -2379,6 +2499,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-visage-a-lacide-hyaluronique-pour-hommes",
     "code": "A5929",
+    "statut_labo": "actif",
     "nom": "Crème visage à l'acide hyaluronique pour hommes",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -2409,6 +2530,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "huile-a-barbe-adoucissante",
     "code": "A5927",
+    "statut_labo": "actif",
     "nom": "Huile à barbe adoucissante",
     "categorie": "soins-du-visage",
     "volume": "20 ml",
@@ -2439,6 +2561,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-collagene-boost",
     "code": "A5879",
+    "statut_labo": "actif",
     "nom": "Sérum éclat jeunesse",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -2468,6 +2591,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-de-nuit-anti-age-au-collagene",
     "code": "A5877",
+    "statut_labo": "actif",
     "nom": "Crème de nuit anti-âge",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -2497,6 +2621,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-de-nuit-hydratante-au-ceramide",
     "code": "A5923",
+    "statut_labo": "actif",
     "nom": "Crème de nuit Ceramide Barrier",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -2527,6 +2652,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "huile-visage-nourrissante-3",
     "code": "A5818-30",
+    "statut_labo": "actif",
     "nom": "Huile visage nourrissante",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -2556,6 +2682,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "soin-anti-acne",
     "code": "A5851",
+    "statut_labo": "actif",
     "nom": "Acne Spot Care (édition limitée)",
     "categorie": "soins-du-visage",
     "volume": "15 ml",
@@ -2580,6 +2707,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "concentre-peeling-aha",
     "code": "A5835",
+    "statut_labo": "actif",
     "nom": "Concentré Peeling AHA",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -2611,6 +2739,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "sérum-peptidique",
     "code": "A5848",
+    "statut_labo": "actif",
     "nom": "Sérum anti-âge aux peptides",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -2641,6 +2770,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-a-la-vitamine-c",
     "code": "A5857",
+    "statut_labo": "actif",
     "nom": "Sérum à la vitamine C",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -2697,6 +2827,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-contour-des-yeux-3-en-1",
     "code": "A5928",
+    "statut_labo": "actif",
     "nom": "Crème contour des yeux 3 en 1",
     "categorie": "soins-du-visage",
     "volume": "15 ml",
@@ -2725,6 +2856,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "mousse-nettoyante",
     "code": "A5852",
+    "statut_labo": "actif",
     "nom": "Mousse nettoyante",
     "categorie": "soins-du-visage",
     "volume": "150 ml",
@@ -2755,6 +2887,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-de-jour-anti-age",
     "code": "A5809-B",
+    "statut_labo": "actif",
     "nom": "Crème de jour anti-âge",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -2785,6 +2918,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-hydratant-a-la-niacinamide",
     "code": "A5837",
+    "statut_labo": "actif",
     "nom": "Gel hydratant à la niacinamide",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -2810,6 +2944,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "huile-apaisante-pour-le-visage",
     "code": "A5831-20",
+    "statut_labo": "actif",
     "nom": "Huile apaisante pour le visage",
     "categorie": "soins-du-visage",
     "volume": "20 ml",
@@ -2839,6 +2974,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-booster-a-la-cafeine-2",
     "code": "A5820-20",
+    "statut_labo": "actif",
     "nom": "Gel Booster à la caféine",
     "categorie": "soins-du-visage",
     "volume": "20 ml",
@@ -2869,6 +3005,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-hydratant-non-gras-2",
     "code": "A5811-B",
+    "statut_labo": "actif",
     "nom": "Gel hydratant non gras",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -2899,6 +3036,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-hydratant-2",
     "code": "A5813-B",
+    "statut_labo": "actif",
     "nom": "Sérum hydratant",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -2929,6 +3067,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-booster-au-ginkgo-antioxydant",
     "code": "A5819-20",
+    "statut_labo": "actif",
     "nom": "Gel Booster au ginkgo antioxydant",
     "categorie": "soins-du-visage",
     "volume": "20 ml",
@@ -2960,6 +3099,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-de-jour-hydratante",
     "code": "A5807-B",
+    "statut_labo": "actif",
     "nom": "Crème de jour hydratante",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -3020,6 +3160,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-apaisante-pour-les-yeux",
     "code": "A5832",
+    "statut_labo": "actif",
     "nom": "Crème apaisante pour les yeux",
     "categorie": "soins-du-visage",
     "volume": "15 ml",
@@ -3077,6 +3218,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-hydratant",
     "code": "A5813",
+    "statut_labo": "actif",
     "nom": "Sérum hydratant",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -3107,6 +3249,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-hydratant-non-gras",
     "code": "A5811",
+    "statut_labo": "actif",
     "nom": "Gel hydratant non gras",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -3137,6 +3280,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-contour-des-yeux-eclaircissante",
     "code": "A5817",
+    "statut_labo": "actif",
     "nom": "Crème contour des yeux éclaircissante",
     "categorie": "soins-du-visage",
     "volume": "15 ml",
@@ -3165,6 +3309,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-riche-nourrissante",
     "code": "A5810",
+    "statut_labo": "actif",
     "nom": "Crème riche nourrissante, sans parfum",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -3195,6 +3340,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-de-jour-legere-et-hydratante",
     "code": "A5808",
+    "statut_labo": "actif",
     "nom": "Crème de jour légère et hydratante",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -3225,6 +3371,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-de-jour-hydratante-2",
     "code": "A5807",
+    "statut_labo": "actif",
     "nom": "Crème de jour hydratante",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -3255,6 +3402,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "tonique-purifiant",
     "code": "A5806",
+    "statut_labo": "actif",
     "nom": "Tonique purifiant",
     "categorie": "soins-du-visage",
     "volume": "200 ml",
@@ -3287,6 +3435,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "tonique-hydratant",
     "code": "A5805",
+    "statut_labo": "actif",
     "nom": "Tonique hydratant",
     "categorie": "soins-du-visage",
     "volume": "200 ml",
@@ -3318,6 +3467,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "eau-micellaire-nettoyante",
     "code": "A5804",
+    "statut_labo": "actif",
     "nom": "Eau micellaire nettoyante",
     "categorie": "soins-du-visage",
     "volume": "200 ml",
@@ -3349,6 +3499,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-de-jour-anti-age-2",
     "code": "A5809",
+    "statut_labo": "actif",
     "nom": "Crème de jour anti-âge",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -3379,6 +3530,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-contour-des-yeux-apaisante",
     "code": "A5816",
+    "statut_labo": "actif",
     "nom": "Crème contour des yeux apaisante",
     "categorie": "soins-du-visage",
     "volume": "15 ml",
@@ -3408,6 +3560,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "mousse-purifiante",
     "code": "A5803",
+    "statut_labo": "actif",
     "nom": "Mousse purifiante",
     "categorie": "soins-du-visage",
     "volume": "190 ml",
@@ -3437,6 +3590,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-clarifiant",
     "code": "A5802",
+    "statut_labo": "actif",
     "nom": "Gel clarifiant",
     "categorie": "soins-du-visage",
     "volume": "200 ml",
@@ -3466,6 +3620,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "lait-nettoyant-doux",
     "code": "A5801",
+    "statut_labo": "actif",
     "nom": "Lait nettoyant doux",
     "categorie": "soins-du-visage",
     "volume": "190 ml",
@@ -3496,6 +3651,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "huile-visage-nourrissante-2",
     "code": "A5818",
+    "statut_labo": "actif",
     "nom": "Huile visage nourrissante",
     "categorie": "soins-du-visage",
     "volume": "15 ml",
@@ -3525,6 +3681,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "le-duo-réparation-&-brillance",
     "code": "S0099",
+    "statut_labo": "actif",
     "nom": "Le Duo Réparation & Brillance",
     "categorie": "collection-box",
     "volume": "",
@@ -3548,6 +3705,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "coffret-renaissance-capillaire",
     "code": "S0098",
+    "statut_labo": "actif",
     "nom": "Coffret Renaissance Capillaire",
     "categorie": "collection-box",
     "volume": "",
@@ -3595,6 +3753,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "duo-performance-anti-age-2",
     "code": "S0015",
+    "statut_labo": "actif",
     "nom": "Duo Performance Anti-Âge",
     "categorie": "collection-box",
     "volume": "",
@@ -3620,6 +3779,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "duo-de-routine-contre-les-taches-brunes-2",
     "code": "S0012",
+    "statut_labo": "actif",
     "nom": "Duo de routine contre les taches brunes",
     "categorie": "collection-box",
     "volume": "",
@@ -3645,6 +3805,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "le-duo-dhydratation-ultime",
     "code": "S0014",
+    "statut_labo": "actif",
     "nom": "Le duo d'hydratation ultime",
     "categorie": "collection-box",
     "volume": "",
@@ -3670,6 +3831,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "boite-de-collection-pour-le-teint-clair",
     "code": "S0005",
+    "statut_labo": "actif",
     "nom": "Boîte de collection pour le teint clair",
     "categorie": "collection-box",
     "volume": "",
@@ -3694,6 +3856,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "boite-de-collection-eclat-intemporel",
     "code": "S0006",
+    "statut_labo": "actif",
     "nom": "Boîte de collection Eclat intemporel",
     "categorie": "collection-box",
     "volume": "",
@@ -3719,6 +3882,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "boite-de-collection-eclat-rajeunissant",
     "code": "S0004",
+    "statut_labo": "actif",
     "nom": "Boîte de collection Éclat rajeunissant",
     "categorie": "collection-box",
     "volume": "",
@@ -3744,6 +3908,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "boite-de-collection-du-trio-anti-age",
     "code": "S0003",
+    "statut_labo": "actif",
     "nom": "Boîte de collection du trio anti-âge",
     "categorie": "collection-box",
     "volume": "",
@@ -3769,6 +3934,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "boite-de-la-collection-luminous-skin",
     "code": "A5914",
+    "statut_labo": "actif",
     "nom": "Boîte de la collection Luminous Skin",
     "categorie": "collection-box",
     "volume": "",
@@ -3794,6 +3960,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "boite-de-collection-trio-glowy-skin",
     "code": "A5925",
+    "statut_labo": "actif",
     "nom": "Boîte de collection Trio Glowy Skin",
     "categorie": "collection-box",
     "volume": "",
@@ -3818,6 +3985,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "boite-de-collection-hydratation-profonde",
     "code": "A5913",
+    "statut_labo": "actif",
     "nom": "Boîte de collection Hydratation profonde",
     "categorie": "collection-box",
     "volume": "",
@@ -3844,6 +4012,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "la-boite-de-collection-ultime-pour-le-renouveau",
     "code": "A5912",
+    "statut_labo": "actif",
     "nom": "La Boîte de Collection Ultime pour le Renouveau",
     "categorie": "collection-box",
     "volume": "",
@@ -3868,6 +4037,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "boite-de-collection-de-routine-de-nuit-au-collagene",
     "code": "A5911",
+    "statut_labo": "actif",
     "nom": "Boîte de Collection de Routine de Nuit au Collagène",
     "categorie": "collection-box",
     "volume": "",
@@ -3892,6 +4062,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "boite-de-collection-eclat-quotidien-2",
     "code": "A5905",
+    "statut_labo": "actif",
     "nom": "Boîte de collection Éclat quotidien",
     "categorie": "collection-box",
     "volume": "",
@@ -3918,6 +4089,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "boite-de-collection-rituel-dhydratation",
     "code": "A5907",
+    "statut_labo": "actif",
     "nom": "Boîte de collection Rituel d'hydratation",
     "categorie": "collection-box",
     "volume": "",
@@ -3942,6 +4114,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "boitier-de-collection-boost-serum",
     "code": "A5902",
+    "statut_labo": "actif",
     "nom": "Boîtier de collection Boost Serum",
     "categorie": "collection-box",
     "volume": "",
@@ -3968,6 +4141,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "boite-de-collection-acne-care-2",
     "code": "A5901",
+    "statut_labo": "actif",
     "nom": "Boîte de collection Acné Care",
     "categorie": "collection-box",
     "volume": "",
@@ -3993,6 +4167,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "boite-de-collection-anti-age-2",
     "code": "A5900",
+    "statut_labo": "actif",
     "nom": "Boîte de collection anti-âge",
     "categorie": "collection-box",
     "volume": "",
@@ -4018,6 +4193,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "shampooing-pour-cuir-chevelu-sensible",
     "code": "A5939",
+    "statut_labo": "actif",
     "nom": "Shampooing pour cuir chevelu sensible",
     "categorie": "soins-du-cheveu",
     "volume": "400 ml",
@@ -4049,6 +4225,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "brume-capillaire-sans-rincage-keratin-shine",
     "code": "A5938",
+    "statut_labo": "actif",
     "nom": "Brume capillaire sans rinçage Keratin Shine",
     "categorie": "soins-du-cheveu",
     "volume": "100 ml",
@@ -4073,6 +4250,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "huile-fortifiante-pour-cheveux-et-cuir-chevelu-au-romarin",
     "code": "A5873",
+    "statut_labo": "actif",
     "nom": "Huile fortifiante pour cheveux et cuir chevelu au romarin",
     "categorie": "soins-du-cheveu",
     "volume": "30 ml",
@@ -4100,6 +4278,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-naturel-a-base-dhuile-alternatif-au-retinol",
     "code": "A5858",
+    "statut_labo": "actif",
     "nom": "Sérum naturel à base d'huile alternatif au rétinol",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -4129,6 +4308,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "huile-visage-tout-en-un",
     "code": "A5853",
+    "statut_labo": "actif",
     "nom": "Huile visage tout-en-un",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -4156,6 +4336,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "mascara-allongeant-et-volumisant",
     "code": "S0034",
+    "statut_labo": "actif",
     "nom": "Mascara allongeant et volumisant",
     "categorie": "maquillage",
     "volume": "6 ml",
@@ -4176,6 +4357,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "anti-cernes-correcteur-25-medium-neutral",
     "code": "S0114",
+    "statut_labo": "actif",
     "nom": "Anti-cernes correcteur : 25 Medium Neutral",
     "categorie": "maquillage",
     "volume": "4 ml",
@@ -4196,6 +4378,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "anti-cernes-correcteur-05-clair-froid",
     "code": "S0111",
+    "statut_labo": "actif",
     "nom": "Anti-cernes correcteur : 05 Clair froid",
     "categorie": "maquillage",
     "volume": "4 ml",
@@ -4216,6 +4399,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "anti-cernes-correcteur-35-deep-neutral",
     "code": "S0115",
+    "statut_labo": "actif",
     "nom": "Anti-cernes correcteur : 35 Deep Neutral",
     "categorie": "maquillage",
     "volume": "4 ml",
@@ -4236,6 +4420,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "anti-cernes-correcteur-15-medium-cool",
     "code": "S0113",
+    "statut_labo": "actif",
     "nom": "Anti-cernes correcteur : 15 Medium Cool",
     "categorie": "maquillage",
     "volume": "4 ml",
@@ -4256,6 +4441,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "anti-cernes-correcteur-20-medium-warm",
     "code": "S0110",
+    "statut_labo": "actif",
     "nom": "Anti-cernes correcteur : 20 Moyen chaud",
     "categorie": "maquillage",
     "volume": "4 ml",
@@ -4276,6 +4462,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "anti-cernes-correcteur-10-clair-chaud",
     "code": "S0112",
+    "statut_labo": "actif",
     "nom": "Anti-cernes correcteur : 10 Clair Chaud",
     "categorie": "maquillage",
     "volume": "4 ml",
@@ -4296,6 +4483,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "anti-cernes-correcteur-30-tan-neutral",
     "code": "S0033",
+    "statut_labo": "actif",
     "nom": "Anti-cernes correcteur : 30 Tan Neutral",
     "categorie": "maquillage",
     "volume": "4 ml",
@@ -4316,6 +4504,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "fond-de-teint-aux-peptides-25-medium-warm",
     "code": "S0054",
+    "statut_labo": "actif",
     "nom": "Fond de teint aux peptides, 25 Moyen chaud",
     "categorie": "maquillage",
     "volume": "30 ml",
@@ -4336,6 +4525,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "fond-de-teint-aux-peptides-45-deep-warm",
     "code": "S0061",
+    "statut_labo": "actif",
     "nom": "Fond de teint aux peptides, 45 Foncé chaud",
     "categorie": "maquillage",
     "volume": "30 ml",
@@ -4356,6 +4546,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "fond-de-teint-aux-peptides-15-light-cool",
     "code": "S0053",
+    "statut_labo": "actif",
     "nom": "Fond de teint aux peptides, 15 Light Cool",
     "categorie": "maquillage",
     "volume": "30 ml",
@@ -4376,6 +4567,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "fond-de-teint-aux-peptides-10-light-warm",
     "code": "S0055",
+    "statut_labo": "actif",
     "nom": "Fond de teint aux peptides, teinte 10 Clair chaud",
     "categorie": "maquillage",
     "volume": "30 ml",
@@ -4396,6 +4588,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "fond-de-teint-aux-peptides-20-medium-neutral",
     "code": "S0051",
+    "statut_labo": "actif",
     "nom": "Fond de teint aux peptides, teinte 20 Medium Neutral",
     "categorie": "maquillage",
     "volume": "30 ml",
@@ -4416,6 +4609,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "fond-de-teint-aux-peptides-30-tan-neutral",
     "code": "S0059",
+    "statut_labo": "actif",
     "nom": "Fond de teint aux peptides, 30 Tan Neutral",
     "categorie": "maquillage",
     "volume": "30 ml",
@@ -4436,6 +4630,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "fond-de-teint-aux-peptides-35-tan-warm",
     "code": "S0063",
+    "statut_labo": "actif",
     "nom": "Fond de teint aux peptides, 35 Hâlé chaud",
     "categorie": "maquillage",
     "volume": "30 ml",
@@ -4456,6 +4651,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "fond-de-teint-aux-peptides-40-deep-neutral",
     "code": "S0065",
+    "statut_labo": "actif",
     "nom": "Fond de teint aux peptides, 40 Deep Neutral",
     "categorie": "maquillage",
     "volume": "30 ml",
@@ -4476,6 +4672,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "fond-de-teint-aux-peptides-50-deep-cool",
     "code": "S0066",
+    "statut_labo": "actif",
     "nom": "Fond de teint aux peptides, 50 Deep Cool",
     "categorie": "maquillage",
     "volume": "30 ml",
@@ -4496,6 +4693,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "fond-de-teint-aux-peptides-05-clair-neutre",
     "code": "S0058",
+    "statut_labo": "actif",
     "nom": "Fond de teint aux peptides, 05 Clair neutre",
     "categorie": "maquillage",
     "volume": "30 ml",
@@ -4516,6 +4714,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "rouge-a-levres-mat-nude-terracotta",
     "code": "S0109",
+    "statut_labo": "actif",
     "nom": "Rouge à lèvres mat, nude terracotta",
     "categorie": "maquillage",
     "volume": "4 g",
@@ -4536,6 +4735,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "rouge-a-levres-mat-vieux-rose",
     "code": "S0108",
+    "statut_labo": "actif",
     "nom": "Rouge à lèvres mat, vieux rose",
     "categorie": "maquillage",
     "volume": "4 g",
@@ -5967,6 +6167,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "cc-creme-aux-ceramides-et-spf-30-en-stick-35-deep-EP3IZ",
     "code": "S0122",
+    "statut_labo": "actif",
     "nom": "Stick correcteur de teint aux céramides (SPF 30) : 20 Clair",
     "categorie": "maquillage",
     "volume": "12 g",
@@ -5986,6 +6187,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "cc-creme-aux-ceramides-et-spf-30-en-stick-35-deep-Fa59u",
     "code": "S0121",
+    "statut_labo": "actif",
     "nom": "Stick correcteur de teint aux céramides (SPF 30) : 25 Moyen",
     "categorie": "maquillage",
     "volume": "12 g",
@@ -6005,6 +6207,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "cc-creme-aux-ceramides-et-spf-30-en-stick-35-deep-TTCkT",
     "code": "S0120",
+    "statut_labo": "actif",
     "nom": "Stick correcteur de teint aux céramides (SPF 30) : 30 Hâlé",
     "categorie": "maquillage",
     "volume": "12 g",
@@ -6024,6 +6227,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "cc-creme-aux-ceramides-et-spf-30-en-stick-35-deep",
     "code": "S0116",
+    "statut_labo": "actif",
     "nom": "Stick correcteur de teint aux céramides (SPF 30) : 35 Foncé",
     "categorie": "maquillage",
     "volume": "12 g",
@@ -6043,6 +6247,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "nourish-and-volumize-shampoo-2",
     "code": "A5829",
+    "statut_labo": "actif",
     "nom": "Shampooing nourrissant et volumateur",
     "categorie": "soins-du-cheveu",
     "volume": "290 ml",
@@ -6062,6 +6267,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "shampoing-sec-en-spray-quick-refresh",
     "code": "S0093",
+    "statut_labo": "actif",
     "nom": "Shampoing sec en spray « Quick Refresh »",
     "categorie": "soins-du-cheveu",
     "volume": "100 ml",
@@ -6079,6 +6285,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-exfoliant-pour-le-cuir-chevelu",
     "code": "S8176",
+    "statut_labo": "actif",
     "nom": "Sérum exfoliant pour le cuir chevelu",
     "categorie": "soins-du-cheveu",
     "volume": "30 ml",
@@ -6098,6 +6305,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "deodorant-a-bille-50-ml",
     "code": "S0094-W",
+    "statut_labo": "actif",
     "nom": "Déodorant à bille sans aluminium",
     "categorie": "soins-du-corps",
     "volume": "50 ml",
@@ -6115,6 +6323,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "deodorant-a-bille-50-ml-tp2vM",
     "code": "S0094-B",
+    "statut_labo": "actif",
     "nom": "Déodorant à bille sans aluminium",
     "categorie": "soins-du-corps",
     "volume": "50 ml",
@@ -6132,6 +6341,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "calming-facial-oil",
     "code": "A5831",
+    "statut_labo": "actif",
     "nom": "Huile apaisante pour le visage",
     "categorie": "soins-du-visage",
     "volume": "15 ml",
@@ -6151,6 +6361,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "copy-of-creme-peptide-ageless-jour-et-nuit-o7VB3",
     "code": "S0024",
+    "statut_labo": "actif",
     "nom": "Crème Peptide Ageless Jour et Nuit",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -6170,6 +6381,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-contour-des-yeux-anti-age-aux-peptides-A4YQs",
     "code": "S0025",
+    "statut_labo": "actif",
     "nom": "Crème contour des yeux anti-âge aux peptides",
     "categorie": "soins-du-visage",
     "volume": "15 ml",
@@ -6189,6 +6401,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "creme-hydratante-anti-imperfections",
     "code": "S0118",
+    "statut_labo": "actif",
     "nom": "Crème hydratante anti-imperfections",
     "categorie": "soins-du-visage",
     "volume": "50 ml",
@@ -6208,6 +6421,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-booster-au-ginkgo-antioxydant-4",
     "code": "A5819-PUMP",
+    "statut_labo": "actif",
     "nom": "Gel Booster au ginkgo antioxydant",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -6227,6 +6441,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-booster-a-la-cafeine-4",
     "code": "A5820-30",
+    "statut_labo": "actif",
     "nom": "Gel Booster à la caféine",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -6246,6 +6461,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-double-hydratation-boost-5",
     "code": "A5861",
+    "statut_labo": "actif",
     "nom": "Gel Double Hydratation Boost + HA",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -6265,6 +6481,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "nettoyant-visage-purifiant-anti-imperfections",
     "code": "S0107",
+    "statut_labo": "actif",
     "nom": "Nettoyant purifiant anti-imperfections pour le visage",
     "categorie": "soins-du-visage",
     "volume": "140 ml",
@@ -6284,6 +6501,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "sunscreen-spf30-with-tint-1Ru0O",
     "code": "S5980",
+    "statut_labo": "actif",
     "nom": "Crème solaire teintée SPF 30",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -6303,6 +6521,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-gelee-prebiotique-bioactif",
     "code": "A5926",
+    "statut_labo": "actif",
     "nom": "Sérum Gelée Prébiotique Bioactif",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -6322,6 +6541,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "serum-aux-exosomes-et-a-la-niacinamide",
     "code": "S0119",
+    "statut_labo": "actif",
     "nom": "Sérum aux exosomes et à la niacinamide",
     "categorie": "soins-du-visage",
     "volume": "30 ml",
@@ -6339,6 +6559,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "duo-renouveau-derma",
     "code": "S0101",
+    "statut_labo": "actif",
     "nom": "Duo Renouveau Derma",
     "categorie": "collection-box",
     "volume": "430 ml",
@@ -6361,6 +6582,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "duo-cheveux-brillants",
     "code": "S0097",
+    "statut_labo": "actif",
     "nom": "Duo cheveux brillants",
     "categorie": "collection-box",
     "volume": "580 ml",
@@ -6383,6 +6605,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "coffret-de-soins-pour-peaux-a-imperfections",
     "code": "S0126",
+    "statut_labo": "actif",
     "nom": "Coffret de soins pour peaux à imperfections",
     "categorie": "collection-box",
     "volume": "560 ml",
@@ -6407,6 +6630,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "coffret-spa-luxe",
     "code": "S0075",
+    "statut_labo": "actif",
     "nom": "Coffret spa luxe",
     "categorie": "collection-box",
     "volume": "3060 ml",
@@ -6429,6 +6653,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "collection-de-routines-sans-retinol",
     "code": "S0125",
+    "statut_labo": "actif",
     "nom": "Collection de routines sans rétinol",
     "categorie": "collection-box",
     "volume": "315 ml",
@@ -6451,6 +6676,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "collection-pour-le-corps-peau-douce-et-soyeuse",
     "code": "S0130",
+    "statut_labo": "actif",
     "nom": "Collection pour le corps « Peau douce et soyeuse »",
     "categorie": "collection-box",
     "volume": "1455 ml",
@@ -6472,6 +6698,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "collection-professionnelle-pour-salons-de-coiffure",
     "code": "S0078",
+    "statut_labo": "actif",
     "nom": "Collection professionnelle pour salons de coiffure",
     "categorie": "collection-box",
     "volume": "",
@@ -6494,6 +6721,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "ensemble-performance-ultime",
     "code": "S0085",
+    "statut_labo": "actif",
     "nom": "Ensemble Performance ultime",
     "categorie": "collection-box",
     "volume": "",
@@ -6516,6 +6744,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "ensemble-de-soins-anti-age-pour-la-peau",
     "code": "S0082",
+    "statut_labo": "actif",
     "nom": "Ensemble de soins anti-âge pour la peau",
     "categorie": "collection-box",
     "volume": "",
@@ -6540,6 +6769,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "ensemble-de-soins-cliniques-pharmaceutiques",
     "code": "S0079",
+    "statut_labo": "actif",
     "nom": "Ensemble de soins cliniques pharmaceutiques",
     "categorie": "collection-box",
     "volume": "",
@@ -6563,6 +6793,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "ensemble-de-soins-pour-peaux-sensibles",
     "code": "S0084",
+    "statut_labo": "actif",
     "nom": "Ensemble de soins pour peaux sensibles",
     "categorie": "collection-box",
     "volume": "",
@@ -6585,6 +6816,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "ensemble-pour-estheticienne-en-salon-de-beaute",
     "code": "S0077",
+    "statut_labo": "actif",
     "nom": "Ensemble pour esthéticienne en salon de beauté",
     "categorie": "collection-box",
     "volume": "",
@@ -6607,6 +6839,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gamme-de-soins-capillaires-keratin-boost",
     "code": "S0128",
+    "statut_labo": "actif",
     "nom": "Gamme de soins capillaires Keratin Boost",
     "categorie": "collection-box",
     "volume": "1050 ml",
@@ -6631,6 +6864,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "la-collection-complete",
     "code": "S0081",
+    "statut_labo": "actif",
     "nom": "La collection complète",
     "categorie": "collection-box",
     "volume": "",
@@ -6653,6 +6887,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "les-indispensables-du-fitness-et-du-bien-etre",
     "code": "S0076",
+    "statut_labo": "actif",
     "nom": "Les indispensables du fitness et du bien-être",
     "categorie": "collection-box",
     "volume": "",
@@ -6675,6 +6910,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "lot-de-produits-essentiels-pour-les-cheveux",
     "code": "S0123",
+    "statut_labo": "actif",
     "nom": "Lot de produits essentiels pour les cheveux",
     "categorie": "collection-box",
     "volume": "980 ml",
@@ -6699,6 +6935,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "lot-cheveux-brillants",
     "code": "S0129",
+    "statut_labo": "actif",
     "nom": "Lot « Cheveux brillants »",
     "categorie": "collection-box",
     "volume": "970 ml",
@@ -6721,6 +6958,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "lot-eclaircissant-a-l-acide-kojique",
     "code": "S0124",
+    "statut_labo": "actif",
     "nom": "Lot éclaircissant à l'acide kojique",
     "categorie": "collection-box",
     "volume": "950 ml",
@@ -6743,6 +6981,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "pack-des-meilleures-ventes-de-tous-les-temps",
     "code": "S0083",
+    "statut_labo": "actif",
     "nom": "Pack des meilleures ventes de tous les temps",
     "categorie": "collection-box",
     "volume": "",
@@ -6765,6 +7004,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "selection-de-maquilleurs-specialises-dans-la-beaute-naturelle",
     "code": "S0131",
+    "statut_labo": "actif",
     "nom": "Sélection de maquilleurs spécialisés dans la beauté naturelle",
     "categorie": "collection-box",
     "volume": "342 ml",
@@ -6787,6 +7027,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "la-collection-complete-seconde-selection",
     "code": "S0080",
+    "statut_labo": "actif",
     "nom": "La collection complète, seconde sélection",
     "categorie": "collection-box",
     "volume": "",
@@ -6809,6 +7050,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "trousse-de-toilette-pour-homme",
     "code": "S0086",
+    "statut_labo": "actif",
     "nom": "Trousse de toilette pour homme",
     "categorie": "collection-box",
     "volume": "",
@@ -6831,6 +7073,7 @@ export const PRODUCTS: Product[] = [
   {
     "slug": "gel-booster-a-la-cafeine",
     "code": "A5820",
+    "statut_labo": "OUT_OF_STOCK",
     "nom": "Gel Booster à la caféine",
     "categorie": "soins-du-visage",
     "volume": "15 ml",
@@ -6855,6 +7098,12 @@ export const PRODUCTS: Product[] = [
 
 /** Produits commandables, compléments alimentaires compris : le nombre affiché partout (en-tête du catalogue, textes d'accueil). */
 export const NOMBRE_PRODUITS_COMMANDABLES = PRODUCTS.filter((p) => estCommandable(p)).length;
+
+/** Garde-fou des ajouts à une sélection ou à une commande, à partir du slug. */
+export function slugCommandable(slug: string): boolean {
+  const p = PRODUCTS.find((x) => x.slug === slug);
+  return !!p && estCommandable(p);
+}
 
 /** Fiches cosmétiques en ligne (coffrets compris, compléments alimentaires et produits retirés exclus) : rapprochement avec la moisson du fournisseur, jamais affiché. */
 export const NOMBRE_PRODUITS_CATALOGUE = PRODUCTS.filter((p) => p.categorie !== "supplements" && p.status !== "retired").length;
