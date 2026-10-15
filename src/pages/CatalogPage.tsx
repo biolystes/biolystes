@@ -60,6 +60,7 @@ import {
 import cleanImageEntries from "@/data/catalogue-pro/clean-image-map.json";
 import imagesApprouvees from "@/data/catalogue-pro/images-approuvees.json";
 import { CTA_URL, Entete } from "./pied/elements";
+import NouveauSiteBanner from "@/components/NouveauSiteBanner";
 
 const LABEL_CATEGORIE: Record<string, string> = {
   "soins-du-visage": "Soins du visage",
@@ -188,6 +189,8 @@ export default function CatalogPage() {
           texte={<><span className="whitespace-nowrap" data-testid="nombre-catalogue">{NOMBRE_PRODUITS_COMMANDABLES} produits</span>, dont <span className="whitespace-nowrap">{nombreNouveautes} nouveautés</span>, avec leur prix hors taxes et leur composition INCI.</>}
           className="pb-4 md:pb-6"
         />
+
+        <NouveauSiteBanner />
 
         <div className="flex flex-col gap-3">
           <div className="relative max-w-md">
