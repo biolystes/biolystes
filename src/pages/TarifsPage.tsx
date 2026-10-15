@@ -409,7 +409,7 @@ function ApercuSite() {
 
           <div ref={cadre} className="relative flex-1 w-full overflow-hidden">
             <div className="defile-feed absolute top-0 left-0 w-full will-change-transform"
-              style={{ "--defile-distance": `${distance}px` } as CSSProperties}>
+              style={{ "--defile-distance": `${distance}px`, animation: "defile-feed 45s linear infinite" } as CSSProperties}>
               {iframe}
             </div>
           </div>
@@ -434,7 +434,8 @@ function FilInstagram() {
         </a>
       </div>
       <div className="flex-1 min-h-[420px] rounded-2xl border border-border bg-background overflow-hidden">
-        <div className="defile-feed will-change-transform" style={{ "--defile-distance": "50%" } as CSSProperties}>
+        <div className="defile-feed will-change-transform"
+          style={{ "--defile-distance": "50%", animation: "defile-feed 45s linear infinite" } as CSSProperties}>
           <img src={feedInstagramEclose} alt="Publications Instagram d'Éclose Paris" className="block w-full" loading="lazy" />
           <img src={feedInstagramEclose} alt="" aria-hidden="true" className="block w-full" loading="lazy" />
         </div>
