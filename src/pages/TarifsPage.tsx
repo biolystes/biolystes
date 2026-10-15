@@ -427,7 +427,7 @@ function FilInstagram() {
   return (
     <div className="flex flex-col min-w-0 space-y-4 h-full">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <p className="text-[1.0625rem] font-semibold text-foreground" style={{ fontFamily: BRICOLAGE }}>Éclose Paris sur Instagram</p>
+        <p className="text-[1.0625rem] font-semibold text-foreground" style={{ fontFamily: BRICOLAGE }}>Fil Instagram</p>
         <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
           Voir Instagram <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
@@ -624,8 +624,8 @@ export default function TarifsPage() {
           {/* Le site lancé, en grand, et à côté le fil Instagram : les deux
               défilent avec le même moteur, à la même hauteur (JP, 15/10/2026). */}
           <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)] items-stretch">
-            <div className="order-1 min-w-0 flex"><ApercuSite /></div>
-            <div className="order-2 min-w-0 flex"><FilInstagram /></div>
+            <div className="order-1 min-w-0"><ApercuSite /></div>
+            <div className="order-2 min-w-0"><FilInstagram /></div>
           </div>
 
           <Carrousel titre="Ils ont lancé leur marque avec nous">
