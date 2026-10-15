@@ -517,7 +517,7 @@ export default function TarifsPage() {
         {/* 2. Pourquoi un acompte (achat) : texte de JP, mot pour mot (compétence
             tarifs-biolystes, « Pourquoi l'acompte », 14/10/2026). */}
         {mode === "achat" ? (
-          <div className="max-w-5xl mx-auto mt-4 rounded-2xl border border-foreground p-[1.5rem] md:p-[2rem] grid lg:grid-cols-2 gap-8 lg:gap-12">
+          <div className="max-w-5xl mx-auto mt-4 rounded-2xl border border-foreground p-[1.5rem] md:p-[2rem] grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] gap-8 lg:gap-12">
             <div>
               <div className="flex items-center gap-3">
                 <RondIcone icone={ShieldCheck} />
