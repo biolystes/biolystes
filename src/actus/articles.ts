@@ -16,7 +16,7 @@
    - apostrophes ’, pas de tiret long, une photo différente par article. */
 import type { LucideIcon } from "lucide-react";
 import {
-  Boxes, Brain, Building2, Calculator, Eye, FileCheck2, Gift, Globe, Landmark, Leaf, Megaphone, Package, PackageCheck, Palette, Receipt,
+  Boxes, Brain, Building2, Calculator, Euro, Eye, FileCheck2, Gift, Globe, Handshake, Landmark, Leaf, Megaphone, Package, PackageCheck, Palette, Receipt,
   Recycle, Scale, ShieldCheck, ShoppingBag, Sparkles, Star, Store, Target, Timer, TrendingUp, Truck, Users, Zap,
 } from "lucide-react";
 
@@ -38,6 +38,10 @@ import imgInstituts from "@/assets/salon-coiffure.webp";
 /* Portrait du cabinet, repris du panneau « Fiscal et comptable » de lystes.ai
    (petal-diagnostics, src/assets/cabinet/hr-associes-portrait.avif), recadré en 4:3. */
 import imgHrAssocies from "@/assets/hr-associes-partenariat.jpg";
+/* L’équipe de SB2L Logistique dans son entrepôt, photo transmise par JP,
+   recadrée en 4:3. SB2L est le logisticien partenaire, pas le laboratoire :
+   son nom peut être cité (le laboratoire fabricant, lui, ne l’est jamais). */
+import imgSb2l from "@/assets/sb2l-partenariat.jpg";
 /* Photo produit d’Éclose Paris (concentré exfoliant AHA, étui et flacon),
    reprise de sa fiche sur ecloseparis.com et recadrée en 4:3. Aucune image générée. */
 import imgEclose from "@/assets/eclose-paris-lancement.jpg";
