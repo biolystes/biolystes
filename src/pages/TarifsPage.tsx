@@ -481,7 +481,7 @@ export default function TarifsPage() {
           {famille === "boutique" && <Onglets label="Votre pack" niveau={3} valeur={cleBoutique} onChange={setCleBoutique}
             options={AVEC_BOUTIQUE.map((o) => ({ cle: o.cle, nom: o.nom.replace("Pack ", "") }))} />}
           <p className="text-center text-[0.9375rem] text-muted-foreground text-pretty">
-            <span className="text-foreground font-semibold">{offre.nom}</span> : {famille === "sans" ? "vos produits à votre marque, sans site" : offre.contenu}.
+            <span className="text-foreground font-semibold">{offre.nom}</span> : {famille === "sans" ? "vos produits à votre marque, sans site — pensé pour les instituts, ou pour celles et ceux qui ne souhaitent pas avoir de e-commerce avec nos services" : offre.contenu}.
             {famille !== "sans" && <span className="block mt-1">{peutAjouterProduit(offre.cle)
               ? <>Un produit en plus&nbsp;? {euros(PRODUIT_EN_PLUS)} TTC par design de produit, paiement unique.</>
               : <>Pour ajouter plus de produits, passez au pack supérieur. Aucun produit supplémentaire dans le {offre.nom}.</>}</span>}
@@ -517,7 +517,7 @@ export default function TarifsPage() {
         {/* 2. Pourquoi un acompte (achat) : texte de JP, mot pour mot (compétence
             tarifs-biolystes, « Pourquoi l'acompte », 14/10/2026). */}
         {mode === "achat" ? (
-          <div className="max-w-5xl mx-auto mt-4 rounded-2xl border border-foreground p-[1.5rem] md:p-[2rem] grid lg:grid-cols-2 gap-8 lg:gap-12">
+          <div className="max-w-5xl mx-auto mt-4 rounded-2xl border border-foreground p-[1.5rem] md:p-[2rem] grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] gap-8 lg:gap-12">
             <div>
               <div className="flex items-center gap-3">
                 <RondIcone icone={ShieldCheck} />
@@ -546,17 +546,23 @@ export default function TarifsPage() {
                   </li>
                 ))}
               </ul>
-              {/* Le logo est offert (JP, 14/10/2026) : coupe court aux « j'ai déjà mon logo ». */}
-              <p className="mt-4 text-[0.9375rem] text-foreground font-medium text-pretty">Le logo est offert : il n’est pas compté dans le prix.</p>
-              <p className="mt-6 text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Si les produits ne vous conviennent pas</p>
-              <p className="mt-2 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">
-                Vous vous arrêtez là, sans rien payer de plus ({euros(acompte)} TTC d’acompte au total), et vous gardez votre logo et votre branding.
-              </p>
-              {/* Aperçu de ce que la cliente va recevoir (JP, 15/10/2026) : une vidéo
-                  au format des cartes des carrousels showcase de la page. */}
+              {/* Aperçu de ce que la cliente va recevoir (JP, 15/10/2026) : la vidéo
+                  au format des cartes showcase à gauche, le texte à sa droite — la
+                  colonne prend moins de hauteur (JP, 15/10/2026 : « le texte à
+                  droite, pour ne pas prendre trop de place en hauteur »). */}
               <p className="mt-6 text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Un aperçu de ce que vous recevez</p>
-              <div className="mt-3 w-[200px] h-[260px] rounded-xl overflow-hidden bg-muted">
-                <video src="/videos/showcase-2.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+              <div className="mt-3 grid grid-cols-1 sm:grid-cols-[200px_minmax(0,1fr)] gap-x-6 gap-y-5 items-start">
+                <div className="w-[200px] h-[260px] rounded-xl overflow-hidden bg-muted">
+                  <video src="/videos/showcase-2.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover" />
+                </div>
+                <div className="min-w-0">
+                  {/* Le logo est offert (JP, 14/10/2026) : coupe court aux « j'ai déjà mon logo ». */}
+                  <p className="text-[0.9375rem] text-foreground font-medium text-pretty">Le logo est offert : il n’est pas compté dans le prix.</p>
+                  <p className="mt-5 text-[0.75rem] tracking-[0.14em] uppercase text-foreground">Si les produits ne vous conviennent pas</p>
+                  <p className="mt-2 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">
+                    Vous vous arrêtez là, sans rien payer de plus ({euros(acompte)} TTC d’acompte au total), et vous gardez votre logo et votre branding.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
