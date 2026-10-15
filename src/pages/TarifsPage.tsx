@@ -339,9 +339,16 @@ const SANS_BOUTIQUE = ACHATS.find((o) => o.cle === "design") as Offre;
 /* Le dernier site lancé, vu en vrai (JP, 14/10/2026) : ecloseparis.com en
    iframe (le site ne l'interdit pas : ni X-Frame-Options, ni
    frame-ancestors, vérifié le 14/10/2026), réduit à la largeur du cadre.
+   15/10/2026 (JP) : le fil Instagram de la marque s'affiche à gauche de
+   l'aperçu ; le cadre devient plus étroit et plus haut, et ne montre qu'une
+   partie du site (recadrage horizontal centré).
    Ordinateur : écran 1440 × 900 dans une fenêtre de navigateur ; téléphone :
    écran 390 × 844 dans un cadre de téléphone. Une seule iframe chargée. */
 const ECLOSE_URL = "https://ecloseparis.com";
+/* Part de la largeur du site visible dans le cadre (le reste est recadré,
+   centré). L'iframe garde la même échelle verticale : le cadre est plus haut
+   que son contenu proportionnel. */
+const PARTIE_VISIBLE = 0.75;
 /* L'iframe est plus haute que le cadre : le bandeau de cookies et le bouton
    de conseil du site, fixés en bas de sa fenêtre, tombent hors du cadre. */
 const MARGE_CACHEE = 420;
@@ -363,7 +370,7 @@ function ApercuSite() {
     return () => ro.disconnect();
   }, [telephone]);
   const ecran = telephone ? { w: 390, h: 844 } : { w: 1440, h: 900 };
-  const echelle = largeur ? largeur / ecran.w : 0;
+  const echelle = largeur ? largeur / (ecran.w * (telephone ? 1 : PARTIE_VISIBLE)) : 0;
   const iframe = (
     <iframe src={ECLOSE_URL} title="Éclose Paris, le site" loading="lazy" tabIndex={-1} aria-hidden="true"
       className="absolute top-0 left-0 border-0 pointer-events-none origin-top-left"
