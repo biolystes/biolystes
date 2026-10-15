@@ -481,7 +481,7 @@ export default function TarifsPage() {
           {famille === "boutique" && <Onglets label="Votre pack" niveau={3} valeur={cleBoutique} onChange={setCleBoutique}
             options={AVEC_BOUTIQUE.map((o) => ({ cle: o.cle, nom: o.nom.replace("Pack ", "") }))} />}
           <p className="text-center text-[0.9375rem] text-muted-foreground text-pretty">
-            <span className="text-foreground font-semibold">{offre.nom}</span> : {famille === "sans" ? "vos produits à votre marque, sans site" : offre.contenu}.
+            <span className="text-foreground font-semibold">{offre.nom}</span> : {famille === "sans" ? "vos produits à votre marque, sans site — pensé pour les instituts, ou pour celles et ceux qui ne souhaitent pas avoir de e-commerce avec nos services" : offre.contenu}.
             {famille !== "sans" && <span className="block mt-1">{peutAjouterProduit(offre.cle)
               ? <>Un produit en plus&nbsp;? {euros(PRODUIT_EN_PLUS)} TTC par design de produit, paiement unique.</>
               : <>Pour ajouter plus de produits, passez au pack supérieur. Aucun produit supplémentaire dans le {offre.nom}.</>}</span>}
