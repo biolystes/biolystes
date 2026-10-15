@@ -402,7 +402,7 @@ function ApercuSite() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col h-[560px] rounded-2xl border border-border bg-background overflow-hidden">
+        <div className="flex flex-col h-[477px] rounded-2xl border border-border bg-background overflow-hidden">
           <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 h-9 border-b border-border shrink-0">
             <span className="flex gap-1.5" aria-hidden="true">
               <span className="w-2.5 h-2.5 rounded-full bg-border" /><span className="w-2.5 h-2.5 rounded-full bg-border" /><span className="w-2.5 h-2.5 rounded-full bg-border" />
@@ -433,7 +433,7 @@ function FilInstagram() {
           Voir Instagram <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
         </a>
       </div>
-      <div className="flex flex-col h-[560px] rounded-2xl border border-border bg-background overflow-hidden">
+      <div className="flex flex-col h-[477px] rounded-2xl border border-border bg-background overflow-hidden">
         <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
           className="flex items-center justify-center gap-1.5 px-4 h-9 border-b border-border shrink-0 text-[0.75rem] text-muted-foreground hover:text-foreground">
           <Instagram className="h-3.5 w-3.5" strokeWidth={1.75} /> @Éclose Paris
