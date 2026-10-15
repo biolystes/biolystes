@@ -553,3 +553,18 @@ button.inline-flex.items-center.justify-center.gap-2.whitespace-nowrap.text-sm.f
   color: #ffffff9e !important;
   font-weight: 100;
 }
+
+/* Même moteur de défilement pour le fil Instagram et l'aperçu du site
+   (TarifsPage) : une seule animation ; la distance parcourue se règle par
+   élément avec --defile-distance (50 % pour une boucle d'images identiques,
+   une hauteur en px pour l'iframe du site). */
+@keyframes defile-feed {
+  from { transform: translateY(0); }
+  to { transform: translateY(calc(-1 * var(--defile-distance, 50%))); }
+}
+.defile-feed {
+  animation: defile-feed 45s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .defile-feed { animation: none; }
+}

@@ -52,7 +52,7 @@
    pourcentages de remise, « le premier mois
    offert », le tarif horaire hors forfait, la durée d’engagement de
    l’abonnement, le prix exact de chaque référence. */
-import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode } from "react";
 import { Helmet } from "react-helmet-async";
 import {
   ArrowUpRight, BadgePercent, Camera, Check, ChevronLeft, ChevronRight, ClipboardCheck, CreditCard, FlaskConical, HandCoins, Heart, Instagram, KeyRound, PackageCheck,
@@ -64,6 +64,7 @@ import { ABONNEMENT_DEMARRE_SITE, PRODUIT_EN_PLUS, packAchat, packPlusieursMois,
 import showcaseAmarsi from "@/assets/showcase-amarsi.jpg";
 import showcasePeau from "@/assets/showcase-peau.jpg";
 import showcase235 from "@/assets/showcase-235.jpg";
+import feedInstagramEclose from "@/assets/feed-instagram-eclose.jpg";
 
 const BRICOLAGE = "'Bricolage Grotesque', 'Inter', sans-serif";
 const INSECABLE = "\u00a0";
@@ -350,6 +351,7 @@ const MARGE_CACHEE = 420;
 function ApercuSite() {
   const cadre = useRef<HTMLDivElement>(null);
   const [largeur, setLargeur] = useState(0);
+  const [hauteur, setHauteur] = useState(0);
   const [telephone, setTelephone] = useState(() => typeof window !== "undefined" && window.matchMedia("(max-width: 639px)").matches);
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 639px)");
@@ -360,31 +362,33 @@ function ApercuSite() {
   useEffect(() => {
     const el = cadre.current;
     if (!el) return;
-    const ro = new ResizeObserver(() => setLargeur(el.clientWidth));
+    const ro = new ResizeObserver(() => { setLargeur(el.clientWidth); setHauteur(el.clientHeight); });
     ro.observe(el);
     return () => ro.disconnect();
   }, [telephone]);
-  const ecran = telephone ? { w: 390, h: 844 } : { w: 1440, h: 900 };
+  /* Écran plus haut que la fenêtre (JP : le site défile comme le fil
+     Instagram, avec le même moteur) : 1440 × 2 200, l'iframe rend donc une
+     longue page qui passe lentement dans le cadre. */
+  const ecran = telephone ? { w: 390, h: 844 } : { w: 1440, h: 2200 };
   const echelle = largeur ? largeur / ecran.w : 0;
+  /* Le site défile avec le même moteur que le fil Instagram : une seule
+     animation (.defile-feed), la distance parcourue passée par élément via
+     --defile-distance. La hauteur visible vient du cadre (flex-1) : les deux
+     cartes s'arrêtent au même niveau, sans fond blanc dessous. */
+  const distance = Math.max(0, (ecran.h + MARGE_CACHEE) * echelle - hauteur);
   const iframe = (
     <iframe src={ECLOSE_URL} title="Éclose Paris, le site" loading="lazy" tabIndex={-1} aria-hidden="true"
       className="absolute top-0 left-0 border-0 pointer-events-none origin-top-left"
       style={{ width: ecran.w, height: ecran.h + MARGE_CACHEE, transform: `scale(${echelle})`, visibility: echelle ? "visible" : "hidden" }} />
   );
   return (
-    <div className="space-y-4 h-full flex flex-col">
+    <div className="flex flex-col min-w-0 space-y-4 h-full">
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
         <p className="text-[1.0625rem] font-semibold text-foreground" style={{ fontFamily: BRICOLAGE }}>Le dernier site lancé : Éclose Paris</p>
-        <span className="flex items-center gap-5">
-          <a href={ECLOSE_URL} target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
-            Voir le site <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
-          </a>
-          <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
-            Voir Instagram <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
-          </a>
-        </span>
+        <a href={ECLOSE_URL} target="_blank" rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
+          Voir le site <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
+        </a>
       </div>
 
       {telephone ? (
@@ -394,8 +398,8 @@ function ApercuSite() {
           </div>
         </div>
       ) : (
-        <div className="rounded-2xl border border-border bg-background overflow-hidden">
-          <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 h-9 border-b border-border">
+        <div className="flex flex-col h-[560px] rounded-2xl border border-border bg-background overflow-hidden">
+          <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 h-9 border-b border-border shrink-0">
             <span className="flex gap-1.5" aria-hidden="true">
               <span className="w-2.5 h-2.5 rounded-full bg-border" /><span className="w-2.5 h-2.5 rounded-full bg-border" /><span className="w-2.5 h-2.5 rounded-full bg-border" />
             </span>
@@ -406,11 +410,40 @@ function ApercuSite() {
             </a>
           </div>
 
-          <div ref={cadre} className="relative w-full overflow-hidden" style={{ aspectRatio: `${ecran.w} / ${ecran.h}` }}>
-            {iframe}
+          <div ref={cadre} className="relative flex-1 w-full overflow-hidden">
+            <div className="defile-feed absolute top-0 left-0 w-full will-change-transform"
+              style={{ "--defile-distance": `${distance}px`, animation: "defile-feed 45s linear infinite" } as CSSProperties}>
+              {iframe}
+            </div>
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+/* Le fil Instagram d'Éclose Paris, à droite du site : la capture du fil
+   défile en boucle avec le même moteur (.defile-feed) que l'aperçu du site,
+   à la même hauteur. Les deux images identiques font la boucle sans couture :
+   la seconde est cachée aux lecteurs d'écran. */
+function FilInstagram() {
+  return (
+    <div className="flex flex-col min-w-0 space-y-4 h-full">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <p className="text-[1.0625rem] font-semibold text-foreground" style={{ fontFamily: BRICOLAGE }}>Fil Instagram</p>
+        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
+          Voir Instagram <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
+        </a>
+      </div>
+      <div className="h-[560px] rounded-2xl border border-border bg-background overflow-hidden">
+        <div className="defile-feed will-change-transform"
+          style={{ "--defile-distance": "calc(100% / 3)", animation: "defile-feed 45s linear infinite" } as CSSProperties}>
+          <img src={feedInstagramEclose} alt="Publications Instagram d'Éclose Paris" className="block w-full" loading="lazy" />
+          <img src={feedInstagramEclose} alt="" aria-hidden="true" className="block w-full" loading="lazy" />
+          <img src={feedInstagramEclose} alt="" aria-hidden="true" className="block w-full" loading="lazy" />
+        </div>
+      </div>
     </div>
   );
 }
@@ -593,9 +626,12 @@ export default function TarifsPage() {
       <Bande gris>
         <div className="max-w-[1072px] mx-auto px-[1.25rem] md:px-[1.5rem] space-y-10">
           <Entete surtitre="Ils nous font confiance" noir="Des marques bien réelles," gris="déjà lancées." />
-          {/* Le site lancé, en grand : le fil Instagram ne forme plus une
-              carte à côté, il est devenu un simple lien (JP, 15/10/2026). */}
-          <ApercuSite />
+          {/* Le site lancé, en grand, et à côté le fil Instagram : les deux
+              défilent avec le même moteur, à la même hauteur (JP, 15/10/2026). */}
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)] items-stretch">
+            <div className="order-1 min-w-0"><ApercuSite /></div>
+            <div className="order-2 min-w-0"><FilInstagram /></div>
+          </div>
 
           <Carrousel titre="Ils ont lancé leur marque avec nous">
             {SHOWCASE_ITEMS.map((item) => (
