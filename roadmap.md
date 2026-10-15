@@ -2,3 +2,5 @@
 - [x] Boutons de packs en pastilles conformes à la référence.
 - [x] Corriger les produits supplémentaires et les descriptions des packs.
 - [x] Vérifier les règles par tests et les packs dans l’aperçu.
+- [ ] Placer le texte « Le logo est offert / Si les produits ne vous conviennent pas » à droite de l’aperçu vidéo, pour ne pas prendre trop de hauteur.
+- [ ] Reprendre la règle CSS `.pied-page .space-y-4 > …` (max-width 684 px, margin 8px auto) et vérifier le pied de page.
