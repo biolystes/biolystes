@@ -398,7 +398,7 @@ function ApercuSite() {
           </div>
         </div>
       ) : (
-        <div className="flex-1 flex flex-col min-h-[420px] rounded-2xl border border-border bg-background overflow-hidden">
+        <div className="flex flex-col h-[560px] rounded-2xl border border-border bg-background overflow-hidden">
           <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 px-4 h-9 border-b border-border shrink-0">
             <span className="flex gap-1.5" aria-hidden="true">
               <span className="w-2.5 h-2.5 rounded-full bg-border" /><span className="w-2.5 h-2.5 rounded-full bg-border" /><span className="w-2.5 h-2.5 rounded-full bg-border" />
@@ -436,7 +436,7 @@ function FilInstagram() {
           Voir Instagram <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
         </a>
       </div>
-      <div className="flex-1 min-h-[420px] rounded-2xl border border-border bg-background overflow-hidden">
+      <div className="h-[560px] rounded-2xl border border-border bg-background overflow-hidden">
         <div className="defile-feed will-change-transform"
           style={{ "--defile-distance": "calc(100% / 3)", animation: "defile-feed 45s linear infinite" } as CSSProperties}>
           <img src={feedInstagramEclose} alt="Publications Instagram d'Éclose Paris" className="block w-full" loading="lazy" />
