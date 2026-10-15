@@ -36,15 +36,26 @@
    retirés restent visibles, en fin de liste (ordreCatalogue), marqués
    « Non commandable », et ne sont comptés nulle part.
 
+   Repris de la PR #42 de biolystes.pro (JP, 15/10/2026) : statut de chaque
+   fiche chez le laboratoire (statut_labo, recopié de la moisson). Un produit
+   pas encore sorti porte « Bientôt disponible », une rupture « Rupture »
+   (pastille blanche, texte noir, en bas à gauche de la photo), jamais
+   « Nouveau » ; ils passent après les produits disponibles et la fiche dit
+   « non commandable pour le moment ». Le compteur de liste dit ce qui
+   s'affiche sans être commandable (« 0 produit · 6 bientôt disponibles »).
+   Sous 768 px, les pastilles de catégories tiennent sur une ligne qui défile,
+   sans barre ni accroche, de 16 px du bord à 16 px du bord ; la pastille
+   active est ramenée à l'écran.
+
    Le nom du laboratoire ne figure nulle part : les adresses d'images passent
    par citeLeFournisseur (src/lib/fournisseur-masque.ts). */
-import { useMemo, useState } from "react";
-import { Search, Star, Clock, CalendarDays } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { Search, Star, CalendarDays } from "lucide-react";
 import { citeLeFournisseur } from "@/lib/fournisseur-masque";
 import { sansMotSeul } from "@/lib/sans-mot-seul";
 import {
   PRODUCTS, CATEGORIES, MENTION_IMAGE_A_VENIR, MENTION_RETIRE, MENTION_NOUVEAU,
-  NOMBRE_PRODUITS_COMMANDABLES, estNouveau, ordreCatalogue, compterCommandables,
+  NOMBRE_PRODUITS_COMMANDABLES, estNouveau, ordreCatalogue, compterCommandables, mentionStatutLabo,
 } from "@/data/catalogue-pro/products";
 import cleanImageEntries from "@/data/catalogue-pro/clean-image-map.json";
 import imagesApprouvees from "@/data/catalogue-pro/images-approuvees.json";
@@ -70,6 +81,17 @@ const BadgeNouveau = ({ grand = false }: { grand?: boolean }) => (
     style={{ background: "rgb(29,29,31)", color: "#ffffff" }}
   >
     {MENTION_NOUVEAU}
+  </span>
+);
+
+/** Pastille « Bientôt disponible » ou « Rupture » : même facture que « Nouveau », en négatif (fond blanc, texte noir). */
+const BadgeStatut = ({ texte, grand = false }: { texte: string; grand?: boolean }) => (
+  <span
+    data-badge-statut
+    className={`inline-flex items-center rounded-lg font-bold uppercase whitespace-nowrap ${grand ? "px-2 py-1 text-[10px] tracking-[0.5px]" : "px-2 py-0.5 text-[9px] tracking-[0.4px]"}`}
+    style={{ background: "#ffffff", color: "rgb(29,29,31)", boxShadow: "inset 0 0 0 1px rgba(29,29,31,0.18)" }}
+  >
+    {texte}
   </span>
 );
 
@@ -125,6 +147,25 @@ export default function CatalogPage() {
 
   // Un seul nombre de produits sur la page : les commandables (compléments compris, retirés exclus).
   const nombreAffiche = compterCommandables(filtered);
+  // Ce qui s'affiche sans être commandable, dit à côté du compteur : « 0 produit » sous six cartes se lisait comme une recherche vide.
+  const horsCommande = [
+    { n: filtered.filter((p) => p.statut_labo === "COMING_SOON").length, un: "bientôt disponible", plusieurs: "bientôt disponibles" },
+    { n: filtered.filter((p) => p.statut_labo === "OUT_OF_STOCK").length, un: "en rupture", plusieurs: "en rupture" },
+    { n: filtered.filter((p) => p.status === "retired").length, un: "retiré", plusieurs: "retirés" },
+  ].filter((x) => x.n > 0);
+
+  // Sous 768 px, les pastilles tiennent sur une ligne qui défile : la pastille active est ramenée à l'écran.
+  const rangeePastilles = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const rangee = rangeePastilles.current;
+    const active = rangee?.querySelector<HTMLElement>('[aria-pressed="true"]');
+    if (!rangee || !active || rangee.scrollWidth <= rangee.clientWidth) return;
+    const marge = parseFloat(getComputedStyle(rangee).paddingLeft) || 0;
+    if (active.offsetLeft - marge < rangee.scrollLeft) rangee.scrollLeft = active.offsetLeft - marge;
+    else if (active.offsetLeft + active.offsetWidth > rangee.scrollLeft + rangee.clientWidth) {
+      rangee.scrollLeft = active.offsetLeft + active.offsetWidth + marge - rangee.clientWidth;
+    }
+  }, [activeCategory, nombreNouveautes]);
 
   const toggleFav = (slug: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -160,11 +201,16 @@ export default function CatalogPage() {
               style={{ background: "#f3f4f5" }}
             />
           </div>
-          <div className="flex gap-2 flex-wrap">
+          {/* Ordinateur : pastilles sur plusieurs lignes. Sous 768 px : une seule ligne qui défile, sans barre ni accroche, jusqu'aux bords de l'écran. */}
+          <div
+            ref={rangeePastilles}
+            className="catalogue-pastilles relative flex flex-nowrap items-center gap-2 overflow-x-auto -mx-4 px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0 md:flex-wrap md:overflow-visible"
+          >
             {nombreNouveautes > 0 && (
               <button
                 onClick={() => setActiveCategory(ID_NOUVEAUTES)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                aria-pressed={activeCategory === ID_NOUVEAUTES}
+                className={`shrink-0 whitespace-nowrap px-3 md:px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   activeCategory === ID_NOUVEAUTES ? "bg-foreground text-background" : "text-foreground hover:bg-black/10"
                 }`}
                 style={activeCategory === ID_NOUVEAUTES ? undefined : { background: "#f3f4f5" }}
@@ -177,7 +223,8 @@ export default function CatalogPage() {
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                aria-pressed={activeCategory === cat.id}
+                className={`shrink-0 whitespace-nowrap px-3 md:px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
                   activeCategory === cat.id ? "bg-foreground text-background" : "text-foreground hover:bg-black/10"
                 }`}
                 style={activeCategory === cat.id ? undefined : { background: "#f3f4f5" }}
@@ -191,25 +238,28 @@ export default function CatalogPage() {
           </div>
         </div>
 
-        <p className="text-xs text-muted-foreground" data-testid="nombre-produits">{nombreAffiche} produit{nombreAffiche > 1 ? "s" : ""}</p>
+        <p className="text-xs text-muted-foreground [text-wrap:balance]">
+          <span data-testid="nombre-produits">{nombreAffiche} produit{nombreAffiche > 1 ? "s" : ""}</span>
+          {horsCommande.map((x) => (
+            <span key={x.un}>{` · ${x.n} ${x.n > 1 ? x.plusieurs : x.un}`}</span>
+          ))}
+        </p>
 
         <div className="catalogue-products-grid grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {filtered.map((product) => (
             <div
               key={product.slug}
               data-produit={product.slug}
+              data-statut-labo={product.statut_labo ?? undefined}
               onClick={() => setSelectedProduct(product)}
               className="flex flex-col cursor-pointer rounded-[20px] overflow-hidden transition-shadow hover:ring-1 hover:ring-black/20"
               style={{ background: "#f3f4f5" }}
             >
               <div className="relative w-full aspect-square overflow-hidden flex items-center justify-center" style={{ background: "#f3f4f5" }}>
-                {product.status === "coming_soon" && (
-                  <div
-                    className="absolute top-3 left-3 z-20 flex items-center gap-1 px-2 py-0.5 rounded-lg text-[9px] font-bold tracking-wide"
-                    style={{ background: "rgb(29,29,31)", color: "#fff" }}
-                  >
-                    <Clock className="w-2.5 h-2.5" />
-                    Bientôt disponible
+                {/* Statut en bas à gauche de la photo : en haut, il passerait sous le bouton favori à 375 px. */}
+                {(product.status === "coming_soon" || mentionStatutLabo(product)) && (
+                  <div className="absolute bottom-3 left-3 z-20">
+                    <BadgeStatut texte={mentionStatutLabo(product) ?? "Bientôt disponible"} />
                   </div>
                 )}
                 {product.status === "retired" && (
@@ -365,6 +415,9 @@ export default function CatalogPage() {
               {estNouveau(selectedProduct) && (
                 <div className="-mb-2"><BadgeNouveau grand /></div>
               )}
+              {mentionStatutLabo(selectedProduct) && (
+                <div className="-mb-2"><BadgeStatut texte={mentionStatutLabo(selectedProduct)!} grand /></div>
+              )}
               <h2 className="text-[15px] font-bold" style={{ color: "rgb(29,29,31)", textWrap: "balance" }}>{sansMotSeul(selectedProduct.nom)}</h2>
 
               {selectedProduct.volume && (
@@ -443,6 +496,11 @@ export default function CatalogPage() {
               )}
               {selectedProduct.status === "retired" && (
                 <p className="text-[12px] font-semibold pt-2" style={{ color: "rgb(17,17,17)" }}>{MENTION_RETIRE} · non commandable</p>
+              )}
+              {mentionStatutLabo(selectedProduct) && (
+                <p className="text-[12px] font-semibold pt-2" style={{ color: "rgb(17,17,17)" }} data-mention-statut>
+                  {mentionStatutLabo(selectedProduct)} · non commandable pour le moment
+                </p>
               )}
 
               <a href={CTA_URL} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-sm font-medium transition-colors" style={{ background: "rgb(29,29,31)", color: "#ffffff" }}>
