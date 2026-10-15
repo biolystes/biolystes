@@ -55,7 +55,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent, type ReactNode } from "react";
 import { Helmet } from "react-helmet-async";
 import {
-  ArrowUpRight, BadgePercent, Camera, Check, ChevronLeft, ChevronRight, ClipboardCheck, CreditCard, FlaskConical, HandCoins, Heart, Instagram, KeyRound, PackageCheck,
+  ArrowUpRight, BadgePercent, Camera, Check, ChevronLeft, ChevronRight, ClipboardCheck, CreditCard, FlaskConical, HandCoins, Heart, KeyRound, PackageCheck,
   Palette, PenTool, Receipt, ShieldCheck, Store, Tag, Truck, Wallet, type LucideIcon,
 } from "lucide-react";
 import VisionEtagesBloc from "@lystes/features/solutions/VisionEtagesBloc";
@@ -339,16 +339,12 @@ const SANS_BOUTIQUE = ACHATS.find((o) => o.cle === "design") as Offre;
 /* Le dernier site lancé, vu en vrai (JP, 14/10/2026) : ecloseparis.com en
    iframe (le site ne l'interdit pas : ni X-Frame-Options, ni
    frame-ancestors, vérifié le 14/10/2026), réduit à la largeur du cadre.
-   15/10/2026 (JP) : le fil Instagram de la marque s'affiche à gauche de
-   l'aperçu ; le cadre devient plus étroit et plus haut, et ne montre qu'une
-   partie du site (recadrage horizontal centré).
+   15/10/2026 : retour aux proportions d'origine — le site entier visible,
+   le fil Instagram passe à droite dans une carte de même style.
    Ordinateur : écran 1440 × 900 dans une fenêtre de navigateur ; téléphone :
    écran 390 × 844 dans un cadre de téléphone. Une seule iframe chargée. */
 const ECLOSE_URL = "https://ecloseparis.com";
-/* Part de la largeur du site visible dans le cadre (le reste est recadré,
-   centré). L'iframe garde la même échelle verticale : le cadre est plus haut
-   que son contenu proportionnel. */
-const PARTIE_VISIBLE = 0.75;
+const INSTAGRAM_URL = "https://www.instagram.com/ecloseparis/";
 /* L'iframe est plus haute que le cadre : le bandeau de cookies et le bouton
    de conseil du site, fixés en bas de sa fenêtre, tombent hors du cadre. */
 const MARGE_CACHEE = 420;
@@ -370,11 +366,11 @@ function ApercuSite() {
     return () => ro.disconnect();
   }, [telephone]);
   const ecran = telephone ? { w: 390, h: 844 } : { w: 1440, h: 900 };
-  const echelle = largeur ? largeur / (ecran.w * (telephone ? 1 : PARTIE_VISIBLE)) : 0;
+  const echelle = largeur ? largeur / ecran.w : 0;
   const iframe = (
     <iframe src={ECLOSE_URL} title="Éclose Paris, le site" loading="lazy" tabIndex={-1} aria-hidden="true"
-      className="absolute top-0 border-0 pointer-events-none origin-top-left"
-      style={{ left: telephone ? 0 : `${-(ecran.w * echelle - largeur) / 2}px`, width: ecran.w, height: ecran.h + MARGE_CACHEE, transform: `scale(${echelle})`, visibility: echelle ? "visible" : "hidden" }} />
+      className="absolute top-0 left-0 border-0 pointer-events-none origin-top-left"
+      style={{ width: ecran.w, height: ecran.h + MARGE_CACHEE, transform: `scale(${echelle})`, visibility: echelle ? "visible" : "hidden" }} />
   );
   return (
     <div className="space-y-4 h-full flex flex-col">
@@ -399,7 +395,7 @@ function ApercuSite() {
             </span>
             <span className="mx-auto text-[0.75rem] text-muted-foreground">ecloseparis.com</span>
           </div>
-          <div ref={cadre} className="relative w-full overflow-hidden" style={{ aspectRatio: `${ecran.w * PARTIE_VISIBLE} / ${ecran.h}` }}>
+          <div ref={cadre} className="relative w-full overflow-hidden" style={{ aspectRatio: `${ecran.w} / ${ecran.h}` }}>
             {iframe}
           </div>
         </div>
@@ -408,20 +404,22 @@ function ApercuSite() {
   );
 }
 
-/* Le fil Instagram de la marque, à gauche de l'aperçu du site (JP, 15/10/2026) :
-   sa grille de publications, défilée en boucle comme un vrai fil. */
+/* Le fil Instagram de la marque, à droite de l'aperçu du site (JP, 15/10/2026),
+   dans la même présentation que la carte du site : un titre et un lien
+   « Voir l'Instagram », et la capture du fil (déjà la grille complète),
+   sans duplication. */
 function FilInstagram() {
   return (
-    <div className="flex flex-col h-full rounded-2xl border border-border bg-background overflow-hidden">
-      <div className="flex items-center gap-2 px-4 h-9 border-b border-border shrink-0">
-        <Instagram className="h-3.5 w-3.5 text-muted-foreground" strokeWidth={1.75} />
-        <span className="text-[0.75rem] text-muted-foreground">Éclose Paris sur Instagram</span>
+    <div className="space-y-4 h-full flex flex-col">
+      <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+        <p className="text-[1.0625rem] font-semibold text-foreground" style={{ fontFamily: BRICOLAGE }}>Le fil Instagram d'Éclose Paris</p>
+        <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
+          Voir l'Instagram <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
+        </a>
       </div>
-      <div className="relative flex-1 min-h-[420px] overflow-hidden">
-        <div className="defile-feed">
-          <img src={feedInstagramEclose} alt="Publications Instagram d'Éclose Paris" className="w-full block" loading="lazy" />
-          <img src={feedInstagramEclose} alt="" aria-hidden="true" className="w-full block" loading="lazy" />
-        </div>
+      <div className="flex-1 min-h-0 rounded-2xl border border-border bg-background overflow-hidden flex items-start justify-center">
+        <img src={feedInstagramEclose} alt="Publications Instagram d'Éclose Paris" className="w-full block" loading="lazy" />
       </div>
     </div>
   );
@@ -605,13 +603,13 @@ export default function TarifsPage() {
       <Bande gris>
         <div className="max-w-[1072px] mx-auto px-[1.25rem] md:px-[1.5rem] space-y-10">
           <Entete surtitre="Ils nous font confiance" noir="Des marques bien réelles," gris="déjà lancées." />
-          {/* Fil Instagram à gauche, aperçu du site à droite (JP, 15/10/2026). */}
-          <div className="grid gap-6 md:grid-cols-[minmax(0,300px),minmax(0,1fr)] items-stretch">
+          {/* Aperçu du site à gauche, fil Instagram à droite (JP, 15/10/2026). */}
+          <div className="grid gap-6 md:grid-cols-[minmax(0,1fr),minmax(0,300px)] items-stretch">
             <div className="order-2 md:order-1 min-w-0">
-              <FilInstagram />
+              <ApercuSite />
             </div>
             <div className="order-1 md:order-2 min-w-0">
-              <ApercuSite />
+              <FilInstagram />
             </div>
           </div>
           <Carrousel titre="Ils ont lancé leur marque avec nous">

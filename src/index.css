@@ -553,13 +553,3 @@ button.inline-flex.items-center.justify-center.gap-2.whitespace-nowrap.text-sm.f
   color: #ffffff9e !important;
   font-weight: 100;
 }
-
-/* Fil Instagram (page Tarifs) : défilement vertical en boucle, comme un vrai
-   fil — deux copies de la grille empilées, on remonte d'une hauteur d'image. */
-@keyframes defile-feed {
-  from { transform: translateY(0); }
-  to { transform: translateY(-50%); }
-}
-.defile-feed {
-  animation: defile-feed 45s linear infinite;
-}
