@@ -386,7 +386,7 @@ function ApercuSite() {
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
         <p className="text-[1.0625rem] font-semibold text-foreground" style={{ fontFamily: BRICOLAGE }}>Le dernier site lancé : Éclose Paris</p>
         <a href={ECLOSE_URL} target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
+          className="inline-flex items-center gap-2 rounded-full border border-foreground/40 px-5 py-2 text-[0.9375rem] font-medium text-foreground transition-colors hover:bg-foreground hover:text-background">
           Voir le site <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
         </a>
       </div>
@@ -425,7 +425,7 @@ function FilInstagram() {
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
         <p className="text-[1.0625rem] font-semibold text-foreground" style={{ fontFamily: BRICOLAGE }}>Fil Instagram</p>
         <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer"
-          className="inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
+          className="inline-flex items-center gap-2 rounded-full border border-foreground/40 px-5 py-2 text-[0.9375rem] font-medium text-foreground transition-colors hover:bg-foreground hover:text-background">
           Voir Instagram <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
         </a>
       </div>
