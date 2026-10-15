@@ -621,9 +621,12 @@ export default function TarifsPage() {
       <Bande gris>
         <div className="max-w-[1072px] mx-auto px-[1.25rem] md:px-[1.5rem] space-y-10">
           <Entete surtitre="Ils nous font confiance" noir="Des marques bien réelles," gris="déjà lancées." />
-          {/* Le site lancé, en grand : le fil Instagram ne forme plus une
-              carte à côté, il est devenu un simple lien (JP, 15/10/2026). */}
-          <ApercuSite />
+          {/* Le site lancé, en grand, et à côté le fil Instagram : les deux
+              défilent avec le même moteur, à la même hauteur (JP, 15/10/2026). */}
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,320px)] items-stretch">
+            <div className="order-1 min-w-0 flex"><ApercuSite /></div>
+            <div className="order-2 min-w-0 flex"><FilInstagram /></div>
+          </div>
 
           <Carrousel titre="Ils ont lancé leur marque avec nous">
             {SHOWCASE_ITEMS.map((item) => (
