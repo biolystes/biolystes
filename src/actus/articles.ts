@@ -126,6 +126,48 @@ const tousLesArticles: Article[] = [
       { t: "note", texte: "Biolystes reste votre interlocuteur pour la gamme, la fabrication et la boutique. HR\u00a0&\u00a0Associés prend le relais pour tout ce qui touche à votre société, à vos comptes et à vos déclarations." },
     ],
   },
+  /* ─────────────── Partenariat SB2L Logistique, deuxième article ───────────────
+     Même date que HR & Associés : à date égale, l’ordre de ce tableau décide,
+     donc HR & Associés reste premier (et à la une). Faits donnés par JP :
+     livraison en 24 à 48 heures, tarifs de livraison 50 % moins élevés, zone
+     de livraison étendue au monde entier, produits mêlés aux nôtres chez le
+     logisticien et packaging personnalisé plus librement. */
+  {
+    slug: "partenariat-sb2l-logistique",
+    titre: "Biolystes s’associe à SB2L Logistique : vos clientes livrées en 24 à 48 heures, partout dans le monde",
+    titreSeo: "Biolystes et SB2L Logistique : livraison en 24 à 48 h | Biolystes",
+    description: "Livraison Express en 24 à 48 heures, tarifs de livraison 50 % moins élevés, expédition dans le monde entier : le nouveau partenariat logistique de Biolystes avec SB2L.",
+    chapo: "Grâce à notre partenariat avec le logisticien SB2L, vos clientes reçoivent leur commande en 24 à 48 heures, avec des frais de livraison 50 % moins élevés, et la zone de livraison s’étend au monde entier.",
+    categorie: "Partenariat",
+    date: "2026-10-13",
+    image: imgSb2l,
+    alt: "L’équipe de SB2L Logistique dans son entrepôt, un colis prêt à expédier en main",
+    appel: "Parlons du mode Express pour vos meilleures ventes.",
+    corps: [
+      { t: "h2", texte: "Pourquoi ce partenariat" },
+      { t: "p", texte: "Une cliente qui attend son colis une semaine, parfois deux, ne rachète pas. Le mode Express répond à ce réflexe : un petit stock de vos meilleures ventes, sans minimum, placé chez notre logisticien, et des commandes livrées en 24 à 48 heures." },
+      { t: "p", texte: "Pour aller plus vite, livrer moins cher et livrer plus loin, nous nous associons désormais à **SB2L Logistique**. Son entrepôt accueille le stock Express des marques Biolystes, et ses équipes expédient chaque commande directement, sous votre marque." },
+      { t: "h2", texte: "Ce que ce partenariat change pour votre marque" },
+      { t: "cartes", items: [
+        { icone: Zap, titre: "Livraison en 24 à 48 heures", texte: "Les commandes partent du stock déjà chez le logisticien : vos clientes sont livrées en 24 à 48 heures." },
+        { icone: Euro, titre: "Des tarifs de livraison 50 % moins élevés", texte: "Le partenariat avec SB2L nous permet de vous faire profiter de tarifs de livraison 50 % moins élevés." },
+        { icone: Globe, titre: "La livraison dans le monde entier", texte: "La zone de livraison s’agrandit : vos produits partent désormais vers le monde entier." },
+        { icone: Boxes, titre: "Votre stock chez notre logisticien", texte: "Mêlez d’autres produits aux nôtres et personnalisez plus librement votre packaging." },
+      ] },
+      { t: "h2", texte: "L’offre Express, étape par étape" },
+      { t: "p", texte: "Votre stock chez notre logisticien : vous y placez les produits de votre choix, sans minimum, mêlés aux nôtres, et vous personnalisez plus librement votre packaging. Livré dans le monde entier. Vous réapprovisionnez au rythme de vos ventes, juste ce qu’il faut. Ensuite, à chaque commande :" },
+      { t: "cartes", items: [
+        { icone: ShoppingBag, titre: "Commande client", texte: "Votre client passe commande sur votre boutique en ligne." },
+        { icone: Boxes, titre: "Prélevé dans votre stock", texte: "Nos produits et les vôtres, déjà chez le logisticien." },
+        { icone: Package, titre: "Emballage", texte: "Votre packaging, personnalisé plus librement." },
+        { icone: Truck, titre: "Expédition", texte: "Expédié directement par le logisticien." },
+        { icone: PackageCheck, titre: "Livré", texte: "En 24 à 48 heures." },
+      ] },
+      { t: "h2", texte: "Standard ou Express" },
+      { t: "p", texte: "Le mode Standard reste le chemin du lancement : aucun stock, chaque produit fabriqué à la demande. Dès qu’un produit trouve son rythme, placez-le en Express : il est prélevé chez le logisticien et livré en 24 à 48 heures, partout dans le monde." },
+      { t: "note", texte: "Dans les deux modes, chaque colis part sous votre nom de marque : votre cliente ne voit que vous, de l’emballage au bon de livraison." },
+    ],
+  },
   /* ─────────────── Éclose Paris (13/10/2026), juste sous HR & Associés ───────────────
      Même date que HR & Associés : le tri de /blog et de articles.json est stable,
      donc à date égale l’ordre de ce tableau décide. HR & Associés reste à la une.
