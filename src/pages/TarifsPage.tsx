@@ -556,6 +556,9 @@ export default function TarifsPage() {
           les onglets Sélection → Assurance, la scène par étape et le
           carrousel de sélection. Il porte ses propres styles et son titre. */}
       <section className="bg-background pb-12 md:pb-16">
+        <div className="max-w-[1072px] mx-auto px-[1.25rem] md:px-[1.5rem] pt-12 md:pt-16">
+          <Entete surtitre="Notre process" noir="Pour réussir" gris="votre lancement." />
+        </div>
         <VisionEtagesBloc secteur="bio" />
       </section>
 
