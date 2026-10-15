@@ -106,7 +106,7 @@ function AppRoutes() {
         <Route path="/cgv" element={<Suspense fallback={null}><CGVPage /></Suspense>} />
         <Route path="/faq" element={<Suspense fallback={null}><FaqPage /></Suspense>} />
         <Route path="/a-propos" element={<Suspense fallback={null}><AProposPage /></Suspense>} />
-        <Route path="/tarifs" element={<Suspense fallback={null}><CatalogPasswordGate titre="Offre privée" objet="à l’offre"><TarifsPage /></CatalogPasswordGate></Suspense>} />
+        <Route path="/tarifs" element={<Suspense fallback={null}><TarifsPage /></Suspense>} />
         <Route path="/livraison" element={<Suspense fallback={null}><LivraisonPage /></Suspense>} />
         <Route path="/innovation" element={<Suspense fallback={null}><InnovationPage /></Suspense>} />
         <Route path="/catalogue" element={<Suspense fallback={null}><CatalogPasswordGate><CatalogPage /></CatalogPasswordGate></Suspense>} />
