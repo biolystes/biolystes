@@ -58,9 +58,10 @@ import {
   ArrowUpRight, BadgePercent, Camera, Check, ChevronLeft, ChevronRight, ClipboardCheck, CreditCard, FlaskConical, HandCoins, Heart, Instagram, KeyRound, PackageCheck,
   Palette, PenTool, Receipt, ShieldCheck, Store, Tag, Truck, Wallet, type LucideIcon,
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import VisionEtagesBloc from "@lystes/features/solutions/VisionEtagesBloc";
 import { Bande, BoutonRdv, Entete, RondIcone } from "./pied/elements";
-import { ABONNEMENT_DEMARRE_SITE, PRODUIT_EN_PLUS, packAchat, packPlusieursMois, type PackAchat, type PackPlusieursMois } from "@/data/offres";
+import { ABONNEMENT_DEMARRE_SITE, PRODUIT_EN_PLUS, peutAjouterProduit, packAchat, packPlusieursMois, type PackAchat, type PackPlusieursMois } from "@/data/offres";
 import showcaseAmarsi from "@/assets/showcase-amarsi.jpg";
 import showcasePeau from "@/assets/showcase-peau.jpg";
 import showcase235 from "@/assets/showcase-235.jpg";
@@ -104,13 +105,13 @@ const SOLDE = (montant: number): Etape => ({ icone: Store, quand: "Payé à la l
    sans les lignes chiffrées, comme sur biolystes.pro/offre/<slug>
    (OffrePage.tsx). À resynchroniser si packs.ts change. */
 const COMPREND: Record<string, string[]> = {
-  design: ["4 produits personnalisés", "Création de logo", "Charte graphique", "Design packaging", "Photos IA hyperréalistes", "Envoi de vos produits finis sous 10 jours ouvrés", "Sans site e-commerce", "Rupture possible à réception (vous gardez logo, charte, packaging)"],
+  design: ["4 produits personnalisés", "Création de logo", "Charte graphique", "Design de produit et packaging", "Photos IA hyperréalistes", "Envoi de vos produits finis sous 10 jours ouvrés", "Sans site e-commerce", "Rupture possible à réception (vous gardez logo, charte, packaging)"],
   solo: ["1 design de produit personnalisé", "Logo + charte + packaging", "Photos IA + contenu textuel", "Site e-commerce", "Automatisation livraison", "Zéro stock minimum"],
   duo: ["2 designs de produits personnalisés", "Logo + charte + packaging", "Photos IA + contenu textuel", "Site e-commerce", "Support prioritaire", "Zéro stock minimum"],
   standard: ["4 designs de produits personnalisés", "Logo + charte + packaging", "Site e-commerce complet + SEO", "Automatisation livraison", "Contenu textuel + Photographie IA", "Expert produit dédié", "CRO standard"],
-  ia: ["8 designs de produits personnalisés", "Tout le Pack Standard", "Diagnostic Intelligent par IA", "Recommandations produits par IA", "UGC IA ultraréaliste", "SEO IA + Photo IA avancée", "Marketing IA"],
-  "standard-location": ["Tout le Pack Standard (site + design 4 produits)", "Abonnement inclus dans la mensualité", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (1 499 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
-  "ia-location": ["Tout le Pack IA (8 designs + UGC IA + diagnostic + marketing)", "Abonnement inclus dans la mensualité", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (2 999 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
+  ia: ["8 designs de produits personnalisés", "Tout le Pack Standard", "Feed Instagram", "Notre suite de solutions IA"],
+  "standard-location": ["Tout le Pack Standard (site + 4 designs de produits)", "Abonnement inclus dans la mensualité", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (1 499 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
+  "ia-location": ["Tout le Pack IA (8 designs de produits + feed Instagram + notre suite de solutions IA)", "Abonnement inclus dans la mensualité", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (2 999 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
 };
 const OFFRE_URL = "https://biolystes.pro/offre/";
 
@@ -121,7 +122,7 @@ const ACOMPTE_COMPREND: { icone: LucideIcon; texte: string }[] = [
   { icone: PenTool, texte: "Le design de vos produits" },
   { icone: FlaskConical, texte: "La fabrication de vos produits" },
   { icone: Truck, texte: "L’envoi chez vous" },
-  { icone: Camera, texte: "Les photos de vos designs" },
+  { icone: Camera, texte: "Les photos de vos designs de produits" },
 ];
 
 /* Les étapes d'un pack acheté : sélection offerte, acompte, réception,
@@ -144,11 +145,11 @@ const achat = (cle: PackAchat["cle"], nom: string, contenu: string, abonnementTe
    compris pour le Standard (JP, 14/10/2026 soir : jamais « inclus » à
    l'achat). */
 const ACHATS: Offre[] = [
-  achat("design", "Pack Design", "4 produits, design seul, sans site", "Accès à tout notre catalogue, sans minimum de commande : vous commandez le produit que vous voulez, quand vous voulez. Un produit pas encore designé : 39 € une fois."),
-  achat("solo", "Pack Solo", "1 design + site e-commerce", "Dès la mise en ligne. Ce que ça vous donne : hébergement, support, logistique et sécurité de votre boutique, sans minimum de commande."),
-  achat("duo", "Pack Duo", "2 designs + site e-commerce", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, support prioritaire et logistique, sans minimum de commande."),
-  achat("standard", "Pack Standard", "4 designs + site complet + expert dédié", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, livraisons, référencement, support et sécurité, sans minimum de commande."),
-  achat("ia", "Pack IA", "8 designs, UGC IA, diagnostic, marketing", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : tout le Standard, plus diagnostic IA, contenus UGC IA et marketing, sans minimum de commande."),
+  achat("design", "Pack Design produit", "4 designs de produits, sans site", "Accès à tout notre catalogue, sans minimum de commande : vous commandez le produit que vous voulez, quand vous voulez. Un produit pas encore designé : 39 € une fois."),
+  achat("solo", "Pack Solo", "1 design de produit + site e-commerce", "Dès la mise en ligne. Ce que ça vous donne : hébergement, support, logistique et sécurité de votre boutique, sans minimum de commande."),
+  achat("duo", "Pack Duo", "2 designs de produits + site e-commerce", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, support prioritaire et logistique, sans minimum de commande."),
+  achat("standard", "Pack Standard", "4 designs de produits + site complet + expert dédié", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, livraisons, référencement, support et sécurité, sans minimum de commande."),
+  achat("ia", "Pack IA", "8 designs de produits, feed Instagram et notre suite de solutions IA", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : tout le Standard, le feed Instagram et notre suite de solutions IA, sans minimum de commande."),
 ];
 
 /* Payer sur plusieurs mois (location avec option d'achat au contrat ; le mot
@@ -172,8 +173,8 @@ const plusieursMois = (cle: PackPlusieursMois["cle"], nom: string, contenu: stri
   };
 };
 const LOCATIONS: Offre[] = [
-  plusieursMois("standard", "Pack Standard", "4 designs + site complet + expert dédié"),
-  plusieursMois("ia", "Pack IA", "8 designs, UGC IA, diagnostic, marketing"),
+  plusieursMois("standard", "Pack Standard", "4 designs de produits + site complet + expert dédié"),
+  plusieursMois("ia", "Pack IA", "8 designs de produits, feed Instagram et notre suite de solutions IA"),
 ];
 
 /* Une valeur courte par carte, une phrase dessous. */
@@ -277,6 +278,7 @@ function Onglets<T extends string>({ label, options, valeur, onChange, niveau, g
     onChange(options[j].cle);
     refs.current[j]?.focus();
   };
+  const pastilles = niveau === 3;
   const taille = gauche ? "text-[0.8125rem] sm:text-[0.875rem] pb-1.5" : niveau === 1 ? "text-[1rem] sm:text-[1.125rem] pb-3" : niveau === 2 ? "text-[0.9375rem] sm:text-[1rem] pb-2.5" : "text-[0.9375rem] pb-2";
   return (
     <div role="tablist" aria-label={label}
@@ -284,13 +286,15 @@ function Onglets<T extends string>({ label, options, valeur, onChange, niveau, g
       {options.map((o, i) => {
         const actif = o.cle === valeur;
         return (
-          <button key={o.cle} ref={(el) => { refs.current[i] = el; }} type="button" role="tab" aria-selected={actif}
+          <Button variant="ghost" key={o.cle} ref={(el) => { refs.current[i] = el; }} type="button" role="tab" aria-selected={actif}
             tabIndex={actif ? 0 : -1} onClick={() => onChange(o.cle)} onKeyDown={(e) => clavier(e, i)}
-            className={"relative -mb-px text-center leading-snug text-balance transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-4 rounded-sm " + taille + " " +
-              (actif ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground")}>
+            className={pastilles
+              ? "h-10 min-w-[60px] rounded-full border border-foreground px-5 py-2 text-[0.9375rem] font-normal " + (actif ? "bg-foreground text-background hover:bg-foreground hover:text-background" : "bg-background text-foreground hover:bg-secondary hover:text-foreground")
+              : "relative h-auto rounded-sm bg-transparent px-0 pt-0 -mb-px text-center leading-snug text-balance hover:bg-transparent focus-visible:ring-foreground focus-visible:ring-offset-4 " + taille + " " +
+                (actif ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground")}>
             {o.nom}
-            <span aria-hidden="true" className={"absolute left-0 right-0 bottom-0 h-[2px] rounded-full " + (actif ? "bg-foreground" : "bg-transparent")} />
-          </button>
+            {!pastilles && <span aria-hidden="true" className={"absolute left-0 right-0 bottom-0 h-[2px] rounded-full " + (actif ? "bg-foreground" : "bg-transparent")} />}
+          </Button>
         );
       })}
     </div>
@@ -478,7 +482,9 @@ export default function TarifsPage() {
             options={AVEC_BOUTIQUE.map((o) => ({ cle: o.cle, nom: o.nom.replace("Pack ", "") }))} />}
           <p className="text-center text-[0.9375rem] text-muted-foreground text-pretty">
             <span className="text-foreground font-semibold">{offre.nom}</span> : {famille === "sans" ? "vos produits à votre marque, sans site" : offre.contenu}.
-            {famille !== "sans" && <span className="block mt-1">Un produit en plus&nbsp;? {euros(PRODUIT_EN_PLUS)} TTC par produit, paiement unique, pour son&nbsp;design.</span>}
+            {famille !== "sans" && <span className="block mt-1">{peutAjouterProduit(offre.cle)
+              ? <>Un produit en plus&nbsp;? {euros(PRODUIT_EN_PLUS)} TTC par design de produit, paiement unique.</>
+              : <>Pour ajouter plus de produits, passez au pack supérieur. Aucun produit supplémentaire dans le {offre.nom}.</>}</span>}
           </p>
         </div>
 
