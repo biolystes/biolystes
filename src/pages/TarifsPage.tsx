@@ -366,7 +366,10 @@ function ApercuSite() {
     ro.observe(el);
     return () => ro.disconnect();
   }, [telephone]);
-  const ecran = telephone ? { w: 390, h: 844 } : { w: 1440, h: 900 };
+  /* Écran plus haut que la fenêtre (JP : le site défile comme le fil
+     Instagram, avec le même moteur) : 1440 × 2 200, l'iframe rend donc une
+     longue page qui passe lentement dans le cadre. */
+  const ecran = telephone ? { w: 390, h: 844 } : { w: 1440, h: 2200 };
   const echelle = largeur ? largeur / ecran.w : 0;
   /* Le site défile avec le même moteur que le fil Instagram : une seule
      animation (.defile-feed), la distance parcourue passée par élément via
