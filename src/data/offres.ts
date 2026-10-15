@@ -55,6 +55,9 @@ export const PACKS_PLUSIEURS_MOIS: PackPlusieursMois[] = [
 /* Produit en plus du nombre prévu par le pack : paiement unique. */
 export const PRODUIT_EN_PLUS = 39;
 
+/** Sur la gamme avec boutique, seuls Standard et IA acceptent des produits en plus. */
+export const peutAjouterProduit = (cle: string): boolean => cle === "standard" || cle === "ia";
+
 /* Ce que dit la page sous l'abonnement des packs achetés. */
 export const ABONNEMENT_DEMARRE_SITE = "Démarre à la livraison du site, une fois le solde réglé.";
 
