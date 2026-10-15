@@ -1,0 +1,10 @@
+.home-team-roles { overflow: hidden; margin-top: 24px; }
+.home-team-roles-track { display: flex; width: max-content; animation: home-team-roll 32s linear infinite; }
+.home-team-roles-group { display: flex; align-items: center; gap: 28px; padding-right: 28px; }
+.home-team-roles-group span { white-space: nowrap; font-size: 14px; }
+@keyframes home-team-roll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .home-team-roles-track { animation: none; width: auto; }
+  .home-team-roles-group { flex-wrap: wrap; justify-content: center; gap: 12px 24px; padding: 0; }
+  .home-team-roles-group[aria-hidden="true"] { display: none; }
+}
