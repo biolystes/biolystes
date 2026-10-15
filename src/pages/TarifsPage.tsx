@@ -58,6 +58,7 @@ import {
   ArrowUpRight, BadgePercent, Camera, Check, ChevronLeft, ChevronRight, ClipboardCheck, CreditCard, FlaskConical, HandCoins, Heart, KeyRound, PackageCheck,
   Palette, PenTool, Receipt, ShieldCheck, Store, Tag, Truck, Wallet, type LucideIcon,
 } from "lucide-react";
+import VisionEtagesBloc from "@lystes/features/solutions/VisionEtagesBloc";
 import { Bande, BoutonRdv, Entete, RondIcone } from "./pied/elements";
 import { ABONNEMENT_DEMARRE_SITE, PRODUIT_EN_PLUS, packAchat, packPlusieursMois, type PackAchat, type PackPlusieursMois } from "@/data/offres";
 import showcaseAmarsi from "@/assets/showcase-amarsi.jpg";
@@ -549,6 +550,18 @@ export default function TarifsPage() {
           </a>
         </div>
       </section>
+
+      {/* ═══ CE QUE NOTRE SUITE IA FAIT POUR VOS VENTES ═══
+          Le bloc des étages de /agents-ia (VisionEtagesBloc) : les onglets
+          Vos produits → Vos équipes, les visites et la fiche de démonstration.
+          Il porte ses propres styles : rien à ajouter à la page. */}
+      <section className="bg-background pb-12 md:pb-16">
+        <div className="max-w-[1072px] mx-auto px-[1.25rem] md:px-[1.5rem] pt-12 md:pt-16">
+          <Entete surtitre="Notre suite IA" noir="Ce que nos équipes IA font" gris="pour vos ventes." />
+        </div>
+        <VisionEtagesBloc />
+      </section>
+
 
       {/* ═══ RÉASSURANCE : LES CARROUSELS DE BIOLYSTES.PRO/RDV ═══ */}
       <Bande gris>
