@@ -9,6 +9,7 @@ describe("liens de compte", () => {
   });
   it("la connexion va vers biolystes.pro/connexion", () => {
     expect(adresseCompte("/login")).toBe("https://biolystes.pro/connexion");
+    expect(lienLystes("/p/auth/login").href).toBe("https://biolystes.pro/connexion");
     expect(lienLystes("/auth").href).toBe("https://biolystes.pro/connexion");
   });
 });
