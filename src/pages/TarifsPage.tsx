@@ -508,10 +508,10 @@ function TableauComparatif() {
   /* Le gabarit de colonne, partagé par l'en-tête et chaque ligne, pour que
      les valeurs restent alignées d'une ligne à l'autre. Au téléphone, le
      tableau défile horizontalement (comme les pastilles du catalogue). */
-  const colonnes = "grid grid-cols-[minmax(0,1fr)_repeat(5,minmax(52px,64px))] items-center gap-x-2 sm:gap-x-3";
+  const colonnes = "grid grid-cols-[minmax(0,1fr)_repeat(5,minmax(40px,64px))] items-center gap-x-2 sm:gap-x-3";
   return (
     <div className="max-w-5xl mx-auto rounded-2xl bg-secondary p-2 sm:p-3 overflow-x-auto">
-      <div className="min-w-[620px]">
+      <div className="min-w-[540px]">
         <div className={colonnes + " px-3 sm:px-4 pb-2"}>
           <span aria-hidden="true" />
           {PACKS.map((p) => (
