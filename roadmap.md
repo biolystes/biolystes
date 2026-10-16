@@ -6,3 +6,4 @@
 - [x] Placer le texte « Le logo est offert / Si les produits ne vous conviennent pas » à droite de l’aperçu vidéo, pour ne pas prendre trop de hauteur.
 - [x] Reprendre la règle CSS `.pied-page .space-y-4 > …` (max-width 684 px, margin 8px auto) et vérifier les pages du pied de page.
 - [x] Renommer « Pack Design produit » en « Pack Design » (tableau comparatif et fiche de l’offre) ; vérifier l’affichage.
+- [x] Séparer visuellement « Sans e-commerce » (Design) de « Avec e-commerce » (Solo, Duo, Standard, IA) dans le tableau comparatif ; vérifier à 1440 et 375 px.
