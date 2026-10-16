@@ -2,7 +2,7 @@
 
    Repris de src/pages/CataloguePage.tsx de biolystes/commandcenterbiolystes
    (PR #14 et #15) : même recherche, mêmes catégories avec leurs compteurs,
-   mêmes cartes gris pierre (#f3f4f5) avec le prix HT, même panneau de fiche
+   mêmes cartes gris pierre (#f3f4f5), sans aucun prix (prix uniquement sur /tarifs), même panneau de fiche
    avec la composition INCI. Les données ne sont pas réécrites : elles sont
    recopiées par scripts/sync-catalogue-pro.mjs dans src/data/catalogue-pro/,
    et src/test/catalogue-pro.test.ts échoue si les deux catalogues divergent.
@@ -60,6 +60,7 @@ import {
 import cleanImageEntries from "@/data/catalogue-pro/clean-image-map.json";
 import imagesApprouvees from "@/data/catalogue-pro/images-approuvees.json";
 import { CTA_URL, Entete } from "./pied/elements";
+import { badgeDisponibilite } from "@/data/disponibilite";
 import NouveauSiteBanner from "@/components/NouveauSiteBanner";
 
 const LABEL_CATEGORIE: Record<string, string> = {
@@ -186,7 +187,7 @@ export default function CatalogPage() {
           surtitre="Catalogue"
           noir="Vos produits"
           gris="en marque blanche."
-          texte={<><span className="whitespace-nowrap" data-testid="nombre-catalogue">{NOMBRE_PRODUITS_COMMANDABLES} produits</span>, dont <span className="whitespace-nowrap">{nombreNouveautes} nouveautés</span>, avec leur prix hors taxes et leur composition INCI.</>}
+          texte={<><span className="whitespace-nowrap" data-testid="nombre-catalogue">{NOMBRE_PRODUITS_COMMANDABLES} produits</span>, dont <span className="whitespace-nowrap">{nombreNouveautes} nouveautés</span>, avec leur composition INCI.</>}
           className="pb-4 md:pb-6"
         />
 
@@ -260,9 +261,9 @@ export default function CatalogPage() {
             >
               <div className="relative w-full aspect-square overflow-hidden flex items-center justify-center" style={{ background: "#f3f4f5" }}>
                 {/* Statut en bas à gauche de la photo : en haut, il passerait sous le bouton favori à 375 px. */}
-                {(product.status === "coming_soon" || mentionStatutLabo(product)) && (
+                {badgeDisponibilite(product) && (
                   <div className="absolute bottom-3 left-3 z-20">
-                    <BadgeStatut texte={mentionStatutLabo(product) ?? "Bientôt disponible"} />
+                    <BadgeStatut texte={badgeDisponibilite(product)!} />
                   </div>
                 )}
                 {product.status === "retired" && (
@@ -334,50 +335,9 @@ export default function CatalogPage() {
                   )}
                 </div>
 
-                {(() => {
-                  const conseilles = product.prix_conseilles
-                    ? { ...product.prix_conseilles, isAI: false }
-                    : product.prix_ht
-                      ? { milieu: Math.round(product.prix_ht * 2.2), bio: Math.round(product.prix_ht * 3.5), luxe: Math.round(product.prix_ht * 4.5), isAI: true }
-                      : null;
-                  if (!conseilles) return null;
-                  return (
-                    <div className="flex flex-col gap-[2px]">
-                      <div className="flex items-center justify-between gap-1.5 mb-[6px]">
-                        <span className="text-[9px] font-bold tracking-[1px] uppercase" style={{ color: "rgb(17,17,17)" }}>
-                          <span className="sm:hidden">Prix conseillés</span>
-                          <span className="hidden sm:inline">Prix de vente conseillé</span>
-                        </span>
-                        {conseilles.isAI && (
-                          <span className="hidden sm:inline text-[8px] font-extrabold px-[6px] py-[2px] rounded" style={{ background: "rgb(29,29,31)", color: "#ffffff" }}>
-                            AI
-                          </span>
-                        )}
-                      </div>
-                      <div className="flex justify-between items-center gap-2 py-1">
-                        <span className="text-[11px]" style={{ color: "rgb(17,17,17)" }}><span className="sm:hidden">Milieu</span><span className="hidden sm:inline">Milieu de gamme</span></span>
-                        <span className="text-[12px] font-semibold whitespace-nowrap" style={{ color: "rgb(17,17,17)" }}>{conseilles.milieu}€</span>
-                      </div>
-                      <div className="flex justify-between items-center gap-2 py-1">
-                        <span className="text-[11px]" style={{ color: "rgb(17,17,17)" }}><span className="sm:hidden">Bio</span><span className="hidden sm:inline">Marché Bio</span></span>
-                        <span className="text-[12px] font-semibold whitespace-nowrap" style={{ color: "rgb(17,17,17)" }}>{conseilles.bio}€</span>
-                      </div>
-                      <div className="flex justify-between items-center gap-2 py-1">
-                        <span className="text-[11px]" style={{ color: "rgb(17,17,17)" }}><span className="sm:hidden">Luxe</span><span className="hidden sm:inline">Marché Luxe</span></span>
-                        <span className="text-[12px] font-semibold whitespace-nowrap" style={{ color: "rgb(17,17,17)" }}>{conseilles.luxe}€</span>
-                      </div>
-                    </div>
-                  );
-                })()}
 
                 <div className="flex flex-wrap items-center justify-between gap-x-1.5 gap-y-1 mt-auto pt-[6px]" style={{ borderTop: "1px solid #e5e7eb" }}>
-                  {product.prix_ht != null ? (
-                    <span className="text-[15px] font-bold flex-shrink-0 whitespace-nowrap" style={{ color: "rgb(17,17,17)" }}>
-                      {product.prix_ht.toFixed(2).replace(".", ",")} € <span className="text-[9px] font-normal">HT</span>
-                    </span>
-                  ) : (
-                    <span className="text-[10px] leading-tight text-muted-foreground">{product.status === "retired" ? "Non commandable" : ""}</span>
-                  )}
+                  <span className="text-[10px] leading-tight text-muted-foreground">{product.status === "retired" ? "Non commandable" : badgeDisponibilite(product) ? "Non commandable pour le moment" : "Prix sur devis"}</span>
                   <span className="px-[9px] py-[3px] rounded-full text-[8px] font-bold uppercase tracking-[0.4px] whitespace-nowrap" style={{ background: "rgb(29,29,31)", color: "#ffffff" }}>
                     {LABEL_CATEGORIE[product.categorie] || product.categorie}
                   </span>
@@ -418,8 +378,8 @@ export default function CatalogPage() {
               {estNouveau(selectedProduct) && (
                 <div className="-mb-2"><BadgeNouveau grand /></div>
               )}
-              {mentionStatutLabo(selectedProduct) && (
-                <div className="-mb-2"><BadgeStatut texte={mentionStatutLabo(selectedProduct)!} grand /></div>
+              {badgeDisponibilite(selectedProduct) && (
+                <div className="-mb-2"><BadgeStatut texte={badgeDisponibilite(selectedProduct)!} grand /></div>
               )}
               <h2 className="text-[15px] font-bold" style={{ color: "rgb(29,29,31)", textWrap: "balance" }}>{sansMotSeul(selectedProduct.nom)}</h2>
 
@@ -477,26 +437,9 @@ export default function CatalogPage() {
                 </div>
               )}
 
-              {selectedProduct.prix_conseilles && (
-                <div className="rounded-xl p-4" style={{ background: "#f3f4f5" }}>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-[10px] font-bold tracking-[0.5px] uppercase" style={{ color: "rgb(29,29,31)" }}>Prix de vente conseillé</span>
-                    <span className="text-[8px] font-extrabold px-[6px] py-[2px] rounded" style={{ background: "rgb(29,29,31)", color: "#ffffff" }}>AI</span>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <div className="flex justify-between"><span className="text-[12px]" style={{ color: "rgb(17,17,17)" }}>Milieu de gamme</span><span className="text-[13px] font-semibold" style={{ color: "rgb(17,17,17)" }}>{selectedProduct.prix_conseilles.milieu}€</span></div>
-                    <div className="flex justify-between"><span className="text-[12px]" style={{ color: "rgb(17,17,17)" }}>Marché Bio</span><span className="text-[13px] font-semibold" style={{ color: "rgb(17,17,17)" }}>{selectedProduct.prix_conseilles.bio}€</span></div>
-                    <div className="flex justify-between"><span className="text-[12px]" style={{ color: "rgb(17,17,17)" }}>Marché Luxe</span><span className="text-[13px] font-semibold" style={{ color: "rgb(17,17,17)" }}>{selectedProduct.prix_conseilles.luxe}€</span></div>
-                  </div>
-                </div>
-              )}
-
-              {selectedProduct.prix_ht != null && (
-                <div className="flex items-center gap-2 pt-2" style={{ borderTop: "1px solid #e5e7eb" }} data-testid="prix-ht">
-                  <span className="text-[18px] font-bold" style={{ color: "rgb(17,17,17)" }}>{selectedProduct.prix_ht.toFixed(2).replace(".", ",")} €</span>
-                  <span className="text-[11px]" style={{ color: "#666666" }}>HT</span>
-                </div>
-              )}
+              <div className="flex items-center gap-2 pt-2" style={{ borderTop: "1px solid #e5e7eb" }} data-testid="prix-sur-devis">
+                <a href="/rdv" className="text-[13px] font-semibold underline" style={{ color: "rgb(17,17,17)" }}>Prix sur devis</a>
+              </div>
               {selectedProduct.status === "retired" && (
                 <p className="text-[12px] font-semibold pt-2" style={{ color: "rgb(17,17,17)" }}>{MENTION_RETIRE} · non commandable</p>
               )}
