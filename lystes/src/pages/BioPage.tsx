@@ -1,3 +1,4 @@
+import { adresseDemarrer } from "@/lib/demarrer";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
