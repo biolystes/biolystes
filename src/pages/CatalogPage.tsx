@@ -337,7 +337,7 @@ export default function CatalogPage() {
 
 
                 <div className="flex flex-wrap items-center justify-between gap-x-1.5 gap-y-1 mt-auto pt-[6px]" style={{ borderTop: "1px solid #e5e7eb" }}>
-                  <span className="text-[10px] leading-tight text-muted-foreground">{product.status === "retired" ? "Non commandable" : badgeDisponibilite(product) ? "Non commandable pour le moment" : "Prix sur devis"}</span>
+                  <span className="text-[10px] leading-tight text-muted-foreground">{product.status === "retired" ? "Non commandable" : badgeDisponibilite(product) ? "Pas encore commandable" : "Prix sur devis"}</span>
                   <span className="px-[9px] py-[3px] rounded-full text-[8px] font-bold uppercase tracking-[0.4px] whitespace-nowrap" style={{ background: "rgb(29,29,31)", color: "#ffffff" }}>
                     {LABEL_CATEGORIE[product.categorie] || product.categorie}
                   </span>
