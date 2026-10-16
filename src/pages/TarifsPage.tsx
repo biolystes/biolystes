@@ -715,6 +715,14 @@ export default function TarifsPage() {
         </div>
       </section>
 
+      {/* ═══ LE TABLEAU QUI COMPARE LES CINQ PACKS ═══ */}
+      <Bande gris>
+        <div className="max-w-[1072px] mx-auto px-[1.25rem] md:px-[1.5rem]">
+          <Entete className="mb-8 md:mb-10" surtitre="Comparer" noir="Les cinq packs," gris="ligne par ligne." />
+          <TableauComparatif />
+        </div>
+      </Bande>
+
       {/* ═══ COMMENT ÇA FONCTIONNE : LES ÉTAPES ═══
           Le bloc des étapes de l'accueil (VisionEtagesBloc secteur="bio") :
           les onglets Sélection → Assurance, la scène par étape et le
