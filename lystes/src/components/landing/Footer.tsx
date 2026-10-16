@@ -121,7 +121,7 @@ const colonnesBiolystes: FooterColumn[] = [
     links: [
       /* 14/10/2026, JP : « S'inscrire » revient, comme l'en-tête (le bouton
          catalogue est devenu « Prendre rendez-vous » partout). */
-      { fr: "S’inscrire", to: "https://lystes.ai/biolystes/inscription", external: true },
+      { fr: "S’inscrire", to: "https://biolystes.pro/inscription", external: true },
       { fr: "Prendre rendez-vous", to: "https://biolystes.pro/rdv", external: true },
       { fr: "Pourquoi cette offre", to: BIOLYSTES + "/pourquoi-cette-offre", external: true },
       { fr: "Notre étude", to: BIOLYSTES + "/etudes", external: true },

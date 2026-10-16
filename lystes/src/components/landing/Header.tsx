@@ -211,7 +211,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                       client, à contour ; « Prendre rendez-vous » est le bouton
                       principal, plein, à droite. Plus de bouton catalogue. */}
                   <a
-                    href="https://lystes.ai/biolystes/inscription"
+                    href="https://biolystes.pro/inscription"
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`inline-flex items-center h-11 px-5 rounded-full border text-sm font-medium whitespace-nowrap transition ${
@@ -252,7 +252,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
               <>
               {/* Tient à 375 px ; sous 360 px « S'inscrire » ne reste que dans le menu. */}
               <a
-                href="https://lystes.ai/biolystes/inscription"
+                href="https://biolystes.pro/inscription"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`hidden min-[360px]:inline-flex items-center rounded-full border px-3.5 py-[7px] text-[12.5px] font-medium whitespace-nowrap ${
@@ -357,7 +357,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
                   à contour (l'ancienne place de « Connexion »). */}
               {!connecte && (
                 <a
-                  href="https://lystes.ai/biolystes/inscription"
+                  href="https://biolystes.pro/inscription"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setMobileMenuOpen(false)}
