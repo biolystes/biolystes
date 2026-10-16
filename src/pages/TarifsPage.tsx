@@ -56,7 +56,7 @@ import { useEffect, useRef, useState, type CSSProperties, type KeyboardEvent, ty
 import { Helmet } from "react-helmet-async";
 import {
   ArrowUpRight, BadgePercent, Camera, Check, ChevronLeft, ChevronRight, ClipboardCheck, CreditCard, FlaskConical, HandCoins, Heart, Instagram, KeyRound, PackageCheck,
-  Palette, PenTool, Receipt, ShieldCheck, Store, Tag, Truck, Wallet, type LucideIcon,
+  Palette, PenTool, Receipt, Search, ShieldCheck, Store, Tag, TrendingUp, Truck, UserCheck, Wallet, type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import VisionEtagesBloc from "@lystes/features/solutions/VisionEtagesBloc";
