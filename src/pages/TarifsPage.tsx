@@ -631,8 +631,8 @@ export default function TarifsPage() {
             )}
             <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">{offre.totalTitre}</p>
             <div className="mt-3"><Montant ttc={offre.total} /></div>
-            {mode === "achat" && <p className="mt-3 text-[0.9375rem] text-foreground font-medium text-pretty">Dont un acompte de {euros(acompte)} TTC, payé à la commande.</p>}
-            {mode === "location" && <p className="mt-3 text-[0.9375rem] text-foreground font-medium text-pretty">Dont un acompte de {euros(acompte)} TTC, puis {euros(offre.etapes[3].montant ?? 0)} TTC à la livraison du&nbsp;site.</p>}
+            {mode === "achat" && <p className="mt-3 text-[0.9375rem] text-foreground font-medium text-pretty">Dont un acompte de <span className="rounded-[4px] px-1 [background:hsl(var(--surligne))]">{euros(acompte)} TTC</span>, payé à la commande.</p>}
+            {mode === "location" && <p className="mt-3 text-[0.9375rem] text-foreground font-medium text-pretty">Dont un acompte de <span className="rounded-[4px] px-1 [background:hsl(var(--surligne))]">{euros(acompte)} TTC</span>, puis {euros(offre.etapes[3].montant ?? 0)} TTC à la livraison du&nbsp;site.</p>}
           </div>
           <div className="md:border-l md:border-border md:pl-10">
             <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">{offre.mensuelTitre}</p>
