@@ -68,7 +68,7 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
     expect(citeLeFournisseur(JSON.stringify(imagesApprouvees))).toBe(false);
   });
 
-  it("la page affiche tous les produits, le prix HT et l'INCI, sans prix de packs", () => {
+  it("la page affiche tous les produits et l'INCI, sans aucun prix", () => {
     const { container } = render(createElement(CatalogPage));
     expect(container.querySelectorAll("[data-produit]").length).toBe(PRODUCTS.length);
     // Un seul chiffre : en-tête = pastille « Tous les produits » = compteur de liste,
@@ -79,7 +79,7 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
     expect(container.querySelector('[data-compteur="pastille-all"]')?.textContent).toBe(`(${commandables})`);
     expect(screen.getByTestId("nombre-produits").textContent).toBe(`${commandables} produits`);
     const texte = container.textContent ?? "";
-    expect(texte).toMatch(/HT/);
+    expect(texte).not.toMatch(/\d+,\d{2}\s*€/);
     for (const interdit of [/599\s*€/, /1[\s\u00a0\u202f]?499\s*€/, /2[\s\u00a0\u202f]?999\s*€/, /Nos Offres/i, /Pack (Design|Standard|IA)/]) {
       expect(texte, String(interdit)).not.toMatch(interdit);
     }
