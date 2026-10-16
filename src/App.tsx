@@ -1,3 +1,4 @@
+import RedirectionCompte from "@/components/RedirectionCompte";
 import CatalogPasswordGate from "@/components/CatalogPasswordGate";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -128,8 +129,12 @@ function AppRoutes() {
       <Route path="/settings" element={<Layout><SettingsPage /></Layout>} />
 
       {/* Auth */}
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/signup" element={<SignupPage />} />
+      {/* Comptes sur biolystes.pro */}
+      <Route path="/login" element={<RedirectionCompte />} />
+      <Route path="/signup" element={<RedirectionCompte />} />
+      <Route path="/auth" element={<RedirectionCompte />} />
+      <Route path="/inscription" element={<RedirectionCompte />} />
+      <Route path="/connexion" element={<RedirectionCompte />} />
       <Route path="/forgot-password" element={<ForgotPasswordPage />} />
 
       {/* Onboarding */}
