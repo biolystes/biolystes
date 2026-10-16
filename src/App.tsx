@@ -14,8 +14,6 @@ import PublicAgentPage from "./pages/PublicAgentPage";
 import SharedSelectionPage from "./pages/SharedSelectionPage";
 import ConceptPage from "./pages/ConceptPage";
 import DecouvertePage from "./pages/DecouvertePage";
-import LoginPage from "./pages/LoginPage";
-import SignupPage from "./pages/SignupPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import ClientDashboardPage from "./pages/ClientDashboardPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
