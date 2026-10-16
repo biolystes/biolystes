@@ -524,7 +524,7 @@ function TableauComparatif() {
   const filet = "pointer-events-none absolute inset-y-0 w-px bg-foreground/35 right-[281px] sm:right-[332px]";
   return (
     <div className="max-w-5xl mx-auto rounded-2xl bg-secondary p-2 sm:p-3 overflow-x-auto">
-      <div className="relative min-w-[700px]">
+      <div className="relative min-w-[720px]">
         <span aria-hidden="true" className={filet} />
         {/* Le regroupement des packs : Design est le seul sans boutique en
             ligne ; les quatre autres l'ont. La colonne de Design est plus
