@@ -461,7 +461,7 @@ const GROUPES: { titre: string; lignes: { icone: LucideIcon; label: string; vale
   {
     titre: "Vos produits",
     lignes: [
-      { icone: PenTool, label: "Designs de produits personnalisés", valeurs: ["4", "1", "2", "4", "8"] },
+      { icone: PenTool, label: "Designs de produits", valeurs: ["4", "1", "2", "4", "8"] },
       { icone: Palette, label: "Logo, charte et packaging", valeurs: [true, true, true, true, true] },
       { icone: Camera, label: "Photos IA de vos produits", valeurs: [true, true, true, true, true] },
       { icone: PackageCheck, label: "Produits en plus", valeurs: [false, false, false, "39 €", "39 €"] },
@@ -471,8 +471,8 @@ const GROUPES: { titre: string; lignes: { icone: LucideIcon; label: string; vale
     titre: "Votre boutique",
     lignes: [
       { icone: Store, label: "Site e-commerce", valeurs: [false, true, true, true, true] },
-      { icone: Search, label: "Site complet, référencement (SEO)", valeurs: [false, false, false, true, true] },
-      { icone: Truck, label: "Automatisation des livraisons", valeurs: [false, true, true, true, true] },
+      { icone: Search, label: "Site complet avec SEO", valeurs: [false, false, false, true, true] },
+      { icone: Truck, label: "Livraisons automatisées", valeurs: [false, true, true, true, true] },
     ],
   },
   {
@@ -481,14 +481,14 @@ const GROUPES: { titre: string; lignes: { icone: LucideIcon; label: string; vale
       { icone: PenTool, label: "Contenu textuel", valeurs: [false, true, true, true, true] },
       { icone: Heart, label: "Support prioritaire", valeurs: [false, false, true, false, false] },
       { icone: UserCheck, label: "Expert produit dédié", valeurs: [false, false, false, true, true] },
-      { icone: TrendingUp, label: "Optimisation de conversion (CRO)", valeurs: [false, false, false, true, true] },
+      { icone: TrendingUp, label: "Optimisation conversion", valeurs: [false, false, false, true, true] },
     ],
   },
   {
     titre: "Nos équipes IA",
     lignes: [
       { icone: Instagram, label: "Feed Instagram", valeurs: [false, false, false, false, true] },
-      { icone: FlaskConical, label: "Notre suite de solutions IA", valeurs: [false, false, false, false, true] },
+      { icone: FlaskConical, label: "Suite de solutions IA", valeurs: [false, false, false, false, true] },
     ],
   },
   {
@@ -508,14 +508,21 @@ function TableauComparatif() {
   /* Le gabarit de colonne, partagé par l'en-tête et chaque ligne, pour que
      les valeurs restent alignées d'une ligne à l'autre. Au téléphone, le
      tableau défile horizontalement (comme les pastilles du catalogue). */
-  const colonnes = "grid grid-cols-[minmax(0,1fr)_repeat(5,minmax(40px,64px))] items-center gap-x-2 sm:gap-x-3";
+  const colonnes = "grid grid-cols-[minmax(0,1fr)_repeat(5,minmax(56px,88px))] items-center gap-x-2 sm:gap-x-3";
   return (
     <div className="max-w-5xl mx-auto rounded-2xl bg-secondary p-2 sm:p-3 overflow-x-auto">
       <div className="min-w-[540px]">
+        {/* Le regroupement des packs : Design produit est le seul sans
+            boutique en ligne ; les quatre autres l'ont (JP, 16/10/2026). */}
+        <div className={colonnes + " px-3 sm:px-4 pb-1"}>
+          <span aria-hidden="true" />
+          <span className="text-center text-[0.6875rem] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Sans e-commerce</span>
+          <span className="col-span-4 text-center text-[0.6875rem] uppercase tracking-wide text-muted-foreground whitespace-nowrap border-l border-border">Avec e-commerce</span>
+        </div>
         <div className={colonnes + " px-3 sm:px-4 pb-2"}>
           <span aria-hidden="true" />
           {PACKS.map((p) => (
-            <span key={p} className="text-center text-[0.8125rem] font-medium text-foreground">{p}</span>
+            <span key={p} className="text-center text-[0.8125rem] font-medium text-foreground whitespace-nowrap">{p}</span>
           ))}
         </div>
         {GROUPES.map((g) => (
@@ -528,7 +535,7 @@ function TableauComparatif() {
                     <span className="w-8 h-8 shrink-0 rounded-[9px] bg-secondary flex items-center justify-center">
                       <l.icone className="h-4 w-4 text-foreground" strokeWidth={1.5} />
                     </span>
-                    <span className="text-[0.9375rem] text-foreground leading-snug text-pretty">{l.label}</span>
+                    <span className="text-[0.9375rem] text-foreground leading-snug whitespace-nowrap">{l.label}</span>
                   </span>
                   {l.valeurs.map((v, i) => (
                     <span key={i} className="justify-self-center flex items-center justify-center"><CelluleTableau v={v} /></span>
