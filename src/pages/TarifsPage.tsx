@@ -565,7 +565,7 @@ function TableauComparatif() {
         ))}
       </div>
       <p className="mt-4 px-3 sm:px-4 text-[0.8125rem] text-muted-foreground text-pretty">
-        Produit en plus&nbsp;: {euros(PRODUIT_EN_PLUS)} TTC par design de produit, en paiement unique (une seule fois, pas un abonnement). Disponible dans les packs Design, Standard et IA&nbsp;; dans Solo et Duo, il faut passer au pack supérieur.
+        Produit en plus&nbsp;: {euros(PRODUIT_EN_PLUS)} TTC par produit ajouté, en paiement unique (une seule fois, pas un abonnement). Disponible dans les packs Design, Standard et IA&nbsp;; dans Solo et Duo, il faut passer au pack supérieur.
       </p>
       <p className="mt-1 px-3 sm:px-4 text-[0.8125rem] text-muted-foreground text-pretty">
         Abonnement sans minimum de commande&nbsp;: sur la gamme avec site, il démarre à la livraison du site.
@@ -610,7 +610,7 @@ export default function TarifsPage() {
           <p className="text-center text-[0.9375rem] text-muted-foreground text-pretty">
             <span className="text-foreground font-semibold">{offre.nom}</span> : {famille === "sans" ? "vos produits à votre marque, sans site — pensé pour les instituts, ou pour celles et ceux qui ne souhaitent pas avoir de e-commerce avec nos services" : offre.contenu}.
             <span className="block mt-1">{peutAjouterProduit(offre.cle)
-              ? <>Un produit en plus&nbsp;? {euros(PRODUIT_EN_PLUS)} TTC par design de produit, en paiement unique (une seule fois).</>
+              ? <>Un produit en plus&nbsp;? {euros(PRODUIT_EN_PLUS)} TTC par produit ajouté, en paiement unique (une seule fois).</>
               : <>Pour ajouter plus de produits, passez au pack supérieur. Aucun produit supplémentaire dans le {offre.nom}.</>}</span>
           </p>
         </div>
