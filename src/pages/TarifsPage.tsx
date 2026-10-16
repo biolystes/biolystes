@@ -447,6 +447,108 @@ function FilInstagram() {
   );
 }
 
+/* ═══ LE TABLEAU QUI COMPARE LES CINQ PACKS ═══
+   La forme vient d'une référence validée par JP (16/10/2026) : un panneau
+   gris, des lignes arrondies, une icône à gauche, et à droite une colonne
+   par pack — un chiffre quand on peut compter, une coche quand c'est
+   compris, un tiret quand ça ne l'est pas. Les montants sont permis ici :
+   la page /tarifs est l'exception voulue à la règle « aucun prix en ligne »
+   (voir l'en-tête du fichier). Les règles produits viennent de
+   src/data/offres.ts (peutAjouterProduit : Solo et Duo n'en ont pas). */
+type Cellule = string | boolean;
+const PACKS = ["Design produit", "Solo", "Duo", "Standard", "IA"];
+const GROUPES: { titre: string; lignes: { icone: LucideIcon; label: string; valeurs: Cellule[] }[] }[] = [
+  {
+    titre: "Vos produits",
+    lignes: [
+      { icone: PenTool, label: "Designs de produits personnalisés", valeurs: ["4", "1", "2", "4", "8"] },
+      { icone: Palette, label: "Logo, charte et packaging", valeurs: [true, true, true, true, true] },
+      { icone: Camera, label: "Photos IA de vos produits", valeurs: [true, true, true, true, true] },
+      { icone: PackageCheck, label: "Produits en plus", valeurs: [false, false, false, "39 €", "39 €"] },
+    ],
+  },
+  {
+    titre: "Votre boutique",
+    lignes: [
+      { icone: Store, label: "Site e-commerce", valeurs: [false, true, true, true, true] },
+      { icone: Search, label: "Site complet, référencement (SEO)", valeurs: [false, false, false, true, true] },
+      { icone: Truck, label: "Automatisation des livraisons", valeurs: [false, true, true, true, true] },
+    ],
+  },
+  {
+    titre: "Nos services",
+    lignes: [
+      { icone: PenTool, label: "Contenu textuel", valeurs: [false, true, true, true, true] },
+      { icone: Heart, label: "Support prioritaire", valeurs: [false, false, true, false, false] },
+      { icone: UserCheck, label: "Expert produit dédié", valeurs: [false, false, false, true, true] },
+      { icone: TrendingUp, label: "Optimisation de conversion (CRO)", valeurs: [false, false, false, true, true] },
+    ],
+  },
+  {
+    titre: "Nos équipes IA",
+    lignes: [
+      { icone: Instagram, label: "Feed Instagram", valeurs: [false, false, false, false, true] },
+      { icone: FlaskConical, label: "Notre suite de solutions IA", valeurs: [false, false, false, false, true] },
+    ],
+  },
+  {
+    titre: "L’abonnement",
+    lignes: [
+      { icone: Receipt, label: "Par mois, TTC", valeurs: ["39 €", "49 €", "79 €", "99 €", "99 €"] },
+    ],
+  },
+];
+
+const CelluleTableau = ({ v }: { v: Cellule }) =>
+  v === true ? <Check className="h-4 w-4 text-foreground" strokeWidth={2} aria-label="Compris" />
+  : v === false ? <span className="text-[0.9375rem] text-muted-foreground" aria-label="Non compris">—</span>
+  : <span className="text-[0.9375rem] text-foreground tabular-nums">{v}</span>;
+
+function TableauComparatif() {
+  /* Le gabarit de colonne, partagé par l'en-tête et chaque ligne, pour que
+     les valeurs restent alignées d'une ligne à l'autre. Au téléphone, le
+     tableau défile horizontalement (comme les pastilles du catalogue). */
+  const colonnes = "grid grid-cols-[minmax(0,1fr)_repeat(5,minmax(52px,64px))] items-center gap-x-2 sm:gap-x-3";
+  return (
+    <div className="max-w-5xl mx-auto rounded-2xl bg-secondary p-2 sm:p-3 overflow-x-auto">
+      <div className="min-w-[620px]">
+        <div className={colonnes + " px-3 sm:px-4 pb-2"}>
+          <span aria-hidden="true" />
+          {PACKS.map((p) => (
+            <span key={p} className="text-center text-[0.8125rem] font-medium text-foreground">{p}</span>
+          ))}
+        </div>
+        {GROUPES.map((g) => (
+          <div key={g.titre}>
+            <p className="px-3 sm:px-4 pt-4 pb-2 text-[0.8125rem] text-muted-foreground">{g.titre}</p>
+            <div className="space-y-1.5">
+              {g.lignes.map((l) => (
+                <div key={l.label} className={colonnes + " rounded-xl bg-background px-3 sm:px-4 py-2.5"}>
+                  <span className="flex items-center gap-3 min-w-0">
+                    <span className="w-8 h-8 shrink-0 rounded-[9px] bg-secondary flex items-center justify-center">
+                      <l.icone className="h-4 w-4 text-foreground" strokeWidth={1.5} />
+                    </span>
+                    <span className="text-[0.9375rem] text-foreground leading-snug text-pretty">{l.label}</span>
+                  </span>
+                  {l.valeurs.map((v, i) => (
+                    <span key={i} className="justify-self-center flex items-center justify-center"><CelluleTableau v={v} /></span>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <p className="mt-4 px-3 sm:px-4 text-[0.8125rem] text-muted-foreground text-pretty">
+        Produit en plus&nbsp;: {euros(PRODUIT_EN_PLUS)} TTC par design de produit, paiement unique, à partir du Pack Standard.
+      </p>
+      <p className="mt-1 px-3 sm:px-4 text-[0.8125rem] text-muted-foreground text-pretty">
+        Abonnement sans minimum de commande&nbsp;: sur la gamme avec site, il démarre à la livraison du site.
+      </p>
+    </div>
+  );
+}
+
 export default function TarifsPage() {
   const [famille, setFamille] = useState<Famille>("boutique");
   /* La location n'existe qu'avec une boutique en ligne (JP). */
