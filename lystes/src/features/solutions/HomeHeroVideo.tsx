@@ -750,9 +750,8 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
               e.preventDefault();
               const v = urlSaisie.trim();
               if (variante) {
-                /* Champ vide : rien ne part, le curseur se place dans le champ. */
-                if (!v) champInputRef.current?.focus();
-                else variante.champ?.onSubmit(v);
+                /* Biolystes : champ vide, l'envoi part quand même (/demarrer). */
+                variante.champ?.onSubmit(v);
               } else if (v) setEssaiUrl(v);
             }}
           >

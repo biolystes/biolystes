@@ -608,10 +608,9 @@ export default function DecouvertePage() {
      là où le widget est chargé : biolystes.com, widget 3.65.0 et plus
      (`LystesWidget.open`). Sur lystes.ai/bio, aucun widget ni chat : le
      visiteur descend vers les gammes du catalogue, comme avant. */
+  /* Biolystes (16/10/2026) : le projet part vers biolystes.pro/demarrer, même vide. */
   const heroVariante = BIO_HERO((projet) => {
-    const widget = (window as unknown as { LystesWidget?: { open?: (o: { message: string }) => boolean } }).LystesWidget;
-    if (typeof widget?.open === "function" && widget.open({ message: projet })) return;
-    document.getElementById("section-catalogue")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.location.href = adresseDemarrer(projet);
   });
 
   return (
