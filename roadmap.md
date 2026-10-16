@@ -7,3 +7,4 @@
 - [x] Reprendre la règle CSS `.pied-page .space-y-4 > …` (max-width 684 px, margin 8px auto) et vérifier les pages du pied de page.
 - [x] Renommer « Pack Design produit » en « Pack Design » (tableau comparatif et fiche de l’offre) ; vérifier l’affichage.
 - [x] Séparer visuellement « Sans e-commerce » (Design) de « Avec e-commerce » (Solo, Duo, Standard, IA) dans le tableau comparatif ; vérifier à 1440 et 375 px.
+- [x] Resserrer les colonnes des packs Solo, Duo, Standard et IA et remonter les libellés « Sans / Avec e-commerce » au-dessus des noms de packs ; vérifier à 1440 et 375 px.

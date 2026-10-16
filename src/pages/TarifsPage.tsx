@@ -507,28 +507,33 @@ const CelluleTableau = ({ v }: { v: Cellule }) =>
 function TableauComparatif() {
   /* Le gabarit de colonne, partagé par l'en-tête et chaque ligne, pour que
      les valeurs restent alignées d'une ligne à l'autre. Au téléphone, le
-     tableau défile horizontalement (comme les pastilles du catalogue). */
-  const colonnes = "grid grid-cols-[minmax(0,1fr)_118px_repeat(4,72px)] items-center gap-x-2 sm:grid-cols-[minmax(0,1fr)_150px_repeat(4,88px)] sm:gap-x-3";
+     tableau défile horizontalement (comme les pastilles du catalogue).
+     Largeurs resserrées (JP, 16/10/2026 : « l'écart entre les offres Solo,
+     Duo, Standard et IA est trop grand, réduis les wide ») : 62 px puis
+     72 px par pack, 6 px puis 8 px d'écart. La colonne de Design reste la
+     plus large pour que « Sans e-commerce » tienne au-dessus d'elle seule
+     sans toucher le filet. */
+  const colonnes = "grid grid-cols-[minmax(0,1fr)_120px_repeat(4,62px)] items-center gap-x-1.5 sm:grid-cols-[minmax(0,1fr)_140px_repeat(4,72px)] sm:gap-x-2";
   /* Le filet vertical qui sépare Design (sans boutique) des quatre packs
      avec boutique (JP, 16/10/2026 : « il faut qu'il y ait une ligne de
      séparation »). Une seule ligne continue posée sur tout le tableau : sa
      distance au bord droit se déduit des largeurs fixes des colonnes de
-     packs (4 × 72 px et 4 × 8 px d'écart au téléphone, 4 × 88 px et
-     4 × 12 px sur ordinateur), moins la moitié du dernier écart, plus la
+     packs (4 × 62 px et 4 × 6 px d'écart au téléphone, 4 × 72 px et
+     4 × 8 px sur ordinateur), moins la moitié du dernier écart, plus la
      chasse intérieure des lignes (12 px puis 16 px). */
-  const filet = "pointer-events-none absolute inset-y-0 w-px bg-foreground/35 right-[328px] sm:right-[410px]";
+  const filet = "pointer-events-none absolute inset-y-0 w-px bg-foreground/35 right-[281px] sm:right-[332px]";
   return (
     <div className="max-w-5xl mx-auto rounded-2xl bg-secondary p-2 sm:p-3 overflow-x-auto">
-      <div className="relative min-w-[620px]">
+      <div className="relative min-w-[660px]">
         <span aria-hidden="true" className={filet} />
         {/* Le regroupement des packs : Design est le seul sans boutique en
             ligne ; les quatre autres l'ont. La colonne de Design est plus
             large que les autres pour que « Sans e-commerce » tienne
             au-dessus d'elle seule, sans déborder sur Solo. */}
-        <div className={colonnes + " px-3 sm:px-4 pb-1"}>
+        <div className={colonnes + " px-3 sm:px-4 pt-1 pb-3.5"}>
           <span aria-hidden="true" />
-          <span className="text-center text-[0.6875rem] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Sans e-commerce</span>
-          <span className="col-span-4 text-center text-[0.6875rem] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Avec e-commerce</span>
+          <span className="text-center text-[0.625rem] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Sans e-commerce</span>
+          <span className="col-span-4 text-center text-[0.625rem] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Avec e-commerce</span>
         </div>
         <div className={colonnes + " px-3 sm:px-4 pb-2"}>
           <span aria-hidden="true" />
