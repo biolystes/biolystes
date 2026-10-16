@@ -145,7 +145,7 @@ const achat = (cle: PackAchat["cle"], nom: string, contenu: string, abonnementTe
    compris pour le Standard (JP, 14/10/2026 soir : jamais « inclus » à
    l'achat). */
 const ACHATS: Offre[] = [
-  achat("design", "Pack Design produit", "4 designs de produits, sans site", "Accès à tout notre catalogue, sans minimum de commande : vous commandez le produit que vous voulez, quand vous voulez. Un produit pas encore designé : 39 € une fois."),
+  achat("design", "Pack Design", "4 designs de produits, sans site", "Accès à tout notre catalogue, sans minimum de commande : vous commandez le produit que vous voulez, quand vous voulez. Un produit pas encore designé : 39 € une fois."),
   achat("solo", "Pack Solo", "1 design de produit + site e-commerce", "Dès la mise en ligne. Ce que ça vous donne : hébergement, support, logistique et sécurité de votre boutique, sans minimum de commande."),
   achat("duo", "Pack Duo", "2 designs de produits + site e-commerce", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, support prioritaire et logistique, sans minimum de commande."),
   achat("standard", "Pack Standard", "4 designs de produits + site complet + expert dédié", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, livraisons, référencement, support et sécurité, sans minimum de commande."),
@@ -456,7 +456,7 @@ function FilInstagram() {
    (voir l'en-tête du fichier). Les règles produits viennent de
    src/data/offres.ts (peutAjouterProduit : Solo et Duo n'en ont pas). */
 type Cellule = string | boolean;
-const PACKS = ["Design produit", "Solo", "Duo", "Standard", "IA"];
+const PACKS = ["Design", "Solo", "Duo", "Standard", "IA"];
 const GROUPES: { titre: string; lignes: { icone: LucideIcon; label: string; valeurs: Cellule[] }[] }[] = [
   {
     titre: "Vos produits",
@@ -512,8 +512,8 @@ function TableauComparatif() {
   return (
     <div className="max-w-5xl mx-auto rounded-2xl bg-secondary p-2 sm:p-3 overflow-x-auto">
       <div className="min-w-[540px]">
-        {/* Le regroupement des packs : Design produit est le seul sans
-            boutique en ligne ; les quatre autres l'ont (JP, 16/10/2026). */}
+        {/* Le regroupement des packs : Design est le seul sans boutique en
+            ligne ; les quatre autres l'ont (JP, 16/10/2026). */}
         <div className={colonnes + " px-3 sm:px-4 pb-1"}>
           <span aria-hidden="true" />
           <span className="text-center text-[0.6875rem] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Sans e-commerce</span>
