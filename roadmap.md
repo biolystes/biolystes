@@ -8,3 +8,5 @@
 - [x] Renommer « Pack Design produit » en « Pack Design » (tableau comparatif et fiche de l’offre) ; vérifier l’affichage.
 - [x] Séparer visuellement « Sans e-commerce » (Design) de « Avec e-commerce » (Solo, Duo, Standard, IA) dans le tableau comparatif ; vérifier à 1440 et 375 px.
 - [x] Resserrer les colonnes des packs Solo, Duo, Standard et IA et remonter les libellés « Sans / Avec e-commerce » au-dessus des noms de packs ; vérifier à 1440 et 375 px.
+- [x] Passer les libellés « Sans / Avec e-commerce » à 7 px ; vérifier à 1440 et 375 px.
+- [x] Rendre « Produit en plus » explicite : Design y a droit aussi (mêmes 39 €), et la mention « paiement unique » doit être visible ; vérifier à 1440 et 375 px et par un test.

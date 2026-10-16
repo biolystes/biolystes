@@ -464,7 +464,7 @@ const GROUPES: { titre: string; lignes: { icone: LucideIcon; label: string; vale
       { icone: PenTool, label: "Designs de produits", valeurs: ["4", "1", "2", "4", "8"] },
       { icone: Palette, label: "Logo, charte et packaging", valeurs: [true, true, true, true, true] },
       { icone: Camera, label: "Photos IA de vos produits", valeurs: [true, true, true, true, true] },
-      { icone: PackageCheck, label: "Produits en plus", valeurs: [false, false, false, "39 €", "39 €"] },
+      { icone: PackageCheck, label: "Produit en plus (paiement unique)", valeurs: ["39 €", false, false, "39 €", "39 €"] },
     ],
   },
   {
@@ -524,7 +524,7 @@ function TableauComparatif() {
   const filet = "pointer-events-none absolute inset-y-0 w-px bg-foreground/35 right-[281px] sm:right-[332px]";
   return (
     <div className="max-w-5xl mx-auto rounded-2xl bg-secondary p-2 sm:p-3 overflow-x-auto">
-      <div className="relative min-w-[660px]">
+      <div className="relative min-w-[720px]">
         <span aria-hidden="true" className={filet} />
         {/* Le regroupement des packs : Design est le seul sans boutique en
             ligne ; les quatre autres l'ont. La colonne de Design est plus
@@ -532,8 +532,8 @@ function TableauComparatif() {
             au-dessus d'elle seule, sans déborder sur Solo. */}
         <div className={colonnes + " px-3 sm:px-4 pt-1 pb-3.5"}>
           <span aria-hidden="true" />
-          <span className="text-center text-[0.625rem] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Sans e-commerce</span>
-          <span className="col-span-4 text-center text-[0.625rem] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Avec e-commerce</span>
+          <span className="text-center text-[7px] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Sans e-commerce</span>
+          <span className="col-span-4 text-center text-[7px] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Avec e-commerce</span>
         </div>
         <div className={colonnes + " px-3 sm:px-4 pb-2"}>
           <span aria-hidden="true" />
@@ -565,7 +565,7 @@ function TableauComparatif() {
         ))}
       </div>
       <p className="mt-4 px-3 sm:px-4 text-[0.8125rem] text-muted-foreground text-pretty">
-        Produit en plus&nbsp;: {euros(PRODUIT_EN_PLUS)} TTC par design de produit, paiement unique, à partir du Pack Standard.
+        Produit en plus&nbsp;: {euros(PRODUIT_EN_PLUS)} TTC par design de produit, en paiement unique (une seule fois, pas un abonnement). Disponible dans les packs Design, Standard et IA&nbsp;; dans Solo et Duo, il faut passer au pack supérieur.
       </p>
       <p className="mt-1 px-3 sm:px-4 text-[0.8125rem] text-muted-foreground text-pretty">
         Abonnement sans minimum de commande&nbsp;: sur la gamme avec site, il démarre à la livraison du site.
@@ -609,9 +609,9 @@ export default function TarifsPage() {
             options={AVEC_BOUTIQUE.map((o) => ({ cle: o.cle, nom: o.nom.replace("Pack ", "") }))} />}
           <p className="text-center text-[0.9375rem] text-muted-foreground text-pretty">
             <span className="text-foreground font-semibold">{offre.nom}</span> : {famille === "sans" ? "vos produits à votre marque, sans site — pensé pour les instituts, ou pour celles et ceux qui ne souhaitent pas avoir de e-commerce avec nos services" : offre.contenu}.
-            {famille !== "sans" && <span className="block mt-1">{peutAjouterProduit(offre.cle)
-              ? <>Un produit en plus&nbsp;? {euros(PRODUIT_EN_PLUS)} TTC par design de produit, paiement unique.</>
-              : <>Pour ajouter plus de produits, passez au pack supérieur. Aucun produit supplémentaire dans le {offre.nom}.</>}</span>}
+            <span className="block mt-1">{peutAjouterProduit(offre.cle)
+              ? <>Un produit en plus&nbsp;? {euros(PRODUIT_EN_PLUS)} TTC par design de produit, en paiement unique (une seule fois).</>
+              : <>Pour ajouter plus de produits, passez au pack supérieur. Aucun produit supplémentaire dans le {offre.nom}.</>}</span>
           </p>
         </div>
 
