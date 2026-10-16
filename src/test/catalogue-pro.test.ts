@@ -99,7 +99,10 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
     const fiche = screen.getByRole("dialog");
     expect(fiche.textContent).toContain("Composition INCI");
     expect(fiche.textContent).toContain(avecInci.inci.slice(0, 40));
-    expect(screen.getByTestId("prix-ht").textContent).toContain(avecInci.prix_ht!.toFixed(2).replace(".", ","));
+    // Aucun prix sur les pages publiques sauf /tarifs : la fiche dit « Prix sur devis ».
+    expect(screen.queryByTestId("prix-ht")).toBeNull();
+    expect(fiche.textContent).not.toContain(avecInci.prix_ht!.toFixed(2).replace(".", ",") + " €");
+    expect(screen.getByTestId("prix-sur-devis").textContent).toBe("Prix sur devis");
   });
 
   it("chaque pastille de catégorie donne le nombre du compteur de liste une fois ouverte", () => {
