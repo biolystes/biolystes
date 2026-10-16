@@ -508,14 +508,21 @@ function TableauComparatif() {
   /* Le gabarit de colonne, partagé par l'en-tête et chaque ligne, pour que
      les valeurs restent alignées d'une ligne à l'autre. Au téléphone, le
      tableau défile horizontalement (comme les pastilles du catalogue). */
-  const colonnes = "grid grid-cols-[minmax(0,1fr)_repeat(5,minmax(40px,64px))] items-center gap-x-2 sm:gap-x-3";
+  const colonnes = "grid grid-cols-[minmax(0,1fr)_repeat(5,minmax(56px,88px))] items-center gap-x-2 sm:gap-x-3";
   return (
     <div className="max-w-5xl mx-auto rounded-2xl bg-secondary p-2 sm:p-3 overflow-x-auto">
       <div className="min-w-[540px]">
+        {/* Le regroupement des packs : Design produit est le seul sans
+            boutique en ligne ; les quatre autres l'ont (JP, 16/10/2026). */}
+        <div className={colonnes + " px-3 sm:px-4 pb-1"}>
+          <span aria-hidden="true" />
+          <span className="text-center text-[0.6875rem] uppercase tracking-wide text-muted-foreground">Sans e-commerce</span>
+          <span className="col-span-4 text-center text-[0.6875rem] uppercase tracking-wide text-muted-foreground border-l border-border">Avec e-commerce</span>
+        </div>
         <div className={colonnes + " px-3 sm:px-4 pb-2"}>
           <span aria-hidden="true" />
           {PACKS.map((p) => (
-            <span key={p} className="text-center text-[0.8125rem] font-medium text-foreground">{p}</span>
+            <span key={p} className="text-center text-[0.8125rem] font-medium text-foreground whitespace-nowrap">{p}</span>
           ))}
         </div>
         {GROUPES.map((g) => (
