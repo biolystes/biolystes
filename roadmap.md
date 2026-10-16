@@ -1,4 +1,5 @@
 # Corrections de la page Tarifs
+- [x] Vérifier et remplacer uniquement les modèles IA obsolètes ; tester le chat et le nettoyage d’image sans publier le site.
 - [x] Sur /agents-ia, retirer la carte d’essayage et limiter les photos de l’équipe photographes aux produits cosmétiques ; vérifier l’affichage.
 - [x] Boutons de packs en pastilles conformes à la référence.
 - [x] Corriger les produits supplémentaires et les descriptions des packs.

@@ -173,7 +173,7 @@ function safeParseJson(raw: string): any | null {
 }
 
 const IMAGE_MODELS = [
-  "google/gemini-2.5-flash-image",
+  "google/gemini-3-pro-image",
 ];
 
 function buildEditPrompt(attempt: number): string {
