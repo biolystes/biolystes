@@ -535,7 +535,7 @@ function TableauComparatif() {
                     <span className="w-8 h-8 shrink-0 rounded-[9px] bg-secondary flex items-center justify-center">
                       <l.icone className="h-4 w-4 text-foreground" strokeWidth={1.5} />
                     </span>
-                    <span className="text-[0.9375rem] text-foreground leading-snug text-pretty">{l.label}</span>
+                    <span className="text-[0.9375rem] text-foreground leading-snug whitespace-nowrap">{l.label}</span>
                   </span>
                   {l.valeurs.map((v, i) => (
                     <span key={i} className="justify-self-center flex items-center justify-center"><CelluleTableau v={v} /></span>
