@@ -1,7 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { peutAjouterProduit, PRODUIT_EN_PLUS } from "@/data/offres";
 
-describe("Produits supplémentaires des packs avec boutique", () => {
+describe("Produits supplémentaires des packs", () => {
+  it("Design : un produit en plus est autorisé", () => {
+    expect(peutAjouterProduit("design")).toBe(true);
+  });
   it("Solo : passer au pack supérieur, aucun produit supplémentaire", () => {
     expect(peutAjouterProduit("solo")).toBe(false);
   });

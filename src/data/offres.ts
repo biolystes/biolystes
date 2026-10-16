@@ -55,8 +55,12 @@ export const PACKS_PLUSIEURS_MOIS: PackPlusieursMois[] = [
 /* Produit en plus du nombre prévu par le pack : paiement unique. */
 export const PRODUIT_EN_PLUS = 39;
 
-/** Sur la gamme avec boutique, seuls Standard et IA acceptent des produits en plus. */
-export const peutAjouterProduit = (cle: string): boolean => cle === "standard" || cle === "ia";
+/** Design, Standard et IA acceptent un produit en plus : 39 € TTC par design
+    de produit, en paiement unique (JP, 16/10/2026 : « dans Design aussi, ils
+    ont droit à un produit en plus, toujours les mêmes 39 € »). Solo et Duo
+    n'en ont pas : il faut passer au pack supérieur. */
+export const peutAjouterProduit = (cle: string): boolean =>
+  cle === "design" || cle === "standard" || cle === "ia";
 
 /* Ce que dit la page sous l'abonnement des packs achetés. */
 export const ABONNEMENT_DEMARRE_SITE = "Démarre à la livraison du site, une fois le solde réglé.";
