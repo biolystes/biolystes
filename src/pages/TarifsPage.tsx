@@ -461,7 +461,7 @@ const GROUPES: { titre: string; lignes: { icone: LucideIcon; label: string; vale
   {
     titre: "Vos produits",
     lignes: [
-      { icone: PenTool, label: "Designs de produits personnalisés", valeurs: ["4", "1", "2", "4", "8"] },
+      { icone: PenTool, label: "Designs de produits", valeurs: ["4", "1", "2", "4", "8"] },
       { icone: Palette, label: "Logo, charte et packaging", valeurs: [true, true, true, true, true] },
       { icone: Camera, label: "Photos IA de vos produits", valeurs: [true, true, true, true, true] },
       { icone: PackageCheck, label: "Produits en plus", valeurs: [false, false, false, "39 €", "39 €"] },
@@ -471,8 +471,8 @@ const GROUPES: { titre: string; lignes: { icone: LucideIcon; label: string; vale
     titre: "Votre boutique",
     lignes: [
       { icone: Store, label: "Site e-commerce", valeurs: [false, true, true, true, true] },
-      { icone: Search, label: "Site complet, référencement (SEO)", valeurs: [false, false, false, true, true] },
-      { icone: Truck, label: "Automatisation des livraisons", valeurs: [false, true, true, true, true] },
+      { icone: Search, label: "Site complet avec SEO", valeurs: [false, false, false, true, true] },
+      { icone: Truck, label: "Livraisons automatisées", valeurs: [false, true, true, true, true] },
     ],
   },
   {
@@ -481,14 +481,14 @@ const GROUPES: { titre: string; lignes: { icone: LucideIcon; label: string; vale
       { icone: PenTool, label: "Contenu textuel", valeurs: [false, true, true, true, true] },
       { icone: Heart, label: "Support prioritaire", valeurs: [false, false, true, false, false] },
       { icone: UserCheck, label: "Expert produit dédié", valeurs: [false, false, false, true, true] },
-      { icone: TrendingUp, label: "Optimisation de conversion (CRO)", valeurs: [false, false, false, true, true] },
+      { icone: TrendingUp, label: "Optimisation conversion", valeurs: [false, false, false, true, true] },
     ],
   },
   {
     titre: "Nos équipes IA",
     lignes: [
       { icone: Instagram, label: "Feed Instagram", valeurs: [false, false, false, false, true] },
-      { icone: FlaskConical, label: "Notre suite de solutions IA", valeurs: [false, false, false, false, true] },
+      { icone: FlaskConical, label: "Suite de solutions IA", valeurs: [false, false, false, false, true] },
     ],
   },
   {
