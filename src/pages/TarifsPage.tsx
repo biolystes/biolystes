@@ -516,7 +516,7 @@ function TableauComparatif() {
      packs (4 × 72 px et 4 × 8 px d'écart au téléphone, 4 × 88 px et
      4 × 12 px sur ordinateur), moins la moitié du dernier écart, plus la
      chasse intérieure des lignes (12 px puis 16 px). */
-  const filet = "pointer-events-none absolute inset-y-0 w-px bg-foreground/20 right-[328px] sm:right-[410px]";
+  const filet = "pointer-events-none absolute inset-y-0 w-px bg-foreground/35 right-[328px] sm:right-[410px]";
   return (
     <div className="max-w-5xl mx-auto rounded-2xl bg-secondary p-2 sm:p-3 overflow-x-auto">
       <div className="relative min-w-[620px]">
