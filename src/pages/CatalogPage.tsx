@@ -443,9 +443,9 @@ export default function CatalogPage() {
               {selectedProduct.status === "retired" && (
                 <p className="text-[12px] font-semibold pt-2" style={{ color: "rgb(17,17,17)" }}>{MENTION_RETIRE} · non commandable</p>
               )}
-              {mentionStatutLabo(selectedProduct) && (
+              {badgeDisponibilite(selectedProduct) && (
                 <p className="text-[12px] font-semibold pt-2" style={{ color: "rgb(17,17,17)" }} data-mention-statut>
-                  {mentionStatutLabo(selectedProduct)} · non commandable pour le moment
+                  {badgeDisponibilite(selectedProduct)} · non commandable pour le moment
                 </p>
               )}
 
