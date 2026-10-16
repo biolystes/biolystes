@@ -16,6 +16,7 @@ import { describe, expect, it } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { PRODUCTS, estCommandable, estNouveau, mentionStatutLabo } from "@/data/catalogue-pro/products";
 import CatalogPage from "@/pages/CatalogPage";
+import { badgeDisponibilite } from "@/data/disponibilite";
 
 const INDISPONIBLES = PRODUCTS.filter((p) => mentionStatutLabo(p));
 const SERVICES_DESIGN = new Set(["Concept", "Adaptation", "DESIGN", "Technical"]);
@@ -43,7 +44,7 @@ describe("statut des produits chez le laboratoire (biolystes.com)", () => {
     }
   });
 
-  it("la page les badge « Bientôt disponible » ou « Rupture », jamais « Nouveau », après tous les produits disponibles", () => {
+  it("la page les badge « Bientôt » ou « Rupture », jamais « Nouveau », après tous les produits disponibles", () => {
     const { container } = render(createElement(CatalogPage));
     const cartes = [...container.querySelectorAll("[data-produit]")];
     const slugs = cartes.map((c) => c.getAttribute("data-produit")!);
@@ -53,7 +54,7 @@ describe("statut des produits chez le laboratoire (biolystes.com)", () => {
       const i = slugs.indexOf(p.slug);
       expect(i, `${p.code} après les disponibles`).toBeGreaterThan(derniereDisponible);
       expect(cartes[i].querySelector("[data-badge-nouveau]"), p.code).toBeNull();
-      expect(cartes[i].querySelector("[data-badge-statut]")?.textContent, p.code).toBe(mentionStatutLabo(p));
+      expect(cartes[i].querySelector("[data-badge-statut]")?.textContent, p.code).toBe(badgeDisponibilite(p));
     }
   });
 

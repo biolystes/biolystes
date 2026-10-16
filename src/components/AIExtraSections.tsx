@@ -240,7 +240,7 @@ function CTASection() {
             <span>Prendre rendez-vous</span>
             <ArrowRight className="w-4 h-4" />
           </a>
-          <a href="/signup"
+          <a href="https://biolystes.pro/inscription"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-cream text-foreground text-[14px] font-medium hover:bg-cream/90 transition-colors">
             <span>Essai gratuit</span>
             <ArrowRight className="w-4 h-4" />

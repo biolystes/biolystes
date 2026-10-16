@@ -12,7 +12,7 @@ import { ArrowRight, Check, type LucideIcon } from "lucide-react";
 
 export const CTA_URL = "https://biolystes.pro/rdv";
 /* Inscription de l’espace client (JP, 14/10/2026 : « le second bouton s’inscrire »). */
-export const INSCRIPTION_URL = "https://lystes.ai/biolystes/inscription";
+export const INSCRIPTION_URL = "https://biolystes.pro/inscription";
 
 /* L’en-tête de section de l’accueil (lystes/src/components/bio/EnteteSection.tsx) :
    sur-titre espacé, titre léger dont la fin passe en gris, description noire.

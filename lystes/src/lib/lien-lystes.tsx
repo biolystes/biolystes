@@ -7,6 +7,7 @@
    sauf les quelques pages qui ont leur équivalent sur biolystes.com
    (l’accueil et les pages légales, que tout site doit porter lui-même). */
 import { forwardRef, type AnchorHTMLAttributes } from "react";
+import { adresseCompte } from "@/lib/comptes";
 import { Link as LienRouteur, NavLink as LienNavRouteur, type LinkProps, type NavLinkProps } from "react-router-dom";
 
 export const SITE_LYSTES = "https://lystes.ai";
@@ -32,6 +33,9 @@ const SUR_BIOLYSTES: Record<string, string> = {
 export function lienLystes(cible: string): { interne: boolean; href: string } {
   if (!cible.startsWith("/") || cible.startsWith("//")) return { interne: false, href: cible };
   const chemin = cible.split(/[?#]/)[0];
+  /* Biolystes : création de compte et connexion sur biolystes.pro, jamais lystes.ai (16/10/2026). */
+  const compte = adresseCompte(cible);
+  if (compte) return { interne: false, href: compte };
   const local = SUR_BIOLYSTES[chemin];
   if (local !== undefined) return { interne: true, href: local + cible.slice(chemin.length) };
   return { interne: false, href: SITE_LYSTES + cible };

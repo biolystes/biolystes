@@ -108,7 +108,7 @@ function HomeExperienceCarousel() {
    rendez-vous », « et le second bouton s'inscrire ». Bouton plein : le
    rendez-vous ; bouton à contour : l'inscription de l'espace client. */
 const CTA_URL = "https://biolystes.pro/rdv";
-const INSCRIPTION_URL = "https://lystes.ai/biolystes/inscription";
+const INSCRIPTION_URL = "https://biolystes.pro/inscription";
 /* Wirtzkin (JP, 14/10/2026, retouche Lovable sur biolystes.com) : fichiers
    du projet Lovable de biolystes.com, servis par son adresse. */
 const wirtzkinCentre = { url: "https://www.biolystes.com/__l5e/assets-v1/f10ac6cf-d682-457d-8cdb-8f8e1cc4c042/wirtzkin-centre.png" };

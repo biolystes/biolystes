@@ -151,7 +151,7 @@ export default function AIPage() {
                   <span>Prendre rendez-vous</span>
                   <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
                 </a>
-                <a href="/signup" className="btn-startup">
+                <a href="https://biolystes.pro/inscription" className="btn-startup">
                   <span>Essai gratuit</span>
                   <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
                 </a>

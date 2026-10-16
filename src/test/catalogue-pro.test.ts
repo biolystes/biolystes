@@ -68,7 +68,7 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
     expect(citeLeFournisseur(JSON.stringify(imagesApprouvees))).toBe(false);
   });
 
-  it("la page affiche tous les produits, le prix HT et l'INCI, sans prix de packs", () => {
+  it("la page affiche tous les produits et l'INCI, sans aucun prix", () => {
     const { container } = render(createElement(CatalogPage));
     expect(container.querySelectorAll("[data-produit]").length).toBe(PRODUCTS.length);
     // Un seul chiffre : en-tête = pastille « Tous les produits » = compteur de liste,
@@ -79,7 +79,7 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
     expect(container.querySelector('[data-compteur="pastille-all"]')?.textContent).toBe(`(${commandables})`);
     expect(screen.getByTestId("nombre-produits").textContent).toBe(`${commandables} produits`);
     const texte = container.textContent ?? "";
-    expect(texte).toMatch(/HT/);
+    expect(texte).not.toMatch(/\d+,\d{2}\s*€/);
     for (const interdit of [/599\s*€/, /1[\s\u00a0\u202f]?499\s*€/, /2[\s\u00a0\u202f]?999\s*€/, /Nos Offres/i, /Pack (Design|Standard|IA)/]) {
       expect(texte, String(interdit)).not.toMatch(interdit);
     }
@@ -99,7 +99,10 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
     const fiche = screen.getByRole("dialog");
     expect(fiche.textContent).toContain("Composition INCI");
     expect(fiche.textContent).toContain(avecInci.inci.slice(0, 40));
-    expect(screen.getByTestId("prix-ht").textContent).toContain(avecInci.prix_ht!.toFixed(2).replace(".", ","));
+    // Aucun prix sur les pages publiques sauf /tarifs : la fiche dit « Prix sur devis ».
+    expect(screen.queryByTestId("prix-ht")).toBeNull();
+    expect(fiche.textContent).not.toContain(avecInci.prix_ht!.toFixed(2).replace(".", ",") + " €");
+    expect(screen.getByTestId("prix-sur-devis").textContent).toBe("Prix sur devis");
   });
 
   it("chaque pastille de catégorie donne le nombre du compteur de liste une fois ouverte", () => {
