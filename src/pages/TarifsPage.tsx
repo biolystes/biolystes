@@ -516,8 +516,8 @@ function TableauComparatif() {
             boutique en ligne ; les quatre autres l'ont (JP, 16/10/2026). */}
         <div className={colonnes + " px-3 sm:px-4 pb-1"}>
           <span aria-hidden="true" />
-          <span className="text-center text-[0.6875rem] uppercase tracking-wide text-muted-foreground">Sans e-commerce</span>
-          <span className="col-span-4 text-center text-[0.6875rem] uppercase tracking-wide text-muted-foreground border-l border-border">Avec e-commerce</span>
+          <span className="text-center text-[0.6875rem] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Sans e-commerce</span>
+          <span className="col-span-4 text-center text-[0.6875rem] uppercase tracking-wide text-muted-foreground whitespace-nowrap border-l border-border">Avec e-commerce</span>
         </div>
         <div className={colonnes + " px-3 sm:px-4 pb-2"}>
           <span aria-hidden="true" />
