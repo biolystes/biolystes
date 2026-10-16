@@ -508,15 +508,19 @@ function TableauComparatif() {
   /* Le gabarit de colonne, partagé par l'en-tête et chaque ligne, pour que
      les valeurs restent alignées d'une ligne à l'autre. Au téléphone, le
      tableau défile horizontalement (comme les pastilles du catalogue). */
-  const colonnes = "grid grid-cols-[minmax(0,1fr)_minmax(112px,150px)_1px_repeat(4,minmax(56px,88px))] items-center gap-x-2 sm:gap-x-3";
+  const colonnes = "grid grid-cols-[minmax(0,1fr)_118px_repeat(4,72px)] items-center gap-x-2 sm:grid-cols-[minmax(0,1fr)_150px_repeat(4,88px)] sm:gap-x-3";
   /* Le filet vertical qui sépare Design (sans boutique) des quatre packs
      avec boutique (JP, 16/10/2026 : « il faut qu'il y ait une ligne de
-     séparation »). Il traverse tout le tableau : les marges négatives le
-     font continuer dans les espaces entre les lignes et sous les titres. */
-  const filet = "w-px bg-foreground/20 self-stretch";
+     séparation »). Une seule ligne continue posée sur tout le tableau : sa
+     distance au bord droit se déduit des largeurs fixes des colonnes de
+     packs (4 × 72 px et 4 × 8 px d'écart au téléphone, 4 × 88 px et
+     4 × 12 px sur ordinateur), moins la moitié du dernier écart, plus la
+     chasse intérieure des lignes (12 px puis 16 px). */
+  const filet = "pointer-events-none absolute inset-y-0 w-px bg-foreground/20 right-[328px] sm:right-[410px]";
   return (
     <div className="max-w-5xl mx-auto rounded-2xl bg-secondary p-2 sm:p-3 overflow-x-auto">
-      <div className="min-w-[620px]">
+      <div className="relative min-w-[620px]">
+        <span aria-hidden="true" className={filet} />
         {/* Le regroupement des packs : Design est le seul sans boutique en
             ligne ; les quatre autres l'ont. La colonne de Design est plus
             large que les autres pour que « Sans e-commerce » tienne
@@ -524,25 +528,18 @@ function TableauComparatif() {
         <div className={colonnes + " px-3 sm:px-4 pb-1"}>
           <span aria-hidden="true" />
           <span className="text-center text-[0.6875rem] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Sans e-commerce</span>
-          <span aria-hidden="true" className={filet + " -mb-1"} />
           <span className="col-span-4 text-center text-[0.6875rem] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Avec e-commerce</span>
         </div>
         <div className={colonnes + " px-3 sm:px-4 pb-2"}>
           <span aria-hidden="true" />
           <span className="text-center text-[0.8125rem] font-medium text-foreground whitespace-nowrap">Design</span>
-          <span aria-hidden="true" className={filet + " -mb-2"} />
           {PACKS.slice(1).map((p) => (
             <span key={p} className="text-center text-[0.8125rem] font-medium text-foreground whitespace-nowrap">{p}</span>
           ))}
         </div>
         {GROUPES.map((g) => (
           <div key={g.titre}>
-            <div className={colonnes + " px-3 sm:px-4 pt-4 pb-2"}>
-              <span className="text-[0.8125rem] text-muted-foreground">{g.titre}</span>
-              <span aria-hidden="true" />
-              <span aria-hidden="true" className={filet + " -mt-4 -mb-2"} />
-              <span aria-hidden="true" className="col-span-4" />
-            </div>
+            <p className="px-3 sm:px-4 pt-4 pb-2 text-[0.8125rem] text-muted-foreground">{g.titre}</p>
             <div className="space-y-1.5">
               {g.lignes.map((l) => (
                 <div key={l.label} className={colonnes + " rounded-xl bg-background px-3 sm:px-4 py-2.5"}>
@@ -553,7 +550,6 @@ function TableauComparatif() {
                     <span className="text-[0.9375rem] text-foreground leading-snug whitespace-nowrap">{l.label}</span>
                   </span>
                   <span className="justify-self-center flex items-center justify-center"><CelluleTableau v={l.valeurs[0]} /></span>
-                  <span aria-hidden="true" className={filet + " -my-1.5"} />
                   {l.valeurs.slice(1).map((v, i) => (
                     <span key={i} className="justify-self-center flex items-center justify-center"><CelluleTableau v={v} /></span>
                   ))}
