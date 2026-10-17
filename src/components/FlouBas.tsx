@@ -12,7 +12,6 @@ const css = `
 .flou-bas>span:nth-child(3){-webkit-backdrop-filter:blur(7px);backdrop-filter:blur(7px);-webkit-mask-image:linear-gradient(#0000 40%,#000 60% 80%,#0000 95%);mask-image:linear-gradient(#0000 40%,#000 60% 80%,#0000 95%)}
 .flou-bas>span:nth-child(4){-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);-webkit-mask-image:linear-gradient(#0000 60%,#000 80%);mask-image:linear-gradient(#0000 60%,#000 80%)}
 .flou-bas>span:nth-child(5){-webkit-backdrop-filter:blur(24px) saturate(1.15);backdrop-filter:blur(24px) saturate(1.15);-webkit-mask-image:linear-gradient(#0000 78%,#000 96%);mask-image:linear-gradient(#0000 78%,#000 96%)}
-.flou-bas:after{content:"";position:absolute;inset:0;background:linear-gradient(#0a0a0a00 0%,#0a0a0a1f 35%,#0a0a0a6b 70%,#0a0a0a9e 100%)}
 `;
 
 export default function FlouBas() {
