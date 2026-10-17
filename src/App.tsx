@@ -1,4 +1,5 @@
 import RedirectionCompte from "@/components/RedirectionCompte";
+import FlouBas from "@/components/FlouBas";
 import CatalogPasswordGate from "@/components/CatalogPasswordGate";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -157,6 +158,7 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <AppRoutes />
+          <FlouBas />
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>
