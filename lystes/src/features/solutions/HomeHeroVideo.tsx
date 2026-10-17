@@ -658,13 +658,38 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
             {/* Les retours forcés ne valent que sur ordinateur : sur téléphone,
                 le titre s'équilibre seul (text-wrap: balance), sans mot seul. */}
             <span className="lyh-titre">
-              {variante.titre.split("\n").map((ligne, i) => (
-                <span key={ligne}>
-                  {i > 0 && <br className="lyh-br" />}
-                  {i > 0 && " "}
-                  {ligne}
-                </span>
-              ))}
+              {variante.titre.split("\n").map((ligne, i) => {
+                /* 17/10/2026 (JP) : sur biolystes.com, les vignettes de
+                   l'accueil Lystes (produits qui défilent + vidéo) sont
+                   insérées dans le titre, entre « cosmétique » et « bio et
+                   végane ». Produits cosmétiques du catalogue, pas ceux de
+                   mode de l'accueil. */
+                const bio = variante.classe?.includes("lyh--bio") && i === 1 && ligne.startsWith("cosmétique ");
+                return (
+                  <span key={ligne}>
+                    {i > 0 && <br className="lyh-br" />}
+                    {i > 0 && " "}
+                    {bio ? (
+                      <>
+                        cosmétique
+                        <span className="lyh-chips">
+                          <span className="lyh-chip first">
+                            <img ref={chipRefs[0]} className="on" src="/bio-selection/creme-riche-nourrissante.webp" alt="" />
+                            <img ref={chipRefs[1]} src="/bio-selection/huile-visage-tout-en-un.webp" alt="" />
+                            <img ref={chipRefs[2]} src="/bio-fil/serum-anti-age-peptides.webp" alt="" />
+                          </span>
+                          <span className="lyh-chip second">
+                            <VideoAuto src={A.avatar} preload="metadata" poster={A.avatarPoster} />
+                          </span>
+                        </span>{" "}
+                        {ligne.slice("cosmétique ".length)}
+                      </>
+                    ) : (
+                      ligne
+                    )}
+                  </span>
+                );
+              })}
             </span>
             <br className="lyh-br" />
             <span className="lyh-it">
