@@ -86,7 +86,7 @@ export function CarrouselLieux({ elements, index, setIndex, largeur, className, 
 /* Les styles de base du carrousel, ceux de la bannière : la page qui le monte
    hors de la bannière les pose une fois, puis règle la couleur. */
 export const CSS_CARROUSEL_LIEUX = `
-.lyh-install-row{ display:flex; align-items:center; gap:10px; margin-top:8px; width:336px; max-width:100%; transition:width .35s cubic-bezier(.22,1,.36,1); }
+.lyh-install-row{ display:flex; align-items:center; gap:10px; margin-top:14px; width:336px; max-width:100%; transition:width .35s cubic-bezier(.22,1,.36,1); }
 .lyh-install-viewport{ flex:1 1 0; min-width:0; overflow:hidden; }
 .lyh-install-chevs{ display:flex; align-items:center; gap:4px; flex:none; }
 .lyh-install-track{ display:flex; align-items:center; gap:11px; width:max-content; flex:none; transition:transform .35s cubic-bezier(.22,1,.36,1); will-change:transform; }
