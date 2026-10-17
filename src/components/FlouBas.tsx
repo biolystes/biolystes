@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 const SANS_WIDGET = /^\/(agent\/|selection\/|admin|espace-client|onboarding|login|signup|forgot-password|settings|chat|catalogue)/;
 
 const css = `
-.flou-bas{position:fixed;inset:auto 0 0;height:130px;z-index:9990;pointer-events:none}
+.flou-bas{position:fixed;inset:auto 0 0;height:130px;z-index:898;pointer-events:none}
 .flou-bas>span{position:absolute;inset:0}
 .flou-bas>span:nth-child(1){-webkit-backdrop-filter:blur(1px);backdrop-filter:blur(1px);-webkit-mask-image:linear-gradient(#0000 0%,#000 20% 40%,#0000 55%);mask-image:linear-gradient(#0000 0%,#000 20% 40%,#0000 55%)}
 .flou-bas>span:nth-child(2){-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);-webkit-mask-image:linear-gradient(#0000 20%,#000 40% 60%,#0000 75%);mask-image:linear-gradient(#0000 20%,#000 40% 60%,#0000 75%)}
