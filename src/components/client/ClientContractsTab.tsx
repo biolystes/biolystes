@@ -36,6 +36,23 @@ export default function ClientContractsTab() {
     toast.success("Contrat signé !");
   };
 
+  // Le bucket "contracts" est privé : on ouvre le PDF par un lien signé de courte durée.
+  // pdf_url peut contenir l'ancienne URL publique ou un chemin nu.
+  const openPdf = async (pdfUrl: string) => {
+    const marker = "/contracts/";
+    const idx = pdfUrl.indexOf(marker);
+    const path = decodeURIComponent((idx >= 0 ? pdfUrl.slice(idx + marker.length) : pdfUrl).split("?")[0]);
+    const win = window.open("", "_blank");
+    const { data, error } = await supabase.storage.from("contracts").createSignedUrl(path, 300);
+    if (error || !data?.signedUrl) {
+      win?.close();
+      toast.error("Impossible d'ouvrir le contrat");
+      return;
+    }
+    if (win) win.location.href = data.signedUrl;
+    else window.location.href = data.signedUrl;
+  };
+
   if (loading) return <div style={{ padding: 40, textAlign: "center", color: "#86868b" }}>Chargement...</div>;
 
   return (
@@ -70,14 +87,14 @@ export default function ClientContractsTab() {
               </div>
               <div style={{ display: "flex", gap: 8 }}>
                 {contract.pdf_url && (
-                  <a href={contract.pdf_url} target="_blank" rel="noopener noreferrer"
+                  <button type="button" onClick={() => openPdf(contract.pdf_url!)}
                     style={{
                       display: "flex", alignItems: "center", gap: 6,
                       padding: "8px 14px", borderRadius: 10, border: "1px solid #e5e5e7",
-                      background: "#fff", color: "#1d1d1f", fontSize: 12, fontWeight: 600, textDecoration: "none", cursor: "pointer",
+                      background: "#fff", color: "#1d1d1f", fontSize: 12, fontWeight: 600, cursor: "pointer",
                     }}>
                     <Download size={14} /> PDF
-                  </a>
+                  </button>
                 )}
                 {contract.status !== "signed" && (
                   <button onClick={() => signContract(contract.id)}
