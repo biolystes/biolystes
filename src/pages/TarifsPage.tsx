@@ -105,7 +105,7 @@ const SOLDE = (montant: number): Etape => ({ icone: Store, quand: "Payé à la l
    sans les lignes chiffrées, comme sur biolystes.pro/offre/<slug>
    (OffrePage.tsx). À resynchroniser si packs.ts change. */
 const COMPREND: Record<string, string[]> = {
-  design: ["4 produits personnalisés", "Branding et logo (offert)", "Design des packagings", "Coût et fabrication des produits compris", "Envoi de vos produits finis sous 10 jours ouvrés", "Photos studio et UGC", "Sans site e-commerce : vous achetez votre stock et vous livrez vous-même vos clientes", "À réception, vous ne réglez le solde que si les produits vous plaisent ; sinon vous gardez logo, charte et packaging, et Biolystes prend le risque"],
+  design: ["Votre branding et votre logo (le logo est offert).", "Le design des packagings de vos 4 produits.", "La fabrication de vos produits et leur envoi chez vous, sous 10 jours ouvrés.", "Des photos de vos produits, en studio et en situation (UGC), pour vos réseaux.", "199 € d’acompte pour démarrer.", "400 € à la réception de vos produits, seulement s’ils vous plaisent.", "S’ils ne vous conviennent pas, vous vous arrêtez là. Vous gardez votre logo, votre charte et vos packagings. C’est nous qui prenons le risque."],
   solo: ["1 design de produit personnalisé", "Logo + charte + packaging", "Photos IA + contenu textuel", "Site e-commerce", "Automatisation livraison", "Zéro stock minimum"],
   duo: ["2 designs de produits personnalisés", "Logo + charte + packaging", "Photos IA + contenu textuel", "Site e-commerce", "Support prioritaire", "Zéro stock minimum"],
   standard: ["4 designs de produits personnalisés", "Logo + charte + packaging", "Site e-commerce complet + SEO", "Automatisation livraison", "Contenu textuel + Photographie IA", "Expert produit dédié", "CRO standard"],
@@ -114,6 +114,18 @@ const COMPREND: Record<string, string[]> = {
   "ia-location": ["Tout le Pack IA (8 designs de produits + feed Instagram + notre suite de solutions IA)", "Abonnement inclus dans la mensualité", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (2 999 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
 };
 const OFFRE_URL = "https://biolystes.pro/offre/";
+
+/* Pack Design : texte de JP validé pour lecture (20/10/2026), copie mot pour
+   mot de `presentation` dans src/data/packs.ts de biolystes.pro. À
+   resynchroniser si packs.ts change. */
+const DESIGN_TITRE = "Pack Design : votre marque de soins, sans site internet";
+const DESIGN_CHAPEAU = "Vous lancez votre propre gamme de 4 produits à votre marque. Vous vendez vous-même, en boutique, en institut ou sur vos réseaux.";
+const DESIGN_BLOCS: { titre: string; numerotes?: string[]; puces?: string[]; texte?: string }[] = [
+  { titre: "Ce que comprend le lancement (599 €)", numerotes: ["Votre branding et votre logo (le logo est offert).", "Le design des packagings de vos 4 produits.", "La fabrication de vos produits et leur envoi chez vous, sous 10 jours ouvrés.", "Des photos de vos produits, en studio et en situation (UGC), pour vos réseaux."] },
+  { titre: "Vous ne payez le reste que si vos produits vous plaisent", puces: ["199 € d’acompte pour démarrer.", "400 € à la réception de vos produits, seulement s’ils vous plaisent.", "S’ils ne vous conviennent pas, vous vous arrêtez là. Vous gardez votre logo, votre charte et vos packagings. C’est nous qui prenons le risque."] },
+  { titre: "Ensuite : 39 € par mois, sans minimum de commande", texte: "Un laboratoire vous impose en général 100, 200 ou 300 pièces par produit. Avec l’abonnement, vous commandez ce que vous voulez dans tout notre catalogue, même 10 pièces. Comme vous n’avez pas de site chez nous, vous achetez votre stock et vous livrez vous-même vos clientes." },
+  { titre: "Un produit en plus ? 39 € de design", texte: "La première fois, nous créons toute votre identité : logo, polices, couleurs, branding. C’est le gros du travail. Ensuite, chaque nouveau produit reprend cette identité, d’où 39 € seulement." },
+];
 
 /* Ce que comprend l'acompte (JP, 14/10/2026, mot pour mot ; « (offert) » : le
    logo n'est facturé ni dans l'acompte ni dans les packs). */
@@ -145,7 +157,7 @@ const achat = (cle: PackAchat["cle"], nom: string, contenu: string, abonnementTe
    compris pour le Standard (JP, 14/10/2026 soir : jamais « inclus » à
    l'achat). */
 const ACHATS: Offre[] = [
-  achat("design", "Pack Design", "4 produits, tout le lancement de la marque, sans site", "Si vos produits vous plaisent, le solde débloque l’accès à tout notre catalogue, sans minimum de commande : un laboratoire impose 100, 200 ou 300 pièces, ici vous pouvez en prendre 10. Vous achetez votre stock et vous livrez vous-même vos clientes. Un produit pas encore designé : 39 € une fois."),
+  achat("design", "Pack Design", DESIGN_CHAPEAU, "Sans minimum de commande, même 10 pièces."),
   achat("solo", "Pack Solo", "1 design de produit + site e-commerce", "Dès la mise en ligne. Ce que ça vous donne : hébergement, support, logistique et sécurité de votre boutique, sans minimum de commande."),
   achat("duo", "Pack Duo", "2 designs de produits + site e-commerce", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, support prioritaire et logistique, sans minimum de commande."),
   achat("standard", "Pack Standard", "4 designs de produits + site complet + expert dédié", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, livraisons, référencement, support et sécurité, sans minimum de commande."),
@@ -570,9 +582,6 @@ function TableauComparatif() {
       <p className="mt-1 px-3 sm:px-4 text-[0.8125rem] text-muted-foreground text-pretty">
         Abonnement sans minimum de commande&nbsp;: sur la gamme avec site, il démarre à la livraison du site.
       </p>
-      <p className="mt-1 px-3 sm:px-4 text-[0.8125rem] text-muted-foreground text-pretty">
-        Pourquoi seulement {euros(PRODUIT_EN_PLUS)} par produit en plus&nbsp;? La première fois, nous créons toute l’identité de votre marque (logo, polices, couleurs, branding) en plus des premiers produits, de leur envoi et des photos&nbsp;: c’est le gros du travail. Ensuite, chaque nouveau produit reprend une identité déjà faite.
-      </p>
     </div>
   );
 }
@@ -611,10 +620,14 @@ export default function TarifsPage() {
           {famille === "boutique" && <Onglets label="Votre pack" niveau={3} valeur={cleBoutique} onChange={setCleBoutique}
             options={AVEC_BOUTIQUE.map((o) => ({ cle: o.cle, nom: o.nom.replace("Pack ", "") }))} />}
           <p className="text-center text-[0.9375rem] text-muted-foreground text-pretty">
-            <span className="text-foreground font-semibold">{offre.nom}</span> : {famille === "sans" ? "vos produits à votre marque, sans site — pensé pour les instituts, ou pour celles et ceux qui ne souhaitent pas avoir de e-commerce avec nos services. Sans boutique, nous ne gérons pas la logistique : vous achetez votre stock et vous livrez vous-même vos clientes" : offre.contenu}.
-            <span className="block mt-1">{peutAjouterProduit(offre.cle)
-              ? <>Un produit en plus&nbsp;? {euros(PRODUIT_EN_PLUS)} TTC par produit ajouté, en paiement unique (une seule fois).</>
-              : <>Pour ajouter plus de produits, passez au pack supérieur. Aucun produit supplémentaire dans le {offre.nom}.</>}</span>
+            {famille === "sans"
+              ? <><span className="block text-foreground font-semibold text-balance">{DESIGN_TITRE}</span><span className="block mt-1">{DESIGN_CHAPEAU}</span></>
+              : <>
+                <span className="text-foreground font-semibold">{offre.nom}</span> : {offre.contenu}.
+                <span className="block mt-1">{peutAjouterProduit(offre.cle)
+                  ? <>Un produit en plus&nbsp;? {euros(PRODUIT_EN_PLUS)} TTC par produit ajouté, en paiement unique (une seule fois).</>
+                  : <>Pour ajouter plus de produits, passez au pack supérieur. Aucun produit supplémentaire dans le {offre.nom}.</>}</span>
+              </>}
           </p>
         </div>
 
@@ -727,6 +740,36 @@ export default function TarifsPage() {
 
         {/* Ce que comprend le pack choisi (mêmes mots que biolystes.pro/offre/<slug>). */}
         <div className="max-w-5xl mx-auto mt-4 rounded-2xl border border-border p-[1.5rem] md:p-[2rem]">
+          {offre.cle === "design" && mode === "achat" ? (
+            <div className="space-y-7">
+              {DESIGN_BLOCS.map((b) => (
+                <section key={b.titre}>
+                  <h2 className="text-[1.125rem] md:text-[1.25rem] !font-semibold text-foreground leading-snug text-balance" style={{ fontFamily: BRICOLAGE, textTransform: "none" }}>{b.titre}</h2>
+                  {b.numerotes && (
+                    <ol className="mt-3 space-y-2.5">
+                      {b.numerotes.map((t, i) => (
+                        <li key={t} className="flex items-start gap-3 text-[0.9375rem] text-foreground/80 leading-snug">
+                          <span className="mt-0.5 w-5 h-5 shrink-0 rounded-full border border-border text-[0.6875rem] font-semibold text-foreground flex items-center justify-center tabular-nums">{i + 1}</span>
+                          <span className="min-w-0 text-pretty">{t}</span>
+                        </li>
+                      ))}
+                    </ol>
+                  )}
+                  {b.puces && (
+                    <ul className="mt-3 space-y-2.5">
+                      {b.puces.map((t) => (
+                        <li key={t} className="flex items-start gap-2.5 text-[0.9375rem] text-foreground/80 leading-snug">
+                          <Check className="h-4 w-4 mt-0.5 shrink-0 text-foreground" strokeWidth={2} />
+                          <span className="min-w-0 text-pretty">{t}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  {b.texte && <p className="mt-3 text-[0.9375rem] md:text-base text-foreground/80 leading-relaxed text-pretty">{b.texte}</p>}
+                </section>
+              ))}
+            </div>
+          ) : (<>
           <p className="text-[0.75rem] tracking-[0.14em] uppercase text-foreground">{colle("Ce que comprend le " + offre.nom)}</p>
           <ul className="mt-4 grid sm:grid-cols-2 gap-x-8 gap-y-2.5">
             {offre.comprend.map((f) => (
@@ -735,7 +778,7 @@ export default function TarifsPage() {
                 <span className="text-pretty">{colle(f)}</span>
               </li>
             ))}
-          </ul>
+          </ul></>)}
           <a href={OFFRE_URL + offre.slug} target="_blank" rel="noopener noreferrer"
             className="mt-6 inline-flex items-center gap-2 text-[0.9375rem] font-medium text-foreground underline underline-offset-4 hover:text-muted-foreground">
             Voir le détail de l’offre <ArrowUpRight className="h-4 w-4" strokeWidth={1.75} />
