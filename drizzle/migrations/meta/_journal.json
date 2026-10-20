@@ -1,0 +1,13 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1792485961356,
+      "tag": "0000_contracts_bucket_read_restricted",
+      "breakpoints": true
+    }
+  ]
+}
