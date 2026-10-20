@@ -67,7 +67,7 @@ export default function CGVPage() {
             <>
               <p>Le Prestataire propose les offres suivantes :</p>
               <Groupe titre="A. Biolystes Cosmétique">
-                <Offre nom="Pack Design" conditions="sans site e‑commerce, avec abonnement mensuel sans engagement" contenu="Design de 4 produits, logo et charte graphique. L’abonnement donne accès à tout le catalogue, sans minimum de commande." />
+                <Offre nom="Pack Design" conditions="sans site e‑commerce, avec abonnement mensuel sans engagement" contenu="Tout le lancement de la marque : branding, logo (offert), design des packagings de 4 produits, coût, fabrication et envoi des produits, photos studio et UGC. Le client achète son stock et assure lui-même la logistique. L’abonnement donne accès à tout le catalogue, sans minimum de commande." />
                 <Offre nom="Pack Solo" conditions="avec abonnement mensuel sans engagement" contenu="Design d’1 produit, logo, charte, packaging et site e‑commerce." />
                 <Offre nom="Pack Duo" conditions="avec abonnement mensuel sans engagement" contenu="Design de 2 produits, logo, charte, packaging et site e‑commerce." />
                 <Offre nom="Pack Standard" conditions="en une fois, avec abonnement mensuel sans engagement, ou sur plusieurs mois, abonnement compris dans le loyer mensuel" contenu="Design de 4 produits, logo, charte, packaging, site e‑commerce complet et expert dédié." />

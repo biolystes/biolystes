@@ -105,7 +105,7 @@ const SOLDE = (montant: number): Etape => ({ icone: Store, quand: "Payé à la l
    sans les lignes chiffrées, comme sur biolystes.pro/offre/<slug>
    (OffrePage.tsx). À resynchroniser si packs.ts change. */
 const COMPREND: Record<string, string[]> = {
-  design: ["4 produits personnalisés", "Création de logo", "Charte graphique", "Design de produit et packaging", "Photos IA hyperréalistes", "Envoi de vos produits finis sous 10 jours ouvrés", "Sans site e-commerce", "Rupture possible à réception (vous gardez logo, charte, packaging)"],
+  design: ["4 produits personnalisés", "Branding et logo (offert)", "Design des packagings", "Coût et fabrication des produits compris", "Envoi de vos produits finis sous 10 jours ouvrés", "Photos studio et UGC", "Sans site e-commerce : vous achetez votre stock et vous livrez vous-même vos clientes", "À réception, vous ne réglez le solde que si les produits vous plaisent ; sinon vous gardez logo, charte et packaging, et Biolystes prend le risque"],
   solo: ["1 design de produit personnalisé", "Logo + charte + packaging", "Photos IA + contenu textuel", "Site e-commerce", "Automatisation livraison", "Zéro stock minimum"],
   duo: ["2 designs de produits personnalisés", "Logo + charte + packaging", "Photos IA + contenu textuel", "Site e-commerce", "Support prioritaire", "Zéro stock minimum"],
   standard: ["4 designs de produits personnalisés", "Logo + charte + packaging", "Site e-commerce complet + SEO", "Automatisation livraison", "Contenu textuel + Photographie IA", "Expert produit dédié", "CRO standard"],
@@ -145,7 +145,7 @@ const achat = (cle: PackAchat["cle"], nom: string, contenu: string, abonnementTe
    compris pour le Standard (JP, 14/10/2026 soir : jamais « inclus » à
    l'achat). */
 const ACHATS: Offre[] = [
-  achat("design", "Pack Design", "4 designs de produits, sans site", "Accès à tout notre catalogue, sans minimum de commande : vous commandez le produit que vous voulez, quand vous voulez. Un produit pas encore designé : 39 € une fois."),
+  achat("design", "Pack Design", "4 produits, tout le lancement de la marque, sans site", "Si vos produits vous plaisent, le solde débloque l’accès à tout notre catalogue, sans minimum de commande : un laboratoire impose 100, 200 ou 300 pièces, ici vous pouvez en prendre 10. Vous achetez votre stock et vous livrez vous-même vos clientes. Un produit pas encore designé : 39 € une fois."),
   achat("solo", "Pack Solo", "1 design de produit + site e-commerce", "Dès la mise en ligne. Ce que ça vous donne : hébergement, support, logistique et sécurité de votre boutique, sans minimum de commande."),
   achat("duo", "Pack Duo", "2 designs de produits + site e-commerce", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, support prioritaire et logistique, sans minimum de commande."),
   achat("standard", "Pack Standard", "4 designs de produits + site complet + expert dédié", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, livraisons, référencement, support et sécurité, sans minimum de commande."),
@@ -570,6 +570,9 @@ function TableauComparatif() {
       <p className="mt-1 px-3 sm:px-4 text-[0.8125rem] text-muted-foreground text-pretty">
         Abonnement sans minimum de commande&nbsp;: sur la gamme avec site, il démarre à la livraison du site.
       </p>
+      <p className="mt-1 px-3 sm:px-4 text-[0.8125rem] text-muted-foreground text-pretty">
+        Pourquoi seulement {euros(PRODUIT_EN_PLUS)} par produit en plus&nbsp;? La première fois, nous créons toute l’identité de votre marque (logo, polices, couleurs, branding) en plus des premiers produits, de leur envoi et des photos&nbsp;: c’est le gros du travail. Ensuite, chaque nouveau produit reprend une identité déjà faite.
+      </p>
     </div>
   );
 }
@@ -608,7 +611,7 @@ export default function TarifsPage() {
           {famille === "boutique" && <Onglets label="Votre pack" niveau={3} valeur={cleBoutique} onChange={setCleBoutique}
             options={AVEC_BOUTIQUE.map((o) => ({ cle: o.cle, nom: o.nom.replace("Pack ", "") }))} />}
           <p className="text-center text-[0.9375rem] text-muted-foreground text-pretty">
-            <span className="text-foreground font-semibold">{offre.nom}</span> : {famille === "sans" ? "vos produits à votre marque, sans site — pensé pour les instituts, ou pour celles et ceux qui ne souhaitent pas avoir de e-commerce avec nos services" : offre.contenu}.
+            <span className="text-foreground font-semibold">{offre.nom}</span> : {famille === "sans" ? "vos produits à votre marque, sans site — pensé pour les instituts, ou pour celles et ceux qui ne souhaitent pas avoir de e-commerce avec nos services. Sans boutique, nous ne gérons pas la logistique : vous achetez votre stock et vous livrez vous-même vos clientes" : offre.contenu}.
             <span className="block mt-1">{peutAjouterProduit(offre.cle)
               ? <>Un produit en plus&nbsp;? {euros(PRODUIT_EN_PLUS)} TTC par produit ajouté, en paiement unique (une seule fois).</>
               : <>Pour ajouter plus de produits, passez au pack supérieur. Aucun produit supplémentaire dans le {offre.nom}.</>}</span>
@@ -834,7 +837,7 @@ export default function TarifsPage() {
           <Entete surtitre="Votre projet" noir="On en parle" gris={"en" + INSECABLE + "rendez-vous."}
             texte="Nous choisissons ensemble le pack, les produits et l’échéancier." />
           <ul className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-[0.9375rem] text-foreground/80">
-            {["Sans stock", "Sans minimum", "Sans commission"].map((x) => (
+            {(famille === "sans" ? ["Sans minimum", "Sans commission"] : ["Sans stock", "Sans minimum", "Sans commission"]).map((x) => (
               <li key={x} className="flex items-center gap-2"><Check className="h-4 w-4 text-foreground" strokeWidth={2} />{x}</li>
             ))}
           </ul>
