@@ -26,18 +26,14 @@ import product235th2 from "@/assets/product-235th-2.jpg";
 import product235th3 from "@/assets/product-235th-3.jpg";
 
 // Brand images for portfolio
-import kaniwa1 from "@/assets/kaniwa-1.jpg";
-import kaniwa6 from "@/assets/kaniwa-6.jpg";
-import kaniwa7 from "@/assets/kaniwa-7.jpg";
-import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
-import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
-import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
-import kaniwaUgc5 from "@/assets/kaniwa-ugc-5.png";
-import kaniwaUgc6 from "@/assets/kaniwa-ugc-6.jpg";
-
-import fralene3 from "@/assets/fralene-3.jpg";
-import fralene10 from "@/assets/fralene-10.jpg";
-import fraleneExt1 from "@/assets/fralene-ext-1.jpg";
+import eclose1 from "@/assets/eclose-1.jpg";
+import eclose2 from "@/assets/eclose-2.jpg";
+import eclose3 from "@/assets/eclose-3.jpg";
+import eclose4 from "@/assets/eclose-4.jpg";
+import valthea1 from "@/assets/valthea-1.jpg";
+import valthea2 from "@/assets/valthea-2.jpg";
+import valthea3 from "@/assets/valthea-3.jpg";
+import valthea4 from "@/assets/valthea-4.jpg";
 import sevmylook1 from "@/assets/sevmylook-1.jpg";
 import sevmylook3 from "@/assets/sevmylook-3.jpg";
 import sevmylook7 from "@/assets/sevmylook-7.jpg";
@@ -160,18 +156,20 @@ const steps: { key: StepKey; label: string; subtitle: string }[] = [
   { key: "lance", label: "Je me lance", subtitle: "Passez à l'action" },
 ];
 
-const portfolioBrands = [
+type PhotoMarque = string | { type: "video"; src: string };
+
+const portfolioBrands: { name: string; tagline: string; url: string; photos: PhotoMarque[] }[] = [
   {
-    name: "Kaniwa Botanique",
-    tagline: "Marque bio & vegan, lancée en 12 jours",
-    url: "https://kaniwabotanique.com/",
-    photos: [kaniwa1, kaniwaUgc2, kaniwa7, kaniwaUgc3, kaniwaUgc4, kaniwaUgc5, kaniwaUgc6],
+    name: "Éclose Paris",
+    tagline: "Soins corps pour les peaux qui ont du grain",
+    url: "https://ecloseparis.com/",
+    photos: [eclose1, eclose2, eclose3, eclose4],
   },
   {
-    name: "Fralène",
-    tagline: "Gamme soins visage premium",
-    url: "https://fraleneparis.com/",
-    photos: [{ type: "video" as const, src: "/videos/fralene-hero-2.mov" }, fralene3, fraleneExt1, fralene10],
+    name: "Valthéa Paris",
+    tagline: "Soins visage, sérums, contour des yeux, anti-âge, vegan",
+    url: "https://valtheaparis.com/",
+    photos: [valthea1, valthea2, valthea3, valthea4],
   },
   {
     name: "Sevmylook",
@@ -422,7 +420,7 @@ export default function DecouvertePage() {
       <section className="overflow-hidden py-3 bg-background">
         <div className="flex gap-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
           {[
-            kaniwa1, fralene3, sevmylook1, pmyrris1, kaniwa6, fralene10, sevmylook3, pmyrris4,
+            sevmylook1, pmyrris1, sevmylook3, pmyrris4, sevmylook9, pmyrris5, sevmylook7, pmyrris2,
           ].map((src, i) => (
             <div key={i} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden">
               <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
@@ -517,7 +515,7 @@ export default function DecouvertePage() {
           </motion.p>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
             className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href="https://kaniwabotanique.com" target="_blank" rel="noopener noreferrer" className="btn-startup">
+            <a href="https://ecloseparis.com" target="_blank" rel="noopener noreferrer" className="btn-startup">
               <span>Voir notre dernier projet</span>
               <span className="arrow-circle">
                 <ArrowRight className="w-3.5 h-3.5" />
