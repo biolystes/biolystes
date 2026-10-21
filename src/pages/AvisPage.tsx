@@ -1,5 +1,5 @@
 /* /avis : tous les avis des anciennes clientes de Biolystes (JP, 21/10/2026),
-   l'avis audio de la fondatrice de Nitou & Be en tête, puis les six avis écrits.
+   l'avis audio d'une ancienne cliente en tête, puis les six avis écrits.
    La même section que sur l'accueil et sur /tarifs (src/components/
    TemoignagesClientes.tsx). Cadre, en-tête et pied de page :
    src/pages/pied/CadrePied.tsx. Aucun prix, aucune étoile, aucune note. */
@@ -14,7 +14,7 @@ export default function AvisPage() {
     <>
       <SEO
         title="Avis des clientes | Biolystes"
-        description="Les avis d’anciennes clientes de Biolystes : leurs premiers mois, leurs premières ventes, et un avis audio de la fondatrice de Nitou & Be."
+        description="Les avis d’anciennes clientes de Biolystes : leurs premiers mois, leurs premières ventes, et un avis audio."
         path="/avis"
       />
       <TemoignagesClientes niveau={1} />

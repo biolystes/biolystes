@@ -33,8 +33,10 @@ describe("avis audio", () => {
   it("visible : accord de la cliente confirmé par JP le 21/10/2026", () => {
     expect(AVIS_AUDIO_PUBLIE).toBe(true);
   });
-  it("signé « Corinne, fondatrice de Nitou & Be », sans lien, sans tiret long", () => {
-    expect(AVIS_AUDIO_NOM).toBe("Corinne, fondatrice de Nitou & Be");
+  it("signé « Corinne » seul, sans marque ni lien, sans tiret long", () => {
+    expect(AVIS_AUDIO_NOM).toBe("Corinne");
+    expect(JSON.stringify(AVIS_AUDIO)).not.toMatch(/nitou/i);
+    expect(AVIS_AUDIO_NOM).not.toMatch(/nitou|fondatrice/i);
     expect(AVIS_AUDIO.transcription).not.toMatch(/[—–]/);
     expect(AVIS_AUDIO.transcription).not.toMatch(/ [:;?!]/);
   });
