@@ -4,11 +4,19 @@ import {
   Mic, ArrowUp,
 } from "lucide-react";
 import { AnimatedChat } from "./AnimatedChat";
-import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
-import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
-import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
-import kaniwaUgc5 from "@/assets/kaniwa-ugc-5.png";
-import kaniwaUgc6 from "@/assets/kaniwa-ugc-6.jpg";
+import sevmylook4 from "@/assets/sevmylook-4.jpg";
+import sevmylook16 from "@/assets/sevmylook-16.jpg";
+import sevmylook9 from "@/assets/sevmylook-9.jpg";
+import sevmylook3 from "@/assets/sevmylook-3.jpg";
+import sevmylook8 from "@/assets/sevmylook-8.jpg";
+import sevmylook2 from "@/assets/sevmylook-2.jpg";
+import sevmylook17 from "@/assets/sevmylook-17.jpg";
+import sevmylook12 from "@/assets/sevmylook-12.jpg";
+import sevmylook5 from "@/assets/sevmylook-5.jpg";
+import sevmylook18 from "@/assets/sevmylook-18.jpg";
+import sevmylook19 from "@/assets/sevmylook-19.jpg";
+import sevmylook20 from "@/assets/sevmylook-20.jpg";
+import sevmylook10 from "@/assets/sevmylook-10.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -25,7 +33,7 @@ function PhoneHeader() {
         <Menu className="w-5 h-5 text-foreground" />
         <Search className="w-5 h-5 text-foreground" />
       </div>
-      <div className="font-serif font-bold text-2xl tracking-wide text-foreground">Kaniwa</div>
+      <div className="font-serif font-bold text-2xl tracking-wide text-foreground whitespace-nowrap">Ma marque</div>
       <div className="flex items-center gap-3">
         <User className="w-5 h-5 text-foreground" />
         <div className="relative">
@@ -118,7 +126,7 @@ export default function DiagnosticComparisonSection({ hideStats = false }: { hid
                   <PhoneHeader />
                   <div className="w-full h-64 relative pt-4 overflow-hidden" style={{ background: '#f5f5f5' }}>
                     <div className="flex justify-center items-start h-full">
-                      <img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl border border-border relative z-10" />
+                      <img src={sevmylook5} alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl border border-border relative z-10" />
                     </div>
                     <div className="absolute bottom-4 w-full flex justify-center gap-2 z-20">
                       <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
@@ -169,14 +177,14 @@ export default function DiagnosticComparisonSection({ hideStats = false }: { hid
                     <div className="w-full relative mt-2 shrink-0">
                       <div className="flex overflow-x-auto gap-4 px-5 pb-6 pt-2" style={{ scrollbarWidth: "none" }}>
                         {[
-                          "https://lystes.ai/images/clients/kaniwa-6.jpg",
-                          kaniwaUgc2,
-                          "https://lystes.ai/images/clients/kaniwa-8.jpg",
-                          kaniwaUgc4,
-                          "https://lystes.ai/images/clients/kaniwa-7.jpg",
-                          kaniwaUgc5,
-                          "https://lystes.ai/images/clients/kaniwa-4.jpg",
-                          kaniwaUgc5,
+                          sevmylook4,
+                          sevmylook16,
+                          sevmylook9,
+                          sevmylook3,
+                          sevmylook8,
+                          sevmylook2,
+                          sevmylook17,
+                          sevmylook12,
                         ].map((src, i) => (
                           <div key={i} className="snap-start shrink-0 relative flex flex-col items-center">
                             <img src={src} alt="" className="w-[240px] h-[280px] object-cover rounded-2xl relative z-10 border border-border" />
@@ -226,7 +234,7 @@ export default function DiagnosticComparisonSection({ hideStats = false }: { hid
 }
 
 function UgcScrollStrip() {
-  const images = [kaniwaUgc3, kaniwaUgc4, kaniwaUgc2, kaniwaUgc5, kaniwaUgc3, kaniwaUgc4, kaniwaUgc2, kaniwaUgc5];
+  const images = [sevmylook18, sevmylook19, sevmylook20, sevmylook10, sevmylook18, sevmylook19, sevmylook20, sevmylook10];
   return (
     <div className="overflow-hidden pb-6 -mx-2 px-2">
       <motion.div
