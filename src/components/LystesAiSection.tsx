@@ -7,13 +7,25 @@ import {
   Minus, AlertTriangle, MessageSquare
 } from "lucide-react";
 import { AnimatedChat } from "./AnimatedChat";
-import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
-import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
-import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
-import kaniwaUgc5 from "@/assets/kaniwa-ugc-5.png";
-import kaniwaUgc6 from "@/assets/kaniwa-ugc-6.jpg";
-import kaniwaNew1 from "@/assets/kaniwa-new-1.png";
-import kaniwaNew2 from "@/assets/kaniwa-new-2.png";
+import sevmylook4 from "@/assets/sevmylook-4.jpg";
+import sevmylook16 from "@/assets/sevmylook-16.jpg";
+import sevmylook9 from "@/assets/sevmylook-9.jpg";
+import sevmylook3 from "@/assets/sevmylook-3.jpg";
+import sevmylook8 from "@/assets/sevmylook-8.jpg";
+import sevmylook2 from "@/assets/sevmylook-2.jpg";
+import sevmylook17 from "@/assets/sevmylook-17.jpg";
+import sevmylook12 from "@/assets/sevmylook-12.jpg";
+import sevmylook5 from "@/assets/sevmylook-5.jpg";
+import sevmylook18 from "@/assets/sevmylook-18.jpg";
+import sevmylook19 from "@/assets/sevmylook-19.jpg";
+import sevmylook20 from "@/assets/sevmylook-20.jpg";
+import sevmylook10 from "@/assets/sevmylook-10.jpg";
+import sevmylook14 from "@/assets/sevmylook-14.jpg";
+import sevmylook6 from "@/assets/sevmylook-6.jpg";
+import sevmylook11 from "@/assets/sevmylook-11.jpg";
+import sevmylook13 from "@/assets/sevmylook-13.jpg";
+import pmyrris3 from "@/assets/pmyrris-3.jpg";
+import pmyrrisUgc2 from "@/assets/pmyrris-ugc-2.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -103,7 +115,7 @@ function BeforeAfterPhones() {
             <PhoneHeader />
             <div className="w-full h-64 relative pt-4 overflow-hidden" style={{ background: '#f5f5f5' }}>
               <div className="flex justify-center items-start h-full">
-                <img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl shadow-sm border border-border relative z-10" />
+                <img src={sevmylook5} alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl shadow-sm border border-border relative z-10" />
               </div>
               <div className="absolute bottom-4 w-full flex justify-center gap-2 z-20">
                 <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
@@ -153,14 +165,14 @@ function BeforeAfterPhones() {
               <div className="w-full relative mt-2 shrink-0">
                 <div className="flex overflow-x-auto gap-4 px-5 pb-6 pt-2" style={{ scrollbarWidth: "none" }}>
                   {[
-                    "https://lystes.ai/images/clients/kaniwa-6.jpg",
-                    kaniwaUgc2,
-                    "https://lystes.ai/images/clients/kaniwa-8.jpg",
-                    kaniwaUgc4,
-                    "https://lystes.ai/images/clients/kaniwa-7.jpg",
-                    kaniwaUgc5,
-                    "https://lystes.ai/images/clients/kaniwa-4.jpg",
-                    kaniwaUgc6,
+                    sevmylook4,
+                    sevmylook16,
+                    sevmylook9,
+                    sevmylook3,
+                    sevmylook8,
+                    sevmylook2,
+                    sevmylook17,
+                    sevmylook12,
                   ].map((src, i) => (
                     <div key={i} className="snap-start shrink-0 relative flex flex-col items-center">
                       <div className="absolute -bottom-1.5 w-[85%] h-4 bg-foreground/15 blur-md rounded-[100%] z-0" />
@@ -189,11 +201,11 @@ function BeforeAfterPhones() {
                 <div className="overflow-x-auto pb-6 -mx-2 px-2 scrollbar-hide">
                   <div className="flex gap-2 w-max">
                     {[
-                      kaniwaUgc2,
-                      kaniwaUgc3,
-                      kaniwaUgc4,
-                      kaniwaUgc5,
-                      kaniwaUgc6,
+                      sevmylook18,
+                      sevmylook19,
+                      sevmylook20,
+                      sevmylook10,
+                      sevmylook14,
                     ].map((src, i) => (
                       <div key={i} className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
                         <img src={src} alt="" className="w-full h-full object-cover" />
@@ -252,7 +264,7 @@ function TeamDiagnostics({ titleOverride }: { titleOverride?: string }) {
         desc="Une analyse capillaire par photo qui identifie la nature du cheveu, la porosité et les problématiques (casse, sécheresse, cuir chevelu sensible). L'IA propose une routine sur-mesure avec vos produits, pour un conseil expert automatisé 24h/24.">
         <div className="flex gap-3.5 flex-wrap">
           <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
-            <img src={kaniwaUgc2} alt="" className="w-full h-[480px] object-cover block" />
+            <img src={pmyrris3} alt="" className="w-full h-[480px] object-cover block" />
           </div>
         </div>
       </TeamRow>
@@ -270,7 +282,7 @@ function TeamExpertProduit({ titleOverride }: { titleOverride?: string }) {
           <div className="bg-foreground text-primary-foreground text-center text-[9px] font-semibold tracking-[2px] uppercase py-1.5">
             Livraison gratuite aujourd'hui
           </div>
-          <img src="https://lystes.ai/images/clients/kaniwa-6.jpg" alt="" className="w-full h-[200px] object-cover" />
+          <img src={sevmylook16} alt="" className="w-full h-[200px] object-cover" />
           <div className="px-4 pt-3.5 pb-2">
             <ProductInfo small />
             <p className="text-[10px] font-bold text-muted-foreground">Vitiligo · Pores dilatés · Rougeurs</p>
@@ -302,12 +314,12 @@ function TeamPhotographe({ titleOverride }: { titleOverride?: string }) {
     <TeamRow bg="" reversed title={titleOverride || "Photos studio en quelques secondes"} kicker="Équipe Photographe AI"
       desc="Nous mettons en place une équipe Photographe AI, qui génère des photos produits niveau studio professionnel, des visuels UGC avec de vrais visages pour vos réseaux sociaux et des contenus marketing. En quelques secondes, sans shooting.">
       <div className="grid grid-cols-2 md:grid-cols-4 grid-rows-2 gap-1.5" style={{ gridAutoRows: "180px" }}>
-        <img className="col-span-2 w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-1.jpg" alt="" />
-        <img className="w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-6.jpg" alt="" />
-        <img className="w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-5.jpg" alt="" />
-        <img className="w-full h-full object-cover rounded-xl" src="https://lystes.ai/images/clients/kaniwa-3.jpg" alt="" />
-        <img className="w-full h-full object-cover rounded-xl" src={kaniwaNew1} alt="" />
-        <img className="col-span-2 w-full h-full object-cover rounded-xl" src={kaniwaNew2} alt="" />
+        <img className="col-span-2 w-full h-full object-cover rounded-xl" src={sevmylook8} alt="" />
+        <img className="w-full h-full object-cover rounded-xl" src={sevmylook3} alt="" />
+        <img className="w-full h-full object-cover rounded-xl" src={sevmylook6} alt="" />
+        <img className="w-full h-full object-cover rounded-xl" src={sevmylook12} alt="" />
+        <img className="w-full h-full object-cover rounded-xl" src={sevmylook13} alt="" />
+        <img className="col-span-2 w-full h-full object-cover rounded-xl" src={sevmylook11} alt="" />
       </div>
     </TeamRow>
   );
@@ -324,7 +336,7 @@ function TeamSEO({ titleOverride }: { titleOverride?: string }) {
           <span className="ml-auto text-[26px] font-black text-foreground">92<span className="text-[13px] text-[#10b981]">/100</span></span>
         </div>
         {[
-          { label: "Meta Title", val: "Crème Anti-Âge Bio — Soin Visage Naturel | Kaniwa" },
+          { label: "Meta Title", val: "Crème Anti-Âge Bio — Soin Visage Naturel | Votre marque" },
           { label: "Meta Description", val: "Découvrez notre crème anti-âge bio formulée avec des actifs marins…" },
           { label: "H1", val: "Crème de jour anti-âge bio et végane" },
           { label: "Mots-clés", val: "crème anti-âge bio, soin visage naturel, cosmétique végane" },
@@ -405,10 +417,10 @@ function TeamContenu({ titleOverride }: { titleOverride?: string }) {
       desc="Nous mettons en place une équipe Créateur de contenu AI, qui produit des contenus pour vos réseaux sociaux, articles de blog et descriptions produits optimisées. Du contenu professionnel généré en quelques secondes.">
       <div className="flex gap-3.5 flex-wrap">
         <div className="flex-1 min-w-[200px] rounded-2xl overflow-hidden relative">
-          <SafeVideo src="/videos/contenu-ugc.mp4" className="w-full h-[400px] object-cover block" lazy />
+          <SafeVideo src="/videos/trustpilot-ugc.mp4" className="w-full h-[400px] object-cover block" lazy />
         </div>
         <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
-          <img src={kaniwaUgc3} alt="Contenu UGC" className="w-full h-[400px] object-cover block" />
+          <img src={pmyrrisUgc2} alt="Contenu UGC" className="w-full h-[400px] object-cover block" />
         </div>
       </div>
     </TeamRow>
@@ -462,7 +474,7 @@ function PhoneHeader({ small }: { small?: boolean }) {
         <Menu className={`${sz} text-foreground`} />
         <Search className={`${sz} text-foreground`} />
       </div>
-      <div className={`font-serif font-bold ${small ? "text-xl" : "text-2xl"} tracking-wide text-foreground`}>Kaniwa</div>
+      <div className={`font-serif font-bold ${small ? "text-xl" : "text-2xl"} tracking-wide text-foreground whitespace-nowrap`}>Ma marque</div>
       <div className="flex items-center gap-3">
         <User className={`${sz} text-foreground`} />
         <div className="relative">
