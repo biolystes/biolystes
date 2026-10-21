@@ -19,7 +19,7 @@ export default function StepBrand() {
           <Input
             value={brand.brand_name}
             onChange={(e) => setBrand({ brand_name: e.target.value })}
-            placeholder="Ex: Kaniwa Botanique"
+            placeholder="Ex: Éclose Paris"
             className="mt-1"
           />
         </div>
