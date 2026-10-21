@@ -2,38 +2,32 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 
-// ─── Kaniwa Botanique ─────────────────────────────────────
-import kaniwa1 from "@/assets/kaniwa-1.jpg";
-import kaniwa2 from "@/assets/kaniwa-2.jpg";
-import kaniwa3 from "@/assets/kaniwa-3.jpg";
-import kaniwa4 from "@/assets/kaniwa-4.jpg";
-import kaniwa5 from "@/assets/kaniwa-5.jpg";
-import kaniwa6 from "@/assets/kaniwa-6.jpg";
-import kaniwa7 from "@/assets/kaniwa-7.jpg";
-import kaniwa8 from "@/assets/kaniwa-8.jpg";
-import kaniwa9 from "@/assets/kaniwa-9.jpg";
-import kaniwa10 from "@/assets/kaniwa-10.jpg";
-import kaniwa11 from "@/assets/kaniwa-11.jpg";
-import kaniwa12 from "@/assets/kaniwa-12.jpg";
+// ─── Éclose Paris ─────────────────────────────────────────
+import eclose1 from "@/assets/eclose-1.jpg";
+import eclose2 from "@/assets/eclose-2.jpg";
+import eclose4 from "@/assets/eclose-4.jpg";
 
-import kaniwa14 from "@/assets/kaniwa-14.jpg";
+// ─── Valthéa Paris ────────────────────────────────────────
+import valthea1 from "@/assets/valthea-1.jpg";
+import valthea2 from "@/assets/valthea-2.jpg";
+import valthea3 from "@/assets/valthea-3.jpg";
+import valthea4 from "@/assets/valthea-4.jpg";
+import valthea5 from "@/assets/valthea-5.jpg";
+import valthea6 from "@/assets/valthea-6.jpg";
+import valthea7 from "@/assets/valthea-7.jpg";
+import valthea8 from "@/assets/valthea-8.jpg";
+import valthea9 from "@/assets/valthea-9.jpg";
+import valthea10 from "@/assets/valthea-10.jpg";
+import valthea11 from "@/assets/valthea-11.jpg";
+import valthea12 from "@/assets/valthea-12.jpg";
 
-// ─── Fralène ──────────────────────────────────────────────
-import fralene1 from "@/assets/fralene-1.jpg";
-import fralene2 from "@/assets/fralene-2.jpg";
-import fralene3 from "@/assets/fralene-3.jpg";
-import fralene4 from "@/assets/fralene-4.jpg";
-import fralene5 from "@/assets/fralene-5.jpg";
-import fralene6 from "@/assets/fralene-6.jpg";
-import fralene7 from "@/assets/fralene-7.jpg";
-import fralene8 from "@/assets/fralene-8.jpg";
-import fralene9 from "@/assets/fralene-9.jpg";
-import fralene10 from "@/assets/fralene-10.jpg";
-import fralene11 from "@/assets/fralene-11.jpg";
-import fralene12 from "@/assets/fralene-12.jpg";
-import fralene13 from "@/assets/fralene-13.jpg";
-import fralene14 from "@/assets/fralene-14.jpg";
-import fralene15 from "@/assets/fralene-15.jpg";
+// ─── Jhouny's Secret ──────────────────────────────────────
+import jhouny1 from "@/assets/jhouny-1.jpg";
+import jhouny2 from "@/assets/jhouny-2.jpg";
+import jhouny3 from "@/assets/jhouny-3.jpg";
+import jhouny4 from "@/assets/jhouny-4.jpg";
+import jhouny5 from "@/assets/jhouny-5.jpg";
+import jhouny6 from "@/assets/jhouny-6.jpg";
 
 // ─── Sevmylook ────────────────────────────────────────────
 import sevmylook1 from "@/assets/sevmylook-1.jpg";
@@ -86,29 +80,34 @@ export interface Brand {
 
 export const BRANDS: Brand[] = [
   {
-    slug: "kaniwa",
-    name: "Kaniwa Botanique",
-    tagline: "Marque bio & vegan · Gamme soins visage, corps & rasage · Lancée en 12 jours",
-    tags: ["Bio & Vegan", "France", "12 jours"],
-    accentColor: "#1d1d1f",
-    url: "https://kaniwabotanique.com/",
+    slug: "eclose",
+    name: "Éclose Paris",
+    tagline: "Soins corps pour les peaux qui ont du grain · Peeling AHA, crème lissante",
+    tags: ["Soins corps", "Peaux à grain", "Paris"],
+    accentColor: "#5a3a63",
+    url: "https://ecloseparis.com/",
+    photos: [eclose1, eclose2, eclose4],
+  },
+  {
+    slug: "valthea",
+    name: "Valthéa Paris",
+    tagline: "Soins visage · Sérums, contour des yeux, anti-âge, vegan",
+    tags: ["Soins visage", "Sérums", "Vegan"],
+    accentColor: "#1f2a44",
+    url: "https://valtheaparis.com/",
     photos: [
-      kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7,
-      kaniwa8, kaniwa9, kaniwa10, kaniwa11, kaniwa12, kaniwa14,
+      valthea1, valthea2, valthea3, valthea4, valthea5, valthea6,
+      valthea7, valthea8, valthea9, valthea10, valthea11, valthea12,
     ],
   },
   {
-    slug: "fralene",
-    name: "Fralène",
-    tagline: "Gamme soins visage premium · Huile nettoyante lactée & démaquillant biphasique",
-    tags: ["Soins visage", "Sans parfum", "Premium"],
-    accentColor: "#6b21a8",
-    url: "https://fraleneparis.com/",
-    photos: [
-      fralene1, fralene2, fralene3, fralene4, fralene5,
-      fralene6, fralene7, fralene8, fralene9, fralene10,
-      fralene11, fralene12, fralene13, fralene14, fralene15,
-    ],
+    slug: "jhounys",
+    name: "Jhouny's Secret",
+    tagline: "Soins capillaires pour cheveux texturés",
+    tags: ["Soins capillaires", "Cheveux texturés"],
+    accentColor: "#d9712b",
+    url: "https://jhounysecret.com/",
+    photos: [jhouny1, jhouny2, jhouny3, jhouny4, jhouny5, jhouny6],
   },
   {
     slug: "sevmylook",
