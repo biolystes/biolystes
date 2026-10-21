@@ -1392,7 +1392,7 @@ export const SOLUTIONS: Record<SolutionId, SolutionConfig> = {
       subtitle:
         "Un hub d'avis sur lystes.ai/votre-marque : agrégé, vérifié, optimisé SEO. Chaque produit a sa page d'avis avec un spécialiste IA qui répond instantanément aux questions des futurs acheteurs.",
       ctaPrimary: { label: "S'inscrire gratuitement", href: "/auth?mode=signup" },
-      ctaSecondary: { label: "Voir la démo live", href: "https://lystes.ai/kaniwabotanique/avis" },
+      ctaSecondary: { label: "Voir la démo live", href: "https://lystes.ai/valtheaparis/avis" },
       heroImage: diagnosticThumb.url,
       features: [],
       steps: [],

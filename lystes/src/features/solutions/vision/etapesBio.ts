@@ -1,6 +1,6 @@
 import { BadgeCheck, Scale, FileCheck2, Leaf, FlaskConical, ShieldCheck, PackageX, FileText, Image as IconeImage, Newspaper, Package, PenTool, ScanSearch, Star, Store, Truck, Bot, type LucideIcon } from "lucide-react";
 import { PHOTO_PRODUIT_ENDOMMAGE, TEXTE_LITIGE, TEXTE_RISQUE } from "@lystes/components/bio/ResponsabiliteSection";
-import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
+import boutiqueClient from "@lystes/assets/bio/ecommerce-step-eclose.jpg";
 
 /**
  * Les étapes de création de marque de /bio (JP, 13/10/2026), dans la section
@@ -19,7 +19,7 @@ import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
  *  - packaging : quatre photos Cléa Skincare (public/bio-packaging) ;
  *  - envoi : les colis reçus par nos clientes, repris de /biolystes/rdv
  *    (Amarsi, 235th, Jolie Peau) et le colis Éclose ;
- *  - ecommerce-step : la boutique Kaniwa Botanique ;
+ *  - ecommerce-step-eclose : la boutique Éclose Paris (ecloseparis.com) ;
  *  - fiche : la fiche de démonstration de l'accueil (public/demo-eclose) ;
  *  - feed : six publications du feed Sevmylook de biolystes.com/agence (3:4) ;
  *  - presse : l'accueil et une rubrique de Brume, Écrin, Élunesse, en entier (3:4) ;
@@ -28,7 +28,7 @@ import boutiqueKaniwa from "@lystes/assets/bio/ecommerce-step.png";
  *  - validation : les produits Lystes & Partners (public/bio-validation) ;
  * Jamais le mot « échantillons » (JP, 13/10 : « on vous envoie les produits »).
  * La boutique de démonstration Lystes & Partners n'existe pas en image dans
- * le dépôt : l'onglet E-commerce montre la vraie boutique Kaniwa Botanique.
+ * le dépôt : l'onglet E-commerce montre la vraie boutique Éclose Paris.
  */
 
 /* Un produit de la grille de sélection : `valide` reçoit le badge. */
@@ -280,7 +280,7 @@ export const ONGLETS_BIO: OngletBio[] = [
         mission: "une boutique en ligne à votre marque",
         role: "Nous créons votre boutique en ligne, à votre marque, avec vos produits et vos photos.",
         unique: "",
-        media: PHOTO(boutiqueKaniwa, ["Kaniwa Botanique", ", la boutique en ligne"], "50% 0%"),
+        media: PHOTO(boutiqueClient, ["Éclose Paris", ", la boutique en ligne"], "50% 0%"),
       },
       {
         nom: "Suite d’agents IA",

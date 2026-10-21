@@ -7,15 +7,11 @@ export const BRAND_WEBSITE_FALLBACK: Record<string, string> = {
   anaveraparis: "https://anaveraparis.com",
   "lolo-paris": "https://loloparis.com",
   delicesducongo: "https://delicesducongo.com",
-  fraleneparis: "https://fraleneparis.com",
   glowlyparis: "https://glowlyparis.com",
   goldentiffany: "https://goldentiffany.com",
-  kaniwabotanique: "https://kaniwabotanique.com",
   nafsibeautytherapie: "https://nafsibeautytherapie.com",
-  soleyabeaute: "https://soleyabeaute.com",
   stellayato: "https://stellayato.com",
   trueageskin: "https://trueageskin.com",
-  wkcosmetics: "https://wkcosmetics.com",
   pmyrrisbeauty: "https://pmyrrisbeauty.fr",
 };
 

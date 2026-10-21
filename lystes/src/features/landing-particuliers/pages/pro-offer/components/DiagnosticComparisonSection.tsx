@@ -11,38 +11,6 @@ import {
 import { useTranslation } from "react-i18next";
 import { TrustpilotStars } from "@lystes/components/reviews/TrustpilotStars";
 import { AnimatedChat } from "./AnimatedChat";
-import ugcNew1 from "@lystes/assets/kaniwa-ugc-new-1.jpg.asset.json";
-import ugcNew2 from "@lystes/assets/kaniwa-ugc-new-2.jpg.asset.json";
-import ugcNew3 from "@lystes/assets/kaniwa-ugc-new-3.jpg.asset.json";
-import ugcNew4 from "@lystes/assets/kaniwa-ugc-new-4.jpg.asset.json";
-import ugcNew5 from "@lystes/assets/kaniwa-ugc-new-5.jpg.asset.json";
-const kaniwaUgc2 = ugcNew2.url;
-const kaniwaUgc3 = ugcNew3.url;
-const kaniwaUgc4 = ugcNew4.url;
-const kaniwaUgc5 = ugcNew5.url;
-const kaniwaUgc6 = ugcNew1.url;
-import kaniwaNewAsset1 from "@lystes/assets/kaniwa-product-a-v2.jpg.asset.json";
-import kaniwaNewAsset2 from "@lystes/assets/kaniwa-product-b-v2.jpg.asset.json";
-import kaniwaNewAsset3 from "@lystes/assets/kaniwa-product-c-v2.png.asset.json";
-const kaniwaShot1 = kaniwaNewAsset1.url;
-const kaniwaShot2 = kaniwaNewAsset2.url;
-const kaniwaShot3 = kaniwaNewAsset3.url;
-import kaniwa1 from "../assets/kaniwa-1.jpg";
-import kaniwa2 from "../assets/kaniwa-2.jpg";
-import kaniwa3 from "../assets/kaniwa-3.jpg";
-import kaniwa4 from "../assets/kaniwa-4.jpg";
-import kaniwa5 from "../assets/kaniwa-5.jpg";
-import kaniwa6 from "../assets/kaniwa-6.jpg";
-import kaniwa7 from "../assets/kaniwa-7.jpg";
-import kaniwa8 from "../assets/kaniwa-8.jpg";
-import kaniwaNew1 from "../assets/kaniwa-new-1.png";
-import kaniwaNew2 from "../assets/kaniwa-new-2.png";
-import fralene1 from "../assets/fralene-1.jpg";
-import fralene2 from "../assets/fralene-2.jpg";
-import fralene3 from "../assets/fralene-3.jpg";
-import fralene4 from "../assets/fralene-4.jpg";
-import fralene5 from "../assets/fralene-5.jpg";
-import fralene6 from "../assets/fralene-6.jpg";
 import sevmylook1 from "../assets/sevmylook-1.jpg";
 import sevmylook2 from "../assets/sevmylook-2.jpg";
 import sevmylook3 from "../assets/sevmylook-3.jpg";
@@ -65,6 +33,24 @@ import coiffureAfterAsset from "@lystes/assets/coiffure-after.jpg.asset.json";
 import coiffureApresV2Asset from "@lystes/assets/coiffure-apres-v2.png.asset.json";
 import coiffureAvantV2Asset from "@lystes/assets/coiffure-avant-v2.png.asset.json";
 import coiffureProduitAsset from "@lystes/assets/coiffure-produit-v2.png.asset.json";
+import { valthea, eclose, jhouny } from "@lystes/features/landing-particuliers/lib/vitrineClients";
+/* Visuels des marques clientes en ligne (Valthéa, Éclose, Jhouny's Secret). */
+const clientA1 = valthea(1);
+const clientA2 = valthea(2);
+const clientA3 = valthea(3);
+const clientA4 = valthea(4);
+const clientA5 = valthea(5);
+const clientA6 = valthea(6);
+const clientA7 = valthea(7);
+const clientA8 = valthea(8);
+const packClient1 = jhouny(2);
+const shotClient1 = eclose(1);
+const shotClient2 = eclose(2);
+const shotClient3 = eclose(3);
+const ugcClient2 = valthea(9);
+const ugcClient3 = valthea(10);
+const ugcClient4 = valthea(11);
+const ugcClient5 = valthea(12);
 const CERT_LOGOS = [
   "https://biolystes.com/assets/cert-1-CtUmpA6O.png",
   "https://biolystes.com/assets/cert-2-BjMfeyj8.png",
@@ -91,7 +77,7 @@ function PhoneHeader() {
       <div className="flex items-center gap-3">
         <Menu className="w-3.5 h-3.5 text-foreground" />
       </div>
-      <div className="font-serif font-bold text-[14px] tracking-wide text-foreground">Kaniwa</div>
+      <div className="font-serif font-bold text-[14px] tracking-wide text-foreground">Maison Alyra</div>
       <div className="flex items-center gap-2.5">
         <div className="relative">
           <ShoppingBag className="w-3.5 h-3.5 text-foreground" />
@@ -181,12 +167,12 @@ export default function DiagnosticComparisonSection({ hideStats = false }: { hid
       <section className="overflow-hidden py-3 bg-background">
         <div className="flex gap-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
           {[
-            "https://biolystes.com/assets/kaniwa-1-BZ624Hyw.jpg",
-            "https://biolystes.com/assets/fralene-3-DdwnW6I4.jpg",
+            "/images/clients/valthea-1.jpg",
+            "/images/clients/eclose-3.jpg",
             "https://biolystes.com/assets/sevmylook-1-C1yFcjUj.jpg",
             "https://biolystes.com/assets/pmyrris-1-BZA_AcNE.jpg",
-            "https://biolystes.com/assets/kaniwa-6-D2a5t0QS.jpg",
-            "https://biolystes.com/assets/fralene-10-DGPFUZiI.jpg",
+            "/images/clients/valthea-6.jpg",
+            "/images/clients/eclose-5.jpg",
             "https://biolystes.com/assets/sevmylook-3-Bx7A6QEM.jpg",
             "https://biolystes.com/assets/pmyrris-4-CIW_Zott.jpg",
           ].map((src, i) => (
@@ -298,7 +284,7 @@ function PhonesCompareBlock({ t }: { t: (k: string) => string }) {
         <PhoneHeader />
         <div className="w-full h-44 relative pt-2 overflow-hidden" style={{ background: '#f5f5f5' }}>
           <div className="flex justify-center items-start h-full">
-            <img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" alt="Produit" className="w-[88px] h-[130px] object-cover rounded-xl border border-border relative z-10" />
+            <img src="/images/clients/valthea-2.jpg" alt="Produit" className="w-[88px] h-[130px] object-cover rounded-xl border border-border relative z-10" />
           </div>
           <div className="absolute bottom-3 w-full flex justify-center gap-1.5 z-20">
             <div className="w-1 h-1 rounded-full bg-foreground" />
@@ -330,14 +316,14 @@ function PhonesCompareBlock({ t }: { t: (k: string) => string }) {
           <div className="w-full relative mt-1.5 shrink-0">
             <div className="flex overflow-x-auto gap-2.5 px-3.5 sm:px-4 pb-4 pt-1.5" style={{ scrollbarWidth: "none" }}>
               {[
-                "https://lystes.ai/images/clients/kaniwa-6.jpg",
-                kaniwaUgc2,
-                "https://lystes.ai/images/clients/kaniwa-8.jpg",
-                kaniwaUgc4,
-                "https://lystes.ai/images/clients/kaniwa-7.jpg",
-                kaniwaUgc5,
-                "https://lystes.ai/images/clients/kaniwa-4.jpg",
-                kaniwaUgc5,
+                "/images/clients/valthea-6.jpg",
+                ugcClient2,
+                "/images/clients/valthea-8.jpg",
+                ugcClient4,
+                "/images/clients/valthea-7.jpg",
+                ugcClient5,
+                "/images/clients/valthea-4.jpg",
+                ugcClient5,
               ].map((src, i) => (
                 <div key={i} className="snap-start shrink-0 relative flex flex-col items-center">
                   <img src={src} alt="" className="w-[160px] h-[185px] object-cover rounded-xl relative z-10 border border-border" />
@@ -417,7 +403,7 @@ function PhonesCompareBlock({ t }: { t: (k: string) => string }) {
 }
 
 function UgcScrollStrip() {
-  const images = [kaniwaUgc3, kaniwaUgc4, kaniwaUgc2, kaniwaUgc5, kaniwaUgc3, kaniwaUgc4, kaniwaUgc2, kaniwaUgc5];
+  const images = [ugcClient3, ugcClient4, ugcClient2, ugcClient5, ugcClient3, ugcClient4, ugcClient2, ugcClient5];
   return (
     <div className="overflow-hidden pb-6 -mx-2 px-2">
       <motion.div
@@ -505,7 +491,7 @@ function ExperienceSection() {
         </motion.p>
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
           className="mt-10 flex flex-wrap justify-center gap-4">
-          <a href="https://kaniwabotanique.com" target="_blank" rel="noopener noreferrer" className="btn-startup-white">
+          <a href="https://ecloseparis.com" target="_blank" rel="noopener noreferrer" className="btn-startup-white">
             <span>Voir le dernier projet</span>
             <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
           </a>
@@ -534,10 +520,10 @@ function ExperienceSection() {
 
 const PROCESS_STEPS = [
   { label: "ÉTAPE 1", title: "Sélection de Produits", desc: "Choisissez parmi notre catalogue de produits certifiés bio, végans, conformes au règlement européen, prêts à être étiquetés avec votre marque.", img: "https://lystes.ai/__l5e/assets-v1/f1a046b0-ea2a-40a1-a6cf-019127384607/clea-eye-cream.png" },
-  { label: "ÉTAPE 2", title: "Design Packaging Personnalisé", desc: "Vous nous fournissez votre logo et inspirations. Nous créons une identité visuelle unique avec des étiquettes et packagings professionnels pour votre marque.", img: "https://biolystes.com/assets/kaniwa-1-BZ624Hyw.jpg" },
+  { label: "ÉTAPE 2", title: "Design Packaging Personnalisé", desc: "Vous nous fournissez votre logo et inspirations. Nous créons une identité visuelle unique avec des étiquettes et packagings professionnels pour votre marque.", img: "/images/clients/valthea-1.jpg" },
   { label: "ÉTAPE 3", title: "Envoi des échantillons", desc: "Commandez vos échantillons pour découvrir et valider nos produits. C'est le moyen idéal de tester sans risque avant de lancer votre marque en toute confiance.", img: "https://biolystes.com/assets/envoi-echantillons-step-BPqAdt9s.png" },
   { label: "ÉTAPE 4", title: "Photos Packshots et Ambiance", desc: "Nous réalisons un set complet de photos haute qualité (packshots produits, images d'ambiance) pour sublimer votre site et vos campagnes marketing.", img: "https://biolystes.com/assets/sevmylook-20-XhIM2aCJ.jpg" },
-  { label: "ÉTAPE 5", title: "Création du Site E-commerce", desc: "Nous créons et configurons votre boutique en ligne prête à vendre, sans nécessiter d'investissement technique de votre part.", img: "https://biolystes.com/assets/ecommerce-step-BwZ2tUNc.png" },
+  { label: "ÉTAPE 5", title: "Création du Site E-commerce", desc: "Nous créons et configurons votre boutique en ligne prête à vendre, sans nécessiter d'investissement technique de votre part.", img: "/images/ecommerce-step-eclose.jpg" },
   { label: "ÉTAPE 6", title: "Logistique & Expédition Simplifiées", desc: "De la production à la demande à l'expédition sous votre marque, nous nous occupons de tout. Vous vous concentrez sur la croissance.", img: "https://biolystes.com/assets/logistique-step-BVjckAeq.jpg" },
   { label: "ÉTAPE 7 (Optionnel)", title: "Coaching ou accompagnement", desc: "Optimisez vos chances de réussite en vous faisant accompagner par des experts disposant de 18 ans d'expérience dans ce secteur d'activité.", img: "https://biolystes.com/assets/coaching-step-CzMjwuyt.png" },
   ];
@@ -619,14 +605,14 @@ function ProcessSection() {
 }
 
 const CATALOG_ITEMS = [
-  { img: kaniwa1, name: "Crème de nuit peaux sensibles" },
-  { img: kaniwa2, name: "Sérum contour des yeux" },
-  { img: kaniwa3, name: "Tonique exfoliant acide glycolique" },
-  { img: kaniwa4, name: "Sérum perfecteur de pigment" },
-  { img: kaniwa5, name: "Crème de jour hydratante" },
-  { img: kaniwa6, name: "Huile visage nourrissante" },
-  { img: kaniwa7, name: "Sérum naturel alternatif au rétinol" },
-  { img: kaniwa8, name: "Gel booster au ginkgo antioxydant" },
+  { img: clientA1, name: "Crème de nuit peaux sensibles" },
+  { img: clientA2, name: "Sérum contour des yeux" },
+  { img: clientA3, name: "Tonique exfoliant acide glycolique" },
+  { img: clientA4, name: "Sérum perfecteur de pigment" },
+  { img: clientA5, name: "Crème de jour hydratante" },
+  { img: clientA6, name: "Huile visage nourrissante" },
+  { img: clientA7, name: "Sérum naturel alternatif au rétinol" },
+  { img: clientA8, name: "Gel booster au ginkgo antioxydant" },
   ];
 
 function SectionHeader({ eyebrow, title, subtitle, centered = false }: { eyebrow: string; title: string; subtitle?: string; centered?: boolean }) {
@@ -718,16 +704,16 @@ function DeliverySection() {
 
 const PORTFOLIO_BRANDS = [
   {
-    name: "Kaniwa Botanique",
-    desc: "Marque bio & vegan, lancée en 12 jours",
-    href: "https://kaniwabotanique.com/",
-    items: [kaniwa1, kaniwaUgc2, kaniwa3, kaniwaUgc4, kaniwa5, kaniwaUgc6, kaniwa7],
+    name: "Valthéa Paris",
+    desc: "Soins visage anti-âge, vegan",
+    href: "https://valtheaparis.com/",
+    items: [valthea(1), valthea(3), valthea(5), valthea(7), valthea(9), valthea(11), valthea(12)],
   },
   {
-    name: "Fralène",
-    desc: "Gamme soins visage premium",
-    href: "https://fraleneparis.com/",
-    items: [demoVideo, fralene2, fralene3, fralene4],
+    name: "Éclose Paris",
+    desc: "Soins corps pour les peaux qui ont du grain",
+    href: "https://ecloseparis.com/",
+    items: [eclose(1), eclose(2), eclose(3), eclose(4)],
   },
   {
     name: "Sevmylook",
@@ -858,7 +844,7 @@ function ReassortSection() {
         </div>
         <div className="relative max-w-[944px] mx-auto">
           <div className="bg-secondary rounded-xl p-6 md:p-10">
-            <img src={kaniwaNew1} alt="Salon de coiffure équipé de cosmétiques en marque blanche" className="w-full rounded-lg" loading="lazy" />
+            <img src={packClient1} alt="Salon de coiffure équipé de cosmétiques en marque blanche" className="w-full rounded-lg" loading="lazy" />
           </div>
           <div className="hidden md:block absolute -left-16 bottom-20 max-w-[220px] shadow-lg rounded-xl overflow-hidden rotate-[-3deg] p-3 bg-foreground">
             <video src={showcase1Asset.url} autoPlay loop playsInline muted className="w-full rounded-xl object-cover aspect-[3/4]" preload="none" />
@@ -1055,7 +1041,7 @@ export function ShoppingAssistantCompareSection({ compact = false }: { compact?:
                   <PhoneHeader />
                   <div className="w-full h-44 relative pt-2 overflow-hidden" style={{ background: '#f5f5f5' }}>
                     <div className="flex justify-center items-start h-full">
-                      <img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" alt="Produit" className="w-[88px] h-[130px] object-cover rounded-xl border border-border relative z-10" />
+                      <img src="/images/clients/valthea-3.jpg" alt="Produit" className="w-[88px] h-[130px] object-cover rounded-xl border border-border relative z-10" />
                     </div>
                     <div className="absolute bottom-3 w-full flex justify-center gap-1.5 z-20">
                       <div className="w-1 h-1 rounded-full bg-foreground" />
@@ -1089,10 +1075,10 @@ export function ShoppingAssistantCompareSection({ compact = false }: { compact?:
                     <div className="w-full relative mt-1.5 shrink-0 overflow-hidden">
                       <div className="flex gap-2.5 px-3.5 sm:px-4 pb-4 pt-1.5 animate-[ugc-slide_18s_linear_infinite] w-max">
                         {[
-                          kaniwaShot1, kaniwaShot2, kaniwaShot3,
-                          kaniwaShot1, kaniwaShot2, kaniwaShot3,
-                          kaniwaShot1, kaniwaShot2, kaniwaShot3,
-                          kaniwaShot1, kaniwaShot2, kaniwaShot3,
+                          shotClient1, shotClient2, shotClient3,
+                          shotClient1, shotClient2, shotClient3,
+                          shotClient1, shotClient2, shotClient3,
+                          shotClient1, shotClient2, shotClient3,
                         ].map((src, i) => (
                           <div key={i} className="shrink-0 relative flex flex-col items-center">
                             <img src={src} alt="" className="w-[160px] h-[185px] object-cover rounded-xl relative z-10 border border-border" />
@@ -1118,7 +1104,7 @@ export function ShoppingAssistantCompareSection({ compact = false }: { compact?:
                       </button>
                       <div className="overflow-hidden pt-3 -mx-2 px-2">
                         <div className="flex gap-2 w-max animate-[ugc-slide_18s_linear_infinite]">
-                          {[kaniwaUgc2, kaniwaUgc3, kaniwaUgc4, kaniwaUgc2, kaniwaUgc3, kaniwaUgc4, kaniwaUgc2, kaniwaUgc3].map((src, i) => (
+                          {[ugcClient2, ugcClient3, ugcClient4, ugcClient2, ugcClient3, ugcClient4, ugcClient2, ugcClient3].map((src, i) => (
                             <div key={i} className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
                               <img src={src} alt="" className="w-full h-full object-cover" />
                             </div>
@@ -1143,7 +1129,7 @@ export function ShoppingAssistantCompareSection({ compact = false }: { compact?:
               <span className="whitespace-nowrap">S'inscrire gratuitement</span>
               <span className="inline-flex items-center justify-center w-7 h-7 rounded-full bg-white text-black shrink-0"><ArrowUpRight className="w-3.5 h-3.5" strokeWidth={2} /></span>
             </a>
-            <a href="https://kaniwabotanique.com/product/serum-a-la-vitamine-c/" target="_blank" rel="noopener noreferrer" className="btn-outline">
+            <a href="https://valtheaparis.com/product/serum-a-la-vitamine-c/" target="_blank" rel="noopener noreferrer" className="btn-outline">
               <span>Tester en ligne</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
