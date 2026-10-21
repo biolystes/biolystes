@@ -9,14 +9,14 @@ import {
 import AgenceServicesSection from "@/components/AgenceServicesSection";
 import WirtzkinSection from "@/components/WirtzkinSection";
 
-import kaniwa1 from "@/assets/kaniwa-1.jpg";
-import kaniwa6 from "@/assets/kaniwa-6.jpg";
-import kaniwa7 from "@/assets/kaniwa-7.jpg";
-import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
-import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
-import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
-import kaniwaUgc5 from "@/assets/kaniwa-ugc-5.png";
-import kaniwaUgc6 from "@/assets/kaniwa-ugc-6.jpg";
+import eclose1 from "@/assets/eclose-1.jpg";
+import eclose2 from "@/assets/eclose-2.jpg";
+import eclose3 from "@/assets/eclose-3.jpg";
+import eclose4 from "@/assets/eclose-4.jpg";
+import valthea1 from "@/assets/valthea-1.jpg";
+import valthea2 from "@/assets/valthea-2.jpg";
+import valthea3 from "@/assets/valthea-3.jpg";
+import valthea4 from "@/assets/valthea-4.jpg";
 import sevmylook1 from "@/assets/sevmylook-1.jpg";
 import sevmylook3 from "@/assets/sevmylook-3.jpg";
 import sevmylook7 from "@/assets/sevmylook-7.jpg";
@@ -34,10 +34,16 @@ const fadeUp = {
 
 const portfolioBrands = [
   {
-    name: "Kaniwa Botanique",
-    tagline: "Stratégie réseaux sociaux + contenu IA",
-    url: "https://kaniwabotanique.com/",
-    photos: [kaniwa1, kaniwaUgc2, kaniwa7, kaniwaUgc3, kaniwaUgc4, kaniwaUgc5, kaniwaUgc6],
+    name: "Éclose Paris",
+    tagline: "Soins corps pour les peaux qui ont du grain",
+    url: "https://ecloseparis.com/",
+    photos: [eclose1, eclose2, eclose3, eclose4],
+  },
+  {
+    name: "Valthéa Paris",
+    tagline: "Soins visage, sérums, contour des yeux, anti-âge, vegan",
+    url: "https://valtheaparis.com/",
+    photos: [valthea1, valthea2, valthea3, valthea4],
   },
   {
     name: "Sevmylook",
@@ -162,7 +168,7 @@ export default function AgencePage() {
               <span>Prendre rendez-vous</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
-            <a href="https://kaniwabotanique.com/" target="_blank" rel="noopener noreferrer" className="btn-outline">
+            <a href="https://ecloseparis.com" target="_blank" rel="noopener noreferrer" className="btn-outline">
               <span>Voir notre dernier projet</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
@@ -185,7 +191,7 @@ export default function AgencePage() {
           </motion.p>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={2}
             className="mt-10 flex flex-wrap justify-center gap-4">
-            <a href="https://kaniwabotanique.com" target="_blank" rel="noopener noreferrer" className="btn-startup">
+            <a href="https://ecloseparis.com" target="_blank" rel="noopener noreferrer" className="btn-startup">
               <span>Voir notre dernier projet</span>
               <span className="arrow-circle"><ArrowRight className="w-3.5 h-3.5" /></span>
             </a>
