@@ -109,6 +109,8 @@ const MENU_BIOLYSTES = [
   { to: "/innovation", libelle: "Innovation" },
   { to: "/a-propos", libelle: "À propos" },
   { to: "/faq", libelle: "Questions fréquentes" },
+  /* /avis (21/10/2026, JP) : les avis des anciennes clientes. */
+  { to: "/avis", libelle: "Avis" },
 ];
 
 export function Header({ minimal = false, overlay = false, topBar }: HeaderProps) {
