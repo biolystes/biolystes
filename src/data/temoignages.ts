@@ -64,10 +64,10 @@ export const TEMOIGNAGES: Temoignage[] = BRUT.map((t) => ({
  *  la cliente confirmé par JP le 21/10/2026, donc true ; repasser à false pour
  *  retirer sa voix. */
 export const AVIS_AUDIO_PUBLIE = true;
-/** Signature affichée (JP, 21/10/2026 : la cliente est la fondatrice de Nitou & Be).
- *  Prénom donné par JP le 21/10/2026. Aucun lien
- *  vers son site (décision de JP, 21/10/2026). */
-export const AVIS_AUDIO_NOM = "Corinne, fondatrice de Nitou & Be";
+/** Signature affichée : le prénom seul, comme les six avis écrits (Odile,
+ *  21/10/2026 : anonymiser au maximum pour éviter les recherches des leads).
+ *  Ni nom de marque, ni lien vers son site. */
+export const AVIS_AUDIO_NOM = "Corinne";
 export const AVIS_AUDIO = {
   sources: [
     { src: "/audio/avis-cliente-biolystes.m4a", type: "audio/mp4" },
