@@ -2,6 +2,17 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import React, { useState, useRef, useEffect } from "react";
 import SafeVideo from "@/components/SafeVideo";
+import sevmylook2 from "@/assets/sevmylook-2.jpg";
+import sevmylook3 from "@/assets/sevmylook-3.jpg";
+import sevmylook4 from "@/assets/sevmylook-4.jpg";
+import sevmylook5 from "@/assets/sevmylook-5.jpg";
+import sevmylook6 from "@/assets/sevmylook-6.jpg";
+import sevmylook8 from "@/assets/sevmylook-8.jpg";
+import sevmylook9 from "@/assets/sevmylook-9.jpg";
+import sevmylook11 from "@/assets/sevmylook-11.jpg";
+import sevmylook12 from "@/assets/sevmylook-12.jpg";
+import sevmylook16 from "@/assets/sevmylook-16.jpg";
+import sevmylook17 from "@/assets/sevmylook-17.jpg";
 
 interface LinkItem {
   href: string;
@@ -101,18 +112,18 @@ const groups: LinkGroup[] = [
       {
         href: "/portfolio",
         title: "Plus de 100 marques accompagnées",
-        description: "Kaniwa Botanique, Fralène, Sevmylook…",
+        description: "Éclose Paris, Valthéa Paris, Sevmylook…",
       },
       {
-        href: "https://kaniwabotanique.com",
-        title: "Kaniwa Botanique",
-        description: "Marque bio & vegan · Soins visage, corps & rasage.",
+        href: "https://ecloseparis.com",
+        title: "Éclose Paris",
+        description: "Soins corps pour les peaux qui ont du grain · Peeling AHA, crème lissante.",
         external: true,
       },
       {
-        href: "https://fraleneparis.com",
-        title: "Fralène Paris",
-        description: "Gamme soins visage premium · Huile nettoyante & démaquillant.",
+        href: "https://valtheaparis.com",
+        title: "Valthéa Paris",
+        description: "Soins visage · Sérums, contour des yeux, anti-âge, vegan.",
         external: true,
       },
     ],
@@ -161,23 +172,23 @@ const groups: LinkGroup[] = [
 ];
 
 const aiImages = [
-  "/images/kaniwa-10.jpg",
-  "/images/kaniwa-1.jpg",
-  "/images/kaniwa-11.jpg",
-  "/images/kaniwa-2.jpg",
-  "/images/kaniwa-3.jpg",
-  "/images/kaniwa-4.jpg",
-  "/images/kaniwa-5.jpg",
-  "/images/kaniwa-6.jpg",
-  "/images/kaniwa-7.jpg",
-  "/images/kaniwa-8.jpg",
-  "/images/kaniwa-9.jpg",
+  sevmylook2,
+  sevmylook3,
+  sevmylook4,
+  sevmylook5,
+  sevmylook6,
+  sevmylook8,
+  sevmylook9,
+  sevmylook11,
+  sevmylook12,
+  sevmylook16,
+  sevmylook17,
 ];
 
 const showcaseItems = [
   { type: "video" as const, src: "/videos/showcase-1.mp4", alt: "Amarsi — Cosmétiques capillaires" },
   { type: "image" as const, src: "/images/showcase-amarsi.jpg", alt: "Amarsi — Cosmétiques capillaires" },
-  { type: "video" as const, src: "/videos/showcase-2.mp4", alt: "Kaniwa Botanique" },
+  { type: "video" as const, src: "/videos/showcase-2.mp4", alt: "Sevmylook, coffret Trio glowy skin" },
   { type: "image" as const, src: "/images/showcase-peau.jpg", alt: "Jolie Peau — Soins visage" },
   { type: "image" as const, src: "/images/showcase-235.jpg", alt: "235 — Soins homme" },
 ];
