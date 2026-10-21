@@ -44,7 +44,7 @@ Fondée par Mathieu, avec 18 ans d'expérience dans l'e-commerce et la beauté, 
 - **Aucun ingrédient controversé** : Sans parabènes, silicones, PEG, filtres UV chimiques, microplastiques, colorants artificiels.
 
 ### Marques références
-Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des marques comme Kaniwa Botanique (https://kaniwabotanique.com) et Fralène Paris (https://fraleneparis.com), ont confié la création de leur marque à Biolystes.
+Des expertes internationales comme Sev Formal (400 000 abonnés), ainsi que des marques comme Éclose Paris (https://ecloseparis.com) et Valthéa Paris (https://valtheaparis.com), ont confié la création de leur marque à Biolystes.
 
 ### Le processus de lancement en 2 étapes
 
@@ -538,7 +538,7 @@ Le seul moyen d'éviter la TVA française = vendre à des clients hors UE (USA, 
 → Biolystes ne propose PAS de formulations sur mesure. Le modèle repose exclusivement sur des formulations standards validées (marque blanche). Les labos classiques imposent 500 à 1 000 unités minimum par produit. Pour 4 produits, c'est un stock très lourd à financer avant la première vente : l'essentiel du budget part dans le stock. Sur 30 entrepreneurs suivis qui voulaient du sur-mesure, 92% n'avaient toujours pas lancé 7 mois après. Avec Biolystes, les formulations sont déjà certifiées, testées et prêtes à vendre — le client se concentre sur la vente et le développement de sa marque.
 
 **OBJECTION 3 — LA CONFIANCE : "Vous êtes basés où ?" / "Vous avez des exemples ?"**
-→ Paris 7ème, 15 collaborateurs, 18 ans d'existence comme agence (L'Occitane, La Neige). Exemples : kaniwabotanique.com, fraleneparis.com. +100 marques accompagnées. Le centre médical esthétique Reskin utilise exclusivement nos produits (20 références). Vidéos des locaux sur le site.
+→ Paris 7ème, 15 collaborateurs, 18 ans d'existence comme agence (L'Occitane, La Neige). Exemples : ecloseparis.com, valtheaparis.com. +100 marques accompagnées. Le centre médical esthétique Reskin utilise exclusivement nos produits (20 références). Vidéos des locaux sur le site.
 
 **OBJECTION 4 — LA QUALITÉ : "Comment je sais que vos produits sont bons ?"**
 → Labos européens qui travaillent avec des marques connues. Sans parabènes, silicones, PEG, filtres UV chimiques, microplastiques, colorants artificiels. 100% naturels, parfums 100% véganes. Certifiés Bio & Végan, COSMOS, ECOCERT, CPNP, ISO 22716. Le centre médical Reskin utilise exclusivement nos produits. L'acompte de lancement permet de recevoir ses produits finis avant de s'engager.
@@ -685,8 +685,8 @@ Nous construisons directement votre nouveau site e-commerce sur **WooCommerce**,
 
 ### Exemples de sites livrés
 Voici quelques exemples de boutiques que nous avons livrées pour vous donner une idée du rendu :
-- https://kaniwabotanique.com/
-- https://fraleneparis.com/
+- https://ecloseparis.com/
+- https://valtheaparis.com/
 - https://joliepeauandco.com/
 
 ### Intégration des produits existants
