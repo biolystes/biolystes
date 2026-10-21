@@ -9,6 +9,15 @@ const FEATURES: Record<PackType, string[]> = {
     "Photos IA professionnelles",
     "Support email",
   ],
+  basic: [
+    "1 ou 2 designs de produits personnalisés (2 au maximum)",
+    "Aucun produit en plus : pour plus, le Pack Standard",
+    "Boutique en ligne à votre nom",
+    "Logo et identité visuelle",
+    "Abonnement mensuel",
+    "Sans engagement",
+  ],
+  /* Anciennes offres, plus proposées (21/10/2026) : gardées pour les clientes déjà signées. */
   solo: [
     "1 design de produit personnalisé",
     "Boutique en ligne à votre nom",
@@ -24,7 +33,7 @@ const FEATURES: Record<PackType, string[]> = {
     "Sans engagement",
   ],
   standard: [
-    "Tout Solo/Duo +",
+    "Tout Basic +",
     "4 designs de produits",
     "Contenu marketing clé en main",
     "Site e-commerce + SEO",
@@ -52,8 +61,8 @@ export default function StepPack() {
       <h1 className="text-3xl font-bold mb-2 text-foreground">Votre pack</h1>
       <p className="text-muted-foreground mb-8">Choisissez la formule adaptée à votre projet.</p>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
-        {(["decouverte", "solo", "duo", "standard", "ia"] as PackType[]).map((key) => {
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        {(["decouverte", "basic", "standard", "ia"] as PackType[]).map((key) => {
           const p = PACKS[key];
           const selected = pack === key;
           return (

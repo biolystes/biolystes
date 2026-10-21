@@ -3,10 +3,10 @@
 
    Alignées le 14/10/2026 sur le contrat de biolystes.pro (articles 7 bis,
    7 ter, 7 quater, 7 quinquies) et sur le modèle de paiement validé par JP
-   (compétence tarifs-biolystes) : packs Design, Solo, Duo, Standard, IA ;
+   (compétence tarifs-biolystes) : packs Design, Basic (ex Solo et Duo), Standard, IA ;
    sélection des produits et fichiers INCI offerts avant tout paiement ;
    acompte, objet de l’acompte (texte de référence de
-   JP) ; trois temps, deux pour Solo et Design ; « Payer sur plusieurs
+   JP) ; trois temps, deux pour Design (et pour Solo, contrats antérieurs au 21/10/2026) ; « Payer sur plusieurs
    mois » (JP, 14/10/2026 soir) : acompte à la validation de la sélection, reste
    de la mise en place à la livraison du site, puis mensualité, abonnement compris ; à l'achat, abonnement payant à
    partir de la livraison du site, une fois le solde réglé ; produit en plus facturé ; logo
@@ -45,7 +45,7 @@ export default function CGVPage() {
     <PageLegale
       noir="Conditions générales"
       gris="de vente"
-      miseAJour="Dernière mise à jour : 14 octobre 2026"
+      miseAJour="Dernière mise à jour : 21 octobre 2026"
       articles={[
         {
           id: "objet",
@@ -68,8 +68,7 @@ export default function CGVPage() {
               <p>Le Prestataire propose les offres suivantes :</p>
               <Groupe titre="A. Biolystes Cosmétique">
                 <Offre nom="Pack Design" conditions="sans site e‑commerce, avec abonnement mensuel sans engagement" contenu="Tout le lancement de la marque : branding, logo (offert), design des packagings de 4 produits, coût, fabrication et envoi des produits, photos studio et UGC. Le client achète son stock et assure lui-même la logistique. L’abonnement donne accès à tout le catalogue, sans minimum de commande." />
-                <Offre nom="Pack Solo" conditions="avec abonnement mensuel sans engagement" contenu="Design d’1 produit, logo, charte, packaging et site e‑commerce." />
-                <Offre nom="Pack Duo" conditions="avec abonnement mensuel sans engagement" contenu="Design de 2 produits, logo, charte, packaging et site e‑commerce." />
+                <Offre nom="Pack Basic" conditions="avec abonnement mensuel sans engagement" contenu="Design de 1 ou 2 produits (2 au maximum, sans produit en plus ; pour plus, le Pack Standard), logo, charte, packaging et site e‑commerce." />
                 <Offre nom="Pack Standard" conditions="en une fois, avec abonnement mensuel sans engagement, ou sur plusieurs mois, abonnement compris dans le loyer mensuel" contenu="Design de 4 produits, logo, charte, packaging, site e‑commerce complet et expert dédié." />
                 <Offre nom="Pack IA" conditions="en une fois, avec abonnement PRO IA mensuel sans engagement, ou sur plusieurs mois, abonnement compris dans le loyer mensuel" contenu="Design de 8 produits, tout le Pack Standard, UGC IA, diagnostic intelligent et outils marketing." />
               </Groupe>
@@ -84,6 +83,7 @@ export default function CGVPage() {
                 <Offre nom="Marketing + CRO" conditions="abonnement mensuel sans engagement" contenu="Publicités Meta & TikTok, Media Buying, CRO, A/B testing, SEO, rapports détaillés." />
                 <Offre nom="Community Manager" conditions="abonnement mensuel sans engagement" contenu="Gestion Instagram, Facebook, TikTok, Pinterest, calendrier éditorial, création de contenu, modération." />
               </Groupe>
+              <p>Depuis le 21 octobre 2026, le Pack Basic remplace le Pack Solo, qui n’est plus proposé, et le Pack Duo, dont il reprend le prix et les conditions. Les contrats signés avant cette date sous le nom de Pack Solo ou de Pack Duo continuent de s’appliquer tels quels.</p>
               <p>Des offres promotionnelles temporaires peuvent être proposées. Leurs conditions sont précisées au client au moment de leur mise en place.</p>
             </>
           ),
@@ -112,7 +112,7 @@ export default function CGVPage() {
               <p><strong>4.3 Montant de l’acompte.</strong> Le montant de l’acompte figure dans le devis ou le contrat signé. Il est réglé à la commande, une fois la sélection des produits validée, et n’est pas remboursable.</p>
               <p><strong>4.4 Si le client ne poursuit pas.</strong> À la réception de ses produits, le client qui ne souhaite pas poursuivre ne doit rien d’autre que l’acompte déjà versé. Il conserve son logo, son branding et les designs de ses produits, qu’il peut utiliser librement, y compris avec un autre fabricant.</p>
               <p><strong>4.5 Paiement en trois temps.</strong> Si le client valide ses produits, il règle une deuxième tranche égale à 50 % du prix de l’offre, diminuée de l’acompte déjà versé. Le solde, soit les 50 % restants, est exigible à la livraison du site.</p>
-              <p><strong>4.6 Packs Solo et Design.</strong> Pour le Pack Solo et le Pack Design, le paiement se fait en deux temps : l’acompte, puis le reste du prix de l’offre en une fois, à la réception des produits validés.</p>
+              <p><strong>4.6 Pack Design.</strong> Pour le Pack Design, le paiement se fait en deux temps : l’acompte, puis le reste du prix de l’offre en une fois, à la réception des produits validés. Il en va de même, pour les contrats signés avant le 21 octobre 2026, du Pack Solo.</p>
               <p><strong>4.7 Payer sur plusieurs mois.</strong> Pour le Pack Standard et le Pack IA, le client peut choisir la location avec option d’achat (formule « Payer sur plusieurs mois »), sans engagement de durée. Comme à l’achat, la sélection des produits et leurs fichiers INCI sont offerts avant tout paiement. Une fois sa sélection validée, le client règle un acompte ; il couvre la création du logo, offerte, et du branding, le design, la fabrication et l’envoi des produits. S’il valide ses produits, le client règle le reste de la mise en place, acompte déduit, à la livraison du site. Le loyer mensuel, abonnement compris, court ensuite à compter de la livraison du site ; son montant minimum figure dans le contrat signé. Le client peut verser davantage chaque mois, ou régler le solde à tout moment. Le site lui appartient dès que le total de ses paiements atteint le prix de l’offre. S’il arrête avant, le site est désactivé, les sommes versées restent acquises et aucune autre somme n’est due ; il conserve son logo, sa charte graphique et les designs de son packaging. Cette formule n’existe pas pour le Pack Design, qui ne comprend pas de site.</p>
               <p><strong>4.8 Produit supplémentaire.</strong> Chaque produit ajouté au-delà du nombre prévu par le pack est facturé en supplément, en paiement unique, pour son design, au prix indiqué dans le devis ou le contrat signé.</p>
               <p><strong>4.9 Logo offert.</strong> La création du logo est offerte : elle n’entre pas dans le prix des offres. Le client qui fournit son propre logo ne bénéficie donc d’aucune réduction de prix.</p>

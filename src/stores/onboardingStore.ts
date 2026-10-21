@@ -36,7 +36,9 @@ export interface ProductItem {
   price?: number;
 }
 
-export type PackType = "decouverte" | "solo" | "duo" | "standard" | "ia";
+/* « basic » est le pack proposé depuis le 21/10/2026 (il remplace Solo et Duo). « solo » et « duo »
+   restent reconnus pour les clientes déjà signées, mais ne sont plus proposés dans StepPack. */
+export type PackType = "decouverte" | "basic" | "solo" | "duo" | "standard" | "ia";
 
 interface PackInfo {
   type: PackType;
@@ -48,6 +50,7 @@ interface PackInfo {
 
 export const PACKS: Record<PackType, PackInfo> = {
   decouverte: { type: "decouverte", setup_price: 147, monthly_price: 0, monthly_name: "Aucun", label: "Découverte" },
+  basic: { type: "basic", setup_price: 999, monthly_price: 79, monthly_name: "Basic", label: "Basic" },
   solo: { type: "solo", setup_price: 499, monthly_price: 49, monthly_name: "Solo", label: "Solo" },
   duo: { type: "duo", setup_price: 999, monthly_price: 79, monthly_name: "Duo", label: "Duo" },
   standard: { type: "standard", setup_price: 1499, monthly_price: 99, monthly_name: "Standard", label: "Standard" },

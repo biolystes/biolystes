@@ -154,8 +154,7 @@ describe("Garde-fou : aucun texte périmé côté clientes", () => {
 /** Référence : compétence tarifs-biolystes, « Tous les packs », et décisions de JP du 14/10/2026 (soir). TTC. */
 const REF_ACHAT = {
   design: { prix: 599, acompte: 199, aReception: 400, aLivraisonSite: null, abonnement: 39 },
-  solo: { prix: 499, acompte: 199, aReception: 300, aLivraisonSite: null, abonnement: 49 },
-  duo: { prix: 999, acompte: 199, aReception: 301, aLivraisonSite: 499, abonnement: 79 },
+  basic: { prix: 999, acompte: 199, aReception: 301, aLivraisonSite: 499, abonnement: 79 },
   standard: { prix: 1499, acompte: 199, aReception: 551, aLivraisonSite: 749, abonnement: 99 },
   ia: { prix: 2999, acompte: 299, aReception: 1201, aLivraisonSite: 1499, abonnement: 99 },
 };
@@ -192,6 +191,7 @@ describe("Garde-fou : les montants de src/data/offres.ts sont ceux de la référ
 
 /* jsdom n'a pas ResizeObserver (aperçu du site Éclose). */
 globalThis.ResizeObserver ??= class { observe() {} unobserve() {} disconnect() {} } as unknown as typeof ResizeObserver;
+globalThis.IntersectionObserver ??= class { observe() {} unobserve() {} disconnect() {} takeRecords() { return []; } } as unknown as typeof IntersectionObserver;
 
 /* Montants tels que la page les écrit (« 1 499 € »), espaces insécables ramenées à des espaces. */
 const n = (t: string | null | undefined) => (t ?? "").replace(/[  ]/g, " ").replace(/\s+/g, " ");
@@ -215,6 +215,20 @@ describe("Garde-fou : la page /tarifs", () => {
     expect(t).not.toMatch(/abonnement (inclus|compris)/i);
     const f = etapes();
     for (const m of [199, 551, 749]) expect(f.some((e) => e.includes(eur(m) + " TTC")), `frise sans ${m} €`).toBe(true);
+  });
+
+  it("Pack Basic (21/10/2026) : remplace Solo et Duo, 999 € en trois temps, 79 € par mois", () => {
+    const texte = afficher();
+    const packs = within(screen.getByRole("tablist", { name: "Votre pack" })).getAllByRole("tab").map((t) => n(t.textContent));
+    expect(packs).toEqual(["Basic", "Standard", "IA"]);
+    fireEvent.click(screen.getByRole("tab", { name: "Basic" }));
+    const f = etapes();
+    for (const m of [199, 301, 499]) expect(f.some((e) => e.includes(eur(m) + " TTC")), `frise sans ${m} €`).toBe(true);
+    const t = texte();
+    expect(t).toContain(eur(999) + " TTC");
+    expect(t).toContain(eur(79) + " TTC");
+    expect(t).toMatch(/1 ou 2 designs de produits personnalisés \(2 au maximum\)/);
+    expect(t).not.toMatch(/Pack Solo|Pack Duo/);
   });
 
   for (const [pack, acompte, total] of [["Standard", 199, 1499], ["IA", 299, 2999]] as const) {

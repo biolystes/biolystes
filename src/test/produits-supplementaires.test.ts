@@ -5,10 +5,11 @@ describe("Produits supplémentaires des packs", () => {
   it("Design : un produit en plus est autorisé", () => {
     expect(peutAjouterProduit("design")).toBe(true);
   });
-  it("Solo : passer au pack supérieur, aucun produit supplémentaire", () => {
-    expect(peutAjouterProduit("solo")).toBe(false);
+  it("Basic : passer au pack supérieur, aucun produit supplémentaire", () => {
+    expect(peutAjouterProduit("basic")).toBe(false);
   });
-  it("Duo : passer au pack supérieur, aucun produit supplémentaire", () => {
+  it("Solo et Duo (anciennes offres, clientes déjà signées) : toujours aucun produit supplémentaire", () => {
+    expect(peutAjouterProduit("solo")).toBe(false);
     expect(peutAjouterProduit("duo")).toBe(false);
   });
   it("Standard autorise les produits supplémentaires", () => {

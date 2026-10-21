@@ -10,4 +10,4 @@
 - [x] Séparer visuellement « Sans e-commerce » (Design) de « Avec e-commerce » (Solo, Duo, Standard, IA) dans le tableau comparatif ; vérifier à 1440 et 375 px.
 - [x] Resserrer les colonnes des packs Solo, Duo, Standard et IA et remonter les libellés « Sans / Avec e-commerce » au-dessus des noms de packs ; vérifier à 1440 et 375 px.
 - [x] Passer les libellés « Sans / Avec e-commerce » à 7 px ; vérifier à 1440 et 375 px.
-- [x] Rendre « Produit en plus » explicite : Design y a droit aussi (mêmes 39 €), et la mention « paiement unique » doit être visible ; vérifier à 1440 et 375 px et par un test.
+- [x] Rendre « Produit en plus » explicite : Design y a droit aussi (mêmes 39 €), et la mention « paiement unique » doit être visible ; vérifier à 1440 et 375 px et par un test.- [x] 21/10/2026 : le Pack Basic (1 ou 2 produits, sans produit en plus, prix et échéancier de l’ancien Duo) remplace les Packs Solo et Duo dans /tarifs (tableau à quatre packs), l’onboarding, les CGV et l’assistant de chat ; vérifier à 1440, 430 et 375 px.
