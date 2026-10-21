@@ -4,38 +4,6 @@ import AIChat from "@/components/AIChat";
 import { useAuth } from "@/contexts/AuthContext";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { motion, AnimatePresence } from "framer-motion";
-import kaniwa1 from "@/assets/kaniwa-1.jpg";
-import kaniwa2 from "@/assets/kaniwa-2.jpg";
-import kaniwa3 from "@/assets/kaniwa-3.jpg";
-import kaniwa4 from "@/assets/kaniwa-4.jpg";
-import kaniwa5 from "@/assets/kaniwa-5.jpg";
-import kaniwa6 from "@/assets/kaniwa-6.jpg";
-import kaniwa7 from "@/assets/kaniwa-7.jpg";
-import kaniwa8 from "@/assets/kaniwa-8.jpg";
-import kaniwa9 from "@/assets/kaniwa-9.jpg";
-import kaniwa10 from "@/assets/kaniwa-10.jpg";
-import kaniwa11 from "@/assets/kaniwa-11.jpg";
-import kaniwa12 from "@/assets/kaniwa-12.jpg";
-
-import kaniwa14 from "@/assets/kaniwa-14.jpg";
-
-// ─── Fralène imports ──────────────────────────────────────
-import fralene1 from "@/assets/fralene-1.jpg";
-import fralene2 from "@/assets/fralene-2.jpg";
-import fralene3 from "@/assets/fralene-3.jpg";
-import fralene4 from "@/assets/fralene-4.jpg";
-import fralene5 from "@/assets/fralene-5.jpg";
-import fralene6 from "@/assets/fralene-6.jpg";
-import fralene7 from "@/assets/fralene-7.jpg";
-import fralene8 from "@/assets/fralene-8.jpg";
-import fralene9 from "@/assets/fralene-9.jpg";
-import fralene10 from "@/assets/fralene-10.jpg";
-import fralene11 from "@/assets/fralene-11.jpg";
-import fralene12 from "@/assets/fralene-12.jpg";
-import fralene13 from "@/assets/fralene-13.jpg";
-import fralene14 from "@/assets/fralene-14.jpg";
-import fralene15 from "@/assets/fralene-15.jpg";
-
 // ─── Sevmylook imports ────────────────────────────────────
 import sevmylook1 from "@/assets/sevmylook-1.jpg";
 import sevmylook2 from "@/assets/sevmylook-2.jpg";
@@ -646,24 +614,6 @@ export default function DashboardPage() {
 // ─── Client data ──────────────────────────────────────────
 const CLIENTS = [
   {
-    slug: "kaniwa",
-    name: "Kaniwa Botanique",
-    url: "https://kaniwabotanique.com/",
-    tagline: "Marque bio & vegan lancée en 12 jours · Gamme soins visage, corps & rasage",
-    tags: ["Bio & Vegan", "France", "12 jours"],
-    accentColor: "#1d1d1f",
-    photos: [kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7, kaniwa8, kaniwa9, kaniwa10, kaniwa11, kaniwa12, kaniwa14],
-  },
-  {
-    slug: "fralene",
-    name: "Fralène",
-    url: "https://fraleneparis.com/",
-    tagline: "Gamme soins visage premium · Huile nettoyante lactée & démaquillant biphasique",
-    tags: ["Soins visage", "Sans parfum", "Premium"],
-    accentColor: "#6b21a8",
-    photos: [fralene1, fralene2, fralene3, fralene4, fralene5, fralene6, fralene7, fralene8, fralene9, fralene10, fralene11, fralene12, fralene13, fralene14, fralene15],
-  },
-  {
     slug: "sevmylook",
     name: "Sevmylook",
     url: "https://sevmylook.com/",
@@ -810,6 +760,3 @@ function ClientShowcase() {
   );
 }
 
-function KaniwaSection() {
-  return null;
-}
