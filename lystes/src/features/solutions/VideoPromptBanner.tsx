@@ -93,7 +93,7 @@ export function VideoPromptBanner() {
             }}
           >
             <img
-              src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/D9lRjnXgLU_lusvpvo8y1VBk1VImkcFm-scaled.jpg?fit=1930%2C2560&ssl=1"
+              src="/images/clients/valthea-2.jpg"
               alt=""
               style={{ height: "100%", width: "100%", objectFit: "cover", display: "block" }}
             />

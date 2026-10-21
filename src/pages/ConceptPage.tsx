@@ -8,23 +8,36 @@ import CommentCaMarche from "@/components/CommentCaMarche";
 import SafeVideo from "@/components/SafeVideo";
 
 // Brand images
-import kaniwa1 from "@/assets/kaniwa-1.jpg";
-import kaniwa2 from "@/assets/kaniwa-2.jpg";
-import kaniwa3 from "@/assets/kaniwa-3.jpg";
-import kaniwa5 from "@/assets/kaniwa-5.jpg";
-import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
-import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
-import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
-import kaniwaUgc5 from "@/assets/kaniwa-ugc-5.png";
-import kaniwaUgc6 from "@/assets/kaniwa-ugc-6.jpg";
-import fralene1 from "@/assets/fralene-1.jpg";
-import fralene2 from "@/assets/fralene-2.jpg";
-import fralene3 from "@/assets/fralene-3.jpg";
-import fralene5 from "@/assets/fralene-5.jpg";
 import sevmylook1 from "@/assets/sevmylook-1.jpg";
 import sevmylook3 from "@/assets/sevmylook-3.jpg";
 import sevmylook5 from "@/assets/sevmylook-5.jpg";
 import sevmylook7 from "@/assets/sevmylook-7.jpg";
+import eclose1 from "@/assets/eclose-1.jpg";
+import eclose2 from "@/assets/eclose-2.jpg";
+import eclose3 from "@/assets/eclose-3.jpg";
+import eclose4 from "@/assets/eclose-4.jpg";
+import valthea1 from "@/assets/valthea-1.jpg";
+import valthea2 from "@/assets/valthea-2.jpg";
+import valthea3 from "@/assets/valthea-3.jpg";
+import valthea4 from "@/assets/valthea-4.jpg";
+import sevmylook2 from "@/assets/sevmylook-2.jpg";
+import sevmylook4 from "@/assets/sevmylook-4.jpg";
+import sevmylook6 from "@/assets/sevmylook-6.jpg";
+import sevmylook8 from "@/assets/sevmylook-8.jpg";
+import sevmylook9 from "@/assets/sevmylook-9.jpg";
+import sevmylook10 from "@/assets/sevmylook-10.jpg";
+import sevmylook11 from "@/assets/sevmylook-11.jpg";
+import sevmylook12 from "@/assets/sevmylook-12.jpg";
+import sevmylook14 from "@/assets/sevmylook-14.jpg";
+import sevmylook16 from "@/assets/sevmylook-16.jpg";
+import sevmylook17 from "@/assets/sevmylook-17.jpg";
+import sevmylook18 from "@/assets/sevmylook-18.jpg";
+import sevmylook19 from "@/assets/sevmylook-19.jpg";
+import sevmylook20 from "@/assets/sevmylook-20.jpg";
+import pmyrris3 from "@/assets/pmyrris-3.jpg";
+import pmyrris5 from "@/assets/pmyrris-5.jpg";
+import pmyrris7 from "@/assets/pmyrris-7.jpg";
+import pmyrris8 from "@/assets/pmyrris-8.jpg";
 import pmyrris1 from "@/assets/pmyrris-1.jpg";
 import pmyrris2 from "@/assets/pmyrris-2.jpg";
 import pmyrris4 from "@/assets/pmyrris-4.jpg";
@@ -57,8 +70,6 @@ const CONTACT_URL = "https://biolystes.pro/rdv";
 const WC_BASE = "https://biolystes.pro/wp-json/wc/v3";
 
 const brands = [
-  { name: "Kaniwa Botanique", url: "https://kaniwabotanique.com" },
-  { name: "Fralène Paris", url: "https://fraleneparis.com" },
   { name: "Sev My Look", url: "https://sevmylook.com" },
   { name: "P'Myrris Beauty", url: "https://pmyrrisbeauty.com" },
 ];
@@ -329,7 +340,7 @@ function AnimatedChat() {
         {isShown("msg-3b") && <motion.div {...pop} className="flex flex-col gap-1 w-full items-end shrink-0"><div className="bg-foreground text-primary-foreground text-[13px] py-3 px-4 rounded-2xl rounded-tr-sm w-fit max-w-[85%] leading-relaxed">C'est impressionnant ! Avez-vous des avis de clientes ?</div><span className="text-[9px] text-muted-foreground mr-1 font-medium">09:43</span></motion.div>}
         {isShown("msg-3c") && <motion.div {...pop} className="flex flex-col gap-2 w-full shrink-0"><div className="bg-background border border-border shadow-sm text-foreground text-[13px] p-3 rounded-2xl rounded-tl-sm w-[92%] leading-relaxed">Bien sûr ! Voici quelques retours vérifiés :</div><div className="relative bg-background border border-border rounded-2xl p-4 shadow-sm w-[92%] flex flex-col gap-3"><div className="flex gap-0.5 mt-1">{[...Array(5)].map((_, i) => <div key={i} className="bg-[#00B67A] text-white flex items-center justify-center w-[18px] h-[18px] rounded-[3px]"><Star className="w-[11px] h-[11px] fill-current" /></div>)}</div><p className="text-[13px] text-foreground italic leading-relaxed font-medium">"Ma peau paraît nettement plus jeune et lumineuse. Confort, éclat et peau revitalisée."</p><p className="text-[12px] text-muted-foreground">Alice - via Trustpilot</p><div className="flex items-center justify-end gap-3 mt-1"><div className="w-7 h-7 border border-border rounded-full flex items-center justify-center text-muted-foreground opacity-50 bg-muted"><ChevronLeft className="w-3 h-3" /></div><span className="text-[11px] text-muted-foreground font-medium">1 / 2</span><div className="w-7 h-7 border border-border rounded-full flex items-center justify-center text-foreground bg-background shadow-sm"><ChevronRight className="w-3 h-3" /></div></div></div><span className="text-[9px] text-muted-foreground ml-1 font-medium">09:43</span></motion.div>}
         {isShown("msg-4") && <motion.div {...pop} className="flex flex-col gap-1 w-full items-end shrink-0"><div className="bg-foreground text-primary-foreground text-[13px] py-3 px-4 rounded-2xl rounded-tr-sm w-fit max-w-[85%] leading-relaxed">Top ! D'autres produits pour ma routine ?</div><span className="text-[9px] text-muted-foreground mr-1 font-medium">09:44</span></motion.div>}
-        {isShown("msg-5") && <motion.div {...pop} className="flex flex-col gap-1 w-full shrink-0"><div className="flex flex-col gap-2 w-[95%] overflow-hidden"><div className="bg-background border border-border shadow-sm text-foreground text-[13px] p-3 rounded-2xl rounded-tl-sm w-fit">Voici ce qui pourrait compléter votre routine :</div><div className="flex gap-2 overflow-x-auto pb-2 pl-1" style={{ scrollbarWidth: "none" }}>{[{ img: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/O236SDw9GkuAtxkcoHnMrhJ_9lJP7tPq-scaled.jpg?w=1930&ssl=1", name: "Sérum vitamine C", price: "35,00 €" },{ img: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2026/01/FRONT_high_res-12-scaled.jpg?w=1930&ssl=1", name: "Sérum anti-âge", price: "34,00 €" },{ img: "", name: "Gel Hydratation", price: "29,00 €" }].map((p, i) => <div key={i} className="min-w-[90px] bg-background border border-border rounded-xl p-2 flex flex-col gap-1 items-center text-center relative shadow-sm shrink-0">{p.img ? <img src={p.img} alt={p.name} className="w-12 h-14 rounded object-cover shadow-sm mb-1" /> : <div className="w-12 h-14 bg-[#c8e6c9] rounded mb-1" />}<p className="text-[9px] font-bold leading-tight h-6">{p.name}</p><p className="text-[9px] text-muted-foreground font-medium">{p.price}</p><button className="absolute -bottom-2 right-2 bg-foreground text-primary-foreground w-5 h-5 rounded-full flex items-center justify-center text-[12px] shadow-md">+</button></div>)}</div></div></motion.div>}
+        {isShown("msg-5") && <motion.div {...pop} className="flex flex-col gap-1 w-full shrink-0"><div className="flex flex-col gap-2 w-[95%] overflow-hidden"><div className="bg-background border border-border shadow-sm text-foreground text-[13px] p-3 rounded-2xl rounded-tl-sm w-fit">Voici ce qui pourrait compléter votre routine :</div><div className="flex gap-2 overflow-x-auto pb-2 pl-1" style={{ scrollbarWidth: "none" }}>{[{ img: sevmylook5, name: "Sérum vitamine C", price: "35,00 €" },{ img: sevmylook11, name: "Sérum anti-âge", price: "34,00 €" },{ img: "", name: "Gel Hydratation", price: "29,00 €" }].map((p, i) => <div key={i} className="min-w-[90px] bg-background border border-border rounded-xl p-2 flex flex-col gap-1 items-center text-center relative shadow-sm shrink-0">{p.img ? <img src={p.img} alt={p.name} className="w-12 h-14 rounded object-cover shadow-sm mb-1" /> : <div className="w-12 h-14 bg-[#c8e6c9] rounded mb-1" />}<p className="text-[9px] font-bold leading-tight h-6">{p.name}</p><p className="text-[9px] text-muted-foreground font-medium">{p.price}</p><button className="absolute -bottom-2 right-2 bg-foreground text-primary-foreground w-5 h-5 rounded-full flex items-center justify-center text-[12px] shadow-md">+</button></div>)}</div></div></motion.div>}
         {isShown("msg-6") && <motion.div {...pop} className="flex flex-col gap-1 w-full items-end shrink-0 mt-2"><div className="bg-foreground text-primary-foreground text-[12px] py-2.5 px-3.5 rounded-2xl rounded-tr-sm w-fit">Merci :)</div></motion.div>}
         {isShown("msg-7") && <motion.div {...pop} className="flex flex-col gap-1 w-full shrink-0"><div className="bg-background border border-border shadow-sm text-foreground text-[12px] p-3 rounded-2xl rounded-tl-sm leading-relaxed w-[92%]">De rien ! Crème ajoutée au panier. N'hésitez pas pour d'autres questions.</div></motion.div>}
         {showTyping && <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex flex-col gap-1 w-full shrink-0"><div className="bg-background border border-border shadow-sm py-3 px-3.5 rounded-2xl rounded-tl-sm w-fit flex gap-1.5 items-center h-[34px]"><div className="w-1.5 h-1.5 bg-muted-foreground/60 rounded-full animate-pulse" style={{ animationDuration: "1.4s", animationDelay: "-0.32s" }} /><div className="w-1.5 h-1.5 bg-muted-foreground/60 rounded-full animate-pulse" style={{ animationDuration: "1.4s", animationDelay: "-0.16s" }} /><div className="w-1.5 h-1.5 bg-muted-foreground/60 rounded-full animate-pulse" style={{ animationDuration: "1.4s" }} /></div></motion.div>}
@@ -459,7 +470,7 @@ export default function ConceptPage() {
                 Zéro stock, zéro risque. Votre client commande, notre réseau de laboratoires français et européens d'excellence fabrique le produit à la demande, et nous l'expédions directement chez lui, sous votre nom. Aucun minimum de commande.
               </p>
               <p>
-                Tous nos produits sont certifiés ECOCERT, COSMOS, et conformes aux normes européennes et américaines. C'est ce niveau d'exigence qui a convaincu des expertes internationales comme Sev Formal et ses 400 000 abonnés, ainsi que des marques comme Kaniwa Botanique et Fralène Paris, de nous confier la création de leur marque.
+                Tous nos produits sont certifiés ECOCERT, COSMOS, et conformes aux normes européennes et américaines. C'est ce niveau d'exigence qui a convaincu des expertes internationales comme Sev Formal et ses 400 000 abonnés, ainsi que des marques comme Éclose Paris et Valthéa Paris, de nous confier la création de leur marque.
               </p>
             </motion.div>
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}
@@ -509,7 +520,7 @@ export default function ConceptPage() {
           className="flex gap-3 px-3"
           style={{ overflowX: "auto", scrollbarWidth: "none" }}
         >
-          {[kaniwa1, fralene1, sevmylook1, pmyrris1, kaniwa3, fralene3, sevmylook3, pmyrris4].map((src, i) => (
+          {[sevmylook2, pmyrris3, sevmylook4, pmyrris5, sevmylook6, pmyrris7, sevmylook8, pmyrris8].map((src, i) => (
             <div key={i} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden">
               <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
             </div>
@@ -601,7 +612,7 @@ export default function ConceptPage() {
                       <Menu className="w-5 h-5 text-foreground" />
                       <Search className="w-5 h-5 text-foreground" />
                     </div>
-                    <div className="font-serif font-bold text-2xl tracking-wide text-foreground">Kaniwa</div>
+                    <div className="font-serif font-bold text-2xl tracking-wide text-foreground whitespace-nowrap">Ma marque</div>
                     <div className="flex items-center gap-3">
                       <User className="w-5 h-5 text-foreground" />
                       <div className="relative">
@@ -613,7 +624,7 @@ export default function ConceptPage() {
                   {/* Product image area */}
                   <div className="w-full h-64 relative pt-4 overflow-hidden" style={{ background: '#f5f5f5' }}>
                     <div className="flex justify-center items-start h-full">
-                      <img src="https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/veuDbzM0ysQo5wxsfo1yvp1BnqZbx7PW-scaled.jpg?w=1930&ssl=1" alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl shadow-sm border border-border relative z-10" />
+                      <img src={sevmylook5} alt="Produit" className="w-[140px] h-[200px] object-cover rounded-2xl shadow-sm border border-border relative z-10" />
                     </div>
                     <div className="absolute bottom-4 w-full flex justify-center gap-2 z-20">
                       <div className="w-1.5 h-1.5 rounded-full bg-foreground" />
@@ -682,7 +693,7 @@ export default function ConceptPage() {
                         <Menu className="w-5 h-5 text-foreground" />
                         <Search className="w-5 h-5 text-foreground" />
                       </div>
-                      <div className="font-serif font-bold text-2xl tracking-wide text-foreground">Kaniwa</div>
+                      <div className="font-serif font-bold text-2xl tracking-wide text-foreground whitespace-nowrap">Ma marque</div>
                       <div className="flex items-center gap-3">
                         <User className="w-5 h-5 text-foreground" />
                         <div className="relative">
@@ -699,14 +710,14 @@ export default function ConceptPage() {
                     <div className="w-full relative mt-2 shrink-0">
                       <div className="flex overflow-x-auto gap-4 px-5 pb-6 pt-2" style={{ scrollbarWidth: "none" }}>
                         {[
-                          "https://lystes.ai/images/clients/kaniwa-6.jpg",
-                          kaniwaUgc2,
-                          "https://lystes.ai/images/clients/kaniwa-8.jpg",
-                          kaniwaUgc4,
-                          "https://lystes.ai/images/clients/kaniwa-7.jpg",
-                          "https://lystes.ai/images/clients/kaniwa-ugc-3.jpg",
-                          "https://lystes.ai/images/clients/kaniwa-4.jpg",
-                          "https://lystes.ai/images/clients/kaniwa-5.jpg",
+                          sevmylook4,
+                          sevmylook16,
+                          sevmylook9,
+                          sevmylook3,
+                          sevmylook8,
+                          sevmylook2,
+                          sevmylook17,
+                          sevmylook12,
                         ].map((src, i) => (
                           <div key={i} className="snap-start shrink-0 relative flex flex-col items-center">
                             <div className="absolute -bottom-1.5 w-[85%] h-4 bg-foreground/15 blur-md rounded-[100%] z-0" />
@@ -747,11 +758,11 @@ export default function ConceptPage() {
                       <div className="overflow-x-auto pb-6 -mx-2 px-2 scrollbar-hide">
                         <div className="flex gap-2 w-max">
                           {[
-                            kaniwaUgc2,
-                            kaniwaUgc3,
-                            kaniwaUgc4,
-                            kaniwaUgc5,
-                            kaniwaUgc6,
+                            sevmylook18,
+                            sevmylook19,
+                            sevmylook20,
+                            sevmylook10,
+                            sevmylook14,
                           ].map((src, i) => (
                             <div key={i} className="w-20 h-20 rounded-xl overflow-hidden shrink-0">
                               <img src={src} alt="" className="w-full h-full object-cover" />
@@ -844,8 +855,8 @@ export default function ConceptPage() {
           <SectionLabel label="Portfolio" title="Plus de 100 marques accompagnées." />
           <div className="mt-16 space-y-20">
             {[
-              { name: "Kaniwa Botanique", tagline: "Marque bio & vegan, lancée en 12 jours", url: "https://kaniwabotanique.com", images: [kaniwa1, kaniwa2, kaniwa3, kaniwa5] },
-              { name: "Fralène Paris", tagline: "Gamme soins visage premium", url: "https://fraleneparis.com", images: [fralene1, fralene2, fralene3, fralene5] },
+              { name: "Éclose Paris", tagline: "Soins corps pour les peaux qui ont du grain", url: "https://ecloseparis.com", images: [eclose1, eclose2, eclose3, eclose4] },
+              { name: "Valthéa Paris", tagline: "Soins visage, sérums, contour des yeux, anti-âge, vegan", url: "https://valtheaparis.com", images: [valthea1, valthea2, valthea3, valthea4] },
               { name: "Sev My Look", tagline: "Gamme solaire & soins visage, 400K abonnés", url: "https://sevmylook.com", images: [sevmylook1, sevmylook3, sevmylook5, sevmylook7] },
               { name: "P'Myrris Beauty", tagline: "Soins capillaires cheveux bouclés", url: "https://pmyrrisbeauty.fr", images: [pmyrris1, pmyrris2, pmyrris4, pmyrris6] },
             ].map((brand, bi) => (

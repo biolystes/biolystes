@@ -18,25 +18,20 @@ import sevmylook6 from "@/assets/sevmylook-6.jpg";
 import sevmylook7 from "@/assets/sevmylook-7.jpg";
 import sevmylook8 from "@/assets/sevmylook-8.jpg";
 import sevmylook9 from "@/assets/sevmylook-9.jpg";
-import kaniwa1 from "@/assets/kaniwa-1.jpg";
-import kaniwa2 from "@/assets/kaniwa-2.jpg";
-import kaniwa3 from "@/assets/kaniwa-3.jpg";
-import kaniwa4 from "@/assets/kaniwa-4.jpg";
-import kaniwa5 from "@/assets/kaniwa-5.jpg";
-import kaniwa6 from "@/assets/kaniwa-6.jpg";
-import kaniwa7 from "@/assets/kaniwa-7.jpg";
-import kaniwa8 from "@/assets/kaniwa-8.jpg";
-import fralene1 from "@/assets/fralene-1.jpg";
-import fralene2 from "@/assets/fralene-2.jpg";
-import fralene3 from "@/assets/fralene-3.jpg";
-import fralene4 from "@/assets/fralene-4.jpg";
-import fralene5 from "@/assets/fralene-5.jpg";
-import fralene6 from "@/assets/fralene-6.jpg";
-import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
-import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
-import kaniwaUgc4 from "@/assets/kaniwa-ugc-4.jpg";
-import kaniwaUgc5 from "@/assets/kaniwa-ugc-5.png";
-import kaniwaUgc6 from "@/assets/kaniwa-ugc-6.jpg";
+import pmyrris1 from "@/assets/pmyrris-1.jpg";
+import pmyrris2 from "@/assets/pmyrris-2.jpg";
+import pmyrris3 from "@/assets/pmyrris-3.jpg";
+import pmyrris4 from "@/assets/pmyrris-4.jpg";
+import pmyrris5 from "@/assets/pmyrris-5.jpg";
+import pmyrris7 from "@/assets/pmyrris-7.jpg";
+import pmyrris8 from "@/assets/pmyrris-8.jpg";
+import pmyrris9 from "@/assets/pmyrris-9.jpg";
+import sevmylook10 from "@/assets/sevmylook-10.jpg";
+import sevmylook11 from "@/assets/sevmylook-11.jpg";
+import sevmylook12 from "@/assets/sevmylook-12.jpg";
+import sevmylook13 from "@/assets/sevmylook-13.jpg";
+import sevmylook14 from "@/assets/sevmylook-14.jpg";
+import sevmylook15 from "@/assets/sevmylook-15.jpg";
 import pmyrrisUgc1 from "@/assets/pmyrris-ugc-1.webp";
 import pmyrrisUgc2 from "@/assets/pmyrris-ugc-2.jpg";
 import pmyrrisUgc3 from "@/assets/pmyrris-ugc-3.jpg";
@@ -52,9 +47,8 @@ const fadeUp = {
 };
 
 const row1 = [sevmylook4, sevmylook1, sevmylook2, sevmylook7, sevmylook3, sevmylook9, sevmylook5, sevmylook8, sevmylook6];
-const row2 = [kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7, kaniwa8];
-const row3 = [fralene1, fralene2, fralene3, fralene4, fralene5, fralene6];
-const ugcRow1 = [kaniwaUgc2, kaniwaUgc3, kaniwaUgc4, kaniwaUgc5, kaniwaUgc6];
+const row2 = [pmyrris1, pmyrris2, pmyrris3, pmyrris4, pmyrris5, pmyrris7, pmyrris8, pmyrris9];
+const row3 = [sevmylook10, sevmylook11, sevmylook12, sevmylook13, sevmylook14, sevmylook15];
 const ugcRow2 = [pmyrrisUgc1, pmyrrisUgc2, pmyrrisUgc3, pmyrrisUgc4, pmyrrisUgc5];
 
 function ScrollingRow({ images, speed = 30, reverse = false }: { images: string[]; speed?: number; reverse?: boolean }) {
@@ -104,8 +98,7 @@ function PhotoCarousel() {
 function UgcCarousel() {
   return (
     <div className="space-y-3">
-      <ScrollingRow images={ugcRow1} speed={25} />
-      <ScrollingRow images={ugcRow2} speed={20} reverse />
+      <ScrollingRow images={ugcRow2} speed={25} />
     </div>
   );
 }

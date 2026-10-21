@@ -11,11 +11,11 @@ import { ArrowRight, Brain, Camera, Clock, Headphones, Megaphone, MessageCircle,
 import SafeVideo from "@lystes/components/bio/SafeVideo";
 import { Bande, BoutonRdv, Entete, Texte, TitreCarte } from "./pied/elements";
 
-import kaniwa1 from "@/assets/kaniwa-1.jpg";
-import fralene1 from "@/assets/fralene-1.jpg";
+import eclose2 from "@/assets/eclose-2.jpg";
+import valthea1 from "@/assets/valthea-1.jpg";
 import pmyrris1 from "@/assets/pmyrris-1.jpg";
-import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
-import kaniwaUgc3 from "@/assets/kaniwa-ugc-3.jpg";
+import pmyrrisUgc3 from "@/assets/pmyrris-ugc-3.jpg";
+import pmyrrisUgc4 from "@/assets/pmyrris-ugc-4.jpg";
 import insta1 from "@/assets/insta-1.jpg";
 import insta2 from "@/assets/insta-2.jpg";
 import insta3 from "@/assets/insta-3.jpg";
@@ -40,7 +40,7 @@ const OBSTACLES: {
     probleme: "Faire appel à un photographe professionnel pour chaque produit représente un budget considérable. Beaucoup de créateurs se retrouvent avec des visuels médiocres faits au smartphone, ce qui tue la crédibilité de leur marque face à des concurrents qui investissent massivement dans leur image.",
     offres: "Pack Agence & Pack IA",
     reponse: "Nos offres intègrent la photographie IA hyperréaliste et le contenu UGC IA, vous offrant des visuels de qualité studio sans le coût d’un photographe.",
-    media: [{ type: "image", src: kaniwa1 }, { type: "image", src: fralene1 }, { type: "image", src: pmyrris1 }],
+    media: [{ type: "image", src: eclose2 }, { type: "image", src: valthea1 }, { type: "image", src: pmyrris1 }],
   },
   {
     icone: Clock,
@@ -64,7 +64,7 @@ const OBSTACLES: {
     probleme: "Les clients posent des questions techniques sur les produits : quel soin pour ma peau, quelle routine adopter, quels ingrédients éviter. Sans expertise dermocosmétique ou sans temps pour répondre, les créateurs perdent des ventes et de la crédibilité.",
     offres: "Pack IA & Biolystes AI",
     reponse: "Notre technologie IA déploie des agents conversationnels sur chaque fiche produit, capables de conseiller les clients 24h/24 dans plus de 100 langues, avec une connaissance approfondie de vos produits.",
-    media: [{ type: "image", src: kaniwaUgc3 }],
+    media: [{ type: "image", src: pmyrrisUgc4 }],
   },
   {
     icone: Megaphone,
@@ -102,8 +102,8 @@ const OFFRES = [
 ];
 
 const HAUT: Media[] = [
-  { type: "video", src: "/videos/contenu-ugc.mp4" },
-  { type: "image", src: kaniwaUgc2 },
+  { type: "video", src: "/videos/trustpilot-ugc.mp4" },
+  { type: "image", src: pmyrrisUgc3 },
   { type: "video", src: "/videos/diagnostic-peau.mov" },
   { type: "image", src: insta4 },
 ];

@@ -11,21 +11,22 @@ import sevmylook7 from "@/assets/sevmylook-7.jpg";
 import sevmylook8 from "@/assets/sevmylook-8.jpg";
 import sevmylook9 from "@/assets/sevmylook-9.jpg";
 
-import kaniwa1 from "@/assets/kaniwa-1.jpg";
-import kaniwa2 from "@/assets/kaniwa-2.jpg";
-import kaniwa3 from "@/assets/kaniwa-3.jpg";
-import kaniwa4 from "@/assets/kaniwa-4.jpg";
-import kaniwa5 from "@/assets/kaniwa-5.jpg";
-import kaniwa6 from "@/assets/kaniwa-6.jpg";
-import kaniwa7 from "@/assets/kaniwa-7.jpg";
-import kaniwa8 from "@/assets/kaniwa-8.jpg";
-
-import fralene1 from "@/assets/fralene-1.jpg";
-import fralene2 from "@/assets/fralene-2.jpg";
-import fralene3 from "@/assets/fralene-3.jpg";
-import fralene4 from "@/assets/fralene-4.jpg";
-import fralene5 from "@/assets/fralene-5.jpg";
-import fralene6 from "@/assets/fralene-6.jpg";
+import valthea1 from "@/assets/valthea-1.jpg";
+import valthea2 from "@/assets/valthea-2.jpg";
+import valthea3 from "@/assets/valthea-3.jpg";
+import valthea4 from "@/assets/valthea-4.jpg";
+import valthea5 from "@/assets/valthea-5.jpg";
+import valthea6 from "@/assets/valthea-6.jpg";
+import valthea7 from "@/assets/valthea-7.jpg";
+import valthea8 from "@/assets/valthea-8.jpg";
+import eclose1 from "@/assets/eclose-1.jpg";
+import eclose2 from "@/assets/eclose-2.jpg";
+import eclose3 from "@/assets/eclose-3.jpg";
+import eclose4 from "@/assets/eclose-4.jpg";
+import eclose5 from "@/assets/eclose-5.jpg";
+import jhouny1 from "@/assets/jhouny-1.jpg";
+import jhouny2 from "@/assets/jhouny-2.jpg";
+import jhouny3 from "@/assets/jhouny-3.jpg";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -36,8 +37,8 @@ const fadeUp = {
 };
 
 const row1 = [sevmylook4, sevmylook1, sevmylook2, sevmylook7, sevmylook3, sevmylook9, sevmylook5, sevmylook8, sevmylook6];
-const row2 = [kaniwa1, kaniwa2, kaniwa3, kaniwa4, kaniwa5, kaniwa6, kaniwa7, kaniwa8];
-const row3 = [fralene1, fralene2, fralene3, fralene4, fralene5, fralene6];
+const row2 = [valthea1, valthea2, valthea3, valthea4, valthea5, valthea6, valthea7, valthea8];
+const row3 = [eclose1, eclose2, eclose3, eclose4, eclose5, jhouny1, jhouny2, jhouny3];
 
 function InfiniteRow({ images, speed = 30, reverse = false }: { images: string[]; speed?: number; reverse?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -88,13 +89,21 @@ export default function AIClientsShowcase() {
             Vos équipes créatives IA génèrent automatiquement vos photos produits, visuels marketing et contenus authentiques. Vous n'avez rien à faire.
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <a href="https://kaniwabotanique.com" target="_blank" rel="noopener noreferrer"
+            <a href="https://sevmylook.com" target="_blank" rel="noopener noreferrer"
               className="text-[13px] text-muted-foreground hover:text-foreground border border-border rounded-full px-4 py-1.5 transition-colors">
-              kaniwabotanique.com
+              sevmylook.com
             </a>
-            <a href="https://fraleneparis.com" target="_blank" rel="noopener noreferrer"
+            <a href="https://ecloseparis.com" target="_blank" rel="noopener noreferrer"
               className="text-[13px] text-muted-foreground hover:text-foreground border border-border rounded-full px-4 py-1.5 transition-colors">
-              fraleneparis.com
+              ecloseparis.com
+            </a>
+            <a href="https://valtheaparis.com" target="_blank" rel="noopener noreferrer"
+              className="text-[13px] text-muted-foreground hover:text-foreground border border-border rounded-full px-4 py-1.5 transition-colors">
+              valtheaparis.com
+            </a>
+            <a href="https://jhounysecret.com" target="_blank" rel="noopener noreferrer"
+              className="text-[13px] text-muted-foreground hover:text-foreground border border-border rounded-full px-4 py-1.5 transition-colors">
+              jhounysecret.com
             </a>
           </div>
         </motion.div>

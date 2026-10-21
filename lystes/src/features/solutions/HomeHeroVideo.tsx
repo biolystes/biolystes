@@ -27,8 +27,8 @@ const A = {
   chip3: "https://lystes.ai/__l5e/assets-v1/3400816a-af0f-49d1-a6ce-e8386f3687e7/hero-slide-jacket.png",
   ba1: "https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/before-after/d7bb6871-6142-4c3b-8daf-b754fb38f4eb/1766996391238.png",
   ba2: "https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/before-after/d7bb6871-6142-4c3b-8daf-b754fb38f4eb/1766996432144.png",
-  prod1: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2025/08/O236SDw9GkuAtxkcoHnMrhJ_9lJP7tPq-scaled.jpg?w=600&ssl=1",
-  prod2: "https://i0.wp.com/kaniwabotanique.com/wp-content/uploads/2026/01/FRONT_high_res-12-scaled.jpg?w=600&ssl=1",
+  prod1: "/images/clients/valthea-2.jpg",
+  prod2: "/images/clients/valthea-3.jpg",
 };
 
 /* 29/09 : les cinq lieux d'installation du carrousel. Shopify et WooCommerce

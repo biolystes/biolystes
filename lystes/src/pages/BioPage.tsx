@@ -37,18 +37,7 @@ import product235th2 from "@lystes/assets/bio/product-235th-2.jpg";
 import product235th3 from "@lystes/assets/bio/product-235th-3.jpg";
 
 // Brand images for portfolio
-import kaniwa1 from "@lystes/assets/bio/kaniwa-1.jpg";
-import kaniwa6 from "@lystes/assets/bio/kaniwa-6.jpg";
-import kaniwa7 from "@lystes/assets/bio/kaniwa-7.jpg";
-import kaniwaUgc2 from "@lystes/assets/bio/kaniwa-ugc-2.jpg";
-import kaniwaUgc3 from "@lystes/assets/bio/kaniwa-ugc-3.jpg";
-import kaniwaUgc4 from "@lystes/assets/bio/kaniwa-ugc-4.jpg";
-import kaniwaUgc5 from "@lystes/assets/bio/kaniwa-ugc-5.png";
-import kaniwaUgc6 from "@lystes/assets/bio/kaniwa-ugc-6.jpg";
 
-import fralene3 from "@lystes/assets/bio/fralene-3.jpg";
-import fralene10 from "@lystes/assets/bio/fralene-10.jpg";
-import fraleneExt1 from "@lystes/assets/bio/fralene-ext-1.jpg";
 import sevmylook1 from "@lystes/assets/bio/sevmylook-1.jpg";
 import sevmylook3 from "@lystes/assets/bio/sevmylook-3.jpg";
 import sevmylook7 from "@lystes/assets/bio/sevmylook-7.jpg";
@@ -66,6 +55,9 @@ import cert4 from "@lystes/assets/bio/cert-4.png";
 import cert5 from "@lystes/assets/bio/cert-5.png";
 import cert6 from "@lystes/assets/bio/cert-6.png";
 import cert7 from "@lystes/assets/bio/cert-7.png";
+import { valthea, eclose, jhouny } from "@lystes/features/landing-particuliers/lib/vitrineClients";
+/* Visuels des marques clientes en ligne (Valthéa, Éclose, Jhouny's Secret). */
+const clientA1 = valthea(1);
 
 const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7];
 
@@ -293,18 +285,25 @@ const steps: { key: StepKey; label: string; subtitle: string }[] = [
   { key: "lance", label: "Je me lance", subtitle: "Passez à l’action" },
 ];
 
-const portfolioBrands = [
+type MarqueVitrine = {
+  name: string;
+  tagline: string;
+  url: string;
+  photos: Array<string | { type: "video"; src: string }>;
+};
+
+const portfolioBrands: MarqueVitrine[] = [
   {
-    name: "Kaniwa Botanique",
-    tagline: "Marque bio & vegan, lancée en 12 jours",
-    url: "https://kaniwabotanique.com/",
-    photos: [kaniwa1, kaniwaUgc2, kaniwa7, kaniwaUgc3, kaniwaUgc4, kaniwaUgc5, kaniwaUgc6],
+    name: "Valthéa Paris",
+    tagline: "Soins visage anti-âge, vegan",
+    url: "https://valtheaparis.com/",
+    photos: [valthea(1), valthea(3), valthea(5), valthea(7), valthea(9), valthea(11), valthea(12)],
   },
   {
-    name: "Fralène",
-    tagline: "Gamme soins visage premium",
-    url: "https://fraleneparis.com/",
-    photos: [{ type: "video" as const, src: "/videos/fralene-hero-2.mp4" }, fralene3, fraleneExt1, fralene10],
+    name: "Éclose Paris",
+    tagline: "Soins corps pour les peaux qui ont du grain",
+    url: "https://ecloseparis.com/",
+    photos: [eclose(1), eclose(2), eclose(3), eclose(4)],
   },
   {
     name: "Sevmylook",
@@ -320,7 +319,7 @@ const portfolioBrands = [
   },
 ];
 
-function BrandCarousel({ brand }: { brand: typeof portfolioBrands[0] }) {
+function BrandCarousel({ brand }: { brand: MarqueVitrine }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: true, dragFree: true });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(true);
@@ -665,13 +664,13 @@ export default function DecouvertePage() {
 
           {/* Les photos de JP, sous le texte des engagements (14/10/2026).
               Le même jour, JP : la vidéo du diagnostic (H.264, avec son
-              affiche) à la place de fralene-10, kaniwa-1 juste après elle,
+              affiche) à la place de la photo d'une ancienne marque, puis une photo de marque cliente,
               sevmylook-3 et pmyrris-4 retirées. */}
           <div className="flex gap-3 mb-10 -mx-3 px-3" style={{ overflowX: "auto", scrollbarWidth: "none" }}>
             {[
               { src: pmyrris1 }, { src: sevmylook1 },
               { src: "/videos/bio-exp/diagnostic-peau.mp4", affiche: "/videos/bio-exp/diagnostic-peau.webp" },
-              { src: kaniwa1 },
+              { src: clientA1 },
             ].map((m) => (
               <div key={m.src} className="shrink-0 w-[200px] md:w-[260px] aspect-[3/4] rounded-2xl overflow-hidden bg-neutral-100">
                 {"affiche" in m

@@ -4,7 +4,9 @@ import {
   Star, StarHalf, Menu, Search, User, ShoppingBag,
   Check, Sparkles, Play,
 } from "lucide-react";
-import kaniwaUgc2 from "@/assets/kaniwa-ugc-2.jpg";
+import pmyrrisUgc2 from "@/assets/pmyrris-ugc-2.jpg";
+import pmyrrisUgc3 from "@/assets/pmyrris-ugc-3.jpg";
+import siteEclose from "@/assets/eclose-site.jpg";
 import agenceReseaux from "@/assets/agence-reseaux.jpg";
 
 const fadeUp = {
@@ -90,7 +92,7 @@ function BlocPublicite() {
     <TeamRow bg="bg-secondary" reversed title="Création de site e-commerce" kicker="Site web & E-commerce"
       desc="On conçoit votre boutique en ligne de A à Z : design sur-mesure, fiches produits optimisées, tunnel de vente performant et intégration des moyens de paiement. Un site qui convertit, pensé pour la cosmétique.">
       <div className="rounded-2xl overflow-hidden">
-        <SafeVideo src="/videos/ecommerce-demo.mov" className="w-full object-cover" lazy />
+        <img src={siteEclose} alt="" className="w-full object-cover block" loading="lazy" />
       </div>
     </TeamRow>
   );
@@ -102,7 +104,7 @@ function BlocContenu() {
     <TeamRow bg="bg-background" title="Photos IA, vidéos UGC et visuels pour vos réseaux" kicker="Création de contenu"
       desc="Nous mettons en place une équipe Photographe AI, qui génère des photos produits niveau studio professionnel, des visuels UGC avec de vrais visages pour vos réseaux sociaux et des contenus marketing. En quelques secondes, sans shooting.">
       <div className="rounded-2xl overflow-hidden">
-        <SafeVideo src="/videos/contenu-ugc.mp4" className="w-full h-[400px] object-cover" lazy />
+        <SafeVideo src="/videos/trustpilot-ugc.mp4" className="w-full h-[400px] object-cover" lazy />
       </div>
     </TeamRow>
   );
@@ -120,7 +122,7 @@ function BlocSEO() {
           <span className="ml-auto text-[26px] font-black text-foreground">92<span className="text-[13px] text-[#10b981]">/100</span></span>
         </div>
         {[
-          { label: "Meta Title", val: "Crème Anti-Âge Bio — Soin Visage Naturel | Kaniwa" },
+          { label: "Meta Title", val: "Crème Anti-Âge Bio — Soin Visage Naturel | Votre marque" },
           { label: "Meta Description", val: "Découvrez notre crème anti-âge bio formulée avec des actifs marins…" },
           { label: "H1", val: "Crème de jour anti-âge bio et végane" },
           { label: "Mots-clés", val: "crème anti-âge bio, soin visage naturel, cosmétique végane" },
@@ -151,13 +153,13 @@ function BlocInfluence() {
       desc="On identifie, contacte et négocie avec les influenceuses adaptées à votre marque. Micro-influence, placements produits, unboxings — on gère la campagne de bout en bout.">
       <div className="flex gap-3.5 flex-wrap">
         <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
-          <img src={kaniwaUgc2} alt="" className="w-full h-[280px] object-cover block" />
+          <img src={pmyrrisUgc2} alt="" className="w-full h-[280px] object-cover block" />
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/55 to-transparent p-3 pt-8 text-white text-[11px] font-semibold flex items-center gap-1.5">
             📱 Post Instagram
           </div>
         </div>
         <div className="flex-1 min-w-[140px] rounded-2xl overflow-hidden relative">
-          <SafeVideo src="/videos/fralene-ugc.mp4" className="w-full h-[280px] object-cover block" lazy />
+          <img src={pmyrrisUgc3} alt="" className="w-full h-[280px] object-cover block" />
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/55 to-transparent p-3 pt-8 text-white text-[11px] font-semibold flex items-center gap-1.5">
             📱 Story Réseaux
           </div>

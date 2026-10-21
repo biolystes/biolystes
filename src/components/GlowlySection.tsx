@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Check, Play, Star } from "lucide-react";
 import SafeVideo from "@/components/SafeVideo";
+import pmyrrisUgc3 from "@/assets/pmyrris-ugc-3.jpg";
 
 
 
@@ -53,7 +54,7 @@ export default function GlowlySection() {
             </p>
           </div>
           <div className="flex-[1.5] min-w-[300px] w-full">
-            <SafeVideo src="/videos/fralene-ugc.mp4" className="w-full h-[400px] object-cover rounded-2xl" />
+            <SafeVideo src="/videos/contenu-ugc-2.mov" className="w-full h-[400px] object-cover rounded-2xl" />
           </div>
         </div>
       </motion.div>
@@ -117,7 +118,7 @@ export default function GlowlySection() {
             </p>
           </div>
           <div className="flex-[1.5] min-w-[300px] w-full">
-            <SafeVideo src="/videos/contenu-ugc-2.mov" className="w-full rounded-2xl" />
+            <img src={pmyrrisUgc3} alt="" className="w-full h-[480px] object-cover rounded-2xl" loading="lazy" />
           </div>
         </div>
       </motion.div>
