@@ -94,25 +94,16 @@ Tout le lancement de la marque : branding, logo (offert), design des packagings,
 - L'acompte est déduit du total de l'offre
 - Le Pack Découverte n'existe plus : ne jamais le proposer
 
-### ⚡ PACK COSMÉTIQUE SOLO
-- 1 design de produit cosmétique formulé par un laboratoire certifié (CPNP, ISO 22716), personnalisé à votre image de marque
-- Boutique en ligne professionnelle créée à votre nom — le site vous appartient à 100 %
-- Logo et identité visuelle inclus (3 propositions de logo)
-- Photos IA professionnelles de votre produit
-- Zéro stock, zéro logistique : le laboratoire gère la fabrication, le stockage, l'expédition et le suivi des commandes directement à vos clients
-- Abonnement mensuel : hébergement, maintenance et support
-- Sans engagement — résiliation possible à tout moment, sans préavis
-- Designs supplémentaires possibles
-
-### 🌐 PACK COSMÉTIQUE DUO
-- 2 designs de produits cosmétiques formulés par un laboratoire certifié (CPNP, ISO 22716), personnalisés à votre image de marque
+### 🌐 PACK COSMÉTIQUE BASIC (remplace les anciens Packs Solo et Duo depuis le 21/10/2026)
+- 1 ou 2 designs de produits cosmétiques (2 au maximum, au choix du client) formulés par un laboratoire certifié (CPNP, ISO 22716), personnalisés à votre image de marque
 - Boutique en ligne professionnelle créée à votre nom — le site vous appartient à 100 %
 - Logo et identité visuelle inclus (3 propositions de logo)
 - Photos IA professionnelles de vos produits
 - Zéro stock, zéro logistique : le laboratoire gère la fabrication, le stockage, l'expédition et le suivi des commandes directement à vos clients
 - Abonnement mensuel : hébergement, maintenance et support
 - Sans engagement — résiliation possible à tout moment, sans préavis
-- Designs supplémentaires possibles
+- Aucun produit en plus dans ce pack : pour plus de 2 produits, le Pack Standard
+- Support prioritaire
 
 ### 🏆 PACK COSMÉTIQUE STANDARD (Populaire)
 - 4 designs de produits cosmétiques formulés par un laboratoire certifié (CPNP, ISO 22716), personnalisés à votre image de marque
@@ -586,11 +577,10 @@ L'abonnement catalogue permet concrètement de :
 ### Parcours client idéal
 
 1. **Étape 1 : il hésite** : acompte de lancement, déduit du total de l'offre.
-2. **Étape 2 — Il veut un seul produit** : Pack Cosmétique Solo.
-3. **Étape 3 — Il veut deux produits** : Pack Cosmétique Duo.
-4. **Étape 4 — Il veut une gamme complète** : Pack Cosmétique Standard.
-5. **Étape 5 — Il veut l'IA** : Pack Cosmétique IA.
-6. **Étape 6 — Il veut déléguer** : Abonnements mensuels (Marketing + CRO, Community Manager). Tarifs en rendez-vous : https://biolystes.pro/rdv
+2. **Étape 2 — Il veut un ou deux produits** : Pack Cosmétique Basic (1 ou 2 produits au maximum, sans produit en plus ; pour plus, le Pack Standard).
+3. **Étape 3 — Il veut une gamme complète** : Pack Cosmétique Standard.
+4. **Étape 4 — Il veut l'IA** : Pack Cosmétique IA.
+5. **Étape 5 — Il veut déléguer** : Abonnements mensuels (Marketing + CRO, Community Manager). Tarifs en rendez-vous : https://biolystes.pro/rdv
 
 ### Facilités de paiement
 - Tous les packs sont sans engagement
@@ -645,8 +635,8 @@ Entre **2 et 6 semaines** après la mise en ligne, à condition d'activer la com
 ### 3) Photos IA : "design packaging + photo IA"
 Oui, les photos IA générées sont les **visuels produits définitifs** utilisés sur le site e-commerce et les supports marketing (réseaux, fiches produits, pubs). **Pas besoin de shooting.**
 
-### 4) Pack Duo — "support prioritaire"
-Concrètement : **réponses sous 24h ouvrées** via WhatsApp + accès à un expert produit dédié. À partir du Pack Standard, le support devient **premium** (réponses plus rapides + groupe WhatsApp dédié avec graphistes, marketeurs et techniciens). Ce n'est pas exclusif au Duo, ça monte en gamme avec le pack.
+### 4) Pack Basic — "support prioritaire"
+Concrètement : **réponses sous 24h ouvrées** via WhatsApp + accès à un expert produit dédié. À partir du Pack Standard, le support devient **premium** (réponses plus rapides + groupe WhatsApp dédié avec graphistes, marketeurs et techniciens). Ce n'est pas exclusif au Basic, ça monte en gamme avec le pack.
 
 ### 5) "Site e-commerce complet" (Pack Standard) — inclut
 - Site optimisé SEO dès le lancement
@@ -657,7 +647,7 @@ Concrètement : **réponses sous 24h ouvrées** via WhatsApp + accès à un expe
 - Connexion automatique au laboratoire pour la livraison
 - Indexation Google immédiate
 
-**Différence avec Solo/Duo** : ces packs ont un site fonctionnel mais plus simple (moins de pages). Le Standard ajoute le SEO avancé et l'optimisation conversion.
+**Différence avec le Basic** : ce pack a un site fonctionnel mais plus simple (moins de pages). Le Standard ajoute le SEO avancé et l'optimisation conversion.
 
 ### 6) "SEO avancé" (Pack Cosmétique IA) — en plus du SEO standard
 - **SEO AI** qui réécrit et optimise les fiches produits en continu
@@ -667,7 +657,7 @@ Concrètement : **réponses sous 24h ouvrées** via WhatsApp + accès à un expe
 ### 7) "Automatisation de la livraison"
 Dès qu'un client passe commande sur le site, **la commande part automatiquement au laboratoire**, qui crée le produit en 3-4 jours et expédie sous 48h-72h (Standard). **Aucun stock, aucune gestion d'expédition.**
 - **Mode Express** (option mensuelle) : livraison 24h/48h, le client achète du stock SANS contrainte de quantité minimum. Le logisticien partenaire peut être approvisionné en 1 semaine.
-- L'automatisation logistique est incluse dans **tous les packs avec abonnement** (Solo, Duo, Standard, IA).
+- L'automatisation logistique est incluse dans **tous les packs avec abonnement** (Basic, Standard, IA).
 
 ### 8) "Photo IA avancée" (Pack Cosmétique IA)
 - **Photos IA classiques** = visuels packshot produit (fond neutre, mise en valeur du flacon)

@@ -16,7 +16,7 @@
    comprend l'abonnement. Le site est à la cliente une fois le total réglé. */
 
 export type PackAchat = {
-  cle: "design" | "solo" | "duo" | "standard" | "ia";
+  cle: "design" | "basic" | "standard" | "ia";
   prix: number;
   acompte: number;
   /* À la réception des produits, seulement s'ils plaisent. */
@@ -28,11 +28,18 @@ export type PackAchat = {
 
 export const PACKS_ACHAT: PackAchat[] = [
   { cle: "design", prix: 599, acompte: 199, aReception: 400, aLivraisonSite: null, abonnement: 39 },
-  { cle: "solo", prix: 499, acompte: 199, aReception: 300, aLivraisonSite: null, abonnement: 49 },
-  { cle: "duo", prix: 999, acompte: 199, aReception: 301, aLivraisonSite: 499, abonnement: 79 },
+  { cle: "basic", prix: 999, acompte: 199, aReception: 301, aLivraisonSite: 499, abonnement: 79 },
   { cle: "standard", prix: 1499, acompte: 199, aReception: 551, aLivraisonSite: 749, abonnement: 99 },
   { cle: "ia", prix: 2999, acompte: 299, aReception: 1201, aLivraisonSite: 1499, abonnement: 99 },
 ];
+
+/* Décision de JP du 21/10/2026 : le Pack Basic (1 ou 2 produits, 2 au
+   maximum, sans produit en plus) remplace le Pack Solo, retiré de la vente, et
+   le Pack Duo, renommé, au prix et à l'échéancier de l'ancien Duo (999 €).
+   Une cliente déjà signée en Solo ou en Duo garde son offre : ces deux noms
+   restent reconnus ci-dessous, mais ne sont plus proposés (ni sur /tarifs,
+   ni dans les grilles, ni dans l'onboarding). */
+export const PACKS_ANCIENS = ["solo", "duo"] as const;
 
 export type PackPlusieursMois = {
   cle: "standard" | "ia";
@@ -57,8 +64,9 @@ export const PRODUIT_EN_PLUS = 39;
 
 /** Design, Standard et IA acceptent un produit en plus : 39 € TTC par design
     de produit, en paiement unique (JP, 16/10/2026 : « dans Design aussi, ils
-    ont droit à un produit en plus, toujours les mêmes 39 € »). Solo et Duo
-    n'en ont pas : il faut passer au pack supérieur. */
+    ont droit à un produit en plus, toujours les mêmes 39 € »). Basic (et les
+    anciens Solo et Duo, pour les clientes déjà signées) n'en ont pas : il
+    faut passer au pack supérieur. */
 export const peutAjouterProduit = (cle: string): boolean =>
   cle === "design" || cle === "standard" || cle === "ia";
 

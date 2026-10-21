@@ -10,7 +10,7 @@
    paie la tranche suivante, puis le solde à la livraison du site.
 
    Peu de chiffres à l’écran (JP) : d’abord la famille (« Avec boutique en
-   ligne », puis « Acheter » : Solo, Duo, Standard, IA, ou « Louer » :
+   ligne », puis « Acheter » : Basic, Standard, IA, ou « Louer » :
    Standard, IA ; « Sans boutique en ligne » : Design seul, aucune location),
    puis le pack en pastilles ; seuls les
    montants du pack choisi s’affichent (Standard par défaut). C’est un choix par onglets voulu par JP, pas un
@@ -25,7 +25,7 @@
    - location IA à 199 € par mois (JP, 14/10/2026, au lieu de 299) ;
    - « à partir de » 199 € par mois, abonnement « ce que ça vous donne »
      (packs.ts, abo.desc ; « sans minimum de commande » : CGV de
-     biolystes.pro, art. 8 bis.4, et packs.ts pour Solo et Duo ; texte du
+     biolystes.pro, art. 8 bis.4, et packs.ts pour Basic ; texte du
      Pack Design : JP, 14/10/2026) ;
    - texte du paiement sur plusieurs mois : JP, mot pour mot (jamais « le site reste à
      Biolystes ») ;
@@ -106,8 +106,7 @@ const SOLDE = (montant: number): Etape => ({ icone: Store, quand: "Payé à la l
    (OffrePage.tsx). À resynchroniser si packs.ts change. */
 const COMPREND: Record<string, string[]> = {
   design: ["Votre branding et votre logo (le logo est offert).", "Le design des packagings de vos 4 produits.", "La fabrication de vos produits et leur envoi chez vous, sous 10 jours ouvrés.", "Des photos de vos produits, en studio et en situation (UGC), pour vos réseaux.", "199 € d’acompte pour démarrer.", "400 € à la réception de vos produits, seulement s’ils vous plaisent.", "S’ils ne vous conviennent pas, vous vous arrêtez là. Vous gardez votre logo, votre charte et vos packagings. C’est nous qui prenons le risque."],
-  solo: ["1 design de produit personnalisé", "Logo + charte + packaging", "Photos IA + contenu textuel", "Site e-commerce", "Automatisation livraison", "Zéro stock minimum"],
-  duo: ["2 designs de produits personnalisés", "Logo + charte + packaging", "Photos IA + contenu textuel", "Site e-commerce", "Support prioritaire", "Zéro stock minimum"],
+  basic: ["1 ou 2 designs de produits personnalisés (2 au maximum)", "Aucun produit en plus : pour plus, le Pack Standard", "Logo + charte + packaging", "Photos IA + contenu textuel", "Site e-commerce", "Support prioritaire", "Zéro stock minimum"],
   standard: ["4 designs de produits personnalisés", "Logo + charte + packaging", "Site e-commerce complet + SEO", "Automatisation livraison", "Contenu textuel + Photographie IA", "Expert produit dédié", "CRO standard"],
   ia: ["8 designs de produits personnalisés", "Tout le Pack Standard", "Feed Instagram", "Notre suite de solutions IA"],
   "standard-location": ["Tout le Pack Standard (site + 4 designs de produits)", "Abonnement inclus dans la mensualité", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (1 499 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
@@ -158,8 +157,7 @@ const achat = (cle: PackAchat["cle"], nom: string, contenu: string, abonnementTe
    l'achat). */
 const ACHATS: Offre[] = [
   achat("design", "Pack Design", DESIGN_CHAPEAU, "Sans minimum de commande, même 10 pièces."),
-  achat("solo", "Pack Solo", "1 design de produit + site e-commerce", "Dès la mise en ligne. Ce que ça vous donne : hébergement, support, logistique et sécurité de votre boutique, sans minimum de commande."),
-  achat("duo", "Pack Duo", "2 designs de produits + site e-commerce", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, support prioritaire et logistique, sans minimum de commande."),
+  achat("basic", "Pack Basic", "1 à 2 designs + site e-commerce", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, support prioritaire et logistique, sans minimum de commande."),
   achat("standard", "Pack Standard", "4 designs de produits + site complet + expert dédié", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, livraisons, référencement, support et sécurité, sans minimum de commande."),
   achat("ia", "Pack IA", "8 designs de produits, feed Instagram et notre suite de solutions IA", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : tout le Standard, le feed Instagram et notre suite de solutions IA, sans minimum de commande."),
 ];
@@ -459,54 +457,54 @@ function FilInstagram() {
   );
 }
 
-/* ═══ LE TABLEAU QUI COMPARE LES CINQ PACKS ═══
+/* ═══ LE TABLEAU QUI COMPARE LES QUATRE PACKS ═══
    La forme vient d'une référence validée par JP (16/10/2026) : un panneau
    gris, des lignes arrondies, une icône à gauche, et à droite une colonne
    par pack — un chiffre quand on peut compter, une coche quand c'est
    compris, un tiret quand ça ne l'est pas. Les montants sont permis ici :
    la page /tarifs est l'exception voulue à la règle « aucun prix en ligne »
    (voir l'en-tête du fichier). Les règles produits viennent de
-   src/data/offres.ts (peutAjouterProduit : Solo et Duo n'en ont pas). */
+   src/data/offres.ts (peutAjouterProduit : Basic n'en a pas). */
 type Cellule = string | boolean;
-const PACKS = ["Design", "Solo", "Duo", "Standard", "IA"];
+const PACKS = ["Design", "Basic", "Standard", "IA"];
 const GROUPES: { titre: string; lignes: { icone: LucideIcon; label: string; valeurs: Cellule[] }[] }[] = [
   {
     titre: "Vos produits",
     lignes: [
-      { icone: PenTool, label: "Designs de produits", valeurs: ["4", "1", "2", "4", "8"] },
-      { icone: Palette, label: "Logo, charte et packaging", valeurs: [true, true, true, true, true] },
-      { icone: Camera, label: "Photos IA de vos produits", valeurs: [true, true, true, true, true] },
-      { icone: PackageCheck, label: "Produit en plus (paiement unique)", valeurs: ["39 €", false, false, "39 €", "39 €"] },
+      { icone: PenTool, label: "Designs de produits", valeurs: ["4", "1 à 2", "4", "8"] },
+      { icone: Palette, label: "Logo, charte et packaging", valeurs: [true, true, true, true] },
+      { icone: Camera, label: "Photos IA de vos produits", valeurs: [true, true, true, true] },
+      { icone: PackageCheck, label: "Produit en plus (paiement unique)", valeurs: ["39 €", false, "39 €", "39 €"] },
     ],
   },
   {
     titre: "Votre boutique",
     lignes: [
-      { icone: Store, label: "Site e-commerce", valeurs: [false, true, true, true, true] },
-      { icone: Search, label: "Site complet avec SEO", valeurs: [false, false, false, true, true] },
-      { icone: Truck, label: "Livraisons automatisées", valeurs: [false, true, true, true, true] },
+      { icone: Store, label: "Site e-commerce", valeurs: [false, true, true, true] },
+      { icone: Search, label: "Site complet avec SEO", valeurs: [false, false, true, true] },
+      { icone: Truck, label: "Livraisons automatisées", valeurs: [false, true, true, true] },
     ],
   },
   {
     titre: "Nos services",
     lignes: [
-      { icone: PenTool, label: "Contenu textuel", valeurs: [false, true, true, true, true] },
-      { icone: Heart, label: "Support prioritaire", valeurs: [false, false, true, false, false] },
-      { icone: UserCheck, label: "Expert produit dédié", valeurs: [false, false, false, true, true] },
-      { icone: TrendingUp, label: "Optimisation conversion", valeurs: [false, false, false, true, true] },
+      { icone: PenTool, label: "Contenu textuel", valeurs: [false, true, true, true] },
+      { icone: Heart, label: "Support prioritaire", valeurs: [false, true, false, false] },
+      { icone: UserCheck, label: "Expert produit dédié", valeurs: [false, false, true, true] },
+      { icone: TrendingUp, label: "Optimisation conversion", valeurs: [false, false, true, true] },
     ],
   },
   {
     titre: "Nos équipes IA",
     lignes: [
-      { icone: Instagram, label: "Feed Instagram", valeurs: [false, false, false, false, true] },
-      { icone: FlaskConical, label: "Suite de solutions IA", valeurs: [false, false, false, false, true] },
+      { icone: Instagram, label: "Feed Instagram", valeurs: [false, false, false, true] },
+      { icone: FlaskConical, label: "Suite de solutions IA", valeurs: [false, false, false, true] },
     ],
   },
   {
     titre: "L’abonnement",
     lignes: [
-      { icone: Receipt, label: "Par mois, TTC", valeurs: ["39 €", "49 €", "79 €", "99 €", "99 €"] },
+      { icone: Receipt, label: "Par mois, TTC", valeurs: ["39 €", "79 €", "99 €", "99 €"] },
     ],
   },
 ];
@@ -520,32 +518,33 @@ function TableauComparatif() {
   /* Le gabarit de colonne, partagé par l'en-tête et chaque ligne, pour que
      les valeurs restent alignées d'une ligne à l'autre. Au téléphone, le
      tableau défile horizontalement (comme les pastilles du catalogue).
-     Largeurs resserrées (JP, 16/10/2026 : « l'écart entre les offres Solo,
-     Duo, Standard et IA est trop grand, réduis les wide ») : 62 px puis
+     Largeurs resserrées (JP, 16/10/2026 : « l'écart entre les offres est
+     trop grand, réduis les wide »; trois packs avec boutique depuis le
+     21/10/2026 : Basic, Standard et IA) : 62 px puis
      72 px par pack, 6 px puis 8 px d'écart. La colonne de Design reste la
      plus large pour que « Sans e-commerce » tienne au-dessus d'elle seule
      sans toucher le filet. */
-  const colonnes = "grid grid-cols-[minmax(0,1fr)_120px_repeat(4,62px)] items-center gap-x-1.5 sm:grid-cols-[minmax(0,1fr)_140px_repeat(4,72px)] sm:gap-x-2";
-  /* Le filet vertical qui sépare Design (sans boutique) des quatre packs
+  const colonnes = "grid grid-cols-[minmax(0,1fr)_120px_repeat(3,62px)] items-center gap-x-1.5 sm:grid-cols-[minmax(0,1fr)_140px_repeat(3,72px)] sm:gap-x-2";
+  /* Le filet vertical qui sépare Design (sans boutique) des trois packs
      avec boutique (JP, 16/10/2026 : « il faut qu'il y ait une ligne de
      séparation »). Une seule ligne continue posée sur tout le tableau : sa
      distance au bord droit se déduit des largeurs fixes des colonnes de
-     packs (4 × 62 px et 4 × 6 px d'écart au téléphone, 4 × 72 px et
-     4 × 8 px sur ordinateur), moins la moitié du dernier écart, plus la
+     packs (3 × 62 px et 3 × 6 px d'écart au téléphone, 3 × 72 px et
+     3 × 8 px sur ordinateur), moins la moitié du dernier écart, plus la
      chasse intérieure des lignes (12 px puis 16 px). */
-  const filet = "pointer-events-none absolute inset-y-0 w-px bg-foreground/35 right-[281px] sm:right-[332px]";
+  const filet = "pointer-events-none absolute inset-y-0 w-px bg-foreground/35 right-[213px] sm:right-[252px]";
   return (
     <div className="max-w-5xl mx-auto rounded-2xl bg-secondary p-2 sm:p-3 overflow-x-auto">
-      <div className="relative min-w-[720px]">
+      <div className="relative min-w-[650px]">
         <span aria-hidden="true" className={filet} />
         {/* Le regroupement des packs : Design est le seul sans boutique en
-            ligne ; les quatre autres l'ont. La colonne de Design est plus
+            ligne ; les trois autres l'ont. La colonne de Design est plus
             large que les autres pour que « Sans e-commerce » tienne
-            au-dessus d'elle seule, sans déborder sur Solo. */}
+            au-dessus d'elle seule, sans déborder sur Basic. */}
         <div className={colonnes + " px-3 sm:px-4 pt-1 pb-3.5"}>
           <span aria-hidden="true" />
           <span className="text-center text-[7px] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Sans e-commerce</span>
-          <span className="col-span-4 text-center text-[7px] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Avec e-commerce</span>
+          <span className="col-span-3 text-center text-[7px] uppercase tracking-wide text-muted-foreground whitespace-nowrap">Avec e-commerce</span>
         </div>
         <div className={colonnes + " px-3 sm:px-4 pb-2"}>
           <span aria-hidden="true" />
@@ -577,7 +576,7 @@ function TableauComparatif() {
         ))}
       </div>
       <p className="mt-4 px-3 sm:px-4 text-[0.8125rem] text-muted-foreground text-pretty">
-        Produit en plus&nbsp;: {euros(PRODUIT_EN_PLUS)} TTC par produit ajouté, en paiement unique (une seule fois, pas un abonnement). Disponible dans les packs Design, Standard et IA&nbsp;; dans Solo et Duo, il faut passer au pack supérieur.
+        Produit en plus&nbsp;: {euros(PRODUIT_EN_PLUS)} TTC par produit ajouté, en paiement unique (une seule fois, pas un abonnement). Disponible dans les packs Design, Standard et IA&nbsp;; dans le Pack Basic, il faut passer au pack supérieur.
       </p>
       <p className="mt-1 px-3 sm:px-4 text-[0.8125rem] text-muted-foreground text-pretty">
         Abonnement sans minimum de commande&nbsp;: sur la gamme avec site, il démarre à la livraison du site.
@@ -786,10 +785,10 @@ export default function TarifsPage() {
         </div>
       </section>
 
-      {/* ═══ LE TABLEAU QUI COMPARE LES CINQ PACKS ═══ */}
+      {/* ═══ LE TABLEAU QUI COMPARE LES QUATRE PACKS ═══ */}
       <Bande gris>
         <div className="max-w-[1072px] mx-auto px-[1.25rem] md:px-[1.5rem]">
-          <Entete className="mb-8 md:mb-10" surtitre="Comparer" noir="Les cinq packs," gris="ligne par ligne." />
+          <Entete className="mb-8 md:mb-10" surtitre="Comparer" noir="Les quatre packs," gris="ligne par ligne." />
           <TableauComparatif />
         </div>
       </Bande>
