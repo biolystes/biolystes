@@ -21,7 +21,7 @@ import { ArrowRight } from "lucide-react";
 import VideoAuto from "@lystes/components/VideoAuto";
 import { CTA_URL, INSCRIPTION_URL } from "./pied/elements";
 
-import kaniwaPackaging from "@/assets/design-packaging-step.jpg";
+import soinEtuiPackaging from "@/assets/valthea-5.jpg";
 
 const stats = [
   { n: "10", label: "jours pour mettre votre gamme en ligne, sans stock à acheter" },
@@ -34,7 +34,7 @@ const gallery = [
   { src: "/images/showcase-amarsi.jpg", alt: "Les shampoings de la marque Amarsi" },
   { src: "/images/showcase-peau.jpg", alt: "Mousse nettoyante et soin anti‑acné de Jolie Peau & Co" },
   { src: "/bio-colis/eclose-colis-45.webp", alt: "Les soins Éclose Paris dans leur colis" },
-  { src: kaniwaPackaging, alt: "L’huile à barbe Kaniwa Botanique et son étui" },
+  { src: soinEtuiPackaging, alt: "Un soin Valthéa Paris et son étui" },
 ];
 
 const TITRE = "À propos | Biolystes";
