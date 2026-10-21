@@ -64,6 +64,8 @@ const AProposPage = lazy(() => import("./pages/AProposPage"));
 /* /tarifs (14/10/2026) : la page des prix, liée nulle part et non indexée. */
 const TarifsPage = lazy(() => import("./pages/TarifsPage"));
 const LivraisonPage = lazy(() => import("./pages/LivraisonPage"));
+/* /avis (21/10/2026) : les avis des anciennes clientes, avis audio en tête. */
+const AvisPage = lazy(() => import("./pages/AvisPage"));
 /* /innovation (14/10/2026) : « Toujours plus d’innovation », dans le menu principal. */
 const InnovationPage = lazy(() => import("./pages/InnovationPage"));
 /* /catalogue (14/10/2026) : le catalogue de biolystes.pro, dans le même cadre
@@ -108,6 +110,7 @@ function AppRoutes() {
         <Route path="/a-propos" element={<Suspense fallback={null}><AProposPage /></Suspense>} />
         <Route path="/tarifs" element={<Suspense fallback={null}><TarifsPage /></Suspense>} />
         <Route path="/livraison" element={<Suspense fallback={null}><LivraisonPage /></Suspense>} />
+        <Route path="/avis" element={<Suspense fallback={null}><AvisPage /></Suspense>} />
         <Route path="/innovation" element={<Suspense fallback={null}><InnovationPage /></Suspense>} />
         <Route path="/catalogue" element={<Suspense fallback={null}><CatalogPasswordGate><CatalogPage /></CatalogPasswordGate></Suspense>} />
       </Route>

@@ -61,6 +61,7 @@ import {
 import { Button } from "@/components/ui/button";
 import VisionEtagesBloc from "@lystes/features/solutions/VisionEtagesBloc";
 import { Bande, BoutonRdv, Entete, RondIcone } from "./pied/elements";
+import TemoignagesClientes from "@/components/avis/TemoignagesClientes";
 import { ABONNEMENT_DEMARRE_SITE, PRODUIT_EN_PLUS, peutAjouterProduit, packAchat, packPlusieursMois, type PackAchat, type PackPlusieursMois } from "@/data/offres";
 import showcaseAmarsi from "@/assets/showcase-amarsi.jpg";
 import showcasePeau from "@/assets/showcase-peau.jpg";
@@ -784,6 +785,9 @@ export default function TarifsPage() {
           </a>
         </div>
       </section>
+
+      {/* ═══ LES TÉMOIGNAGES D'ANCIENNES CLIENTES (JP, 21/10/2026), sous les prix ═══ */}
+      <TemoignagesClientes />
 
       {/* ═══ LE TABLEAU QUI COMPARE LES QUATRE PACKS ═══ */}
       <Bande gris>

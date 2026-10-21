@@ -23,6 +23,9 @@ import BlocsAccueilSecteur from "@lystes/features/solutions/BlocsAccueilSecteur"
 /* biolystes.com (14/10/2026, JP) : la section « Toujours plus d’innovation »,
    vers /innovation. Hors de lystes/ (src/components/innovation). */
 import AppelInnovation from "@/components/innovation/AppelInnovation";
+/* biolystes.com (21/10/2026, JP) : les avis des anciennes clientes, avis audio
+   en tête, vers /avis. Hors de lystes/ (src/components). */
+import TemoignagesClientes from "@/components/avis/TemoignagesClientes";
 import { Header } from "@lystes/components/landing/Header";
 import { TopBar } from "@lystes/components/landing/TopBar";
 import { Footer } from "@lystes/components/landing/Footer";
@@ -958,6 +961,9 @@ export default function DecouvertePage() {
       <section id="section-faq" ref={setRef("faq")} className="py-12 md:py-16 bg-background">
         <BioFaq />
       </section>
+
+      {/* ═══ LES AVIS DES ANCIENNES CLIENTES (biolystes.com, JP, 21/10/2026) ═══ */}
+      <TemoignagesClientes versAvis />
 
       {/* ═══ 10. JE ME LANCE ═══ */}
       <section id="section-lance" ref={setRef("lance")} className="bg-secondary py-12 md:py-16">
