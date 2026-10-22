@@ -109,9 +109,9 @@ const COMPREND: Record<string, string[]> = {
   design: ["Votre branding et votre logo (le logo est offert).", "Le design des packagings de vos 4 produits.", "La fabrication de vos produits et leur envoi chez vous, sous 10 jours ouvrés.", "Des photos de vos produits, en studio et en situation (UGC), pour vos réseaux.", "199 € d’acompte pour démarrer.", "400 € à la réception de vos produits, seulement s’ils vous plaisent.", "S’ils ne vous conviennent pas, vous vous arrêtez là. Vous gardez votre logo, votre charte et vos packagings. C’est nous qui prenons le risque."],
   basic: ["1 ou 2 designs de produits personnalisés (2 au maximum)", "Aucun produit en plus : pour plus, le Pack Standard", "Logo + charte + packaging", "Photos IA + contenu textuel", "Site e-commerce", "Support prioritaire", "Zéro stock minimum"],
   standard: ["4 designs de produits personnalisés", "Logo + charte + packaging", "Site e-commerce complet + SEO", "Automatisation livraison", "Contenu textuel + Photographie IA", "Expert produit dédié", "CRO standard"],
-  ia: ["8 designs de produits personnalisés", "Tout le Pack Standard", "Feed Instagram", "Notre suite de solutions IA"],
+  ia: ["8 designs de produits personnalisés", "Tout le Pack Standard", "Identité de marque : branding et logo", "Blog IA : 10 articles écrits par notre journaliste IA, optimisés pour Google et ChatGPT", "Feed Instagram IA préparé par notre Community Manager IA", "Notre suite de solutions IA", "Chaque mois : un journaliste IA qui écrit chaque mois les articles que vous demandez, sur vos sujets"],
   "standard-location": ["Tout le Pack Standard (site + 4 designs de produits)", "Abonnement inclus dans la mensualité", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (1 499 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
-  "ia-location": ["Tout le Pack IA (8 designs de produits + feed Instagram + notre suite de solutions IA)", "Abonnement inclus dans la mensualité", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (2 999 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
+  "ia-location": ["Tout le Pack IA (8 designs de produits + blog IA + feed Instagram IA + notre suite de solutions IA)", "Identité de marque : branding et logo", "Blog IA : 10 articles écrits par notre journaliste IA, optimisés pour Google et ChatGPT", "Feed Instagram IA préparé par notre Community Manager IA", "Chaque mois : un journaliste IA qui écrit chaque mois les articles que vous demandez, sur vos sujets", "Abonnement inclus dans la mensualité", "Sans engagement, arrêt à tout moment sans frais", "Site à vous dès que le total est atteint (2 999 € au total)", "Arrêt avant : site désactivé, vous gardez logo, charte et packaging", "Mensualité minimum : versez plus ou soldez quand vous voulez", "Klarna possible sur la mise en place"],
 };
 const OFFRE_URL = "https://biolystes.pro/offre/";
 
@@ -160,7 +160,7 @@ const ACHATS: Offre[] = [
   achat("design", "Pack Design", DESIGN_CHAPEAU, "Sans minimum de commande, même 10 pièces."),
   achat("basic", "Pack Basic", "1 à 2 designs + site e-commerce", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, support prioritaire et logistique, sans minimum de commande."),
   achat("standard", "Pack Standard", "4 designs de produits + site complet + expert dédié", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : hébergement, livraisons, référencement, support et sécurité, sans minimum de commande."),
-  achat("ia", "Pack IA", "8 designs de produits, feed Instagram et notre suite de solutions IA", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : tout le Standard, le feed Instagram et notre suite de solutions IA, sans minimum de commande."),
+  achat("ia", "Pack IA", "8 designs de produits, blog IA, feed Instagram IA et notre suite de solutions IA", ABONNEMENT_DEMARRE_SITE + " Ce que ça vous donne : tout le Standard, le feed Instagram, notre suite de solutions IA et un journaliste IA qui écrit chaque mois les articles que vous demandez, sur vos sujets, sans minimum de commande."),
 ];
 
 /* Payer sur plusieurs mois (location avec option d'achat au contrat ; le mot
@@ -185,7 +185,7 @@ const plusieursMois = (cle: PackPlusieursMois["cle"], nom: string, contenu: stri
 };
 const LOCATIONS: Offre[] = [
   plusieursMois("standard", "Pack Standard", "4 designs de produits + site complet + expert dédié"),
-  plusieursMois("ia", "Pack IA", "8 designs de produits, feed Instagram et notre suite de solutions IA"),
+  plusieursMois("ia", "Pack IA", "8 designs de produits, blog IA, feed Instagram IA et notre suite de solutions IA"),
 ];
 
 /* Une valeur courte par carte, une phrase dessous. */
@@ -498,7 +498,8 @@ const GROUPES: { titre: string; lignes: { icone: LucideIcon; label: string; vale
   {
     titre: "Nos équipes IA",
     lignes: [
-      { icone: Instagram, label: "Feed Instagram", valeurs: [false, false, false, true] },
+      { icone: PenTool, label: "Blog IA (10 articles, puis à la demande)", valeurs: [false, false, false, true] },
+      { icone: Instagram, label: "Feed Instagram IA", valeurs: [false, false, false, true] },
       { icone: FlaskConical, label: "Suite de solutions IA", valeurs: [false, false, false, true] },
     ],
   },
