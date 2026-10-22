@@ -121,6 +121,7 @@ export const CATEGORIES = [
   { id: "soins-du-visage", label: "Soins Visage" },
   { id: "soins-du-corps", label: "Soins Corps" },
   { id: "soins-du-cheveu", label: "Soins Cheveux" },
+  { id: "bougies", label: "Bougies" },
   { id: "collection-box", label: "Collections" },
   { id: "maquillage", label: "Maquillage" },
   { id: "supplements", label: "Compléments alimentaires" },
@@ -916,7 +917,7 @@ export const PRODUCTS: Product[] = [
     "code": "S0105",
     "statut_labo": "actif",
     "nom": "Bougie en cire de soja, Mousse",
-    "categorie": "soins-du-corps",
+    "categorie": "bougies",
     "volume": "100 ml",
     "prix_ht": 9,
     "prix_conseilles": {
@@ -942,7 +943,7 @@ export const PRODUCTS: Product[] = [
     "code": "S0106",
     "statut_labo": "actif",
     "nom": "Bougie en cire de soja, Fleur sauvage",
-    "categorie": "soins-du-corps",
+    "categorie": "bougies",
     "volume": "100 ml",
     "prix_ht": 9,
     "prix_conseilles": {
@@ -968,7 +969,7 @@ export const PRODUCTS: Product[] = [
     "code": "S0104",
     "statut_labo": "actif",
     "nom": "Bougie en cire de soja, Lavande",
-    "categorie": "soins-du-corps",
+    "categorie": "bougies",
     "volume": "100 ml",
     "prix_ht": 9,
     "prix_conseilles": {
@@ -994,7 +995,7 @@ export const PRODUCTS: Product[] = [
     "code": "S0103",
     "statut_labo": "actif",
     "nom": "Bougie en cire de soja, Bruyère",
-    "categorie": "soins-du-corps",
+    "categorie": "bougies",
     "volume": "100 ml",
     "prix_ht": 9,
     "prix_conseilles": {

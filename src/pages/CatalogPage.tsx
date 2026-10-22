@@ -67,6 +67,7 @@ const LABEL_CATEGORIE: Record<string, string> = {
   "soins-du-visage": "Soins du visage",
   "soins-du-corps": "Soins du corps",
   "soins-du-cheveu": "Soins du cheveu",
+  bougies: "Bougies",
   "collection-box": "Collection",
   maquillage: "Maquillage",
   supplements: "Compléments alimentaires",
