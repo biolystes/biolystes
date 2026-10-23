@@ -1,5 +1,6 @@
 import RedirectionCompte from "@/components/RedirectionCompte";
 import FlouBas from "@/components/FlouBas";
+import BandeauCookies from "@/components/BandeauCookies";
 import CatalogPasswordGate from "@/components/CatalogPasswordGate";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -162,6 +163,7 @@ const App = () => (
         <AuthProvider>
           <AppRoutes />
           <FlouBas />
+          <BandeauCookies />
         </AuthProvider>
       </BrowserRouter>
     </TooltipProvider>

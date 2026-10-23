@@ -12,6 +12,27 @@
          suivent la navigation). */
       if (location.pathname === "/" || /^\/(blog|agents-ia|catalogue|pourquoi-cette-offre|etudes|mentions-legales|politique-confidentialite|cgv|faq|tarifs)(\/|$)/.test(location.pathname)) document.querySelector('meta[name="viewport"]').setAttribute("content", "width=device-width, initial-scale=1.0");
     </script>
+    <!-- Google Analytics 4 (23/10/2026), mesure d'audience sous consentement.
+         1. Tout est refusé par défaut (mode consentement de Google), AVANT la balise.
+         2. Si le visiteur a déjà accepté (choix mémorisé six mois, même clé que
+            src/lib/consentement.ts), l'accord est transmis AVANT « config ».
+         3. Le bandeau (src/components/BandeauCookies.tsx) envoie
+            gtag('consent','update',{analytics_storage:'granted'}) au clic sur « Accepter ».
+         Une seule balise, ici : jamais une seconde dans un composant. -->
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' });
+      try {
+        var choixCookies = JSON.parse(localStorage.getItem('biolystes-cookies-choix') || 'null');
+        if (choixCookies && choixCookies.c === 'accepte' && choixCookies.t > Date.now()) gtag('consent', 'update', { analytics_storage: 'granted' });
+      } catch (e) {}
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B5TSLW9P7Y"></script>
+    <script>
+      gtag('js', new Date());
+      gtag('config', 'G-B5TSLW9P7Y');
+    </script>
     <!-- TODO: Set the document title to the name of your application -->
     <title>Biolystes - Lancez votre marque cosmétique bio et végane</title>
     <meta name="description" content="Lancez votre marque de cosmétiques bio et véganes clé en main. Sans stock, sans minimum de commande, en ligne en 10 jours ouvrés.">
