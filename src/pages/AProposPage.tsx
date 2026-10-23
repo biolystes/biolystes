@@ -3,14 +3,16 @@
    (JP, 14/10/2026 : « reproduis cette page à propos chez Biolystes »).
 
    Même structure, même rendu (src/pages/pied/editorial.css) : hero vidéo,
-   bandeau de trois chiffres, « Notre vision », galerie horizontale, appel à
+   bandeau de trois chiffres, « Notre vision », carrousel, appel à
    l'action. Cadre, en-tête (posé sur la vidéo) et pied de page Biolystes :
    src/pages/pied/CadrePied.tsx.
 
    Adapté : chaque chiffre et chaque phrase viennent de l'accueil de
    biolystes.com (mise en place en 10 jours, plus de 100 produits certifiés,
-   18 ans d'expérience, aucun stock, un seul interlocuteur). La galerie montre
-   les produits de marques clientes, chacun une seule fois. Boutons : ceux de
+   18 ans d'expérience, aucun stock, un seul interlocuteur). Le carrousel
+   des équipes IA est celui de l'accueil (BlocsAccueilSecteur, bandeSeule),
+   à la place de la galerie de produits de marques clientes retirée le
+   23/10/2026 (JP). Boutons : ceux de
    l'accueil (catalogue, rendez-vous).
 
    Retiré : la section « Carrières » (aucun recrutement Biolystes à annoncer)
@@ -19,22 +21,13 @@ import "./pied/editorial.css";
 import { useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import VideoAuto from "@lystes/components/VideoAuto";
+import BlocsAccueilSecteur from "@lystes/features/solutions/BlocsAccueilSecteur";
 import { CTA_URL, INSCRIPTION_URL } from "./pied/elements";
-
-import soinEtuiPackaging from "@/assets/valthea-5.jpg";
 
 const stats = [
   { n: "10", label: "jours pour mettre votre gamme en ligne, sans stock à acheter" },
   { n: "100+", label: "produits certifiés bio et végan, sans minimum de commande" },
   { n: "18", label: "ans d’expérience dans la beauté et le e‑commerce" },
-];
-
-const gallery = [
-  { src: "/images/showcase-235.jpg", alt: "Les soins de la marque 235 dans leur colis" },
-  { src: "/images/showcase-amarsi.jpg", alt: "Les shampoings de la marque Amarsi" },
-  { src: "/images/showcase-peau.jpg", alt: "Mousse nettoyante et soin anti‑acné de Jolie Peau & Co" },
-  { src: "/bio-colis/eclose-colis-45.webp", alt: "Les soins Éclose Paris dans leur colis" },
-  { src: soinEtuiPackaging, alt: "Un soin Valthéa Paris et son étui" },
 ];
 
 const TITRE = "À propos | Biolystes";
@@ -88,15 +81,9 @@ export default function AProposPage() {
         </div>
       </section>
 
-      <div className="ed-gallery-sticky">
-        <div className="ed-gallery-pin">
-          <div className="ed-gallery-track">
-            {gallery.map((img) => (
-              <img key={img.src} src={img.src} alt={img.alt} loading="lazy" />
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* JP, 23/10/2026 : à la place des exemples de produits de clientes, le
+          carrousel des équipes IA de l'accueil (même composant, mêmes cartes). */}
+      <BlocsAccueilSecteur secteur="cosmetique" bandeSeule />
 
       <section className="ed-section">
         <div className="ed-wrap" style={{ textAlign: "center" }}>
