@@ -10,9 +10,9 @@
    Adapté : chaque chiffre et chaque phrase viennent de l'accueil de
    biolystes.com (mise en place en 10 jours, plus de 100 produits certifiés,
    18 ans d'expérience, aucun stock, un seul interlocuteur). Le carrousel
-   des équipes IA est celui de l'accueil (BlocsAccueilSecteur, bandeSeule),
-   à la place de la galerie de produits de marques clientes retirée le
-   23/10/2026 (JP). Boutons : ceux de
+   de photos est celui de l'accueil (HomeExperienceCarousel, exporté de
+   BioPage), à la place de la galerie de produits de marques clientes
+   retirée le 23/10/2026 (JP). Boutons : ceux de
    l'accueil (catalogue, rendez-vous).
 
    Retiré : la section « Carrières » (aucun recrutement Biolystes à annoncer)
@@ -21,7 +21,7 @@ import "./pied/editorial.css";
 import { useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import VideoAuto from "@lystes/components/VideoAuto";
-import BlocsAccueilSecteur from "@lystes/features/solutions/BlocsAccueilSecteur";
+import { HomeExperienceCarousel } from "@lystes/pages/BioPage";
 import { CTA_URL, INSCRIPTION_URL } from "./pied/elements";
 
 const stats = [
@@ -82,8 +82,11 @@ export default function AProposPage() {
       </section>
 
       {/* JP, 23/10/2026 : à la place des exemples de produits de clientes, le
-          carrousel des équipes IA de l'accueil (même composant, mêmes cartes). */}
-      <BlocsAccueilSecteur secteur="cosmetique" bandeSeule />
+          carrousel de photos de l'accueil, au-dessus de « L'expérience »
+          (même composant, mêmes photos). */}
+      <div style={{ paddingTop: "1rem" }}>
+        <HomeExperienceCarousel />
+      </div>
 
       <section className="ed-section">
         <div className="ed-wrap" style={{ textAlign: "center" }}>
