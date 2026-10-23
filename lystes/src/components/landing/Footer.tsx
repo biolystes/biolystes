@@ -143,6 +143,8 @@ const colonnesBiolystes: FooterColumn[] = [
       { fr: "Mentions légales", to: "/legal" },
       { fr: "Politique de confidentialité", to: "/privacy" },
       { fr: "CGV", to: "/terms" },
+      /* 23/10/2026 : rouvre le bandeau de cookies (src/components/BandeauCookies.tsx). */
+      { fr: "Gérer mes cookies", to: "#cookies" },
     ],
   },
 ];
