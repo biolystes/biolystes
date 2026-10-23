@@ -142,14 +142,10 @@ function extraire(lang: string, reglage: Reglage) {
   return { style, bento: bento?.outerHTML ?? "", bande: bande?.outerHTML ?? "" };
 }
 
-/* bandeSeule (biolystes.com, 23/10/2026, JP, page À propos) : ne monte que le
-   carrousel des équipes IA, le même que sur l'accueil (même extraction, mêmes
-   cartes, mêmes réglages), sans le bento, Data intelligent, la galerie des
-   créateurs ni l'organigramme. */
-export default function BlocsAccueilSecteur({ secteur, bandeSeule = false }: { secteur: Secteur; bandeSeule?: boolean }) {
+export default function BlocsAccueilSecteur({ secteur }: { secteur: Secteur }) {
   const lang = "fr";
   const reglage = REGLAGES[secteur];
-  const retire = (bloc: "bento" | "data" | "organigramme") => bandeSeule || (reglage.blocsRetires?.includes(bloc) ?? false);
+  const retire = (bloc: "bento" | "data" | "organigramme") => reglage.blocsRetires?.includes(bloc) ?? false;
   const blocs = useMemo(() => extraire(lang, reglage), [reglage]);
   const racine = useRef<HTMLDivElement>(null);
   const [slots, setSlots] = useState<Record<string, HTMLElement | null>>({});
@@ -205,7 +201,7 @@ export default function BlocsAccueilSecteur({ secteur, bandeSeule = false }: { s
       {/* 3. Le carrousel « De combien augmenterait… » */}
       <div dangerouslySetInnerHTML={{ __html: blocs.bande }} />
       {/* 4. Les créateurs, sur le secteur de la page */}
-      {!bandeSeule && <HomeCreatorsGallery sansGeneration secteur={reglage.createurs} langue={lang} enteteCommun={reglage.enteteCommun} sansOnglets={reglage.sansOnglets} />}
+      <HomeCreatorsGallery sansGeneration secteur={reglage.createurs} langue={lang} enteteCommun={reglage.enteteCommun} sansOnglets={reglage.sansOnglets} />
       {/* 5. L'organigramme */}
       {!retire("organigramme") && <Hierarchy className="pt-10 md:pt-14" />}
 

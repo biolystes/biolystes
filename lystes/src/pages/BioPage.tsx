@@ -70,7 +70,9 @@ const certLogos = [cert1, cert2, cert3, cert4, cert5, cert6, cert7];
 const homeExpVideos = [1, 2, 3, 9, 11, 12, 4, 5, 42, 43, 44, 45, 46, 48, 49, 50, 51]
   .map((n) => ({ src: `/videos/bio-exp/exp-${n}.mp4`, affiche: `/videos/bio-exp/exp-${n}.webp` }));
 
-function HomeExperienceCarousel() {
+/* Exporté (biolystes.com, 23/10/2026, JP) : la page /a-propos monte le même
+   carrousel, sans copie. */
+export function HomeExperienceCarousel() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: true, dragFree: true, slidesToScroll: 2 });
 
   useEffect(() => {
