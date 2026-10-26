@@ -126,10 +126,12 @@ export function getProductImage(product: typeof PRODUCTS[0]): string {
   return "/placeholder.svg";
 }
 
-/* `sansPrix` (/catalogue-complet-7q4m, adresse cachée de relance) : exactement
-   le même catalogue, mais aucune mention de prix nulle part — « Prix sur devis »
-   retiré des cartes et de la fiche. /catalogue ne passe jamais cette option. */
-export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }) {
+/* `sansPrix` (/nouveautes, adresse cachée de relance) : exactement le même
+   catalogue, mais aucune mention de prix nulle part — « Prix sur devis »
+   retiré des cartes et de la fiche. `sansEntete` : la page pose sa propre
+   accroche, l'en-tête « Vos produits en marque blanche » n'est pas répété.
+   /catalogue ne passe jamais ces options. */
+export default function CatalogPage({ sansPrix = false, sansEntete = false }: { sansPrix?: boolean; sansEntete?: boolean }) {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedProduct, setSelectedProduct] = useState<typeof PRODUCTS[0] | null>(null);
@@ -184,16 +186,18 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
   };
 
   return (
-    <section className="bg-background pt-10 pb-16 md:pt-14 md:pb-20">
+    <section className={"bg-background pb-16 md:pb-20 " + (sansEntete ? "pt-2 md:pt-4" : "pt-10 md:pt-14")}>
       <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-5">
-        <Entete
-          niveau={1}
-          surtitre="Catalogue"
-          noir="Vos produits"
-          gris="en marque blanche."
-          texte={<><span className="whitespace-nowrap" data-testid="nombre-catalogue">{NOMBRE_PRODUITS_COMMANDABLES} produits</span>, dont <span className="whitespace-nowrap">{nombreNouveautes} nouveautés</span>, avec leur composition INCI.</>}
-          className="pb-4 md:pb-6"
-        />
+        {!sansEntete && (
+          <Entete
+            niveau={1}
+            surtitre="Catalogue"
+            noir="Vos produits"
+            gris="en marque blanche."
+            texte={<><span className="whitespace-nowrap" data-testid="nombre-catalogue">{NOMBRE_PRODUITS_COMMANDABLES} produits</span>, dont <span className="whitespace-nowrap">{nombreNouveautes} nouveautés</span>, avec leur composition INCI.</>}
+            className="pb-4 md:pb-6"
+          />
+        )}
 
         <NouveauSiteBanner />
 

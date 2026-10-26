@@ -74,10 +74,10 @@ const InnovationPage = lazy(() => import("./pages/InnovationPage"));
 /* /catalogue (14/10/2026) : le catalogue de biolystes.pro, dans le même cadre
    que /tarifs (en-tête, pied de page, mot de passe à l'identité du site). */
 const CatalogPage = lazy(() => import("./pages/CatalogPage"));
-/* /catalogue-complet-7q4m (26/10/2026) : adresse cachée du catalogue pour les
-   messages de relance — tout le catalogue sans aucun prix, sans mot de passe,
-   non indexée, liée nulle part sur le site. */
-const CatalogueCompletPage = lazy(() => import("./pages/CatalogueCompletPage"));
+/* /nouveautes (26/10/2026) : adresse cachée du catalogue pour les messages de
+   relance — tout le catalogue sans aucun prix, sans mot de passe, non indexée,
+   liée nulle part sur le site. /catalogue-complet-7q4m y redirige. */
+const NouveautesPage = lazy(() => import("./pages/NouveautesPage"));
 
 const queryClient = new QueryClient();
 
@@ -120,7 +120,8 @@ function AppRoutes() {
         <Route path="/avis" element={<Suspense fallback={null}><AvisPage /></Suspense>} />
         <Route path="/innovation" element={<Suspense fallback={null}><InnovationPage /></Suspense>} />
         <Route path="/catalogue" element={<Suspense fallback={null}><CatalogPasswordGate><CatalogPage /></CatalogPasswordGate></Suspense>} />
-        <Route path="/catalogue-complet-7q4m" element={<Suspense fallback={null}><CatalogueCompletPage /></Suspense>} />
+        <Route path="/nouveautes" element={<Suspense fallback={null}><NouveautesPage /></Suspense>} />
+        <Route path="/catalogue-complet-7q4m" element={<Navigate to="/nouveautes" replace />} />
       </Route>
       {/* Actus (12/10/2026) : cadre de l’accueil, articles dans src/actus/articles.ts. */}
       <Route path="/blog" element={<Suspense fallback={null}><ActusPage /></Suspense>} />
