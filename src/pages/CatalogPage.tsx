@@ -126,7 +126,10 @@ export function getProductImage(product: typeof PRODUCTS[0]): string {
   return "/placeholder.svg";
 }
 
-export default function CatalogPage() {
+/* `sansPrix` (/catalogue-complet-7q4m, adresse cachée de relance) : exactement
+   le même catalogue, mais aucune mention de prix nulle part — « Prix sur devis »
+   retiré des cartes et de la fiche. /catalogue ne passe jamais cette option. */
+export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }) {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [selectedProduct, setSelectedProduct] = useState<typeof PRODUCTS[0] | null>(null);
@@ -338,7 +341,9 @@ export default function CatalogPage() {
 
 
                 <div className="flex flex-wrap items-center justify-between gap-x-1.5 gap-y-1 mt-auto pt-[6px]" style={{ borderTop: "1px solid #e5e7eb" }}>
-                  <span className="text-[10px] leading-tight text-muted-foreground">{product.status === "retired" ? "Non commandable" : badgeDisponibilite(product) ? "Pas encore commandable" : "Prix sur devis"}</span>
+                  {!(sansPrix && product.status !== "retired" && !badgeDisponibilite(product)) && (
+                    <span className="text-[10px] leading-tight text-muted-foreground">{product.status === "retired" ? "Non commandable" : badgeDisponibilite(product) ? "Pas encore commandable" : "Prix sur devis"}</span>
+                  )}
                   <span className="px-[9px] py-[3px] rounded-full text-[8px] font-bold uppercase tracking-[0.4px] whitespace-nowrap" style={{ background: "rgb(29,29,31)", color: "#ffffff" }}>
                     {LABEL_CATEGORIE[product.categorie] || product.categorie}
                   </span>
@@ -438,9 +443,11 @@ export default function CatalogPage() {
                 </div>
               )}
 
-              <div className="flex items-center gap-2 pt-2" style={{ borderTop: "1px solid #e5e7eb" }} data-testid="prix-sur-devis">
-                <a href="/rdv" className="text-[13px] font-semibold underline" style={{ color: "rgb(17,17,17)" }}>Prix sur devis</a>
-              </div>
+              {!sansPrix && (
+                <div className="flex items-center gap-2 pt-2" style={{ borderTop: "1px solid #e5e7eb" }} data-testid="prix-sur-devis">
+                  <a href="/rdv" className="text-[13px] font-semibold underline" style={{ color: "rgb(17,17,17)" }}>Prix sur devis</a>
+                </div>
+              )}
               {selectedProduct.status === "retired" && (
                 <p className="text-[12px] font-semibold pt-2" style={{ color: "rgb(17,17,17)" }}>{MENTION_RETIRE} · non commandable</p>
               )}
