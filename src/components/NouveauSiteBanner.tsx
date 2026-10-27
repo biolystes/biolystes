@@ -3,7 +3,8 @@
    dépôt commandcenterbiolystes) : carte #1d1d1f de 280 px, vidéo
    bio-hero-ordi sur 62 % de la largeur à droite cadrée à 20 % du haut, voile
    dégradé de gauche à droite, bouton noir pilule à pastille blanche fléchée,
-   croix de fermeture. Sur téléphone la vidéo prend toute la largeur sous un
+   croix de fermeture. Le bouton garde sa largeur naturelle à toutes les tailles
+   (JP, 27/10 : « le bouton ne doit pas être full »). Sur téléphone la vidéo prend toute la largeur sous un
    voile sombre. Image fixe si les animations sont réduites.
    Fermeture mémorisée pour la session (sessionStorage) : elle ne revient pas à
    chaque changement de catégorie, mais réapparaît à la session suivante. */
@@ -44,9 +45,6 @@ const CSS = `
   .nsb-in{ padding:22px 18px 18px; justify-content:flex-end; }
   .nsb-h{ font-size:clamp(24px,6.6vw,30px); line-height:1.08; margin-bottom:8px; padding-right:28px; }
   .nsb-p{ font-size:13px; margin-bottom:14px; }
-  .nsb-btn{ width:100%; height:48px; min-height:0; min-width:0; justify-content:space-between; padding:6px 6px 6px 18px; font-size:14px; }
-  .nsb-arrow{ width:34px; height:34px; }
-  .nsb-arrow svg{ width:11px; height:11px; }
   .nsb-x{ top:10px; right:10px; width:28px; height:28px; }
 }
 `;
