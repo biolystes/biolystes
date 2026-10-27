@@ -11,8 +11,9 @@
    - Principes actifs : les ingrédients clés et la composition INCI.
    Une valeur n'est proposée que si au moins un produit la porte : le menu ne
    peut jamais mener à zéro soin. */
-import { CATEGORIES, PRODUCTS, estNouveau, ordreCatalogue, type Product } from "@/data/catalogue-pro/products";
+import { CATEGORIES, estNouveau, ordreCatalogue, type Product } from "@/data/catalogue-pro/products";
 import { estAVenir } from "@/data/disponibilite";
+import { PRODUITS_VISIBLES, categoriesEnBas } from "@/data/masquage-catalogue";
 
 export type CleFiltre = "categorie" | "etiquette" | "type" | "preoccupation" | "actif";
 export type Selection = Record<CleFiltre, Set<string>>;
@@ -181,7 +182,7 @@ export const libelleCategorie = (id: string) => LABEL_CATEGORIE.get(id) ?? id;
 export interface OptionFiltre { valeur: string; libelle: string; n: number }
 
 /** Les valeurs de chaque filtre, avec le nombre de produits qui les portent (au moins un). */
-export function optionsFiltres(produits: readonly Product[] = PRODUCTS): Record<CleFiltre, OptionFiltre[]> {
+export function optionsFiltres(produits: readonly Product[] = PRODUITS_VISIBLES): Record<CleFiltre, OptionFiltre[]> {
   const compte = (k: CleFiltre) => {
     const m = new Map<string, number>();
     for (const p of produits) for (const v of valeursDe(p)[k]) m.set(v, (m.get(v) ?? 0) + 1);
@@ -212,21 +213,24 @@ const rangDispo = (p: Product) => (p.status === "retired" ? 3 : p.statut_labo ==
 
 /**
  * Tri « Nouveautés » (le tri par défaut, JP 27/10/2026) : d'abord tous les produits
- * « Bientôt » (soins et maquillage avant les compléments alimentaires), puis les
- * nouveautés (la plus récente en tête), puis le reste des produits disponibles,
- * puis les ruptures, puis les retirés. À rang égal, l'ordre du catalogue.
- * Tri « A à Z » : disponibles, bientôt, ruptures, retirés, chacun par ordre alphabétique.
+ * « Bientôt », puis les nouveautés (la plus récente en tête), puis le reste des
+ * produits disponibles, puis les ruptures, puis les retirés. À rang égal, l'ordre
+ * du catalogue. Tri « A à Z » : disponibles, bientôt, ruptures, retirés, chacun par
+ * ordre alphabétique.
+ * Dans les deux tris, les catégories rangées « en bas » (compléments alimentaires,
+ * JP 27/10/2026) passent après tous les soins et le maquillage, y compris après
+ * les soins retirés ; entre eux, l'ordre du tri s'applique.
  */
 export function trier<T extends Product>(liste: readonly T[], tri: Tri): T[] {
   const base = ordreCatalogue(liste);
   if (tri === "nouveautes") {
     const rang = (p: T) => {
       const d = rangDispo(p);
-      if (d === 1) return p.categorie === "supplements" ? 1 : 0;
+      if (d === 1) return 0;
       if (d === 0) return estNouveau(p) ? 2 : 3;
       return 2 + d + 1;
     };
-    return base.map((p, i) => ({ p, i })).sort((a, b) => rang(a.p) - rang(b.p) || a.i - b.i).map((x) => x.p);
+    return categoriesEnBas(base.map((p, i) => ({ p, i })).sort((a, b) => rang(a.p) - rang(b.p) || a.i - b.i).map((x) => x.p));
   }
-  return [...base].sort((a, b) => rangDispo(a) - rangDispo(b) || a.nom.localeCompare(b.nom, "fr", { sensitivity: "base" }));
+  return categoriesEnBas([...base].sort((a, b) => rangDispo(a) - rangDispo(b) || a.nom.localeCompare(b.nom, "fr", { sensitivity: "base" })));
 }

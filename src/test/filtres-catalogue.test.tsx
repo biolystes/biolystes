@@ -5,6 +5,7 @@ import { render, fireEvent } from "@testing-library/react";
 import { createElement } from "react";
 import CatalogPage from "@/pages/CatalogPage";
 import { PRODUCTS } from "@/data/catalogue-pro/products";
+import { CATEGORIES_MASQUEES, PRODUITS_PROPRES, PRODUITS_VISIBLES, estEnBas, estMasque } from "@/data/masquage-catalogue";
 import { correspond, optionsFiltres, selectionVide, trier, valeursDe } from "@/lib/filtres-catalogue";
 import { badgeDisponibilite } from "@/data/disponibilite";
 import { citeLeFournisseur } from "@/lib/fournisseur-masque";
@@ -18,7 +19,7 @@ describe("filtres du catalogue", () => {
       for (const o of options[k]) {
         const s = selectionVide();
         s[k].add(o.valeur);
-        expect(PRODUCTS.filter((p) => correspond(p, s)).length, `${k}:${o.valeur}`).toBe(o.n);
+        expect(PRODUITS_VISIBLES.filter((p) => correspond(p, s)).length, `${k}:${o.valeur}`).toBe(o.n);
         expect(o.n).toBeGreaterThan(0);
       }
     }
@@ -43,12 +44,31 @@ describe("filtres du catalogue", () => {
     expect(noms).toEqual([...noms].sort((a, b) => a.localeCompare(b, "fr", { sensitivity: "base" })));
   });
 
-  it("tri par défaut : les « Bientôt » en tête, puis les nouveautés, puis le reste", () => {
-    const l = trier(PRODUCTS, "nouveautes");
-    const nb = PRODUCTS.filter((p) => p.status !== "retired" && badgeDisponibilite(p) === "Bientôt").length;
-    for (const p of l.slice(0, nb)) expect(badgeDisponibilite(p), p.slug).toBe("Bientôt");
-    const apres = l.slice(nb);
-    expect(apres.some((p) => badgeDisponibilite(p) === "Bientôt")).toBe(false);
+  it("tri par défaut : les « Bientôt » en tête, puis les nouveautés, puis le reste, les compléments tout en bas", () => {
+    const l = trier(PRODUITS_VISIBLES, "nouveautes");
+    const haut = l.filter((p) => !estEnBas(p));
+    const nb = haut.filter((p) => p.status !== "retired" && badgeDisponibilite(p) === "Bientôt").length;
+    for (const p of haut.slice(0, nb)) expect(badgeDisponibilite(p), p.slug).toBe("Bientôt");
+    expect(haut.slice(nb).some((p) => badgeDisponibilite(p) === "Bientôt")).toBe(false);
+    // JP 27/10/2026 : tout ce qui touche aux compléments alimentaires est tout en bas de la sélection, dans les deux tris.
+    for (const tri of ["nouveautes", "az"] as const) {
+      const t = trier(PRODUITS_VISIBLES, tri);
+      const premierEnBas = t.findIndex((p) => estEnBas(p));
+      expect(premierEnBas, tri).toBeGreaterThan(0);
+      for (const p of t.slice(premierEnBas)) expect(estEnBas(p), `${tri} ${p.slug}`).toBe(true);
+    }
+  });
+
+  it("les compléments alimentaires sont masqués, sauf les images vérifiées propres (réglage réversible)", () => {
+    expect(CATEGORIES_MASQUEES).toContain("supplements");
+    const complements = PRODUCTS.filter((p) => p.categorie === "supplements");
+    expect(complements.length).toBeGreaterThan(PRODUITS_PROPRES.length);
+    // Tout produit de la catégorie est masqué, sauf ceux de la liste « propres » ; la liste ne contient que de vrais produits.
+    for (const p of complements) expect(estMasque(p), p.slug).toBe(!PRODUITS_PROPRES.includes(p.slug));
+    for (const slug of PRODUITS_PROPRES) expect(complements.some((p) => p.slug === slug), slug).toBe(true);
+    expect(PRODUITS_VISIBLES.filter((p) => p.categorie === "supplements").map((p) => p.slug).sort()).toEqual([...PRODUITS_PROPRES].sort());
+    // Aucune donnée supprimée : la copie du catalogue garde les 83.
+    expect(complements.length).toBe(83);
   });
 
   it("la page : choisir une catégorie filtre les cartes, le titre la nomme, aucun prix n'apparaît", () => {

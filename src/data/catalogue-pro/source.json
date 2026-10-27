@@ -9,5 +9,5 @@
   "images_approuvees": 175,
   "images_sha256": "47a3005fa9ed34ea09eab64ffad51ccdffd82b4b1292f17da495eaafa6b20ef0",
   "composant": "src/pages/CataloguePage.tsx",
-  "composant_sha256": "eb13adc24334cbde346a5dd7f5c5d2cc1c9369096740794d419b899fc6677284"
+  "composant_sha256": "4ab6b4448063ec4a8f81bbe8bbd4c6d6ffdc3833b2389ba072065400174f7e87"
 }
