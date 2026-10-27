@@ -16,7 +16,7 @@ import { describe, expect, it } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { PRODUCTS, estCommandable, estNouveau, mentionStatutLabo } from "@/data/catalogue-pro/products";
 import CatalogPage from "@/pages/CatalogPage";
-import { badgeDisponibilite } from "@/data/disponibilite";
+import { badgeDisponibilite, estAVenir } from "@/data/disponibilite";
 
 const INDISPONIBLES = PRODUCTS.filter((p) => mentionStatutLabo(p));
 const SERVICES_DESIGN = new Set(["Concept", "Adaptation", "DESIGN", "Technical"]);
@@ -44,17 +44,26 @@ describe("statut des produits chez le laboratoire (biolystes.com)", () => {
     }
   });
 
-  it("la page les badge « Bientôt » ou « Rupture », jamais « Nouveau », après tous les produits disponibles", () => {
+  it("la page met tous les « Bientôt » en tête, puis les produits disponibles, les ruptures à la suite, jamais « Nouveau » sur eux", () => {
     const { container } = render(createElement(CatalogPage));
     const cartes = [...container.querySelectorAll("[data-produit]")];
     const slugs = cartes.map((c) => c.getAttribute("data-produit")!);
-    const disponibles = new Set(PRODUCTS.filter((p) => p.status !== "retired" && !mentionStatutLabo(p)).map((p) => p.slug));
+    const aVenir = PRODUCTS.filter((p) => p.status !== "retired" && estAVenir(p));
+    expect(aVenir.length).toBeGreaterThan(0);
+    // Tous les « Bientôt » (compléments compris) occupent les premières places.
+    expect(new Set(slugs.slice(0, aVenir.length))).toEqual(new Set(aVenir.map((p) => p.slug)));
+    // Les soins et le maquillage « Bientôt » passent avant les compléments « Bientôt ».
+    const premiers = slugs.slice(0, aVenir.filter((p) => p.categorie !== "supplements").length);
+    for (const s of premiers) expect(PRODUCTS.find((p) => p.slug === s)!.categorie).not.toBe("supplements");
+    for (const p of aVenir) {
+      const carte = cartes[slugs.indexOf(p.slug)];
+      expect(carte.querySelector("[data-badge-nouveau]"), p.slug).toBeNull();
+      expect(carte.querySelector("[data-badge-statut]")?.textContent, p.slug).toBe(badgeDisponibilite(p));
+    }
+    const disponibles = new Set(PRODUCTS.filter((p) => p.status !== "retired" && !badgeDisponibilite(p)).map((p) => p.slug));
     const derniereDisponible = Math.max(...slugs.map((s, i) => (disponibles.has(s) ? i : -1)));
-    for (const p of INDISPONIBLES) {
-      const i = slugs.indexOf(p.slug);
-      expect(i, `${p.code} après les disponibles`).toBeGreaterThan(derniereDisponible);
-      expect(cartes[i].querySelector("[data-badge-nouveau]"), p.code).toBeNull();
-      expect(cartes[i].querySelector("[data-badge-statut]")?.textContent, p.code).toBe(badgeDisponibilite(p));
+    for (const p of INDISPONIBLES.filter((x) => x.statut_labo === "OUT_OF_STOCK")) {
+      expect(slugs.indexOf(p.slug), `${p.code} rupture après les disponibles`).toBeGreaterThan(derniereDisponible);
     }
   });
 
@@ -70,10 +79,12 @@ describe("statut des produits chez le laboratoire (biolystes.com)", () => {
     );
   });
 
-  it("sous 768 px, les pastilles tiennent sur une ligne qui défile, sans barre ; une seule pastille active", () => {
+  it("sous 768 px, la barre n'a que deux boutons : « Trier par » (1/3) et « Filtres » (2/3)", () => {
     const { container } = render(createElement(CatalogPage));
-    const rangee = container.querySelector(".catalogue-pastilles")!;
-    for (const c of ["flex-nowrap", "overflow-x-auto", "[scrollbar-width:none]", "md:flex-wrap"]) expect(rangee.className).toContain(c);
-    expect(rangee.querySelectorAll('[aria-pressed="true"]').length).toBe(1);
+    const mobile = container.querySelector("[data-barre-filtres] .barre-filtres-tel")!;
+    expect(mobile.className).toContain("grid-cols-3");
+    expect(mobile.querySelectorAll("button").length).toBe(2);
+    expect(mobile.querySelector("[data-tri]")!.parentElement!.className).toContain("col-span-1");
+    expect(mobile.querySelector("[data-ouvrir-filtres]")!.className).toContain("col-span-2");
   });
 });

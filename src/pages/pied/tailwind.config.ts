@@ -32,5 +32,7 @@ export default {
     "./src/pages/AvisPage.tsx",
     "./src/components/avis/**/*.{ts,tsx}",
     "./src/pages/CatalogPage.tsx",
+    "./src/pages/NouveautesPage.tsx",
+    "./src/components/BarreFiltresCatalogue.tsx",
   ],
 } satisfies Config;
