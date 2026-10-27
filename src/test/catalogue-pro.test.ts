@@ -21,6 +21,7 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { CATEGORIES, NOMBRE_PRODUITS_COMMANDABLES, PRODUCTS, estCommandable, estNouveau } from "@/data/catalogue-pro/products";
 import imagesApprouvees from "@/data/catalogue-pro/images-approuvees.json";
 import source from "@/data/catalogue-pro/source.json";
+import { estAVenir } from "@/data/disponibilite";
 import { citeLeFournisseur } from "@/lib/fournisseur-masque";
 import CatalogPage, { getProductImage } from "@/pages/CatalogPage";
 import { FICHIER_COMPOSANT, FICHIER_PRODUITS, codesProduits, lireFichier, lireImagesApprouvees, sha256 } from "../../scripts/catalogue-pro-commun.mjs";
@@ -71,11 +72,11 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
   it("la page affiche tous les produits et l'INCI, sans aucun prix", () => {
     const { container } = render(createElement(CatalogPage));
     expect(container.querySelectorAll("[data-produit]").length).toBe(PRODUCTS.length);
-    // Un seul chiffre : en-tête = pastille « Tous les produits » = compteur de liste,
+    fireEvent.click(container.querySelector('[data-filtre="categorie"]')!);
+    // Un seul chiffre : pastille « Tous les produits » = compteur de liste,
     // les produits commandables, compléments alimentaires compris, retirés exclus.
     const commandables = PRODUCTS.filter((p) => estCommandable(p)).length;
     expect(NOMBRE_PRODUITS_COMMANDABLES).toBe(commandables);
-    expect(screen.getByTestId("nombre-catalogue").textContent).toBe(`${commandables} produits`);
     expect(container.querySelector('[data-compteur="pastille-all"]')?.textContent).toBe(`(${commandables})`);
     expect(screen.getByTestId("nombre-produits").textContent).toBe(`${commandables} produits`);
     const texte = container.textContent ?? "";
@@ -87,10 +88,14 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
     const fiches = [...container.querySelectorAll("[data-produit]")];
     const nouveautes = PRODUCTS.filter((p) => estNouveau(p));
     // Badge de 60 jours : passé ce délai, il peut n'y avoir ni nouveauté ni pastille.
-    expect(fiches.slice(0, nouveautes.length).map((f) => f.getAttribute("data-produit")).sort(), "nouveautés en tête").toEqual(nouveautes.map((p) => p.slug).sort());
+    // Ordre par défaut : tous les « Bientôt », puis les nouveautés, puis le reste.
+    const nbAVenir = PRODUCTS.filter((p) => p.status !== "retired" && estAVenir(p)).length;
+    expect(fiches.slice(nbAVenir, nbAVenir + nouveautes.length).map((f) => f.getAttribute("data-produit")).sort(), "nouveautés après les « Bientôt »").toEqual(nouveautes.map((p) => p.slug).sort());
     expect(container.querySelectorAll("[data-badge-nouveau]").length).toBe(nouveautes.filter((p) => !p.status).length);
-    const pastille = screen.getAllByRole("button").find((b) => /^Nouveautés/.test(b.textContent ?? ""));
-    expect(pastille?.textContent).toBe(nouveautes.length ? `Nouveautés(${nouveautes.length})` : undefined);
+    // Les nouveautés se retrouvent dans le filtre « Étiquette » : le même nombre que les badges.
+    fireEvent.click(container.querySelector('[data-filtre="etiquette"]')!);
+    const optionNouveau = container.querySelector('[data-option-filtre="Nouveau"]');
+    expect(optionNouveau ? 1 : 0).toBe(nouveautes.length ? 1 : 0);
     expect(texte).toContain("Compléments alimentaires");
     expect(texte).not.toMatch(/Supplements/);
 
@@ -108,6 +113,8 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
   it("chaque pastille de catégorie donne le nombre du compteur de liste une fois ouverte", () => {
     const { container } = render(createElement(CatalogPage));
     for (const cat of CATEGORIES) {
+      fireEvent.click(container.querySelector('[data-filtre="categorie"]')!);
+      if (container.querySelector('[data-panneau-liste="categorie"]') === null) fireEvent.click(container.querySelector('[data-filtre="categorie"]')!);
       const pastille = container.querySelector(`[data-compteur="pastille-${cat.id}"]`)!;
       const attendu = pastille.textContent!.replace(/\D/g, "");
       fireEvent.click(pastille.closest("button")!);

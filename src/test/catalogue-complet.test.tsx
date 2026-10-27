@@ -5,8 +5,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
 import CatalogPage from "@/pages/CatalogPage";
-import { accrocheNombre } from "@/pages/NouveautesPage";
-import { PRODUCTS } from "@/data/catalogue-pro/products";
 
 describe("catalogue caché sans prix", () => {
   it("la version sansPrix n'affiche aucune mention de prix", () => {
@@ -24,14 +22,5 @@ describe("catalogue caché sans prix", () => {
   it("la version normale (/catalogue) reste inchangée", () => {
     render(<CatalogPage />);
     expect(screen.getAllByText("Prix sur devis").length).toBeGreaterThan(0);
-  });
-});
-
-describe("accroche de /nouveautes", () => {
-  it("le nombre est calculé sur le vrai catalogue, jamais surestimé", () => {
-    expect(accrocheNombre(PRODUCTS.length)).toBe("Près de 300");
-    expect(accrocheNombre(240)).toBe("Plus de 200");
-    expect(accrocheNombre(391)).toBe("Près de 400");
-    expect(accrocheNombre(100)).toBe("Plus de 100");
   });
 });

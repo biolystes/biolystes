@@ -49,7 +49,7 @@
 
    Le nom du laboratoire ne figure nulle part : les adresses d'images passent
    par citeLeFournisseur (src/lib/fournisseur-masque.ts). */
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Search, Star, CalendarDays } from "lucide-react";
 import { citeLeFournisseur } from "@/lib/fournisseur-masque";
 import { sansMotSeul } from "@/lib/sans-mot-seul";
@@ -59,9 +59,14 @@ import {
 } from "@/data/catalogue-pro/products";
 import cleanImageEntries from "@/data/catalogue-pro/clean-image-map.json";
 import imagesApprouvees from "@/data/catalogue-pro/images-approuvees.json";
-import { CTA_URL, Entete } from "./pied/elements";
+import { CTA_URL } from "./pied/elements";
 import { badgeDisponibilite } from "@/data/disponibilite";
 import NouveauSiteBanner from "@/components/NouveauSiteBanner";
+import BarreFiltresCatalogue from "@/components/BarreFiltresCatalogue";
+import {
+  correspond, libelleCategorie, optionsFiltres, selectionVide, trier,
+  type CleFiltre, type Selection, type Tri,
+} from "@/lib/filtres-catalogue";
 
 const LABEL_CATEGORIE: Record<string, string> = {
   "soins-du-visage": "Soins du visage",
@@ -72,9 +77,6 @@ const LABEL_CATEGORIE: Record<string, string> = {
   maquillage: "Maquillage",
   supplements: "Compléments alimentaires",
 };
-
-/** Filtre « Nouveautés », proposé avant les catégories. */
-const ID_NOUVEAUTES = "nouveautes";
 
 /** Pastille « Nouveau » : même facture que les tags du catalogue (fond noir, texte blanc, capitales). */
 const BadgeNouveau = ({ grand = false }: { grand?: boolean }) => (
@@ -126,32 +128,114 @@ export function getProductImage(product: typeof PRODUCTS[0]): string {
   return "/placeholder.svg";
 }
 
-/* `sansPrix` (/nouveautes, adresse cachée de relance) : exactement le même
-   catalogue, mais aucune mention de prix nulle part — « Prix sur devis »
-   retiré des cartes et de la fiche. `sansEntete` : la page pose sa propre
-   accroche, l'en-tête « Vos produits en marque blanche » n'est pas répété.
-   /catalogue ne passe jamais ces options. */
-export default function CatalogPage({ sansPrix = false, sansEntete = false }: { sansPrix?: boolean; sansEntete?: boolean }) {
+/* Description de carte sur deux lignes, coupée à la fin d'un mot entier (JP, 27/10/2026 :
+   « obtenir un tei… » coupait au milieu d'un mot). On cherche le plus grand nombre de
+   mots qui tient dans deux lignes à la largeur réelle de la carte, puis « … ». */
+function DescriptionCoupee({ texte }: { texte: string }) {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const [affiche, setAffiche] = useState(texte);
+
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el || !el.parentElement) return;
+    const mots = texte.trim().split(/\s+/);
+    let largeur = 0;
+    const ajuste = () => {
+      largeur = el.clientWidth;
+      if (!largeur) return;
+      // Mesure sur une copie hors écran : le texte affiché reste sous le contrôle de React.
+      const sonde = document.createElement("p");
+      sonde.className = el.className;
+      sonde.style.cssText = `position:absolute;visibility:hidden;max-height:none;overflow:visible;width:${largeur}px`;
+      el.parentElement!.appendChild(sonde);
+      const tient = (n: number) => {
+        sonde.textContent = n >= mots.length ? texte : mots.slice(0, n).join(" ") + "…";
+        return sonde.scrollHeight <= 31;
+      };
+      let res = texte;
+      if (!tient(mots.length)) {
+        let bas = 1, haut = mots.length - 1;
+        while (bas < haut) {
+          const mi = Math.ceil((bas + haut) / 2);
+          if (tient(mi)) bas = mi; else haut = mi - 1;
+        }
+        res = mots.slice(0, bas).join(" ").replace(/[,;:.\-–]+$/, "") + "…";
+      }
+      sonde.remove();
+      setAffiche(res);
+    };
+    ajuste();
+    if (typeof ResizeObserver === "undefined") return;
+    const obs = new ResizeObserver(() => { if (el.clientWidth !== largeur) ajuste(); });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [texte]);
+
+  return (
+    <p ref={ref} className="text-[10px] leading-[15px] overflow-hidden max-h-[30px] [overflow-wrap:normal] [hyphens:none]" style={{ color: "#666666" }} data-description-carte>
+      {affiche}
+    </p>
+  );
+}
+
+/* `sansPrix` (/nouveautes et /nos-soins, adresses cachées pour les prospectes) :
+   exactement le même catalogue, mais aucune mention de prix nulle part (« Prix
+   sur devis » retiré des cartes et de la fiche). /catalogue ne passe jamais cette
+   option. Depuis le 27/10/2026 (JP), aucune page n'a d'en-tête au-dessus :
+   la page commence par la barre de filtres, puis le titre de la catégorie active. */
+export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }) {
   const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [selection, setSelection] = useState<Selection>(selectionVide);
+  const [tri, setTri] = useState<Tri>("nouveautes");
   const [selectedProduct, setSelectedProduct] = useState<typeof PRODUCTS[0] | null>(null);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
-  const nombreNouveautes = useMemo(() => PRODUCTS.filter((p) => estNouveau(p)).length, []);
+  const options = useMemo(() => optionsFiltres(PRODUCTS), []);
 
-  // Nouveautés en tête par défaut, produits retirés en fin de liste, dans « Tous les produits » comme dans chaque catégorie.
+  /* Une photo de NOS produits par catégorie, pour la grille du filtre « Catégorie » :
+     le premier produit disponible de la catégorie qui a une vraie photo. */
+  const imagesCategories = useMemo(() => {
+    const photo = (liste: typeof PRODUCTS, pris: Set<string>) => {
+      const p = trier(liste, "nouveautes").find((x) => x.status !== "retired" && !x.image_a_venir && getProductImage(x) !== "/placeholder.svg" && !pris.has(getProductImage(x)));
+      if (!p) return "";
+      pris.add(getProductImage(p));
+      return getProductImage(p);
+    };
+    // Une photo différente par catégorie ; « Tous les produits » prend une photo qu'aucune catégorie n'utilise.
+    const pris = new Set<string>();
+    const out: Record<string, string> = {};
+    for (const c of CATEGORIES) if (c.id !== "all") out[c.id] = photo(PRODUCTS.filter((x) => x.categorie === c.id), pris);
+    out.all = photo(PRODUCTS.filter((x) => x.categorie !== "supplements"), pris);
+    return out;
+  }, []);
+  const nombresCategories = useMemo(() => {
+    const out: Record<string, number> = { all: NOMBRE_PRODUITS_COMMANDABLES };
+    for (const c of CATEGORIES) if (c.id !== "all") out[c.id] = compterCommandables(PRODUCTS.filter((x) => x.categorie === c.id));
+    return out;
+  }, []);
+
+  const basculer = (cle: CleFiltre, valeur: string) =>
+    setSelection((prev) => {
+      const set = new Set(prev[cle]);
+      if (set.has(valeur)) set.delete(valeur); else set.add(valeur);
+      return { ...prev, [cle]: set };
+    });
+  const choisirCategorie = (id: string | null) => setSelection((prev) => ({ ...prev, categorie: new Set(id ? [id] : []) }));
+  const toutesLesValeurs = (cle: Exclude<CleFiltre, "categorie">) => setSelection((prev) => ({ ...prev, [cle]: new Set() }));
+
+  // Titre au-dessus des cartes : la catégorie active.
+  const titreListe = selection.categorie.size === 1 ? libelleCategorie([...selection.categorie][0]) : "Tous les produits";
+
+  // Nouveautés en tête par défaut (ou A à Z), produits retirés en fin de liste.
   const filtered = useMemo(() => {
-    return ordreCatalogue(PRODUCTS.filter((p) => {
-      const matchCat =
-        activeCategory === "all" ||
-        (activeCategory === ID_NOUVEAUTES ? estNouveau(p) : p.categorie === activeCategory);
+    return trier(PRODUCTS.filter((p) => {
       const matchSearch =
         !search ||
         p.nom.toLowerCase().includes(search.toLowerCase()) ||
         p.description.toLowerCase().includes(search.toLowerCase());
-      return matchCat && matchSearch;
-    }));
-  }, [search, activeCategory]);
+      return correspond(p, selection) && matchSearch;
+    }), tri);
+  }, [search, selection, tri]);
 
   // Un seul nombre de produits sur la page : les commandables (compléments compris, retirés exclus).
   const nombreAffiche = compterCommandables(filtered);
@@ -161,19 +245,6 @@ export default function CatalogPage({ sansPrix = false, sansEntete = false }: { 
     { n: filtered.filter((p) => p.statut_labo === "OUT_OF_STOCK").length, un: "en rupture", plusieurs: "en rupture" },
     { n: filtered.filter((p) => p.status === "retired").length, un: "retiré", plusieurs: "retirés" },
   ].filter((x) => x.n > 0);
-
-  // Sous 768 px, les pastilles tiennent sur une ligne qui défile : la pastille active est ramenée à l'écran.
-  const rangeePastilles = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const rangee = rangeePastilles.current;
-    const active = rangee?.querySelector<HTMLElement>('[aria-pressed="true"]');
-    if (!rangee || !active || rangee.scrollWidth <= rangee.clientWidth) return;
-    const marge = parseFloat(getComputedStyle(rangee).paddingLeft) || 0;
-    if (active.offsetLeft - marge < rangee.scrollLeft) rangee.scrollLeft = active.offsetLeft - marge;
-    else if (active.offsetLeft + active.offsetWidth > rangee.scrollLeft + rangee.clientWidth) {
-      rangee.scrollLeft = active.offsetLeft + active.offsetWidth + marge - rangee.clientWidth;
-    }
-  }, [activeCategory, nombreNouveautes]);
 
   const toggleFav = (slug: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -186,19 +257,8 @@ export default function CatalogPage({ sansPrix = false, sansEntete = false }: { 
   };
 
   return (
-    <section className={"bg-background pb-16 md:pb-20 " + (sansEntete ? "pt-2 md:pt-4" : "pt-10 md:pt-14")}>
+    <section className="bg-background pb-16 md:pb-20 pt-6 md:pt-8">
       <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-5">
-        {!sansEntete && (
-          <Entete
-            niveau={1}
-            surtitre="Catalogue"
-            noir="Vos produits"
-            gris="en marque blanche."
-            texte={<><span className="whitespace-nowrap" data-testid="nombre-catalogue">{NOMBRE_PRODUITS_COMMANDABLES} produits</span>, dont <span className="whitespace-nowrap">{nombreNouveautes} nouveautés</span>, avec leur composition INCI.</>}
-            className="pb-4 md:pb-6"
-          />
-        )}
-
         <NouveauSiteBanner />
 
         <div className="flex flex-col gap-3">
@@ -213,42 +273,22 @@ export default function CatalogPage({ sansPrix = false, sansEntete = false }: { 
               style={{ background: "#f3f4f5" }}
             />
           </div>
-          {/* Ordinateur : pastilles sur plusieurs lignes. Sous 768 px : une seule ligne qui défile, sans barre ni accroche, jusqu'aux bords de l'écran. */}
-          <div
-            ref={rangeePastilles}
-            className="catalogue-pastilles relative flex flex-nowrap items-center gap-2 overflow-x-auto -mx-4 px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:mx-0 md:px-0 md:flex-wrap md:overflow-visible"
-          >
-            {nombreNouveautes > 0 && (
-              <button
-                onClick={() => setActiveCategory(ID_NOUVEAUTES)}
-                aria-pressed={activeCategory === ID_NOUVEAUTES}
-                className={`shrink-0 whitespace-nowrap px-3 md:px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                  activeCategory === ID_NOUVEAUTES ? "bg-foreground text-background" : "text-foreground hover:bg-black/10"
-                }`}
-                style={activeCategory === ID_NOUVEAUTES ? undefined : { background: "#f3f4f5" }}
-              >
-                Nouveautés
-                <span className="ml-1.5 opacity-60 text-xs" data-compteur={`pastille-${ID_NOUVEAUTES}`}>({nombreNouveautes})</span>
-              </button>
-            )}
-            {CATEGORIES.map((cat) => (
-              <button
-                key={cat.id}
-                onClick={() => setActiveCategory(cat.id)}
-                aria-pressed={activeCategory === cat.id}
-                className={`shrink-0 whitespace-nowrap px-3 md:px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                  activeCategory === cat.id ? "bg-foreground text-background" : "text-foreground hover:bg-black/10"
-                }`}
-                style={activeCategory === cat.id ? undefined : { background: "#f3f4f5" }}
-              >
-                {cat.label}
-                <span className="ml-1.5 opacity-60 text-xs" data-compteur={`pastille-${cat.id}`}>
-                  ({cat.id === "all" ? NOMBRE_PRODUITS_COMMANDABLES : compterCommandables(PRODUCTS.filter((p) => p.categorie === cat.id))})
-                </span>
-              </button>
-            ))}
-          </div>
+          <BarreFiltresCatalogue
+            options={options}
+            selection={selection}
+            imagesCategories={imagesCategories}
+            nombresCategories={nombresCategories}
+            onBascule={basculer}
+            onCategorie={choisirCategorie}
+            onToutes={toutesLesValeurs}
+            onVider={() => setSelection(selectionVide())}
+            tri={tri}
+            onTri={setTri}
+            nombreResultats={nombreAffiche}
+          />
         </div>
+
+        <h2 className="text-2xl md:text-[28px] leading-tight text-foreground" data-titre-liste>{titreListe}</h2>
 
         <p className="text-xs text-muted-foreground [text-wrap:balance]">
           <span data-testid="nombre-produits">{nombreAffiche} produit{nombreAffiche > 1 ? "s" : ""}</span>
@@ -325,9 +365,7 @@ export default function CatalogPage({ sansPrix = false, sansEntete = false }: { 
                 </h3>
 
                 {product.description && (
-                  <p className="text-[10px] leading-[1.5] line-clamp-2" style={{ color: "#666666" }}>
-                    {product.description}
-                  </p>
+                  <DescriptionCoupee texte={product.description} />
                 )}
 
                 <div className="flex gap-1 flex-wrap">
