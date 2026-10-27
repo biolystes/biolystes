@@ -290,7 +290,8 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
 
         <h2 className="text-2xl md:text-[28px] leading-tight text-foreground" data-titre-liste>{titreListe}</h2>
 
-        <p className="text-xs text-muted-foreground [text-wrap:balance]">
+        {/* Compteur gardé pour les lecteurs d'écran et les tests, invisible à l'écran (JP, 27/10/2026 : pas de « 269 produits · 22 bientôt… » devant les prospectes). */}
+        <p className="sr-only">
           <span data-testid="nombre-produits">{nombreAffiche} produit{nombreAffiche > 1 ? "s" : ""}</span>
           {horsCommande.map((x) => (
             <span key={x.un}>{` · ${x.n} ${x.n > 1 ? x.plusieurs : x.un}`}</span>
