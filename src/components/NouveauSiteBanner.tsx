@@ -45,6 +45,9 @@ const CSS = `
   .nsb-in{ padding:22px 18px 18px; justify-content:flex-end; }
   .nsb-h{ font-size:clamp(24px,6.6vw,30px); line-height:1.08; margin-bottom:8px; padding-right:28px; }
   .nsb-p{ font-size:13px; margin-bottom:14px; }
+  .nsb-btn{ min-height:44px; min-width:0; gap:8px; padding:6px 6px 6px 16px; font-size:13px; }
+  .nsb-arrow{ width:32px; height:32px; }
+  .nsb-arrow svg{ width:13px; height:13px; }
   .nsb-x{ top:10px; right:10px; width:28px; height:28px; }
 }
 `;
