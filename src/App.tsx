@@ -121,6 +121,8 @@ function AppRoutes() {
         <Route path="/innovation" element={<Suspense fallback={null}><InnovationPage /></Suspense>} />
         <Route path="/catalogue" element={<Suspense fallback={null}><CatalogPasswordGate><CatalogPage /></CatalogPasswordGate></Suspense>} />
         <Route path="/nouveautes" element={<Suspense fallback={null}><NouveautesPage /></Suspense>} />
+        {/* /nos-soins (27/10/2026) : même page que /nouveautes (une seule source), adresse plus claire à envoyer aux prospectes. */}
+        <Route path="/nos-soins" element={<Suspense fallback={null}><NouveautesPage /></Suspense>} />
         <Route path="/catalogue-complet-7q4m" element={<Navigate to="/nouveautes" replace />} />
       </Route>
       {/* Actus (12/10/2026) : cadre de l’accueil, articles dans src/actus/articles.ts. */}
