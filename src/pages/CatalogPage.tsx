@@ -54,13 +54,14 @@ import { Search, Star, CalendarDays } from "lucide-react";
 import { citeLeFournisseur } from "@/lib/fournisseur-masque";
 import { sansMotSeul } from "@/lib/sans-mot-seul";
 import {
-  PRODUCTS, CATEGORIES, MENTION_IMAGE_A_VENIR, MENTION_RETIRE, MENTION_NOUVEAU,
-  NOMBRE_PRODUITS_COMMANDABLES, estNouveau, ordreCatalogue, compterCommandables, mentionStatutLabo,
+  PRODUCTS, MENTION_IMAGE_A_VENIR, MENTION_RETIRE, MENTION_NOUVEAU,
+  estNouveau, ordreCatalogue, compterCommandables, mentionStatutLabo,
 } from "@/data/catalogue-pro/products";
 import cleanImageEntries from "@/data/catalogue-pro/clean-image-map.json";
 import imagesApprouvees from "@/data/catalogue-pro/images-approuvees.json";
 import { CTA_URL } from "./pied/elements";
 import { badgeDisponibilite } from "@/data/disponibilite";
+import { CATEGORIES_VISIBLES, PRODUITS_VISIBLES } from "@/data/masquage-catalogue";
 import NouveauSiteBanner from "@/components/NouveauSiteBanner";
 import BarreFiltresCatalogue from "@/components/BarreFiltresCatalogue";
 import {
@@ -190,12 +191,12 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
   const [selectedProduct, setSelectedProduct] = useState<typeof PRODUCTS[0] | null>(null);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
-  const options = useMemo(() => optionsFiltres(PRODUCTS), []);
+  const options = useMemo(() => optionsFiltres(PRODUITS_VISIBLES), []);
 
   /* Une photo de NOS produits par catégorie, pour la grille du filtre « Catégorie » :
      le premier produit disponible de la catégorie qui a une vraie photo. */
   const imagesCategories = useMemo(() => {
-    const photo = (liste: typeof PRODUCTS, pris: Set<string>) => {
+    const photo = (liste: typeof PRODUITS_VISIBLES, pris: Set<string>) => {
       const p = trier(liste, "nouveautes").find((x) => x.status !== "retired" && !x.image_a_venir && getProductImage(x) !== "/placeholder.svg" && !pris.has(getProductImage(x)));
       if (!p) return "";
       pris.add(getProductImage(p));
@@ -204,13 +205,13 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
     // Une photo différente par catégorie ; « Tous les produits » prend une photo qu'aucune catégorie n'utilise.
     const pris = new Set<string>();
     const out: Record<string, string> = {};
-    for (const c of CATEGORIES) if (c.id !== "all") out[c.id] = photo(PRODUCTS.filter((x) => x.categorie === c.id), pris);
-    out.all = photo(PRODUCTS.filter((x) => x.categorie !== "supplements"), pris);
+    for (const c of CATEGORIES_VISIBLES) if (c.id !== "all") out[c.id] = photo(PRODUITS_VISIBLES.filter((x) => x.categorie === c.id), pris);
+    out.all = photo(PRODUITS_VISIBLES.filter((x) => x.categorie !== "supplements"), pris);
     return out;
   }, []);
   const nombresCategories = useMemo(() => {
-    const out: Record<string, number> = { all: NOMBRE_PRODUITS_COMMANDABLES };
-    for (const c of CATEGORIES) if (c.id !== "all") out[c.id] = compterCommandables(PRODUCTS.filter((x) => x.categorie === c.id));
+    const out: Record<string, number> = { all: compterCommandables(PRODUITS_VISIBLES) };
+    for (const c of CATEGORIES_VISIBLES) if (c.id !== "all") out[c.id] = compterCommandables(PRODUITS_VISIBLES.filter((x) => x.categorie === c.id));
     return out;
   }, []);
 
@@ -228,7 +229,7 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
 
   // Nouveautés en tête par défaut (ou A à Z), produits retirés en fin de liste.
   const filtered = useMemo(() => {
-    return trier(PRODUCTS.filter((p) => {
+    return trier(PRODUITS_VISIBLES.filter((p) => {
       const matchSearch =
         !search ||
         p.nom.toLowerCase().includes(search.toLowerCase()) ||

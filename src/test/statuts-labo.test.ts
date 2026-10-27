@@ -16,6 +16,7 @@ import { describe, expect, it } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { PRODUCTS, estCommandable, estNouveau, mentionStatutLabo } from "@/data/catalogue-pro/products";
 import CatalogPage from "@/pages/CatalogPage";
+import { PRODUITS_VISIBLES, estEnBas } from "@/data/masquage-catalogue";
 import { badgeDisponibilite, estAVenir } from "@/data/disponibilite";
 
 const INDISPONIBLES = PRODUCTS.filter((p) => mentionStatutLabo(p));
@@ -48,19 +49,21 @@ describe("statut des produits chez le laboratoire (biolystes.com)", () => {
     const { container } = render(createElement(CatalogPage));
     const cartes = [...container.querySelectorAll("[data-produit]")];
     const slugs = cartes.map((c) => c.getAttribute("data-produit")!);
-    const aVenir = PRODUCTS.filter((p) => p.status !== "retired" && estAVenir(p));
-    expect(aVenir.length).toBeGreaterThan(0);
-    // Tous les « Bientôt » (compléments compris) occupent les premières places.
-    expect(new Set(slugs.slice(0, aVenir.length))).toEqual(new Set(aVenir.map((p) => p.slug)));
-    // Les soins et le maquillage « Bientôt » passent avant les compléments « Bientôt ».
-    const premiers = slugs.slice(0, aVenir.filter((p) => p.categorie !== "supplements").length);
-    for (const s of premiers) expect(PRODUCTS.find((p) => p.slug === s)!.categorie).not.toBe("supplements");
+    // Les compléments alimentaires (masqués sauf images propres, JP 27/10/2026) sont rangés tout en bas, après tout le reste.
+    const aVenir = PRODUITS_VISIBLES.filter((p) => p.status !== "retired" && estAVenir(p));
+    const aVenirHaut = aVenir.filter((p) => !estEnBas(p));
+    expect(aVenirHaut.length).toBeGreaterThan(0);
+    // Tous les « Bientôt » des soins et du maquillage occupent les premières places.
+    expect(new Set(slugs.slice(0, aVenirHaut.length))).toEqual(new Set(aVenirHaut.map((p) => p.slug)));
+    // Les compléments alimentaires ferment la liste.
+    const nbEnBas = PRODUITS_VISIBLES.filter((p) => estEnBas(p)).length;
+    for (const s of slugs.slice(-nbEnBas)) expect(estEnBas(PRODUCTS.find((p) => p.slug === s)!), s).toBe(true);
     for (const p of aVenir) {
       const carte = cartes[slugs.indexOf(p.slug)];
       expect(carte.querySelector("[data-badge-nouveau]"), p.slug).toBeNull();
       expect(carte.querySelector("[data-badge-statut]")?.textContent, p.slug).toBe(badgeDisponibilite(p));
     }
-    const disponibles = new Set(PRODUCTS.filter((p) => p.status !== "retired" && !badgeDisponibilite(p)).map((p) => p.slug));
+    const disponibles = new Set(PRODUITS_VISIBLES.filter((p) => p.status !== "retired" && !badgeDisponibilite(p)).map((p) => p.slug));
     const derniereDisponible = Math.max(...slugs.map((s, i) => (disponibles.has(s) ? i : -1)));
     for (const p of INDISPONIBLES.filter((x) => x.statut_labo === "OUT_OF_STOCK")) {
       expect(slugs.indexOf(p.slug), `${p.code} rupture après les disponibles`).toBeGreaterThan(derniereDisponible);
