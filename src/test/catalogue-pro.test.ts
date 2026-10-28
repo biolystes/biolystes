@@ -18,14 +18,17 @@ import path from "node:path";
 import { createElement } from "react";
 import { describe, expect, it } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { CATEGORIES, NOMBRE_PRODUITS_COMMANDABLES, PRODUCTS, estCommandable, estNouveau } from "@/data/catalogue-pro/products";
+import { CATEGORIES, NOMBRE_PRODUITS_COMMANDABLES, PRODUCTS, estCommandable, estNouveau, masqueAuCatalogue } from "@/data/catalogue-pro/products";
 import imagesApprouvees from "@/data/catalogue-pro/images-approuvees.json";
 import source from "@/data/catalogue-pro/source.json";
 import { estAVenir } from "@/data/disponibilite";
-import { CATEGORIES_VISIBLES, PRODUITS_VISIBLES, estEnBas } from "@/data/masquage-catalogue";
+import { CATEGORIES_VISIBLES, PRODUITS_VISIBLES as VISIBLES_MASQUAGE, estEnBas } from "@/data/masquage-catalogue";
 import { citeLeFournisseur } from "@/lib/fournisseur-masque";
 import CatalogPage, { getProductImage } from "@/pages/CatalogPage";
 import { FICHIER_COMPOSANT, FICHIER_PRODUITS, codesProduits, lireFichier, lireImagesApprouvees, sha256 } from "../../scripts/catalogue-pro-commun.mjs";
+
+// biolystes.pro cache aussi les gommes (JP, 19/10/2026) : la page de la copie suit la même règle, un seul catalogue.
+const PRODUITS_VISIBLES = VISIBLES_MASQUAGE.filter((p) => !masqueAuCatalogue(p));
 
 const DOSSIER = path.resolve(__dirname, "../data/catalogue-pro");
 const codes = codesProduits as (src: string) => string[];
@@ -77,7 +80,7 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
     fireEvent.click(container.querySelector('[data-filtre="categorie"]')!);
     // Un seul chiffre : pastille « Tous les produits » = compteur de liste,
     // les produits commandables, compléments alimentaires compris, retirés exclus.
-    expect(NOMBRE_PRODUITS_COMMANDABLES).toBe(PRODUCTS.filter((p) => estCommandable(p)).length);
+    expect(NOMBRE_PRODUITS_COMMANDABLES).toBe(PRODUCTS.filter((p) => estCommandable(p) && !masqueAuCatalogue(p)).length);
     const commandables = PRODUITS_VISIBLES.filter((p) => estCommandable(p)).length;
     expect(container.querySelector('[data-compteur="pastille-all"]')?.textContent).toBe(`(${commandables})`);
     expect(screen.getByTestId("nombre-produits").textContent).toBe(`${commandables} produits`);

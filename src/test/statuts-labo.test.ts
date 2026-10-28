@@ -14,10 +14,13 @@ import path from "node:path";
 import { createElement } from "react";
 import { describe, expect, it } from "vitest";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { PRODUCTS, estCommandable, estNouveau, mentionStatutLabo } from "@/data/catalogue-pro/products";
+import { PRODUCTS, estCommandable, estNouveau, masqueAuCatalogue, mentionStatutLabo } from "@/data/catalogue-pro/products";
 import CatalogPage from "@/pages/CatalogPage";
-import { PRODUITS_VISIBLES, estEnBas } from "@/data/masquage-catalogue";
+import { PRODUITS_VISIBLES as VISIBLES_MASQUAGE, estEnBas } from "@/data/masquage-catalogue";
 import { badgeDisponibilite, estAVenir } from "@/data/disponibilite";
+
+// biolystes.pro cache aussi les gommes (JP, 19/10/2026) : la page de la copie suit la même règle, un seul catalogue.
+const PRODUITS_VISIBLES = VISIBLES_MASQUAGE.filter((p) => !masqueAuCatalogue(p));
 
 const INDISPONIBLES = PRODUCTS.filter((p) => mentionStatutLabo(p));
 const SERVICES_DESIGN = new Set(["Concept", "Adaptation", "DESIGN", "Technical"]);

@@ -35,7 +35,7 @@ export const MENTION_IMAGE_A_VENIR = "Image à venir";
 export const MENTION_NOUVEAU = "Nouveau";
 /** Badge d'un produit pas encore sorti (COMING_SOON) ou en rupture (OUT_OF_STOCK) chez le laboratoire. */
 export const MENTION_STATUT_LABO: Record<Exclude<StatutLabo, "actif">, string> = {
-  COMING_SOON: "Bientôt disponible",
+  COMING_SOON: "Bientôt",
   OUT_OF_STOCK: "Rupture",
 };
 
@@ -102,7 +102,12 @@ export function estCommandable(p: Pick<Product, "status" | "prix_ht" | "statut_l
  * alimentaires compris. Les produits retirés restent visibles mais ne comptent nulle part.
  */
 export function compterCommandables(liste: readonly Pick<Product, "status" | "prix_ht" | "statut_labo">[]): number {
-  return liste.filter((p) => estCommandable(p)).length;
+  return liste.filter((p) => estCommandable(p) && !masqueAuCatalogue(p as unknown as Pick<Product, "nom">)).length;
+}
+
+/** JP, 19/10/2026 : « pour le moment cache les gummies » (compléments en gommes). Masqués du catalogue, pas supprimés. */
+export function masqueAuCatalogue(p: Pick<Product, "nom">): boolean {
+  return /gumm/i.test(p.nom ?? "");
 }
 
 /**
@@ -111,9 +116,12 @@ export function compterCommandables(liste: readonly Pick<Product, "status" | "pr
  */
 export function ordreCatalogue<T extends Pick<Product, "date_arrivee" | "status" | "statut_labo">>(liste: readonly T[], aujourdhui: Date = new Date()): T[] {
   const rang = (p: T) => (p.status === "retired" ? 3 : p.statut_labo === "OUT_OF_STOCK" ? 2 : p.statut_labo === "COMING_SOON" ? 1 : 0);
+  // JP, 19/10/2026 : « dans l'ordre des plus récents » : à disponibilité égale, la date d'arrivée la plus récente d'abord.
+  const date = (p: T) => p.date_arrivee ?? "";
   return nouveautesDabord(liste, aujourdhui)
+    .filter((p) => !masqueAuCatalogue(p as unknown as Pick<Product, "nom">))
     .map((p, i) => ({ p, i }))
-    .sort((a, b) => rang(a.p) - rang(b.p) || a.i - b.i)
+    .sort((a, b) => rang(a.p) - rang(b.p) || (date(a.p) === date(b.p) ? a.i - b.i : date(a.p) < date(b.p) ? 1 : -1))
     .map((x) => x.p);
 }
 export const CATEGORIES = [
@@ -127,6 +135,186 @@ export const CATEGORIES = [
   { id: "supplements", label: "Compléments alimentaires" },
 ] as const;
 export const PRODUCTS: Product[] = [
+  {
+    "slug": "routine-de-soins-capillaires-en-3-etapes-pour-cheveux-boucles",
+    "code": "S0174",
+    "statut_labo": "actif",
+    "nom": "Routine de soins capillaires en 3 étapes pour cheveux bouclés",
+    "categorie": "collection-box",
+    "volume": "715 ml",
+    "prix_ht": 22.0,
+    "prix_conseilles": null,
+    "certifications": [],
+    "star_features": [
+      "Coffret cadeau",
+      "Huile d'argan",
+      "Aloe vera"
+    ],
+    "description": "Un shampoing sans sulfate pour cheveux bouclés, un soin 3-en-1 et une brume texturisante anti-frisottis. Formulé à base d'huile d'argan, d'aloe vera et de protéines de riz hydrolysées, ce trio permet de laver, soigner et définir les boucles. Le soin s'utilise comme après-shampoing, masque ou soin sans rinçage, offrant ainsi trois utilisations avec un seul produit.\n\nUne routine de lavage et de coiffage spécialement conçue pour les cheveux bouclés. Le shampoing sans sulfate nettoie en douceur grâce à l'aloe vera et à l'huile d'argan, sans dessécher les huiles naturelles essentielles aux boucles. Le soin 3-en-1 s'utilise comme après-shampoing, masque nourrissant ou produit coiffant sans rinçage, grâce à l'huile d'argan et aux protéines de riz hydrolysées, pour des boucles douces et définies. Terminez avec la brume texturisante anti-frisottis pour définir les boucles et discipliner les frisottis sans effet cartonné. Vaporisez à nouveau le lendemain pour rafraîchir votre coiffure.",
+    "ingredients": "Huile d'argan, Aloe vera, Protéines de riz hydrolysées, Extrait de raisin, Glycérine",
+    "arome": "",
+    "inci": "",
+    "image": "https://ssjhqlgbgmtzvmmrxcbs.supabase.co/storage/v1/object/public/product-images/clean-products/routine-de-soins-capillaires-en-3-etapes-pour-cheveux-boucles.png",
+    "url": "",
+    "date_arrivee": "2026-10-28"
+  },
+  {
+    "slug": "routine-de-soins-capillaires-a-la-keratine-en-3-etapes",
+    "code": "S0173",
+    "statut_labo": "actif",
+    "nom": "Routine de soins capillaires à la kératine en 3 étapes",
+    "categorie": "collection-box",
+    "volume": "880 ml",
+    "prix_ht": 25.42,
+    "prix_conseilles": null,
+    "certifications": [],
+    "star_features": [
+      "Coffret cadeau",
+      "Kératine hydrolysée",
+      "Caféine"
+    ],
+    "description": "Un shampooing volumisant à la kératine, son après-shampooing volumisant assorti et une brume capillaire sans rinçage brillance à la kératine. Ces trois produits sont certifiés COSMOS Natural et formulés à base de kératine hydrolysée, enrichie en caféine et en huile de romarin pour le lavage et le soin. Ensemble, ils permettent de laver, de soigner et de sublimer les cheveux pour une chevelure visiblement plus dense et brillante.\n\nDes cheveux plus denses et brillants en trois étapes. Le shampooing volumisant à la kératine nettoie en douceur grâce à la kératine hydrolysée, la caféine et l’huile de romarin, pour des cheveux souples et volumineux. L’après-shampooing volumisant à la kératine lisse et démêle les longueurs et les pointes tout en préservant la légèreté des racines. Terminez avec la brume capillaire sans rinçage brillance à la kératine et à l’acide lactique, pour une brillance et une douceur incomparables, sans rinçage.",
+    "ingredients": "Kératine hydrolysée, Caféine, Huile de romarin, Acide lactique, PCA de sodium",
+    "arome": "",
+    "inci": "",
+    "image": "https://ssjhqlgbgmtzvmmrxcbs.supabase.co/storage/v1/object/public/product-images/clean-products/routine-de-soins-capillaires-a-la-keratine-en-3-etapes.png",
+    "url": "",
+    "date_arrivee": "2026-10-28"
+  },
+  {
+    "slug": "rituel-en-4-etapes-du-cuir-chevelu-aux-pointes",
+    "code": "S0171",
+    "statut_labo": "actif",
+    "nom": "Rituel en 4 étapes du cuir chevelu aux pointes",
+    "categorie": "collection-box",
+    "volume": "690 ml",
+    "prix_ht": 34.25,
+    "prix_conseilles": null,
+    "certifications": [],
+    "star_features": [
+      "Coffret cadeau",
+      "Huile de romarin",
+      "Huile de menthe poivrée"
+    ],
+    "description": "Une huile fortifiante pour cheveux et cuir chevelu au romarin, un gommage nettoyant en profondeur, un shampooing volumisant à la kératine et une brume capillaire brillance sans rinçage à la kératine. Ces quatre formules sont certifiées COSMOS et permettent une routine complète, des soins du cuir chevelu avant le shampooing jusqu'à une finition sans rinçage. Votre marque bénéficie ainsi d'une routine de soin intégrale, des racines aux pointes, à base d'huile de romarin et de kératine.\n\nUn rituel de lavage complet, des racines aux pointes. Commencez par l'huile fortifiante pour cheveux et cuir chevelu au romarin, composée d'huiles de romarin, de menthe poivrée et d'amande douce, et laissez poser au moins 15 minutes avant de rincer. Sur cheveux mouillés, massez le gommage nettoyant en profondeur au romarin et à la menthe pour éliminer les résidus. Lavez ensuite avec le shampooing volumisant à la kératine pour des cheveux doux et visiblement plus denses. Terminez par la brume capillaire brillance sans rinçage à la kératine pour lisser, démêler et apporter de la brillance, sans rinçage.",
+    "ingredients": "Huile de romarin, Huile de menthe poivrée, Huile d'amande, Kératine, Caféine, Acide lactique",
+    "arome": "",
+    "inci": "",
+    "image": "https://ssjhqlgbgmtzvmmrxcbs.supabase.co/storage/v1/object/public/product-images/clean-products/rituel-en-4-etapes-du-cuir-chevelu-aux-pointes.png",
+    "url": "",
+    "date_arrivee": "2026-10-28"
+  },
+  {
+    "slug": "rituel-du-bain-mineral-air-de-la-foret",
+    "code": "S0165",
+    "statut_labo": "actif",
+    "nom": "Rituel du bain minéral, Air de la forêt",
+    "categorie": "collection-box",
+    "volume": "1260 ml",
+    "prix_ht": 29.42,
+    "prix_conseilles": null,
+    "certifications": [],
+    "star_features": [
+      "Coffret cadeau",
+      "Magnésium",
+      "Sel marin"
+    ],
+    "description": "Un gel douche Menthe poivrée et Cèdre noir, un gommage Volcan d'Islande, une bougie artisanale en cire de soja Mousse et un sel de bain Magnésium Lavande aux véritables fleurs de lavande séchées. Ses notes boisées, vertes et herbacées en font un coffret unisexe, idéal pour les gammes masculines et les rayons bien-être. Conçu pour ceux qui recherchent un véritable moment de détente dans un bain.\n\nUn bain relaxant en quatre étapes, inspiré par la forêt. Allumez la bougie en cire de soja Mousse pour une ambiance boisée et chaleureuse. Nettoyez votre peau avec le gel douche mains et corps Menthe poivrée et Cèdre noir, puis exfoliez-la avec le gommage visage et corps Volcan d'Islande. Versez une poignée de sel de bain Magnésium Lavande dans de l'eau chaude. Le sel marin, le sel d'Epsom et les véritables fleurs de lavande séchées transforment votre bain en un moment de calme et de fraîcheur.",
+    "ingredients": "Magnésium, Sel marin, Sel d'Epsom, Fleurs de lavande séchées, Sable volcanique, Cire de soja",
+    "arome": "",
+    "inci": "",
+    "image": "https://ssjhqlgbgmtzvmmrxcbs.supabase.co/storage/v1/object/public/product-images/clean-products/rituel-du-bain-mineral-air-de-la-foret.png",
+    "url": "",
+    "date_arrivee": "2026-10-28"
+  },
+  {
+    "slug": "coffret-rituel-corporel-en-3-etapes-epices-chaudes",
+    "code": "S0160",
+    "statut_labo": "actif",
+    "nom": "Coffret rituel corporel en 3 étapes, épices chaudes",
+    "categorie": "collection-box",
+    "volume": "810 ml",
+    "prix_ht": 28.67,
+    "prix_conseilles": null,
+    "certifications": [
+      "Ecocert COSMOS Natural"
+    ],
+    "star_features": [
+      "Coffret cadeau",
+      "Sable volcanique",
+      "Huile de tournesol"
+    ],
+    "description": "Un gel douche Gingembre & Cardamome Fumée, une huile corporelle Oméga 6-9 composée de sept huiles végétales et un gommage Volcan Islandais. Ces trois produits, certifiés COSMOS et vegan, nettoient, exfolient et nourrissent la peau en un seul geste. Leur parfum épicé et chaleureux est idéal pour la saison froide et les fêtes.\n\nUn rituel complet, de la douche au visage, dans un coffret cadeau. Commencez par le Gel Douche Mains & Corps Gingembre & Cardamome Fumée, un gel doux qui nettoie sans dessécher. Une à deux fois par semaine, utilisez ensuite le Gommage Visage & Corps Volcan Islandais, dont les fines particules de sable volcanique exfolient en douceur les cellules mortes pour une peau lisse et fraîche. Terminez par l'Huile Corporelle Éclat Oméga 6-9. Son mélange d'huiles de tournesol, d'argan, de rose musquée et de jojoba pénètre rapidement et laisse la peau douce et éclatante, délicatement parfumée à la cardamome verte et au romarin.",
+    "ingredients": "Sable volcanique, Huile de tournesol, Huile d'argan, Huile de rose musquée, Huile de jojoba, Extrait de coing, Bétaïne",
+    "arome": "",
+    "inci": "",
+    "image": "https://ssjhqlgbgmtzvmmrxcbs.supabase.co/storage/v1/object/public/product-images/clean-products/coffret-rituel-corporel-en-3-etapes-epices-chaudes.png",
+    "url": "",
+    "date_arrivee": "2026-10-28"
+  },
+  {
+    "slug": "coffret-rituel-corporel-en-2-etapes-ambre-gourmand",
+    "code": "S0161",
+    "statut_labo": "actif",
+    "nom": "Coffret rituel corporel en 2 étapes, Ambre Gourmand",
+    "categorie": "collection-box",
+    "volume": "660 ml",
+    "prix_ht": 16.83,
+    "prix_conseilles": null,
+    "certifications": [
+      "Ecocert COSMOS Natural"
+    ],
+    "star_features": [
+      "Coffret cadeau",
+      "Extrait de fruit de coing",
+      "Bétaïne"
+    ],
+    "description": "Un gel douche Patchouli & Ambre Vanille et un gommage Volcan Islandais, tous deux certifiés COSMOS Natural et vegan. Ils couvrent le nettoyage et l'exfoliation, les deux étapes essentielles de toute routine de soin du corps. Leur doux parfum ambré-vanillé s'accorde parfaitement avec les gammes gourmandes, hivernales et les coffrets cadeaux.\n\nUn rituel de soin du corps en deux étapes pour une peau douce et délicatement parfumée. Le gel douche mains et corps Patchouli & Ambre Vanille se transforme en une mousse onctueuse grâce à l'extrait de coing et à la bétaïne. Il nettoie en douceur sans dessécher et laisse un sillage chaleureux d'ambre et de vanille. Une à deux fois par semaine, le gommage visage et corps Volcan Islandais utilise du sable volcanique pour exfolier délicatement les cellules mortes. Deux produits en un seul petit coffret, un cadeau généreux.",
+    "ingredients": "Extrait de fruit de coing, Bétaïne, Sable volcanique, Huile de ricin",
+    "arome": "",
+    "inci": "",
+    "image": "https://ssjhqlgbgmtzvmmrxcbs.supabase.co/storage/v1/object/public/product-images/clean-products/coffret-rituel-corporel-en-2-etapes-ambre-gourmand.png",
+    "url": "",
+    "date_arrivee": "2026-10-28"
+  },
+  {
+    "slug": "laque-sans-gaz-aux-proteines-vegetales",
+    "code": "S0149",
+    "statut_labo": "COMING_SOON",
+    "nom": "Laque sans gaz aux protéines végétales",
+    "categorie": "soins-du-cheveu",
+    "volume": "100 ml",
+    "prix_ht": 7.0,
+    "prix_conseilles": null,
+    "certifications": [],
+    "star_features": [],
+    "description": "",
+    "ingredients": "",
+    "arome": "",
+    "inci": "",
+    "image": "https://ssjhqlgbgmtzvmmrxcbs.supabase.co/storage/v1/object/public/product-images/clean-products/laque-sans-gaz-aux-proteines-vegetales.png",
+    "url": "",
+    "date_arrivee": "2026-10-28"
+  },
+  {
+    "slug": "gel-coiffant-tenue-souple-aux-proteines-vegetales",
+    "code": "S0148",
+    "statut_labo": "COMING_SOON",
+    "nom": "Gel coiffant tenue souple aux protéines végétales",
+    "categorie": "soins-du-cheveu",
+    "volume": "100 ml",
+    "prix_ht": 9.92,
+    "prix_conseilles": null,
+    "certifications": [],
+    "star_features": [],
+    "description": "",
+    "ingredients": "",
+    "arome": "",
+    "inci": "",
+    "image": "https://ssjhqlgbgmtzvmmrxcbs.supabase.co/storage/v1/object/public/product-images/clean-products/gel-coiffant-tenue-souple-aux-proteines-vegetales.png",
+    "url": "",
+    "date_arrivee": "2026-10-28"
+  },
   {
     "slug": "patchs-hydrogel-anti-age-pour-les-yeux-7-pieces",
     "code": "S0137-7",
@@ -7098,7 +7286,7 @@ export const PRODUCTS: Product[] = [
 ];
 
 /** Produits commandables, compléments alimentaires compris : le nombre affiché partout (en-tête du catalogue, textes d'accueil). */
-export const NOMBRE_PRODUITS_COMMANDABLES = PRODUCTS.filter((p) => estCommandable(p)).length;
+export const NOMBRE_PRODUITS_COMMANDABLES = PRODUCTS.filter((p) => estCommandable(p) && !masqueAuCatalogue(p)).length;
 
 /** Garde-fou des ajouts à une sélection ou à une commande, à partir du slug. */
 export function slugCommandable(slug: string): boolean {
