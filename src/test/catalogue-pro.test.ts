@@ -85,7 +85,8 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
     expect(container.querySelector('[data-compteur="pastille-all"]')?.textContent).toBe(`(${commandables})`);
     expect(screen.getByTestId("nombre-produits").textContent).toBe(`${commandables} produits`);
     const texte = container.textContent ?? "";
-    expect(texte).not.toMatch(/\d+,\d{2}\s*€/);
+    // JP, 29/10/2026 : prix HT des produits visibles sur /catalogue ; jamais les prix des packs.
+    expect(texte).toMatch(/\d+,\d{2}\s*€\s*HT/);
     for (const interdit of [/599\s*€/, /1[\s\u00a0\u202f]?499\s*€/, /2[\s\u00a0\u202f]?999\s*€/, /Nos Offres/i, /Pack (Design|Standard|IA)/]) {
       expect(texte, String(interdit)).not.toMatch(interdit);
     }
@@ -110,10 +111,11 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
     const fiche = screen.getByRole("dialog");
     expect(fiche.textContent).toContain("Composition INCI");
     expect(fiche.textContent).toContain(avecInci.inci.slice(0, 40));
-    // Aucun prix sur les pages publiques sauf /tarifs : la fiche dit « Prix sur devis ».
-    expect(screen.queryByTestId("prix-ht")).toBeNull();
-    expect(fiche.textContent).not.toContain(avecInci.prix_ht!.toFixed(2).replace(".", ",") + " €");
-    expect(screen.getByTestId("prix-sur-devis").textContent).toBe("Prix sur devis");
+    // JP, 29/10/2026 : /catalogue (derrière le mot de passe) affiche le prix HT et le TTC.
+    const ht = avecInci.prix_ht!.toFixed(2).replace(".", ",") + " €";
+    const ttc = (Math.round(avecInci.prix_ht! * 120) / 100).toFixed(2).replace(".", ",") + " €";
+    expect(screen.getByTestId("prix-fiche").textContent).toContain(ht + " HT");
+    expect(screen.getByTestId("prix-fiche").textContent).toContain(ttc + " TTC");
   });
 
   it("chaque pastille de catégorie donne le nombre du compteur de liste une fois ouverte", () => {
