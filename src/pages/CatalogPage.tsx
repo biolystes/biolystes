@@ -184,6 +184,11 @@ function DescriptionCoupee({ texte }: { texte: string }) {
    sur devis » retiré des cartes et de la fiche). /catalogue ne passe jamais cette
    option. Depuis le 27/10/2026 (JP), aucune page n'a d'en-tête au-dessus :
    la page commence par la barre de filtres, puis le titre de la catégorie active. */
+/* Prix HT affichés sur /catalogue (derrière le mot de passe) : JP, 29/10/2026,
+   « rends visible les prix » après le message de Maison Lynéor (« quand tu rentres
+   dans les produits existants, il n'y a plus les prix »). prix_ht = catalogue TTC ÷ 1,2. */
+const euros = (n: number) => n.toFixed(2).replace(".", ",") + " €";
+
 export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }) {
   const [search, setSearch] = useState("");
   const [selection, setSelection] = useState<Selection>(selectionVide);
@@ -386,7 +391,7 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
 
                 <div className="flex flex-wrap items-center justify-between gap-x-1.5 gap-y-1 mt-auto pt-[6px]" style={{ borderTop: "1px solid #e5e7eb" }}>
                   {!(sansPrix && product.status !== "retired" && !badgeDisponibilite(product)) && (
-                    <span className="text-[10px] leading-tight text-muted-foreground">{product.status === "retired" ? "Non commandable" : badgeDisponibilite(product) ? "Pas encore commandable" : "Prix sur devis"}</span>
+                    <span className="text-[10px] leading-tight text-muted-foreground">{product.status === "retired" ? "Non commandable" : badgeDisponibilite(product) ? "Pas encore commandable" : product.prix_ht != null ? <span data-prix-carte className="font-semibold" style={{ color: "rgb(17,17,17)" }}>{euros(product.prix_ht)} <span className="font-normal">HT</span></span> : "Prix sur devis"}</span>
                   )}
                   <span className="px-[9px] py-[3px] rounded-full text-[8px] font-bold uppercase tracking-[0.4px] whitespace-nowrap" style={{ background: "rgb(29,29,31)", color: "#ffffff" }}>
                     {LABEL_CATEGORIE[product.categorie] || product.categorie}
@@ -488,8 +493,15 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
               )}
 
               {!sansPrix && (
-                <div className="flex items-center gap-2 pt-2" style={{ borderTop: "1px solid #e5e7eb" }} data-testid="prix-sur-devis">
-                  <a href="/rdv" className="text-[13px] font-semibold underline" style={{ color: "rgb(17,17,17)" }}>Prix sur devis</a>
+                <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1 pt-2" style={{ borderTop: "1px solid #e5e7eb" }} data-testid="prix-fiche">
+                  {selectedProduct.prix_ht != null ? (
+                    <>
+                      <span className="text-[15px] font-semibold" style={{ color: "rgb(17,17,17)" }}>{euros(selectedProduct.prix_ht)} HT</span>
+                      <span className="text-[12px]" style={{ color: "#666666" }}>{euros(Math.round(selectedProduct.prix_ht * 120) / 100)} TTC · prix unitaire, hors frais de livraison</span>
+                    </>
+                  ) : (
+                    <a href="/rdv" className="text-[13px] font-semibold underline" style={{ color: "rgb(17,17,17)" }}>Prix sur devis</a>
+                  )}
                 </div>
               )}
               {selectedProduct.status === "retired" && (
