@@ -504,6 +504,26 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
                   )}
                 </div>
               )}
+              {/* Prix de vente conseillés, même calcul que biolystes.pro (JP, 29/10/2026, demande de Maison Lynéor) :
+                  prix_conseilles du catalogue, sinon HT × 2,2 / × 3,5 / × 4,5, arrondis à l'euro. */}
+              {!sansPrix && (() => {
+                const pc = selectedProduct.prix_conseilles
+                  ?? (selectedProduct.prix_ht != null
+                    ? { milieu: Math.round(selectedProduct.prix_ht * 2.2), bio: Math.round(selectedProduct.prix_ht * 3.5), luxe: Math.round(selectedProduct.prix_ht * 4.5) }
+                    : null);
+                if (!pc) return null;
+                return (
+                  <div className="rounded-xl p-3 flex flex-col gap-1.5" style={{ background: "#f3f4f5" }} data-testid="prix-conseilles">
+                    <p className="text-[10px] font-bold tracking-[0.5px] uppercase" style={{ color: "rgb(29,29,31)" }}>Prix de vente conseillés</p>
+                    {([["Bas du marché", pc.milieu], ["Intermédiaire", pc.bio], ["Haut de gamme", pc.luxe]] as const).map(([lib, v]) => (
+                      <div key={lib} className="flex justify-between">
+                        <span className="text-[12px]" style={{ color: "rgb(17,17,17)" }}>{lib}</span>
+                        <span className="text-[13px] font-semibold" style={{ color: "rgb(17,17,17)" }}>{v} €</span>
+                      </div>
+                    ))}
+                  </div>
+                );
+              })()}
               {selectedProduct.status === "retired" && (
                 <p className="text-[12px] font-semibold pt-2" style={{ color: "rgb(17,17,17)" }}>{MENTION_RETIRE} · non commandable</p>
               )}
