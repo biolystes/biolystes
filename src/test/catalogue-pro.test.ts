@@ -116,6 +116,9 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
     const ttc = (Math.round(avecInci.prix_ht! * 120) / 100).toFixed(2).replace(".", ",") + " €";
     expect(screen.getByTestId("prix-fiche").textContent).toContain(ht + " HT");
     expect(screen.getByTestId("prix-fiche").textContent).toContain(ttc + " TTC");
+    // Prix de vente conseillés (JP, 29/10/2026) : bas du marché, intermédiaire, haut de gamme.
+    const pc = screen.getByTestId("prix-conseilles").textContent ?? "";
+    for (const lib of ["Bas du marché", "Intermédiaire", "Haut de gamme"]) expect(pc).toContain(lib);
   });
 
   it("chaque pastille de catégorie donne le nombre du compteur de liste une fois ouverte", () => {
