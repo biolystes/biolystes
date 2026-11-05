@@ -1,4 +1,3 @@
-import { adresseDemarrer } from "@/lib/demarrer";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { AnimatePresence } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
@@ -608,14 +607,9 @@ export default function DecouvertePage() {
   };
 
   const [recherche, setRecherche] = useState("");
-  /* Le champ de projet de la bannière ouvre l’orbital du widget Lystes avec
-     le texte du visiteur comme premier message (conseiller de sélection),
-     là où le widget est chargé : biolystes.com, widget 3.65.0 et plus
-     (`LystesWidget.open`). Sur lystes.ai/bio, aucun widget ni chat : le
-     visiteur descend vers les gammes du catalogue, comme avant. */
-  /* Biolystes (16/10/2026) : le projet part vers biolystes.pro/demarrer, même vide. */
-  const heroVariante = BIO_HERO((projet) => {
-    window.location.href = adresseDemarrer(projet);
+  /* « Recevoir ma sélection » mène désormais à la prise de rendez-vous. */
+  const heroVariante = BIO_HERO(() => {
+    window.location.href = CTA_URL;
   });
 
   return (
