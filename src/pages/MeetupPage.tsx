@@ -40,8 +40,10 @@ export default function MeetupPage() {
         </div>
         <h2 className="text-2xl md:text-[28px] leading-tight text-foreground">{liste.length} espace{liste.length > 1 ? "s" : ""}</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {liste.map((l) => (
-            <Link key={l.slug} to={`/meetup/${l.slug}`} data-lieu className="flex flex-col rounded-[20px] overflow-hidden hover:ring-1 hover:ring-black/20" style={{ background: BANDE }}>
+          {liste.map((l, i) => (
+            <Fragment key={l.slug}>
+            {i === 2 && <CarteBackstage />}
+            <Link to={`/meetup/${l.slug}`} data-lieu className="flex flex-col rounded-[20px] overflow-hidden hover:ring-1 hover:ring-black/20" style={{ background: BANDE }}>
               <div className="w-full aspect-[4/3] overflow-hidden"><img src={l.photos[0]} alt={l.nom} loading="lazy" className="w-full h-full object-cover" /></div>
               <div className="px-[18px] pt-4 pb-[18px] flex flex-col gap-2">
                 <h3 className="text-[13px] font-bold uppercase tracking-[0.3px]" style={{ color: NOIR }}>{l.nom}</h3>
@@ -52,8 +54,9 @@ export default function MeetupPage() {
                 </div>
               </div>
             </Link>
+            </Fragment>
           ))}
-          <CarteBackstage />
+          {liste.length <= 2 && <CarteBackstage />}
         </div>
       </div>
     </section>
