@@ -25,7 +25,7 @@ interface Ligne { goodie: string; coloris: string; quantite: number }
 function CarteGoodie({ g, onAjout }: { g: Goodie; onAjout: (coloris: string, q: number) => void }) {
   const [c, setC] = useState(0);
   const [q, setQ] = useState(g.quantiteMin ?? 50);
-  const coloris = g.coloris[c];
+  const coloris = g.coloris?.[c];
   const [ajoute, setAjoute] = useState(false);
   return (
     <div data-goodie className="flex flex-col rounded-[20px] overflow-hidden" style={{ background: BANDE }}>
