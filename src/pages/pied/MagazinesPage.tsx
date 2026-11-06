@@ -1,8 +1,9 @@
 import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { ArrowLeft, ArrowUpRight, Search, RotateCcw } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { MAGAZINES, filtrerMagazines, type Magazine } from "@/data/magazines";
+import { MAGAZINES, LECTORATS, POSITIONNEMENTS, AUDIENCES, filtrerMagazines, type Magazine } from "@/data/magazines";
+import BarreFiltresRP from "@/components/BarreFiltresRP";
 import vogue from "@/assets/magazines/logo-vogue-france.png.asset.json";
 import publicLogo from "@/assets/magazines/logo-public.png.asset.json";
 import challenges from "@/assets/magazines/logo-challenges.png.asset.json";
@@ -26,43 +27,46 @@ function Identite({ magazine }: { magazine: Magazine }) {
     <div className="rp-logo bg-background border border-border">
       {logo && !imageIndisponible ? <img src={logo} alt={`Logo ${magazine.editeur}`} onError={() => setImageIndisponible(true)} /> : <span className="text-lg font-semibold text-foreground">{magazine.editeur.replace(/^(fr\.|madame\.|solutions\.)/, "").slice(0, 2).toUpperCase()}</span>}
     </div>
-    <div className="min-w-0"><h2 className="text-base font-semibold break-words">{magazine.editeur}</h2><p className="text-xs text-muted-foreground mt-1 leading-relaxed">{magazine.thematiques.join(" · ") || "Thématiques non renseignées"}</p></div>
+    <div className="min-w-0"><h2 className="text-base font-semibold break-words">{magazine.editeur}</h2><p className="text-xs text-muted-foreground mt-1 leading-relaxed">{`Lectorat ${magazine.lectorat.toLowerCase()} · ${magazine.positionnement}`}</p></div>
   </div>;
 }
 
 export default function MagazinesPage() {
   const [recherche, setRecherche] = useState("");
-  const [audienceMin, setAudienceMin] = useState(0);
-  const [editeur, setEditeur] = useState("");
-  const [tfMin, setTfMin] = useState(0);
+  const [choix, setChoix] = useState<Record<string, string[]>>({ lectorat: [], positionnement: [], audience: [] });
   const [tri, setTri] = useState("catalogue");
   const [fiche, setFiche] = useState<Magazine | null>(null);
   const [article, setArticle] = useState("");
   const resultats = useMemo(() => {
-    const liste = filtrerMagazines(recherche, { audienceMin, editeur, tfMin });
+    const liste = filtrerMagazines(recherche, { lectorats: choix.lectorat, positionnements: choix.positionnement, audiences: choix.audience.map(Number) });
     return tri === "audience" ? liste.sort((a, b) => b.visites - a.visites) : tri === "nom" ? liste.sort((a, b) => a.editeur.localeCompare(b.editeur)) : liste;
-  }, [recherche, audienceMin, editeur, tfMin, tri]);
-  const reinitialiser = () => { setRecherche(""); setAudienceMin(0); setEditeur(""); setTfMin(0); setTri("catalogue"); };
+  }, [recherche, choix, tri]);
+  const reinitialiser = () => { setRecherche(""); setChoix({ lectorat: [], positionnement: [], audience: [] }); setTri("catalogue"); };
   const demander = `https://biolystes.pro/rdv?magazine=${encodeURIComponent(fiche?.editeur ?? "")}&article=${encodeURIComponent(article.trim())}`;
   return <section className="bg-background text-foreground py-8 md:py-12">
-    <Helmet><title>Relations presse — Presse & notoriété | Biolystes</title><meta name="description" content="Découvrez les magazines et leurs audiences pour envisager un article sponsorisé sur votre marque avec Biolystes. Sur devis." /><meta property="og:title" content="Relations presse — Biolystes" /><meta property="og:description" content="Votre marque dans la presse : magazines, thématiques et audiences. Sur devis." /><meta property="og:type" content="website" /><meta name="twitter:card" content="summary" /></Helmet>
+    <Helmet><title>RP — Presse & notoriété | Biolystes</title><meta name="description" content="Découvrez les magazines et leurs audiences pour envisager un article sponsorisé sur votre marque avec Biolystes. Sur devis." /><meta property="og:title" content="RP — Biolystes" /><meta property="og:description" content="Votre marque dans la presse : magazines, thématiques et audiences. Sur devis." /><meta property="og:type" content="website" /><meta name="twitter:card" content="summary" /></Helmet>
     <div className="max-w-7xl mx-auto px-4 md:px-8">
-      <header className="mb-8 space-y-3"><h1 className="text-4xl md:text-5xl font-light">Relations presse</h1><p className="text-base text-muted-foreground max-w-3xl">Faites connaître votre marque avec un article sponsorisé. Découvrez les magazines, leurs thématiques et leurs audiences, puis échangeons sur votre projet.</p></header>
+      <header className="mb-8 space-y-3"><h1 className="text-4xl md:text-5xl font-light">RP</h1><p className="text-base text-muted-foreground max-w-3xl">Faites connaître votre marque avec un article sponsorisé. Découvrez les magazines, leurs thématiques et leurs audiences, puis échangeons sur votre projet.</p></header>
       {fiche ? <div className="max-w-3xl mx-auto">
         <Button variant="ghost" onClick={() => setFiche(null)} className="mb-6"><ArrowLeft />Retour aux magazines</Button>
         <Identite magazine={fiche} />
         <Button asChild variant="link" className="mt-3 px-0"><a href={`https://${fiche.editeur}`} target="_blank" rel="noopener noreferrer">Visiter le magazine<ArrowUpRight /></a></Button>
         <div className="border-y border-border py-6 mt-5"><h3 className="text-xl font-light mb-4">Audience & référencement</h3><dl className="space-y-3">{[{ label: "Trust Flow (TF)", valeur: fiche.tf }, { label: "Domain Rating (DR)", valeur: fiche.dr }, { label: "Domaines référents", valeur: fiche.rd }, { label: "Visites mensuelles", valeur: fiche.visites }].map(s => <div key={s.label} className="flex justify-between gap-4"><dt className="text-sm text-muted-foreground">{s.label}</dt><dd className="text-sm font-semibold">{nombre(s.valeur)}</dd></div>)}</dl><p className="text-xs text-muted-foreground mt-4">Source : catalogue éditeurs du 2 septembre 2026. Chiffres à confirmer avec la rédaction au moment du projet.</p></div>
         <div className="py-6 space-y-4"><h3 className="text-xl font-light">Votre article</h3><p className="text-sm text-muted-foreground">Un article sponsorisé de 300 mots avec un lien vers votre boutique. L’angle, le texte et les conditions de publication sont validés avant l’envoi à la rédaction.</p><label htmlFor="article-magazine" className="block text-sm font-medium">Quel sujet souhaitez-vous présenter ?</label><textarea id="article-magazine" value={article} onChange={e => setArticle(e.target.value)} maxLength={1000} rows={4} placeholder="Votre marque, un lancement, votre produit phare…" className="w-full border border-border rounded-lg bg-background text-foreground p-3 text-sm focus:outline-none focus:ring-2 focus:ring-ring" /><div className="flex items-center justify-between gap-4"><span className="text-sm text-muted-foreground">Sur devis</span><Button asChild><a href={demander} target="_blank" rel="noopener noreferrer">Parler de mon projet<ArrowUpRight /></a></Button></div></div>
-      </div> : <div className="magazines-disposition grid grid-cols-1 gap-8">
-        <aside className="space-y-5">
-          <label className="flex items-center gap-2 border border-border rounded-lg px-3 py-2"><Search className="w-4 h-4 shrink-0 text-muted-foreground" /><input aria-label="Rechercher un magazine" value={recherche} onChange={e => setRecherche(e.target.value)} placeholder="Rechercher…" className="w-full min-w-0 bg-transparent text-sm outline-none" /></label>
-          <div><label htmlFor="tri-magazines" className="block text-sm font-medium mb-2">Trier par</label><select id="tri-magazines" value={tri} onChange={e => setTri(e.target.value)} className="w-full bg-background border border-border rounded-lg p-2 text-sm"><option value="catalogue">Ordre du catalogue</option><option value="audience">Audience décroissante</option><option value="nom">Nom du magazine</option></select></div>
-          <div><label htmlFor="audience-rp" className="block text-sm font-medium mb-2">Audience mensuelle</label><select id="audience-rp" value={audienceMin} onChange={e => setAudienceMin(Number(e.target.value))} className="w-full bg-background border border-border rounded-lg p-2 text-sm"><option value={0}>Toutes les audiences</option><option value={100000}>100 000 visites et plus</option><option value={500000}>500 000 visites et plus</option><option value={1000000}>1 million de visites et plus</option></select></div>
-          <div><label htmlFor="media-rp" className="block text-sm font-medium mb-2">Notoriété du média</label><select id="media-rp" value={editeur} onChange={e => setEditeur(e.target.value)} className="w-full bg-background border border-border rounded-lg p-2 text-sm"><option value="">Tous les médias</option>{[...MAGAZINES].sort((a, b) => a.editeur.localeCompare(b.editeur)).map(m => <option key={m.editeur} value={m.editeur}>{m.editeur}</option>)}</select></div>
-          <div><label htmlFor="referencement-rp" className="block text-sm font-medium mb-2">Qualité du référencement</label><select id="referencement-rp" value={tfMin} onChange={e => setTfMin(Number(e.target.value))} className="w-full bg-background border border-border rounded-lg p-2 text-sm"><option value={0}>Tous les Trust Flow</option><option value={40}>Trust Flow : 40 et plus</option><option value={50}>Trust Flow : 50 et plus</option><option value={60}>Trust Flow : 60 et plus</option></select></div>
-          <Button variant="ghost" size="sm" onClick={reinitialiser}><RotateCcw />Réinitialiser</Button>
-        </aside>
+      </div> : <div className="space-y-5">
+        <label className="flex items-center gap-2 border border-border rounded-xl px-3 py-2 max-w-md"><Search className="w-4 h-4 shrink-0 text-muted-foreground" /><input aria-label="Rechercher un magazine" value={recherche} onChange={e => setRecherche(e.target.value)} placeholder="Rechercher…" className="w-full min-w-0 bg-transparent text-sm outline-none" /></label>
+        <BarreFiltresRP
+          rubriques={[
+            { cle: "lectorat", titre: "Lectorat", tous: "Tous les lectorats", choisies: choix.lectorat, options: LECTORATS.map(l => ({ valeur: l, libelle: l === "Mixte" ? "Mixte" : `Plutôt ${l.toLowerCase()}s`, n: MAGAZINES.filter(m => m.lectorat === l).length })) },
+            { cle: "positionnement", titre: "Positionnement", tous: "Tous les positionnements", choisies: choix.positionnement, options: POSITIONNEMENTS.map(p => ({ valeur: p, libelle: p, n: MAGAZINES.filter(m => m.positionnement === p).length })) },
+            { cle: "audience", titre: "Audience", tous: "Toutes les audiences", choisies: choix.audience, options: AUDIENCES.map((a, i) => ({ valeur: String(i), libelle: a.libelle, n: MAGAZINES.filter(m => m.visites >= a.min && m.visites < a.max).length })) },
+          ]}
+          onBascule={(cle, v) => setChoix(c => ({ ...c, [cle]: c[cle].includes(v) ? c[cle].filter(x => x !== v) : [...c[cle], v] }))}
+          onTous={cle => setChoix(c => ({ ...c, [cle]: [] }))}
+          onVider={() => setChoix({ lectorat: [], positionnement: [], audience: [] })}
+          tri={tri} onTri={setTri}
+          tris={[{ valeur: "catalogue", libelle: "Ordre du catalogue" }, { valeur: "audience", libelle: "Audience décroissante" }, { valeur: "nom", libelle: "Nom du magazine" }]}
+        />
         <div><p className="text-sm text-muted-foreground mb-4" role="status">{resultats.length} magazine{resultats.length > 1 ? "s" : ""}</p><div className="grid grid-cols-1 lg:grid-cols-2 gap-4">{resultats.map(m => <article key={m.editeur} className="rounded-lg bg-muted/40 border border-border p-5 flex flex-col gap-5"><Identite magazine={m} /><dl className="grid grid-cols-3 gap-2 border-t border-border pt-4">{[{ label: "TF", valeur: m.tf }, { label: "DR", valeur: m.dr }, { label: "visites / mois", valeur: m.visites }].map(s => <div key={s.label}><dd className="text-sm font-semibold">{nombre(s.valeur)}</dd><dt className="text-xs text-muted-foreground mt-1">{s.label}</dt></div>)}</dl><div className="flex justify-between items-center gap-3 mt-auto"><span className="text-xs text-muted-foreground">Sur devis</span><Button size="sm" variant="outline" aria-label={`En savoir plus sur ${m.editeur}`} onClick={() => { setFiche(m); setArticle(""); window.scrollTo(0, 0); }}>En savoir plus</Button></div></article>)}</div>{resultats.length === 0 && <div className="py-12 text-center"><p className="text-muted-foreground">Aucun magazine ne correspond à votre recherche.</p><Button variant="link" onClick={reinitialiser}>Voir tous les magazines</Button></div>}</div>
       </div>}
     </div>

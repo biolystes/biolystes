@@ -9,13 +9,13 @@ describe("Catalogue public des magazines", () => {
   it("recherche un éditeur", () => {
     expect(filtrerMagazines("marieclaire").map(m => m.editeur)).toEqual(["marieclaire.fr"]);
   });
-  it("filtre l'audience mensuelle", () => {
-    expect(filtrerMagazines("", { audienceMin: 1000000 }).map(m => m.editeur)).toEqual(["purepeople.com", "femmeactuelle.fr", "voici.fr", "marieclaire.fr"]);
+  it("filtre le lectorat masculin", () => {
+    expect(filtrerMagazines("", { lectorats: ["Homme"] }).map(m => m.editeur)).toEqual(["gqmagazine.fr"]);
   });
-  it("sélectionne un média sans inventer de score de notoriété", () => {
-    expect(filtrerMagazines("", { editeur: "vogue.fr" }).map(m => m.editeur)).toEqual(["vogue.fr"]);
+  it("filtre le positionnement people", () => {
+    expect(filtrerMagazines("", { positionnements: ["People"] }).map(m => m.editeur)).toEqual(["purepeople.com", "voici.fr", "public.fr"]);
   });
-  it("filtre la qualité du référencement sur le Trust Flow", () => {
-    expect(filtrerMagazines("", { tfMin: 60 }).map(m => m.editeur)).toEqual(["vogue.fr", "latribune.fr", "marieclaire.fr"]);
+  it("filtre les audiences de plus d'1 million", () => {
+    expect(filtrerMagazines("", { audiences: [3] }).map(m => m.editeur)).toEqual(["purepeople.com", "femmeactuelle.fr", "voici.fr", "marieclaire.fr"]);
   });
 });
