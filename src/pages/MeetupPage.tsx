@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet-async";
 import { Users, MapPin } from "lucide-react";
 import { LIEUX_MEETUP } from "@/data/lieux-meetup";
 import CarteBackstage from "@/components/CarteBackstage";
+import CartePresentoirs from "@/components/CartePresentoirs";
 import photoGoodies from "@/assets/goodies_evenement.png.asset.json";
 
 const NOIR = "rgb(29,29,31)";
@@ -65,6 +66,7 @@ export default function MeetupPage() {
                 </div>
               </div>
             </Link>
+            {l.slug === "louvre-emile" && <CartePresentoirs />}
             </Fragment>
           ))}
           {liste.length <= 2 && <CarteBackstage />}
