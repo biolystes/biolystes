@@ -57,6 +57,8 @@ function FicheGoodie({ p, onFermer }: { p: ProduitGoodie; onFermer: () => void }
 function CarteGoodie({ g, onAjout, onFiche }: { g: Goodie; onAjout: (coloris: string, q: number) => void; onFiche: () => void }) {
   const [q, setQ] = useState(50);
   const [ajoute, setAjoute] = useState(false);
+  const [sel, setSel] = useState(0);
+  if (g.choix) g = { ...g, coloris: g.choix[sel].coloris, image: g.choix[sel].image };
   return (
     <div data-goodie className="flex flex-col rounded-[20px] overflow-hidden" style={{ background: BANDE }}>
       <button type="button" onClick={onFiche} aria-label={`Voir la fiche ${g.nom}`} className="w-full aspect-square overflow-hidden" style={{ background: BANDE }}>
@@ -64,7 +66,11 @@ function CarteGoodie({ g, onAjout, onFiche }: { g: Goodie; onAjout: (coloris: st
       </button>
       <div className="px-[14px] md:px-[18px] pt-4 pb-[18px] flex flex-col gap-1.5 flex-1">
         <h3 className="text-[11px] font-bold uppercase tracking-[0.3px] leading-[1.4] line-clamp-2 min-h-[30px]" style={{ color: NOIR }}>{g.nom}</h3>
-        {g.coloris && <p className="text-[11px] text-muted-foreground">{g.coloris}</p>}
+        {g.choix ? (
+          <select aria-label="Coloris" value={sel} onChange={(e) => setSel(Number(e.target.value))} className="self-start text-[11px] rounded-md bg-background px-2 py-1 outline-none">
+            {g.choix.map((c, i) => <option key={i} value={i}>{c.coloris ?? "Standard"}</option>)}
+          </select>
+        ) : g.coloris && <p className="text-[11px] text-muted-foreground">{g.coloris}</p>}
         <button type="button" onClick={onFiche} className="self-start text-[11px] underline text-muted-foreground">Voir la fiche</button>
         <div className="mt-auto pt-2 flex items-center gap-2" style={{ borderTop: "1px solid #e5e7eb" }}>
           <div className="flex items-center rounded-lg bg-background">
