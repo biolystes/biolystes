@@ -32,8 +32,9 @@ export interface ProduitGoodie {
   variantes: { coloris: string | null; image: string }[];
 }
 
-/* Lunettes de soleil et powerbanks retirées à la demande (06/11/2026). */
-export const PRODUITS_GOODIES = (catalogue as ProduitGoodie[]).filter((p) => !/^(lunettes|powerbank)/.test(p.slug));
+/* Retirés à la demande (06/11/2026) : lunettes de soleil, powerbanks, boîtes d'expédition bienvenue et événementielle. */
+const RETIRES = ["boite-dexpedition-de-bienvenue-personnalisee", "boite-dexpedition-evenementielle-personnalisee"];
+export const PRODUITS_GOODIES = (catalogue as ProduitGoodie[]).filter((p) => !/^(lunettes|powerbank)/.test(p.slug) && !RETIRES.includes(p.slug));
 
 /* Une carte par variante (produit × coloris), chacune avec sa propre photo de rendu. */
 export interface Goodie { slug: string; nom: string; coloris: string | null; categorie: CategorieGoodie; image: string; choix?: { coloris: string | null; image: string }[] }
