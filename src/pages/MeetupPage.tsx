@@ -55,7 +55,7 @@ export default function MeetupPage() {
                 </div>
               </Link>
             )}
-            {l.slug === "roosevelt-eleanor" ? <><div aria-hidden="true" className="hidden lg:block" /><CartePresentoirs /></> : <Link to={`/meetup/${l.slug}`} data-lieu className="flex flex-col rounded-[20px] overflow-hidden hover:ring-1 hover:ring-black/20" style={{ background: BANDE }}>
+            <Link to={`/meetup/${l.slug}`} data-lieu className="flex flex-col rounded-[20px] overflow-hidden hover:ring-1 hover:ring-black/20" style={{ background: BANDE }}>
               <div className="w-full aspect-[4/3] overflow-hidden"><img src={l.photos[0]} alt={l.nom} loading="lazy" className="w-full h-full object-cover" /></div>
               <div className="px-[18px] pt-4 pb-[18px] flex flex-col gap-2">
                 <h3 className="text-[13px] font-bold uppercase tracking-[0.3px]" style={{ color: NOIR }}>{l.nom}</h3>
@@ -65,7 +65,8 @@ export default function MeetupPage() {
                   {l.instagrammable && <span className="px-[9px] py-[3px] rounded-full text-[8px] font-bold uppercase" style={{ background: NOIR, color: "#ffffff" }}>Instagrammable</span>}
                 </div>
               </div>
-            </Link>}
+            </Link>
+            {l.slug === "louvre-emile" && <CartePresentoirs />}
             </Fragment>
           ))}
           {liste.length <= 2 && <CarteBackstage />}
