@@ -14,7 +14,7 @@ export default function CarteBackstage() {
   const aller = (d: number) => setI((i + d + VIDEOS.length) % VIDEOS.length);
   return (
     <div data-backstage className="relative rounded-[20px] overflow-hidden h-full min-h-[300px]" style={{ background: "rgb(29,29,31)" }}>
-      <video key={VIDEOS[i]} src={VIDEOS[i]} autoPlay muted loop playsInline preload="metadata" onEnded={() => aller(1)} className="absolute inset-0 w-full h-full object-cover" />
+      <video key={VIDEOS[i]} src={VIDEOS[i]} autoPlay muted playsInline preload="metadata" onEnded={() => aller(1)} className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0) 45%)" }} />
       <span className="absolute left-5 bottom-5 text-3xl italic" style={{ color: "#ffffff", fontFamily: "'Instrument Serif', serif" }}>Backstage</span>
       <button type="button" aria-label="Vidéo précédente" onClick={() => aller(-1)} className={`${bouton} left-3`} style={{ background: "#ffffff", color: "rgb(29,29,31)" }}><ChevronLeft className="w-5 h-5" /></button>
