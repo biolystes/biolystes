@@ -33,8 +33,11 @@ export interface ProduitGoodie {
 }
 
 /* Retirés à la demande (06/11/2026) : lunettes de soleil, powerbanks, boîtes d'expédition bienvenue et événementielle. */
-const RETIRES = ["boite-dexpedition-de-bienvenue-personnalisee", "boite-dexpedition-evenementielle-personnalisee"];
-export const PRODUITS_GOODIES = (catalogue as ProduitGoodie[]).filter((p) => !/^(lunettes|powerbank)/.test(p.slug) && !RETIRES.includes(p.slug));
+const RETIRES = ["boite-dexpedition-de-bienvenue-personnalisee", "boite-dexpedition-evenementielle-personnalisee", "gilet-homme-personnalise", "gilet-polaire-homme-personnalise"];
+/* Goodies événementiels affichés en premier. */
+export const PRODUITS_GOODIES = (catalogue as ProduitGoodie[])
+  .filter((p) => !/^(lunettes|powerbank|housse-ordinateur)/.test(p.slug) && !RETIRES.includes(p.slug))
+  .sort((a, b) => Number(b.categorie === "evenementiel") - Number(a.categorie === "evenementiel"));
 
 /* Une carte par variante (produit × coloris), chacune avec sa propre photo de rendu. */
 export interface Goodie { slug: string; nom: string; coloris: string | null; categorie: CategorieGoodie; image: string; choix?: { coloris: string | null; image: string }[] }
