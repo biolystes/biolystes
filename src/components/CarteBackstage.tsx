@@ -3,12 +3,12 @@
    Les deux flèches, sans fond blanc, sont côte à côte à gauche des quatre pastilles. */
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import v1 from "@/assets/backstage/backstage_1.mp4.asset.json";
 import v2 from "@/assets/backstage/backstage_2.mp4.asset.json";
 import v3 from "@/assets/backstage/backstage_3.mp4.asset.json";
 import v4 from "@/assets/backstage/backstage_4.mp4.asset.json";
 
-const VIDEOS = [v1.url, v2.url, v3.url, v4.url];
+/* La dernière vidéo passe en première ; la toute première est retirée. */
+const VIDEOS = [v4.url, v2.url, v3.url];
 const fleche = "w-8 h-8 flex items-center justify-center text-white/90 hover:text-white transition-colors";
 
 export default function CarteBackstage() {
