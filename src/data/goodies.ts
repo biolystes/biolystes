@@ -15,7 +15,7 @@ export const CATEGORIES_GOODIES: { id: CategorieGoodie; nom: string }[] = [
   { id: "maison", nom: "Bougies & maison" },
   { id: "voyage", nom: "Voyage" },
   { id: "high-tech", nom: "High-tech" },
-  { id: "alimentaire", nom: "Lunch box" },
+  { id: "alimentaire", nom: "Alimentaire" },
   { id: "evenementiel", nom: "Événementiel" },
   { id: "emballage", nom: "Emballage & cartes" },
 ];
