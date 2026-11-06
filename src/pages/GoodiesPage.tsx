@@ -132,12 +132,6 @@ export default function GoodiesPage() {
       </Helmet>
       <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-5">
         <div className="flex flex-col gap-3">
-          <div className="flex items-center justify-end gap-3">
-            <button type="button" data-ouvrir-commande onClick={() => { setOuvert(true); if (etat === "ok") setEtat(""); }}
-              className="shrink-0 inline-flex items-center gap-2 h-10 px-4 rounded-xl text-sm font-medium" style={{ background: NOIR, color: "#fff" }}>
-              <ShoppingBag className="w-4 h-4" /> Ma commande{panier.length > 0 && ` (${panier.length})`}
-            </button>
-          </div>
           <div data-barre-filtres className="overflow-x-auto -mx-1 px-1 pb-1">
             <div className="flex items-start gap-3">
               {[{ id: null as CategorieGoodie | null, nom: "Tous les goodies" }, ...CATEGORIES_GOODIES.filter((k) => GOODIES.some((g) => g.categorie === k.id))].map((c) => {
@@ -158,7 +152,13 @@ export default function GoodiesPage() {
           </div>
         </div>
 
-        <h2 className="text-2xl md:text-[28px] leading-tight text-foreground">{categorie ? nomCat(categorie) : "Tous les goodies"}</h2>
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="text-2xl md:text-[28px] leading-tight text-foreground">{categorie ? nomCat(categorie) : "Tous les goodies"}</h2>
+            <button type="button" data-ouvrir-commande onClick={() => { setOuvert(true); if (etat === "ok") setEtat(""); }}
+              className="shrink-0 inline-flex items-center gap-2 h-10 px-4 rounded-xl text-sm font-medium" style={{ background: NOIR, color: "#fff" }}>
+              <ShoppingBag className="w-4 h-4" /> Ma commande{panier.length > 0 && ` (${panier.length})`}
+            </button>
+        </div>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
           {liste.map((g, i) => <Fragment key={g.slug + g.coloris}>{i === 3 && !categorie && <CarteEvenements />}<CarteGoodie key={g.slug + g.coloris} g={g} onAjout={(c, q) => ajouter(g.nom, c, q)} onFiche={() => setFiche(PRODUITS_GOODIES.find((p) => p.slug === g.slug) ?? null)} /></Fragment>)}
