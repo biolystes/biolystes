@@ -19,7 +19,7 @@ export default function CarteBackstage({ titre = "Backstage", lien, className = 
   const [ouvert, setOuvert] = useState(false);
   const aller = (d: number) => setI((i + d + VIDEOS.length) % VIDEOS.length);
   return (
-    <div data-backstage className={`relative rounded-[20px] overflow-hidden h-full min-h-[300px] ${className}`} style={{ background: "rgb(29,29,31)" }}>
+    <div data-backstage className={`relative rounded-[20px] overflow-hidden h-full min-h-[300px] ${className}`} style={{ minHeight: 300, background: "rgb(29,29,31)" }}>
       <video key={VIDEOS[i]} src={VIDEOS[i]} autoPlay muted playsInline preload="metadata" onEnded={() => aller(1)} className="absolute inset-0 w-full h-full object-cover" />
       <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0) 45%)" }} />
       {/* Le mot, centré, en majuscules, exactement la police des titres de lieux. */}

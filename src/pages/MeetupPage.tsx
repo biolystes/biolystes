@@ -46,7 +46,7 @@ export default function MeetupPage() {
             <Fragment key={l.slug}>
             {i === 2 && <CarteBackstage />}
             {i === 5 && (
-              <Link to="/goodies" data-carte-goodies className="relative rounded-[20px] overflow-hidden min-h-[320px] block group">
+              <Link to="/goodies" data-carte-goodies className="relative rounded-[20px] overflow-hidden min-h-[320px] block group" style={{ minHeight: 320 }}>
                 <img src={photoGoodies.url} alt="Goodies personnalisés pour vos événements" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0) 55%)" }} />
                 <div className="absolute left-0 bottom-6 w-full px-6 flex flex-col items-center text-center gap-3">

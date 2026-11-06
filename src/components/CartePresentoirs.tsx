@@ -34,7 +34,7 @@ export default function CartePresentoirs() {
   }, [embla]);
 
   return (
-    <div data-presentoirs className="relative rounded-[20px] overflow-hidden min-h-[380px] bg-muted" role="region" aria-label="Vos présentoirs instagrammables">
+    <div data-presentoirs className="relative rounded-[20px] overflow-hidden min-h-[380px] bg-muted" style={{ minHeight: 380 }} role="region" aria-label="Vos présentoirs instagrammables">
       <div ref={emblaRef} className="absolute inset-0 overflow-hidden">
         <div className="flex h-full">
           {PHOTOS.map((photo) => (
