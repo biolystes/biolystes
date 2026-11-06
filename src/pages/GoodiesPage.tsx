@@ -4,7 +4,7 @@
    Aucun prix (règle du site : prix seulement sur /tarifs). */
 import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { MessageCircle, Minus, Plus, Search, ShoppingBag, Trash2, X } from "lucide-react";
+import { MessageCircle, Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { CATEGORIES_GOODIES, GOODIES, type CategorieGoodie, type Goodie } from "@/data/goodies";
 import { LIEN_WHATSAPP_EXPERTE } from "@/lib/whatsapp";
@@ -66,15 +66,14 @@ function CarteGoodie({ g, onAjout }: { g: Goodie; onAjout: (coloris: string, q: 
 
 export default function GoodiesPage() {
   const [categorie, setCategorie] = useState<CategorieGoodie | null>(null);
-  const [recherche, setRecherche] = useState("");
   const [panier, setPanier] = useState<Ligne[]>([]);
   const [ouvert, setOuvert] = useState(false);
   const [form, setForm] = useState({ nom: "", email: "", telephone: "", entreprise: "", message: "" });
   const [etat, setEtat] = useState<"" | "envoi" | "ok" | "erreur">("");
 
   const liste = useMemo(
-    () => GOODIES.filter((g) => (!categorie || g.categorie === categorie) && g.nom.toLowerCase().includes(recherche.toLowerCase())),
-    [categorie, recherche],
+    () => GOODIES.filter((g) => (!categorie || g.categorie === categorie)),
+    [categorie],
   );
   const nomCat = (id: CategorieGoodie) => CATEGORIES_GOODIES.find((c) => c.id === id)!.nom;
   const total = panier.reduce((s, l) => s + l.quantite, 0);
@@ -108,12 +107,7 @@ export default function GoodiesPage() {
       </Helmet>
       <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-5">
         <div className="flex flex-col gap-3">
-          <div className="flex items-center gap-3">
-            <div className="relative max-w-md flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <input type="text" placeholder="Rechercher un goodie..." value={recherche} onChange={(e) => setRecherche(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-xl text-sm text-foreground placeholder:text-muted-foreground outline-none border-0 focus:ring-1 focus:ring-black/20" style={{ background: BANDE }} />
-            </div>
+          <div className="flex items-center justify-end gap-3">
             <button type="button" data-ouvrir-commande onClick={() => { setOuvert(true); if (etat === "ok") setEtat(""); }}
               className="shrink-0 inline-flex items-center gap-2 h-10 px-4 rounded-xl text-sm font-medium" style={{ background: NOIR, color: "#fff" }}>
               <ShoppingBag className="w-4 h-4" /> Ma commande{panier.length > 0 && ` (${panier.length})`}
