@@ -12,49 +12,27 @@ import { LIEN_WHATSAPP_EXPERTE } from "@/lib/whatsapp";
 const NOIR = "rgb(29,29,31)";
 const BANDE = "#f3f4f5";
 const QTE_MIN = 1;
-/* Pastille de couleur quand le fournisseur n'a pas de photo pour ce coloris. */
-const TEINTES: Record<string, string> = {
-  Noir: "#1d1d1f", Blanc: "#ffffff", Gris: "#9ca3af", Bleu: "#2b4c7e", Rouge: "#b3261e", Vert: "#2f5955", Orange: "#e07a2f",
-  Rose: "#e8a6b8", Marron: "#7a5236", Argent: "linear-gradient(135deg,#e5e7eb,#9ca3af)", Beige: "#e8dcc4", Kraft: "#c49a6c",
-  Transparent: "repeating-conic-gradient(#eee 0 25%,#fff 0 50%) 0 0/8px 8px", Nacré: "linear-gradient(135deg,#fff,#e8e4f0)",
-  Crémeux: "#f5efdc", Ivoire: "#fffff0", "Blanc glacé": "#f4f8fb", "Éco Kraft": "#b58b5e",
-};
 
 interface Ligne { goodie: string; coloris: string; quantite: number }
 
 function CarteGoodie({ g, onAjout }: { g: Goodie; onAjout: (coloris: string, q: number) => void }) {
-  const [c, setC] = useState(0);
-  const [q, setQ] = useState(g.quantiteMin ?? 50);
-  const coloris = g.coloris?.[c];
+  const [q, setQ] = useState(50);
   const [ajoute, setAjoute] = useState(false);
   return (
     <div data-goodie className="flex flex-col rounded-[20px] overflow-hidden" style={{ background: BANDE }}>
       <div className="w-full aspect-square overflow-hidden" style={{ background: BANDE }}>
-        <img src={coloris?.image ?? g.image} alt={`${g.nom}${coloris ? ` — ${coloris.nom}` : ""}`} loading="lazy" className="w-full h-full object-cover" />
+        <img src={g.image} alt={`${g.nom}${g.coloris ? ` — ${g.coloris}` : ""}`} loading="lazy" className="w-full h-full object-cover" />
       </div>
-      <div className="px-[14px] md:px-[18px] pt-4 pb-[18px] flex flex-col gap-2.5 flex-1">
+      <div className="px-[14px] md:px-[18px] pt-4 pb-[18px] flex flex-col gap-1.5 flex-1">
         <h3 className="text-[11px] font-bold uppercase tracking-[0.3px] leading-[1.4] line-clamp-2 min-h-[30px]" style={{ color: NOIR }}>{g.nom}</h3>
-        {g.coloris.length > 0 && (
-          <div>
-            <p className="text-[10px] text-muted-foreground mb-1.5">Coloris : <span className="font-semibold text-foreground">{coloris.nom}</span> · {g.coloris.length}</p>
-            <div className="flex flex-wrap gap-1.5" role="radiogroup" aria-label="Coloris">
-              {g.coloris.map((x, i) => (
-                <button key={x.nom} type="button" role="radio" aria-checked={i === c} aria-label={x.nom} title={x.nom} onClick={() => setC(i)}
-                  className="w-7 h-7 rounded-lg overflow-hidden"
-                  style={{ outline: i === c ? `2px solid ${NOIR}` : "1px solid rgba(29,29,31,0.12)", outlineOffset: 1, background: "#fff" }}>
-                  {x.image ? <img src={x.image.replace(/w=\d+&h=\d+/, "w=80&h=80")} alt="" className="w-full h-full object-cover" /> : <span className="block w-full h-full" style={{ background: TEINTES[x.nom] ?? "#ddd" }} />}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
+        {g.coloris && <p className="text-[11px] text-muted-foreground">{g.coloris}</p>}
         <div className="mt-auto pt-2 flex items-center gap-2" style={{ borderTop: "1px solid #e5e7eb" }}>
           <div className="flex items-center rounded-lg bg-background">
             <button type="button" aria-label="Moins" className="w-7 h-8 flex items-center justify-center" onClick={() => setQ(Math.max(QTE_MIN, q - 10))}><Minus className="w-3 h-3" /></button>
             <input aria-label="Quantité" inputMode="numeric" value={q} onChange={(e) => setQ(Math.max(QTE_MIN, parseInt(e.target.value.replace(/\D/g, "")) || QTE_MIN))} className="w-10 text-center text-xs bg-transparent outline-none" />
             <button type="button" aria-label="Plus" className="w-7 h-8 flex items-center justify-center" onClick={() => setQ(q + 10)}><Plus className="w-3 h-3" /></button>
           </div>
-          <button type="button" data-ajouter onClick={() => { onAjout(coloris?.nom ?? "Standard", q); setAjoute(true); setTimeout(() => setAjoute(false), 1500); }}
+          <button type="button" data-ajouter onClick={() => { onAjout(g.coloris ?? "Standard", q); setAjoute(true); setTimeout(() => setAjoute(false), 1500); }}
             className="flex-1 h-8 rounded-lg text-[11px] font-semibold" style={{ background: NOIR, color: "#fff" }}>
             {ajoute ? "Ajouté ✓" : "Ajouter"}
           </button>
@@ -128,7 +106,7 @@ export default function GoodiesPage() {
         <h2 className="text-2xl md:text-[28px] leading-tight text-foreground">{categorie ? nomCat(categorie) : "Tous les goodies"}</h2>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
-          {liste.map((g) => <CarteGoodie key={g.nom} g={g} onAjout={(c, q) => ajouter(g.nom, c, q)} />)}
+          {liste.map((g) => <CarteGoodie key={g.nom + g.coloris} g={g} onAjout={(c, q) => ajouter(g.nom, c, q)} />)}
         </div>
         {liste.length === 0 && <p className="text-sm text-muted-foreground">Aucun goodie ne correspond.</p>}
 
