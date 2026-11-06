@@ -38,7 +38,7 @@ export default function CartePresentoirs() {
       <div ref={emblaRef} className="absolute inset-0 overflow-hidden">
         <div className="flex h-full">
           {PHOTOS.map((photo) => (
-            <div key={photo.url} className="relative flex-[0_0_100%] min-w-0 h-full">
+            <div key={photo.url} className="relative shrink-0 w-full min-w-0 h-full">
               <img src={photo.url} alt={photo.alt} loading="lazy" className="w-full h-full object-cover" />
             </div>
           ))}
