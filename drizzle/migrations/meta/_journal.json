@@ -8,6 +8,13 @@
       "when": 1792485961356,
       "tag": "0000_contracts_bucket_read_restricted",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1793960993071,
+      "tag": "0001_create_commandes_goodies",
+      "breakpoints": true
     }
   ]
 }
