@@ -1,5 +1,7 @@
 # Project rules
 
+- Reuse CarteBackstage for the Goodies Meetup promotion with a configurable title and destination, so both pages share the same video slideshow while keeping their distinct actions.
+
 - Register context-menu suppression once at the app entry point with hot-reload cleanup, so all pages and portals share the behavior without duplicate listeners.
 
 - Keep Meetup's display-prop photo carousel in its own Embla component with local asset pointers and reduced-motion handling, so venue cards remain separate and media stays resilient to Lystes resyncs.
