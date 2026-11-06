@@ -2,7 +2,8 @@
    Chaque goodie : tous ses coloris (pastilles qui changent la photo), quantité, ajout à la commande.
    La commande est enregistrée (table commandes_goodies) puis l'équipe revient vers la cliente.
    Aucun prix (règle du site : prix seulement sur /tarifs). */
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
+import CarteEvenements from "@/components/goodies/GoodiesEvenements";
 import { createPortal } from "react-dom";
 import { Helmet } from "react-helmet-async";
 import { MessageCircle, Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
@@ -146,7 +147,7 @@ export default function GoodiesPage() {
         <h2 className="text-2xl md:text-[28px] leading-tight text-foreground">{categorie ? nomCat(categorie) : "Tous les goodies"}</h2>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
-          {liste.map((g) => <CarteGoodie key={g.slug + g.coloris} g={g} onAjout={(c, q) => ajouter(g.nom, c, q)} onFiche={() => setFiche(PRODUITS_GOODIES.find((p) => p.slug === g.slug) ?? null)} />)}
+          {liste.map((g, i) => <Fragment key={g.slug + g.coloris}>{i === 3 && !categorie && <CarteEvenements />}<CarteGoodie key={g.slug + g.coloris} g={g} onAjout={(c, q) => ajouter(g.nom, c, q)} onFiche={() => setFiche(PRODUITS_GOODIES.find((p) => p.slug === g.slug) ?? null)} /></Fragment>)}
         </div>
         {liste.length === 0 && <p className="text-sm text-muted-foreground">Aucun goodie ne correspond.</p>}
 
