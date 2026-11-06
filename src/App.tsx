@@ -78,6 +78,7 @@ const CatalogPage = lazy(() => import("./pages/CatalogPage"));
    relance — tout le catalogue sans aucun prix, sans mot de passe, non indexée,
    liée nulle part sur le site. /catalogue-complet-7q4m y redirige. */
 const NouveautesPage = lazy(() => import("./pages/NouveautesPage"));
+const GoodiesPage = lazy(() => import("./pages/GoodiesPage"));
 
 const queryClient = new QueryClient();
 
@@ -120,6 +121,7 @@ function AppRoutes() {
         <Route path="/avis" element={<Suspense fallback={null}><AvisPage /></Suspense>} />
         <Route path="/innovation" element={<Suspense fallback={null}><InnovationPage /></Suspense>} />
         <Route path="/catalogue" element={<Suspense fallback={null}><CatalogPasswordGate><CatalogPage /></CatalogPasswordGate></Suspense>} />
+        <Route path="/goodies" element={<Suspense fallback={null}><GoodiesPage /></Suspense>} />
         <Route path="/nouveautes" element={<Suspense fallback={null}><NouveautesPage /></Suspense>} />
         {/* /nos-soins (27/10/2026) : même page que /nouveautes (une seule source), adresse plus claire à envoyer aux prospectes. */}
         <Route path="/nos-soins" element={<Suspense fallback={null}><NouveautesPage /></Suspense>} />
