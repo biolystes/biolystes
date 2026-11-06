@@ -44,8 +44,11 @@ export default function CartePresentoirs() {
           ))}
         </div>
       </div>
-      <div className="absolute bottom-0 left-0 w-full bg-primary text-primary-foreground px-4 py-3 flex flex-col items-center gap-2">
+      <div className="absolute bottom-5 left-0 w-full text-primary-foreground px-4 flex flex-col items-center gap-3">
         <p className="text-[13px] font-bold uppercase text-center">Vos présentoirs instagrammables</p>
+        <Button asChild variant="secondary" className="rounded-xl">
+          <a href={`https://wa.me/33646855172?text=${encodeURIComponent("Bonjour Cléa, je souhaite un devis pour des présentoirs instagrammables pour ma marque.")}`} target="_blank" rel="noopener noreferrer">Demander un devis</a>
+        </Button>
         <div className="flex items-center gap-1">
           <Button variant="ghost" size="icon" className="h-6 w-6 text-primary-foreground" aria-label="Photo précédente" title="Photo précédente" onClick={() => embla?.scrollPrev()}><ChevronLeft /></Button>
           {PHOTOS.map((photo, i) => <span key={photo.url} className={`h-1.5 w-1.5 rounded-full bg-primary-foreground ${index === i ? "opacity-100" : "opacity-40"}`} />)}
