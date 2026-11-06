@@ -10,7 +10,13 @@ import forbes from "@/assets/magazines/logo-forbes.png.asset.json";
 import gq from "@/assets/magazines/logo-gq.jpeg.asset.json";
 import echos from "@/assets/magazines/logo-les-echos-solutions.jpeg.asset.json";
 
-const LOGOS: Record<string, string> = { "vogue.fr": vogue.url, "public.fr": publicLogo.url, "challenges.fr": challenges.url, "forbes.fr": forbes.url, "gqmagazine.fr": gq.url, "solutions.lesechos.fr": echos.url };
+const autresLogos = import.meta.glob<{ url: string }>("@/assets/magazines/logo-*-*.png.asset.json", { eager: true, import: "default" });
+const LOGOS_SITES: Record<string, string> = Object.fromEntries(
+  ["fr.euronews.com", "purepeople.com", "grazia.fr", "strategies.fr", "cbnews.fr", "madame.lefigaro.fr", "latribune.fr", "femmeactuelle.fr", "voici.fr", "marieclaire.fr", "cosmopolitan.fr"]
+    .map(d => [d, Object.entries(autresLogos).find(([p]) => p.endsWith(`logo-${d.replace(/\./g, "-")}.png.asset.json`))?.[1].url])
+    .filter(([, u]) => u) as [string, string][]
+);
+const LOGOS: Record<string, string> = { ...LOGOS_SITES, "vogue.fr": vogue.url, "public.fr": publicLogo.url, "challenges.fr": challenges.url, "forbes.fr": forbes.url, "gqmagazine.fr": gq.url, "solutions.lesechos.fr": echos.url };
 const nombre = (n: number) => new Intl.NumberFormat("fr-FR").format(n);
 
 function Identite({ magazine }: { magazine: Magazine }) {
