@@ -1,6 +1,6 @@
 /* /meetup : lieux pour organiser ses événements (repris de events.lystes.ai), sans prix.
    Même bande de filtres et mêmes cartes que /catalogue. */
-import { useMemo, useState } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Users, MapPin } from "lucide-react";
