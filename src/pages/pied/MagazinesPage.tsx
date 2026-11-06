@@ -57,7 +57,7 @@ export default function MagazinesPage() {
   return <section className="bg-background text-foreground py-8 md:py-12">
     <Helmet><title>RP — Presse & notoriété | Biolystes</title><meta name="description" content="Découvrez les magazines et leurs audiences pour envisager un article sponsorisé sur votre marque avec Biolystes. Sur devis." /><meta property="og:title" content="RP — Biolystes" /><meta property="og:description" content="Votre marque dans la presse : magazines, thématiques et audiences. Sur devis." /><meta property="og:type" content="website" /><meta name="twitter:card" content="summary" /></Helmet>
     <div className="max-w-7xl mx-auto px-4 md:px-8">
-      <header className="mb-8 space-y-3"><h1 className="text-4xl md:text-5xl font-light">RP</h1><p className="text-base text-muted-foreground max-w-3xl">Faites connaître votre marque avec un article sponsorisé. Découvrez les magazines, leurs thématiques et leurs audiences, puis échangeons sur votre projet.</p></header>
+      <header className="mb-8 space-y-3"><h1 className="text-4xl md:text-5xl font-light">RP</h1><p className="text-base text-muted-foreground max-w-3xl">Quand on lance sa marque, la crédibilité est difficile à gagner vite. Le moyen le plus rapide : des articles de presse. Nous éditons nos propres magazines et travaillons avec des titres reconnus pour bâtir votre e-réputation.</p></header>
       {fiche ? <div className="max-w-3xl mx-auto">
         <Button variant="ghost" onClick={() => setFiche(null)} className="mb-6"><ArrowLeft />Retour aux magazines</Button>
         <Identite magazine={fiche} />
