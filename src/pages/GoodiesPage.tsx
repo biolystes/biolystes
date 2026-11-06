@@ -2,7 +2,7 @@
    Chaque goodie : tous ses coloris (pastilles qui changent la photo), quantité, ajout à la commande.
    La commande est enregistrée (table commandes_goodies) puis l'équipe revient vers la cliente.
    Aucun prix (règle du site : prix seulement sur /tarifs). */
-import { Fragment, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import CarteEvenements from "@/components/goodies/GoodiesEvenements";
 import CarteBackstage from "@/components/CarteBackstage";
 import { createPortal } from "react-dom";
@@ -98,7 +98,15 @@ export default function GoodiesPage() {
   const [fiche, setFiche] = useState<ProduitGoodie | null>(null);
 
   const liste = useMemo(
-    () => GOODIES.filter((g) => (!categorie || g.categorie === categorie)),
+    () => {
+      const goodies = GOODIES.filter((g) => (!categorie || g.categorie === categorie));
+      if (categorie) return goodies;
+      const stickers = goodies.filter((g) => g.slug === "stickers-decoupes-personnalises");
+      const autres = goodies.filter((g) => g.slug !== "stickers-decoupes-personnalises");
+      // Les stickers prennent l'ancienne place de la promotion dans la première rangée.
+      autres.splice(3, 0, ...stickers);
+      return autres;
+    },
     [categorie],
   );
   const nomCat = (id: CategorieGoodie) => CATEGORIES_GOODIES.find((c) => c.id === id)!.nom;
@@ -163,7 +171,8 @@ export default function GoodiesPage() {
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
           {!categorie && <div data-carte-meetup-goodies><CarteBackstage titre="Meetup for Events" lien="/meetup" /></div>}
-          {liste.map((g, i) => <Fragment key={g.slug + g.coloris}>{i === 3 && !categorie && <CarteEvenements />}<CarteGoodie key={g.slug + g.coloris} g={g} onAjout={(c, q) => ajouter(g.nom, c, q)} onFiche={() => setFiche(PRODUITS_GOODIES.find((p) => p.slug === g.slug) ?? null)} /></Fragment>)}
+          {!categorie && <div data-carte-events-goodies className="grid" style={{ gridRow: 2, gridColumn: "-2 / -1" }}><CarteEvenements /></div>}
+          {liste.map((g) => <CarteGoodie key={g.slug + g.coloris} g={g} onAjout={(c, q) => ajouter(g.nom, c, q)} onFiche={() => setFiche(PRODUITS_GOODIES.find((p) => p.slug === g.slug) ?? null)} />)}
         </div>
         {liste.length === 0 && <p className="text-sm text-muted-foreground">Aucun goodie ne correspond.</p>}
 

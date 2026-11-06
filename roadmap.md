@@ -1,4 +1,5 @@
 # Corrections de la page Tarifs
+- [x] Goodies : échanger la promotion « Goodies pour vos events » (deuxième rangée) et les stickers découpés (première rangée), vérifié à l'écran.
 - [x] Créer /magazines à partir des 17 éditeurs Lystes AI, sans prix publics : recherche, thématiques, tri, fiches et demande de rendez-vous vérifiés.
 - [x] Goodies : « Meetup for Events » en toute première carte, vidéos Backstage et lien « En savoir plus » vers /meetup.
 - [x] Meetup : supprimer la bande noire des présentoirs, superposer titre et devis à la photo, et relier le devis au WhatsApp de Cléa confirmé par capture.
