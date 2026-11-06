@@ -36,6 +36,7 @@ export interface ProduitGoodie {
 const RETIRES = ["boite-dexpedition-de-bienvenue-personnalisee", "boite-dexpedition-evenementielle-personnalisee", "gilet-homme-personnalise", "gilet-polaire-homme-personnalise"];
 /* Goodies événementiels affichés en premier. */
 export const PRODUITS_GOODIES = (catalogue as ProduitGoodie[])
+  .filter((p) => !/^(bouteille-pet|flacon-|pot-|petit-pot|mignonnette|flasque|cuillere-mesurer)/.test(p.slug))
   .filter((p) => !/^(lunettes|powerbank|housse-ordinateur|lunch-box)/.test(p.slug) && !RETIRES.includes(p.slug))
   .sort((a, b) => Number(b.categorie === "evenementiel") - Number(a.categorie === "evenementiel"));
 
