@@ -125,7 +125,8 @@ function AppRoutes() {
         <Route path="/innovation" element={<Suspense fallback={null}><InnovationPage /></Suspense>} />
         <Route path="/catalogue" element={<Suspense fallback={null}><CatalogPasswordGate><CatalogPage /></CatalogPasswordGate></Suspense>} />
         <Route path="/goodies" element={<Suspense fallback={null}><GoodiesPage /></Suspense>} />
-        <Route path="/magazines" element={<Suspense fallback={null}><MagazinesPage /></Suspense>} />
+        <Route path="/rp" element={<Suspense fallback={null}><MagazinesPage /></Suspense>} />
+        <Route path="/magazines" element={<Navigate to="/rp" replace />} />
         <Route path="/meetup" element={<Suspense fallback={null}><MeetupPage /></Suspense>} />
         <Route path="/meetup/:slug" element={<Suspense fallback={null}><MeetupLieuPage /></Suspense>} />
         <Route path="/nouveautes" element={<Suspense fallback={null}><NouveautesPage /></Suspense>} />

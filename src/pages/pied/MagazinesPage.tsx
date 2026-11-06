@@ -37,9 +37,9 @@ export default function MagazinesPage() {
   const reinitialiser = () => { setRecherche(""); setThemes([]); setTri("catalogue"); };
   const demander = `https://biolystes.pro/rdv?magazine=${encodeURIComponent(fiche?.editeur ?? "")}&article=${encodeURIComponent(article.trim())}`;
   return <section className="bg-background text-foreground py-8 md:py-12">
-    <Helmet><title>Magazines — Presse & notoriété | Biolystes</title><meta name="description" content="Découvrez les magazines et leurs audiences pour envisager un article sponsorisé sur votre marque avec Biolystes. Sur devis." /><meta property="og:title" content="Magazines — Biolystes" /><meta property="og:description" content="Votre marque dans la presse : magazines, thématiques et audiences. Sur devis." /><meta property="og:type" content="website" /><meta name="twitter:card" content="summary" /></Helmet>
+    <Helmet><title>Relations presse — Presse & notoriété | Biolystes</title><meta name="description" content="Découvrez les magazines et leurs audiences pour envisager un article sponsorisé sur votre marque avec Biolystes. Sur devis." /><meta property="og:title" content="Relations presse — Biolystes" /><meta property="og:description" content="Votre marque dans la presse : magazines, thématiques et audiences. Sur devis." /><meta property="og:type" content="website" /><meta name="twitter:card" content="summary" /></Helmet>
     <div className="max-w-7xl mx-auto px-4 md:px-8">
-      <header className="mb-8 space-y-3"><h1 className="text-4xl md:text-5xl font-light">Magazines</h1><p className="text-base text-muted-foreground max-w-3xl">Faites connaître votre marque avec un article sponsorisé. Découvrez les magazines, leurs thématiques et leurs audiences, puis échangeons sur votre projet.</p></header>
+      <header className="mb-8 space-y-3"><h1 className="text-4xl md:text-5xl font-light">Relations presse</h1><p className="text-base text-muted-foreground max-w-3xl">Faites connaître votre marque avec un article sponsorisé. Découvrez les magazines, leurs thématiques et leurs audiences, puis échangeons sur votre projet.</p></header>
       {fiche ? <div className="max-w-3xl mx-auto">
         <Button variant="ghost" onClick={() => setFiche(null)} className="mb-6"><ArrowLeft />Retour aux magazines</Button>
         <Identite magazine={fiche} />
