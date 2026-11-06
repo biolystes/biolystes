@@ -205,6 +205,42 @@ export type Database = {
         }
         Relationships: []
       }
+      commandes_goodies: {
+        Row: {
+          articles: Json
+          created_at: string
+          email: string
+          entreprise: string | null
+          id: string
+          message: string | null
+          nom: string
+          statut: string
+          telephone: string | null
+        }
+        Insert: {
+          articles: Json
+          created_at?: string
+          email: string
+          entreprise?: string | null
+          id?: string
+          message?: string | null
+          nom: string
+          statut?: string
+          telephone?: string | null
+        }
+        Update: {
+          articles?: Json
+          created_at?: string
+          email?: string
+          entreprise?: string | null
+          id?: string
+          message?: string | null
+          nom?: string
+          statut?: string
+          telephone?: string | null
+        }
+        Relationships: []
+      }
       contract_amendments: {
         Row: {
           certificat_pdf_url: string | null
