@@ -9,7 +9,7 @@ import v4 from "@/assets/backstage/backstage_4.mp4.asset.json";
 
 /* La dernière vidéo passe en première ; la toute première est retirée. */
 const VIDEOS = [v4.url, v2.url, v3.url];
-const fleche = "w-8 h-8 flex items-center justify-center text-white/90 hover:text-white transition-colors";
+const fleche = "w-6 h-6 flex items-center justify-center text-white/90 hover:text-white transition-colors";
 
 export default function CarteBackstage() {
   const [i, setI] = useState(0);
@@ -21,10 +21,10 @@ export default function CarteBackstage() {
       {/* Le mot, centré, en majuscules, exactement la police des titres de lieux. */}
       <span className="absolute inset-0 flex items-center justify-center text-[13px] font-bold uppercase tracking-[0.3px] text-white pointer-events-none">Backstage</span>
       {/* Flèches sans fond, côte à côte, à gauche des quatre pastilles. */}
-      <div className="absolute left-4 bottom-4 flex items-center gap-2">
-        <div className="flex items-center">
-          <button type="button" aria-label="Vidéo précédente" onClick={() => aller(-1)} className={fleche}><ChevronLeft className="w-5 h-5" /></button>
-          <button type="button" aria-label="Vidéo suivante" onClick={() => aller(1)} className={fleche}><ChevronRight className="w-5 h-5" /></button>
+      <div className="absolute left-4 bottom-4 flex items-center gap-1">
+        <div className="flex items-center -space-x-0.5">
+          <button type="button" aria-label="Vidéo précédente" onClick={() => aller(-1)} className={fleche}><ChevronLeft className="w-3.5 h-3.5" /></button>
+          <button type="button" aria-label="Vidéo suivante" onClick={() => aller(1)} className={fleche}><ChevronRight className="w-3.5 h-3.5" /></button>
         </div>
         <div className="flex gap-1.5">
           {VIDEOS.map((_, k) => <span key={k} className="w-1.5 h-1.5 rounded-full" style={{ background: "#ffffff", opacity: k === i ? 1 : 0.45 }} />)}
