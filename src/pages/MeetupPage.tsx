@@ -30,7 +30,7 @@ export default function MeetupPage() {
       <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-5">
         <div className="space-y-2 pb-2">
           <h1 className="text-3xl md:text-5xl leading-tight text-foreground">Créez des micro-événements</h1>
-          <p className="text-sm md:text-base text-muted-foreground max-w-5xl">Que ce soit pour rencontrer votre clientèle cible et comprendre ses attentes, afin de faire évoluer vos gammes, ou pour accueillir un atelier créatif qui produit votre contenu du mois, nous mettons des espaces à votre disposition et nous vous accompagnons dans l’organisation. De quoi rendre votre marque plus désirable et plus authentique.</p>
+          <p className="text-sm md:text-base text-muted-foreground max-w-5xl">Que ce soit pour rencontrer votre clientèle cible et comprendre ses attentes, afin de faire évoluer vos gammes, ou pour accueillir un atelier créatif dédié à la création de votre contenu du mois avec des influenceurs ou des créatrices de contenu, nous mettons des espaces à votre disposition et vous accompagnons dans leur organisation. De quoi rendre votre marque plus désirable.</p>
         </div>
         <div data-barre-filtres className="rounded-2xl p-2.5 overflow-x-auto" style={{ background: BANDE }}>
           <div className="flex md:flex-wrap items-center gap-2">
