@@ -1,4 +1,5 @@
 # Corrections de la page Tarifs
+- [x] Relations presse : remplacer les thématiques latérales par audience, choix du média et référencement ; filtres testés, logos originaux vérifiés entiers (chargement des assets simulé localement).
 - [x] Renommer la page Magazines en Relations presse à /rp, rediriger /magazines et l'ajouter au menu ordinateur et téléphone ; liens et 17 magazines vérifiés.
 - [x] Goodies : échanger la promotion « Goodies pour vos events » (deuxième rangée) et les stickers découpés (première rangée), vérifié à l'écran.
 - [x] Créer /magazines à partir des 17 éditeurs Lystes AI, sans prix publics : recherche, thématiques, tri, fiches et demande de rendez-vous vérifiés.

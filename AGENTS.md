@@ -1,6 +1,7 @@
 # Project rules
 
 - Keep the public magazines catalogue in local price-free data and its page in the shared public frame; never import Lystes dashboard checkout or publisher prices into the public bundle.
+- Keep Relations presse filtering in the local catalogue data module using measured audience and Trust Flow plus publisher selection; do not invent a notoriety score from SEO metrics.
 
 - Reuse CarteBackstage for the Goodies Meetup promotion with a configurable title and destination, so both pages share the same video slideshow while keeping their distinct actions.
 

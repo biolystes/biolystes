@@ -29,7 +29,8 @@ export const MAGAZINES: Magazine[] = [
 ];
 export const THEMATIQUES_MAGAZINES = [...new Set(MAGAZINES.flatMap(m => m.thematiques))].sort((a, b) => a.localeCompare(b, "fr"));
 const normaliser = (texte: string) => texte.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
-export function filtrerMagazines(recherche: string, thematiques: string[]) {
+export interface FiltresMagazines { audienceMin?: number; editeur?: string; tfMin?: number }
+export function filtrerMagazines(recherche: string, filtres: FiltresMagazines = {}) {
   const q = normaliser(recherche);
-  return MAGAZINES.filter(m => (!thematiques.length || m.thematiques.some(t => thematiques.includes(t))) && (!q || normaliser([m.editeur, ...m.thematiques].join(" ")).includes(q)));
+  return MAGAZINES.filter(m => m.visites >= (filtres.audienceMin ?? 0) && m.tf >= (filtres.tfMin ?? 0) && (!filtres.editeur || m.editeur === filtres.editeur) && (!q || normaliser([m.editeur, ...m.thematiques].join(" ")).includes(q)));
 }
