@@ -3,6 +3,7 @@
    La commande est enregistrée (table commandes_goodies) puis l'équipe revient vers la cliente.
    Aucun prix (règle du site : prix seulement sur /tarifs). */
 import { useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import { Helmet } from "react-helmet-async";
 import { MessageCircle, Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -17,10 +18,10 @@ interface Ligne { goodie: string; coloris: string; quantite: number }
 
 function FicheGoodie({ p, onFermer }: { p: ProduitGoodie; onFermer: () => void }) {
   const [photo, setPhoto] = useState(p.galerie[0]);
-  return (
+  return createPortal(
     <>
-      <div className="fixed inset-0 bg-black/30 z-[10000000]" onClick={onFermer} />
-      <div role="dialog" aria-label={p.nom} className="fixed inset-x-0 top-[5vh] mx-auto z-[10000001] max-h-[90vh] overflow-y-auto rounded-[20px] bg-background p-5 md:p-7" style={{ width: "min(900px, 94vw)" }}>
+      <div className="fixed inset-0 bg-black/30 z-[10000000]" style={{ position: "fixed", zIndex: 10000000, background: "rgba(0,0,0,0.3)" }} onClick={onFermer} />
+      <div role="dialog" aria-label={p.nom} className="fixed inset-x-0 top-10 mx-auto z-[10000001] overflow-y-auto rounded-[20px] bg-background p-5 md:p-7" style={{ position: "fixed", zIndex: 10000001, background: "#f5f4df", width: "min(900px, 94vw)", maxHeight: "calc(100dvh - 80px)" }}>
         <button onClick={onFermer} aria-label="Fermer" className="absolute right-4 top-4 w-[30px] h-[30px] rounded-lg flex items-center justify-center" style={{ background: BANDE }}><X className="w-4 h-4" /></button>
         <div className="grid md:grid-cols-2 gap-6">
           <div className="space-y-2">
@@ -47,7 +48,8 @@ function FicheGoodie({ p, onFermer }: { p: ProduitGoodie; onFermer: () => void }
           </div>
         )}
       </div>
-    </>
+    </>,
+    document.body,
   );
 }
 
