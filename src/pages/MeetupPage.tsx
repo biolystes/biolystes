@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Users, MapPin } from "lucide-react";
 import { LIEUX_MEETUP } from "@/data/lieux-meetup";
+import CarteBackstage from "@/components/CarteBackstage";
 
 const NOIR = "rgb(29,29,31)";
 const BANDE = "#f3f4f5";
@@ -52,6 +53,7 @@ export default function MeetupPage() {
               </div>
             </Link>
           ))}
+          <CarteBackstage />
         </div>
       </div>
     </section>
