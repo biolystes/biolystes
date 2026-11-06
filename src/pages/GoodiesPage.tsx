@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { MessageCircle, Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { CATEGORIES_GOODIES, GOODIES, type CategorieGoodie, type Goodie } from "@/data/goodies";
+import { CATEGORIES_GOODIES, GOODIES, PRODUITS_GOODIES, type CategorieGoodie, type Goodie, type ProduitGoodie } from "@/data/goodies";
 import { LIEN_WHATSAPP_EXPERTE } from "@/lib/whatsapp";
 
 const NOIR = "rgb(29,29,31)";
@@ -15,17 +15,54 @@ const QTE_MIN = 1;
 
 interface Ligne { goodie: string; coloris: string; quantite: number }
 
-function CarteGoodie({ g, onAjout }: { g: Goodie; onAjout: (coloris: string, q: number) => void }) {
+function FicheGoodie({ p, onFermer }: { p: ProduitGoodie; onFermer: () => void }) {
+  const [photo, setPhoto] = useState(p.galerie[0]);
+  return (
+    <>
+      <div className="fixed inset-0 bg-black/30 z-[10000000]" onClick={onFermer} />
+      <div role="dialog" aria-label={p.nom} className="fixed inset-x-0 top-[5vh] mx-auto z-[10000001] max-h-[90vh] overflow-y-auto rounded-[20px] bg-background p-5 md:p-7" style={{ width: "min(900px, 94vw)" }}>
+        <button onClick={onFermer} aria-label="Fermer" className="absolute right-4 top-4 w-[30px] h-[30px] rounded-lg flex items-center justify-center" style={{ background: BANDE }}><X className="w-4 h-4" /></button>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="space-y-2">
+            <div className="aspect-square rounded-2xl overflow-hidden" style={{ background: BANDE }}><img src={photo} alt={p.nom} className="w-full h-full object-cover" /></div>
+            <div className="flex flex-wrap gap-1.5">
+              {p.galerie.map((u) => (
+                <button key={u} type="button" onClick={() => setPhoto(u)} className="w-14 h-14 rounded-lg overflow-hidden" style={{ background: BANDE, outline: u === photo ? `2px solid ${NOIR}` : "none" }}>
+                  <img src={u} alt="" loading="lazy" className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="space-y-3 text-sm">
+            <h3 className="text-[13px] font-bold uppercase tracking-[0.3px] pr-8" style={{ color: NOIR }}>{p.nom}</h3>
+            {p.accroche && <p className="text-foreground">{p.accroche}</p>}
+            {p.variantes.some((v) => v.coloris) && <p className="text-muted-foreground">Coloris : {p.variantes.map((v) => v.coloris).filter(Boolean).join(", ")}</p>}
+            {p.dimensions.length > 0 && <p className="text-muted-foreground">Dimensions / tailles : {p.dimensions.join(" · ")}</p>}
+            {Object.entries(p.caracteristiques).map(([k, v]) => <p key={k} className="text-muted-foreground">{k} : {v}</p>)}
+          </div>
+        </div>
+        {p.description && (
+          <div className="mt-6 space-y-2 text-sm leading-relaxed text-muted-foreground">
+            {p.description.split("\n").map((l, i) => <p key={i}>{l}</p>)}
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+function CarteGoodie({ g, onAjout, onFiche }: { g: Goodie; onAjout: (coloris: string, q: number) => void; onFiche: () => void }) {
   const [q, setQ] = useState(50);
   const [ajoute, setAjoute] = useState(false);
   return (
     <div data-goodie className="flex flex-col rounded-[20px] overflow-hidden" style={{ background: BANDE }}>
-      <div className="w-full aspect-square overflow-hidden" style={{ background: BANDE }}>
+      <button type="button" onClick={onFiche} aria-label={`Voir la fiche ${g.nom}`} className="w-full aspect-square overflow-hidden" style={{ background: BANDE }}>
         <img src={g.image} alt={`${g.nom}${g.coloris ? ` — ${g.coloris}` : ""}`} loading="lazy" className="w-full h-full object-cover" />
-      </div>
+      </button>
       <div className="px-[14px] md:px-[18px] pt-4 pb-[18px] flex flex-col gap-1.5 flex-1">
         <h3 className="text-[11px] font-bold uppercase tracking-[0.3px] leading-[1.4] line-clamp-2 min-h-[30px]" style={{ color: NOIR }}>{g.nom}</h3>
         {g.coloris && <p className="text-[11px] text-muted-foreground">{g.coloris}</p>}
+        <button type="button" onClick={onFiche} className="self-start text-[11px] underline text-muted-foreground">Voir la fiche</button>
         <div className="mt-auto pt-2 flex items-center gap-2" style={{ borderTop: "1px solid #e5e7eb" }}>
           <div className="flex items-center rounded-lg bg-background">
             <button type="button" aria-label="Moins" className="w-7 h-8 flex items-center justify-center" onClick={() => setQ(Math.max(QTE_MIN, q - 10))}><Minus className="w-3 h-3" /></button>
@@ -48,6 +85,7 @@ export default function GoodiesPage() {
   const [ouvert, setOuvert] = useState(false);
   const [form, setForm] = useState({ nom: "", email: "", telephone: "", entreprise: "", message: "" });
   const [etat, setEtat] = useState<"" | "envoi" | "ok" | "erreur">("");
+  const [fiche, setFiche] = useState<ProduitGoodie | null>(null);
 
   const liste = useMemo(
     () => GOODIES.filter((g) => (!categorie || g.categorie === categorie)),
@@ -106,7 +144,7 @@ export default function GoodiesPage() {
         <h2 className="text-2xl md:text-[28px] leading-tight text-foreground">{categorie ? nomCat(categorie) : "Tous les goodies"}</h2>
 
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4">
-          {liste.map((g) => <CarteGoodie key={g.nom + g.coloris} g={g} onAjout={(c, q) => ajouter(g.nom, c, q)} />)}
+          {liste.map((g) => <CarteGoodie key={g.slug + g.coloris} g={g} onAjout={(c, q) => ajouter(g.nom, c, q)} onFiche={() => setFiche(PRODUITS_GOODIES.find((p) => p.slug === g.slug) ?? null)} />)}
         </div>
         {liste.length === 0 && <p className="text-sm text-muted-foreground">Aucun goodie ne correspond.</p>}
 
@@ -117,6 +155,7 @@ export default function GoodiesPage() {
         </div>
       </div>
 
+      {fiche && <FicheGoodie key={fiche.slug} p={fiche} onFermer={() => setFiche(null)} />}
       {ouvert && (
         <>
           <div className="fixed inset-0 bg-black/30 z-[10000000]" onClick={() => setOuvert(false)} />
