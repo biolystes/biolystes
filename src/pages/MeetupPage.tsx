@@ -66,10 +66,10 @@ export default function MeetupPage() {
                 </div>
               </div>
             </Link>
-            {l.slug === "louvre-emile" && <CartePresentoirs />}
             </Fragment>
           ))}
           {liste.length <= 2 && <CarteBackstage />}
+          <CartePresentoirs />
         </div>
       </div>
     </section>
