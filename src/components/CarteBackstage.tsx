@@ -2,6 +2,7 @@
    Le mot « Backstage » est centré, en majuscules, dans la police des titres de lieux.
    Les deux flèches, sans fond blanc, sont côte à côte à gauche des quatre pastilles. */
 import { useState } from "react";
+import PopupMeetup from "@/components/PopupMeetup";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import v2 from "@/assets/backstage/backstage_2.mp4.asset.json";
 import v3 from "@/assets/backstage/backstage_3.mp4.asset.json";
@@ -13,6 +14,7 @@ const fleche = "w-6 h-6 flex items-center justify-center text-white/90 hover:tex
 
 export default function CarteBackstage() {
   const [i, setI] = useState(0);
+  const [ouvert, setOuvert] = useState(false);
   const aller = (d: number) => setI((i + d + VIDEOS.length) % VIDEOS.length);
   return (
     <div data-backstage className="relative rounded-[20px] overflow-hidden h-full min-h-[300px]" style={{ background: "rgb(29,29,31)" }}>
@@ -30,6 +32,8 @@ export default function CarteBackstage() {
           {VIDEOS.map((_, k) => <span key={k} className="w-1.5 h-1.5 rounded-full" style={{ background: "#ffffff", opacity: k === i ? 1 : 0.45 }} />)}
         </div>
       </div>
+      <button type="button" data-savoir-plus-meetup onClick={() => setOuvert(true)} className="absolute right-4 bottom-3 h-8 px-3 rounded-lg text-[11px] font-semibold" style={{ background: "#ffffff", color: "rgb(29,29,31)" }}>En savoir plus</button>
+      {ouvert && <PopupMeetup onFermer={() => setOuvert(false)} />}
     </div>
   );
 }
