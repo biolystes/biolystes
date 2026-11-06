@@ -5,8 +5,8 @@ import { Button } from "@/components/ui/button";
 import { MAGAZINES, LECTORATS, POSITIONNEMENTS, AUDIENCES, filtrerMagazines, type Magazine } from "@/data/magazines";
 import BarreFiltresRP from "@/components/BarreFiltresRP";
 import couvElunesse from "@/assets/magazines/couverture-elunesse.webp.asset.json";
-import couvEcrin from "@/assets/magazines/couverture-ecrin.png.asset.json";
-import couvBrume from "@/assets/magazines/couverture-brume.png.asset.json";
+import couvEcrin from "@/assets/magazines/couverture-brume.png.asset.json";
+import couvBrume from "@/assets/magazines/couverture-brume-2.jpeg.asset.json";
 
 /* Nos magazines : cartes photo plein cadre, en tête de liste. */
 const POSITIONS_NOS = [0, 6, 11, 16];
