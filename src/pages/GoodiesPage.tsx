@@ -108,12 +108,7 @@ export default function GoodiesPage() {
       </Helmet>
       <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-5">
         <div className="flex flex-col gap-3">
-          <div className="flex items-center gap-3">
-            <div className="relative max-w-md flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-              <input type="text" placeholder="Rechercher un goodie..." value={recherche} onChange={(e) => setRecherche(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-xl text-sm text-foreground placeholder:text-muted-foreground outline-none border-0 focus:ring-1 focus:ring-black/20" style={{ background: BANDE }} />
-            </div>
+          <div className="flex items-center justify-end gap-3">
             <button type="button" data-ouvrir-commande onClick={() => { setOuvert(true); if (etat === "ok") setEtat(""); }}
               className="shrink-0 inline-flex items-center gap-2 h-10 px-4 rounded-xl text-sm font-medium" style={{ background: NOIR, color: "#fff" }}>
               <ShoppingBag className="w-4 h-4" /> Ma commande{panier.length > 0 && ` (${panier.length})`}
