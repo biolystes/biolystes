@@ -140,15 +140,15 @@ export default function GoodiesPage() {
           </div>
           <div data-barre-filtres className="overflow-x-auto -mx-1 px-1 pb-1">
             <div className="flex items-start gap-3">
-              {[{ id: null as CategorieGoodie | null, nom: "Tous les goodies" }, ...CATEGORIES_GOODIES].map((c) => {
+              {[{ id: null as CategorieGoodie | null, nom: "Tous les goodies" }, ...CATEGORIES_GOODIES.filter((k) => GOODIES.some((g) => g.categorie === k.id))].map((c) => {
                 const actif = categorie === c.id;
                 const img = (c.id ? GOODIES.find((g) => g.categorie === c.id) : GOODIES[0])?.image;
                 return (
                   <button key={c.nom} type="button" onClick={() => setCategorie(c.id)} aria-pressed={actif}
-                    className="shrink-0 w-[112px] md:w-[128px] flex flex-col items-center gap-2 text-center">
-                    <span className="w-full aspect-square rounded-[20px] overflow-hidden flex items-center justify-center transition-shadow"
-                      style={{ background: BANDE, boxShadow: actif ? `0 0 0 2px ${NOIR}` : "none" }}>
-                      {img && <img src={img} alt="" loading="lazy" className="w-[80%] h-[80%] object-contain" />}
+                    className="shrink-0 flex flex-col items-center gap-2 text-center" style={{ width: 120, minWidth: 120, maxWidth: 120, flex: "0 0 120px" }}>
+                    <span className="rounded-[20px] overflow-hidden flex items-center justify-center transition-shadow"
+                      style={{ width: 120, height: 120, background: BANDE, boxShadow: actif ? `0 0 0 2px ${NOIR}` : "none" }}>
+                      {img && <img src={img} alt="" loading="lazy" style={{ width: 96, height: 96, objectFit: "contain" }} />}
                     </span>
                     <span className={`text-[13px] leading-tight ${actif ? "font-semibold" : ""}`} style={{ color: NOIR }}>{c.nom}</span>
                   </button>
