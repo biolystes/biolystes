@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet-async";
 import { Users, MapPin } from "lucide-react";
 import { LIEUX_MEETUP } from "@/data/lieux-meetup";
 import CarteBackstage from "@/components/CarteBackstage";
+import photoGoodies from "@/assets/goodies_evenement.png.asset.json";
 
 const NOIR = "rgb(29,29,31)";
 const BANDE = "#f3f4f5";
@@ -43,6 +44,16 @@ export default function MeetupPage() {
           {liste.map((l, i) => (
             <Fragment key={l.slug}>
             {i === 2 && <CarteBackstage />}
+            {i === 5 && (
+              <Link to="/goodies" data-carte-goodies className="relative rounded-[20px] overflow-hidden min-h-[320px] block group">
+                <img src={photoGoodies.url} alt="Goodies personnalisés pour vos événements" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0) 55%)" }} />
+                <div className="absolute left-6 bottom-6 flex flex-col items-start gap-3">
+                  <p className="text-[13px] font-bold uppercase tracking-[0.3px]" style={{ color: "#fff" }}>Goodies pour vos events</p>
+                  <span className="inline-flex items-center h-10 px-5 rounded-xl text-sm font-semibold" style={{ background: "#fff", color: NOIR }}>Découvrir les goodies</span>
+                </div>
+              </Link>
+            )}
             <Link to={`/meetup/${l.slug}`} data-lieu className="flex flex-col rounded-[20px] overflow-hidden hover:ring-1 hover:ring-black/20" style={{ background: BANDE }}>
               <div className="w-full aspect-[4/3] overflow-hidden"><img src={l.photos[0]} alt={l.nom} loading="lazy" className="w-full h-full object-cover" /></div>
               <div className="px-[18px] pt-4 pb-[18px] flex flex-col gap-2">
