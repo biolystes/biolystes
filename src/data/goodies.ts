@@ -38,7 +38,13 @@ const RETIRES = ["boite-dexpedition-de-bienvenue-personnalisee", "boite-dexpedit
 export const PRODUITS_GOODIES = (catalogue as ProduitGoodie[])
   .filter((p) => !/^(bouteille-pet|flacon-|pot-verre|pot-pet|petit-pot|mignonnette|flasque|cuillere-mesurer)/.test(p.slug))
   .filter((p) => !/^(lunettes|powerbank|housse-ordinateur|lunch-box)/.test(p.slug) && !RETIRES.includes(p.slug))
-  .sort((a, b) => Number(b.categorie === "evenementiel") - Number(a.categorie === "evenementiel"));
+  .sort((a, b) => rang(a) - rang(b));
+
+/* Ordre : événementiel, puis boîtes, stylos, gobelets, autocollants, rubans, enveloppes, supports de carte, tote bags, plateaux. */
+function rang(p: { slug: string; nom: string; categorie: string }) {
+  if (p.categorie === "evenementiel") return 0;
+  return /bo[iî]te|stylo|gobelet|autocollant|sticker|ruban|enveloppe|support|carte|tote|plateau|patisserie|pâtisserie/i.test(p.nom + " " + p.slug) ? 1 : 2;
+}
 
 /* Une carte par variante (produit × coloris), chacune avec sa propre photo de rendu. */
 export interface Goodie { slug: string; nom: string; coloris: string | null; categorie: CategorieGoodie; image: string; choix?: { coloris: string | null; image: string }[] }
