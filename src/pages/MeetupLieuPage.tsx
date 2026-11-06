@@ -23,7 +23,8 @@ export default function MeetupLieuPage() {
       </Helmet>
       <div className="max-w-6xl mx-auto px-4 md:px-8 space-y-6">
         <Link to="/meetup" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground"><ArrowLeft className="w-4 h-4" /> Tous les espaces</Link>
-        <div className="grid md:grid-cols-[1.4fr_1fr] gap-6 md:gap-10">
+        <div className="meetup-fiche grid gap-6 md:gap-10">
+          <style>{`@media (min-width: 768px){.meetup-fiche{grid-template-columns:1.4fr 1fr}}`}</style>
           <div className="space-y-3">
             <div className="rounded-[20px] overflow-hidden aspect-[4/3]" style={{ background: BANDE }}>
               <img src={lieu.photos[photo]} alt={lieu.nom} className="w-full h-full object-cover" />
