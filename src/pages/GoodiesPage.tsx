@@ -12,6 +12,13 @@ import { LIEN_WHATSAPP_EXPERTE } from "@/lib/whatsapp";
 const NOIR = "rgb(29,29,31)";
 const BANDE = "#f3f4f5";
 const QTE_MIN = 1;
+/* Pastille de couleur quand le fournisseur n'a pas de photo pour ce coloris. */
+const TEINTES: Record<string, string> = {
+  Noir: "#1d1d1f", Blanc: "#ffffff", Gris: "#9ca3af", Bleu: "#2b4c7e", Rouge: "#b3261e", Vert: "#2f5955", Orange: "#e07a2f",
+  Rose: "#e8a6b8", Marron: "#7a5236", Argent: "linear-gradient(135deg,#e5e7eb,#9ca3af)", Beige: "#e8dcc4", Kraft: "#c49a6c",
+  Transparent: "repeating-conic-gradient(#eee 0 25%,#fff 0 50%) 0 0/8px 8px", Nacré: "linear-gradient(135deg,#fff,#e8e4f0)",
+  Crémeux: "#f5efdc", Ivoire: "#fffff0", "Blanc glacé": "#f4f8fb", "Éco Kraft": "#b58b5e",
+};
 
 interface Ligne { goodie: string; coloris: string; quantite: number }
 
@@ -35,7 +42,7 @@ function CarteGoodie({ g, onAjout }: { g: Goodie; onAjout: (coloris: string, q: 
                 <button key={x.nom} type="button" role="radio" aria-checked={i === c} aria-label={x.nom} title={x.nom} onClick={() => setC(i)}
                   className="w-7 h-7 rounded-lg overflow-hidden"
                   style={{ outline: i === c ? `2px solid ${NOIR}` : "1px solid rgba(29,29,31,0.12)", outlineOffset: 1, background: "#fff" }}>
-                  {x.image ? <img src={x.image.replace(/w=\d+&h=\d+/, "w=80&h=80")} alt="" className="w-full h-full object-cover" /> : <span className="text-[7px]">{x.nom.slice(0, 3)}</span>}
+                  {x.image ? <img src={x.image.replace(/w=\d+&h=\d+/, "w=80&h=80")} alt="" className="w-full h-full object-cover" /> : <span className="block w-full h-full" style={{ background: TEINTES[x.nom] ?? "#ddd" }} />}
                 </button>
               ))}
             </div>
