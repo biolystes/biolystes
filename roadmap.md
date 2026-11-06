@@ -1,5 +1,5 @@
 # Corrections de la page Tarifs
-- [ ] Goodies : préciser le placement demandé pour « Meetup for Events » (troisième rangée ou première carte à l’entrée).
+- [x] Goodies : « Meetup for Events » en toute première carte, vidéos Backstage et lien « En savoir plus » vers /meetup.
 - [x] Meetup : supprimer la bande noire des présentoirs, superposer titre et devis à la photo, et relier le devis au WhatsApp de Cléa confirmé par capture.
 - [x] Vérifier et remplacer uniquement les modèles IA obsolètes ; tester le chat et le nettoyage d’image sans publier le site.
 - [x] Sur /agents-ia, retirer la carte d’essayage et limiter les photos de l’équipe photographes aux produits cosmétiques ; vérifier l’affichage.
