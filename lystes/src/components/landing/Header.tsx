@@ -115,7 +115,7 @@ const MENU_BIOLYSTES = [
        aussi dans le menu, en ordinateur comme dans celui du téléphone. */
   { to: "/meetup", libelle: "Meetup" },
   { to: "/goodies", libelle: "Goodies" },
-  { to: "/rp", libelle: "Relations presse" },
+  { to: "/rp", libelle: "RP" },
 ];
 
 export function Header({ minimal = false, overlay = false, topBar }: HeaderProps) {
