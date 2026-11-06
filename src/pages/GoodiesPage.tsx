@@ -4,7 +4,7 @@
    Aucun prix (règle du site : prix seulement sur /tarifs). */
 import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { MessageCircle, Minus, Plus, Search, ShoppingBag, Trash2, X } from "lucide-react";
+import { MessageCircle, Minus, Plus, ShoppingBag, Trash2, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { CATEGORIES_GOODIES, GOODIES, type CategorieGoodie, type Goodie } from "@/data/goodies";
 import { LIEN_WHATSAPP_EXPERTE } from "@/lib/whatsapp";
@@ -66,15 +66,14 @@ function CarteGoodie({ g, onAjout }: { g: Goodie; onAjout: (coloris: string, q: 
 
 export default function GoodiesPage() {
   const [categorie, setCategorie] = useState<CategorieGoodie | null>(null);
-  const [recherche, setRecherche] = useState("");
   const [panier, setPanier] = useState<Ligne[]>([]);
   const [ouvert, setOuvert] = useState(false);
   const [form, setForm] = useState({ nom: "", email: "", telephone: "", entreprise: "", message: "" });
   const [etat, setEtat] = useState<"" | "envoi" | "ok" | "erreur">("");
 
   const liste = useMemo(
-    () => GOODIES.filter((g) => (!categorie || g.categorie === categorie) && g.nom.toLowerCase().includes(recherche.toLowerCase())),
-    [categorie, recherche],
+    () => GOODIES.filter((g) => (!categorie || g.categorie === categorie)),
+    [categorie],
   );
   const nomCat = (id: CategorieGoodie) => CATEGORIES_GOODIES.find((c) => c.id === id)!.nom;
   const total = panier.reduce((s, l) => s + l.quantite, 0);
