@@ -111,6 +111,10 @@ const MENU_BIOLYSTES = [
   { to: "/faq", libelle: "Questions fréquentes" },
   /* /avis (21/10/2026, JP) : les avis des anciennes clientes. */
   { to: "/avis", libelle: "Avis" },
+  /* /meetup et /goodies (06/11/2026, JP) : lieux d'événements et goodies,
+       aussi dans le menu, en ordinateur comme dans celui du téléphone. */
+  { to: "/meetup", libelle: "Meetup" },
+  { to: "/goodies", libelle: "Goodies" },
 ];
 
 export function Header({ minimal = false, overlay = false, topBar }: HeaderProps) {
