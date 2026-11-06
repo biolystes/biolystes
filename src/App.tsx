@@ -80,6 +80,7 @@ const CatalogPage = lazy(() => import("./pages/CatalogPage"));
 const NouveautesPage = lazy(() => import("./pages/NouveautesPage"));
 const GoodiesPage = lazy(() => import("./pages/GoodiesPage"));
 const MeetupPage = lazy(() => import("./pages/MeetupPage"));
+const MagazinesPage = lazy(() => import("./pages/pied/MagazinesPage"));
 const MeetupLieuPage = lazy(() => import("./pages/MeetupLieuPage"));
 
 const queryClient = new QueryClient();
@@ -124,6 +125,7 @@ function AppRoutes() {
         <Route path="/innovation" element={<Suspense fallback={null}><InnovationPage /></Suspense>} />
         <Route path="/catalogue" element={<Suspense fallback={null}><CatalogPasswordGate><CatalogPage /></CatalogPasswordGate></Suspense>} />
         <Route path="/goodies" element={<Suspense fallback={null}><GoodiesPage /></Suspense>} />
+        <Route path="/magazines" element={<Suspense fallback={null}><MagazinesPage /></Suspense>} />
         <Route path="/meetup" element={<Suspense fallback={null}><MeetupPage /></Suspense>} />
         <Route path="/meetup/:slug" element={<Suspense fallback={null}><MeetupLieuPage /></Suspense>} />
         <Route path="/nouveautes" element={<Suspense fallback={null}><NouveautesPage /></Suspense>} />

@@ -4,6 +4,12 @@
 @config "./tailwind.config.ts";
 @tailwind utilities;
 
+@media (min-width: 768px) {
+  .pied-page .magazines-disposition {
+    grid-template-columns: 230px minmax(0, 1fr);
+  }
+}
+
 /* Pied de page de l’accueil (lystes/, recopié tel quel) : ses liens portent
    `hyphens-auto`, et Chrome coupait « Descha-nel » dans l’adresse. Sur ces
    pages, aucun mot coupé par un tiret. */
