@@ -79,6 +79,8 @@ const CatalogPage = lazy(() => import("./pages/CatalogPage"));
    liée nulle part sur le site. /catalogue-complet-7q4m y redirige. */
 const NouveautesPage = lazy(() => import("./pages/NouveautesPage"));
 const GoodiesPage = lazy(() => import("./pages/GoodiesPage"));
+const MeetupPage = lazy(() => import("./pages/MeetupPage"));
+const MeetupLieuPage = lazy(() => import("./pages/MeetupLieuPage"));
 
 const queryClient = new QueryClient();
 
@@ -122,6 +124,8 @@ function AppRoutes() {
         <Route path="/innovation" element={<Suspense fallback={null}><InnovationPage /></Suspense>} />
         <Route path="/catalogue" element={<Suspense fallback={null}><CatalogPasswordGate><CatalogPage /></CatalogPasswordGate></Suspense>} />
         <Route path="/goodies" element={<Suspense fallback={null}><GoodiesPage /></Suspense>} />
+        <Route path="/meetup" element={<Suspense fallback={null}><MeetupPage /></Suspense>} />
+        <Route path="/meetup/:slug" element={<Suspense fallback={null}><MeetupLieuPage /></Suspense>} />
         <Route path="/nouveautes" element={<Suspense fallback={null}><NouveautesPage /></Suspense>} />
         {/* /nos-soins (27/10/2026) : même page que /nouveautes (une seule source), adresse plus claire à envoyer aux prospectes. */}
         <Route path="/nos-soins" element={<Suspense fallback={null}><NouveautesPage /></Suspense>} />
