@@ -48,7 +48,7 @@ export default function MeetupPage() {
               <Link to="/goodies" data-carte-goodies className="relative rounded-[20px] overflow-hidden min-h-[320px] block group">
                 <img src={photoGoodies.url} alt="Goodies personnalisés pour vos événements" loading="lazy" className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                 <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0) 55%)" }} />
-                <div className="absolute left-6 bottom-6 flex flex-col items-start gap-3">
+                <div className="absolute inset-x-6 bottom-6 flex flex-col items-center text-center gap-3">
                   <p className="text-[13px] font-bold uppercase tracking-[0.3px]" style={{ color: "#fff" }}>Goodies pour vos events</p>
                   <span className="inline-flex items-center h-10 px-5 rounded-xl text-sm font-semibold" style={{ background: "#fff", color: NOIR }}>Découvrir les goodies</span>
                 </div>
