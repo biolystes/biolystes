@@ -138,14 +138,22 @@ export default function GoodiesPage() {
               <ShoppingBag className="w-4 h-4" /> Ma commande{panier.length > 0 && ` (${panier.length})`}
             </button>
           </div>
-          <div data-barre-filtres className="rounded-2xl p-2.5 overflow-x-auto" style={{ background: BANDE }}>
-            <div className="flex md:flex-wrap items-center gap-2">
-              {[{ id: null as CategorieGoodie | null, nom: "Tous les goodies" }, ...CATEGORIES_GOODIES].map((c) => (
-                <button key={c.nom} type="button" onClick={() => setCategorie(c.id)}
-                  className="shrink-0 inline-flex items-center h-11 px-4 rounded-xl text-[15px] font-medium whitespace-nowrap transition-colors" style={bouton(categorie === c.id)}>
-                  {c.nom}
-                </button>
-              ))}
+          <div data-barre-filtres className="overflow-x-auto -mx-1 px-1 pb-1">
+            <div className="flex items-start gap-3">
+              {[{ id: null as CategorieGoodie | null, nom: "Tous les goodies" }, ...CATEGORIES_GOODIES].map((c) => {
+                const actif = categorie === c.id;
+                const img = (c.id ? GOODIES.find((g) => g.categorie === c.id) : GOODIES[0])?.image;
+                return (
+                  <button key={c.nom} type="button" onClick={() => setCategorie(c.id)} aria-pressed={actif}
+                    className="shrink-0 w-[112px] md:w-[128px] flex flex-col items-center gap-2 text-center">
+                    <span className="w-full aspect-square rounded-[20px] overflow-hidden flex items-center justify-center transition-shadow"
+                      style={{ background: BANDE, boxShadow: actif ? `0 0 0 2px ${NOIR}` : "none" }}>
+                      {img && <img src={img} alt="" loading="lazy" className="w-[80%] h-[80%] object-contain" />}
+                    </span>
+                    <span className={`text-[13px] leading-tight ${actif ? "font-semibold" : ""}`} style={{ color: NOIR }}>{c.nom}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
