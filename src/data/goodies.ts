@@ -32,7 +32,8 @@ export interface ProduitGoodie {
   variantes: { coloris: string | null; image: string }[];
 }
 
-export const PRODUITS_GOODIES = catalogue as ProduitGoodie[];
+/* Lunettes de soleil retirées à la demande (06/11/2026). */
+export const PRODUITS_GOODIES = (catalogue as ProduitGoodie[]).filter((p) => !p.slug.startsWith("lunettes"));
 
 /* Une carte par variante (produit × coloris), chacune avec sa propre photo de rendu. */
 export interface Goodie { slug: string; nom: string; coloris: string | null; categorie: CategorieGoodie; image: string; choix?: { coloris: string | null; image: string }[] }
