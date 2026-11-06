@@ -1,0 +1,59 @@
+/* /meetup : lieux pour organiser ses événements (repris de events.lystes.ai), sans prix.
+   Même bande de filtres et mêmes cartes que /catalogue. */
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
+import { Users, MapPin } from "lucide-react";
+import { LIEUX_MEETUP } from "@/data/lieux-meetup";
+
+const NOIR = "rgb(29,29,31)";
+const BANDE = "#f3f4f5";
+const VILLES = [...new Set(LIEUX_MEETUP.map((l) => l.lieu))].sort((a, b) => parseInt(a.replace(/\D/g, "")) - parseInt(b.replace(/\D/g, "")));
+const style = (actif: boolean) => ({ background: actif ? NOIR : "#ffffff", color: actif ? "#ffffff" : NOIR, border: `1px solid ${actif ? NOIR : "rgba(29,29,31,0.08)"}` });
+const pastille = "shrink-0 inline-flex items-center h-11 px-4 rounded-xl text-[15px] font-medium whitespace-nowrap transition-colors";
+
+export default function MeetupPage() {
+  const [ville, setVille] = useState<string | null>(null);
+  const [insta, setInsta] = useState(false);
+  const [grand, setGrand] = useState(false);
+  const liste = useMemo(() => LIEUX_MEETUP.filter((l) => (!ville || l.lieu === ville) && (!insta || l.instagrammable) && (!grand || l.capacite >= 10)), [ville, insta, grand]);
+
+  return (
+    <section className="bg-background pb-16 md:pb-20 pt-6 md:pt-8">
+      <Helmet>
+        <title>Meetup — lieux pour vos événements | Biolystes</title>
+        <meta name="description" content="Des espaces à Paris pour organiser votre meet-up, shooting ou lancement de marque." />
+      </Helmet>
+      <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-5">
+        <div className="space-y-2 pb-2">
+          <h1 className="text-3xl md:text-5xl leading-tight text-foreground">Un lieu pour organiser votre meet-up</h1>
+          <p className="text-sm md:text-base text-muted-foreground max-w-2xl">Des espaces à Paris, prêts à filmer et à photographier, pour votre shooting, votre lancement ou votre atelier.</p>
+        </div>
+        <div data-barre-filtres className="rounded-2xl p-2.5 overflow-x-auto" style={{ background: BANDE }}>
+          <div className="flex md:flex-wrap items-center gap-2">
+            <button type="button" className={pastille} style={style(!ville)} onClick={() => setVille(null)}>Tout Paris</button>
+            {VILLES.map((v) => <button key={v} type="button" className={pastille} style={style(ville === v)} onClick={() => setVille(v)}>{v}</button>)}
+            <button type="button" className={pastille} style={style(insta)} onClick={() => setInsta(!insta)}>Instagrammable</button>
+            <button type="button" className={pastille} style={style(grand)} onClick={() => setGrand(!grand)}>10 pers. et plus</button>
+          </div>
+        </div>
+        <h2 className="text-2xl md:text-[28px] leading-tight text-foreground">{liste.length} espace{liste.length > 1 ? "s" : ""}</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {liste.map((l) => (
+            <Link key={l.slug} to={`/meetup/${l.slug}`} data-lieu className="flex flex-col rounded-[20px] overflow-hidden hover:ring-1 hover:ring-black/20" style={{ background: BANDE }}>
+              <div className="w-full aspect-[4/3] overflow-hidden"><img src={l.photos[0]} alt={l.nom} loading="lazy" className="w-full h-full object-cover" /></div>
+              <div className="px-[18px] pt-4 pb-[18px] flex flex-col gap-2">
+                <h3 className="text-[13px] font-bold uppercase tracking-[0.3px]" style={{ color: NOIR }}>{l.nom}</h3>
+                <div className="flex items-center justify-between gap-2 pt-[6px] text-[12px] text-muted-foreground" style={{ borderTop: "1px solid #e5e7eb" }}>
+                  <span className="inline-flex items-center gap-1"><MapPin className="w-3.5 h-3.5" />{l.lieu}</span>
+                  <span className="inline-flex items-center gap-1"><Users className="w-3.5 h-3.5" />{l.capacite} pers.</span>
+                  {l.instagrammable && <span className="px-[9px] py-[3px] rounded-full text-[8px] font-bold uppercase" style={{ background: NOIR, color: "#ffffff" }}>Instagrammable</span>}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
