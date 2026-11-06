@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { MAGAZINES, LECTORATS, POSITIONNEMENTS, AUDIENCES, filtrerMagazines, type Magazine } from "@/data/magazines";
 import BarreFiltresRP from "@/components/BarreFiltresRP";
 import couvElunesse from "@/assets/magazines/couverture-elunesse.png.asset.json";
+import couvEcrin from "@/assets/magazines/couverture-ecrin.png.asset.json";
 import couvBrume from "@/assets/magazines/couverture-brume.png.asset.json";
 
 /* Nos magazines : cartes photo plein cadre, en tête de liste. */
@@ -12,6 +13,7 @@ const POSITIONS_NOS = [0, 6, 11, 16];
 const NOS_MAGAZINES = [
   { nom: "Elunesse Magazine", url: "https://elunesse.com/", photo: couvElunesse.url },
   { nom: "Brume Magazine", url: "https://brumemagazine.com/", photo: couvBrume.url },
+  { nom: "Écrin Magazine", url: "https://ecrinmagazine.com/", photo: couvEcrin.url },
 ];
 import vogue from "@/assets/magazines/logo-vogue-france.png.asset.json";
 import publicLogo from "@/assets/magazines/logo-public.png.asset.json";
