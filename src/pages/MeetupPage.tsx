@@ -27,7 +27,7 @@ export default function MeetupPage() {
       </Helmet>
       <div className="max-w-7xl mx-auto px-4 md:px-8 space-y-5">
         <div className="space-y-2 pb-2">
-          <h1 className="text-3xl md:text-5xl leading-tight text-foreground">Créez des micro-événements pour votre marque</h1>
+          <h1 className="text-3xl md:text-5xl leading-tight text-foreground">Créez des micro-événements{"\n"}pour votre marque</h1>
           <p className="text-sm md:text-base text-muted-foreground max-w-2xl">Rencontrez vos clientes, faites créer du contenu à vos créatrices et rendez votre marque plus désirable. Des lieux à Paris, avec hôtesse, réservés pour 2 à 3 heures.</p>
         </div>
         <div data-barre-filtres className="rounded-2xl p-2.5 overflow-x-auto" style={{ background: BANDE }}>
