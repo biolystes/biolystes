@@ -11,7 +11,8 @@ export const CATEGORIES_GOODIES: { id: CategorieGoodie; nom: string }[] = [
   { id: "emballage", nom: "Emballage & cartes" },
 ];
 
-export interface Goodie { nom: string; categorie: CategorieGoodie; image: string }
+export interface Coloris { nom: string; image: string | null }
+export interface Goodie { nom: string; categorie: CategorieGoodie; image: string; coloris: Coloris[]; quantiteMin?: number }
 
 const img = (chemin: string) => `https://cdn-pim.packhelp.com/assets/${chemin}?w=800&h=600&fit=min&auto=format`;
 
