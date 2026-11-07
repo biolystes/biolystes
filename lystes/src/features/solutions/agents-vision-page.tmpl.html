@@ -17,9 +17,13 @@
 }
 .biolystes-ai-scope *:not(.phone-unscope, .phone-unscope *) { box-sizing: border-box; }
 .biolystes-ai-scope .phone-unscope, .biolystes-ai-scope .phone-unscope * { box-sizing: border-box; }
-.biolystes-ai-scope .wrap { max-width: 920px; margin: 0 auto; padding: 0; }
+.biolystes-ai-scope .wrap { max-width: 1220px; margin: 0 auto; padding: 0; }
 @media (min-width: 768px) { .biolystes-ai-scope .wrap { padding: 0 24px; } }
 .biolystes-ai-scope .wrap .wrap { max-width: none; padding: 0; margin: 0; }
+/* La scène (maquette produit + encart noir) est dessinée pour 920 px : elle
+   garde sa taille, seule la page autour s'élargit (Biolystes, 07/11/2026). */
+.biolystes-ai-scope .lyv-scene { max-width: 920px; margin-left: auto; margin-right: auto; }
+.biolystes-ai-scope .lyv-scene.lyv-scene-page { max-width: none; }
 .biolystes-ai-scope h1, .biolystes-ai-scope h2, .biolystes-ai-scope h3, .biolystes-ai-scope h4 { font-weight: 300; letter-spacing: -0.01em; }
 .biolystes-ai-scope h1 em, .biolystes-ai-scope h2 em { font-style: normal; color: var(--ink-faint); }
 .biolystes-ai-scope .eyebrow { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.22em; color: var(--ink); }
