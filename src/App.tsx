@@ -75,8 +75,9 @@ const InnovationPage = lazy(() => import("./pages/InnovationPage"));
    que /tarifs (en-tête, pied de page, mot de passe à l'identité du site). */
 const CatalogPage = lazy(() => import("./pages/CatalogPage"));
 /* /nouveautes (26/10/2026) : adresse cachée du catalogue pour les messages de
-   relance — tout le catalogue sans aucun prix, sans mot de passe, non indexée,
-   liée nulle part sur le site. /catalogue-complet-7q4m y redirige. */
+   relance — tout le catalogue sans aucun prix, non indexée, liée nulle part sur
+   le site ; derrière le mot de passe du catalogue depuis le 09/11/2026 (Odile).
+   /catalogue-complet-7q4m y redirige. */
 const NouveautesPage = lazy(() => import("./pages/NouveautesPage"));
 const GoodiesPage = lazy(() => import("./pages/GoodiesPage"));
 const MeetupPage = lazy(() => import("./pages/MeetupPage"));
@@ -129,9 +130,9 @@ function AppRoutes() {
         <Route path="/magazines" element={<Navigate to="/rp" replace />} />
         <Route path="/meetup" element={<Suspense fallback={null}><MeetupPage /></Suspense>} />
         <Route path="/meetup/:slug" element={<Suspense fallback={null}><MeetupLieuPage /></Suspense>} />
-        <Route path="/nouveautes" element={<Suspense fallback={null}><NouveautesPage /></Suspense>} />
+        <Route path="/nouveautes" element={<Suspense fallback={null}><CatalogPasswordGate titre="Nos soins"><NouveautesPage /></CatalogPasswordGate></Suspense>} />
         {/* /nos-soins (27/10/2026) : même page que /nouveautes (une seule source), adresse plus claire à envoyer aux prospectes. */}
-        <Route path="/nos-soins" element={<Suspense fallback={null}><NouveautesPage /></Suspense>} />
+        <Route path="/nos-soins" element={<Suspense fallback={null}><CatalogPasswordGate titre="Nos soins"><NouveautesPage /></CatalogPasswordGate></Suspense>} />
         <Route path="/catalogue-complet-7q4m" element={<Navigate to="/nouveautes" replace />} />
       </Route>
       {/* Actus (12/10/2026) : cadre de l’accueil, articles dans src/actus/articles.ts. */}

@@ -27,7 +27,9 @@ const columns: FooterColumn[] = [
       { key: "footer.pricing", fr: "Tarifs", to: "/tarifs" },
       { key: "footer.customers", fr: "Nos clients", to: "/clients" },
       { key: "footer.shops", fr: "Les boutiques", to: "/boutiques" },
-      { key: "footer.whatsNew", fr: "Nouveautés", to: "/nouveautes" },
+      /* « Nouveautés » retiré le 09/11/2026 (Odile) : /nouveautes n'est plus
+         liée nulle part et n'est plus accessible que derrière le mot de passe
+         du catalogue. */
       { key: "footer.affiliate", fr: "Affiliation", to: "/affiliate" },
     ],
   },

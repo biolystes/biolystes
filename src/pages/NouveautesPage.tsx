@@ -4,7 +4,7 @@
    Exactement le même catalogue que /catalogue (mêmes produits, filtres et
    fiches : CatalogPage avec sansPrix), mais :
    - aucun prix nulle part (ni prix, ni €, ni remise, ni bouton d'achat) ;
-   - pas de mot de passe ni de connexion ;
+   - derrière le mot de passe du catalogue depuis le 09/11/2026 (Odile) ;
    - liées nulle part (ni menu, ni pied de page, ni sitemap) et non indexées
      (noindex, nofollow) ;
    - aucun en-tête : la page commence par la barre de filtres (JP, 27/10/2026) ;
