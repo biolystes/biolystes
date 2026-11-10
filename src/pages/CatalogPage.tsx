@@ -62,10 +62,11 @@ import imagesApprouvees from "@/data/catalogue-pro/images-approuvees.json";
 import { CTA_URL } from "./pied/elements";
 import { badgeDisponibilite } from "@/data/disponibilite";
 import { CATEGORIES_VISIBLES, PRODUITS_VISIBLES } from "@/data/masquage-catalogue";
+import { INTRO_K_BEAUTY, estKBeauty } from "@/data/k-beauty";
 import NouveauSiteBanner from "@/components/NouveauSiteBanner";
 import BarreFiltresCatalogue from "@/components/BarreFiltresCatalogue";
 import {
-  correspond, libelleCategorie, optionsFiltres, selectionVide, trier,
+  correspond, libelleCategorie, seuleKBeauty, trierRituel, optionsFiltres, selectionVide, trier,
   type CleFiltre, type Selection, type Tri,
 } from "@/lib/filtres-catalogue";
 
@@ -211,12 +212,14 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
     const pris = new Set<string>();
     const out: Record<string, string> = {};
     for (const c of CATEGORIES_VISIBLES) if (c.id !== "all") out[c.id] = photo(PRODUITS_VISIBLES.filter((x) => x.categorie === c.id), pris);
+    out["k-beauty"] = photo(PRODUITS_VISIBLES.filter((x) => estKBeauty(x.code)), pris);
     out.all = photo(PRODUITS_VISIBLES.filter((x) => x.categorie !== "supplements"), pris);
     return out;
   }, []);
   const nombresCategories = useMemo(() => {
     const out: Record<string, number> = { all: compterCommandables(PRODUITS_VISIBLES) };
     for (const c of CATEGORIES_VISIBLES) if (c.id !== "all") out[c.id] = compterCommandables(PRODUITS_VISIBLES.filter((x) => x.categorie === c.id));
+    out["k-beauty"] = compterCommandables(PRODUITS_VISIBLES.filter((x) => estKBeauty(x.code)));
     return out;
   }, []);
 
@@ -234,13 +237,15 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
 
   // Nouveautés en tête par défaut (ou A à Z), produits retirés en fin de liste.
   const filtered = useMemo(() => {
-    return trier(PRODUITS_VISIBLES.filter((p) => {
+    const liste = PRODUITS_VISIBLES.filter((p) => {
       const matchSearch =
         !search ||
         p.nom.toLowerCase().includes(search.toLowerCase()) ||
         p.description.toLowerCase().includes(search.toLowerCase());
       return correspond(p, selection) && matchSearch;
-    }), tri);
+    });
+    // « Inspiré K-beauty » seule : ordre du rituel.
+    return seuleKBeauty(selection) ? trierRituel(liste) : trier(liste, tri);
   }, [search, selection, tri]);
 
   // Un seul nombre de produits sur la page : les commandables (compléments compris, retirés exclus).
@@ -295,6 +300,9 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
         </div>
 
         <h2 className="text-2xl md:text-[28px] leading-tight text-foreground" data-titre-liste>{titreListe}</h2>
+        {seuleKBeauty(selection) && (
+          <p className="text-[12px] leading-[1.65] -mt-2" style={{ color: "#666666" }} data-intro-k-beauty>{INTRO_K_BEAUTY}</p>
+        )}
 
         {/* Compteur gardé pour les lecteurs d'écran et les tests, invisible à l'écran (JP, 27/10/2026 : pas de « 269 produits · 22 bientôt… » devant les prospectes). */}
         <p className="sr-only">

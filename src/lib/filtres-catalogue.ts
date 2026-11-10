@@ -14,6 +14,17 @@
 import { CATEGORIES, estNouveau, ordreCatalogue, type Product } from "@/data/catalogue-pro/products";
 import { estAVenir } from "@/data/disponibilite";
 import { PRODUITS_VISIBLES, categoriesEnBas } from "@/data/masquage-catalogue";
+import { ID_K_BEAUTY, LIBELLE_K_BEAUTY, estKBeauty, rangKBeauty } from "@/data/k-beauty";
+
+/* Catégories du filtre : celles du catalogue synchronisé, plus « Inspiré K-beauty »
+   juste après les soins du visage (gardée ici pour survivre aux resyncs de products.ts). */
+export const CATEGORIES_FILTRE: { id: string; label: string }[] = CATEGORIES.flatMap((c) =>
+  c.id === "soins-du-visage" ? [c, { id: ID_K_BEAUTY, label: LIBELLE_K_BEAUTY }] : [c]);
+
+/** Seule la catégorie K-beauty est choisie : ordre du rituel. */
+export const seuleKBeauty = (s: Selection) => s.categorie.size === 1 && s.categorie.has(ID_K_BEAUTY);
+export const trierRituel = <T extends Product>(liste: readonly T[]): T[] =>
+  [...liste].sort((a, b) => rangKBeauty(a.code) - rangKBeauty(b.code));
 
 export type CleFiltre = "categorie" | "etiquette" | "type" | "preoccupation" | "actif";
 export type Selection = Record<CleFiltre, Set<string>>;
@@ -170,13 +181,13 @@ const CACHE = new Map<string, Record<CleFiltre, string[]>>();
 export function valeursDe(p: Product): Record<CleFiltre, string[]> {
   let v = CACHE.get(p.slug);
   if (!v) {
-    v = { categorie: [p.categorie], etiquette: etiquettes(p), type: types(p), preoccupation: preoccupations(p), actif: actifs(p) };
+    v = { categorie: estKBeauty(p.code) ? [p.categorie, ID_K_BEAUTY] : [p.categorie], etiquette: etiquettes(p), type: types(p), preoccupation: preoccupations(p), actif: actifs(p) };
     CACHE.set(p.slug, v);
   }
   return v;
 }
 
-const LABEL_CATEGORIE = new Map<string, string>(CATEGORIES.filter((c) => c.id !== "all").map((c) => [c.id, c.label]));
+const LABEL_CATEGORIE = new Map<string, string>(CATEGORIES_FILTRE.filter((c) => c.id !== "all").map((c) => [c.id, c.label]));
 export const libelleCategorie = (id: string) => LABEL_CATEGORIE.get(id) ?? id;
 
 export interface OptionFiltre { valeur: string; libelle: string; n: number }
@@ -194,7 +205,7 @@ export function optionsFiltres(produits: readonly Product[] = PRODUITS_VISIBLES)
       .sort((a, b) => (ordre ? ordre.indexOf(a.valeur) - ordre.indexOf(b.valeur) : b.n - a.n || a.libelle.localeCompare(b.libelle, "fr")));
   const cat = compte("categorie");
   return {
-    categorie: CATEGORIES.filter((c) => c.id !== "all" && cat.has(c.id)).map((c) => ({ valeur: c.id, libelle: c.label, n: cat.get(c.id)! })),
+    categorie: CATEGORIES_FILTRE.filter((c) => c.id !== "all" && cat.has(c.id)).map((c) => ({ valeur: c.id, libelle: c.label, n: cat.get(c.id)! })),
     etiquette: trie(compte("etiquette"), [ETIQUETTE_NOUVEAU, "Végétalien", "Sans gluten", "Sans noix", "Biologique", "Certifié naturel", "Sans parfum", "Sans allergène sur l'étiquette", "Testé dermatologiquement"]),
     type: trie(compte("type")),
     preoccupation: trie(compte("preoccupation")),
