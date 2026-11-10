@@ -387,7 +387,7 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
                 <h3 className={`text-[11px] font-bold uppercase tracking-[0.3px] leading-[1.4] min-h-[30px] ${slugOrigine(product) === product.slug ? "line-clamp-2" : ""}`} style={{ color: "rgb(29,29,31)", textWrap: "balance" }}>
                   {slugOrigine(product) !== product.slug ? (
                     <>
-                      <span className="block line-clamp-2 min-h-[30px]">{sansMotSeul(product.nom.slice(0, -SUFFIXE_NOM_K_BEAUTY.length))}</span>
+                      <span className="line-clamp-2 min-h-[30px]">{sansMotSeul(product.nom.slice(0, -SUFFIXE_NOM_K_BEAUTY.length))}</span>
                       <span data-suffixe-k-beauty className="block whitespace-nowrap -mx-[14px] text-center">{SUFFIXE_NOM_K_BEAUTY.trim()}</span>
                     </>
                   ) : sansMotSeul(product.nom)}
