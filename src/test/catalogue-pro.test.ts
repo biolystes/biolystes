@@ -139,7 +139,7 @@ describe("catalogue de biolystes.com = catalogue de biolystes.pro", () => {
     expect(retires.length).toBeGreaterThan(0);
     const fiches = [...container.querySelectorAll("[data-produit]")];
     // Les produits retirés ferment la liste des soins ; seuls les compléments alimentaires (rangés tout en bas) passent après.
-    const horsBas = fiches.filter((f) => !estEnBas(PRODUCTS.find((p) => p.slug === f.getAttribute("data-produit"))!));
+    const horsBas = fiches.filter((f) => !estEnBas(PRODUITS_VISIBLES.find((p) => p.slug === f.getAttribute("data-produit"))!));
     const fin = horsBas.slice(-retires.length);
     expect(fin.map((f) => f.getAttribute("data-produit")).sort()).toEqual([...retires].sort());
     for (const f of fin) expect(f.textContent).toContain("Non commandable");

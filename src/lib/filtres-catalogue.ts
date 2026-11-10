@@ -14,7 +14,7 @@
 import { CATEGORIES, estNouveau, ordreCatalogue, type Product } from "@/data/catalogue-pro/products";
 import { estAVenir } from "@/data/disponibilite";
 import { PRODUITS_VISIBLES, categoriesEnBas } from "@/data/masquage-catalogue";
-import { ID_K_BEAUTY, LIBELLE_K_BEAUTY, estKBeauty, rangKBeauty } from "@/data/k-beauty";
+import { ID_K_BEAUTY, LIBELLE_K_BEAUTY, rangKBeauty } from "@/data/k-beauty";
 
 /* Catégories du filtre : celles du catalogue synchronisé, plus « Inspiré K-beauty »
    juste après les soins du visage (gardée ici pour survivre aux resyncs de products.ts). */
@@ -181,7 +181,7 @@ const CACHE = new Map<string, Record<CleFiltre, string[]>>();
 export function valeursDe(p: Product): Record<CleFiltre, string[]> {
   let v = CACHE.get(p.slug);
   if (!v) {
-    v = { categorie: estKBeauty(p.code) ? [p.categorie, ID_K_BEAUTY] : [p.categorie], etiquette: etiquettes(p), type: types(p), preoccupation: preoccupations(p), actif: actifs(p) };
+    v = { categorie: [p.categorie], etiquette: etiquettes(p), type: types(p), preoccupation: preoccupations(p), actif: actifs(p) };
     CACHE.set(p.slug, v);
   }
   return v;

@@ -62,11 +62,12 @@ import imagesApprouvees from "@/data/catalogue-pro/images-approuvees.json";
 import { CTA_URL } from "./pied/elements";
 import { badgeDisponibilite } from "@/data/disponibilite";
 import { CATEGORIES_VISIBLES, PRODUITS_VISIBLES } from "@/data/masquage-catalogue";
-import { INTRO_K_BEAUTY, estKBeauty } from "@/data/k-beauty";
+import { INTRO_K_BEAUTY } from "@/data/k-beauty";
+import { slugOrigine } from "@/data/k-beauty-copies";
 import NouveauSiteBanner from "@/components/NouveauSiteBanner";
 import BarreFiltresCatalogue from "@/components/BarreFiltresCatalogue";
 import {
-  correspond, libelleCategorie, seuleKBeauty, trierRituel, optionsFiltres, selectionVide, trier,
+  CATEGORIES_FILTRE, correspond, libelleCategorie, seuleKBeauty, trierRituel, optionsFiltres, selectionVide, trier,
   type CleFiltre, type Selection, type Tri,
 } from "@/lib/filtres-catalogue";
 
@@ -122,10 +123,10 @@ const withImageVersion = (url: string, version: string) => {
 export function getProductImage(product: typeof PRODUCTS[0]): string {
   // Photo refusée au contrôle visuel : « Image à venir », quelle que soit l'image approuvée.
   if (product.image_a_refaire) return "/placeholder.svg";
-  const approved = APPROVED_CLEAN_IMAGES[product.slug];
+  const approved = APPROVED_CLEAN_IMAGES[slugOrigine(product)];
   if (approved && !citeLeFournisseur(approved.url)) return withImageVersion(approved.url, approved.version);
   if (product.image && !citeLeFournisseur(product.image)) return product.image;
-  const jsonClean = CLEAN_IMAGE_BY_SLUG[product.slug];
+  const jsonClean = CLEAN_IMAGE_BY_SLUG[slugOrigine(product)];
   if (jsonClean && !citeLeFournisseur(jsonClean)) return jsonClean;
   return "/placeholder.svg";
 }
@@ -194,7 +195,17 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
   const [search, setSearch] = useState("");
   const [selection, setSelection] = useState<Selection>(selectionVide);
   const [tri, setTri] = useState<Tri>("nouveautes");
-  const [selectedProduct, setSelectedProduct] = useState<typeof PRODUCTS[0] | null>(null);
+  // Fiche ouverte sur son propre slug : /catalogue?produit=<slug> (copies K-beauty comprises).
+  const [selectedProduct, setSelectedProductEtat] = useState<typeof PRODUCTS[0] | null>(() => {
+    const s = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("produit") : null;
+    return (s && PRODUITS_VISIBLES.find((p) => p.slug === s)) || null;
+  });
+  const setSelectedProduct = (p: typeof PRODUCTS[0] | null) => {
+    setSelectedProductEtat(p);
+    const u = new URL(window.location.href);
+    if (p) u.searchParams.set("produit", p.slug); else u.searchParams.delete("produit");
+    window.history.replaceState(window.history.state, "", u.toString());
+  };
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
 
   const options = useMemo(() => optionsFiltres(PRODUITS_VISIBLES), []);
@@ -211,15 +222,13 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
     // Une photo différente par catégorie ; « Tous les produits » prend une photo qu'aucune catégorie n'utilise.
     const pris = new Set<string>();
     const out: Record<string, string> = {};
-    for (const c of CATEGORIES_VISIBLES) if (c.id !== "all") out[c.id] = photo(PRODUITS_VISIBLES.filter((x) => x.categorie === c.id), pris);
-    out["k-beauty"] = photo(PRODUITS_VISIBLES.filter((x) => estKBeauty(x.code)), pris);
+    for (const c of CATEGORIES_FILTRE) if (c.id !== "all") out[c.id] = photo(PRODUITS_VISIBLES.filter((x) => x.categorie === c.id), pris);
     out.all = photo(PRODUITS_VISIBLES.filter((x) => x.categorie !== "supplements"), pris);
     return out;
   }, []);
   const nombresCategories = useMemo(() => {
     const out: Record<string, number> = { all: compterCommandables(PRODUITS_VISIBLES) };
-    for (const c of CATEGORIES_VISIBLES) if (c.id !== "all") out[c.id] = compterCommandables(PRODUITS_VISIBLES.filter((x) => x.categorie === c.id));
-    out["k-beauty"] = compterCommandables(PRODUITS_VISIBLES.filter((x) => estKBeauty(x.code)));
+    for (const c of CATEGORIES_FILTRE) if (c.id !== "all") out[c.id] = compterCommandables(PRODUITS_VISIBLES.filter((x) => x.categorie === c.id));
     return out;
   }, []);
 

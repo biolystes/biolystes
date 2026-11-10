@@ -17,6 +17,7 @@
    La copie synchronisée src/data/catalogue-pro/products.ts n'est jamais retouchée :
    tout passe par ce fichier, donc une resynchronisation ne peut pas les remontrer. */
 import { CATEGORIES, PRODUCTS, type Product } from "@/data/catalogue-pro/products";
+import { COPIES_K_BEAUTY } from "@/data/k-beauty-copies";
 
 export const CATEGORIES_MASQUEES: readonly string[] = ["supplements"];
 
@@ -49,7 +50,8 @@ export const estMasque = (p: Pick<Product, "slug" | "categorie">): boolean =>
 export const estEnBas = (p: Cat): boolean => CATEGORIES_EN_BAS.includes(p.categorie);
 
 /** Les produits que le public peut voir. */
-export const PRODUITS_VISIBLES: Product[] = PRODUCTS.filter((p) => !estMasque(p));
+/** Avec les copies « (K-Beauty Inspiration) », placées juste après les originaux. */
+export const PRODUITS_VISIBLES: Product[] = [...PRODUCTS, ...COPIES_K_BEAUTY].filter((p) => !estMasque(p));
 
 /** Les catégories qui ont au moins un produit visible (« Tous les produits » toujours). */
 export const CATEGORIES_VISIBLES = CATEGORIES.filter(
