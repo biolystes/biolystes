@@ -50,6 +50,21 @@ describe("catégorie Inspiré K-beauty (produits doublés)", () => {
     }
     window.history.replaceState(null, "", "/");
   }, 60000);
+  it("chaque carte de copie affiche le suffixe entier dans un élément sans line-clamp", () => {
+    const { container, unmount } = render(createElement(MemoryRouter, null, createElement(CatalogPage)));
+    for (const c of COPIES_K_BEAUTY) {
+      const carte = container.querySelector(`[data-produit="${c.slug}"]`);
+      const suffixe = carte?.querySelector("[data-suffixe-k-beauty]");
+      expect(suffixe?.textContent).toBe("(K-Beauty Inspiration)");
+      expect(suffixe?.className).not.toMatch(/line-clamp/);
+      expect(suffixe?.parentElement?.className).not.toMatch(/line-clamp/);
+      const original = PRODUCTS.find((p) => p.slug === c.slug_origine);
+      expect(original).toBeDefined();
+      expect(carte?.querySelector("h3 > span:first-child")?.textContent?.replace(/\s/g, " ")).toBe(original?.nom.replace(/\s/g, " "));
+      expect(container.querySelector(`[data-produit="${c.slug_origine}"] [data-suffixe-k-beauty]`)).toBeNull();
+    }
+    unmount();
+  });
   it("aucune mention de la Corée", () => {
     expect(INTRO_K_BEAUTY).not.toMatch(/cor[ée]e|korea/i);
   });

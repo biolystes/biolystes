@@ -63,7 +63,7 @@ import { CTA_URL } from "./pied/elements";
 import { badgeDisponibilite } from "@/data/disponibilite";
 import { CATEGORIES_VISIBLES, PRODUITS_VISIBLES } from "@/data/masquage-catalogue";
 import { INTRO_K_BEAUTY } from "@/data/k-beauty";
-import { slugOrigine } from "@/data/k-beauty-copies";
+import { slugOrigine, SUFFIXE_NOM_K_BEAUTY } from "@/data/k-beauty-copies";
 import NouveauSiteBanner from "@/components/NouveauSiteBanner";
 import BarreFiltresCatalogue from "@/components/BarreFiltresCatalogue";
 import {
@@ -384,8 +384,13 @@ export default function CatalogPage({ sansPrix = false }: { sansPrix?: boolean }
               </div>
 
               <div className="px-[18px] pt-4 pb-[18px] flex flex-col gap-2 flex-1">
-                <h3 className="text-[11px] font-bold uppercase tracking-[0.3px] leading-[1.4] line-clamp-2 min-h-[30px]" style={{ color: "rgb(29,29,31)", textWrap: "balance" }}>
-                  {sansMotSeul(product.nom)}
+                <h3 className={`text-[11px] font-bold uppercase tracking-[0.3px] leading-[1.4] min-h-[30px] ${slugOrigine(product) === product.slug ? "line-clamp-2" : ""}`} style={{ color: "rgb(29,29,31)", textWrap: "balance" }}>
+                  {slugOrigine(product) !== product.slug ? (
+                    <>
+                      <span className="block line-clamp-2 min-h-[30px]">{sansMotSeul(product.nom.slice(0, -SUFFIXE_NOM_K_BEAUTY.length))}</span>
+                      <span data-suffixe-k-beauty className="block whitespace-nowrap -mx-[14px] text-center">{SUFFIXE_NOM_K_BEAUTY.trim()}</span>
+                    </>
+                  ) : sansMotSeul(product.nom)}
                 </h3>
 
                 {product.description && (
