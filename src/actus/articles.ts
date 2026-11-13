@@ -17,7 +17,7 @@
 import type { LucideIcon } from "lucide-react";
 import {
   Boxes, Brain, Building2, Calculator, Eye, FileCheck2, Gift, Globe, Landmark, Leaf, Megaphone, Package, PackageCheck, Palette, Receipt,
-  Recycle, Scale, ShieldCheck, ShoppingBag, Sparkles, Star, Store, Target, Timer, TrendingUp, Truck, Users, Zap,
+  Scale, ShieldCheck, ShoppingBag, Sparkles, Star, Store, Target, Timer, TrendingUp, Truck, Users, Zap,
 } from "lucide-react";
 
 import imgEtude from "@/assets/article-featured.jpg";
@@ -219,8 +219,8 @@ const tousLesArticles: Article[] = [
       ] },
       { t: "h2", texte: "Ce que vous gagnez en partant d’une formule existante" },
       { t: "liste", items: [
-        "Plus de 100 formules certifiées bio et véganes, visage, corps, cheveux, maquillage, solaire, homme, coffrets.",
-        "Des formules sans parabènes, sans silicones, sans PEG, sans filtres UV chimiques, sans microplastiques et sans colorants artificiels.",
+        "Plus de 100 formules, la plupart certifiées COSMOS et la grande majorité véganes : visage, corps, cheveux, maquillage, solaire, homme, coffrets.",
+        "Aucune formule du catalogue ne contient de parabènes, de silicones, de microplastiques ni de filtres UV chimiques : nous l’avons vérifié sur la liste INCI de chaque produit.",
         "Des produits que vous recevez et testez avant de lancer votre marque.",
         "Une marque en ligne en 10 jours ouvrés, au lieu de plusieurs mois.",
       ] },
@@ -281,12 +281,11 @@ const tousLesArticles: Article[] = [
       { t: "h2", texte: "Les autres garanties de nos formules" },
       { t: "cartes", items: [
         { icone: ShieldCheck, titre: "ISO 22716", texte: "Les bonnes pratiques de fabrication des cosmétiques, suivies par le laboratoire." },
-        { icone: Leaf, titre: "Végan", texte: "Formulations végétaliennes, parfums véganes." },
-        { icone: Sparkles, titre: "Non testé sur les animaux", texte: "Aucune expérimentation animale, à aucun stade." },
-        { icone: Recycle, titre: "Packaging recyclable", texte: "Emballages conçus pour être recyclables." },
+        { icone: Leaf, titre: "Végan", texte: "La grande majorité des formules sont véganes : nous vous indiquons lesquelles au moment de la sélection." },
+        { icone: Sparkles, titre: "Non testé sur les animaux", texte: "Aucun produit ni aucun ingrédient n’est testé sur les animaux : le règlement européen l’interdit pour les cosmétiques." },
       ] },
       { t: "h2", texte: "Ce que nos formules ne contiennent pas" },
-      { t: "p", texte: "Tous nos produits sont formulés sans parabènes, sans silicones, sans PEG, sans filtres UV chimiques, sans microplastiques et sans colorants artificiels." },
+      { t: "p", texte: "Aucune formule du catalogue ne contient de parabènes, de silicones, de SLS ni de SLES, de microplastiques, de donneurs de formaldéhyde, d’isothiazolinones, de BHA ni de BHT, d’huiles minérales ou de filtres UV chimiques. Nous l’avons vérifié sur la liste INCI de chaque produit." },
       { t: "h2", texte: "Lire une fiche produit" },
       { t: "liste", items: [
         "La certification exacte : COSMOS Natural ou COSMOS Organic.",
@@ -412,7 +411,7 @@ const tousLesArticles: Article[] = [
         { icone: PackageCheck, titre: "Livraison directe", texte: "Le logisticien récupère votre colis au laboratoire et l’expédie dans votre établissement, en moins de 15 jours." },
       ] },
       { t: "h2", texte: "Ils nous font confiance" },
-      { t: "p", texte: "Wirtzkin, centre médical esthétique spécialisé dans les soins de la peau, a choisi Biolystes pour la production de ses produits cosmétiques bio et véganes." },
+      { t: "p", texte: "Wirtzkin, centre médical esthétique spécialisé dans les soins de la peau, a choisi Biolystes pour la production de ses produits cosmétiques." },
       { t: "h2", texte: "Prolonger le soin à la maison" },
       { t: "p", texte: "Un QR code sur le packaging peut placer un coach IA derrière chaque produit : il aide votre client à bien l’utiliser chez lui, et à revenir vers vous quand il faut le racheter." },
     ],
@@ -437,7 +436,7 @@ const tousLesArticles: Article[] = [
     slug: "coffrets",
     titre: "Désormais Biolystes propose des coffrets clés en main",
     titreSeo: "Coffrets cosmétiques : panier moyen et ventes | Biolystes",
-    description: "Des coffrets cosmétiques bio prêts à vendre pour augmenter votre panier moyen et fidéliser vos clients, sans minimum de commande.",
+    description: "Des coffrets cosmétiques prêts à vendre pour augmenter votre panier moyen et fidéliser vos clients, sans minimum de commande.",
     chapo: "Augmentez votre panier moyen et fidélisez vos clients avec des collections prêtes à vendre.",
     categorie: "Nouveauté",
     date: "2026-03-12",
@@ -463,7 +462,7 @@ const tousLesArticles: Article[] = [
         { titre: "Hydratation profonde", texte: "Gel double boost, sérum hydratant. Une hydratation intense." },
         { titre: "Routine soin de la peau", texte: "Mousse nettoyante, sérum vitamine C, crème anti-âge, crème yeux. Une routine complète en quatre produits." },
       ] },
-      { t: "chiffre", valeur: "0", texte: "minimum de commande. Commandez un seul coffret ou cent, sans stock à gérer.", note: "Coffrets certifiés bio et végans, packaging recyclable, personnalisable à votre marque." },
+      { t: "chiffre", valeur: "0", texte: "minimum de commande. Commandez un seul coffret ou cent, sans stock à gérer.", note: "Coffrets personnalisables à votre marque." },
       { t: "h2", texte: "Comment ça marche" },
       { t: "liste", numerotee: true, items: [
         "Vous choisissez les coffrets qui correspondent à votre positionnement.",
@@ -526,8 +525,8 @@ const tousLesArticles: Article[] = [
       { t: "p", texte: "**Biolystes a ramené ce parcours à 10 jours ouvrés.** Voici comment." },
       { t: "h2", texte: "Étape 1 : la mise en place de votre marque" },
       { t: "cartes", items: [
-        { icone: ShieldCheck, titre: "Sélection des produits", texte: "Plus de 100 formules certifiées bio et véganes. Vous choisissez les produits qui correspondent à votre positionnement avec l’aide d’un expert produit : visage, corps, cheveux, maquillage, solaire, homme, coffrets." },
-        { icone: Zap, titre: "Création de l’identité visuelle", texte: "Un chef de projet pilote l’ensemble : identité visuelle, design du packaging recyclable, photos, contenu du site. Un seul interlocuteur, pas de va-et-vient entre prestataires." },
+        { icone: ShieldCheck, titre: "Sélection des produits", texte: "Plus de 100 formules, la plupart certifiées COSMOS et la grande majorité véganes. Vous choisissez les produits qui correspondent à votre positionnement avec l’aide d’un expert produit : visage, corps, cheveux, maquillage, solaire, homme, coffrets." },
+        { icone: Zap, titre: "Création de l’identité visuelle", texte: "Un chef de projet pilote l’ensemble : identité visuelle, design du packaging, photos, contenu du site. Un seul interlocuteur, pas de va-et-vient entre prestataires." },
         { icone: Globe, titre: "Boutique en ligne prête à vendre", texte: "Site e-commerce complet, référencement, hébergement, nom de domaine. Tout est configuré pour que vous puissiez vendre dès le premier jour." },
       ] },
       { t: "h2", texte: "Étape 2 : la gestion au quotidien" },
