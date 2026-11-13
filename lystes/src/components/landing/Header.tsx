@@ -119,7 +119,7 @@ const MENU_BIOLYSTES = [
   { to: "/formules-et-ingredients", libelle: "Formules" },
   { to: "/standard-de-beaute-propre", libelle: "Beauté propre" },
   { to: "/a-propos", libelle: "À propos" },
-  { to: "/faq", libelle: "Questions fréquentes" },
+  { to: "/faq", libelle: "FAQ" }, /* 13/11/2026, JP : « Questions fréquentes » devient « FAQ » */
   /* /avis (21/10/2026, JP) : les avis des anciennes clientes. */
   { to: "/avis", libelle: "Avis" },
   /* /meetup et /goodies (06/11/2026, JP) : lieux d'événements et goodies,

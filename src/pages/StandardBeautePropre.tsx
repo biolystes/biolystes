@@ -13,14 +13,14 @@
    - « végan » : la grande majorité des formules, jamais « toutes » ;
    - le test src/test/pages-standard-propre.test.ts garde ces règles ;
    - plan et sujets seulement : aucun texte repris d'une page d'un tiers. */
-import {
-  Ban, ClipboardCheck, ListChecks, PawPrint, Percent, SprayCan, Vegan,
-} from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import { BoutonRdv, Entete } from "./pied/elements";
-import { Carte, Cartes, Chiffre, Zone } from "./pied/cartes-standard";
+import { Banniere, BlocImage, Carte, Cartes, Chiffre, Zone } from "./pied/cartes-standard";
 import { t } from "@/lib/typographie-fr";
+import imgBandeau from "@/assets/formules/approche-mousse-trefle.webp";
+import imgCadre from "@/assets/formules/developpement-formules-laboratoire.webp";
+import imgPrecisions from "@/assets/formules/ingredient-eaux-florales.webp";
 
 const SEO_DESCRIPTION =
   "Parabènes, silicones, SLS et SLES, microplastiques : huit familles d’ingrédients écartées de chaque formule du catalogue, et le cadre réglementaire européen.";
@@ -34,12 +34,10 @@ export default function StandardBeautePropre() {
         path="/standard-de-beaute-propre"
       />
 
-      {/* ═══ HAUT DE PAGE ═══ */}
-      <section className="bg-background pt-12 md:pt-20 pb-10 md:pb-12 px-[1.25rem] md:px-[1.5rem]">
-        <Entete niveau={1} surtitre="Standard de beauté propre"
-          noir="Un standard clair" gris="pour une beauté propre."
-          texte={t("Chaque formule du catalogue suit le même socle : le règlement cosmétique européen, huit familles d’ingrédients écartées après vérification des listes INCI, et des certifications que vous pouvez montrer à vos clientes.")} />
-      </section>
+      {/* ═══ HAUT DE PAGE : bandeau photo, texte blanc, comme « Formules et ingrédients » ═══ */}
+      <Banniere image={imgBandeau} alt="De la mousse verte et des feuilles de trèfle"
+        surtitre="Standard de beauté propre" noir="Un standard clair" gris="pour une beauté propre."
+        texte="Chaque formule du catalogue suit le même socle : le règlement cosmétique européen, huit familles d’ingrédients écartées après vérification des listes INCI, et des certifications que vous pouvez montrer." />
 
       {/* ═══ LE SOCLE EN TROIS REPÈRES ═══ */}
       <Zone gris>
@@ -50,29 +48,17 @@ export default function StandardBeautePropre() {
         </div>
       </Zone>
 
-      {/* ═══ LE CADRE EUROPÉEN ═══ */}
+      {/* ═══ LE CADRE EUROPÉEN : un bloc image et texte ═══ */}
       <Zone>
-        <Entete className="mb-8 md:mb-10" surtitre="Le cadre" noir="Le règlement européen"
-          gris={"comme point de départ."} aLaLigne={false} />
-        <Cartes colonnes={4}>
-          <Carte icone={Ban} titre="Substances bannies"
-            texte="Plus d’un millier de substances sont interdites dans les cosmétiques en Europe (annexe II du règlement CE n° 1223/2009)." />
-          <Carte icone={ListChecks} titre="Usages encadrés"
-            texte="Plusieurs centaines d’autres ne sont autorisées que sous conditions : dose maximale, type de produit, mentions obligatoires." />
-          <Carte icone={ClipboardCheck} titre="Sécurité évaluée"
-            texte="Chaque formule est évaluée par un professionnel qualifié avant sa mise sur le marché, et une Personne Responsable est établie dans l’Union européenne." />
-          <Carte icone={PawPrint} titre="Aucun test sur les animaux"
-            texte="Ils sont interdits pour les produits finis comme pour leurs ingrédients." />
-        </Cartes>
-        <p className="mt-8 md:mt-10 max-w-2xl mx-auto text-center text-[0.9375rem] md:text-base text-foreground/80 leading-[1.75] text-pretty">
-          {t("Ce cadre fixe un minimum. Notre standard écarte en plus des ingrédients que la loi autorise, listés ci-dessous.")}
-        </p>
+        <BlocImage image={imgCadre} alt="Des mains gantées versent un liquide dans une éprouvette"
+          titre="Le règlement européen comme point de départ"
+          texte="Plus d’un millier de substances sont interdites dans les cosmétiques en Europe (annexe II du règlement CE n° 1223/2009), et plusieurs centaines d’autres ne sont autorisées que sous conditions. Chaque formule est évaluée par un professionnel qualifié avant sa mise sur le marché, une Personne Responsable est établie dans l’Union européenne, et aucun test sur les animaux n’est permis. Ce cadre fixe un minimum : notre standard écarte en plus des ingrédients que la loi autorise." />
       </Zone>
 
       {/* ═══ CE QUE NOUS ÉCARTONS ═══ */}
       <Zone gris id="ecartes">
         <Entete className="mb-8 md:mb-10" surtitre="Ingrédients écartés" noir="Huit familles"
-          gris={"absentes de chaque formule."} aLaLigne={false}
+          gris={"absentes de chaque formule."} aLaLigne={false}
           texte={t("Nous avons vérifié la liste INCI de chaque formule du catalogue. Aucune ne contient les familles ci-dessous.")} />
         <Cartes colonnes={4} rail>
           <Carte numero="01" titre="Parabènes"
@@ -94,23 +80,17 @@ export default function StandardBeautePropre() {
         </Cartes>
       </Zone>
 
-      {/* ═══ EN TOUTE TRANSPARENCE ═══ */}
+      {/* ═══ EN TOUTE TRANSPARENCE : un bloc image et texte, image à droite ═══ */}
       <Zone>
-        <Entete className="mb-8 md:mb-10" surtitre="Précisions" noir="Ce que nous" gris="précisons." aLaLigne={false} />
-        <Cartes colonnes={3}>
-          <Carte icone={SprayCan} titre="Le parfum"
-            texte="De nombreuses formules sont parfumées. Le parfum est déclaré dans la liste des ingrédients, avec les allergènes réglementés. Certaines formules existent sans parfum : nous vous les indiquons à la sélection." />
-          <Carte icone={Vegan} titre="Le végan"
-            texte="La grande majorité des formules sont véganes. Nous vous indiquons lesquelles au moment de la sélection." />
-          <Carte icone={Percent} titre="Les taux naturels et bio"
-            texte="Chaque formule certifiée affiche son taux d’ingrédients d’origine naturelle et, quand il existe, son taux d’ingrédients bio." />
-        </Cartes>
+        <BlocImage inverse image={imgPrecisions} alt="Une fleur rose en gros plan"
+          titre="Ce que nous précisons"
+          texte="De nombreuses formules sont parfumées : le parfum est déclaré dans la liste des ingrédients, avec les allergènes réglementés, et certaines formules existent sans parfum. La grande majorité des formules sont véganes. Chaque formule certifiée affiche son taux d’ingrédients d’origine naturelle et, quand il existe, son taux d’ingrédients bio. Nous vous indiquons tout cela au moment de la sélection." />
       </Zone>
 
       {/* ═══ SUITE ═══ */}
       <Zone gris>
         <div className="max-w-[48rem] mx-auto">
-          <Entete surtitre="Une question sur nos formules ?" noir="Parlons de votre sélection" gris={"en rendez-vous."}
+          <Entete surtitre="Une question sur nos formules ?" noir="Parlons de votre sélection" gris={"en rendez-vous."}
             texte={t("Un expert produit répond à vos questions sur les ingrédients, les certifications et le cadre réglementaire.")} />
           <BoutonRdv className="mt-8" />
           <p className="mt-6 text-center text-[0.9375rem]">
