@@ -54,7 +54,7 @@ const THEMES: Theme[] = [
       {
         icone: Truck,
         q: "Qui fabrique et qui expédie ?",
-        r: "Votre cliente commande sur votre boutique. Le laboratoire partenaire fabrique le produit, le conditionne à votre marque et l’expédie chez elle, avec un numéro de suivi.",
+        r: "Votre cliente commande sur votre boutique. Nous préparons le produit à votre marque et l’expédions chez elle, avec un numéro de suivi.",
       },
       {
         icone: PackagePlus,
@@ -90,8 +90,8 @@ const THEMES: Theme[] = [
       },
       {
         icone: ShieldCheck,
-        q: "Dois-je faire la notification CPNP ?",
-        r: "Non. Chaque formule est déjà notifiée au CPNP et son dossier d’information produit est tenu par le laboratoire. Les mentions obligatoires sont imprimées d’office sur l’étiquette.",
+        q: "Dois-je m’occuper de la conformité réglementaire ?",
+        r: "Non. Une Personne Responsable établie dans l’Union européenne est en place : c’est réglementaire et cadré. Les mentions obligatoires sont imprimées d’office sur l’étiquette.",
       },
       {
         icone: FileText,

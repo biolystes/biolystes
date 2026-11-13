@@ -87,7 +87,7 @@ const groups: LinkGroup[] = [
       {
         href: "/responsabilite",
         title: "Comment se passe le partage des responsabilités en cas de litige ?",
-        description: "Conformité, DIP, CPNP — le laboratoire assume le risque produit.",
+        description: "Conformité réglementaire : une Personne Responsable établie dans l’Union européenne.",
       },
       {
         href: "/glowly",
