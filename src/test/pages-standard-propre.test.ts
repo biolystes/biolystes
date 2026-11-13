@@ -10,6 +10,9 @@
  *    sulfates »), ni « toutes les formules sont véganes / bio ».
  * 3. Aucun nom de laboratoire, aucun prix, aucun tiret long, jamais
  *    « fabrication à la commande » dans le texte des pages.
+ * 4. Les articles du blog (src/actus/articles.ts) n'affirment rien que le catalogue
+ *    ne prouve : ni « sans PEG », ni « sans colorants artificiels », ni packaging
+ *    « recyclable » ou « FSC », ni « formules certifiées bio et véganes » (13/11/2026).
  */
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
@@ -38,7 +41,7 @@ function sansCommentaires(source: string): string {
 const textes = PAGES.map((f) => ({ f, texte: sansCommentaires(readFileSync(f, "utf8")) }));
 const toutLeTexte = textes.map((x) => x.texte).join("\n");
 
-/** Les huit familles annoncées « absentes de chaque formule », avec la forme sous laquelle elles se lisent dans une liste INCI. */
+/** Les familles annoncées « absentes de chaque formule » (huit sur la page, une de plus dans les articles), avec la forme sous laquelle elles se lisent dans une liste INCI. */
 const FAMILLES: Record<string, RegExp> = {
   parabènes: /paraben/i,
   "silicones et siloxanes": /dimethicone|methicone|siloxane|silicone|dimethiconol|cyclomethicone|\w+conol\b|silsesquioxane|siloxy/i,
@@ -48,6 +51,7 @@ const FAMILLES: Record<string, RegExp> = {
   isothiazolinones: /isothiazolinone/i,
   "BHA et BHT": /\bbha\b|\bbht\b|butylated hydroxy/i,
   "huiles minérales": /paraffinum|petrolatum|mineral oil|microcrystalline wax|ozokerite|ceresin|isoparaffin/i,
+  "filtres UV chimiques": /octocrylene|avobenzone|dibenzoylmethane|oxybenzone|benzophenone|methoxycinnamate|homosalate|octisalate|ethylhexyl salicylate|ethylhexyl triazone|bemotrizinol|bisoctrizole|bis-ethylhexyloxyphenol|tinosorb|uvinul|enzacamene|ensulizole|drometrizole|diethylamino hydroxybenzoyl/i,
 };
 
 describe("pages Formules et ingrédients, Standard de beauté propre : ce qu'elles annoncent est vrai", () => {
@@ -98,6 +102,40 @@ describe("pages Formules et ingrédients, Standard de beauté propre : règles d
       const m = texte.match(/const SEO_DESCRIPTION =\s*\n?\s*"([^"]+)"/);
       if (!m) continue;
       expect(m[1].length, f).toBeLessThanOrEqual(160);
+    }
+  });
+});
+
+describe("articles du blog (src/actus/articles.ts) : rien que le catalogue ne prouve pas", () => {
+  const articles = sansCommentaires(readFileSync("src/actus/articles.ts", "utf8"));
+
+  it("ni « sans PEG », ni « sans colorants artificiels »", () => {
+    expect(articles).not.toMatch(/\bPEG\b/);
+    expect(articles).not.toMatch(/colorants? (?:de synth|artificiel)/i);
+  });
+
+  it("aucune allégation d'emballage : ni « recyclable », ni « FSC »", () => {
+    expect(articles).not.toMatch(/recyclables?|\bFSC\b/i);
+  });
+
+  it("jamais « certifiées bio et véganes » : la plupart des formules sont COSMOS, la grande majorité véganes", () => {
+    expect(articles).not.toMatch(/certifi[ée]e?s? bio et v[ée]gan/i);
+    expect(articles).not.toMatch(/Tous nos produits sont formul/i);
+    expect(articles).not.toMatch(/produits cosmétiques bio et v[ée]gan/i); // jamais une allégation sur les produits d’un client cité
+  });
+
+  it("chaque famille annoncée « absente » est contrôlée plus haut contre la liste INCI de chaque produit", () => {
+    const annoncees = articles.match(/Aucune formule du catalogue ne contient[^"]+/g) ?? [];
+    expect(annoncees.length).toBeGreaterThan(0);
+    const mots: Record<string, string> = {
+      parabènes: "parabènes", silicones: "silicones et siloxanes", SLS: "SLS et SLES", microplastiques: "microplastiques",
+      formaldéhyde: "donneurs de formaldéhyde", isothiazolinones: "isothiazolinones", BHA: "BHA et BHT", minérales: "huiles minérales",
+      "filtres UV": "filtres UV chimiques",
+    };
+    for (const phrase of annoncees) {
+      for (const [mot, famille] of Object.entries(mots)) {
+        if (phrase.includes(mot)) expect(Object.keys(FAMILLES), `« ${mot} » annoncé sans contrôle`).toContain(famille);
+      }
     }
   });
 });

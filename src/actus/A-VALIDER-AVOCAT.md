@@ -36,9 +36,13 @@ qui suit n’a été vérifié par un juriste. Chaque point cite la phrase publi
 
 ## 4. Allégations « sans » et certifications
 
-- Phrases publiées (reprises de l’accueil) : « formulés sans parabènes, sans
-  silicones, sans PEG, sans filtres UV chimiques, sans microplastiques et sans
-  colorants artificiels » ; « Non testé sur les animaux ».
+- Phrases publiées (13/11/2026, après retrait de « sans PEG » et « sans
+  colorants artificiels » que le catalogue ne prouve pas) : « Aucune formule du
+  catalogue ne contient de parabènes, de silicones, de SLS ni de SLES, de
+  microplastiques, de donneurs de formaldéhyde, d’isothiazolinones, de BHA ni
+  de BHT, d’huiles minérales ou de filtres UV chimiques » (contrôlé par
+  src/test/pages-standard-propre.test.ts sur la liste INCI de chaque produit) ;
+  « Aucun produit ni aucun ingrédient n’est testé sur les animaux ».
 - À vérifier : conformité aux critères communs des allégations (règlement UE
   n° 655/2013) et au document technique européen sur les allégations « sans ».
   « Non testé sur les animaux » décrit une interdiction légale dans l’Union :
