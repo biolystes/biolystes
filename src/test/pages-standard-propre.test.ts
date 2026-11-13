@@ -145,6 +145,7 @@ describe("socle : ni laboratoire, ni CPNP, ni mandat dans la section Responsabil
     it(fichier, () => {
       const texte = readFileSync(fichier, "utf8");
       expect(texte).not.toMatch(/CPNP|\bmandat\b|laboratoire partenaire/i);
+      expect(texte).not.toMatch(/recyclables?/i);
       expect(texte).not.toMatch(/laboratoire (?:fabricant )?(?:est|assume)|le labo\b/i);
     });
   }
