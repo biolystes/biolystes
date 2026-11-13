@@ -26,7 +26,7 @@ vi.mock("@lystes/integrations/supabase/client", () => {
 });
 
 import { COMPTE_BIOLYSTES, actuDepuisMagazine, chargerActusMagazine, corpsDepuisMarkdown, fusionnerActus } from "@/actus/magazine";
-import { articles } from "@/actus/articles";
+import { articles, slugsMasques } from "@/actus/articles";
 
 describe("actus du Magazine", () => {
   it("ramène le markdown aux blocs du gabarit", () => {
