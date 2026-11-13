@@ -93,7 +93,7 @@ const obstacles = [
   },
   {
     title: "Les certifications",
-    text: "COSMOS, ECOCERT, CPNP, ISO 22716, packaging recyclable, sans parabènes, sans silicones, sans microplastiques. Cocher toutes ces cases par vous-même, ça prend des années.",
+    text: "COSMOS, ECOCERT, ISO 22716, conformité au règlement européen, sans parabènes, sans silicones, sans microplastiques. Cocher toutes ces cases par vous-même, ça prend des années.",
   },
   {
     title: "Le manque de recul",
@@ -897,7 +897,7 @@ export default function ConceptPage() {
       <section className="max-w-6xl mx-auto px-6 py-24 md:py-32">
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} className="text-center mb-16 space-y-4">
           <motion.h2 variants={fadeUp} custom={0} className="text-3xl md:text-4xl font-light tracking-tight text-foreground">
-            Nos produits bio et véganes sont certifiés ECOCERT COSMOS et enregistrés au CPNP
+            Nos produits bio et véganes sont certifiés ECOCERT COSMOS et conformes au règlement européen
           </motion.h2>
           <motion.p variants={fadeUp} custom={1} className="text-muted-foreground max-w-xl mx-auto leading-relaxed">
             Profitez de notre expertise et de notre réseau<br />de laboratoires français et européens d'excellence.
@@ -905,7 +905,7 @@ export default function ConceptPage() {
         </motion.div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
-            { icon: FileCheck2, title: "Enregistrement CPNP", desc: "Produits enregistrés, conformes aux normes EU & UK." },
+            { icon: FileCheck2, title: "Conformité européenne", desc: "Une Personne Responsable établie dans l’Union européenne, des étiquettes conformes au règlement." },
             { icon: Leaf, title: "Certification ECOCERT", desc: "Répond aux standards écologiques UE, UK & USA." },
             { icon: Award, title: "Certification ISO 22716", desc: "Bonnes pratiques de fabrication garanties." },
             { icon: Rabbit, title: "Non Testés sur Animaux", desc: "Aucune expérimentation animale à aucun stade." },

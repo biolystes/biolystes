@@ -141,10 +141,10 @@ describe("articles du blog (src/actus/articles.ts) : rien que le catalogue ne pr
 });
 
 describe("socle : ni laboratoire, ni CPNP, ni mandat dans la section Responsabilité et les CGV", () => {
-  for (const fichier of ["src/components/ResponsabiliteSection.tsx", "src/pages/CGVPage.tsx"]) {
+  for (const fichier of ["src/components/ResponsabiliteSection.tsx", "src/pages/CGVPage.tsx", "src/pages/QualitePage.tsx", "src/pages/PourquoiBiolystesPage.tsx", "src/pages/InfosPage.tsx", "src/pages/DecouvertePage.tsx", "src/pages/LinkPage.tsx", "src/pages/ConceptPage.tsx", "src/pages/FaqPage.tsx"]) {
     it(fichier, () => {
       const texte = readFileSync(fichier, "utf8");
-      expect(texte).not.toMatch(/CPNP|\bmandat\b/i);
+      expect(texte).not.toMatch(/CPNP|\bmandat\b|laboratoire partenaire/i);
       expect(texte).not.toMatch(/laboratoire (?:fabricant )?(?:est|assume)|le labo\b/i);
     });
   }

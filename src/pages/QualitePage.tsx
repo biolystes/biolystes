@@ -11,7 +11,7 @@ const fadeUp = {
 const certifications = [
   { icon: BadgeCheck, title: "Certifié Bio & Végan", desc: "Formulations naturelles certifiées par des organismes indépendants." },
   { icon: Leaf, title: "ECOCERT / COSMOS", desc: "Standards écologiques européens et internationaux respectés." },
-  { icon: FileCheck2, title: "Enregistré CPNP", desc: "Conformité totale aux normes européennes et britanniques." },
+  { icon: FileCheck2, title: "Conformité européenne", desc: "Une Personne Responsable établie dans l’Union européenne, des étiquettes conformes au règlement." },
   { icon: Award, title: "ISO 22716", desc: "Bonnes pratiques de fabrication cosmétique." },
   { icon: Rabbit, title: "Non testé sur animaux", desc: "Aucune expérimentation animale à aucun stade." },
   { icon: Package, title: "Packaging recyclable", desc: "Emballages conçus pour être 100% recyclables." },
