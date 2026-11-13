@@ -26,6 +26,8 @@ export default {
     "./src/pages/PolitiqueConfidentialitePage.tsx",
     "./src/pages/CGVPage.tsx",
     "./src/pages/FaqPage.tsx",
+    "./src/pages/FormulesIngredientsPage.tsx",
+    "./src/pages/StandardBeautePropre.tsx",
     "./src/pages/AProposPage.tsx",
     "./src/pages/TarifsPage.tsx",
     "./src/pages/InnovationPage.tsx",
