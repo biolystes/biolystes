@@ -54,9 +54,11 @@ export function Cartes({ colonnes, rail = false, children }: { colonnes: Colonne
   );
 }
 
-/** Une carte : rond noir à icône (ou numéro), titre, texte, et en bas une note en gris. */
-export function Carte({ icone, numero, titre, texte, note }: {
+/** Une carte : rond noir à icône (ou numéro) ou image carrée, titre, texte, et en bas une note en gris. */
+export function Carte({ icone, numero, image, alt = "", titre, texte, note }: {
   icone?: LucideIcon;
+  image?: string;
+  alt?: string;
   numero?: string;
   titre: string;
   texte: string;
@@ -64,6 +66,7 @@ export function Carte({ icone, numero, titre, texte, note }: {
 }) {
   return (
     <article className="bg-[#f4f4f6] rounded-2xl p-[1.5rem] md:p-[1.75rem] flex flex-col gap-4 text-left">
+      {image && <img src={image} alt={alt} width={720} height={720} loading="lazy" decoding="async" className="w-full aspect-square object-cover rounded-xl" />}
       {icone && <RondIcone icone={icone} />}
       {numero && (
         <span className="text-[1.5rem] leading-none text-muted-foreground tabular-nums"
@@ -92,6 +95,46 @@ export function Chiffre({ valeur, texte }: { valeur: string; texte: string }) {
         {valeur}
       </p>
       <p className="mt-3 text-[0.9375rem] text-foreground/80 leading-[1.7] text-pretty max-w-[18rem] mx-auto">{t(texte)}</p>
+    </article>
+  );
+}
+
+/** Le haut de page : une bannière image pleine largeur, le titre posé à gauche (même place que sur la page modèle). */
+export function Banniere({ image, alt = "", surtitre, noir, gris, texte }: {
+  image: string; alt?: string; surtitre: string; noir: string; gris: string; texte: string;
+}) {
+  return (
+    <section className="bg-background pt-6 md:pt-8 px-[1.25rem] md:px-[1.5rem]">
+      <div className="relative max-w-6xl mx-auto rounded-3xl overflow-hidden min-h-[26rem] md:min-h-[30rem] flex items-center">
+        <img src={image} alt={alt} width={1920} height={749} fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="relative px-[1.5rem] md:px-[3.5rem] py-12 max-w-[34rem] text-left space-y-4">
+          <p className="text-xs tracking-[0.3em] uppercase text-foreground">{surtitre}</p>
+          <h1 className="text-[1.75rem] md:text-[2.25rem] !font-light tracking-tight text-foreground leading-[1.2]"
+            style={{ textWrap: "pretty", fontFamily: "'Bricolage Grotesque', 'Inter', sans-serif" }}>
+            {noir} <span className="text-foreground/70 md:block">{gris}</span>
+          </h1>
+          <p className="text-base text-foreground leading-relaxed text-pretty">{t(texte)}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/** Un bloc image et texte, côte à côte, l'image à gauche ou à droite (sur téléphone : image puis texte). */
+export function BlocImage({ image, alt, titre, texte, inverse = false }: {
+  image: string; alt: string; titre: string; texte: string; inverse?: boolean;
+}) {
+  return (
+    <article className="grid gap-6 md:gap-12 md:grid-cols-2 items-center">
+      <img src={image} alt={alt} width={1264} height={800} loading="lazy" decoding="async"
+        className={"w-full h-auto rounded-3xl " + (inverse ? "md:order-2" : "")} />
+      <div className={"text-left " + (inverse ? "md:order-1" : "")}>
+        <h3 className="text-[1.375rem] md:text-[1.625rem] !font-light text-foreground leading-snug text-balance"
+          style={{ fontFamily: "'Bricolage Grotesque', 'Inter', sans-serif", textTransform: "none", letterSpacing: "-0.01em" }}>
+          {sansMotSeul(typo(titre))}
+        </h3>
+        <p className="mt-3 text-base text-foreground/80 leading-[1.75] text-pretty">{t(texte)}</p>
+      </div>
     </article>
   );
 }

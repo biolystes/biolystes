@@ -11,14 +11,25 @@
      N produits ») ; « la plupart » des formules sont certifiées COSMOS ;
    - plan et sujets seulement : aucun texte repris d'une page d'un tiers. */
 import {
-  BadgeCheck, ClipboardCheck, Droplet, Droplets, Flower2, FlaskConical, Heart, Leaf, ListChecks, Microscope, Palette,
-  PawPrint, Scale, ShieldCheck, Sprout, Truck, Users, Waves,
+  BadgeCheck, ClipboardCheck, Microscope, PawPrint, Scale, Truck, Users,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import { BoutonRdv, Entete } from "./pied/elements";
-import { Carte, Cartes, Zone } from "./pied/cartes-standard";
+import { BlocImage, Banniere, Carte, Cartes, Zone } from "./pied/cartes-standard";
 import { t } from "@/lib/typographie-fr";
+import imgEntete from "@/assets/formules/formules-entete-creme-rose.webp";
+import imgApproche from "@/assets/formules/approche-mousse-trefle.webp";
+import imgDeveloppement from "@/assets/formules/developpement-formules-laboratoire.webp";
+import imgProduction from "@/assets/formules/production-cuves-inox.webp";
+import imgHuiles from "@/assets/formules/ingredient-huiles-vegetales.webp";
+import imgExtraits from "@/assets/formules/ingredient-extraits-de-plantes.webp";
+import imgHyaluronique from "@/assets/formules/ingredient-acide-hyaluronique.webp";
+import imgAloe from "@/assets/formules/ingredient-aloe-vera.webp";
+import imgKarite from "@/assets/formules/ingredient-beurre-de-karite.webp";
+import imgVitamineE from "@/assets/formules/ingredient-vitamine-e.webp";
+import imgPca from "@/assets/formules/ingredient-pca-sodique.webp";
+import imgFlorales from "@/assets/formules/ingredient-eaux-florales.webp";
 
 const SEO_DESCRIPTION =
   "Des formules existantes, la plupart certifiées COSMOS, produites par un laboratoire européen certifié ISO 22716 : approche, ingrédients, cadre réglementaire.";
@@ -32,25 +43,26 @@ export default function FormulesIngredientsPage() {
         path="/formules-et-ingredients"
       />
 
-      {/* ═══ HAUT DE PAGE ═══ */}
-      <section className="bg-background pt-12 md:pt-20 pb-10 md:pb-12 px-[1.25rem] md:px-[1.5rem]">
-        <Entete niveau={1} surtitre="Formules et ingrédients"
-          noir="Des formules existantes," gris="certifiées et éprouvées."
-          texte={t("Vous choisissez parmi des soins déjà conçus, contrôlés et produits par notre laboratoire européen certifié, puis vous les habillez à votre marque.")} />
-      </section>
+      {/* ═══ HAUT DE PAGE : bannière image, titre à gauche ═══ */}
+      <Banniere image={imgEntete} alt="Une noix de crème rose pâle sur un fond corail"
+        surtitre="Formules et ingrédients" noir="Des formules existantes," gris="certifiées et éprouvées."
+        texte="Vous choisissez parmi des soins déjà conçus, contrôlés et produits par notre laboratoire européen certifié, puis vous les habillez à votre marque." />
 
-      {/* ═══ NOTRE APPROCHE ═══ */}
+      {/* ═══ NOTRE APPROCHE : trois blocs image et texte, comme la page modèle ═══ */}
       <Zone gris>
-        <Entete className="mb-8 md:mb-10" surtitre="Notre approche" noir="Partir d’une formule éprouvée"
+        <Entete className="mb-10 md:mb-14" surtitre="Notre approche" noir="Partir d’une formule éprouvée"
           gris="plutôt que d’une page blanche." />
-        <Cartes colonnes={3}>
-          <Carte icone={FlaskConical} titre="Des formules prêtes"
+        <div className="space-y-12 md:space-y-16">
+          <BlocImage image={imgApproche} alt="De la mousse verte et des feuilles de trèfle"
+            titre="Des formules prêtes"
             texte="Une formule sur mesure demande des mois de développement. Les nôtres existent déjà : vous les choisissez avec un expert produit et vous vendez dès que votre boutique est en ligne." />
-          <Carte icone={ListChecks} titre="Des ingrédients lisibles"
-            texte="Chaque fiche du catalogue donne la liste INCI complète, le taux d’ingrédients d’origine naturelle et bio, et la certification du produit." />
-          <Carte icone={Palette} titre="Une identité à vous"
-            texte="Votre nom, votre logo, l’étiquette et la boîte quand le produit en a une. Le flacon et la contenance sont ceux de la fiche du produit." />
-        </Cartes>
+          <BlocImage inverse image={imgDeveloppement} alt="Des mains gantées versent un liquide dans une éprouvette"
+            titre="Des ingrédients lisibles"
+            texte="Chaque fiche du catalogue donne la liste INCI complète, le taux d’ingrédients d’origine naturelle et bio, et la certification du produit. Vous lisez ce que contient une formule avant de la choisir." />
+          <BlocImage image={imgProduction} alt="Des cuves en inox dans un laboratoire de production"
+            titre="Une production encadrée"
+            texte="Notre laboratoire européen certifié ISO 22716 produit les formules et prépare chaque commande à votre marque : votre nom, votre logo, l’étiquette et la boîte quand le produit en a une." />
+        </div>
       </Zone>
 
       {/* ═══ LES INGRÉDIENTS ═══ */}
@@ -59,30 +71,30 @@ export default function FormulesIngredientsPage() {
           gris={"des textures végétales."} aLaLigne={false}
           texte={t("Huit familles d’ingrédients que l’on retrouve dans de nombreux produits du catalogue.")} />
         <Cartes colonnes={4} rail>
-          <Carte icone={Droplet} titre="Huiles végétales"
+          <Carte image={imgHuiles} alt="Des gouttes d’huile jaune" titre="Huiles végétales"
             texte="Tournesol, jojoba, argan, rose musquée : elles nourrissent la peau et le cheveu et soutiennent la barrière cutanée."
             note="Dans plus de 60 produits" />
-          <Carte icone={Droplets} titre="Acide hyaluronique"
+          <Carte image={imgExtraits} alt="Des feuilles de ginkgo" titre="Extraits de plantes"
+            texte="Fleurs, feuilles, racines : des extraits végétaux qui apaisent, adoucissent et protègent la peau."
+            note="Dans plus de 100 produits" />
+          <Carte image={imgHyaluronique} alt="Des bulles transparentes sur un fond clair" titre="Acide hyaluronique"
             texte="Il retient l’eau dans les couches superficielles de la peau et lui donne de la souplesse."
             note="Dans plus de 60 produits" />
-          <Carte icone={Sprout} titre="Aloe vera"
+          <Carte image={imgAloe} alt="Un gel transparent en vagues" titre="Aloe vera"
             texte="Il hydrate et apaise. On le retrouve dans les soins du visage, du corps et du cheveu."
             note="Dans plus de 50 produits" />
-          <Carte icone={Waves} titre="PCA sodique"
-            texte="Un composant naturel de l’hydratation de la peau, qui retient l’humidité."
-            note="Dans plus de 50 produits" />
-          <Carte icone={ShieldCheck} titre="Vitamine E"
-            texte="Un antioxydant naturel, qui protège de l’oxydation les huiles de la formule."
-            note="Dans plus de 70 produits" />
-          <Carte icone={Leaf} titre="Beurre de karité"
+          <Carte image={imgKarite} alt="Un beurre végétal crémeux, blanc et brun" titre="Beurre de karité"
             texte="Un beurre végétal nourrissant, apprécié pour les peaux sèches et les soins du corps."
             note="Dans plus de 20 produits" />
-          <Carte icone={Flower2} titre="Eaux florales et extraits de fleurs"
-            texte="Rose, camomille, tilleul, sureau : ils adoucissent et apaisent la peau."
+          <Carte image={imgVitamineE} alt="Des gouttes d’huile claires" titre="Vitamine E"
+            texte="Un antioxydant naturel, qui protège de l’oxydation les huiles de la formule."
+            note="Dans plus de 70 produits" />
+          <Carte image={imgPca} alt="Des cristaux translucides" titre="PCA sodique"
+            texte="Un composant naturel de l’hydratation de la peau, qui retient l’humidité."
+            note="Dans plus de 50 produits" />
+          <Carte image={imgFlorales} alt="Une fleur rose en gros plan" titre="Eaux florales"
+            texte="Rose, camomille, tilleul, sureau : elles adoucissent et apaisent la peau."
             note="Dans une vingtaine de produits" />
-          <Carte icone={Heart} titre="Panthénol"
-            texte="La provitamine B5 apaise la peau desséchée et l’aide à retenir son eau."
-            note="Dans une dizaine de produits" />
         </Cartes>
       </Zone>
 

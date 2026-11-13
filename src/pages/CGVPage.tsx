@@ -181,17 +181,16 @@ export default function CGVPage() {
           contenu: (
             <>
               <p>Dans le cadre de la réglementation européenne (Règlement CE n°1223/2009), les responsabilités sont réparties comme suit :</p>
-              <p><strong>Le laboratoire est la Personne Responsable au sens réglementaire.</strong> C'est lui qui :</p>
+              <p><strong>Une Personne Responsable, établie dans l'Union européenne, répond des produits au sens réglementaire.</strong> Elle :</p>
               <ListeLegale elements={[
                 "Garantit la conformité et la sécurité des formulations",
                 "Établit et conserve le DIP (Dossier d'Information Produit)",
-                "Assure l'enregistrement au CPNP (portail européen de notification)",
                 "Gère la cosmétovigilance",
                 "Vérifie les allégations produit",
                 "Maintient les certifications COSMOS / ECOCERT",
               ]} />
-              <p><strong>Vous, en tant que marque, vous êtes le distributeur.</strong> Votre logo apparaît sur le packaging, mais la responsabilité réglementaire du produit en lui-même reste celle du laboratoire fabricant.</p>
-              <p><strong>Concernant le contrat :</strong> un cadre contractuel définit clairement les responsabilités de chaque partie avant toute commercialisation. Ce cadre précise les obligations du laboratoire en tant que fabricant et Personne Responsable, et vos obligations en tant que distributeur.</p>
+              <p><strong>Vous, en tant que marque, vous êtes le distributeur.</strong> Votre logo apparaît sur le packaging, mais la responsabilité réglementaire du produit en lui-même reste celle de la Personne Responsable.</p>
+              <p><strong>Concernant le contrat :</strong> un cadre contractuel définit clairement les responsabilités de chaque partie avant toute commercialisation. Ce cadre précise les obligations de la Personne Responsable et vos obligations en tant que distributeur.</p>
             </>
           ),
         },
