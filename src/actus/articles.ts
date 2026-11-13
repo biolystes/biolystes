@@ -214,7 +214,7 @@ const tousLesArticles: Article[] = [
       { t: "h2", texte: "Ce que coûte vraiment le sur-mesure" },
       { t: "cartes", items: [
         { icone: Timer, titre: "Le temps", texte: "Trouver la bonne formule, le bon dosage, le bon équilibre. Certains de nos clients avaient passé huit mois, un an, parfois des années en allers-retours avec des laboratoires, sans jamais finaliser un seul produit." },
-        { icone: FileCheck2, titre: "Les certifications", texte: "COSMOS, ECOCERT, notification CPNP, ISO 22716 : chaque nouvelle formule doit cocher toutes ces cases. Par vous-même, cela prend des années." },
+        { icone: FileCheck2, titre: "Les certifications", texte: "COSMOS, ECOCERT, ISO 22716, conformité au règlement européen : chaque nouvelle formule doit cocher toutes ces cases. Par vous-même, cela prend des années." },
         { icone: Scale, titre: "Le risque produit", texte: "Avec votre propre formulation, la responsabilité du produit et de son dossier vous revient. En marque blanche, elle est portée par le dispositif du laboratoire fabricant." },
       ] },
       { t: "h2", texte: "Ce que vous gagnez en partant d’une formule existante" },
