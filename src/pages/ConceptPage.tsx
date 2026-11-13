@@ -150,7 +150,6 @@ const eliminates = [
 
 const provides = [
   "Meilleurs laboratoires européens, certifiés Bio, Végan, COSMOS, ECOCERT",
-  "Packaging 100 % recyclable",
   "Zéro stock, pas de minimum de commande",
   "Livraison directe au client final",
   "Site e-commerce inclus dans les packs avec site",
@@ -540,7 +539,7 @@ export default function ConceptPage() {
             <div className="space-y-4 text-muted-foreground leading-relaxed text-[15px]">
               <p>Votre expert produit vous accompagne dans la sélection de vos cosmétiques parmi notre catalogue certifié bio et végan. Des formulations clean, sans parabènes, sans silicones, sans ingrédients controversés.</p>
               <p>Nous réalisons un brief créatif pour comprendre l'ADN de votre projet. Un chef de projet dédié pilote l'ensemble de nos équipes. Un seul interlocuteur, zéro complexité pour vous.</p>
-              <p>En quelques jours, vous recevez l'intégralité de vos livrables : logo, identité visuelle, design packagings recyclables, photos IA hyperréalistes, contenu du site rédigé et optimisé, et votre boutique en ligne prête à vendre.</p>
+              <p>En quelques jours, vous recevez l'intégralité de vos livrables : logo, identité visuelle, design du packaging, photos IA hyperréalistes, contenu du site rédigé et optimisé, et votre boutique en ligne prête à vendre.</p>
             </div>
           </motion.div>
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} custom={1}>
@@ -909,7 +908,6 @@ export default function ConceptPage() {
             { icon: Leaf, title: "Certification ECOCERT", desc: "Répond aux standards écologiques UE, UK & USA." },
             { icon: Award, title: "Certification ISO 22716", desc: "Bonnes pratiques de fabrication garanties." },
             { icon: Rabbit, title: "Non Testés sur Animaux", desc: "Aucune expérimentation animale à aucun stade." },
-            { icon: Package, title: "Packagings Recyclables", desc: "Emballages conçus pour être recyclables." },
             { icon: Award, title: "Sans Ingrédients Controversés", desc: "Sans parabènes, silicones, PEG, filtres UV chimiques, microplastiques, colorants artificiels." },
             { icon: Leaf, title: "Parfums 100% Véganes", desc: "Sans parfums synthétiques, substances aromatiques naturelles, sans phosphates ni conservateurs synthétiques." },
             { icon: Package, title: "Aucun Minimum de Commande", desc: "Pour les points de vente physiques, commandes flexibles." },

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { BadgeCheck, Leaf, FileCheck2, Award, Rabbit, Package, Check } from "lucide-react";
+import { BadgeCheck, Leaf, FileCheck2, Award, Rabbit, Check } from "lucide-react";
 import InstaFeedSection from "@/components/InstaFeedSection";
 import WirtzkinSection from "@/components/WirtzkinSection";
 
@@ -14,7 +14,6 @@ const certifications = [
   { icon: FileCheck2, title: "Conformité européenne", desc: "Une Personne Responsable établie dans l’Union européenne, des étiquettes conformes au règlement." },
   { icon: Award, title: "ISO 22716", desc: "Bonnes pratiques de fabrication cosmétique." },
   { icon: Rabbit, title: "Non testé sur animaux", desc: "Aucune expérimentation animale à aucun stade." },
-  { icon: Package, title: "Packaging recyclable", desc: "Emballages conçus pour être 100% recyclables." },
 ];
 
 const exclusions = [
