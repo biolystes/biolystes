@@ -583,6 +583,9 @@ const tousLesArticles: Article[] = [
 /** Les articles visibles : les articles cachés (`masque`) n’en font pas partie. */
 export const articles = tousLesArticles.filter((a) => !a.masque);
 
+/** Les adresses des articles cachés : une copie du Magazine (base de données) qui porte la même adresse reste cachée aussi (13/11/2026). */
+export const slugsMasques: ReadonlySet<string> = new Set(tousLesArticles.filter((a) => a.masque).map((a) => a.slug));
+
 export const articlesDuGabarit = articles.filter((a) => !a.url);
 
 export function articleParSlug(slug: string | undefined) {

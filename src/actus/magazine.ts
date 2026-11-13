@@ -20,7 +20,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@lystes/integrations/supabase/client";
 import { COLONNES_ARTICLE_PUBLIC, depuisArticleMarque, type ArticleMarque } from "@lystes/features/magazine/lib/api-marque";
 import { blocsDe, type Morceau } from "../../lystes/supabase/functions/_shared/article-marque-rendu";
-import { articles as articlesEnDur, type Article, type Bloc } from "./articles";
+import { articles as articlesEnDur, slugsMasques, type Article, type Bloc } from "./articles";
 
 /** Le compte Business Biolystes sur lystes.ai. */
 export const COMPTE_BIOLYSTES = "727692bd-5feb-4049-ad06-2902a5d5dd23";
@@ -72,7 +72,7 @@ export function actuDepuisMagazine(a: ArticleMarque): Article | null {
 /** Les actus du Magazine et celles de articles.ts, du plus récent au plus ancien.
  *  À date égale, l’article du Magazine (le plus récent écrit) passe devant. */
 export function fusionnerActus(magazine: Article[], enDur: Article[] = articlesEnDur): Article[] {
-  const prises = new Set(enDur.map((a) => a.slug));
+  const prises = new Set([...enDur.map((a) => a.slug), ...slugsMasques]);
   const photos = new Set(enDur.map((a) => a.image));
   const neuves: Article[] = [];
   for (const a of magazine) {
