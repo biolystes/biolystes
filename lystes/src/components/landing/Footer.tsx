@@ -113,6 +113,9 @@ const colonnesBiolystes: FooterColumn[] = [
       { fr: "À propos", to: BIOLYSTES + "/a-propos", external: false },
       { fr: "Comment ça marche", to: BIOLYSTES + "/#section-comprend", external: false },
       { fr: "Nos engagements", to: BIOLYSTES + "/#section-qualite", external: false },
+      /* 13/11/2026, JP : les deux pages « formules » et « standard » aussi dans le pied de page. */
+      { fr: "Formules et ingrédients", to: BIOLYSTES + "/formules-et-ingredients", external: false },
+      { fr: "Beauté propre", to: BIOLYSTES + "/standard-de-beaute-propre", external: false },
       { fr: "La livraison", to: BIOLYSTES + "/livraison", external: false },
       { fr: "Le catalogue", to: BIOLYSTES + "/#section-catalogue", external: false },
       { fr: "Questions fréquentes", to: BIOLYSTES + "/faq", external: false },

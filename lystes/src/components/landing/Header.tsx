@@ -95,7 +95,13 @@ export function BasculeCible({ light, dans = "entete" }: { light: boolean; dans?
   );
 }
 
-/* biolystes.com (14/10/2026, JP : « rajoute les pages sur le site en menu
+/* Dix entrées depuis le 13/11/2026 (« Formules » et « Beauté propre ») : le menu
+   d'ordinateur ne s'affiche qu'à partir de 1366 px (en dessous, le burger, comme
+   sous 1280 px avant) ; de 1366 à 1699 px, libellés de 13 px et pastilles resserrées
+   (px-2, sans écart) pour que le bouton « Prendre rendez-vous » reste dans
+   l'écran ; dès 1700 px, taille et espacement d'avant (14 px, px-4, écart de 8 px).
+
+   biolystes.com (14/10/2026, JP : « rajoute les pages sur le site en menu
    normal ») : les pages du menu principal, en ordinateur comme dans le menu du
    téléphone. Liens absolus, servis par le cadre des pages du pied de page
    (src/pages/pied/CadrePied.tsx). /tarifs n'y figure pas, volontairement. */
@@ -107,6 +113,11 @@ const MENU_BIOLYSTES = [
   { to: "/agents-ia", libelle: "Agents IA" },
   /* /innovation (14/10/2026, JP) : « Toujours plus d’innovation ». */
   { to: "/innovation", libelle: "Innovation" },
+  /* /formules-et-ingredients et /standard-de-beaute-propre (13/11/2026, JP) :
+     « les rajouter dans le menu ». Libellés courts, pour que dix entrées tiennent
+     dans l'en-tête ; les titres complets sont ceux des pages. */
+  { to: "/formules-et-ingredients", libelle: "Formules" },
+  { to: "/standard-de-beaute-propre", libelle: "Beauté propre" },
   { to: "/a-propos", libelle: "À propos" },
   { to: "/faq", libelle: "Questions fréquentes" },
   /* /avis (21/10/2026, JP) : les avis des anciennes clientes. */
@@ -189,16 +200,16 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
           </div>
 
           {!minimal && (
-            <div className="hidden xl:flex items-center gap-4">
+            <div className="hidden min-[1366px]:flex items-center gap-4">
               {/* Une entrée de plus avec « Lab » (12/10/2026) : sous 1280 px, les
                   pastilles se resserrent pour que l'en-tête tienne sur une
                   ligne à 1024, accueil compris (marges plus larges). */}
-              <nav className="flex items-center gap-1 xl:gap-2" aria-label={t("header.mainNav", "Navigation principale")}>
+              <nav className="flex items-center gap-1 min-[1366px]:gap-0 min-[1700px]:gap-2" aria-label={t("header.mainNav", "Navigation principale")}>
                 {/* biolystes.com (13/10/2026, JP) : ni « Entreprise », ni « Équipes
                     IA », ni « Lab », ni « Tarifs ». La langue reste, cachée par
                     AFFICHER_LANGUE. */}
                 {MENU_BIOLYSTES.map((l) => (
-                  <LienSite key={l.to} to={l.to} aria-current={vraiChemin === l.to ? "page" : undefined} className={`text-sm font-medium whitespace-nowrap transition-colors px-3 xl:px-4 py-2 rounded-full ${
+                  <LienSite key={l.to} to={l.to} aria-current={vraiChemin === l.to ? "page" : undefined} className={`text-[13px] min-[1700px]:text-sm font-medium whitespace-nowrap transition-colors px-3 min-[1366px]:px-2 min-[1700px]:px-4 py-2 rounded-full ${
                     light
                       ? "text-white/85 hover:bg-white/10 hover:text-white"
                       : vraiChemin === l.to
@@ -238,7 +249,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
 
           {/* Mobile : « Rendez-vous » juste avant le burger. Connectée, la
               marchande voit son avatar, comme sur ordinateur. */}
-          <div className="xl:hidden flex items-center gap-2">
+          <div className="min-[1366px]:hidden flex items-center gap-2">
             {connecte ? (
               <HeaderProfileMenu light={light} />
             ) : (
@@ -282,7 +293,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
 
       {/* ===== Panneau mobile ===== */}
       {mobileMenuOpen && (
-        <div className="xl:hidden fixed inset-0 z-[99999999]">
+        <div className="min-[1366px]:hidden fixed inset-0 z-[99999999]">
           <div className="absolute inset-0 bg-[#0c0c0c]/60 backdrop-blur-2xl" />
           <button
             className="absolute top-[17px] right-4 z-10 w-[30px] h-[30px] flex items-center justify-center rounded-full bg-white/10 text-white/90 hover:bg-white/20 transition-colors"
