@@ -107,13 +107,15 @@ export function Banniere({ image, alt = "", surtitre, noir, gris, texte }: {
     <section className="bg-background pt-6 md:pt-8 px-[1.25rem] md:px-[1.5rem]">
       <div className="relative max-w-6xl mx-auto rounded-3xl overflow-hidden min-h-[26rem] md:min-h-[30rem] flex items-center">
         <img src={image} alt={alt} width={1920} height={749} fetchPriority="high" decoding="async" className="absolute inset-0 w-full h-full object-cover" />
+        {/* voile sombre léger à gauche : le texte blanc reste lisible sur le corail, la photo ne change pas (JP, 13/11/2026) */}
+        <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-black/45 via-black/20 to-transparent md:from-black/40 md:via-black/15" />
         <div className="relative px-[1.5rem] md:px-[3.5rem] py-12 max-w-[34rem] text-left space-y-4">
-          <p className="text-xs tracking-[0.3em] uppercase text-foreground">{surtitre}</p>
-          <h1 className="text-[1.75rem] md:text-[2.25rem] !font-light tracking-tight text-foreground leading-[1.2]"
+          <p className="text-xs tracking-[0.3em] uppercase text-white">{surtitre}</p>
+          <h1 className="text-[1.75rem] md:text-[2.25rem] !font-light tracking-tight text-white leading-[1.2]"
             style={{ textWrap: "pretty", fontFamily: "'Bricolage Grotesque', 'Inter', sans-serif" }}>
-            {noir} <span className="text-foreground/70 md:block">{gris}</span>
+            {noir} <span className="text-white md:block">{gris}</span>
           </h1>
-          <p className="text-base text-foreground leading-relaxed text-pretty">{t(texte)}</p>
+          <p className="text-base text-white leading-relaxed text-pretty">{t(texte)}</p>
         </div>
       </div>
     </section>
