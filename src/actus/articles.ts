@@ -231,6 +231,8 @@ const tousLesArticles: Article[] = [
   },
   {
     slug: "personne-responsable-dip-cpnp",
+    /* Masqué le 13/11/2026 à la demande de JP (socle) : mandat, CPNP et laboratoire ne s’expliquent pas en public. */
+    masque: true,
     titre: "Personne Responsable, DIP et CPNP : le réglementaire cosmétique expliqué simplement",
     titreSeo: "Personne Responsable, DIP, CPNP expliqués | Biolystes",
     description: "Qui est la Personne Responsable d’un cosmétique, à quoi servent le DIP et la notification CPNP, ce que dit l’étiquette : les bases du règlement CE n° 1223/2009.",
