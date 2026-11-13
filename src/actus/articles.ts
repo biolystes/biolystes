@@ -584,7 +584,11 @@ const tousLesArticles: Article[] = [
 export const articles = tousLesArticles.filter((a) => !a.masque);
 
 /** Les adresses des articles cachés : une copie du Magazine (base de données) qui porte la même adresse reste cachée aussi (13/11/2026). */
-export const slugsMasques: ReadonlySet<string> = new Set(tousLesArticles.filter((a) => a.masque).map((a) => a.slug));
+export const slugsMasques: ReadonlySet<string> = new Set([
+  ...tousLesArticles.filter((a) => a.masque).map((a) => a.slug),
+  /* Article du Magazine (base de données) caché à la demande de JP, le 13/11/2026 : il détaille mandat, CPNP et laboratoire (socle Biolystes). */
+  "reglementation-cosmetique-avant-premiere-vente",
+]);
 
 export const articlesDuGabarit = articles.filter((a) => !a.url);
 

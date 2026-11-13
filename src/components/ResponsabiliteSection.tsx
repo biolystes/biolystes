@@ -8,11 +8,11 @@ const fadeUp = {
 };
 
 const items = [
-  { title: "Conformité des formulations", desc: "Garantie par le laboratoire fabricant" },
-  { title: "DIP — Dossier d'Information Produit", desc: "Établi et conservé par le laboratoire" },
-  { title: "Notification CPNP", desc: "Enregistrement au portail européen inclus" },
-  { title: "Cosmétovigilance & allégations", desc: "Surveillance et vérification gérées par le labo" },
-  { title: "Certifications COSMOS / ECOCERT", desc: "Maintenues et renouvelées par le fabricant" },
+  { title: "Conformité des formulations", desc: "Contrôlée avant toute mise sur le marché" },
+  { title: "Dossier d'Information Produit", desc: "Établi et tenu à jour pour chaque produit" },
+  { title: "Étiquetage conforme", desc: "Les mentions obligatoires du règlement européen sont respectées" },
+  { title: "Cosmétovigilance & allégations", desc: "Surveillance et vérification des allégations assurées" },
+  { title: "Certifications COSMOS / ECOCERT", desc: "Maintenues et renouvelées pour vous" },
 ];
 
 export default function ResponsabiliteSection() {
@@ -44,10 +44,10 @@ export default function ResponsabiliteSection() {
               Conformité & Responsabilité
             </span>
             <h3 className="text-[30px] font-light leading-[1.25] text-foreground mb-3.5">
-              Vous vendez. Le laboratoire assume le risque produit
+              Vous vendez. Le cadre réglementaire est assuré
             </h3>
             <p className="text-[15px] text-muted-foreground leading-[1.7]">
-              En marque blanche, c'est le laboratoire fabricant qui est la Personne Responsable au sens du Règlement européen CE n°1223/2009. Vous distribuez, vous ne fabriquez pas. Le risque produit ne repose jamais sur vous.
+              En marque blanche, la conformité est réglementaire et cadrée : une Personne Responsable établie dans l'Union européenne répond des produits au sens du Règlement européen CE n°1223/2009. Vous distribuez, vous ne fabriquez pas.
               <strong className="text-foreground">Contrairement aux produits faits sur mesure avec votre formulation.</strong>
             </p>
           </div>
