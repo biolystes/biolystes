@@ -9,6 +9,10 @@ import { ArrowLeft, ArrowRight, Download, Loader2, CheckCircle2 } from "lucide-r
 import SignaturePad from "@/components/contract/SignaturePad";
 import { toast } from "sonner";
 
+function echapperHtml(v: string): string {
+  return v.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
 export default function StepContract() {
   const { profile, brand, products, pack, setStep, setContractSigned, setContractId, contractId } = useOnboardingStore();
   const { user } = useAuth();
@@ -26,7 +30,10 @@ export default function StepContract() {
 
   // Generate client block based on profile
   const generateClientBloc = useCallback(() => {
-    const p = profile;
+    // Échappe chaque valeur saisie par l'utilisateur avant de l'insérer dans le HTML du contrat.
+    const p = Object.fromEntries(
+      Object.entries(profile).map(([k, v]) => [k, typeof v === "string" ? echapperHtml(v) : v]),
+    ) as typeof profile;
     if (p.statut_juridique === "societe") {
       return `${p.raison_sociale || ""}, ${p.forme_juridique || ""}<br/>Siège social : ${p.siege_social || ""}<br/>RCS / SIRET : ${p.rcs_siret || ""}<br/>${p.numero_tva ? `TVA : ${p.numero_tva}<br/>` : ""}Représentée par ${p.representant_nom || ""}, en qualité de ${p.representant_qualite || ""}<br/>Ci-après nommée « Le Client ».`;
     }
@@ -60,7 +67,7 @@ export default function StepContract() {
         const numero = numData || `BIO-${new Date().getFullYear()}-00000`;
 
         const today = new Date().toLocaleDateString("fr-FR");
-        const productsHtml = products.map((p) => `<li>${p.name}${p.price ? ` — ${p.price.toFixed(2)} €` : ""}</li>`).join("");
+        const productsHtml = products.map((p) => `<li>${echapperHtml(String(p.name ?? ""))}${p.price ? ` — ${p.price.toFixed(2)} €` : ""}</li>`).join("");
 
         let html = template.contenu_html
           .replace(/{client_bloc}/g, generateClientBloc())
@@ -70,7 +77,7 @@ export default function StepContract() {
           .replace(/{abonnement_nom}/g, packInfo.monthly_name)
           .replace(/{date_contrat}/g, today)
           .replace(/{numero_contrat}/g, numero)
-          .replace(/{brand_name}/g, brand.brand_name)
+          .replace(/{brand_name}/g, echapperHtml(brand.brand_name || ""))
           .replace(/{produits_selectionnes}/g, `<ul style="padding-left: 20px;">${productsHtml}</ul>`);
 
         setContractHtml(html);

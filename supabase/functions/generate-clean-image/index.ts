@@ -289,8 +289,25 @@ async function validateCandidateByCount(originalCount: number | null, candidateI
   };
 }
 
+
+async function exigerAdmin(req: Request): Promise<Response | null> {
+  const auth = req.headers.get("Authorization") ?? "";
+  const token = auth.replace(/^Bearer\s+/i, "");
+  const json = (status: number, error: string) =>
+    new Response(JSON.stringify({ error }), { status, headers: { ...corsHeaders, "Content-Type": "application/json" } });
+  if (!token || !SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) return json(401, "Non autorisé");
+  const client = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false, autoRefreshToken: false } });
+  const { data, error } = await client.auth.getUser(token);
+  if (error || !data?.user) return json(401, "Non autorisé");
+  const { data: role } = await client.from("user_roles").select("id").eq("user_id", data.user.id).eq("role", "admin").maybeSingle();
+  if (!role) return json(403, "Accès refusé");
+  return null;
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
+  const refus = await exigerAdmin(req);
+  if (refus) return refus;
 
   try {
     const { imageUrl, productName } = await req.json();

@@ -32,10 +32,8 @@ export default defineTool({
       categories: p.categories ?? [],
     }));
     const { data, error } = await supabase
-      .from("product_selections")
-      .insert({ title, products: rows })
-      .select("id, title, created_at")
-      .single();
+      .rpc("create_product_selection", { _title: title, _products: rows })
+      .single<{ id: string; title: string; created_at: string }>();
     if (error || !data) {
       throw new ToolError(error?.message ?? "Insertion de la sélection impossible");
     }

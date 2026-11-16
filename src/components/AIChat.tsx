@@ -628,7 +628,9 @@ function MessageContent({ content }: { content: string }) {
 }
 
 function formatInline(text: string): string {
+  // Échappe d'abord le texte pour qu'aucune balise saisie ne soit interprétée.
   return text
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;")
     .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
     .replace(/\*(.+?)\*/g, "<em>$1</em>")
     .replace(/`(.+?)`/g, "<code class='bg-muted px-1 rounded text-xs'>$1</code>");

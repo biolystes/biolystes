@@ -795,7 +795,24 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      create_product_selection: {
+        Args: { _products: Json; _title: string }
+        Returns: {
+          created_at: string
+          id: string
+          title: string
+        }[]
+      }
       generate_contract_number: { Args: never; Returns: string }
+      get_product_selection: {
+        Args: { _id: string }
+        Returns: {
+          created_at: string
+          id: string
+          products: Json
+          title: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -803,6 +820,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      sign_client_contract: { Args: { _id: string }; Returns: undefined }
       user_owns_project: { Args: { _project_id: string }; Returns: boolean }
     }
     Enums: {

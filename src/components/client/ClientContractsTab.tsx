@@ -27,10 +27,7 @@ export default function ClientContractsTab() {
   }, [user]);
 
   const signContract = async (id: string) => {
-    const { error } = await supabase.from("client_contracts").update({
-      status: "signed",
-      signed_at: new Date().toISOString(),
-    }).eq("id", id);
+    const { error } = await supabase.rpc("sign_client_contract", { _id: id });
     if (error) { toast.error("Erreur"); return; }
     setContracts(c => c.map(ct => ct.id === id ? { ...ct, status: "signed", signed_at: new Date().toISOString() } : ct));
     toast.success("Contrat signé !");

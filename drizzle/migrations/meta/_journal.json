@@ -15,6 +15,13 @@
       "when": 1793960993071,
       "tag": "0001_create_commandes_goodies",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794831202142,
+      "tag": "0002_security_hardening",
+      "breakpoints": true
     }
   ]
 }

@@ -21,11 +21,7 @@ export default defineTool({
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: async ({ id }) => {
     const supabase = supabaseAnon();
-    const { data, error } = await supabase
-      .from("product_selections")
-      .select("id, title, products, created_at")
-      .eq("id", id)
-      .single();
+    const { data, error } = await supabase.rpc("get_product_selection", { _id: id }).single<{ id: string; title: string; products: unknown; created_at: string }>();
     if (error || !data) {
       throw new ToolError("Sélection introuvable");
     }

@@ -85,7 +85,7 @@ var create_product_selection_default = defineTool({
       permalink: p.permalink ?? "",
       categories: p.categories ?? []
     }));
-    const { data, error } = await supabase.from("product_selections").insert({ title, products: rows }).select("id, title, created_at").single();
+    const { data, error } = await supabase.rpc("create_product_selection", { _title: title, _products: rows }).single();
     if (error || !data) {
       throw new ToolError(error?.message ?? "Insertion de la s\xE9lection impossible");
     }
@@ -118,7 +118,7 @@ var get_product_selection_default = defineTool2({
   annotations: { readOnlyHint: true, idempotentHint: true, openWorldHint: false },
   handler: async ({ id }) => {
     const supabase = supabaseAnon();
-    const { data, error } = await supabase.from("product_selections").select("id, title, products, created_at").eq("id", id).single();
+    const { data, error } = await supabase.rpc("get_product_selection", { _id: id }).single();
     if (error || !data) {
       throw new ToolError2("S\xE9lection introuvable");
     }

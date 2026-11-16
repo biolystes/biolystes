@@ -223,7 +223,7 @@ export default function SharedSelectionPage() {
 
     // Load selection, clean images, and product data in parallel
     Promise.all([
-      supabase.from("product_selections").select("*").eq("id", selectionId).single(),
+      supabase.rpc("get_product_selection", { _id: selectionId }).single(),
       supabase.from("product_clean_images").select("product_name_normalized, clean_image_url"),
       fetch("/data/produits.json").then(r => r.json()) as Promise<JSONProduct[]>,
     ]).then(([selRes, imgRes, jsonProducts]) => {
