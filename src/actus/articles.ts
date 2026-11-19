@@ -32,7 +32,7 @@ import imgCertifications from "@/assets/valthea-12.jpg";
 /* Copie propre au site (src/assets) : le dossier lystes/ est resynchronisé et
    ne contient pas toujours cette image. */
 import imgLivraison from "@/assets/logistique-step.jpg";
-import imgDixJours from "@/assets/eclose-site.jpg";
+import imgDixJours from "@/assets/article-10-jours.webp";
 import imgEquipesIA from "@/assets/pmyrris-ugc-5.jpg";
 import imgInstituts from "@/assets/salon-coiffure.webp";
 /* Portrait du cabinet, repris du panneau « Fiscal et comptable » de lystes.ai
@@ -342,8 +342,7 @@ const tousLesArticles: Article[] = [
     categorie: "Lancement",
     date: "2026-10-12",
     image: imgDixJours,
-    alt: "Page d’accueil de la boutique en ligne d’une marque cliente Biolystes",
-    imageEntiere: true,
+    alt: "Portrait d’une femme aux cheveux blonds bouclés sur fond blanc",
     appel: "Votre lancement commence par un rendez-vous.",
     corps: [
       { t: "h2", texte: "1. La sélection de produits" },

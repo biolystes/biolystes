@@ -11,6 +11,9 @@ import { HeaderLanguageSelector } from "@lystes/components/landing/HeaderLanguag
 import { HeaderProfileMenu } from "@lystes/components/landing/HeaderProfileMenu";
 import { SolutionsDropdown, useGroupesMenu, useMenuText } from "@lystes/features/solutions/SolutionsDropdown";
 import { LabDropdown, LAB_ENTREES } from "@lystes/features/solutions/LabDropdown";
+/* biolystes.com (19/11/2026, JP) : la pastille « Fresh drops » remplace la bascule
+   à côté du logo ; E-commerce et Agents IA sont dans son panneau (AGENTS.md). */
+import { FreshDrops } from "@/components/FreshDrops";
 
 interface HeaderProps {
   minimal?: boolean;
@@ -71,27 +74,18 @@ export function BasculeCible({ light, dans = "entete" }: { light: boolean; dans?
       ? "inline-flex sm:hidden mb-3 self-start"
       : "hidden sm:inline-flex";
 
+  /* biolystes.com (19/11/2026, JP) : « Fresh drops » à la place de la bascule
+     « E-commerce | Agents IA ». Ses deux liens (/ et /agents-ia, replace={false})
+     sont en pied du panneau : rien n'est retiré. Les constantes ci-dessus
+     restent pour qu'une resynchronisation se lise sans surprise. */
+  void [surBusiness, surAgents, base, actif, repos, emplacement];
+  /* La pastille tient dans l'en-tête dès 320 px (libellé « Drops » sous 360 px) :
+     plus de doublon dans le hero du téléphone. */
+  if (dans === "hero") return null;
   return (
-    <nav
-      className={`${emplacement} items-center gap-[2px] sm:gap-1 rounded-full p-[3px_4px] sm:p-[5px_6px] ${
-        light ? "bg-white/[0.12]" : "bg-black/[0.06]"
-      }`}
-      aria-label="E-commerce ou agents IA"
-    >
-      {/* biolystes.com (13/10/2026, JP) : une vraie bascule dans le site,
-          sans rechargement. « E-commerce » = /, « Agents IA » = /agents-ia
-          (l'accueil de lystes.ai repris). La page présente « / » à l'en-tête
-          (CommeSurAccueil) : la pastille active lit donc la vraie adresse. */}
-      {/* replace={false} : la page présente « / » à l'en-tête, et un lien vers
-          l'adresse « actuelle » remplacerait l'entrée d'historique au lieu
-          d'en ajouter une (le bouton Précédent sauterait une page). */}
-      <Link to="/" replace={false} className={`${base} ${surAgents ? repos : actif}`} aria-current={surAgents ? undefined : "page"}>
-        E-commerce
-      </Link>
-      <Link to="/agents-ia" replace={false} className={`${base} ${surAgents ? actif : repos}`} aria-current={surAgents ? "page" : undefined}>
-        Agents IA
-      </Link>
-    </nav>
+    <span className="inline-flex items-center">
+      <FreshDrops light={light} dans={dans} />
+    </span>
   );
 }
 
