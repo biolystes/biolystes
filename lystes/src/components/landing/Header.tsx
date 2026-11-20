@@ -176,7 +176,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
       <div
         className="container"
         style={pathname === "/"
-          ? { height: "72px", width: "100%", maxWidth: "none", paddingInline: "clamp(28px, 6.15vw, 104px)" }
+          ? { height: "72px", width: "100%", maxWidth: "none", paddingInline: typeof window !== "undefined" && window.innerWidth < 640 ? "16px" : "clamp(28px, 6.15vw, 104px)" }
           : { height: "72px" }}
       >
         <div className="flex justify-between items-center h-full">

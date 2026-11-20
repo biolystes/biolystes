@@ -1053,7 +1053,7 @@ const CSS = `
      plus, et le sur-titre remontait sous l'en-tête. Le contenu reste calé en
      bas, au-dessus du fil de conversation (262 px). */
   .lyh{ height:auto; min-height:100svh; max-height:none; }
-  .lyh-inner{ height:auto; min-height:100svh; justify-content:flex-end; padding:124px 20px 262px; }
+  .lyh-inner{ height:auto; min-height:100svh; justify-content:flex-end; padding:124px 16px 262px; }
   /* 20/11/2026 (JP, biolystes.com) : sur téléphone, le bloc (sur-titre,
      titre, boutons, preuves) laissait un vide sous l'en-tête. Il descend
      sous l'en-tête avec ~40 px d'air seulement ; la hauteur du héros grandit
