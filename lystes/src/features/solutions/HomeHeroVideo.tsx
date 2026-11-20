@@ -590,6 +590,13 @@ ${variante.ctaClair ? `.lyh--variante .lyh-btn-black{ background:#fff; color:#00
   /* Preuves empilées, sur la marge du titre. */
   .lyh.lyh--variante .lyh-install-row{ margin-top:16px; }
   .lyh.lyh--variante .lyh-install-track{ flex-direction:column; align-items:flex-start; row-gap:10px; }
+  /* 20/11/2026 (JP, biolystes.com) : sur téléphone, les deux preuves
+     (« Certifié Bio & Végan », « Conforme au règlement CE 1223/2009 »)
+     tiennent sur la même ligne, avec un petit écart, et le bloc se rapproche
+     du fil de conversation (moins de vide au-dessus des bulles). */
+  .lyh.lyh--bio .lyh-install-track{ flex-direction:row; flex-wrap:wrap; column-gap:10px; row-gap:6px; }
+  .lyh.lyh--bio .lyh-inner{ padding-bottom:232px; }
+  .lyh.lyh--bio .lyh-offre{ margin-top:10px; }
   .lyh.lyh--variante .lyh-offre{ font-size:14px; line-height:1.5; color:rgba(255,255,255,.9); margin-top:14px; }
 }
 /* 400 px et moins : quelques pixels repris, surtout au champ, pour que
