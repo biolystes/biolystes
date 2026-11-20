@@ -911,8 +911,10 @@ const CSS = `
 @media (max-width:720px){
   .lyh-ordi-seulement{ display:none !important; }
   .lyh--fil .lyh-inner{ padding-bottom:252px !important; }
-  body:has(#lystes-widget-btn) .lyh--fil .lyh-inner{ padding-bottom:304px !important; }
-  body:has(#lystes-widget-btn) .lyh--fil .lyh-chat{ bottom:72px; }
+  /* 20/11/2026 (JP) : tout le bloc descend de ~30-40 px dans le vide du bas ;
+     la dernière bulle s'arrête juste au-dessus de la pilule du widget. */
+  body:has(#lystes-widget-btn) .lyh--fil .lyh-inner{ padding-bottom:266px !important; }
+  body:has(#lystes-widget-btn) .lyh--fil .lyh-chat{ bottom:44px; }
   .lyh--fil .lyh-chat{ bottom:20px; height:220px;
     -webkit-mask-image:linear-gradient(to bottom, transparent 0%, transparent 10%, rgba(0,0,0,.4) 22%, #000 40%);
     mask-image:linear-gradient(to bottom, transparent 0%, transparent 10%, rgba(0,0,0,.4) 22%, #000 40%); }
