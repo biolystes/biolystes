@@ -182,7 +182,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
         <div className="flex justify-between items-center h-full">
 
           {/* Logo, et la bascule Ecommerce / Entreprises juste à sa droite */}
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-1 sm:gap-4">
             <Link to="/" className="flex items-center gap-2.5 text-foreground no-underline shrink-0">
               <img
                 src="https://sjvxyiqiacpwskglgxkf.supabase.co/storage/v1/object/public/logo/lystes.PNG"
@@ -243,7 +243,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
 
           {/* Mobile : « Rendez-vous » juste avant le burger. Connectée, la
               marchande voit son avatar, comme sur ordinateur. */}
-          <div className="min-[1366px]:hidden flex items-center gap-2">
+          <div className="min-[1366px]:hidden flex items-center gap-0 sm:gap-2">
             {connecte ? (
               <HeaderProfileMenu light={light} />
             ) : (
@@ -261,7 +261,7 @@ export function Header({ minimal = false, overlay = false, topBar }: HeaderProps
               </>
             )}
             <button
-              className={`w-10 h-10 flex items-center justify-center rounded-full ${
+              className={`w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full ${
                 light ? "bg-white/16 text-white" : "bg-black/5 text-foreground"
               }`}
               onClick={() => setMobileMenuOpen(true)}
