@@ -1047,6 +1047,11 @@ const CSS = `
      bas, au-dessus du fil de conversation (262 px). */
   .lyh{ height:auto; min-height:100svh; max-height:none; }
   .lyh-inner{ height:auto; min-height:100svh; justify-content:flex-end; padding:124px 20px 262px; }
+  /* 20/11/2026 (JP, biolystes.com) : sur téléphone, le bloc (sur-titre,
+     titre, boutons, preuves) descendait trop haut et laissait un vide sous
+     l'en-tête. Il descend de ~70 px ; la hauteur du héros grandit d'autant,
+     le fil de conversation garde sa place en bas. /crea non touché. */
+  .lyh.lyh--bio .lyh-inner{ padding-top:194px; }
   .lyh-eyebrow{ font-size:7px; letter-spacing:.14em; margin-bottom:7px; gap:6px; }
   /* Carrousel d'installation sur téléphone : écart réduit entre les lieux,
      le masque limite déjà le débordement (la translation est bornée en JS). */
