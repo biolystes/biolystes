@@ -62,6 +62,8 @@ const CGVPage = lazy(() => import("./pages/CGVPage"));
 const FaqPage = lazy(() => import("./pages/FaqPage"));
 /* /a-propos : la page Entreprise de lystes.ai reprise pour Biolystes (14/10/2026). */
 const AProposPage = lazy(() => import("./pages/AProposPage"));
+/* /entreprise (20/11/2026) : page « Le studio », inspirée de nightjar.co/studio. */
+const EntreprisePage = lazy(() => import("./pages/EntreprisePage"));
 /* /formules-et-ingredients et /standard-de-beaute-propre : deux pages du menu (13/11/2026). */
 const FormulesIngredientsPage = lazy(() => import("./pages/FormulesIngredientsPage"));
 const StandardBeautePropre = lazy(() => import("./pages/StandardBeautePropre"));
@@ -125,6 +127,7 @@ function AppRoutes() {
         <Route path="/formules-et-ingredients" element={<Suspense fallback={null}><FormulesIngredientsPage /></Suspense>} />
         <Route path="/standard-de-beaute-propre" element={<Suspense fallback={null}><StandardBeautePropre /></Suspense>} />
         <Route path="/a-propos" element={<Suspense fallback={null}><AProposPage /></Suspense>} />
+        <Route path="/entreprise" element={<Suspense fallback={null}><EntreprisePage /></Suspense>} />
         <Route path="/tarifs" element={<Suspense fallback={null}><CatalogPasswordGate titre="Nos tarifs" objet="aux tarifs"><TarifsPage /></CatalogPasswordGate></Suspense>} />
         <Route path="/livraison" element={<Suspense fallback={null}><LivraisonPage /></Suspense>} />
         <Route path="/avis" element={<Suspense fallback={null}><AvisPage /></Suspense>} />
