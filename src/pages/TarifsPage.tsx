@@ -595,7 +595,9 @@ export default function TarifsPage() {
   /* Le paiement sur plusieurs mois n'existe que pour les packs qui ont une
      formule sur plusieurs mois (Standard, IA) : ailleurs, ses onglets
      n'apparaissent pas et le paiement se fait en une fois. */
-  const avecMois = famille === "boutique" && LOCATIONS.some((o) => o.cle === cleBoutique);
+  /* JP, 23/11/2026 : le paiement en plusieurs fois n'apparaît dans aucune offre.
+     Les onglets « Comment payer » ne s'affichent plus ; seul le paiement en une fois est présenté. */
+  const avecMois = false;
   const mode = avecMois && modeBoutique === "location" ? "location" : "achat";
   const offre = famille === "sans" ? SANS_BOUTIQUE
     : mode === "location" ? LOCATIONS.find((o) => o.cle === cleBoutique) ?? LOCATIONS[0]
